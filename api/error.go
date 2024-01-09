@@ -8,6 +8,7 @@ import (
 
 var ObjectNotFoundError = errors.New("object not found")
 var TooManyRetriesError = errors.New("too many retries")
+var UnknownHostError = errors.New("unknown host: cannot determine URI")
 
 type Error struct {
 	Code    string      `json:"code"`
