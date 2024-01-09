@@ -507,3 +507,6 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 	// Done.
 	return body, nil
 }
+
+// GetHost returns the Host property.
+func (c *Client) GetHost() string { return c.Host }
