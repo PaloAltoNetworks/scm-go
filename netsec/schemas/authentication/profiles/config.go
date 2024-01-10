@@ -79,7 +79,7 @@ Param Kerberos (KerberosObject): the Kerberos param.
 
 Param Ldap (LdapObject): the Ldap param.
 
-Param LocalDatabase (any): the LocalDatabase param.
+Param LocalDatabase (any): the LocalDatabase param. Default: `false`.
 
 Param Radius (RadiusObject): the Radius param.
 

@@ -42,11 +42,11 @@ Parent chains:
 
 Args:
 
-Param Chap (any): the Chap param.
+Param Chap (any): the Chap param. Default: `false`.
 
 Param EapTtlsWithPap (EapTtlsWithPapObject): the EapTtlsWithPap param.
 
-Param Pap (any): the Pap param.
+Param Pap (any): the Pap param. Default: `false`.
 
 Param PeapMschapV2 (PeapMschapV2Object): the PeapMschapV2 param.
 

@@ -16,7 +16,7 @@ Args:
 
 Param Code (string): the Code param.
 
-Param Details (any): the Details param.
+Param Details (any): the Details param. Default: `false`.
 
 Param Help (string): the Help param.
 

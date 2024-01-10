@@ -93,7 +93,7 @@ Parent chains:
 
 Args:
 
-Param SslForwardProxy (any): the SslForwardProxy param.
+Param SslForwardProxy (any): the SslForwardProxy param. Default: `false`.
 
 Param SslInboundInspection (string): add the certificate name for SSL inbound inspection
 

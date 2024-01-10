@@ -63,19 +63,19 @@ Parent chains:
 
 Args:
 
-Param Alert (any): the Alert param.
+Param Alert (any): the Alert param. Default: `false`.
 
-Param Allow (any): the Allow param.
+Param Allow (any): the Allow param. Default: `false`.
 
 Param BlockIp (BlockIpObject): the BlockIp param.
 
-Param Drop (any): the Drop param.
+Param Drop (any): the Drop param. Default: `false`.
 
-Param ResetBoth (any): the ResetBoth param.
+Param ResetBoth (any): the ResetBoth param. Default: `false`.
 
-Param ResetClient (any): the ResetClient param.
+Param ResetClient (any): the ResetClient param. Default: `false`.
 
-Param ResetServer (any): the ResetServer param.
+Param ResetServer (any): the ResetServer param. Default: `false`.
 
 NOTE:  One of the following params should be specified:
   - Allow

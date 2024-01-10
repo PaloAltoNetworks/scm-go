@@ -122,7 +122,7 @@ Parent chains:
 
 Args:
 
-Param NotAvailable (any): the NotAvailable param.
+Param NotAvailable (any): the NotAvailable param. Default: `false`.
 
 Param NotWithin (LastScanTimeNotWithinObject): the NotWithin param.
 
@@ -723,7 +723,7 @@ Parent chains:
 
 Args:
 
-Param NotAvailable (any): the NotAvailable param.
+Param NotAvailable (any): the NotAvailable param. Default: `false`.
 
 Param NotWithin (LastBackupTimeNotWithinObject): the NotWithin param.
 
@@ -1337,7 +1337,7 @@ Parent chains:
 
 Args:
 
-Param No (any): the No param.
+Param No (any): the No param. Default: `false`.
 
 Param Yes (YesObject): the Yes param.
 
@@ -1676,7 +1676,7 @@ Args:
 
 Param Mobile (IsMobileObject): the Mobile param.
 
-Param Unknown (any): the Unknown param.
+Param Unknown (any): the Unknown param. Default: `false`.
 
 Param Wifi (IsWifiObject): the Wifi param.
 
@@ -1744,11 +1744,11 @@ Parent chains:
 
 Args:
 
-Param Ethernet (any): the Ethernet param.
+Param Ethernet (any): the Ethernet param. Default: `false`.
 
 Param Mobile (IsNotMobileObject): the Mobile param.
 
-Param Unknown (any): the Unknown param.
+Param Unknown (any): the Unknown param. Default: `false`.
 
 Param Wifi (IsNotWifiObject): the Wifi param.
 

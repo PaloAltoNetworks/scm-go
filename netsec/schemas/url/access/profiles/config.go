@@ -107,13 +107,13 @@ Parent chains:
 
 Args:
 
-Param Disabled (any): the Disabled param.
+Param Disabled (any): the Disabled param. Default: `false`.
 
-Param DomainCredentials (any): the DomainCredentials param.
+Param DomainCredentials (any): the DomainCredentials param. Default: `false`.
 
 Param GroupMapping (string): the GroupMapping param.
 
-Param IpUser (any): the IpUser param.
+Param IpUser (any): the IpUser param. Default: `false`.
 */
 type ModeObject struct {
 	Disabled          any     `json:"disabled,omitempty"`
