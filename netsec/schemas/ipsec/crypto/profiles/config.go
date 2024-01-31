@@ -52,7 +52,7 @@ Parent chains:
 
 Args:
 
-Param Authentications ([]string, required): the Authentications param.
+Param Authentications ([]string, required): the Authentications param. Individual elements in this list are subject to additional validation. String must be one of these: `"md5"`, `"sha1"`, `"sha256"`, `"sha384"`, `"sha512"`.
 */
 type AhObject struct {
 	Authentications []string `json:"authentication"`
@@ -70,7 +70,7 @@ Args:
 
 Param Authentications ([]string, required): Authentication algorithm
 
-Param Encryptions ([]string, required): Encryption algorithm
+Param Encryptions ([]string, required): Encryption algorithm Individual elements in this list are subject to additional validation. String must be one of these: `"des"`, `"3des"`, `"aes-128-cbc"`, `"aes-192-cbc"`, `"aes-256-cbc"`, `"aes-128-gcm"`, `"aes-256-gcm"`, `"null"`.
 */
 type EspObject struct {
 	Authentications []string `json:"authentication"`

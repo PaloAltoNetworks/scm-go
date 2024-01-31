@@ -373,7 +373,7 @@ Args:
 
 Param Name (string, required): the Name param. String length must not exceed 103 characters.
 
-Param Products ([]string): the Products param.
+Param Products ([]string): the Products param. Individual elements in this list are subject to additional validation. String length must not exceed 1023 characters. String validation regex: `.*`.
 */
 type AntiMalwareVendorObject struct {
 	Name     string   `json:"name"`
@@ -662,7 +662,7 @@ Args:
 
 Param Name (string, required): the Name param. String length must not exceed 103 characters.
 
-Param Products ([]string): Product name
+Param Products ([]string): Product name Individual elements in this list are subject to additional validation. String length must not exceed 1023 characters. String validation regex: `.*`.
 */
 type DataLossPreventionVendorObject struct {
 	Name     string   `json:"name"`
@@ -806,7 +806,7 @@ Args:
 
 Param Name (string, required): the Name param. String length must not exceed 103 characters.
 
-Param Products ([]string): the Products param.
+Param Products ([]string): the Products param. Individual elements in this list are subject to additional validation. String length must not exceed 1023 characters. String validation regex: `.*`.
 */
 type DiskBackupVendorObject struct {
 	Name     string   `json:"name"`
@@ -918,7 +918,7 @@ Args:
 
 Param Name (string, required): the Name param. String length must not exceed 103 characters.
 
-Param Products ([]string): the Products param.
+Param Products ([]string): the Products param. Individual elements in this list are subject to additional validation. String length must not exceed 1023 characters. String validation regex: `.*`.
 */
 type DiskEncryptionVendorObject struct {
 	Name     string   `json:"name"`
@@ -981,7 +981,7 @@ Args:
 
 Param Name (string, required): the Name param. String length must not exceed 103 characters.
 
-Param Products ([]string): the Products param.
+Param Products ([]string): the Products param. Individual elements in this list are subject to additional validation. String length must not exceed 1023 characters. String validation regex: `.*`.
 */
 type FirewallVendorObject struct {
 	Name     string   `json:"name"`
@@ -1864,7 +1864,7 @@ Args:
 
 Param Check (string, required): the Check param. String must be one of these: `"has-any"`, `"has-none"`, `"has-all"`. Default: `"has-any"`.
 
-Param Patches ([]string): the Patches param.
+Param Patches ([]string): the Patches param. Individual elements in this list are subject to additional validation. String length must not exceed 1023 characters. String validation regex: `.*`.
 
 Param Severity (SeverityObject): the Severity param.
 */
@@ -1930,7 +1930,7 @@ Args:
 
 Param Name (string, required): the Name param. String length must not exceed 103 characters.
 
-Param Products ([]string): Product name
+Param Products ([]string): Product name Individual elements in this list are subject to additional validation. String length must not exceed 1023 characters. String validation regex: `.*`.
 */
 type PatchManagementVendorObject struct {
 	Name     string   `json:"name"`

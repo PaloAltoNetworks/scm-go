@@ -16,7 +16,7 @@ Args:
 
 Param Id (string, read-only): UUID of the resource
 
-Param Members ([]string, required): the Members param.
+Param Members ([]string, required): the Members param. Individual elements in this list are subject to additional validation. String length must not exceed 63 characters.
 
 Param Name (string, required): Alphanumeric string [ 0-9a-zA-Z._-] String length must not exceed 31 characters.
 */

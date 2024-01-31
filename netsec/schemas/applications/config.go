@@ -120,7 +120,7 @@ Param IdentByIcmpType (IdentByIcmpTypeObject): the IdentByIcmpType param.
 
 Param IdentByIpProtocol (string): the IdentByIpProtocol param.
 
-Param Ports ([]string): the Ports param.
+Param Ports ([]string): the Ports param. Individual elements in this list are subject to additional validation. String length must not exceed 63 characters.
 
 NOTE:  One of the following params should be specified:
   - Ports

@@ -102,13 +102,19 @@ Parent chains:
 
 Args:
 
+Param Device (string): the Device param.
+
 Param Folder (string): the Folder param.
 
 Param Id (string, required): the Id param.
+
+Param Snippet (string): the Snippet param.
 */
 type ReadInput struct {
-	Folder *string `json:"folder,omitempty"`
-	Id     string  `json:"id"`
+	Device  *string `json:"device,omitempty"`
+	Folder  *string `json:"folder,omitempty"`
+	Id      string  `json:"id"`
+	Snippet *string `json:"snippet,omitempty"`
 }
 
 // Read returns the configuration of the specified object.
@@ -125,6 +131,12 @@ func (c *Client) Read(ctx context.Context, input ReadInput) (yJkkSzS.Config, err
 	uv := url.Values{}
 	if input.Folder != nil {
 		uv.Set("folder", *input.Folder)
+	}
+	if input.Snippet != nil {
+		uv.Set("snippet", *input.Snippet)
+	}
+	if input.Device != nil {
+		uv.Set("device", *input.Device)
 	}
 
 	// Path param handling.

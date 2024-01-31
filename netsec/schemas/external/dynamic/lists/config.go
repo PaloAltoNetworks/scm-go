@@ -86,7 +86,7 @@ Param Description (string): the Description param. String length must not exceed
 
 Param DomainAuth (DomainAuthObject): the DomainAuth param.
 
-Param ExceptionList ([]string): the ExceptionList param.
+Param ExceptionList ([]string): the ExceptionList param. Individual elements in this list are subject to additional validation. String length must not exceed 255 characters.
 
 Param ExpandDomain (bool): Enable/Disable expand domain Default: `false`.
 
@@ -240,7 +240,7 @@ Param CertificateProfile (string): Profile for authenticating client certificate
 
 Param Description (string): the Description param. String length must not exceed 255 characters.
 
-Param ExceptionList ([]string): the ExceptionList param.
+Param ExceptionList ([]string): the ExceptionList param. Individual elements in this list are subject to additional validation. String length must not exceed 32 characters.
 
 Param ImeiAuth (ImeiAuthObject): the ImeiAuth param.
 
@@ -393,7 +393,7 @@ Param CertificateProfile (string): Profile for authenticating client certificate
 
 Param Description (string): the Description param. String length must not exceed 255 characters.
 
-Param ExceptionList ([]string): the ExceptionList param.
+Param ExceptionList ([]string): the ExceptionList param. Individual elements in this list are subject to additional validation. String length must not exceed 34 characters.
 
 Param ImsiAuth (ImsiAuthObject): the ImsiAuth param.
 
@@ -546,7 +546,7 @@ Param CertificateProfile (string): Profile for authenticating client certificate
 
 Param Description (string): the Description param. String length must not exceed 255 characters.
 
-Param ExceptionList ([]string): the ExceptionList param.
+Param ExceptionList ([]string): the ExceptionList param. Individual elements in this list are subject to additional validation. String length must not exceed 255 characters.
 
 Param IpAuth (IpAuthObject): the IpAuth param.
 
@@ -697,7 +697,7 @@ Args:
 
 Param Description (string): the Description param. String length must not exceed 255 characters.
 
-Param ExceptionList ([]string): the ExceptionList param.
+Param ExceptionList ([]string): the ExceptionList param. Individual elements in this list are subject to additional validation. String length must not exceed 255 characters.
 
 Param Url (string, required): the Url param.
 */
@@ -720,7 +720,7 @@ Args:
 
 Param Description (string): the Description param. String length must not exceed 255 characters.
 
-Param ExceptionList ([]string): the ExceptionList param.
+Param ExceptionList ([]string): the ExceptionList param. Individual elements in this list are subject to additional validation. String length must not exceed 255 characters.
 
 Param Url (string, required): the Url param.
 */
@@ -745,7 +745,7 @@ Param CertificateProfile (string): Profile for authenticating client certificate
 
 Param Description (string): the Description param. String length must not exceed 255 characters.
 
-Param ExceptionList ([]string): the ExceptionList param.
+Param ExceptionList ([]string): the ExceptionList param. Individual elements in this list are subject to additional validation. String length must not exceed 255 characters.
 
 Param Recurring (UrlRecurringObject, required): the Recurring param.
 

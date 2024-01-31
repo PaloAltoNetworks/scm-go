@@ -22,9 +22,9 @@ Param Id (string, read-only): UUID of the resource
 
 Param Name (string, required): Alphanumeric string [ 0-9a-zA-Z._-] String length must not exceed 63 characters.
 
-Param StaticList ([]string): the StaticList param.
+Param StaticList ([]string): the StaticList param. Individual elements in this list are subject to additional validation. String length must not exceed 63 characters.
 
-Param Tags ([]string): Tags for address group object List must contain at most 64 elements.
+Param Tags ([]string): Tags for address group object List must contain at most 64 elements. Individual elements in this list are subject to additional validation. String length must not exceed 127 characters.
 
 NOTE:  One of the following params should be specified:
   - StaticList

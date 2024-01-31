@@ -22,7 +22,7 @@ Param Name (string, required): Alphanumeric string [ 0-9a-zA-Z._-] String length
 
 Param Protocol (ProtocolObject, required): the Protocol param.
 
-Param Tags ([]string): Tags for service object List must contain at most 64 elements.
+Param Tags ([]string): Tags for service object List must contain at most 64 elements. Individual elements in this list are subject to additional validation. String length must not exceed 127 characters.
 */
 type Config struct {
 	Description *string        `json:"description,omitempty"`

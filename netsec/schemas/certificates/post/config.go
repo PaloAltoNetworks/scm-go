@@ -32,9 +32,9 @@ Param Digest (string, required): the Digest param. String must be one of these: 
 
 Param Email (string): the Email param. String length must not exceed 255 characters.
 
-Param Hostnames ([]string): the Hostnames param.
+Param Hostnames ([]string): the Hostnames param. Individual elements in this list are subject to additional validation. String length must be between 1 and 64 characters.
 
-Param Ips ([]string): the Ips param.
+Param Ips ([]string): the Ips param. Individual elements in this list are subject to additional validation. String length must be between 1 and 64 characters.
 
 Param IsBlockPrivateKey (bool): the IsBlockPrivateKey param.
 

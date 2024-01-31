@@ -36,7 +36,7 @@ Parent chains:
 
 Args:
 
-Param NonRecurringList ([]string): the NonRecurringList param.
+Param NonRecurringList ([]string): the NonRecurringList param. Individual elements in this list are subject to additional validation. String length must be between 33 and 33 characters. String validation regex: `[0-9][0-9][0-9][0-9]\/([0][1-9]|[1][0-2])\/([0-2][0-9]|[3][0-1])@([01][0-9]|[2][0-3]):([0-5][0-9])-[0-9][0-9][0-9][0-9]\/([0][1-9]|[1][0-2])\/([0-2][0-9]|[3][0-1])@([01][0-9]|[2][0-3]):([0-5][0-9])`.
 
 Param Recurring (RecurringObject): the Recurring param.
 
@@ -60,7 +60,7 @@ Parent chains:
 
 Args:
 
-Param DailyList ([]string): the DailyList param.
+Param DailyList ([]string): the DailyList param. Individual elements in this list are subject to additional validation. String length must be between 11 and 11 characters. String validation regex: `([01][0-9]|[2][0-3]):([0-5][0-9])-([01][0-9]|[2][0-3]):([0-5][0-9])`.
 
 Param Weekly (WeeklyObject): the Weekly param.
 
@@ -85,19 +85,19 @@ Parent chains:
 
 Args:
 
-Param FridayList ([]string): the FridayList param.
+Param FridayList ([]string): the FridayList param. Individual elements in this list are subject to additional validation. String length must be between 11 and 11 characters. String validation regex: `([01][0-9]|[2][0-3]):([0-5][0-9])-([01][0-9]|[2][0-3]):([0-5][0-9])`.
 
-Param MondayList ([]string): the MondayList param.
+Param MondayList ([]string): the MondayList param. Individual elements in this list are subject to additional validation. String length must be between 11 and 11 characters. String validation regex: `([01][0-9]|[2][0-3]):([0-5][0-9])-([01][0-9]|[2][0-3]):([0-5][0-9])`.
 
-Param SaturdayList ([]string): the SaturdayList param.
+Param SaturdayList ([]string): the SaturdayList param. Individual elements in this list are subject to additional validation. String length must be between 11 and 11 characters. String validation regex: `([01][0-9]|[2][0-3]):([0-5][0-9])-([01][0-9]|[2][0-3]):([0-5][0-9])`.
 
-Param SundayList ([]string): the SundayList param.
+Param SundayList ([]string): the SundayList param. Individual elements in this list are subject to additional validation. String length must be between 11 and 11 characters. String validation regex: `([01][0-9]|[2][0-3]):([0-5][0-9])-([01][0-9]|[2][0-3]):([0-5][0-9])`.
 
-Param ThursdayList ([]string): the ThursdayList param.
+Param ThursdayList ([]string): the ThursdayList param. Individual elements in this list are subject to additional validation. String length must be between 11 and 11 characters. String validation regex: `([01][0-9]|[2][0-3]):([0-5][0-9])-([01][0-9]|[2][0-3]):([0-5][0-9])`.
 
-Param TuesdayList ([]string): the TuesdayList param.
+Param TuesdayList ([]string): the TuesdayList param. Individual elements in this list are subject to additional validation. String length must be between 11 and 11 characters. String validation regex: `([01][0-9]|[2][0-3]):([0-5][0-9])-([01][0-9]|[2][0-3]):([0-5][0-9])`.
 
-Param WednesdayList ([]string): the WednesdayList param.
+Param WednesdayList ([]string): the WednesdayList param. Individual elements in this list are subject to additional validation. String length must be between 11 and 11 characters. String validation regex: `([01][0-9]|[2][0-3]):([0-5][0-9])-([01][0-9]|[2][0-3]):([0-5][0-9])`.
 */
 type WeeklyObject struct {
 	FridayList    []string `json:"friday,omitempty"`

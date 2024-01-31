@@ -91,7 +91,7 @@ Args:
 
 Param Action (string, required): Add or Remove tag option String must be one of these: `"add-tag"`, `"remove-tag"`.
 
-Param Tags ([]string): Tags for address object List must contain at most 64 elements.
+Param Tags ([]string): Tags for address object List must contain at most 64 elements. Individual elements in this list are subject to additional validation. String length must not exceed 127 characters.
 
 Param Target (string, required): Source or Destination Address, User, X-Forwarded-For Address
 

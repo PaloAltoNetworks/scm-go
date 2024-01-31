@@ -14,13 +14,13 @@ Parent chains:
 
 Args:
 
-Param Categories ([]string): the Categories param.
+Param Categories ([]string): the Categories param. Individual elements in this list are subject to additional validation. String length must not exceed 128 characters.
 
 Param Evasive (bool): only True is a valid value
 
 Param ExcessiveBandwidthUse (bool): only True is a valid value
 
-Param Excludes ([]string): the Excludes param.
+Param Excludes ([]string): the Excludes param. Individual elements in this list are subject to additional validation. String length must not exceed 63 characters.
 
 Param HasKnownVulnerabilities (bool): only True is a valid value
 
@@ -36,17 +36,17 @@ Param Pervasive (bool): only True is a valid value
 
 Param ProneToMisuse (bool): only True is a valid value
 
-Param Risks ([]int64): the Risks param.
+Param Risks ([]int64): the Risks param. Individual elements in this list are subject to additional validation. Value must be between 1 and 5.
 
-Param SaasCertifications ([]string): the SaasCertifications param.
+Param SaasCertifications ([]string): the SaasCertifications param. Individual elements in this list are subject to additional validation. String length must not exceed 32 characters.
 
-Param SaasRisks ([]string): the SaasRisks param.
+Param SaasRisks ([]string): the SaasRisks param. Individual elements in this list are subject to additional validation. String length must not exceed 32 characters.
 
-Param Subcategories ([]string): the Subcategories param.
+Param Subcategories ([]string): the Subcategories param. Individual elements in this list are subject to additional validation. String length must not exceed 128 characters.
 
 Param Tagging (TaggingObject): the Tagging param.
 
-Param Technologies ([]string): the Technologies param.
+Param Technologies ([]string): the Technologies param. Individual elements in this list are subject to additional validation. String length must not exceed 128 characters.
 
 Param TransfersFiles (bool): only True is a valid value
 
@@ -89,7 +89,7 @@ Args:
 
 Param NoTag (bool): the NoTag param.
 
-Param Tags ([]string): the Tags param.
+Param Tags ([]string): the Tags param. Individual elements in this list are subject to additional validation. String length must not exceed 127 characters.
 
 NOTE:  One of the following params should be specified:
   - NoTag
