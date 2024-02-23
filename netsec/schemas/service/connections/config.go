@@ -18,6 +18,8 @@ Param BackupSC (string): the BackupSC param.
 
 Param BgpPeer (BgpPeerObject): the BgpPeer param.
 
+Param Id (string, read-only): UUID of the resource
+
 Param IpsecTunnel (string, required): the IpsecTunnel param.
 
 Param Name (string, required): the Name param.
@@ -43,6 +45,7 @@ Param Subnets ([]string): the Subnets param.
 type Config struct {
 	BackupSC             *string         `json:"backup_SC,omitempty"`
 	BgpPeer              *BgpPeerObject  `json:"bgp_peer,omitempty"`
+	Id                   *string         `json:"id,omitempty"`
 	IpsecTunnel          string          `json:"ipsec_tunnel"`
 	Name                 string          `json:"name"`
 	NatPool              *string         `json:"nat_pool,omitempty"`
