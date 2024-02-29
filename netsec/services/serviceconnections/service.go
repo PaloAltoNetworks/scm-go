@@ -88,10 +88,13 @@ Parent chains:
 
 Args:
 
+Param Folder (string, required): the Folder param. String can either be a specific string(`"Service Connections"`) or match this regex: `^[0-9a-zA-Z._\s-]{1,}$`. Default: `"Service Connections"`.
+
 Param Id (string, required): the Id param.
 */
 type ReadInput struct {
-	Id string `json:"id"`
+	Folder string `json:"folder"`
+	Id     string `json:"id"`
 }
 
 // Read returns the configuration of the specified object.
@@ -104,6 +107,10 @@ func (c *Client) Read(ctx context.Context, input ReadInput) (wugpput.Config, err
 	var ans wugpput.Config
 	path := "/service-connections/{id}"
 
+	// Query parameter handling.
+	uv := url.Values{}
+	uv.Set("folder", input.Folder)
+
 	// Path param handling.
 	path = strings.ReplaceAll(path, "{id}", input.Id)
 	prefix, ok := Servers[c.client.GetHost()]
@@ -115,7 +122,7 @@ func (c *Client) Read(ctx context.Context, input ReadInput) (wugpput.Config, err
 	}
 
 	// Execute the command.
-	_, err = c.client.Do(ctx, "GET", path, nil, nil, &ans)
+	_, err = c.client.Do(ctx, "GET", path, uv, nil, &ans)
 
 	// Done.
 	return ans, err
