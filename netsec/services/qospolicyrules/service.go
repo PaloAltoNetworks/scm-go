@@ -106,10 +106,13 @@ Parent chains:
 
 Args:
 
+Param Folder (string): the Folder param.
+
 Param Id (string, required): the Id param.
 */
 type ReadInput struct {
-	Id string `json:"id"`
+	Folder *string `json:"folder,omitempty"`
+	Id     string  `json:"id"`
 }
 
 // Read returns the configuration of the specified object.
@@ -122,6 +125,12 @@ func (c *Client) Read(ctx context.Context, input ReadInput) (tephihM.Config, err
 	var ans tephihM.Config
 	path := "/qos-policy-rules/{id}"
 
+	// Query parameter handling.
+	uv := url.Values{}
+	if input.Folder != nil {
+		uv.Set("folder", *input.Folder)
+	}
+
 	// Path param handling.
 	path = strings.ReplaceAll(path, "{id}", input.Id)
 	prefix, ok := Servers[c.client.GetHost()]
@@ -133,7 +142,7 @@ func (c *Client) Read(ctx context.Context, input ReadInput) (tephihM.Config, err
 	}
 
 	// Execute the command.
-	_, err = c.client.Do(ctx, "GET", path, nil, nil, &ans)
+	_, err = c.client.Do(ctx, "GET", path, uv, nil, &ans)
 
 	// Done.
 	return ans, err
