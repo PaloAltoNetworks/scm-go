@@ -122,7 +122,7 @@ Parent chains:
 
 Args:
 
-Param NotAvailable (any): the NotAvailable param. Default: `false`.
+Param NotAvailable (any): the NotAvailable param.
 
 Param NotWithin (LastScanTimeNotWithinObject): the NotWithin param.
 
@@ -152,9 +152,9 @@ Parent chains:
 
 Args:
 
-Param Days (int64): specify time in days Value must be between 1 and 65535. Default: `1`.
+Param Days (int64): specify time in days Value must be between 1 and 65535.
 
-Param Hours (int64): specify time in hours Value must be between 1 and 65535. Default: `24`.
+Param Hours (int64): specify time in hours Value must be between 1 and 65535.
 
 NOTE:  One of the following params should be specified:
   - Days
@@ -178,9 +178,9 @@ Parent chains:
 
 Args:
 
-Param Days (int64): specify time in days Value must be between 1 and 65535. Default: `1`.
+Param Days (int64): specify time in days Value must be between 1 and 65535.
 
-Param Hours (int64): specify time in hours Value must be between 1 and 65535. Default: `24`.
+Param Hours (int64): specify time in hours Value must be between 1 and 65535.
 
 NOTE:  One of the following params should be specified:
   - Days
@@ -320,9 +320,9 @@ Parent chains:
 
 Args:
 
-Param Days (int64): specify time in days Value must be between 1 and 65535. Default: `1`.
+Param Days (int64): specify time in days Value must be between 1 and 65535.
 
-Param Versions (int64): specify versions range Value must be between 1 and 65535. Default: `1`.
+Param Versions (int64): specify versions range Value must be between 1 and 65535.
 
 NOTE:  One of the following params should be specified:
   - Days
@@ -346,9 +346,9 @@ Parent chains:
 
 Args:
 
-Param Days (int64): specify time in days Value must be between 1 and 65535. Default: `1`.
+Param Days (int64): specify time in days Value must be between 1 and 65535.
 
-Param Versions (int64): specify versions range Value must be between 1 and 65535. Default: `1`.
+Param Versions (int64): specify versions range Value must be between 1 and 65535.
 
 NOTE:  One of the following params should be specified:
   - Days
@@ -723,7 +723,7 @@ Parent chains:
 
 Args:
 
-Param NotAvailable (any): the NotAvailable param. Default: `false`.
+Param NotAvailable (any): the NotAvailable param.
 
 Param NotWithin (LastBackupTimeNotWithinObject): the NotWithin param.
 
@@ -753,9 +753,9 @@ Parent chains:
 
 Args:
 
-Param Days (int64): specify time in days Value must be between 1 and 65535. Default: `1`.
+Param Days (int64): specify time in days Value must be between 1 and 65535.
 
-Param Hours (int64): specify time in hours Value must be between 1 and 65535. Default: `24`.
+Param Hours (int64): specify time in hours Value must be between 1 and 65535.
 
 NOTE:  One of the following params should be specified:
   - Days
@@ -779,9 +779,9 @@ Parent chains:
 
 Args:
 
-Param Days (int64): specify time in days Value must be between 1 and 65535. Default: `1`.
+Param Days (int64): specify time in days Value must be between 1 and 65535.
 
-Param Hours (int64): specify time in hours Value must be between 1 and 65535. Default: `24`.
+Param Hours (int64): specify time in hours Value must be between 1 and 65535.
 
 NOTE:  One of the following params should be specified:
   - Days
@@ -891,9 +891,9 @@ Parent chains:
 
 Args:
 
-Param Is (string): the Is param. String must be one of these: `"encrypted"`, `"unencrypted"`, `"partial"`, `"unknown"`. Default: `"encrypted"`.
+Param Is (string): the Is param. String must be one of these: `"encrypted"`, `"unencrypted"`, `"partial"`, `"unknown"`.
 
-Param IsNot (string): the IsNot param. String must be one of these: `"encrypted"`, `"unencrypted"`, `"partial"`, `"unknown"`. Default: `"encrypted"`.
+Param IsNot (string): the IsNot param. String must be one of these: `"encrypted"`, `"unencrypted"`, `"partial"`, `"unknown"`.
 
 NOTE:  One of the following params should be specified:
   - Is
@@ -1189,13 +1189,13 @@ Parent chains:
 
 Args:
 
-Param Apple (string): Apple vendor String length must not exceed 255 characters. Default: `"All"`.
+Param Apple (string): Apple vendor String length must not exceed 255 characters.
 
-Param Google (string): Google vendor String length must not exceed 255 characters. Default: `"All"`.
+Param Google (string): Google vendor String length must not exceed 255 characters.
 
-Param Linux (string): Linux vendor String length must not exceed 255 characters. Default: `"All"`.
+Param Linux (string): Linux vendor String length must not exceed 255 characters.
 
-Param Microsoft (string): Microsoft vendor String length must not exceed 255 characters. Default: `"All"`.
+Param Microsoft (string): Microsoft vendor String length must not exceed 255 characters.
 
 Param Other (string): Other vendor String length must not exceed 255 characters.
 
@@ -1337,7 +1337,7 @@ Parent chains:
 
 Args:
 
-Param No (any): the No param. Default: `false`.
+Param No (any): the No param.
 
 Param Yes (YesObject): the Yes param.
 
@@ -1676,7 +1676,7 @@ Args:
 
 Param Mobile (IsMobileObject): the Mobile param.
 
-Param Unknown (any): the Unknown param. Default: `false`.
+Param Unknown (any): the Unknown param.
 
 Param Wifi (IsWifiObject): the Wifi param.
 
@@ -1744,11 +1744,11 @@ Parent chains:
 
 Args:
 
-Param Ethernet (any): the Ethernet param. Default: `false`.
+Param Ethernet (any): the Ethernet param.
 
 Param Mobile (IsNotMobileObject): the Mobile param.
 
-Param Unknown (any): the Unknown param. Default: `false`.
+Param Unknown (any): the Unknown param.
 
 Param Wifi (IsNotWifiObject): the Wifi param.
 

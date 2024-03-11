@@ -118,13 +118,13 @@ Parent chains:
 
 Args:
 
-Param Alert (any): the Alert param. Default: `false`.
+Param Alert (any): the Alert param.
 
-Param Allow (any): the Allow param. Default: `false`.
+Param Allow (any): the Allow param.
 
-Param Block (any): the Block param. Default: `false`.
+Param Block (any): the Block param.
 
-Param Sinkhole (any): the Sinkhole param. Default: `false`.
+Param Sinkhole (any): the Sinkhole param.
 
 NOTE:  One of the following params should be specified:
   - Alert

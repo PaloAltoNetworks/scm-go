@@ -107,7 +107,7 @@ Param Cs (CsObject): the Cs param.
 
 Param Custom (CustomObject): the Custom param.
 
-Param Ef (any): the Ef param. Default: `false`.
+Param Ef (any): the Ef param.
 
 Param Tos (TosObject): the Tos param.
 

@@ -139,9 +139,9 @@ Args:
 
 Param Daily (DomainDailyObject): the Daily param.
 
-Param FiveMinute (any): the FiveMinute param. Default: `false`.
+Param FiveMinute (any): the FiveMinute param.
 
-Param Hourly (any): the Hourly param. Default: `false`.
+Param Hourly (any): the Hourly param.
 
 Param Monthly (DomainMonthyObject): the Monthly param.
 
@@ -292,9 +292,9 @@ Args:
 
 Param Daily (ImeiDailyObject): the Daily param.
 
-Param FiveMinute (any): the FiveMinute param. Default: `false`.
+Param FiveMinute (any): the FiveMinute param.
 
-Param Hourly (any): the Hourly param. Default: `false`.
+Param Hourly (any): the Hourly param.
 
 Param Monthly (ImeiMonthyObject): the Monthly param.
 
@@ -445,9 +445,9 @@ Args:
 
 Param Daily (ImsiDailyObject): the Daily param.
 
-Param FiveMinute (any): the FiveMinute param. Default: `false`.
+Param FiveMinute (any): the FiveMinute param.
 
-Param Hourly (any): the Hourly param. Default: `false`.
+Param Hourly (any): the Hourly param.
 
 Param Monthly (ImsiMonthyObject): the Monthly param.
 
@@ -598,9 +598,9 @@ Args:
 
 Param Daily (IpDailyObject): the Daily param.
 
-Param FiveMinute (any): the FiveMinute param. Default: `false`.
+Param FiveMinute (any): the FiveMinute param.
 
-Param Hourly (any): the Hourly param. Default: `false`.
+Param Hourly (any): the Hourly param.
 
 Param Monthly (IpMonthyObject): the Monthly param.
 
@@ -776,9 +776,9 @@ Args:
 
 Param Daily (UrlDailyObject): the Daily param.
 
-Param FiveMinute (any): the FiveMinute param. Default: `false`.
+Param FiveMinute (any): the FiveMinute param.
 
-Param Hourly (any): the Hourly param. Default: `false`.
+Param Hourly (any): the Hourly param.
 
 Param Monthly (UrlMonthyObject): the Monthly param.
 

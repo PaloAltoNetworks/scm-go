@@ -45,9 +45,9 @@ Parent chains:
 
 Args:
 
-Param Default (any): the Default param. Default: `false`.
+Param Default (any): the Default param.
 
-Param HotPotatoRouting (any): the HotPotatoRouting param. Default: `false`.
+Param HotPotatoRouting (any): the HotPotatoRouting param.
 
 NOTE:  One of the following params should be specified:
   - Default

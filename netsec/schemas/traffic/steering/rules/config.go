@@ -53,7 +53,7 @@ Args:
 
 Param Forward (ForwardObject): the Forward param.
 
-Param NoPbf (any): the NoPbf param. Default: `false`.
+Param NoPbf (any): the NoPbf param.
 
 NOTE:  One of the following params should be specified:
   - Forward

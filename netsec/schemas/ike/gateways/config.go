@@ -157,7 +157,7 @@ Parent chains:
 
 Args:
 
-Param DynamicAddress (any): the DynamicAddress param. Default: `true`.
+Param DynamicAddress (any): the DynamicAddress param.
 
 Param Fqdn (string): peer gateway FQDN name String length must not exceed 255 characters.
 
