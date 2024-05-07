@@ -5,8 +5,11 @@ package urlcategories
 
 import (
 	"context"
+	"fmt"
+	"math"
 	"net/url"
 	"strconv"
+	"strings"
 
 	"github.com/paloaltonetworks/scm-go/api"
 	cSTLpMW "github.com/paloaltonetworks/scm-go/netsec/schemas/url/categories"
@@ -58,9 +61,10 @@ type CreateInput struct {
 //
 // Method: post
 // URI: /url-categories
-func (c *Client) Create(ctx context.Context, input CreateInput) error {
+func (c *Client) Create(ctx context.Context, input CreateInput) (cSTLpMW.Config, error) {
 	// Variables.
 	var err error
+	var ans cSTLpMW.Config
 	path := "/url-categories"
 
 	// Query parameter handling.
@@ -76,17 +80,146 @@ func (c *Client) Create(ctx context.Context, input CreateInput) error {
 	}
 	prefix, ok := Servers[c.client.GetHost()]
 	if !ok {
-		return api.UnknownHostError
+		return ans, api.UnknownHostError
 	}
 	if prefix != "" {
 		path = prefix + path
 	}
 
 	// Execute the command.
-	_, err = c.client.Do(ctx, "POST", path, uv, input.Request, nil)
+	_, err = c.client.Do(ctx, "POST", path, uv, input.Request, &ans)
 
 	// Done.
-	return err
+	return ans, err
+}
+
+/*
+ReadInput handles input for the Read function.
+
+ShortName: dPHRIQI
+Parent chains:
+* ReadInput
+
+Args:
+
+Param Id (string, required): the Id param.
+*/
+type ReadInput struct {
+	Id string `json:"id"`
+}
+
+// Read returns the configuration of the specified object.
+//
+// Method: get
+// URI: /url-categories/{id}
+func (c *Client) Read(ctx context.Context, input ReadInput) (cSTLpMW.Config, error) {
+	// Variables.
+	var err error
+	var ans cSTLpMW.Config
+	path := "/url-categories/{id}"
+
+	// Path param handling.
+	path = strings.ReplaceAll(path, "{id}", input.Id)
+	prefix, ok := Servers[c.client.GetHost()]
+	if !ok {
+		return ans, api.UnknownHostError
+	}
+	if prefix != "" {
+		path = prefix + path
+	}
+
+	// Execute the command.
+	_, err = c.client.Do(ctx, "GET", path, nil, nil, &ans)
+
+	// Done.
+	return ans, err
+}
+
+/*
+UpdateInput handles input for the Update function.
+
+ShortName: dPHRIQI
+Parent chains:
+* UpdateInput
+
+Args:
+
+Param Id (string, required): the Id param.
+
+Param Request (cSTLpMW.Config): the Request param.
+*/
+type UpdateInput struct {
+	Id      string          `json:"id"`
+	Request *cSTLpMW.Config `json:"request,omitempty"`
+}
+
+// Update modifies the configuration of the given object.
+//
+// Method: put
+// URI: /url-categories/{id}
+func (c *Client) Update(ctx context.Context, input UpdateInput) (cSTLpMW.Config, error) {
+	// Variables.
+	var err error
+	var ans cSTLpMW.Config
+	path := "/url-categories/{id}"
+
+	// Path param handling.
+	path = strings.ReplaceAll(path, "{id}", input.Id)
+	prefix, ok := Servers[c.client.GetHost()]
+	if !ok {
+		return ans, api.UnknownHostError
+	}
+	if prefix != "" {
+		path = prefix + path
+	}
+
+	// Execute the command.
+	_, err = c.client.Do(ctx, "PUT", path, nil, input.Request, &ans)
+
+	// Done.
+	return ans, err
+}
+
+/*
+DeleteInput handles input for the Delete function.
+
+ShortName: dPHRIQI
+Parent chains:
+* DeleteInput
+
+Args:
+
+Param Id (string, required): the Id param.
+*/
+type DeleteInput struct {
+	Id string `json:"id"`
+}
+
+// Delete removes the specified configuration.
+//
+// Method: delete
+// URI: /url-categories/{id}
+func (c *Client) Delete(ctx context.Context, input DeleteInput) (cSTLpMW.Config, error) {
+	// Variables.
+	var err error
+	var ans cSTLpMW.Config
+	path := "/url-categories/{id}"
+
+	// Path param handling.
+	path = strings.ReplaceAll(path, "{id}", input.Id)
+	prefix, ok := Servers[c.client.GetHost()]
+	if !ok {
+		return ans, api.UnknownHostError
+	}
+	if prefix != "" {
+		path = prefix + path
+	}
+
+	// Execute the command.
+	_, err = c.client.Do(ctx, "DELETE", path, nil, nil, &ans)
+
+	// Done.
+	return ans, err
 }
 
 /*
@@ -181,9 +314,114 @@ func (c *Client) List(ctx context.Context, input ListInput) (ListOutput, error) 
 		path = prefix + path
 	}
 
+	// Optional: retrieve everything if limit is -1.
+	if input.Limit != nil && *input.Limit == -1 {
+		return c.listAll(ctx, input)
+	}
+
 	// Execute the command.
 	_, err = c.client.Do(ctx, "GET", path, uv, nil, &ans)
 
 	// Done.
 	return ans, err
+}
+
+type listResponse struct {
+	Output ListOutput
+	Error  error
+}
+
+func (c *Client) listAll(ctx context.Context, input ListInput) (ListOutput, error) {
+	var err error
+	var ans ListOutput
+	var items map[string]cSTLpMW.Config
+	maxLimit := int64(2000)
+	everything := ListInput{
+		Limit: &maxLimit,
+	}
+
+	times := 0
+	for {
+		// Get the total number of things.
+		ans, err = c.List(ctx, everything)
+		if err != nil {
+			return ans, err
+		}
+		if ans.Total == nil {
+			return ans, fmt.Errorf("total was nil")
+		} else if len(ans.Data) == int(*ans.Total) {
+			return ans, nil
+		}
+
+		items = make(map[string]cSTLpMW.Config)
+		total := int(*ans.Total)
+		numRetrievers := int(math.Ceil(float64(total) / float64(maxLimit)))
+		responses := make(chan listResponse, numRetrievers)
+
+		for i := 0; i < numRetrievers; i++ {
+			offset := int64(int64(i) * maxLimit)
+			ri := ListInput{
+				Offset:  &offset,
+				Limit:   &maxLimit,
+				Name:    input.Name,
+				Folder:  input.Folder,
+				Snippet: input.Snippet,
+				Device:  input.Device,
+			}
+			go func() {
+				rout, rerr := c.List(ctx, ri)
+				responses <- listResponse{
+					Output: rout,
+					Error:  rerr,
+				}
+			}()
+		}
+
+		var totalChanged bool
+		for i := 0; i < numRetrievers; i++ {
+			resp := <-responses
+			if resp.Error != nil {
+				return resp.Output, resp.Error
+			} else if totalChanged {
+				continue
+			}
+			if resp.Output.Total == nil {
+				return ListOutput{}, fmt.Errorf("total is nil")
+			}
+			if *resp.Output.Total != *ans.Total {
+				totalChanged = true
+				continue
+			}
+			for j := 0; j < len(resp.Output.Data); j++ {
+				if resp.Output.Data[j].Id == nil {
+					return ListOutput{}, fmt.Errorf("no ID present")
+				}
+				if _, ok := items[*resp.Output.Data[j].Id]; !ok {
+					items[*resp.Output.Data[j].Id] = resp.Output.Data[j]
+				}
+			}
+		}
+
+		if !totalChanged && len(items) == total {
+			break
+		}
+
+		times++
+		if times >= 5 {
+			return ListOutput{}, api.TooManyRetriesError
+		}
+	}
+
+	endTotal := int64(len(items))
+	listing := make([]cSTLpMW.Config, 0, len(items))
+	for key := range items {
+		listing = append(listing, items[key])
+	}
+
+	negativeOne := int64(-1)
+	return ListOutput{
+		Data:  listing,
+		Total: &endTotal,
+		Limit: &negativeOne,
+	}, nil
 }
