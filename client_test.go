@@ -136,10 +136,6 @@ func TestSetupFromEnvironmentVariables(t *testing.T) {
 		t.Errorf("Protocol: %s", c.Protocol)
 	}
 
-	if c.Timeout != 300 {
-		t.Errorf("Timeout: %d", c.Timeout)
-	}
-
 	if !c.SkipVerifyCertificate {
 		t.Errorf("Skip verify cert is not enabled")
 	}
@@ -153,7 +149,6 @@ func TestSetupFromJsonConfigFile(t *testing.T) {
     "client_secret": "secret_for_testing",
     "scope": "test:scope",
     "protocol": "http",
-    "timeout": 300,
     "skip_verify_certificate": true
 }`)
 
@@ -191,10 +186,6 @@ func TestSetupFromJsonConfigFile(t *testing.T) {
 
 	if c.Protocol != "http" {
 		t.Errorf("Protocol: %s", c.Protocol)
-	}
-
-	if c.Timeout != 300 {
-		t.Errorf("Timeout: %d", c.Timeout)
 	}
 
 	if !c.SkipVerifyCertificate {

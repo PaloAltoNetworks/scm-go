@@ -40,7 +40,6 @@ ClientId | SCM_CLIENT_ID | client_id | ""
 ClientSecret | SCM_CLIENT_SECRET | client_secret | ""
 Scope | SCM_SCOPE | scope | ""
 Protocol | SCM_PROTOCOL | protocol | "https"
-Timeout | SCM_TIMEOUT | timeout | 30
 Headers | SCM_HEADERS | headers | nil
 Agent | - | agent | ""
 SkipVerifyCertificate | SCM_SKIP_VERIFY_CERTIFICATE | skip_verify_certificate | false
@@ -54,7 +53,6 @@ type Client struct {
 	ClientSecret string            `json:"client_secret"`
 	Scope        string            `json:"scope"`
 	Protocol     string            `json:"protocol"`
-	Timeout      int               `json:"timeout"`
 	Headers      map[string]string `json:"headers"`
 	Agent        string            `json:"agent"`
 
@@ -84,7 +82,6 @@ type Client struct {
 // defined params, environment variables, and the JSON config file.
 func (c *Client) Setup() error {
 	var err error
-	var tout time.Duration
 
 	// Load up the JSON config file.
 	var json_client Client
@@ -177,25 +174,6 @@ func (c *Client) Setup() error {
 		}
 	}
 
-	// Timeout.
-	if c.Timeout == 0 {
-		if val := os.Getenv("SCM_TIMEOUT"); c.CheckEnvironment && val != "" {
-			if ival, err := strconv.Atoi(val); err != nil {
-				return fmt.Errorf("Failed to parse timeout env var as int: %s", err)
-			} else {
-				c.Timeout = ival
-			}
-		} else if json_client.Timeout != 0 {
-			c.Timeout = json_client.Timeout
-		} else {
-			c.Timeout = 30
-		}
-	}
-	if c.Timeout <= 0 {
-		return fmt.Errorf("Timeout for %q must be a positive int", c.Host)
-	}
-	tout = time.Duration(time.Duration(c.Timeout) * time.Second)
-
 	// Headers.
 	if len(c.Headers) == 0 {
 		if val := os.Getenv("SCM_HEADERS"); c.CheckEnvironment && val != "" {
@@ -247,7 +225,6 @@ func (c *Client) Setup() error {
 	}
 	c.HttpClient = &http.Client{
 		Transport: c.Transport,
-		Timeout:   tout,
 	}
 
 	// Attach logging transport.
