@@ -465,7 +465,7 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 			return nil, err
 		}
 		return c.Do(ctx, method, path, queryParams, input, output, append(retry, stat)...)
-	case http.StatusTooManyRequests:
+	case http.StatusTooManyRequests, http.StatusBadGateway, http.StatusServiceUnavailable, http.StatusGatewayTimeout:
 		// Sleep for a bit and try again.
 		// TODO(shinmog): When/if this is implemented, verify backoff logic with eng.
 		time.Sleep(time.Duration(len(retry)+1) * time.Second)
