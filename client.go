@@ -34,6 +34,7 @@ The following is supported:
 
 Param | Environment Variable | JSON Key | Default
 -------------------------------------------------
+AuthUrl | SCM_AUTH_URL | auth_url | "https://auth.apps.paloaltonetworks.com/auth/v1/oauth2/access_token"
 Host | SCM_HOST | host | "api.strata.paloaltonetworks.com"
 Port | SCM_PORT | port | 0
 ClientId | SCM_CLIENT_ID | client_id | ""
@@ -47,6 +48,7 @@ Logging | SCM_LOGGING | logging | "quiet"
 SkipLoggingTransport | - | skip_logging_transport | false
 */
 type Client struct {
+	AuthUrl      string            `json:"auth_url"`
 	Host         string            `json:"host"`
 	Port         int               `json:"port"`
 	ClientId     string            `json:"client_id"`
@@ -76,8 +78,6 @@ type Client struct {
 	testData        []*http.Response
 	testIndex       int
 	authFileContent []byte
-
-	sleep func(time.Duration) // Sleep function to override in tests.
 }
 
 // Setup configures the HttpClient param according to the combination of locally
@@ -102,6 +102,21 @@ func (c *Client) Setup() error {
 		if err = json.Unmarshal(b, &json_client); err != nil {
 			return err
 		}
+	}
+
+	// AuthUrl.
+	if c.AuthUrl == "" {
+		if val := os.Getenv("SCM_AUTH_URL"); c.CheckEnvironment && val != "" {
+			c.AuthUrl = val
+		} else if json_client.AuthUrl != "" {
+			c.AuthUrl = json_client.AuthUrl
+		}
+	}
+	if c.AuthUrl == "" {
+		c.AuthUrl = "https://auth.apps.paloaltonetworks.com/auth/v1/oauth2/access_token"
+	}
+	if !strings.HasPrefix(c.AuthUrl, "http://") && !strings.HasPrefix(c.AuthUrl, "https://") {
+		return fmt.Errorf("AuthUrl should start with http:// or https://")
 	}
 
 	// Host.
@@ -241,11 +256,6 @@ func (c *Client) Setup() error {
 		c.apiPrefix = fmt.Sprintf("%s://%s", c.Protocol, c.Host)
 	}
 
-	// Sleep function.
-	if c.sleep == nil {
-		c.sleep = time.Sleep
-	}
-
 	return nil
 }
 
@@ -285,9 +295,7 @@ func (c *Client) RefreshJwt(ctx context.Context) error {
 		uv.Set("scope", c.Scope)
 		uv.Set("grant_type", "client_credentials")
 
-		uri := "https://auth.apps.paloaltonetworks.com/auth/v1/oauth2/access_token"
-
-		req, err := http.NewRequestWithContext(ctx, http.MethodPost, uri, strings.NewReader(uv.Encode()))
+		req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.AuthUrl, strings.NewReader(uv.Encode()))
 
 		if err != nil {
 			return err
@@ -472,10 +480,15 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 			return nil, err
 		}
 		return c.Do(ctx, method, path, queryParams, input, output, append(retry, stat)...)
-	case http.StatusTooManyRequests, http.StatusBadGateway, http.StatusServiceUnavailable, http.StatusGatewayTimeout:
-		// Sleep for a bit and try again.
+	case http.StatusTooManyRequests, http.StatusInternalServerError, http.StatusBadGateway, http.StatusServiceUnavailable, http.StatusGatewayTimeout:
+		// When these errors are encountered, we should be sleeping and then retrying again:
+		// https://pan.dev/prisma-cloud/api/cspm/api-errors/#reattempting-requests-that-fail-due-to-a-server-error
 		// TODO(shinmog): When/if this is implemented, verify backoff logic with eng.
-		c.sleep(time.Duration(len(retry)+1) * time.Second)
+
+		// Only sleep if we're not running tests.
+		if len(c.testData) == 0 {
+			time.Sleep(time.Duration(len(retry)+1*2) * time.Second)
+		}
 		return c.Do(ctx, method, path, queryParams, input, output, append(retry, stat)...)
 	default:
 		return body, stat

@@ -10,7 +10,6 @@ import (
 	"os"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/paloaltonetworks/scm-go/api"
 )
@@ -489,26 +488,25 @@ func TestDoWithMultipleUnauthorizedFailures(t *testing.T) {
 		t.Fatalf("Status code is %d, not %d", e2.StatusCode, http.StatusUnauthorized)
 	}
 }
+
 func TestDoWith5xxRetryLogic(t *testing.T) {
 	ctx := context.TODO()
-	data := `{
-    "access_token": "secret",
-    "scope": "test:scope",
-    "token_type": "Bearer",
-    "expires_in": 899
-}`
 
 	c := Client{
 		apiPrefix: "https://testing-api-prefix",
 		Logging:   api.LogDetailed,
 		testData: []*http.Response{
 			{
+				StatusCode: http.StatusInternalServerError, // 500
+				Body:       io.NopCloser(strings.NewReader("")),
+			},
+			{
 				StatusCode: http.StatusServiceUnavailable, // 503
 				Body:       io.NopCloser(strings.NewReader("")),
 			},
 			{
 				StatusCode: http.StatusBadGateway, // 502
-				Body:       io.NopCloser(strings.NewReader(data)),
+				Body:       io.NopCloser(strings.NewReader("")),
 			},
 			{
 				StatusCode: http.StatusGatewayTimeout, // 504
@@ -519,7 +517,6 @@ func TestDoWith5xxRetryLogic(t *testing.T) {
 				Body:       io.NopCloser(strings.NewReader("")),
 			},
 		},
-		sleep: func(d time.Duration) {}, // Disable sleep
 	}
 
 	_, err := c.Do(ctx, http.MethodGet, "/one/two", nil, nil, nil)
@@ -528,8 +525,35 @@ func TestDoWith5xxRetryLogic(t *testing.T) {
 		t.Fatalf("unexpected error: %v", err)
 	}
 
-	expectedAttempts := 4
+	expectedAttempts := 5
 	if c.testIndex != expectedAttempts {
 		t.Fatalf("Expected %d attempts, got %d", expectedAttempts, c.testIndex)
+	}
+}
+
+func TestDoWith400Response(t *testing.T) {
+	ctx := context.TODO()
+
+	c := Client{
+		apiPrefix: "https://testing-api-prefix",
+		Logging:   api.LogDetailed,
+		testData: []*http.Response{{
+			StatusCode: http.StatusBadRequest,
+			Body:       io.NopCloser(strings.NewReader("")),
+		}},
+	}
+
+	_, err := c.Do(ctx, http.MethodGet, "/one/two", nil, nil, nil)
+
+	if err == nil {
+		t.Fatalf("Do returned no error")
+	}
+
+	e2, ok := err.(api.Response)
+	if !ok {
+		t.Fatalf("Error is not an api.Response")
+	}
+	if e2.StatusCode != http.StatusBadRequest {
+		t.Fatalf("Status code is %d not %d", e2.StatusCode, http.StatusBadRequest)
 	}
 }
