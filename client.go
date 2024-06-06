@@ -76,6 +76,8 @@ type Client struct {
 	testData        []*http.Response
 	testIndex       int
 	authFileContent []byte
+
+	sleep func(time.Duration) // Sleep function to override in tests.
 }
 
 // Setup configures the HttpClient param according to the combination of locally
@@ -237,6 +239,11 @@ func (c *Client) Setup() error {
 		c.apiPrefix = fmt.Sprintf("%s://%s:%d", c.Protocol, c.Host, c.Port)
 	} else {
 		c.apiPrefix = fmt.Sprintf("%s://%s", c.Protocol, c.Host)
+	}
+
+	// Sleep function.
+	if c.sleep == nil {
+		c.sleep = time.Sleep
 	}
 
 	return nil
@@ -465,10 +472,10 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 			return nil, err
 		}
 		return c.Do(ctx, method, path, queryParams, input, output, append(retry, stat)...)
-	case http.StatusTooManyRequests:
+	case http.StatusTooManyRequests, http.StatusBadGateway, http.StatusServiceUnavailable, http.StatusGatewayTimeout:
 		// Sleep for a bit and try again.
 		// TODO(shinmog): When/if this is implemented, verify backoff logic with eng.
-		time.Sleep(time.Duration(len(retry)+1) * time.Second)
+		c.sleep(time.Duration(len(retry)+1) * time.Second)
 		return c.Do(ctx, method, path, queryParams, input, output, append(retry, stat)...)
 	default:
 		return body, stat

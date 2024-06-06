@@ -10,6 +10,7 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/paloaltonetworks/scm-go/api"
 )
@@ -486,5 +487,49 @@ func TestDoWithMultipleUnauthorizedFailures(t *testing.T) {
 	}
 	if e2.StatusCode != http.StatusUnauthorized {
 		t.Fatalf("Status code is %d, not %d", e2.StatusCode, http.StatusUnauthorized)
+	}
+}
+func TestDoWith5xxRetryLogic(t *testing.T) {
+	ctx := context.TODO()
+	data := `{
+    "access_token": "secret",
+    "scope": "test:scope",
+    "token_type": "Bearer",
+    "expires_in": 899
+}`
+
+	c := Client{
+		apiPrefix: "https://testing-api-prefix",
+		Logging:   api.LogDetailed,
+		testData: []*http.Response{
+			{
+				StatusCode: http.StatusServiceUnavailable, // 503
+				Body:       io.NopCloser(strings.NewReader("")),
+			},
+			{
+				StatusCode: http.StatusBadGateway, // 502
+				Body:       io.NopCloser(strings.NewReader(data)),
+			},
+			{
+				StatusCode: http.StatusGatewayTimeout, // 504
+				Body:       io.NopCloser(strings.NewReader("")),
+			},
+			{
+				StatusCode: http.StatusOK,
+				Body:       io.NopCloser(strings.NewReader("")),
+			},
+		},
+		sleep: func(d time.Duration) {}, // Disable sleep
+	}
+
+	_, err := c.Do(ctx, http.MethodGet, "/one/two", nil, nil, nil)
+
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	expectedAttempts := 4
+	if c.testIndex != expectedAttempts {
+		t.Fatalf("Expected %d attempts, got %d", expectedAttempts, c.testIndex)
 	}
 }
