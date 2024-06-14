@@ -487,6 +487,7 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 
 		// Only sleep if we're not running tests.
 		if len(c.testData) == 0 {
+			c.Log(ctx, api.LogDetailed, fmt.Sprintf("Response code %d encountered, sleeping for %d seconds", resp.StatusCode, len(retry)+1))
 			time.Sleep(time.Duration(len(retry)+1*2) * time.Second)
 		}
 		return c.Do(ctx, method, path, queryParams, input, output, append(retry, stat)...)
