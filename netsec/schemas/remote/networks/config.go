@@ -18,8 +18,6 @@ Parent chains:
 
 Args:
 
-Param ConnectionType (string): The connection type for the remote network. String must be one of these: `"prisma-access"`, `"meraki"`, `"cisco-catalyst-sdwan"`, `"velocloud"`, `"prisma-sdwan"`. Default: `"prisma-access"`.
-
 Param EcmpLoadBalancing (string): the EcmpLoadBalancing param. String must be one of these: `"enable"`, `"disable"`. Default: `"disable"`.
 
 Param EcmpTunnels ([]EcmpTunnelObject): ecmp_tunnels is required when ecmp_load_balancing is enable
@@ -43,7 +41,6 @@ Param SpnName (string): spn-name is needed when license_type is FWAAS-AGGREGATE
 Param Subnets ([]string): the Subnets param.
 */
 type Config struct {
-	ConnectionType       *string            `json:"connection_type,omitempty"`
 	EcmpLoadBalancing    *string            `json:"ecmp_load_balancing,omitempty"`
 	EcmpTunnels          []EcmpTunnelObject `json:"ecmp_tunnels,omitempty"`
 	Id                   *string            `json:"id,omitempty"`
