@@ -1,6 +1,7 @@
 package api
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -8,7 +9,9 @@ import (
 
 func NewResponse(code int, body []byte) Response {
 	ans := Response{StatusCode: code}
-	json.Unmarshal(body, &ans)
+	if bytes.HasPrefix(bytes.TrimSpace(body), []byte("{")) {
+		json.Unmarshal(body, &ans)
+	}
 	return ans
 }
 

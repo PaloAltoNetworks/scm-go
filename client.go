@@ -422,6 +422,8 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 			req.Header.Set("User-Agent", c.Agent)
 		}
 		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.Jwt))
+		req.Header.Set("Accept", "application/json")
+		req.Header.Set("x-auth-jwt", c.Jwt)
 		for k, v := range c.Headers {
 			req.Header.Set(k, v)
 		}

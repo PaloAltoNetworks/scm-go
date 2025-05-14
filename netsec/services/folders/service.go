@@ -1,4 +1,4 @@
-package snippets
+package folders
 
 // This code is automatically generated.
 // Manual changes will be overwritten upon SDK generation.
@@ -12,7 +12,7 @@ import (
 	"strings"
 
 	"github.com/paloaltonetworks/scm-go/api"
-	yJkkSzS "github.com/paloaltonetworks/scm-go/netsec/schemas/snippets/mod"
+	vnMMXJg "github.com/paloaltonetworks/scm-go/netsec/schemas/folder/manual"
 )
 
 // Servers specficiation.
@@ -35,27 +35,27 @@ func NewClient(client api.Client) *Client {
 /*
 CreateInput handles input for the Create function.
 
-ShortName: kJVbXva
+ShortName: rmBFeLV
 Parent chains:
 * CreateInput
 
 Args:
 
-Param Request (yJkkSzS.Config): the Request param.
+Param Request (vnMMXJg.Config): the Request param.
 */
 type CreateInput struct {
-	Request *yJkkSzS.Config `json:"request,omitempty"`
+	Request *vnMMXJg.Config `json:"request,omitempty"`
 }
 
 // Create creates the specified object.
 //
 // Method: post
-// URI: /snippets
-func (c *Client) Create(ctx context.Context, input CreateInput) (yJkkSzS.Config, error) {
+// URI: /folders
+func (c *Client) Create(ctx context.Context, input CreateInput) (vnMMXJg.Config, error) {
 	// Variables.
 	var err error
-	var ans yJkkSzS.Config
-	path := "/snippets"
+	var ans vnMMXJg.Config
+	path := "/folders"
 	prefix, ok := Servers[c.client.GetHost()]
 	if !ok {
 		return ans, api.UnknownHostError
@@ -74,7 +74,7 @@ func (c *Client) Create(ctx context.Context, input CreateInput) (yJkkSzS.Config,
 /*
 ReadInput handles input for the Read function.
 
-ShortName: kJVbXva
+ShortName: rmBFeLV
 Parent chains:
 * ReadInput
 
@@ -89,12 +89,12 @@ type ReadInput struct {
 // Read returns the configuration of the specified object.
 //
 // Method: get
-// URI: /snippets/{id}
-func (c *Client) Read(ctx context.Context, input ReadInput) (yJkkSzS.Config, error) {
+// URI: /folders/{id}
+func (c *Client) Read(ctx context.Context, input ReadInput) (vnMMXJg.Config, error) {
 	// Variables.
 	var err error
-	var ans yJkkSzS.Config
-	path := "/snippets/{id}"
+	var ans vnMMXJg.Config
+	path := "/folders/{id}"
 
 	// Path param handling.
 	path = strings.ReplaceAll(path, "{id}", input.Id)
@@ -116,7 +116,7 @@ func (c *Client) Read(ctx context.Context, input ReadInput) (yJkkSzS.Config, err
 /*
 UpdateInput handles input for the Update function.
 
-ShortName: kJVbXva
+ShortName: rmBFeLV
 Parent chains:
 * UpdateInput
 
@@ -124,22 +124,22 @@ Args:
 
 Param Id (string, required): the Id param.
 
-Param Request (yJkkSzS.Config): the Request param.
+Param Request (vnMMXJg.Config): the Request param.
 */
 type UpdateInput struct {
 	Id      string          `json:"id"`
-	Request *yJkkSzS.Config `json:"request,omitempty"`
+	Request *vnMMXJg.Config `json:"request,omitempty"`
 }
 
 // Update modifies the configuration of the given object.
 //
 // Method: put
-// URI: /snippets/{id}
-func (c *Client) Update(ctx context.Context, input UpdateInput) (yJkkSzS.Config, error) {
+// URI: /folders/{id}
+func (c *Client) Update(ctx context.Context, input UpdateInput) (vnMMXJg.Config, error) {
 	// Variables.
 	var err error
-	var ans yJkkSzS.Config
-	path := "/snippets/{id}"
+	var ans vnMMXJg.Config
+	path := "/folders/{id}"
 
 	// Path param handling.
 	path = strings.ReplaceAll(path, "{id}", input.Id)
@@ -161,7 +161,7 @@ func (c *Client) Update(ctx context.Context, input UpdateInput) (yJkkSzS.Config,
 /*
 DeleteInput handles input for the Delete function.
 
-ShortName: kJVbXva
+ShortName: rmBFeLV
 Parent chains:
 * DeleteInput
 
@@ -176,12 +176,12 @@ type DeleteInput struct {
 // Delete removes the specified configuration.
 //
 // Method: delete
-// URI: /snippets/{id}
-func (c *Client) Delete(ctx context.Context, input DeleteInput) (yJkkSzS.Config, error) {
+// URI: /folders/{id}
+func (c *Client) Delete(ctx context.Context, input DeleteInput) (vnMMXJg.Config, error) {
 	// Variables.
 	var err error
-	var ans yJkkSzS.Config
-	path := "/snippets/{id}"
+	var ans vnMMXJg.Config
+	path := "/folders/{id}"
 
 	// Path param handling.
 	path = strings.ReplaceAll(path, "{id}", input.Id)
@@ -203,7 +203,7 @@ func (c *Client) Delete(ctx context.Context, input DeleteInput) (yJkkSzS.Config,
 /*
 ListInput handles input for the List function.
 
-ShortName: kJVbXva
+ShortName: rmBFeLV
 Parent chains:
 * ListInput
 
@@ -230,7 +230,7 @@ Parent chains:
 
 Args:
 
-Param Data ([]yJkkSzS.Config): the Data param.
+Param Data ([]vnMMXJg.Config): the Data param.
 
 Param Limit (int64): the Limit param. Default: `200`.
 
@@ -239,7 +239,7 @@ Param Offset (int64): the Offset param. Default: `0`.
 Param Total (int64): the Total param.
 */
 type ListOutput struct {
-	Data   []yJkkSzS.Config `json:"data,omitempty"`
+	Data   []vnMMXJg.Config `json:"data,omitempty"`
 	Limit  *int64           `json:"limit,omitempty"`
 	Offset *int64           `json:"offset,omitempty"`
 	Total  *int64           `json:"total,omitempty"`
@@ -248,12 +248,12 @@ type ListOutput struct {
 // List gets a list of objects back.
 //
 // Method: get
-// URI: /snippets
+// URI: /folders
 func (c *Client) List(ctx context.Context, input ListInput) (ListOutput, error) {
 	// Variables.
 	var err error
 	var ans ListOutput
-	path := "/snippets"
+	path := "/folders"
 
 	// Query parameter handling.
 	uv := url.Values{}
@@ -294,7 +294,7 @@ type listResponse struct {
 func (c *Client) listAll(ctx context.Context, input ListInput) (ListOutput, error) {
 	var err error
 	var ans ListOutput
-	var items map[string]yJkkSzS.Config
+	var items map[string]vnMMXJg.Config
 	maxLimit := int64(2000)
 	everything := ListInput{
 		Limit: &maxLimit,
@@ -313,7 +313,7 @@ func (c *Client) listAll(ctx context.Context, input ListInput) (ListOutput, erro
 			return ans, nil
 		}
 
-		items = make(map[string]yJkkSzS.Config)
+		items = make(map[string]vnMMXJg.Config)
 		total := int(*ans.Total)
 		numRetrievers := int(math.Ceil(float64(total) / float64(maxLimit)))
 		responses := make(chan listResponse, numRetrievers)
@@ -370,7 +370,7 @@ func (c *Client) listAll(ctx context.Context, input ListInput) (ListOutput, erro
 	}
 
 	endTotal := int64(len(items))
-	listing := make([]yJkkSzS.Config, 0, len(items))
+	listing := make([]vnMMXJg.Config, 0, len(items))
 	for key := range items {
 		listing = append(listing, items[key])
 	}
@@ -381,4 +381,48 @@ func (c *Client) listAll(ctx context.Context, input ListInput) (ListOutput, erro
 		Total: &endTotal,
 		Limit: &negativeOne,
 	}, nil
+}
+
+/*
+MovePutInput handles input for the MovePut function.
+
+ShortName: rmBFeLV
+Parent chains:
+* MovePutInput
+
+Args:
+
+Param Id (string, required): the Id param.
+
+Param Request (vnMMXJg.Config): the Request param.
+*/
+type MovePutInput struct {
+	Id      string          `json:"id"`
+	Request *vnMMXJg.Config `json:"request,omitempty"`
+}
+
+// MovePut performs the given operation.
+//
+// Method: put
+// URI: /folders/{id}/move
+func (c *Client) MovePut(ctx context.Context, input MovePutInput) error {
+	// Variables.
+	var err error
+	path := "/folders/{id}/move"
+
+	// Path param handling.
+	path = strings.ReplaceAll(path, "{id}", input.Id)
+	prefix, ok := Servers[c.client.GetHost()]
+	if !ok {
+		return api.UnknownHostError
+	}
+	if prefix != "" {
+		path = prefix + path
+	}
+
+	// Execute the command.
+	_, err = c.client.Do(ctx, "PUT", path, nil, input.Request, nil)
+
+	// Done.
+	return err
 }

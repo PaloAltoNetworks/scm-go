@@ -12,7 +12,7 @@ import (
 /*
 Config object.
 
-ShortName: vnMMXJg
+ShortName: nnsRzDg
 Parent chains:
 *
 

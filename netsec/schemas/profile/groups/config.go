@@ -14,25 +14,28 @@ Parent chains:
 
 Args:
 
-Param DnsSecurities ([]string): the DnsSecurities param.
+Param AiSecurities ([]string): List of AI security profiles.
 
-Param FileBlockings ([]string): the FileBlockings param.
+Param DnsSecurities ([]string): List of DNS security profiles.
+
+Param FileBlockings ([]string): List of file blocking profiles.
 
 Param Id (string, read-only): UUID of the resource
 
-Param Name (string, required): the Name param.
+Param Name (string, required): The name of the profile group.
 
-Param SaasSecurities ([]string): the SaasSecurities param.
+Param SaasSecurities ([]string): List of HTTP header insertion profiles.
 
-Param Spywares ([]string): the Spywares param.
+Param Spywares ([]string): List of anti-spyware profiles.
 
-Param UrlFilterings ([]string): the UrlFilterings param.
+Param UrlFilterings ([]string): List of URL filtering profiles.
 
-Param VirusAndWildfireAnalyses ([]string): the VirusAndWildfireAnalyses param.
+Param VirusAndWildfireAnalyses ([]string): List of anti-virus and Wildfire analysis profiles.
 
-Param Vulnerabilities ([]string): the Vulnerabilities param.
+Param Vulnerabilities ([]string): List of vulnerability protection profiles.
 */
 type Config struct {
+	AiSecurities             []string `json:"ai_security,omitempty"`
 	DnsSecurities            []string `json:"dns_security,omitempty"`
 	FileBlockings            []string `json:"file_blocking,omitempty"`
 	Id                       *string  `json:"id,omitempty"`

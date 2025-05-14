@@ -20,7 +20,7 @@ Param Description (string): the Description param.
 
 Param DestinationTranslation (DestinationTranslationObject): Static destination translation parameter.
 
-Param Destinations ([]string, required): The destination address(es) Individual elements in this list are subject to additional validation. String must be one of these: `"any"`.
+Param Destinations ([]string, required): The destination address(es)
 
 Param Device (string): The device in which the resource is defined String length must not exceed 64 characters. String validation regex: `^[a-zA-Z\d-_\. ]+$`.
 
@@ -30,7 +30,7 @@ Param DynamicDestinationTranslation (DynamicDestinationTranslationObject): Dynam
 
 Param Folder (string): The folder in which the resource is defined String length must not exceed 64 characters. String validation regex: `^[a-zA-Z\d-_\. ]+$`.
 
-Param Froms ([]string, required): The source security zone(s) Individual elements in this list are subject to additional validation. String must be one of these: `"any"`.
+Param Froms ([]string, required): The source security zone(s)
 
 Param GroupTag (string): the GroupTag param.
 
@@ -46,13 +46,13 @@ Param Snippet (string): The snippet in which the resource is defined String leng
 
 Param SourceTranslation (SourceTranslationObject): the SourceTranslation param.
 
-Param Sources ([]string, required): The source address(es) Individual elements in this list are subject to additional validation. String must be one of these: `"any"`.
+Param Sources ([]string, required): The source address(es)
 
 Param Tags ([]string): the Tags param.
 
 Param Target (TargetObject): the Target param.
 
-Param ToInterface (string): the ToInterface param. String must be one of these: `"any"`.
+Param ToInterface (string): the ToInterface param.
 
 Param Tos ([]string, required): The destination security zone(s)
 */
