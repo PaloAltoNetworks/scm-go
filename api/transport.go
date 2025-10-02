@@ -72,12 +72,10 @@ func prettyPrintJsonLines(b []byte) string {
 	return strings.Join(parts, "\n")
 }
 
-const logReqMsg = `
----[ REQUEST ]---------------------------------------
+const logReqMsg = `---[ REQUEST ]---------------------------------------
 %s
 -----------------------------------------------------`
 
-const logRespMsg = `
----[ RESPONSE ]--------------------------------------
+const logRespMsg = `---[ RESPONSE ]--------------------------------------
 %s
 -----------------------------------------------------`

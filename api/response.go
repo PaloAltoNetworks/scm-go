@@ -27,17 +27,13 @@ func (e Response) Failed() bool {
 
 func (e Response) Error() string {
 	var buf strings.Builder
-
 	buf.WriteString(fmt.Sprintf("[HTTP %d]", e.StatusCode))
-
 	for i := 0; i < len(e.Errors); i++ {
 		buf.WriteString(" ")
 		if i > 0 {
 			buf.WriteString("|| ")
 		}
-
 		buf.WriteString(e.Errors[i].Error())
 	}
-
 	return buf.String()
 }
