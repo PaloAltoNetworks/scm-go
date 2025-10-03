@@ -5,6 +5,7 @@ import (
 	"net/url"
 )
 
+// Client defines the interface for API operations
 type Client interface {
 	GetHost() string
 	LoggingIsSetTo(string) bool

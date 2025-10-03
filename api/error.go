@@ -18,24 +18,20 @@ type Error struct {
 
 func (s Error) Error() string {
 	var buf strings.Builder
-
 	if s.Code != "" {
 		buf.WriteString(s.Code)
 	}
-
 	if s.Message != "" {
 		if buf.String() != "" {
 			buf.WriteString(" ")
 		}
 		buf.WriteString(s.Message)
 	}
-
 	if s.Details != nil {
 		if buf.String() != "" {
 			buf.WriteString(" - ")
 		}
 		buf.WriteString(fmt.Sprintf("%v", s.Details))
 	}
-
 	return buf.String()
 }

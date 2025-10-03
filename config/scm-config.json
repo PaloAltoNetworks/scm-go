@@ -1,0 +1,10 @@
+{
+  "auth_url": "",
+  "client_id": "",
+  "client_secret": "",
+  "host": "",
+  "logging": "quiet",
+  "protocol": "https",
+  "scope": "",
+  "skip_verify_certificate": false
+}

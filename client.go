@@ -5,7 +5,7 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -28,7 +28,7 @@ values are configured for the client, then this is the resolution order:
 2. Environment variables
 3. Taken from the JSON config file
 
-This resolution happens during `Setup()`.
+This resolution happens during Setup().
 
 The following is supported:
 
@@ -92,7 +92,7 @@ func (c *Client) Setup() error {
 		if len(c.testData) != 0 {
 			b, err = c.authFileContent, nil
 		} else {
-			b, err = ioutil.ReadFile(c.AuthFile)
+			b, err = os.ReadFile(c.AuthFile)
 		}
 
 		if err != nil {
@@ -318,7 +318,7 @@ func (c *Client) RefreshJwt(ctx context.Context) error {
 	}
 
 	defer resp.Body.Close()
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err = io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
@@ -439,7 +439,7 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 
 	// Read the body content.
 	defer resp.Body.Close()
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err = io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -509,3 +509,26 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 
 // GetHost returns the Host property.
 func (c *Client) GetHost() string { return c.Host }
+
+// authResponse represents the response from the auth endpoint
+type authResponse struct {
+	Jwt       string `json:"access_token"`
+	TokenType string `json:"token_type"`
+	ExpiresIn int    `json:"expires_in"`
+	Scope     string `json:"scope"`
+	Error     string `json:"error"`
+	ErrorDesc string `json:"error_description"`
+}
+
+// Failed checks if the auth response indicates a failure
+func (a *authResponse) Failed(statusCode int, body []byte) error {
+	if statusCode >= 200 && statusCode < 300 {
+		return nil
+	}
+
+	if a.Error != "" {
+		return fmt.Errorf("auth error: %s - %s", a.Error, a.ErrorDesc)
+	}
+
+	return fmt.Errorf("auth failed with status %d: %s", statusCode, string(body))
+}
