@@ -43,6 +43,7 @@ In the project root scm-go, populate scm-config.json with the relevant parameter
 
 Then you can write a go program to test out the authentication.
 There are tests provided in the tests directory for convenience.
+Error handling below is omitted for brevity.
 
 ```go
 package main
