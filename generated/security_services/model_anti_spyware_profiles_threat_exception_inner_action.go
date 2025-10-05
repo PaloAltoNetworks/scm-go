@@ -18,16 +18,16 @@ import (
 // checks if the AntiSpywareProfilesThreatExceptionInnerAction type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AntiSpywareProfilesThreatExceptionInnerAction{}
 
-// AntiSpywareProfilesThreatExceptionInnerAction struct for AntiSpywareProfilesThreatExceptionInnerAction
+// AntiSpywareProfilesThreatExceptionInnerAction anti spyware profiles threat exception default action
 type AntiSpywareProfilesThreatExceptionInnerAction struct {
-	Alert                map[string]interface{}                      `json:"alert,omitempty"`
-	Allow                map[string]interface{}                      `json:"allow,omitempty"`
-	BlockIp              *AntiSpywareProfilesRulesInnerActionBlockIp `json:"block_ip,omitempty"`
-	Default              map[string]interface{}                      `json:"default,omitempty"`
-	Drop                 map[string]interface{}                      `json:"drop,omitempty"`
-	ResetBoth            map[string]interface{}                      `json:"reset_both,omitempty"`
-	ResetClient          map[string]interface{}                      `json:"reset_client,omitempty"`
-	ResetServer          map[string]interface{}                      `json:"reset_server,omitempty"`
+	Alert                map[string]interface{}                                `json:"alert,omitempty"`
+	Allow                map[string]interface{}                                `json:"allow,omitempty"`
+	BlockIp              *AntiSpywareProfilesThreatExceptionInnerActionBlockIp `json:"block_ip,omitempty"`
+	Default              map[string]interface{}                                `json:"default,omitempty"`
+	Drop                 map[string]interface{}                                `json:"drop,omitempty"`
+	ResetBoth            map[string]interface{}                                `json:"reset_both,omitempty"`
+	ResetClient          map[string]interface{}                                `json:"reset_client,omitempty"`
+	ResetServer          map[string]interface{}                                `json:"reset_server,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -115,9 +115,9 @@ func (o *AntiSpywareProfilesThreatExceptionInnerAction) SetAllow(v map[string]in
 }
 
 // GetBlockIp returns the BlockIp field value if set, zero value otherwise.
-func (o *AntiSpywareProfilesThreatExceptionInnerAction) GetBlockIp() AntiSpywareProfilesRulesInnerActionBlockIp {
+func (o *AntiSpywareProfilesThreatExceptionInnerAction) GetBlockIp() AntiSpywareProfilesThreatExceptionInnerActionBlockIp {
 	if o == nil || IsNil(o.BlockIp) {
-		var ret AntiSpywareProfilesRulesInnerActionBlockIp
+		var ret AntiSpywareProfilesThreatExceptionInnerActionBlockIp
 		return ret
 	}
 	return *o.BlockIp
@@ -125,7 +125,7 @@ func (o *AntiSpywareProfilesThreatExceptionInnerAction) GetBlockIp() AntiSpyware
 
 // GetBlockIpOk returns a tuple with the BlockIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AntiSpywareProfilesThreatExceptionInnerAction) GetBlockIpOk() (*AntiSpywareProfilesRulesInnerActionBlockIp, bool) {
+func (o *AntiSpywareProfilesThreatExceptionInnerAction) GetBlockIpOk() (*AntiSpywareProfilesThreatExceptionInnerActionBlockIp, bool) {
 	if o == nil || IsNil(o.BlockIp) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *AntiSpywareProfilesThreatExceptionInnerAction) HasBlockIp() bool {
 	return false
 }
 
-// SetBlockIp gets a reference to the given AntiSpywareProfilesRulesInnerActionBlockIp and assigns it to the BlockIp field.
-func (o *AntiSpywareProfilesThreatExceptionInnerAction) SetBlockIp(v AntiSpywareProfilesRulesInnerActionBlockIp) {
+// SetBlockIp gets a reference to the given AntiSpywareProfilesThreatExceptionInnerActionBlockIp and assigns it to the BlockIp field.
+func (o *AntiSpywareProfilesThreatExceptionInnerAction) SetBlockIp(v AntiSpywareProfilesThreatExceptionInnerActionBlockIp) {
 	o.BlockIp = &v
 }
 

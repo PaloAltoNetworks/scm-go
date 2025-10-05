@@ -32,8 +32,8 @@ type TunnelInterfaces struct {
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
-	InterfaceManagementProfile *string               `json:"interface_management_profile,omitempty"`
-	Ip                         *LoopbackInterfacesIp `json:"ip,omitempty"`
+	InterfaceManagementProfile *string             `json:"interface_management_profile,omitempty"`
+	Ip                         *TunnelInterfacesIp `json:"ip,omitempty"`
 	// MTU
 	Mtu *float32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
@@ -256,9 +256,9 @@ func (o *TunnelInterfaces) SetInterfaceManagementProfile(v string) {
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *TunnelInterfaces) GetIp() LoopbackInterfacesIp {
+func (o *TunnelInterfaces) GetIp() TunnelInterfacesIp {
 	if o == nil || IsNil(o.Ip) {
-		var ret LoopbackInterfacesIp
+		var ret TunnelInterfacesIp
 		return ret
 	}
 	return *o.Ip
@@ -266,7 +266,7 @@ func (o *TunnelInterfaces) GetIp() LoopbackInterfacesIp {
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TunnelInterfaces) GetIpOk() (*LoopbackInterfacesIp, bool) {
+func (o *TunnelInterfaces) GetIpOk() (*TunnelInterfacesIp, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -282,8 +282,8 @@ func (o *TunnelInterfaces) HasIp() bool {
 	return false
 }
 
-// SetIp gets a reference to the given LoopbackInterfacesIp and assigns it to the Ip field.
-func (o *TunnelInterfaces) SetIp(v LoopbackInterfacesIp) {
+// SetIp gets a reference to the given TunnelInterfacesIp and assigns it to the Ip field.
+func (o *TunnelInterfaces) SetIp(v TunnelInterfacesIp) {
 	o.Ip = &v
 }
 

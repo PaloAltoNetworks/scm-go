@@ -11606,7 +11606,7 @@ components:
             reset_client: "{}"
             alert: "{}"
             block_ip:
-              duration: 289
+              duration: 2170
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
@@ -11623,7 +11623,7 @@ components:
             reset_client: "{}"
             alert: "{}"
             block_ip:
-              duration: 289
+              duration: 2170
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
@@ -11748,7 +11748,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11784,7 +11784,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11822,7 +11822,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11858,7 +11858,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11901,7 +11901,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11937,7 +11937,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11975,7 +11975,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -12011,7 +12011,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -12056,12 +12056,12 @@ components:
               name: name
             time_attribute:
               track_by: source-and-destination
-              interval: 289
-              threshold: 154
+              interval: 2170
+              threshold: 38
         bugtraq:
         - bugtraq
         - bugtraq
-        threat_id: 39468180
+        threat_id: 16126498
         threatname: threatname
         default_action:
           allow: "{}"
@@ -12100,7 +12100,7 @@ components:
             type: string
           type: array
         default_action:
-          $ref: '#/components/schemas/anti_spyware_profiles_rules_inner_action'
+          $ref: '#/components/schemas/anti_spyware_signatures_default_action'
         device:
           description: The device in which the resource is defined
           example: My Device
@@ -13835,8 +13835,8 @@ components:
             reset_server: "{}"
           time_attribute:
             track_by: source
-            interval: 289
-            threshold: 39501
+            interval: 2170
+            threshold: 9607
           packet_capture: disable
         - notes: notes
           exempt_ip:
@@ -13856,8 +13856,8 @@ components:
             reset_server: "{}"
           time_attribute:
             track_by: source
-            interval: 289
-            threshold: 39501
+            interval: 2170
+            threshold: 9607
           packet_capture: disable
         description: description
         rules:
@@ -13974,7 +13974,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14010,7 +14010,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14048,7 +14048,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14084,7 +14084,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14127,7 +14127,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14163,7 +14163,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14201,7 +14201,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14237,7 +14237,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14282,8 +14282,8 @@ components:
               name: name
             time_attribute:
               track_by: source-and-destination
-              interval: 289
-              threshold: 154
+              interval: 2170
+              threshold: 38
         bugtraq:
         - bugtraq
         - bugtraq
@@ -14331,7 +14331,7 @@ components:
             type: string
           type: array
         default_action:
-          $ref: '#/components/schemas/anti_spyware_profiles_rules_inner_action'
+          $ref: '#/components/schemas/vulnerability_protection_signatures_default_action'
         device:
           description: The device in which the resource is defined
           example: My Device
@@ -14368,7 +14368,7 @@ components:
           - informational
           type: string
         signature:
-          $ref: '#/components/schemas/anti_spyware_signatures_signature'
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature'
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
@@ -14496,6 +14496,7 @@ components:
           type: string
       type: object
     anti_spyware_profiles_rules_inner_action_block_ip:
+      description: anti spyware profiles rules action block ip
       example:
         duration: 289
         track_by: source-and-destination
@@ -14511,6 +14512,7 @@ components:
           type: string
       type: object
     anti_spyware_profiles_rules_inner_action:
+      description: anti spyware profiles rules default action
       example:
         allow: "{}"
         drop: "{}"
@@ -14612,7 +14614,24 @@ components:
           minLength: 4
           type: string
       type: object
+    anti_spyware_profiles_threat_exception_inner_action_block_ip:
+      description: anti spyware profiles threat exception action block ip
+      example:
+        duration: 2170
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          type: string
+      type: object
     anti_spyware_profiles_threat_exception_inner_action:
+      description: anti spyware profiles threat exception default action
       example:
         allow: "{}"
         drop: "{}"
@@ -14620,7 +14639,7 @@ components:
         reset_client: "{}"
         alert: "{}"
         block_ip:
-          duration: 289
+          duration: 2170
           track_by: source-and-destination
         reset_both: "{}"
         reset_server: "{}"
@@ -14630,7 +14649,7 @@ components:
         allow:
           type: object
         block_ip:
-          $ref: '#/components/schemas/anti_spyware_profiles_rules_inner_action_block_ip'
+          $ref: '#/components/schemas/anti_spyware_profiles_threat_exception_inner_action_block_ip'
         default:
           type: object
         drop:
@@ -14643,6 +14662,7 @@ components:
           type: object
       type: object
     anti_spyware_profiles_threat_exception_inner_exempt_ip_inner:
+      description: anti spyware protection IP address to be exempted from threat exception
       example:
         name: name
       properties:
@@ -14665,7 +14685,7 @@ components:
           reset_client: "{}"
           alert: "{}"
           block_ip:
-            duration: 289
+            duration: 2170
             track_by: source-and-destination
           reset_both: "{}"
           reset_server: "{}"
@@ -14687,6 +14707,50 @@ components:
           - single-packet
           - extended-capture
           type: string
+      type: object
+    anti_spyware_signatures_default_action_block_ip:
+      description: anti spyware signature block ip
+      example:
+        duration: 289
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          type: string
+      type: object
+    anti_spyware_signatures_default_action:
+      description: anti spyware signature default action
+      example:
+        allow: "{}"
+        drop: "{}"
+        reset_client: "{}"
+        alert: "{}"
+        block_ip:
+          duration: 289
+          track_by: source-and-destination
+        reset_both: "{}"
+        reset_server: "{}"
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/anti_spyware_signatures_default_action_block_ip'
+        drop:
+          type: object
+        reset_both:
+          type: object
+        reset_client:
+          type: object
+        reset_server:
+          type: object
       type: object
     anti_spyware_signatures_signature_combination_and_condition_inner_or_condition_inner:
       example:
@@ -14717,8 +14781,8 @@ components:
     anti_spyware_signatures_signature_combination_time_attribute:
       example:
         track_by: source-and-destination
-        interval: 289
-        threshold: 154
+        interval: 2170
+        threshold: 38
       properties:
         interval:
           maximum: 3600
@@ -14753,8 +14817,8 @@ components:
           name: name
         time_attribute:
           track_by: source-and-destination
-          interval: 289
-          threshold: 154
+          interval: 2170
+          threshold: 38
       properties:
         and_condition:
           items:
@@ -14785,7 +14849,7 @@ components:
         - name: name
           value: value
         context: context
-        value: 629561881
+        value: 2147483647
       properties:
         context:
           type: string
@@ -14855,7 +14919,7 @@ components:
           - name: name
             value: value
           context: context
-          value: 629561881
+          value: 2147483647
         greater_than:
           qualifier:
           - name: name
@@ -14903,7 +14967,7 @@ components:
             - name: name
               value: value
             context: context
-            value: 629561881
+            value: 2147483647
           greater_than:
             qualifier:
             - name: name
@@ -14948,7 +15012,7 @@ components:
               - name: name
                 value: value
               context: context
-              value: 629561881
+              value: 2147483647
             greater_than:
               qualifier:
               - name: name
@@ -14984,7 +15048,7 @@ components:
               - name: name
                 value: value
               context: context
-              value: 629561881
+              value: 2147483647
             greater_than:
               qualifier:
               - name: name
@@ -15036,7 +15100,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -15072,7 +15136,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -15110,7 +15174,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -15146,7 +15210,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -15196,6 +15260,7 @@ components:
       - name
       type: object
     anti_spyware_signatures_signature:
+      description: anti spyware signature
       example:
         standard:
         - order_free: false
@@ -15213,7 +15278,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15249,7 +15314,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15287,7 +15352,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15323,7 +15388,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15366,7 +15431,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15402,7 +15467,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15440,7 +15505,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15476,7 +15541,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15521,8 +15586,8 @@ components:
             name: name
           time_attribute:
             track_by: source-and-destination
-            interval: 289
-            threshold: 154
+            interval: 2170
+            threshold: 38
       properties:
         combination:
           $ref: '#/components/schemas/anti_spyware_signatures_signature_combination'
@@ -16637,6 +16702,52 @@ components:
         mode:
           $ref: '#/components/schemas/url_access_profiles_credential_enforcement_mode'
       type: object
+    vulnerability_protection_profiles_rules_inner_action_block_ip:
+      example:
+        duration: 289
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          type: string
+      type: object
+    vulnerability_protection_profiles_rules_inner_action:
+      description: vulnerability profiles threat exception default action
+      example:
+        allow: "{}"
+        drop: "{}"
+        default: "{}"
+        reset_client: "{}"
+        alert: "{}"
+        block_ip:
+          duration: 289
+          track_by: source-and-destination
+        reset_both: "{}"
+        reset_server: "{}"
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/vulnerability_protection_profiles_rules_inner_action_block_ip'
+        default:
+          type: object
+        drop:
+          type: object
+        reset_both:
+          type: object
+        reset_client:
+          type: object
+        reset_server:
+          type: object
+      type: object
     vulnerability_protection_profiles_rules_inner:
       example:
         severity:
@@ -16666,7 +16777,7 @@ components:
         packet_capture: disable
       properties:
         action:
-          $ref: '#/components/schemas/anti_spyware_profiles_threat_exception_inner_action'
+          $ref: '#/components/schemas/vulnerability_protection_profiles_rules_inner_action'
         category:
           enum:
           - any
@@ -16709,11 +16820,53 @@ components:
             type: string
           type: array
       type: object
+    vulnerability_protection_profiles_threat_exception_inner_action:
+      description: vulnerability threat exception default action
+      example:
+        allow: "{}"
+        drop: "{}"
+        default: "{}"
+        reset_client: "{}"
+        alert: "{}"
+        block_ip:
+          duration: 289
+          track_by: source-and-destination
+        reset_both: "{}"
+        reset_server: "{}"
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/vulnerability_protection_profiles_rules_inner_action_block_ip'
+        default:
+          type: object
+        drop:
+          type: object
+        reset_both:
+          type: object
+        reset_client:
+          type: object
+        reset_server:
+          type: object
+      type: object
+    vulnerability_protection_profiles_threat_exception_inner_exempt_ip_inner:
+      description: Vulnerability protection IP address to be exempted from threat
+        exception
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
     vulnerability_protection_profiles_threat_exception_inner_time_attribute:
       example:
         track_by: source
-        interval: 289
-        threshold: 39501
+        interval: 2170
+        threshold: 9607
       properties:
         interval:
           maximum: 3600
@@ -16750,15 +16903,15 @@ components:
           reset_server: "{}"
         time_attribute:
           track_by: source
-          interval: 289
-          threshold: 39501
+          interval: 2170
+          threshold: 9607
         packet_capture: disable
       properties:
         action:
-          $ref: '#/components/schemas/anti_spyware_profiles_threat_exception_inner_action'
+          $ref: '#/components/schemas/vulnerability_protection_profiles_threat_exception_inner_action'
         exempt_ip:
           items:
-            $ref: '#/components/schemas/anti_spyware_profiles_threat_exception_inner_exempt_ip_inner'
+            $ref: '#/components/schemas/vulnerability_protection_profiles_threat_exception_inner_exempt_ip_inner'
           type: array
         name:
           type: string
@@ -16782,6 +16935,370 @@ components:
           type: boolean
         server:
           type: boolean
+      type: object
+    vulnerability_protection_signatures_default_action:
+      example:
+        allow: "{}"
+        drop: "{}"
+        reset_client: "{}"
+        alert: "{}"
+        block_ip:
+          duration: 289
+          track_by: source-and-destination
+        reset_both: "{}"
+        reset_server: "{}"
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/vulnerability_protection_profiles_rules_inner_action_block_ip'
+        drop:
+          type: object
+        reset_both:
+          type: object
+        reset_client:
+          type: object
+        reset_server:
+          type: object
+      type: object
+    vulnerability_protection_signatures_signature:
+      description: vulnerability protection signature
+      example:
+        standard:
+        - order_free: false
+          scope: protocol-data-unit
+          name: name
+          and_condition:
+          - or_condition:
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            name: name
+          - or_condition:
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            name: name
+          comment: comment
+        - order_free: false
+          scope: protocol-data-unit
+          name: name
+          and_condition:
+          - or_condition:
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            name: name
+          - or_condition:
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            name: name
+          comment: comment
+        combination:
+          order_free: false
+          and_condition:
+          - or_condition:
+            - name: name
+              threat_id: threat_id
+            - name: name
+              threat_id: threat_id
+            name: name
+          - or_condition:
+            - name: name
+              threat_id: threat_id
+            - name: name
+              threat_id: threat_id
+            name: name
+          time_attribute:
+            track_by: source-and-destination
+            interval: 2170
+            threshold: 38
+      properties:
+        combination:
+          $ref: '#/components/schemas/anti_spyware_signatures_signature_combination'
+        standard:
+          items:
+            $ref: '#/components/schemas/anti_spyware_signatures_signature_standard_inner'
+          type: array
       type: object
     wildfire_anti_virus_profiles_mlav_exception_inner:
       example:

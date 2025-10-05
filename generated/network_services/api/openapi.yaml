@@ -16398,7 +16398,7 @@ components:
           example: string
           type: string
         ip:
-          $ref: '#/components/schemas/loopback_interfaces_ip'
+          $ref: '#/components/schemas/tunnel_interfaces_ip'
         mtu:
           description: MTU
           maximum: 9216
@@ -31659,13 +31659,14 @@ components:
       required:
       - name
     loopback_interfaces_ip:
+      description: loopback ip parent
       example:
         ip:
         - ip
         - ip
       properties:
         ip:
-          description: IP address(es)
+          description: Loopback IP address(es)
           items:
             type: string
           type: array
@@ -32783,6 +32784,18 @@ components:
           type: boolean
         name:
           type: string
+    tunnel_interfaces_ip:
+      description: tunnel interfaces ip parent
+      example:
+        ip:
+        - ip
+        - ip
+      properties:
+        ip:
+          description: tunnel interfaces IP address(es)
+          items:
+            type: string
+          type: array
     vlan_interfaces_arp_inner:
       example:
         hw-address: hw-address

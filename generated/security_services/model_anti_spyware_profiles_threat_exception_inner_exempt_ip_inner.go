@@ -19,7 +19,7 @@ import (
 // checks if the AntiSpywareProfilesThreatExceptionInnerExemptIpInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AntiSpywareProfilesThreatExceptionInnerExemptIpInner{}
 
-// AntiSpywareProfilesThreatExceptionInnerExemptIpInner struct for AntiSpywareProfilesThreatExceptionInnerExemptIpInner
+// AntiSpywareProfilesThreatExceptionInnerExemptIpInner anti spyware protection IP address to be exempted from threat exception
 type AntiSpywareProfilesThreatExceptionInnerExemptIpInner struct {
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
