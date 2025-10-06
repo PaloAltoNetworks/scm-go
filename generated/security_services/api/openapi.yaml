@@ -11401,6 +11401,21 @@ components:
       - offset
       - total
       type: object
+    SecurityRuleListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/security-rules'
+          type: array
+        limit:
+          default: 200
+          type: integer
+        offset:
+          default: 0
+          type: integer
+        total:
+          type: integer
+      type: object
     URLAccessProfilesListResponse:
       example:
         total: 1
@@ -12283,6 +12298,93 @@ components:
       - source
       - to
       type: object
+    base-rule-properties:
+      properties:
+        action:
+          description: The action to be taken when the rule is matched
+          enum:
+          - allow
+          - deny
+          - drop
+          - reset-client
+          - reset-server
+          - reset-both
+          type: string
+        description:
+          description: The description of the security rule
+          type: string
+        destination:
+          description: The destination address(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        disabled:
+          default: false
+          description: Is the security rule disabled?
+          type: boolean
+        from:
+          description: The source security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        id:
+          description: The UUID of the security rule
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: uuid
+          readOnly: true
+          type: string
+        name:
+          description: The name of the security rule
+          type: string
+        negate_source:
+          default: false
+          description: Negate the source address(es)?
+          type: boolean
+        schedule:
+          description: Schedule in which this rule will be applied
+          type: string
+        service:
+          description: The service(s) being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source:
+          description: The source addresses(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source_user:
+          description: "List of source users and/or groups.  Reserved words include\
+            \ `any`, `pre-login`, `known-user`, and `unknown`."
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        tag:
+          description: The tags associated with the security rule
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        to:
+          description: The destination security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - name
+      type: object
     decryption-exclusions:
       example:
         snippet: My Snippet
@@ -13118,6 +13220,131 @@ components:
       required:
       - name
       type: object
+    internet-rule-type:
+      description: A simplified security rule for controlling internet access.
+      properties:
+        action:
+          description: The action to be taken when the rule is matched
+          enum:
+          - allow
+          - deny
+          - drop
+          - reset-client
+          - reset-server
+          - reset-both
+          type: string
+        allow_url_category:
+          items:
+            $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner'
+          type: array
+        allow_web_application:
+          items:
+            $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner'
+          type: array
+        block_url_category:
+          items:
+            type: string
+          type: array
+        block_web_application:
+          items:
+            type: string
+          type: array
+        default_profile_settings:
+          $ref: '#/components/schemas/internet_rule_type_default_profile_settings'
+        description:
+          description: The description of the security rule
+          type: string
+        destination:
+          description: The destination address(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        devices:
+          default:
+          - any
+          items:
+            type: string
+          type: array
+        disabled:
+          default: false
+          description: Is the security rule disabled?
+          type: boolean
+        from:
+          description: The source security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        id:
+          description: The UUID of the security rule
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: uuid
+          readOnly: true
+          type: string
+        log_settings:
+          $ref: '#/components/schemas/internet_rule_type_log_settings'
+        name:
+          description: The name of the security rule
+          type: string
+        negate_source:
+          default: false
+          description: Negate the source address(es)?
+          type: boolean
+        negate_user:
+          default: false
+          type: boolean
+        policy_type:
+          description: The type of security rule. Must be 'Internet'.
+          enum:
+          - Internet
+          type: string
+        schedule:
+          description: Schedule in which this rule will be applied
+          type: string
+        security_settings:
+          $ref: '#/components/schemas/internet_rule_type_security_settings'
+        service:
+          description: The service(s) being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source:
+          description: The source addresses(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source_user:
+          description: "List of source users and/or groups.  Reserved words include\
+            \ `any`, `pre-login`, `known-user`, and `unknown`."
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        tag:
+          description: The tags associated with the security rule
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        to:
+          description: The destination security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - name
+      - policy_type
+      type: object
     profile-groups:
       example:
         snippet: My Snippet
@@ -13273,9 +13500,162 @@ components:
             type: string
           type: array
       type: object
+    security-rule-type:
+      description: A standard security rule for controlling traffic between zones.
+      properties:
+        action:
+          description: The action to be taken when the rule is matched
+          enum:
+          - allow
+          - deny
+          - drop
+          - reset-client
+          - reset-server
+          - reset-both
+          type: string
+        application:
+          description: The application(s) being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        category:
+          description: The URL categories being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        description:
+          description: The description of the security rule
+          type: string
+        destination:
+          description: The destination address(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        destination_hip:
+          description: The destination Host Integrity Profile(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        disabled:
+          default: false
+          description: Is the security rule disabled?
+          type: boolean
+        from:
+          description: The source security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        id:
+          description: The UUID of the security rule
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: uuid
+          readOnly: true
+          type: string
+        log_end:
+          description: Log at session end?
+          type: boolean
+        log_setting:
+          description: The external log forwarding profile
+          type: string
+        log_start:
+          description: Log at session start?
+          type: boolean
+        name:
+          description: The name of the security rule
+          type: string
+        negate_destination:
+          default: false
+          description: Negate the destination addresses(es)?
+          type: boolean
+        negate_source:
+          default: false
+          description: Negate the source address(es)?
+          type: boolean
+        policy_type:
+          description: Policy type
+          enum:
+          - Security
+          type: string
+        profile_setting:
+          $ref: '#/components/schemas/security_rule_type_profile_setting'
+        schedule:
+          description: Schedule in which this rule will be applied
+          type: string
+        service:
+          description: The service(s) being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source:
+          description: The source addresses(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source_hip:
+          description: The source Host Integrity Profile(s)
+          items:
+            default: any
+            type: string
+          type: array
+        source_user:
+          description: "List of source users and/or groups.  Reserved words include\
+            \ `any`, `pre-login`, `known-user`, and `unknown`."
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        tag:
+          description: The tags associated with the security rule
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        tenant_restrictions:
+          items:
+            default: any
+            type: string
+          type: array
+        to:
+          description: The destination security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - action
+      - application
+      - category
+      - destination
+      - from
+      - name
+      - policy_type
+      - service
+      - source
+      - source_user
+      - to
+      type: object
     security-rules:
+      description: |-
+        Represents a Security or Internet security rule.
+        A rule must be one of the policy types AND exist in one scope (folder, snippet, or device).
       example:
-        snippet: My Snippet
+        snippet: snippet
         allow_web_application:
         - saas_enterprise_control:
             enterprise_access:
@@ -13423,7 +13803,7 @@ components:
             download: allow-all-file-types
             upload: allow-all-file-types
         policy_type: Security
-        folder: My Folder
+        folder: folder
         application:
         - any
         - any
@@ -13438,7 +13818,7 @@ components:
         category:
         - any
         - any
-        device: My Device
+        device: device
       properties:
         action:
           description: The action to be taken when the rule is matched
@@ -13452,11 +13832,11 @@ components:
           type: string
         allow_url_category:
           items:
-            $ref: '#/components/schemas/security_rules_allow_url_category_inner'
+            $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner'
           type: array
         allow_web_application:
           items:
-            $ref: '#/components/schemas/security_rules_allow_web_application_inner'
+            $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner'
           type: array
         application:
           description: The application(s) being accessed
@@ -13481,7 +13861,7 @@ components:
           type: array
           uniqueItems: true
         default_profile_settings:
-          $ref: '#/components/schemas/security_rules_default_profile_settings'
+          $ref: '#/components/schemas/internet_rule_type_default_profile_settings'
         description:
           description: The description of the security rule
           type: string
@@ -13501,7 +13881,6 @@ components:
           uniqueItems: true
         device:
           description: The device in which the resource is defined
-          example: My Device
           maxLength: 64
           pattern: "^[a-zA-Z\\d-_\\. ]+$"
           type: string
@@ -13517,7 +13896,6 @@ components:
           type: boolean
         folder:
           description: The folder in which the resource is defined
-          example: My Folder
           maxLength: 64
           pattern: "^[a-zA-Z\\d-_\\. ]+$"
           type: string
@@ -13541,7 +13919,7 @@ components:
           description: The external log forwarding profile
           type: string
         log_settings:
-          $ref: '#/components/schemas/security_rules_log_settings'
+          $ref: '#/components/schemas/internet_rule_type_log_settings'
         log_start:
           description: Log at session start?
           type: boolean
@@ -13560,15 +13938,17 @@ components:
           default: false
           type: boolean
         policy_type:
-          default: Security
+          description: Policy type
+          enum:
+          - Security
           type: string
         profile_setting:
-          $ref: '#/components/schemas/security_rules_profile_setting'
+          $ref: '#/components/schemas/security_rule_type_profile_setting'
         schedule:
           description: Schedule in which this rule will be applied
           type: string
         security_settings:
-          $ref: '#/components/schemas/security_rules_security_settings'
+          $ref: '#/components/schemas/internet_rule_type_security_settings'
         service:
           description: The service(s) being accessed
           items:
@@ -13578,7 +13958,6 @@ components:
           uniqueItems: true
         snippet:
           description: The snippet in which the resource is defined
-          example: My Snippet
           maxLength: 64
           pattern: "^[a-zA-Z\\d-_\\. ]+$"
           type: string
@@ -16372,27 +16751,7 @@ components:
       - name
       - type
       type: object
-    saas_tenant_restrictions_headers_inner:
-      example:
-        name: name
-        header: header
-        value: value
-      properties:
-        header:
-          description: "Header string associated with the tenant restriction (example\
-            \ - Restrict-Access-To-Tenants, Restrict-Access-Context, X-Dropbox-allowed-Team-Ids,\
-            \ YouTube-Restrict, X-GooGApps-Allowed-Domains)"
-          type: string
-        name:
-          description: "Header name associated with tenant restrictions (example -\
-            \ Permitted Tenant List, Tenant Directory ID)"
-          type: string
-        value:
-          description: "Header value associated with tenant restriction (example -\
-            \ tenant1,tenant2,strict etc.)"
-          type: string
-      type: object
-    security_rules_allow_url_category_inner_file_control:
+    internet_rule_type_allow_url_category_inner_file_control:
       example:
         download: allow-all-file-types
         upload: allow-all-file-types
@@ -16410,7 +16769,7 @@ components:
           - block-all-file-types
           type: string
       type: object
-    security_rules_allow_url_category_inner:
+    internet_rule_type_allow_url_category_inner:
       example:
         isolation_profiles: none
         name: name
@@ -16445,14 +16804,14 @@ components:
         dlp:
           type: string
         file_control:
-          $ref: '#/components/schemas/security_rules_allow_url_category_inner_file_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner_file_control'
         isolation_profiles:
           default: none
           type: string
         name:
           type: string
       type: object
-    security_rules_allow_web_application_inner_saas_enterprise_control_consumer_access:
+    internet_rule_type_allow_web_application_inner_saas_enterprise_control_consumer_access:
       example:
         enable: "yes"
       properties:
@@ -16462,7 +16821,7 @@ components:
           - "no"
           type: string
       type: object
-    security_rules_allow_web_application_inner_saas_enterprise_control_enterprise_access:
+    internet_rule_type_allow_web_application_inner_saas_enterprise_control_enterprise_access:
       example:
         tenant_restrictions:
         - tenant_restrictions
@@ -16479,7 +16838,7 @@ components:
             type: string
           type: array
       type: object
-    security_rules_allow_web_application_inner_saas_enterprise_control:
+    internet_rule_type_allow_web_application_inner_saas_enterprise_control:
       example:
         enterprise_access:
           tenant_restrictions:
@@ -16490,11 +16849,11 @@ components:
           enable: "yes"
       properties:
         consumer_access:
-          $ref: '#/components/schemas/security_rules_allow_web_application_inner_saas_enterprise_control_consumer_access'
+          $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner_saas_enterprise_control_consumer_access'
         enterprise_access:
-          $ref: '#/components/schemas/security_rules_allow_web_application_inner_saas_enterprise_control_enterprise_access'
+          $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner_saas_enterprise_control_enterprise_access'
       type: object
-    security_rules_allow_web_application_inner_tenant_control:
+    internet_rule_type_allow_web_application_inner_tenant_control:
       example:
         allowed_activities:
         - allowed_activities
@@ -16522,7 +16881,7 @@ components:
             type: string
           type: array
       type: object
-    security_rules_allow_web_application_inner:
+    internet_rule_type_allow_web_application_inner:
       example:
         saas_enterprise_control:
           enterprise_access:
@@ -16566,11 +16925,11 @@ components:
         dlp:
           type: string
         file_control:
-          $ref: '#/components/schemas/security_rules_allow_url_category_inner_file_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner_file_control'
         name:
           type: string
         saas_enterprise_control:
-          $ref: '#/components/schemas/security_rules_allow_web_application_inner_saas_enterprise_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner_saas_enterprise_control'
         saas_tenant_list:
           items:
             type: string
@@ -16580,11 +16939,11 @@ components:
             type: string
           type: array
         tenant_control:
-          $ref: '#/components/schemas/security_rules_allow_web_application_inner_tenant_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner_tenant_control'
         type:
           type: string
       type: object
-    security_rules_default_profile_settings:
+    internet_rule_type_default_profile_settings:
       example:
         dlp: dlp
         file_control:
@@ -16594,9 +16953,9 @@ components:
         dlp:
           type: string
         file_control:
-          $ref: '#/components/schemas/security_rules_allow_url_category_inner_file_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner_file_control'
       type: object
-    security_rules_log_settings:
+    internet_rule_type_log_settings:
       example:
         log_sessions: true
       properties:
@@ -16604,21 +16963,7 @@ components:
           default: true
           type: boolean
       type: object
-    security_rules_profile_setting:
-      description: The security profile object
-      example:
-        group:
-        - best-practice
-        - best-practice
-      properties:
-        group:
-          description: The security profile group
-          items:
-            default: best-practice
-            type: string
-          type: array
-      type: object
-    security_rules_security_settings:
+    internet_rule_type_security_settings:
       example:
         anti_spyware: "yes"
         virus_and_wildfire_analysis: "yes"
@@ -16642,6 +16987,40 @@ components:
           - "yes"
           - "no"
           type: string
+      type: object
+    saas_tenant_restrictions_headers_inner:
+      example:
+        name: name
+        header: header
+        value: value
+      properties:
+        header:
+          description: "Header string associated with the tenant restriction (example\
+            \ - Restrict-Access-To-Tenants, Restrict-Access-Context, X-Dropbox-allowed-Team-Ids,\
+            \ YouTube-Restrict, X-GooGApps-Allowed-Domains)"
+          type: string
+        name:
+          description: "Header name associated with tenant restrictions (example -\
+            \ Permitted Tenant List, Tenant Directory ID)"
+          type: string
+        value:
+          description: "Header value associated with tenant restriction (example -\
+            \ tenant1,tenant2,strict etc.)"
+          type: string
+      type: object
+    security_rule_type_profile_setting:
+      description: The security profile object
+      example:
+        group:
+        - best-practice
+        - best-practice
+      properties:
+        group:
+          description: The security profile group
+          items:
+            default: best-practice
+            type: string
+          type: array
       type: object
     url_access_profiles_credential_enforcement_mode:
       example:
