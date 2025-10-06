@@ -60,9 +60,8 @@ type SecurityRules struct {
 	// Negate the destination addresses(es)?
 	NegateDestination *bool `json:"negate_destination,omitempty"`
 	// Negate the source address(es)?
-	NegateSource *bool `json:"negate_source,omitempty"`
-	NegateUser   *bool `json:"negate_user,omitempty"`
-	// Policy type
+	NegateSource   *bool                           `json:"negate_source,omitempty"`
+	NegateUser     *bool                           `json:"negate_user,omitempty"`
 	PolicyType     *string                         `json:"policy_type,omitempty"`
 	ProfileSetting *SecurityRuleTypeProfileSetting `json:"profile_setting,omitempty"`
 	// Schedule in which this rule will be applied
@@ -102,6 +101,8 @@ func NewSecurityRules() *SecurityRules {
 	this.NegateSource = &negateSource
 	var negateUser bool = false
 	this.NegateUser = &negateUser
+	var policyType string = "Security"
+	this.PolicyType = &policyType
 	return &this
 }
 
@@ -118,6 +119,8 @@ func NewSecurityRulesWithDefaults() *SecurityRules {
 	this.NegateSource = &negateSource
 	var negateUser bool = false
 	this.NegateUser = &negateUser
+	var policyType string = "Security"
+	this.PolicyType = &policyType
 	return &this
 }
 

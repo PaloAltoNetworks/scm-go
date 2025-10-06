@@ -12344,6 +12344,9 @@ components:
           default: false
           description: Negate the source address(es)?
           type: boolean
+        policy_type:
+          default: Security
+          type: string
         schedule:
           description: Schedule in which this rule will be applied
           type: string
@@ -13297,9 +13300,7 @@ components:
           default: false
           type: boolean
         policy_type:
-          description: The type of security rule. Must be 'Internet'.
-          enum:
-          - Internet
+          default: Security
           type: string
         schedule:
           description: Schedule in which this rule will be applied
@@ -13343,7 +13344,6 @@ components:
           uniqueItems: true
       required:
       - name
-      - policy_type
       type: object
     profile-groups:
       example:
@@ -13582,9 +13582,7 @@ components:
           description: Negate the source address(es)?
           type: boolean
         policy_type:
-          description: Policy type
-          enum:
-          - Security
+          default: Security
           type: string
         profile_setting:
           $ref: '#/components/schemas/security_rule_type_profile_setting'
@@ -13644,7 +13642,6 @@ components:
       - destination
       - from
       - name
-      - policy_type
       - service
       - source
       - source_user
@@ -13938,9 +13935,7 @@ components:
           default: false
           type: boolean
         policy_type:
-          description: Policy type
-          enum:
-          - Security
+          default: Security
           type: string
         profile_setting:
           $ref: '#/components/schemas/security_rule_type_profile_setting'
