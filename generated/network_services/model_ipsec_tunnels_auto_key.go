@@ -26,7 +26,7 @@ type IpsecTunnelsAutoKey struct {
 	// IPv4 type of proxy_id values
 	ProxyId []IpsecTunnelsAutoKeyProxyIdInner `json:"proxy_id,omitempty"`
 	// IPv6 type of proxy_id values
-	ProxyIdV6            []IpsecTunnelsAutoKeyProxyIdV6Inner `json:"proxy_id_v6,omitempty"`
+	ProxyIdV6            []IpsecTunnelsAutoKeyProxyIdInner `json:"proxy_id_v6,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -132,9 +132,9 @@ func (o *IpsecTunnelsAutoKey) SetProxyId(v []IpsecTunnelsAutoKeyProxyIdInner) {
 }
 
 // GetProxyIdV6 returns the ProxyIdV6 field value if set, zero value otherwise.
-func (o *IpsecTunnelsAutoKey) GetProxyIdV6() []IpsecTunnelsAutoKeyProxyIdV6Inner {
+func (o *IpsecTunnelsAutoKey) GetProxyIdV6() []IpsecTunnelsAutoKeyProxyIdInner {
 	if o == nil || IsNil(o.ProxyIdV6) {
-		var ret []IpsecTunnelsAutoKeyProxyIdV6Inner
+		var ret []IpsecTunnelsAutoKeyProxyIdInner
 		return ret
 	}
 	return o.ProxyIdV6
@@ -142,7 +142,7 @@ func (o *IpsecTunnelsAutoKey) GetProxyIdV6() []IpsecTunnelsAutoKeyProxyIdV6Inner
 
 // GetProxyIdV6Ok returns a tuple with the ProxyIdV6 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpsecTunnelsAutoKey) GetProxyIdV6Ok() ([]IpsecTunnelsAutoKeyProxyIdV6Inner, bool) {
+func (o *IpsecTunnelsAutoKey) GetProxyIdV6Ok() ([]IpsecTunnelsAutoKeyProxyIdInner, bool) {
 	if o == nil || IsNil(o.ProxyIdV6) {
 		return nil, false
 	}
@@ -158,8 +158,8 @@ func (o *IpsecTunnelsAutoKey) HasProxyIdV6() bool {
 	return false
 }
 
-// SetProxyIdV6 gets a reference to the given []IpsecTunnelsAutoKeyProxyIdV6Inner and assigns it to the ProxyIdV6 field.
-func (o *IpsecTunnelsAutoKey) SetProxyIdV6(v []IpsecTunnelsAutoKeyProxyIdV6Inner) {
+// SetProxyIdV6 gets a reference to the given []IpsecTunnelsAutoKeyProxyIdInner and assigns it to the ProxyIdV6 field.
+func (o *IpsecTunnelsAutoKey) SetProxyIdV6(v []IpsecTunnelsAutoKeyProxyIdInner) {
 	o.ProxyIdV6 = v
 }
 
