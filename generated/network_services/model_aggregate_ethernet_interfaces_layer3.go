@@ -23,7 +23,7 @@ type AggregateEthernetInterfacesLayer3 struct {
 	// Aggregate Ethernet ARP configuration
 	Arp        []AggEthernetArpInner                        `json:"arp,omitempty"`
 	DdnsConfig *AggregateEthernetInterfacesLayer3DdnsConfig `json:"ddns-config,omitempty"`
-	DhcpClient *AggregateEthernetInterfacesLayer3DhcpClient `json:"dhcp-client,omitempty"`
+	DhcpClient *AggEthernetDhcpClientDhcpClient             `json:"dhcp-client,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface-management-profile,omitempty"`
 	// Interface IP addresses
@@ -122,9 +122,9 @@ func (o *AggregateEthernetInterfacesLayer3) SetDdnsConfig(v AggregateEthernetInt
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetDhcpClient() AggregateEthernetInterfacesLayer3DhcpClient {
+func (o *AggregateEthernetInterfacesLayer3) GetDhcpClient() AggEthernetDhcpClientDhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret AggregateEthernetInterfacesLayer3DhcpClient
+		var ret AggEthernetDhcpClientDhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -132,7 +132,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetDhcpClient() AggregateEthernetInt
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetDhcpClientOk() (*AggregateEthernetInterfacesLayer3DhcpClient, bool) {
+func (o *AggregateEthernetInterfacesLayer3) GetDhcpClientOk() (*AggEthernetDhcpClientDhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -148,8 +148,8 @@ func (o *AggregateEthernetInterfacesLayer3) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given AggregateEthernetInterfacesLayer3DhcpClient and assigns it to the DhcpClient field.
-func (o *AggregateEthernetInterfacesLayer3) SetDhcpClient(v AggregateEthernetInterfacesLayer3DhcpClient) {
+// SetDhcpClient gets a reference to the given AggEthernetDhcpClientDhcpClient and assigns it to the DhcpClient field.
+func (o *AggregateEthernetInterfacesLayer3) SetDhcpClient(v AggEthernetDhcpClientDhcpClient) {
 	o.DhcpClient = &v
 }
 

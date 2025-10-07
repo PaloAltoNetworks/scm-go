@@ -27,8 +27,8 @@ type Layer3Subinterfaces struct {
 	Comment    *string                        `json:"comment,omitempty"`
 	DdnsConfig *Layer3SubinterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// The device in which the resource is defined
-	Device     *string                                      `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
-	DhcpClient *AggregateEthernetInterfacesLayer3DhcpClient `json:"dhcp-client,omitempty"`
+	Device     *string                                  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	DhcpClient *Layer3SubInterfacesDhcpClientDhcpClient `json:"dhcp-client,omitempty"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
 	// UUID of the resource
@@ -198,9 +198,9 @@ func (o *Layer3Subinterfaces) SetDevice(v string) {
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetDhcpClient() AggregateEthernetInterfacesLayer3DhcpClient {
+func (o *Layer3Subinterfaces) GetDhcpClient() Layer3SubInterfacesDhcpClientDhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret AggregateEthernetInterfacesLayer3DhcpClient
+		var ret Layer3SubInterfacesDhcpClientDhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -208,7 +208,7 @@ func (o *Layer3Subinterfaces) GetDhcpClient() AggregateEthernetInterfacesLayer3D
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetDhcpClientOk() (*AggregateEthernetInterfacesLayer3DhcpClient, bool) {
+func (o *Layer3Subinterfaces) GetDhcpClientOk() (*Layer3SubInterfacesDhcpClientDhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -224,8 +224,8 @@ func (o *Layer3Subinterfaces) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given AggregateEthernetInterfacesLayer3DhcpClient and assigns it to the DhcpClient field.
-func (o *Layer3Subinterfaces) SetDhcpClient(v AggregateEthernetInterfacesLayer3DhcpClient) {
+// SetDhcpClient gets a reference to the given Layer3SubInterfacesDhcpClientDhcpClient and assigns it to the DhcpClient field.
+func (o *Layer3Subinterfaces) SetDhcpClient(v Layer3SubInterfacesDhcpClientDhcpClient) {
 	o.DhcpClient = &v
 }
 

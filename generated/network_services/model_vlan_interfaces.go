@@ -29,8 +29,8 @@ type VlanInterfaces struct {
 	// Default interface assignment
 	DefaultValue *string `json:"default-value,omitempty"`
 	// The device in which the resource is defined
-	Device     *string                                      `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
-	DhcpClient *AggregateEthernetInterfacesLayer3DhcpClient `json:"dhcp-client,omitempty"`
+	Device     *string                   `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	DhcpClient *VlanInterfacesDhcpClient `json:"dhcp-client,omitempty"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
 	// UUID of the resource
@@ -230,9 +230,9 @@ func (o *VlanInterfaces) SetDevice(v string) {
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *VlanInterfaces) GetDhcpClient() AggregateEthernetInterfacesLayer3DhcpClient {
+func (o *VlanInterfaces) GetDhcpClient() VlanInterfacesDhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret AggregateEthernetInterfacesLayer3DhcpClient
+		var ret VlanInterfacesDhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -240,7 +240,7 @@ func (o *VlanInterfaces) GetDhcpClient() AggregateEthernetInterfacesLayer3DhcpCl
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VlanInterfaces) GetDhcpClientOk() (*AggregateEthernetInterfacesLayer3DhcpClient, bool) {
+func (o *VlanInterfaces) GetDhcpClientOk() (*VlanInterfacesDhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -256,8 +256,8 @@ func (o *VlanInterfaces) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given AggregateEthernetInterfacesLayer3DhcpClient and assigns it to the DhcpClient field.
-func (o *VlanInterfaces) SetDhcpClient(v AggregateEthernetInterfacesLayer3DhcpClient) {
+// SetDhcpClient gets a reference to the given VlanInterfacesDhcpClient and assigns it to the DhcpClient field.
+func (o *VlanInterfaces) SetDhcpClient(v VlanInterfacesDhcpClient) {
 	o.DhcpClient = &v
 }
 

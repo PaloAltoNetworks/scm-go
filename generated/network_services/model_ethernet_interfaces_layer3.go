@@ -23,7 +23,7 @@ type EthernetInterfacesLayer3 struct {
 	// Ethernet Interfaces ARP configuration
 	Arp        []EthernetInterfacesArpInner        `json:"arp,omitempty"`
 	DdnsConfig *EthernetInterfacesLayer3DdnsConfig `json:"ddns-config,omitempty"`
-	DhcpClient *DhcpClient                         `json:"dhcp-client,omitempty"`
+	DhcpClient *EthernetInterfacesDhcpClient       `json:"dhcp-client,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface-management-profile,omitempty"`
 	// Interface IP addresses
@@ -122,9 +122,9 @@ func (o *EthernetInterfacesLayer3) SetDdnsConfig(v EthernetInterfacesLayer3DdnsC
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetDhcpClient() DhcpClient {
+func (o *EthernetInterfacesLayer3) GetDhcpClient() EthernetInterfacesDhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret DhcpClient
+		var ret EthernetInterfacesDhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -132,7 +132,7 @@ func (o *EthernetInterfacesLayer3) GetDhcpClient() DhcpClient {
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetDhcpClientOk() (*DhcpClient, bool) {
+func (o *EthernetInterfacesLayer3) GetDhcpClientOk() (*EthernetInterfacesDhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -148,8 +148,8 @@ func (o *EthernetInterfacesLayer3) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given DhcpClient and assigns it to the DhcpClient field.
-func (o *EthernetInterfacesLayer3) SetDhcpClient(v DhcpClient) {
+// SetDhcpClient gets a reference to the given EthernetInterfacesDhcpClient and assigns it to the DhcpClient field.
+func (o *EthernetInterfacesLayer3) SetDhcpClient(v EthernetInterfacesDhcpClient) {
 	o.DhcpClient = &v
 }
 

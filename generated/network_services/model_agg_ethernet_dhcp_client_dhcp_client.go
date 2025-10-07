@@ -15,29 +15,29 @@ import (
 	"encoding/json"
 )
 
-// checks if the AggregateEthernetInterfacesLayer3DhcpClient type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AggregateEthernetInterfacesLayer3DhcpClient{}
+// checks if the AggEthernetDhcpClientDhcpClient type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AggEthernetDhcpClientDhcpClient{}
 
-// AggregateEthernetInterfacesLayer3DhcpClient struct for AggregateEthernetInterfacesLayer3DhcpClient
-type AggregateEthernetInterfacesLayer3DhcpClient struct {
+// AggEthernetDhcpClientDhcpClient Aggregate Ethernet DHCP Client Object
+type AggEthernetDhcpClientDhcpClient struct {
 	// Automatically create default route pointing to default gateway provided by server
 	CreateDefaultRoute *bool `json:"create-default-route,omitempty"`
 	// Metric of the default route created
 	DefaultRouteMetric *int32 `json:"default-route-metric,omitempty"`
 	// Enable DHCP?
-	Enable               *bool                                                    `json:"enable,omitempty"`
-	SendHostname         *AggregateEthernetInterfacesLayer3DhcpClientSendHostname `json:"send-hostname,omitempty"`
+	Enable               *bool                                        `json:"enable,omitempty"`
+	SendHostname         *AggEthernetDhcpClientDhcpClientSendHostname `json:"send-hostname,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _AggregateEthernetInterfacesLayer3DhcpClient AggregateEthernetInterfacesLayer3DhcpClient
+type _AggEthernetDhcpClientDhcpClient AggEthernetDhcpClientDhcpClient
 
-// NewAggregateEthernetInterfacesLayer3DhcpClient instantiates a new AggregateEthernetInterfacesLayer3DhcpClient object
+// NewAggEthernetDhcpClientDhcpClient instantiates a new AggEthernetDhcpClientDhcpClient object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAggregateEthernetInterfacesLayer3DhcpClient() *AggregateEthernetInterfacesLayer3DhcpClient {
-	this := AggregateEthernetInterfacesLayer3DhcpClient{}
+func NewAggEthernetDhcpClientDhcpClient() *AggEthernetDhcpClientDhcpClient {
+	this := AggEthernetDhcpClientDhcpClient{}
 	var createDefaultRoute bool = true
 	this.CreateDefaultRoute = &createDefaultRoute
 	var defaultRouteMetric int32 = 10
@@ -47,11 +47,11 @@ func NewAggregateEthernetInterfacesLayer3DhcpClient() *AggregateEthernetInterfac
 	return &this
 }
 
-// NewAggregateEthernetInterfacesLayer3DhcpClientWithDefaults instantiates a new AggregateEthernetInterfacesLayer3DhcpClient object
+// NewAggEthernetDhcpClientDhcpClientWithDefaults instantiates a new AggEthernetDhcpClientDhcpClient object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAggregateEthernetInterfacesLayer3DhcpClientWithDefaults() *AggregateEthernetInterfacesLayer3DhcpClient {
-	this := AggregateEthernetInterfacesLayer3DhcpClient{}
+func NewAggEthernetDhcpClientDhcpClientWithDefaults() *AggEthernetDhcpClientDhcpClient {
+	this := AggEthernetDhcpClientDhcpClient{}
 	var createDefaultRoute bool = true
 	this.CreateDefaultRoute = &createDefaultRoute
 	var defaultRouteMetric int32 = 10
@@ -62,7 +62,7 @@ func NewAggregateEthernetInterfacesLayer3DhcpClientWithDefaults() *AggregateEthe
 }
 
 // GetCreateDefaultRoute returns the CreateDefaultRoute field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetCreateDefaultRoute() bool {
+func (o *AggEthernetDhcpClientDhcpClient) GetCreateDefaultRoute() bool {
 	if o == nil || IsNil(o.CreateDefaultRoute) {
 		var ret bool
 		return ret
@@ -72,7 +72,7 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetCreateDefaultRoute() bo
 
 // GetCreateDefaultRouteOk returns a tuple with the CreateDefaultRoute field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetCreateDefaultRouteOk() (*bool, bool) {
+func (o *AggEthernetDhcpClientDhcpClient) GetCreateDefaultRouteOk() (*bool, bool) {
 	if o == nil || IsNil(o.CreateDefaultRoute) {
 		return nil, false
 	}
@@ -80,7 +80,7 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetCreateDefaultRouteOk() 
 }
 
 // HasCreateDefaultRoute returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) HasCreateDefaultRoute() bool {
+func (o *AggEthernetDhcpClientDhcpClient) HasCreateDefaultRoute() bool {
 	if o != nil && !IsNil(o.CreateDefaultRoute) {
 		return true
 	}
@@ -89,12 +89,12 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) HasCreateDefaultRoute() bo
 }
 
 // SetCreateDefaultRoute gets a reference to the given bool and assigns it to the CreateDefaultRoute field.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) SetCreateDefaultRoute(v bool) {
+func (o *AggEthernetDhcpClientDhcpClient) SetCreateDefaultRoute(v bool) {
 	o.CreateDefaultRoute = &v
 }
 
 // GetDefaultRouteMetric returns the DefaultRouteMetric field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetDefaultRouteMetric() int32 {
+func (o *AggEthernetDhcpClientDhcpClient) GetDefaultRouteMetric() int32 {
 	if o == nil || IsNil(o.DefaultRouteMetric) {
 		var ret int32
 		return ret
@@ -104,7 +104,7 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetDefaultRouteMetric() in
 
 // GetDefaultRouteMetricOk returns a tuple with the DefaultRouteMetric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetDefaultRouteMetricOk() (*int32, bool) {
+func (o *AggEthernetDhcpClientDhcpClient) GetDefaultRouteMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.DefaultRouteMetric) {
 		return nil, false
 	}
@@ -112,7 +112,7 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetDefaultRouteMetricOk() 
 }
 
 // HasDefaultRouteMetric returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) HasDefaultRouteMetric() bool {
+func (o *AggEthernetDhcpClientDhcpClient) HasDefaultRouteMetric() bool {
 	if o != nil && !IsNil(o.DefaultRouteMetric) {
 		return true
 	}
@@ -121,12 +121,12 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) HasDefaultRouteMetric() bo
 }
 
 // SetDefaultRouteMetric gets a reference to the given int32 and assigns it to the DefaultRouteMetric field.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) SetDefaultRouteMetric(v int32) {
+func (o *AggEthernetDhcpClientDhcpClient) SetDefaultRouteMetric(v int32) {
 	o.DefaultRouteMetric = &v
 }
 
 // GetEnable returns the Enable field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetEnable() bool {
+func (o *AggEthernetDhcpClientDhcpClient) GetEnable() bool {
 	if o == nil || IsNil(o.Enable) {
 		var ret bool
 		return ret
@@ -136,7 +136,7 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetEnable() bool {
 
 // GetEnableOk returns a tuple with the Enable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetEnableOk() (*bool, bool) {
+func (o *AggEthernetDhcpClientDhcpClient) GetEnableOk() (*bool, bool) {
 	if o == nil || IsNil(o.Enable) {
 		return nil, false
 	}
@@ -144,7 +144,7 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetEnableOk() (*bool, bool
 }
 
 // HasEnable returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) HasEnable() bool {
+func (o *AggEthernetDhcpClientDhcpClient) HasEnable() bool {
 	if o != nil && !IsNil(o.Enable) {
 		return true
 	}
@@ -153,14 +153,14 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) HasEnable() bool {
 }
 
 // SetEnable gets a reference to the given bool and assigns it to the Enable field.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) SetEnable(v bool) {
+func (o *AggEthernetDhcpClientDhcpClient) SetEnable(v bool) {
 	o.Enable = &v
 }
 
 // GetSendHostname returns the SendHostname field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetSendHostname() AggregateEthernetInterfacesLayer3DhcpClientSendHostname {
+func (o *AggEthernetDhcpClientDhcpClient) GetSendHostname() AggEthernetDhcpClientDhcpClientSendHostname {
 	if o == nil || IsNil(o.SendHostname) {
-		var ret AggregateEthernetInterfacesLayer3DhcpClientSendHostname
+		var ret AggEthernetDhcpClientDhcpClientSendHostname
 		return ret
 	}
 	return *o.SendHostname
@@ -168,7 +168,7 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetSendHostname() Aggregat
 
 // GetSendHostnameOk returns a tuple with the SendHostname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetSendHostnameOk() (*AggregateEthernetInterfacesLayer3DhcpClientSendHostname, bool) {
+func (o *AggEthernetDhcpClientDhcpClient) GetSendHostnameOk() (*AggEthernetDhcpClientDhcpClientSendHostname, bool) {
 	if o == nil || IsNil(o.SendHostname) {
 		return nil, false
 	}
@@ -176,7 +176,7 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) GetSendHostnameOk() (*Aggr
 }
 
 // HasSendHostname returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) HasSendHostname() bool {
+func (o *AggEthernetDhcpClientDhcpClient) HasSendHostname() bool {
 	if o != nil && !IsNil(o.SendHostname) {
 		return true
 	}
@@ -184,12 +184,12 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) HasSendHostname() bool {
 	return false
 }
 
-// SetSendHostname gets a reference to the given AggregateEthernetInterfacesLayer3DhcpClientSendHostname and assigns it to the SendHostname field.
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) SetSendHostname(v AggregateEthernetInterfacesLayer3DhcpClientSendHostname) {
+// SetSendHostname gets a reference to the given AggEthernetDhcpClientDhcpClientSendHostname and assigns it to the SendHostname field.
+func (o *AggEthernetDhcpClientDhcpClient) SetSendHostname(v AggEthernetDhcpClientDhcpClientSendHostname) {
 	o.SendHostname = &v
 }
 
-func (o AggregateEthernetInterfacesLayer3DhcpClient) MarshalJSON() ([]byte, error) {
+func (o AggEthernetDhcpClientDhcpClient) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -197,7 +197,7 @@ func (o AggregateEthernetInterfacesLayer3DhcpClient) MarshalJSON() ([]byte, erro
 	return json.Marshal(toSerialize)
 }
 
-func (o AggregateEthernetInterfacesLayer3DhcpClient) ToMap() (map[string]interface{}, error) {
+func (o AggEthernetDhcpClientDhcpClient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CreateDefaultRoute) {
 		toSerialize["create-default-route"] = o.CreateDefaultRoute
@@ -219,16 +219,16 @@ func (o AggregateEthernetInterfacesLayer3DhcpClient) ToMap() (map[string]interfa
 	return toSerialize, nil
 }
 
-func (o *AggregateEthernetInterfacesLayer3DhcpClient) UnmarshalJSON(data []byte) (err error) {
-	varAggregateEthernetInterfacesLayer3DhcpClient := _AggregateEthernetInterfacesLayer3DhcpClient{}
+func (o *AggEthernetDhcpClientDhcpClient) UnmarshalJSON(data []byte) (err error) {
+	varAggEthernetDhcpClientDhcpClient := _AggEthernetDhcpClientDhcpClient{}
 
-	err = json.Unmarshal(data, &varAggregateEthernetInterfacesLayer3DhcpClient)
+	err = json.Unmarshal(data, &varAggEthernetDhcpClientDhcpClient)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AggregateEthernetInterfacesLayer3DhcpClient(varAggregateEthernetInterfacesLayer3DhcpClient)
+	*o = AggEthernetDhcpClientDhcpClient(varAggEthernetDhcpClientDhcpClient)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -243,38 +243,38 @@ func (o *AggregateEthernetInterfacesLayer3DhcpClient) UnmarshalJSON(data []byte)
 	return err
 }
 
-type NullableAggregateEthernetInterfacesLayer3DhcpClient struct {
-	value *AggregateEthernetInterfacesLayer3DhcpClient
+type NullableAggEthernetDhcpClientDhcpClient struct {
+	value *AggEthernetDhcpClientDhcpClient
 	isSet bool
 }
 
-func (v NullableAggregateEthernetInterfacesLayer3DhcpClient) Get() *AggregateEthernetInterfacesLayer3DhcpClient {
+func (v NullableAggEthernetDhcpClientDhcpClient) Get() *AggEthernetDhcpClientDhcpClient {
 	return v.value
 }
 
-func (v *NullableAggregateEthernetInterfacesLayer3DhcpClient) Set(val *AggregateEthernetInterfacesLayer3DhcpClient) {
+func (v *NullableAggEthernetDhcpClientDhcpClient) Set(val *AggEthernetDhcpClientDhcpClient) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAggregateEthernetInterfacesLayer3DhcpClient) IsSet() bool {
+func (v NullableAggEthernetDhcpClientDhcpClient) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAggregateEthernetInterfacesLayer3DhcpClient) Unset() {
+func (v *NullableAggEthernetDhcpClientDhcpClient) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAggregateEthernetInterfacesLayer3DhcpClient(val *AggregateEthernetInterfacesLayer3DhcpClient) *NullableAggregateEthernetInterfacesLayer3DhcpClient {
-	return &NullableAggregateEthernetInterfacesLayer3DhcpClient{value: val, isSet: true}
+func NewNullableAggEthernetDhcpClientDhcpClient(val *AggEthernetDhcpClientDhcpClient) *NullableAggEthernetDhcpClientDhcpClient {
+	return &NullableAggEthernetDhcpClientDhcpClient{value: val, isSet: true}
 }
 
-func (v NullableAggregateEthernetInterfacesLayer3DhcpClient) MarshalJSON() ([]byte, error) {
+func (v NullableAggEthernetDhcpClientDhcpClient) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAggregateEthernetInterfacesLayer3DhcpClient) UnmarshalJSON(src []byte) error {
+func (v *NullableAggEthernetDhcpClientDhcpClient) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

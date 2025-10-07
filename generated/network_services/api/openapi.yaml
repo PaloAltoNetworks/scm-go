@@ -7677,6 +7677,11 @@ components:
       items:
         $ref: '#/components/schemas/agg_ethernet_arp_inner'
       type: array
+    agg-ethernet-dhcp-client:
+      description: Aggregate Ethernet DHCP Client
+      properties:
+        dhcp-client:
+          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
     aggregate-ethernet-interfaces:
       example:
         snippet: My Snippet
@@ -9170,18 +9175,6 @@ components:
       - ddns-hostname
       - ddns-vendor
       - ddns-vendor-config
-    dhcp-client:
-      example:
-        dhcp-client:
-          enable: true
-          create-default-route: true
-          send-hostname:
-            hostname: system-hostname
-            enable: true
-          default-route-metric: 36944
-      properties:
-        dhcp-client:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client'
     dhcp-interfaces:
       example:
         snippet: My Snippet
@@ -9424,7 +9417,7 @@ components:
         tap: "{}"
         poe:
           poe-enabled: false
-          poe-rsvd-pwr: 50
+          poe-rsvd-pwr: 20
         link-speed: auto
         link-duplex: auto
         folder: My Folder
@@ -9444,7 +9437,7 @@ components:
               send-hostname:
                 hostname: system-hostname
                 enable: true
-              default-route-metric: 36944
+              default-route-metric: 9607
           ip:
           - ip
           - ip
@@ -9455,7 +9448,7 @@ components:
             static-address:
               ip: ip
             access-concentrator: access-concentrator
-            default-route-metric: 39073
+            default-route-metric: 36944
             passive: false
             authentication: CHAP
             username: username
@@ -9465,7 +9458,7 @@ components:
             name: name
           - hw-address: hw-address
             name: name
-          mtu: 1842
+          mtu: 5727
         name: name
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
@@ -9551,6 +9544,19 @@ components:
       items:
         $ref: '#/components/schemas/ethernet_interfaces_arp_inner'
       type: array
+    ethernet-interfaces-dhcp-client:
+      description: Ethernet Interfaces DHCP Client
+      example:
+        dhcp-client:
+          enable: true
+          create-default-route: true
+          send-hostname:
+            hostname: system-hostname
+            enable: true
+          default-route-metric: 9607
+      properties:
+        dhcp-client:
+          $ref: '#/components/schemas/ethernet_interfaces_dhcp_client_dhcp_client'
     generic_error:
       properties:
         _errors:
@@ -10130,6 +10136,11 @@ components:
       required:
       - name
       - vlan-tag
+    layer3-sub-interfaces-dhcp-client:
+      description: Layer3 sub interfaces DHCP Client
+      properties:
+        dhcp-client:
+          $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client'
     layer3-subinterfaces:
       example:
         snippet: My Snippet
@@ -10138,7 +10149,7 @@ components:
         - ip
         parent-interface: parent-interface
         interface_management_profile: string
-        mtu: 5783.722142172828
+        mtu: 1842.4624151545447
         folder: My Folder
         dhcp-client:
           enable: true
@@ -10146,7 +10157,7 @@ components:
           send-hostname:
             hostname: system-hostname
             enable: true
-          default-route-metric: 36944
+          default-route-metric: 39501
         ddns_config:
           ddns-enabled: false
           ddns-vendor-config: ddns-vendor-config
@@ -10158,7 +10169,7 @@ components:
         name: name
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
-        tag: 601.2504155159561
+        tag: 2442.493838881763
         device: My Device
         arp:
         - hw-address: hw-address
@@ -10183,7 +10194,7 @@ components:
           pattern: "^[a-zA-Z\\d-_\\. ]+$"
           type: string
         dhcp-client:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client'
+          $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client'
         folder:
           description: The folder in which the resource is defined
           example: My Folder
@@ -15519,7 +15530,7 @@ components:
     poe:
       example:
         poe-enabled: false
-        poe-rsvd-pwr: 50
+        poe-rsvd-pwr: 20
       properties:
         poe-enabled:
           default: false
@@ -16421,12 +16432,12 @@ components:
       example:
         snippet: My Snippet
         default-value: default-value
-        vlan-tag: 601.2504155159561
+        vlan-tag: 2442.493838881763
         ip:
         - ip
         - ip
         interface_management_profile: string
-        mtu: 5783.722142172828
+        mtu: 1842.4624151545447
         folder: My Folder
         dhcp-client:
           enable: true
@@ -16434,7 +16445,7 @@ components:
           send-hostname:
             hostname: system-hostname
             enable: true
-          default-route-metric: 36944
+          default-route-metric: 39501
         ddns_config:
           ddns-enabled: false
           ddns-vendor-config: ddns-vendor-config
@@ -16475,7 +16486,7 @@ components:
           pattern: "^[a-zA-Z\\d-_\\. ]+$"
           type: string
         dhcp-client:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client'
+          $ref: '#/components/schemas/vlan_interfaces_dhcp_client'
         folder:
           description: The folder in which the resource is defined
           example: My Folder
@@ -16516,6 +16527,11 @@ components:
           type: number
       required:
       - name
+    vlan-interfaces-dhcp-client:
+      description: Vlan interfaces DHCP Client
+      properties:
+        dhcp-client:
+          $ref: '#/components/schemas/vlan_interfaces_dhcp_client'
     zone-protection-profiles:
       example:
         icmp_frag_discard: true
@@ -16917,6 +16933,49 @@ components:
           description: IP address
           format: ip-address
           type: string
+    agg_ethernet_dhcp_client_dhcp_client_send_hostname:
+      description: Send hostname
+      example:
+        hostname: system-hostname
+        enable: true
+      properties:
+        enable:
+          default: true
+          type: boolean
+        hostname:
+          default: system-hostname
+          description: Set interface hostname
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\._-]+$"
+          type: string
+    agg_ethernet_dhcp_client_dhcp_client:
+      description: Aggregate Ethernet DHCP Client Object
+      example:
+        enable: true
+        create-default-route: true
+        send-hostname:
+          hostname: system-hostname
+          enable: true
+        default-route-metric: 36944
+      properties:
+        create-default-route:
+          default: true
+          description: Automatically create default route pointing to default gateway
+            provided by server
+          type: boolean
+        default-route-metric:
+          default: 10
+          description: Metric of the default route created
+          maximum: 65535
+          minimum: 1
+          type: integer
+        enable:
+          default: true
+          description: Enable DHCP?
+          type: boolean
+        send-hostname:
+          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
     aggregate_ethernet_interfaces_layer2:
       example:
         lacp:
@@ -16980,48 +17039,6 @@ components:
       - ddns-hostname
       - ddns-vendor
       - ddns-vendor-config
-    aggregate_ethernet_interfaces_layer3_dhcp_client_send_hostname:
-      description: Send hostname
-      example:
-        hostname: system-hostname
-        enable: true
-      properties:
-        enable:
-          default: true
-          type: boolean
-        hostname:
-          default: system-hostname
-          description: Set interface hostname
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\._-]+$"
-          type: string
-    aggregate_ethernet_interfaces_layer3_dhcp_client:
-      example:
-        enable: true
-        create-default-route: true
-        send-hostname:
-          hostname: system-hostname
-          enable: true
-        default-route-metric: 36944
-      properties:
-        create-default-route:
-          default: true
-          description: Automatically create default route pointing to default gateway
-            provided by server
-          type: boolean
-        default-route-metric:
-          default: 10
-          description: Metric of the default route created
-          maximum: 65535
-          minimum: 1
-          type: integer
-        enable:
-          default: true
-          description: Enable DHCP?
-          type: boolean
-        send-hostname:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client_send_hostname'
     aggregate_ethernet_interfaces_layer3:
       example:
         lacp:
@@ -17065,7 +17082,7 @@ components:
         ddns-config:
           $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_ddns_config'
         dhcp-client:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client'
+          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
         interface-management-profile:
           description: Interface management profile
           maxLength: 31
@@ -20352,7 +20369,7 @@ components:
         static-address:
           ip: ip
         access-concentrator: access-concentrator
-        default-route-metric: 39073
+        default-route-metric: 36944
         passive: false
         authentication: CHAP
         username: username
@@ -20419,7 +20436,7 @@ components:
             send-hostname:
               hostname: system-hostname
               enable: true
-            default-route-metric: 36944
+            default-route-metric: 9607
         ip:
         - ip
         - ip
@@ -20430,7 +20447,7 @@ components:
           static-address:
             ip: ip
           access-concentrator: access-concentrator
-          default-route-metric: 39073
+          default-route-metric: 36944
           passive: false
           authentication: CHAP
           username: username
@@ -20440,7 +20457,7 @@ components:
           name: name
         - hw-address: hw-address
           name: name
-        mtu: 1842
+        mtu: 5727
       properties:
         arp:
           description: Ethernet Interfaces ARP configuration
@@ -20450,7 +20467,7 @@ components:
         ddns-config:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_ddns_config'
         dhcp-client:
-          $ref: '#/components/schemas/dhcp-client'
+          $ref: '#/components/schemas/ethernet-interfaces-dhcp-client'
         interface-management-profile:
           description: Interface management profile
           maxLength: 31
@@ -20483,6 +20500,33 @@ components:
           description: IP address
           format: ip-address
           type: string
+    ethernet_interfaces_dhcp_client_dhcp_client:
+      description: Ethernet Interfaces DHCP Client Object
+      example:
+        enable: true
+        create-default-route: true
+        send-hostname:
+          hostname: system-hostname
+          enable: true
+        default-route-metric: 9607
+      properties:
+        create-default-route:
+          default: true
+          description: Automatically create default route pointing to default gateway
+            provided by server
+          type: boolean
+        default-route-metric:
+          default: 10
+          description: Metric of the default route created
+          maximum: 65535
+          minimum: 1
+          type: integer
+        enable:
+          default: true
+          description: Enable DHCP?
+          type: boolean
+        send-hostname:
+          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
     ike_crypto_profiles_lifetime:
       description: Ike crypto profile lifetime
       example:
@@ -20966,6 +21010,33 @@ components:
           type: string
       required:
       - destination_ip
+    layer3_sub_interfaces_dhcp_client_dhcp_client:
+      description: Layer3 sub interfaces DHCP Client Object
+      example:
+        enable: true
+        create-default-route: true
+        send-hostname:
+          hostname: system-hostname
+          enable: true
+        default-route-metric: 39501
+      properties:
+        create-default-route:
+          default: true
+          description: Automatically create default route pointing to default gateway
+            provided by server
+          type: boolean
+        default-route-metric:
+          default: 10
+          description: Metric of the default route created
+          maximum: 65535
+          minimum: 1
+          type: integer
+        enable:
+          default: true
+          description: Enable DHCP?
+          type: boolean
+        send-hostname:
+          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
     layer3_subinterfaces_ddns_config:
       description: Dynamic DNS configuration specific to the Layer 3 sub Interfaces.
       example:
@@ -32969,6 +33040,33 @@ components:
       - ddns-hostname
       - ddns-vendor
       - ddns-vendor-config
+    vlan_interfaces_dhcp_client:
+      description: Vlan interfaces DHCP Client Object
+      example:
+        enable: true
+        create-default-route: true
+        send-hostname:
+          hostname: system-hostname
+          enable: true
+        default-route-metric: 39501
+      properties:
+        create-default-route:
+          default: true
+          description: Automatically create default route pointing to default gateway
+            provided by server
+          type: boolean
+        default-route-metric:
+          default: 10
+          description: Metric of the default route created
+          maximum: 65535
+          minimum: 1
+          type: integer
+        enable:
+          default: true
+          description: Enable DHCP?
+          type: boolean
+        send-hostname:
+          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
     zone_protection_profiles_flood_icmp_red:
       example:
         alarm_rate: 10000
