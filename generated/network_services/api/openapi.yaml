@@ -9549,7 +9549,7 @@ components:
     ethernet-interfaces-arp:
       description: Ethernet Interfaces ARP configuration
       items:
-        $ref: '#/components/schemas/agg_ethernet_arp_inner'
+        $ref: '#/components/schemas/ethernet_interfaces_arp_inner'
       type: array
     generic_error:
       properties:
@@ -10169,7 +10169,7 @@ components:
         arp:
           description: Layer 3 sub Interfaces ARP configuration
           items:
-            $ref: '#/components/schemas/agg_ethernet_arp_inner'
+            $ref: '#/components/schemas/layer3_subinterfaces_arp_inner'
           type: array
         comment:
           description: Description
@@ -10230,7 +10230,7 @@ components:
     layer3-subinterfaces-arp:
       description: Layer 3 sub Interfaces ARP configuration
       items:
-        $ref: '#/components/schemas/agg_ethernet_arp_inner'
+        $ref: '#/components/schemas/layer3_subinterfaces_arp_inner'
       type: array
     link-tags:
       example:
@@ -16904,6 +16904,7 @@ components:
           type: string
     agg_ethernet_arp_inner:
       default: {}
+      description: Aggregate Ethernet ARP configuration object
       example:
         hw-address: hw-address
         name: name
@@ -20444,7 +20445,7 @@ components:
         arp:
           description: Ethernet Interfaces ARP configuration
           items:
-            $ref: '#/components/schemas/agg_ethernet_arp_inner'
+            $ref: '#/components/schemas/ethernet_interfaces_arp_inner'
           type: array
         ddns-config:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_ddns_config'
@@ -20467,6 +20468,21 @@ components:
           type: integer
         pppoe:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_pppoe'
+    ethernet_interfaces_arp_inner:
+      default: {}
+      description: Ethernet Interfaces ARP configuration object
+      example:
+        hw-address: hw-address
+        name: name
+      properties:
+        hw-address:
+          description: MAC address
+          format: mac-address
+          type: string
+        name:
+          description: IP address
+          format: ip-address
+          type: string
     ike_crypto_profiles_lifetime:
       description: Ike crypto profile lifetime
       example:
@@ -20995,6 +21011,21 @@ components:
       - ddns-hostname
       - ddns-vendor
       - ddns-vendor-config
+    layer3_subinterfaces_arp_inner:
+      default: {}
+      description: Layer 3 sub Interfaces ARP configuration object
+      example:
+        hw-address: hw-address
+        name: name
+      properties:
+        hw-address:
+          description: MAC address
+          format: mac-address
+          type: string
+        name:
+          description: IP address
+          format: ip-address
+          type: string
     logical_routers_vrf_inner_admin_dists:
       example:
         bgp_local: 1.4658129805029452

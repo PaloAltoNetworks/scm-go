@@ -18,7 +18,7 @@ import (
 // checks if the AggEthernetArpInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AggEthernetArpInner{}
 
-// AggEthernetArpInner struct for AggEthernetArpInner
+// AggEthernetArpInner Aggregate Ethernet ARP configuration object
 type AggEthernetArpInner struct {
 	// MAC address
 	HwAddress *string `json:"hw-address,omitempty"`
