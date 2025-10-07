@@ -25,8 +25,8 @@ type EthernetInterfacesDhcpClientDhcpClient struct {
 	// Metric of the default route created
 	DefaultRouteMetric *int32 `json:"default-route-metric,omitempty"`
 	// Enable DHCP?
-	Enable               *bool                                        `json:"enable,omitempty"`
-	SendHostname         *AggEthernetDhcpClientDhcpClientSendHostname `json:"send-hostname,omitempty"`
+	Enable               *bool                                               `json:"enable,omitempty"`
+	SendHostname         *EthernetInterfacesDhcpClientDhcpClientSendHostname `json:"send-hostname,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -158,9 +158,9 @@ func (o *EthernetInterfacesDhcpClientDhcpClient) SetEnable(v bool) {
 }
 
 // GetSendHostname returns the SendHostname field value if set, zero value otherwise.
-func (o *EthernetInterfacesDhcpClientDhcpClient) GetSendHostname() AggEthernetDhcpClientDhcpClientSendHostname {
+func (o *EthernetInterfacesDhcpClientDhcpClient) GetSendHostname() EthernetInterfacesDhcpClientDhcpClientSendHostname {
 	if o == nil || IsNil(o.SendHostname) {
-		var ret AggEthernetDhcpClientDhcpClientSendHostname
+		var ret EthernetInterfacesDhcpClientDhcpClientSendHostname
 		return ret
 	}
 	return *o.SendHostname
@@ -168,7 +168,7 @@ func (o *EthernetInterfacesDhcpClientDhcpClient) GetSendHostname() AggEthernetDh
 
 // GetSendHostnameOk returns a tuple with the SendHostname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesDhcpClientDhcpClient) GetSendHostnameOk() (*AggEthernetDhcpClientDhcpClientSendHostname, bool) {
+func (o *EthernetInterfacesDhcpClientDhcpClient) GetSendHostnameOk() (*EthernetInterfacesDhcpClientDhcpClientSendHostname, bool) {
 	if o == nil || IsNil(o.SendHostname) {
 		return nil, false
 	}
@@ -184,8 +184,8 @@ func (o *EthernetInterfacesDhcpClientDhcpClient) HasSendHostname() bool {
 	return false
 }
 
-// SetSendHostname gets a reference to the given AggEthernetDhcpClientDhcpClientSendHostname and assigns it to the SendHostname field.
-func (o *EthernetInterfacesDhcpClientDhcpClient) SetSendHostname(v AggEthernetDhcpClientDhcpClientSendHostname) {
+// SetSendHostname gets a reference to the given EthernetInterfacesDhcpClientDhcpClientSendHostname and assigns it to the SendHostname field.
+func (o *EthernetInterfacesDhcpClientDhcpClient) SetSendHostname(v EthernetInterfacesDhcpClientDhcpClientSendHostname) {
 	o.SendHostname = &v
 }
 

@@ -16934,7 +16934,7 @@ components:
           format: ip-address
           type: string
     agg_ethernet_dhcp_client_dhcp_client_send_hostname:
-      description: Send hostname
+      description: Aggregate Ethernet DHCP Client Send hostname
       example:
         hostname: system-hostname
         enable: true
@@ -20500,6 +20500,22 @@ components:
           description: IP address
           format: ip-address
           type: string
+    ethernet_interfaces_dhcp_client_dhcp_client_send_hostname:
+      description: Ethernet Interfaces DHCP ClientSend hostname
+      example:
+        hostname: system-hostname
+        enable: true
+      properties:
+        enable:
+          default: true
+          type: boolean
+        hostname:
+          default: system-hostname
+          description: Set interface hostname
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\._-]+$"
+          type: string
     ethernet_interfaces_dhcp_client_dhcp_client:
       description: Ethernet Interfaces DHCP Client Object
       example:
@@ -20526,7 +20542,7 @@ components:
           description: Enable DHCP?
           type: boolean
         send-hostname:
-          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
+          $ref: '#/components/schemas/ethernet_interfaces_dhcp_client_dhcp_client_send_hostname'
     ike_crypto_profiles_lifetime:
       description: Ike crypto profile lifetime
       example:
@@ -21010,6 +21026,22 @@ components:
           type: string
       required:
       - destination_ip
+    layer3_sub_interfaces_dhcp_client_dhcp_client_send_hostname:
+      description: Layer3 sub interfaces DHCP Client Send hostname
+      example:
+        hostname: system-hostname
+        enable: true
+      properties:
+        enable:
+          default: true
+          type: boolean
+        hostname:
+          default: system-hostname
+          description: Set interface hostname
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\._-]+$"
+          type: string
     layer3_sub_interfaces_dhcp_client_dhcp_client:
       description: Layer3 sub interfaces DHCP Client Object
       example:
@@ -21036,7 +21068,7 @@ components:
           description: Enable DHCP?
           type: boolean
         send-hostname:
-          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
+          $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client_send_hostname'
     layer3_subinterfaces_ddns_config:
       description: Dynamic DNS configuration specific to the Layer 3 sub Interfaces.
       example:
@@ -33040,6 +33072,22 @@ components:
       - ddns-hostname
       - ddns-vendor
       - ddns-vendor-config
+    vlan_interfaces_dhcp_client_send_hostname:
+      description: Send hostname
+      example:
+        hostname: system-hostname
+        enable: true
+      properties:
+        enable:
+          default: true
+          type: boolean
+        hostname:
+          default: system-hostname
+          description: Set interface hostname
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\._-]+$"
+          type: string
     vlan_interfaces_dhcp_client:
       description: Vlan interfaces DHCP Client Object
       example:
@@ -33066,7 +33114,7 @@ components:
           description: Enable DHCP?
           type: boolean
         send-hostname:
-          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
+          $ref: '#/components/schemas/vlan_interfaces_dhcp_client_send_hostname'
     zone_protection_profiles_flood_icmp_red:
       example:
         alarm_rate: 10000

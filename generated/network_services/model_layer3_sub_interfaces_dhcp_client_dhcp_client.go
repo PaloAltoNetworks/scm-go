@@ -25,8 +25,8 @@ type Layer3SubInterfacesDhcpClientDhcpClient struct {
 	// Metric of the default route created
 	DefaultRouteMetric *int32 `json:"default-route-metric,omitempty"`
 	// Enable DHCP?
-	Enable               *bool                                        `json:"enable,omitempty"`
-	SendHostname         *AggEthernetDhcpClientDhcpClientSendHostname `json:"send-hostname,omitempty"`
+	Enable               *bool                                                `json:"enable,omitempty"`
+	SendHostname         *Layer3SubInterfacesDhcpClientDhcpClientSendHostname `json:"send-hostname,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -158,9 +158,9 @@ func (o *Layer3SubInterfacesDhcpClientDhcpClient) SetEnable(v bool) {
 }
 
 // GetSendHostname returns the SendHostname field value if set, zero value otherwise.
-func (o *Layer3SubInterfacesDhcpClientDhcpClient) GetSendHostname() AggEthernetDhcpClientDhcpClientSendHostname {
+func (o *Layer3SubInterfacesDhcpClientDhcpClient) GetSendHostname() Layer3SubInterfacesDhcpClientDhcpClientSendHostname {
 	if o == nil || IsNil(o.SendHostname) {
-		var ret AggEthernetDhcpClientDhcpClientSendHostname
+		var ret Layer3SubInterfacesDhcpClientDhcpClientSendHostname
 		return ret
 	}
 	return *o.SendHostname
@@ -168,7 +168,7 @@ func (o *Layer3SubInterfacesDhcpClientDhcpClient) GetSendHostname() AggEthernetD
 
 // GetSendHostnameOk returns a tuple with the SendHostname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3SubInterfacesDhcpClientDhcpClient) GetSendHostnameOk() (*AggEthernetDhcpClientDhcpClientSendHostname, bool) {
+func (o *Layer3SubInterfacesDhcpClientDhcpClient) GetSendHostnameOk() (*Layer3SubInterfacesDhcpClientDhcpClientSendHostname, bool) {
 	if o == nil || IsNil(o.SendHostname) {
 		return nil, false
 	}
@@ -184,8 +184,8 @@ func (o *Layer3SubInterfacesDhcpClientDhcpClient) HasSendHostname() bool {
 	return false
 }
 
-// SetSendHostname gets a reference to the given AggEthernetDhcpClientDhcpClientSendHostname and assigns it to the SendHostname field.
-func (o *Layer3SubInterfacesDhcpClientDhcpClient) SetSendHostname(v AggEthernetDhcpClientDhcpClientSendHostname) {
+// SetSendHostname gets a reference to the given Layer3SubInterfacesDhcpClientDhcpClientSendHostname and assigns it to the SendHostname field.
+func (o *Layer3SubInterfacesDhcpClientDhcpClient) SetSendHostname(v Layer3SubInterfacesDhcpClientDhcpClientSendHostname) {
 	o.SendHostname = &v
 }
 

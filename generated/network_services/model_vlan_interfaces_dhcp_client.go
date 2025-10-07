@@ -25,8 +25,8 @@ type VlanInterfacesDhcpClient struct {
 	// Metric of the default route created
 	DefaultRouteMetric *int32 `json:"default-route-metric,omitempty"`
 	// Enable DHCP?
-	Enable               *bool                                        `json:"enable,omitempty"`
-	SendHostname         *AggEthernetDhcpClientDhcpClientSendHostname `json:"send-hostname,omitempty"`
+	Enable               *bool                                 `json:"enable,omitempty"`
+	SendHostname         *VlanInterfacesDhcpClientSendHostname `json:"send-hostname,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -158,9 +158,9 @@ func (o *VlanInterfacesDhcpClient) SetEnable(v bool) {
 }
 
 // GetSendHostname returns the SendHostname field value if set, zero value otherwise.
-func (o *VlanInterfacesDhcpClient) GetSendHostname() AggEthernetDhcpClientDhcpClientSendHostname {
+func (o *VlanInterfacesDhcpClient) GetSendHostname() VlanInterfacesDhcpClientSendHostname {
 	if o == nil || IsNil(o.SendHostname) {
-		var ret AggEthernetDhcpClientDhcpClientSendHostname
+		var ret VlanInterfacesDhcpClientSendHostname
 		return ret
 	}
 	return *o.SendHostname
@@ -168,7 +168,7 @@ func (o *VlanInterfacesDhcpClient) GetSendHostname() AggEthernetDhcpClientDhcpCl
 
 // GetSendHostnameOk returns a tuple with the SendHostname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VlanInterfacesDhcpClient) GetSendHostnameOk() (*AggEthernetDhcpClientDhcpClientSendHostname, bool) {
+func (o *VlanInterfacesDhcpClient) GetSendHostnameOk() (*VlanInterfacesDhcpClientSendHostname, bool) {
 	if o == nil || IsNil(o.SendHostname) {
 		return nil, false
 	}
@@ -184,8 +184,8 @@ func (o *VlanInterfacesDhcpClient) HasSendHostname() bool {
 	return false
 }
 
-// SetSendHostname gets a reference to the given AggEthernetDhcpClientDhcpClientSendHostname and assigns it to the SendHostname field.
-func (o *VlanInterfacesDhcpClient) SetSendHostname(v AggEthernetDhcpClientDhcpClientSendHostname) {
+// SetSendHostname gets a reference to the given VlanInterfacesDhcpClientSendHostname and assigns it to the SendHostname field.
+func (o *VlanInterfacesDhcpClient) SetSendHostname(v VlanInterfacesDhcpClientSendHostname) {
 	o.SendHostname = &v
 }
 

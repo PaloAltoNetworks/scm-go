@@ -15,25 +15,25 @@ import (
 	"encoding/json"
 )
 
-// checks if the AggEthernetDhcpClientDhcpClientSendHostname type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AggEthernetDhcpClientDhcpClientSendHostname{}
+// checks if the VlanInterfacesDhcpClientSendHostname type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VlanInterfacesDhcpClientSendHostname{}
 
-// AggEthernetDhcpClientDhcpClientSendHostname Aggregate Ethernet DHCP Client Send hostname
-type AggEthernetDhcpClientDhcpClientSendHostname struct {
+// VlanInterfacesDhcpClientSendHostname Send hostname
+type VlanInterfacesDhcpClientSendHostname struct {
 	Enable *bool `json:"enable,omitempty"`
 	// Set interface hostname
 	Hostname             *string `json:"hostname,omitempty" validate:"regexp=^[a-zA-Z0-9\\\\._-]+$"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _AggEthernetDhcpClientDhcpClientSendHostname AggEthernetDhcpClientDhcpClientSendHostname
+type _VlanInterfacesDhcpClientSendHostname VlanInterfacesDhcpClientSendHostname
 
-// NewAggEthernetDhcpClientDhcpClientSendHostname instantiates a new AggEthernetDhcpClientDhcpClientSendHostname object
+// NewVlanInterfacesDhcpClientSendHostname instantiates a new VlanInterfacesDhcpClientSendHostname object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAggEthernetDhcpClientDhcpClientSendHostname() *AggEthernetDhcpClientDhcpClientSendHostname {
-	this := AggEthernetDhcpClientDhcpClientSendHostname{}
+func NewVlanInterfacesDhcpClientSendHostname() *VlanInterfacesDhcpClientSendHostname {
+	this := VlanInterfacesDhcpClientSendHostname{}
 	var enable bool = true
 	this.Enable = &enable
 	var hostname string = "system-hostname"
@@ -41,11 +41,11 @@ func NewAggEthernetDhcpClientDhcpClientSendHostname() *AggEthernetDhcpClientDhcp
 	return &this
 }
 
-// NewAggEthernetDhcpClientDhcpClientSendHostnameWithDefaults instantiates a new AggEthernetDhcpClientDhcpClientSendHostname object
+// NewVlanInterfacesDhcpClientSendHostnameWithDefaults instantiates a new VlanInterfacesDhcpClientSendHostname object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAggEthernetDhcpClientDhcpClientSendHostnameWithDefaults() *AggEthernetDhcpClientDhcpClientSendHostname {
-	this := AggEthernetDhcpClientDhcpClientSendHostname{}
+func NewVlanInterfacesDhcpClientSendHostnameWithDefaults() *VlanInterfacesDhcpClientSendHostname {
+	this := VlanInterfacesDhcpClientSendHostname{}
 	var enable bool = true
 	this.Enable = &enable
 	var hostname string = "system-hostname"
@@ -54,7 +54,7 @@ func NewAggEthernetDhcpClientDhcpClientSendHostnameWithDefaults() *AggEthernetDh
 }
 
 // GetEnable returns the Enable field value if set, zero value otherwise.
-func (o *AggEthernetDhcpClientDhcpClientSendHostname) GetEnable() bool {
+func (o *VlanInterfacesDhcpClientSendHostname) GetEnable() bool {
 	if o == nil || IsNil(o.Enable) {
 		var ret bool
 		return ret
@@ -64,7 +64,7 @@ func (o *AggEthernetDhcpClientDhcpClientSendHostname) GetEnable() bool {
 
 // GetEnableOk returns a tuple with the Enable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggEthernetDhcpClientDhcpClientSendHostname) GetEnableOk() (*bool, bool) {
+func (o *VlanInterfacesDhcpClientSendHostname) GetEnableOk() (*bool, bool) {
 	if o == nil || IsNil(o.Enable) {
 		return nil, false
 	}
@@ -72,7 +72,7 @@ func (o *AggEthernetDhcpClientDhcpClientSendHostname) GetEnableOk() (*bool, bool
 }
 
 // HasEnable returns a boolean if a field has been set.
-func (o *AggEthernetDhcpClientDhcpClientSendHostname) HasEnable() bool {
+func (o *VlanInterfacesDhcpClientSendHostname) HasEnable() bool {
 	if o != nil && !IsNil(o.Enable) {
 		return true
 	}
@@ -81,12 +81,12 @@ func (o *AggEthernetDhcpClientDhcpClientSendHostname) HasEnable() bool {
 }
 
 // SetEnable gets a reference to the given bool and assigns it to the Enable field.
-func (o *AggEthernetDhcpClientDhcpClientSendHostname) SetEnable(v bool) {
+func (o *VlanInterfacesDhcpClientSendHostname) SetEnable(v bool) {
 	o.Enable = &v
 }
 
 // GetHostname returns the Hostname field value if set, zero value otherwise.
-func (o *AggEthernetDhcpClientDhcpClientSendHostname) GetHostname() string {
+func (o *VlanInterfacesDhcpClientSendHostname) GetHostname() string {
 	if o == nil || IsNil(o.Hostname) {
 		var ret string
 		return ret
@@ -96,7 +96,7 @@ func (o *AggEthernetDhcpClientDhcpClientSendHostname) GetHostname() string {
 
 // GetHostnameOk returns a tuple with the Hostname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggEthernetDhcpClientDhcpClientSendHostname) GetHostnameOk() (*string, bool) {
+func (o *VlanInterfacesDhcpClientSendHostname) GetHostnameOk() (*string, bool) {
 	if o == nil || IsNil(o.Hostname) {
 		return nil, false
 	}
@@ -104,7 +104,7 @@ func (o *AggEthernetDhcpClientDhcpClientSendHostname) GetHostnameOk() (*string, 
 }
 
 // HasHostname returns a boolean if a field has been set.
-func (o *AggEthernetDhcpClientDhcpClientSendHostname) HasHostname() bool {
+func (o *VlanInterfacesDhcpClientSendHostname) HasHostname() bool {
 	if o != nil && !IsNil(o.Hostname) {
 		return true
 	}
@@ -113,11 +113,11 @@ func (o *AggEthernetDhcpClientDhcpClientSendHostname) HasHostname() bool {
 }
 
 // SetHostname gets a reference to the given string and assigns it to the Hostname field.
-func (o *AggEthernetDhcpClientDhcpClientSendHostname) SetHostname(v string) {
+func (o *VlanInterfacesDhcpClientSendHostname) SetHostname(v string) {
 	o.Hostname = &v
 }
 
-func (o AggEthernetDhcpClientDhcpClientSendHostname) MarshalJSON() ([]byte, error) {
+func (o VlanInterfacesDhcpClientSendHostname) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -125,7 +125,7 @@ func (o AggEthernetDhcpClientDhcpClientSendHostname) MarshalJSON() ([]byte, erro
 	return json.Marshal(toSerialize)
 }
 
-func (o AggEthernetDhcpClientDhcpClientSendHostname) ToMap() (map[string]interface{}, error) {
+func (o VlanInterfacesDhcpClientSendHostname) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Enable) {
 		toSerialize["enable"] = o.Enable
@@ -141,16 +141,16 @@ func (o AggEthernetDhcpClientDhcpClientSendHostname) ToMap() (map[string]interfa
 	return toSerialize, nil
 }
 
-func (o *AggEthernetDhcpClientDhcpClientSendHostname) UnmarshalJSON(data []byte) (err error) {
-	varAggEthernetDhcpClientDhcpClientSendHostname := _AggEthernetDhcpClientDhcpClientSendHostname{}
+func (o *VlanInterfacesDhcpClientSendHostname) UnmarshalJSON(data []byte) (err error) {
+	varVlanInterfacesDhcpClientSendHostname := _VlanInterfacesDhcpClientSendHostname{}
 
-	err = json.Unmarshal(data, &varAggEthernetDhcpClientDhcpClientSendHostname)
+	err = json.Unmarshal(data, &varVlanInterfacesDhcpClientSendHostname)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AggEthernetDhcpClientDhcpClientSendHostname(varAggEthernetDhcpClientDhcpClientSendHostname)
+	*o = VlanInterfacesDhcpClientSendHostname(varVlanInterfacesDhcpClientSendHostname)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -163,38 +163,38 @@ func (o *AggEthernetDhcpClientDhcpClientSendHostname) UnmarshalJSON(data []byte)
 	return err
 }
 
-type NullableAggEthernetDhcpClientDhcpClientSendHostname struct {
-	value *AggEthernetDhcpClientDhcpClientSendHostname
+type NullableVlanInterfacesDhcpClientSendHostname struct {
+	value *VlanInterfacesDhcpClientSendHostname
 	isSet bool
 }
 
-func (v NullableAggEthernetDhcpClientDhcpClientSendHostname) Get() *AggEthernetDhcpClientDhcpClientSendHostname {
+func (v NullableVlanInterfacesDhcpClientSendHostname) Get() *VlanInterfacesDhcpClientSendHostname {
 	return v.value
 }
 
-func (v *NullableAggEthernetDhcpClientDhcpClientSendHostname) Set(val *AggEthernetDhcpClientDhcpClientSendHostname) {
+func (v *NullableVlanInterfacesDhcpClientSendHostname) Set(val *VlanInterfacesDhcpClientSendHostname) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAggEthernetDhcpClientDhcpClientSendHostname) IsSet() bool {
+func (v NullableVlanInterfacesDhcpClientSendHostname) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAggEthernetDhcpClientDhcpClientSendHostname) Unset() {
+func (v *NullableVlanInterfacesDhcpClientSendHostname) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAggEthernetDhcpClientDhcpClientSendHostname(val *AggEthernetDhcpClientDhcpClientSendHostname) *NullableAggEthernetDhcpClientDhcpClientSendHostname {
-	return &NullableAggEthernetDhcpClientDhcpClientSendHostname{value: val, isSet: true}
+func NewNullableVlanInterfacesDhcpClientSendHostname(val *VlanInterfacesDhcpClientSendHostname) *NullableVlanInterfacesDhcpClientSendHostname {
+	return &NullableVlanInterfacesDhcpClientSendHostname{value: val, isSet: true}
 }
 
-func (v NullableAggEthernetDhcpClientDhcpClientSendHostname) MarshalJSON() ([]byte, error) {
+func (v NullableVlanInterfacesDhcpClientSendHostname) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAggEthernetDhcpClientDhcpClientSendHostname) UnmarshalJSON(src []byte) error {
+func (v *NullableVlanInterfacesDhcpClientSendHostname) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
