@@ -20,9 +20,9 @@ var _ MappedNullable = &BgpRouteMapsRouteMapInnerSet{}
 
 // BgpRouteMapsRouteMapInnerSet struct for BgpRouteMapsRouteMapInnerSet
 type BgpRouteMapsRouteMapInnerSet struct {
-	Aggregator    *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator `json:"aggregator,omitempty"`
-	AspathExclude []int32                                                                 `json:"aspath_exclude,omitempty"`
-	AspathPrepend []int32                                                                 `json:"aspath_prepend,omitempty"`
+	Aggregator    *BgpRouteMapsRouteMapInnerSetAggregator `json:"aggregator,omitempty"`
+	AspathExclude []int32                                 `json:"aspath_exclude,omitempty"`
+	AspathPrepend []int32                                 `json:"aspath_prepend,omitempty"`
 	// Enable BGP atomic aggregate?
 	AtomicAggregate *bool                                                             `json:"atomic_aggregate,omitempty"`
 	Ipv4            *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 `json:"ipv4,omitempty"`
@@ -70,9 +70,9 @@ func NewBgpRouteMapsRouteMapInnerSetWithDefaults() *BgpRouteMapsRouteMapInnerSet
 }
 
 // GetAggregator returns the Aggregator field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerSet) GetAggregator() BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator {
+func (o *BgpRouteMapsRouteMapInnerSet) GetAggregator() BgpRouteMapsRouteMapInnerSetAggregator {
 	if o == nil || IsNil(o.Aggregator) {
-		var ret BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator
+		var ret BgpRouteMapsRouteMapInnerSetAggregator
 		return ret
 	}
 	return *o.Aggregator
@@ -80,7 +80,7 @@ func (o *BgpRouteMapsRouteMapInnerSet) GetAggregator() BgpRouteMapRedistribution
 
 // GetAggregatorOk returns a tuple with the Aggregator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerSet) GetAggregatorOk() (*BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator, bool) {
+func (o *BgpRouteMapsRouteMapInnerSet) GetAggregatorOk() (*BgpRouteMapsRouteMapInnerSetAggregator, bool) {
 	if o == nil || IsNil(o.Aggregator) {
 		return nil, false
 	}
@@ -96,8 +96,8 @@ func (o *BgpRouteMapsRouteMapInnerSet) HasAggregator() bool {
 	return false
 }
 
-// SetAggregator gets a reference to the given BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator and assigns it to the Aggregator field.
-func (o *BgpRouteMapsRouteMapInnerSet) SetAggregator(v BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator) {
+// SetAggregator gets a reference to the given BgpRouteMapsRouteMapInnerSetAggregator and assigns it to the Aggregator field.
+func (o *BgpRouteMapsRouteMapInnerSet) SetAggregator(v BgpRouteMapsRouteMapInnerSetAggregator) {
 	o.Aggregator = &v
 }
 

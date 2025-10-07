@@ -18,7 +18,7 @@ import (
 // checks if the BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator{}
 
-// BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator struct for BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator
+// BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator bgp-route-map-redistributions connected_static aggregator
 type BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator struct {
 	// Aggregator AS
 	As *int32 `json:"as,omitempty"`

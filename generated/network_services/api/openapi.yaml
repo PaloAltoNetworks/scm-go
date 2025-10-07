@@ -8847,18 +8847,18 @@ components:
                   value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 528931037
+                  as: 2147483647
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 6715
-                - 6715
-                weight: 503831554
+                - 42194
+                - 42194
+                weight: 551756841
                 tag: 2147483647
-                local_preference: 639699262
+                local_preference: 1527803716
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8885,18 +8885,18 @@ components:
                   value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 528931037
+                  as: 2147483647
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 6715
-                - 6715
-                weight: 503831554
+                - 42194
+                - 42194
+                weight: 551756841
                 tag: 2147483647
-                local_preference: 639699262
+                local_preference: 1527803716
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8922,13 +8922,13 @@ components:
                 address:
                   prefix_list: prefix_list
                   access_list: access_list
-                metric: 2147483647
+                metric: 1238738200
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 23312
+              name: 45075
               action: permit
               description: description
             - set:
@@ -8937,13 +8937,13 @@ components:
                 address:
                   prefix_list: prefix_list
                   access_list: access_list
-                metric: 2147483647
+                metric: 1238738200
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 23312
+              name: 45075
               action: permit
               description: description
       properties:
@@ -8992,16 +8992,16 @@ components:
         - set:
             originator_id: originator_id
             aggregator:
-              as: 528931037
+              as: 2147483647
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 2
-            - 2
-            weight: 1553093137
+            - 7
+            - 7
+            weight: 870642708
             remove_large_community: remove_large_community
             local_preference: 2147483647
             regular_community:
@@ -9018,9 +9018,9 @@ components:
               value: 2147483647
             overwrite_regular_community: true
             aspath_exclude:
-            - 5
-            - 5
-            tag: 2147483647
+            - 2
+            - 2
+            tag: 1553093137
           match:
             as_path_access_list: as_path_access_list
             ipv4:
@@ -9048,16 +9048,16 @@ components:
         - set:
             originator_id: originator_id
             aggregator:
-              as: 528931037
+              as: 2147483647
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 2
-            - 2
-            weight: 1553093137
+            - 7
+            - 7
+            weight: 870642708
             remove_large_community: remove_large_community
             local_preference: 2147483647
             regular_community:
@@ -9074,9 +9074,9 @@ components:
               value: 2147483647
             overwrite_regular_community: true
             aspath_exclude:
-            - 5
-            - 5
-            tag: 2147483647
+            - 2
+            - 2
+            tag: 1553093137
           match:
             as_path_access_list: as_path_access_list
             ipv4:
@@ -18614,6 +18614,7 @@ components:
           minimum: 0
           type: integer
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_aggregator:
+      description: bgp-route-map-redistributions connected_static aggregator
       example:
         as: 528931037
         router_id: router_id
@@ -19251,6 +19252,102 @@ components:
           maximum: 4294967295
           minimum: 1
           type: integer
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_aggregator:
+      description: bgp-route-map-redistributions set aggregator
+      example:
+        as: 2147483647
+        router_id: router_id
+      properties:
+        as:
+          description: Aggregator AS
+          maximum: 4294967295
+          minimum: 1
+          type: integer
+        router_id:
+          description: Router ID
+          type: string
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_set:
+      example:
+        ipv4:
+          next_hop: next_hop
+          source_address: source_address
+        metric:
+          action: set
+          value: 2147483647
+        originator_id: originator_id
+        aggregator:
+          as: 2147483647
+          router_id: router_id
+        origin: none
+        large_community:
+        - large_community
+        - large_community
+        aspath_prepend:
+        - 42194
+        - 42194
+        weight: 551756841
+        tag: 2147483647
+        local_preference: 1527803716
+        regular_community:
+        - regular_community
+        - regular_community
+        atomic_aggregate: true
+      properties:
+        aggregator:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_aggregator'
+        aspath_prepend:
+          description: AS numbers
+          items:
+            description: AS number
+            maximum: 65535
+            minimum: 1
+            type: integer
+          type: array
+        atomic_aggregate:
+          description: Enable BGP atomic aggregate?
+          type: boolean
+        ipv4:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_ipv4'
+        large_community:
+          description: Large communities
+          items:
+            description: Large community
+            type: string
+          type: array
+        local_preference:
+          description: Local preference
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+        metric:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_metric'
+        origin:
+          description: Origin
+          enum:
+          - none
+          - egp
+          - igp
+          - incomplete
+          type: string
+        originator_id:
+          description: Originator ID
+          type: string
+        regular_community:
+          description: Regular communities
+          items:
+            description: Regular community
+            type: string
+          type: array
+        tag:
+          description: Tag
+          maximum: 4294967295
+          minimum: 1
+          type: integer
+        weight:
+          description: Weight
+          maximum: 4294967295
+          minimum: 0
+          type: integer
     bgp_route_map_redistributions_ospf_bgp_route_map_inner:
       example:
         set:
@@ -19262,18 +19359,18 @@ components:
             value: 2147483647
           originator_id: originator_id
           aggregator:
-            as: 528931037
+            as: 2147483647
             router_id: router_id
           origin: none
           large_community:
           - large_community
           - large_community
           aspath_prepend:
-          - 6715
-          - 6715
-          weight: 503831554
+          - 42194
+          - 42194
+          weight: 551756841
           tag: 2147483647
-          local_preference: 639699262
+          local_preference: 1527803716
           regular_community:
           - regular_community
           - regular_community
@@ -19309,7 +19406,7 @@ components:
           minimum: 1
           type: integer
         set:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_set'
     bgp_route_map_redistributions_ospf_bgp:
       example:
         route_map:
@@ -19322,18 +19419,18 @@ components:
               value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 528931037
+              as: 2147483647
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 6715
-            - 6715
-            weight: 503831554
+            - 42194
+            - 42194
+            weight: 551756841
             tag: 2147483647
-            local_preference: 639699262
+            local_preference: 1527803716
             regular_community:
             - regular_community
             - regular_community
@@ -19360,18 +19457,18 @@ components:
               value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 528931037
+              as: 2147483647
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 6715
-            - 6715
-            weight: 503831554
+            - 42194
+            - 42194
+            weight: 551756841
             tag: 2147483647
-            local_preference: 639699262
+            local_preference: 1527803716
             regular_community:
             - regular_community
             - regular_community
@@ -19400,7 +19497,7 @@ components:
         address:
           prefix_list: prefix_list
           access_list: access_list
-        metric: 2147483647
+        metric: 1238738200
         next_hop:
           prefix_list: prefix_list
           access_list: access_list
@@ -19431,13 +19528,13 @@ components:
           address:
             prefix_list: prefix_list
             access_list: access_list
-          metric: 2147483647
+          metric: 1238738200
           next_hop:
             prefix_list: prefix_list
             access_list: access_list
           tag: 2147483647
           interface: interface
-        name: 23312
+        name: 45075
         action: permit
         description: description
       properties:
@@ -19468,13 +19565,13 @@ components:
             address:
               prefix_list: prefix_list
               access_list: access_list
-            metric: 2147483647
+            metric: 1238738200
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 23312
+          name: 45075
           action: permit
           description: description
         - set:
@@ -19483,13 +19580,13 @@ components:
             address:
               prefix_list: prefix_list
               access_list: access_list
-            metric: 2147483647
+            metric: 1238738200
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 23312
+          name: 45075
           action: permit
           description: description
       properties:
@@ -19511,18 +19608,18 @@ components:
                 value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 528931037
+                as: 2147483647
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 6715
-              - 6715
-              weight: 503831554
+              - 42194
+              - 42194
+              weight: 551756841
               tag: 2147483647
-              local_preference: 639699262
+              local_preference: 1527803716
               regular_community:
               - regular_community
               - regular_community
@@ -19549,18 +19646,18 @@ components:
                 value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 528931037
+                as: 2147483647
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 6715
-              - 6715
-              weight: 503831554
+              - 42194
+              - 42194
+              weight: 551756841
               tag: 2147483647
-              local_preference: 639699262
+              local_preference: 1527803716
               regular_community:
               - regular_community
               - regular_community
@@ -19586,13 +19683,13 @@ components:
               address:
                 prefix_list: prefix_list
                 access_list: access_list
-              metric: 2147483647
+              metric: 1238738200
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 23312
+            name: 45075
             action: permit
             description: description
           - set:
@@ -19601,13 +19698,13 @@ components:
               address:
                 prefix_list: prefix_list
                 access_list: access_list
-              metric: 2147483647
+              metric: 1238738200
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 23312
+            name: 45075
             action: permit
             description: description
       properties:
@@ -19697,20 +19794,34 @@ components:
           maximum: 4294967295
           minimum: 1
           type: integer
+    bgp_route_maps_route_map_inner_set_aggregator:
+      description: bgp-route-maps aggregator
+      example:
+        as: 2147483647
+        router_id: router_id
+      properties:
+        as:
+          description: Aggregator AS
+          maximum: 4294967295
+          minimum: 1
+          type: integer
+        router_id:
+          description: Router ID
+          type: string
     bgp_route_maps_route_map_inner_set:
       example:
         originator_id: originator_id
         aggregator:
-          as: 528931037
+          as: 2147483647
           router_id: router_id
         origin: none
         large_community:
         - large_community
         - large_community
         aspath_prepend:
-        - 2
-        - 2
-        weight: 1553093137
+        - 7
+        - 7
+        weight: 870642708
         remove_large_community: remove_large_community
         local_preference: 2147483647
         regular_community:
@@ -19727,12 +19838,12 @@ components:
           value: 2147483647
         overwrite_regular_community: true
         aspath_exclude:
-        - 5
-        - 5
-        tag: 2147483647
+        - 2
+        - 2
+        tag: 1553093137
       properties:
         aggregator:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_aggregator'
+          $ref: '#/components/schemas/bgp_route_maps_route_map_inner_set_aggregator'
         aspath_exclude:
           items:
             description: AS number
@@ -19815,16 +19926,16 @@ components:
         set:
           originator_id: originator_id
           aggregator:
-            as: 528931037
+            as: 2147483647
             router_id: router_id
           origin: none
           large_community:
           - large_community
           - large_community
           aspath_prepend:
-          - 2
-          - 2
-          weight: 1553093137
+          - 7
+          - 7
+          weight: 870642708
           remove_large_community: remove_large_community
           local_preference: 2147483647
           regular_community:
@@ -19841,9 +19952,9 @@ components:
             value: 2147483647
           overwrite_regular_community: true
           aspath_exclude:
-          - 5
-          - 5
-          tag: 2147483647
+          - 2
+          - 2
+          tag: 1553093137
         match:
           as_path_access_list: as_path_access_list
           ipv4:
