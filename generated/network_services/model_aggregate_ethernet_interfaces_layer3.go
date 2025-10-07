@@ -20,8 +20,8 @@ var _ MappedNullable = &AggregateEthernetInterfacesLayer3{}
 
 // AggregateEthernetInterfacesLayer3 struct for AggregateEthernetInterfacesLayer3
 type AggregateEthernetInterfacesLayer3 struct {
-	// ARP configuration
-	Arp        []ArpInner                                   `json:"arp,omitempty"`
+	// Aggregate Ethernet ARP configuration
+	Arp        []AggEthernetArpInner                        `json:"arp,omitempty"`
 	DdnsConfig *AggregateEthernetInterfacesLayer3DdnsConfig `json:"ddns-config,omitempty"`
 	DhcpClient *AggregateEthernetInterfacesLayer3DhcpClient `json:"dhcp-client,omitempty"`
 	// Interface management profile
@@ -58,9 +58,9 @@ func NewAggregateEthernetInterfacesLayer3WithDefaults() *AggregateEthernetInterf
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetArp() []ArpInner {
+func (o *AggregateEthernetInterfacesLayer3) GetArp() []AggEthernetArpInner {
 	if o == nil || IsNil(o.Arp) {
-		var ret []ArpInner
+		var ret []AggEthernetArpInner
 		return ret
 	}
 	return o.Arp
@@ -68,7 +68,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetArp() []ArpInner {
 
 // GetArpOk returns a tuple with the Arp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetArpOk() ([]ArpInner, bool) {
+func (o *AggregateEthernetInterfacesLayer3) GetArpOk() ([]AggEthernetArpInner, bool) {
 	if o == nil || IsNil(o.Arp) {
 		return nil, false
 	}
@@ -84,8 +84,8 @@ func (o *AggregateEthernetInterfacesLayer3) HasArp() bool {
 	return false
 }
 
-// SetArp gets a reference to the given []ArpInner and assigns it to the Arp field.
-func (o *AggregateEthernetInterfacesLayer3) SetArp(v []ArpInner) {
+// SetArp gets a reference to the given []AggEthernetArpInner and assigns it to the Arp field.
+func (o *AggregateEthernetInterfacesLayer3) SetArp(v []AggEthernetArpInner) {
 	o.Arp = v
 }
 

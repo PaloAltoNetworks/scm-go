@@ -15,11 +15,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the ArpInner type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ArpInner{}
+// checks if the AggEthernetArpInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AggEthernetArpInner{}
 
-// ArpInner struct for ArpInner
-type ArpInner struct {
+// AggEthernetArpInner struct for AggEthernetArpInner
+type AggEthernetArpInner struct {
 	// MAC address
 	HwAddress *string `json:"hw-address,omitempty"`
 	// IP address
@@ -27,27 +27,27 @@ type ArpInner struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _ArpInner ArpInner
+type _AggEthernetArpInner AggEthernetArpInner
 
-// NewArpInner instantiates a new ArpInner object
+// NewAggEthernetArpInner instantiates a new AggEthernetArpInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArpInner() *ArpInner {
-	this := ArpInner{}
+func NewAggEthernetArpInner() *AggEthernetArpInner {
+	this := AggEthernetArpInner{}
 	return &this
 }
 
-// NewArpInnerWithDefaults instantiates a new ArpInner object
+// NewAggEthernetArpInnerWithDefaults instantiates a new AggEthernetArpInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewArpInnerWithDefaults() *ArpInner {
-	this := ArpInner{}
+func NewAggEthernetArpInnerWithDefaults() *AggEthernetArpInner {
+	this := AggEthernetArpInner{}
 	return &this
 }
 
 // GetHwAddress returns the HwAddress field value if set, zero value otherwise.
-func (o *ArpInner) GetHwAddress() string {
+func (o *AggEthernetArpInner) GetHwAddress() string {
 	if o == nil || IsNil(o.HwAddress) {
 		var ret string
 		return ret
@@ -57,7 +57,7 @@ func (o *ArpInner) GetHwAddress() string {
 
 // GetHwAddressOk returns a tuple with the HwAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArpInner) GetHwAddressOk() (*string, bool) {
+func (o *AggEthernetArpInner) GetHwAddressOk() (*string, bool) {
 	if o == nil || IsNil(o.HwAddress) {
 		return nil, false
 	}
@@ -65,7 +65,7 @@ func (o *ArpInner) GetHwAddressOk() (*string, bool) {
 }
 
 // HasHwAddress returns a boolean if a field has been set.
-func (o *ArpInner) HasHwAddress() bool {
+func (o *AggEthernetArpInner) HasHwAddress() bool {
 	if o != nil && !IsNil(o.HwAddress) {
 		return true
 	}
@@ -74,12 +74,12 @@ func (o *ArpInner) HasHwAddress() bool {
 }
 
 // SetHwAddress gets a reference to the given string and assigns it to the HwAddress field.
-func (o *ArpInner) SetHwAddress(v string) {
+func (o *AggEthernetArpInner) SetHwAddress(v string) {
 	o.HwAddress = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *ArpInner) GetName() string {
+func (o *AggEthernetArpInner) GetName() string {
 	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
@@ -89,7 +89,7 @@ func (o *ArpInner) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArpInner) GetNameOk() (*string, bool) {
+func (o *AggEthernetArpInner) GetNameOk() (*string, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -97,7 +97,7 @@ func (o *ArpInner) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *ArpInner) HasName() bool {
+func (o *AggEthernetArpInner) HasName() bool {
 	if o != nil && !IsNil(o.Name) {
 		return true
 	}
@@ -106,11 +106,11 @@ func (o *ArpInner) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *ArpInner) SetName(v string) {
+func (o *AggEthernetArpInner) SetName(v string) {
 	o.Name = &v
 }
 
-func (o ArpInner) MarshalJSON() ([]byte, error) {
+func (o AggEthernetArpInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -118,7 +118,7 @@ func (o ArpInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ArpInner) ToMap() (map[string]interface{}, error) {
+func (o AggEthernetArpInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.HwAddress) {
 		toSerialize["hw-address"] = o.HwAddress
@@ -134,16 +134,16 @@ func (o ArpInner) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *ArpInner) UnmarshalJSON(data []byte) (err error) {
-	varArpInner := _ArpInner{}
+func (o *AggEthernetArpInner) UnmarshalJSON(data []byte) (err error) {
+	varAggEthernetArpInner := _AggEthernetArpInner{}
 
-	err = json.Unmarshal(data, &varArpInner)
+	err = json.Unmarshal(data, &varAggEthernetArpInner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ArpInner(varArpInner)
+	*o = AggEthernetArpInner(varAggEthernetArpInner)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -156,38 +156,38 @@ func (o *ArpInner) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableArpInner struct {
-	value *ArpInner
+type NullableAggEthernetArpInner struct {
+	value *AggEthernetArpInner
 	isSet bool
 }
 
-func (v NullableArpInner) Get() *ArpInner {
+func (v NullableAggEthernetArpInner) Get() *AggEthernetArpInner {
 	return v.value
 }
 
-func (v *NullableArpInner) Set(val *ArpInner) {
+func (v *NullableAggEthernetArpInner) Set(val *AggEthernetArpInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableArpInner) IsSet() bool {
+func (v NullableAggEthernetArpInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableArpInner) Unset() {
+func (v *NullableAggEthernetArpInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableArpInner(val *ArpInner) *NullableArpInner {
-	return &NullableArpInner{value: val, isSet: true}
+func NewNullableAggEthernetArpInner(val *AggEthernetArpInner) *NullableAggEthernetArpInner {
+	return &NullableAggEthernetArpInner{value: val, isSet: true}
 }
 
-func (v NullableArpInner) MarshalJSON() ([]byte, error) {
+func (v NullableAggEthernetArpInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableArpInner) UnmarshalJSON(src []byte) error {
+func (v *NullableAggEthernetArpInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -21,8 +21,8 @@ var _ MappedNullable = &Layer3Subinterfaces{}
 
 // Layer3Subinterfaces struct for Layer3Subinterfaces
 type Layer3Subinterfaces struct {
-	// ARP configuration
-	Arp []ArpInner `json:"arp,omitempty"`
+	// Layer 3 sub Interfaces ARP configuration
+	Arp []AggEthernetArpInner `json:"arp,omitempty"`
 	// Description
 	Comment    *string                        `json:"comment,omitempty"`
 	DdnsConfig *Layer3SubinterfacesDdnsConfig `json:"ddns_config,omitempty"`
@@ -70,9 +70,9 @@ func NewLayer3SubinterfacesWithDefaults() *Layer3Subinterfaces {
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetArp() []ArpInner {
+func (o *Layer3Subinterfaces) GetArp() []AggEthernetArpInner {
 	if o == nil || IsNil(o.Arp) {
-		var ret []ArpInner
+		var ret []AggEthernetArpInner
 		return ret
 	}
 	return o.Arp
@@ -80,7 +80,7 @@ func (o *Layer3Subinterfaces) GetArp() []ArpInner {
 
 // GetArpOk returns a tuple with the Arp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetArpOk() ([]ArpInner, bool) {
+func (o *Layer3Subinterfaces) GetArpOk() ([]AggEthernetArpInner, bool) {
 	if o == nil || IsNil(o.Arp) {
 		return nil, false
 	}
@@ -96,8 +96,8 @@ func (o *Layer3Subinterfaces) HasArp() bool {
 	return false
 }
 
-// SetArp gets a reference to the given []ArpInner and assigns it to the Arp field.
-func (o *Layer3Subinterfaces) SetArp(v []ArpInner) {
+// SetArp gets a reference to the given []AggEthernetArpInner and assigns it to the Arp field.
+func (o *Layer3Subinterfaces) SetArp(v []AggEthernetArpInner) {
 	o.Arp = v
 }
 

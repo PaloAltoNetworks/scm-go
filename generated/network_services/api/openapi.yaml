@@ -7672,6 +7672,11 @@ components:
       - limit
       - offset
       - total
+    agg-ethernet-arp:
+      description: Aggregate Ethernet ARP configuration
+      items:
+        $ref: '#/components/schemas/agg_ethernet_arp_inner'
+      type: array
     aggregate-ethernet-interfaces:
       example:
         snippet: My Snippet
@@ -7763,11 +7768,6 @@ components:
           type: string
       required:
       - name
-    arp:
-      description: ARP configuration
-      items:
-        $ref: '#/components/schemas/arp_inner'
-      type: array
     auto-vpn-clusters:
       example:
         gateways:
@@ -9546,6 +9546,11 @@ components:
       required:
       - id
       - name
+    ethernet-interfaces-arp:
+      description: Ethernet Interfaces ARP configuration
+      items:
+        $ref: '#/components/schemas/agg_ethernet_arp_inner'
+      type: array
     generic_error:
       properties:
         _errors:
@@ -10162,9 +10167,9 @@ components:
           name: name
       properties:
         arp:
-          description: ARP configuration
+          description: Layer 3 sub Interfaces ARP configuration
           items:
-            $ref: '#/components/schemas/arp_inner'
+            $ref: '#/components/schemas/agg_ethernet_arp_inner'
           type: array
         comment:
           description: Description
@@ -10222,6 +10227,11 @@ components:
           type: number
       required:
       - name
+    layer3-subinterfaces-arp:
+      description: Layer 3 sub Interfaces ARP configuration
+      items:
+        $ref: '#/components/schemas/agg_ethernet_arp_inner'
+      type: array
     link-tags:
       example:
         snippet: My Snippet
@@ -16892,6 +16902,20 @@ components:
         error:
           example: Failed to retrieve license data
           type: string
+    agg_ethernet_arp_inner:
+      default: {}
+      example:
+        hw-address: hw-address
+        name: name
+      properties:
+        hw-address:
+          description: MAC address
+          format: mac-address
+          type: string
+        name:
+          description: IP address
+          format: ip-address
+          type: string
     aggregate_ethernet_interfaces_layer2:
       example:
         lacp:
@@ -17033,9 +17057,9 @@ components:
         mtu: 2565
       properties:
         arp:
-          description: ARP configuration
+          description: Aggregate Ethernet ARP configuration
           items:
-            $ref: '#/components/schemas/arp_inner'
+            $ref: '#/components/schemas/agg_ethernet_arp_inner'
           type: array
         ddns-config:
           $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_ddns_config'
@@ -17058,20 +17082,6 @@ components:
           maximum: 9216
           minimum: 576
           type: integer
-    arp_inner:
-      default: {}
-      example:
-        hw-address: hw-address
-        name: name
-      properties:
-        hw-address:
-          description: MAC address
-          format: mac-address
-          type: string
-        name:
-          description: IP address
-          format: ip-address
-          type: string
     auto_vpn_clusters_branches_inner_interfaces_inner_sdwan_link_settings_upstream_nat_static_ip:
       example:
         fqdn: fqdn
@@ -20432,9 +20442,9 @@ components:
         mtu: 1842
       properties:
         arp:
-          description: ARP configuration
+          description: Ethernet Interfaces ARP configuration
           items:
-            $ref: '#/components/schemas/arp_inner'
+            $ref: '#/components/schemas/agg_ethernet_arp_inner'
           type: array
         ddns-config:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_ddns_config'
