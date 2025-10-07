@@ -24,7 +24,7 @@ type BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner struct {
 	Action *string `json:"action,omitempty"`
 	// Description
 	Description *string                                                         `json:"description,omitempty"`
-	Match       *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerMatch `json:"match,omitempty"`
+	Match       *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch `json:"match,omitempty"`
 	// Sequence number
 	Name                 *int32                                            `json:"name,omitempty"`
 	Set                  *BgpRouteMapRedistributionsBgpRibRouteMapInnerSet `json:"set,omitempty"`
@@ -115,9 +115,9 @@ func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) SetDescripti
 }
 
 // GetMatch returns the Match field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetMatch() BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerMatch {
+func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetMatch() BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch {
 	if o == nil || IsNil(o.Match) {
-		var ret BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerMatch
+		var ret BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch
 		return ret
 	}
 	return *o.Match
@@ -125,7 +125,7 @@ func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetMatch() B
 
 // GetMatchOk returns a tuple with the Match field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetMatchOk() (*BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerMatch, bool) {
+func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetMatchOk() (*BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch, bool) {
 	if o == nil || IsNil(o.Match) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) HasMatch() b
 	return false
 }
 
-// SetMatch gets a reference to the given BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerMatch and assigns it to the Match field.
-func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) SetMatch(v BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerMatch) {
+// SetMatch gets a reference to the given BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch and assigns it to the Match field.
+func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) SetMatch(v BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch) {
 	o.Match = &v
 }
 

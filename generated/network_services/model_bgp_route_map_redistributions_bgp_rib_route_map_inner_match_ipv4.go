@@ -20,9 +20,9 @@ var _ MappedNullable = &BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4{}
 
 // BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4 struct for BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4
 type BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4 struct {
-	Address              *BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address `json:"address,omitempty"`
-	NextHop              *BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address `json:"next_hop,omitempty"`
-	RouteSource          *BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address `json:"route_source,omitempty"`
+	Address              *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4Address     `json:"address,omitempty"`
+	NextHop              *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4NextHop     `json:"next_hop,omitempty"`
+	RouteSource          *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource `json:"route_source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,9 +46,9 @@ func NewBgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4WithDefaults() *Bg
 }
 
 // GetAddress returns the Address field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetAddress() BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetAddress() BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4Address {
 	if o == nil || IsNil(o.Address) {
-		var ret BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address
+		var ret BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4Address
 		return ret
 	}
 	return *o.Address
@@ -56,7 +56,7 @@ func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetAddress() Bg
 
 // GetAddressOk returns a tuple with the Address field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetAddressOk() (*BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetAddressOk() (*BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4Address, bool) {
 	if o == nil || IsNil(o.Address) {
 		return nil, false
 	}
@@ -72,15 +72,15 @@ func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) HasAddress() bo
 	return false
 }
 
-// SetAddress gets a reference to the given BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address and assigns it to the Address field.
-func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) SetAddress(v BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address) {
+// SetAddress gets a reference to the given BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4Address and assigns it to the Address field.
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) SetAddress(v BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4Address) {
 	o.Address = &v
 }
 
 // GetNextHop returns the NextHop field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetNextHop() BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetNextHop() BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4NextHop {
 	if o == nil || IsNil(o.NextHop) {
-		var ret BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address
+		var ret BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4NextHop
 		return ret
 	}
 	return *o.NextHop
@@ -88,7 +88,7 @@ func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetNextHop() Bg
 
 // GetNextHopOk returns a tuple with the NextHop field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetNextHopOk() (*BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetNextHopOk() (*BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4NextHop, bool) {
 	if o == nil || IsNil(o.NextHop) {
 		return nil, false
 	}
@@ -104,15 +104,15 @@ func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) HasNextHop() bo
 	return false
 }
 
-// SetNextHop gets a reference to the given BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address and assigns it to the NextHop field.
-func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) SetNextHop(v BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address) {
+// SetNextHop gets a reference to the given BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4NextHop and assigns it to the NextHop field.
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) SetNextHop(v BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4NextHop) {
 	o.NextHop = &v
 }
 
 // GetRouteSource returns the RouteSource field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetRouteSource() BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetRouteSource() BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource {
 	if o == nil || IsNil(o.RouteSource) {
-		var ret BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address
+		var ret BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource
 		return ret
 	}
 	return *o.RouteSource
@@ -120,7 +120,7 @@ func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetRouteSource(
 
 // GetRouteSourceOk returns a tuple with the RouteSource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetRouteSourceOk() (*BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) GetRouteSourceOk() (*BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource, bool) {
 	if o == nil || IsNil(o.RouteSource) {
 		return nil, false
 	}
@@ -136,8 +136,8 @@ func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) HasRouteSource(
 	return false
 }
 
-// SetRouteSource gets a reference to the given BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address and assigns it to the RouteSource field.
-func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) SetRouteSource(v BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4Address) {
+// SetRouteSource gets a reference to the given BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource and assigns it to the RouteSource field.
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) SetRouteSource(v BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource) {
 	o.RouteSource = &v
 }
 

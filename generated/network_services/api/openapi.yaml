@@ -8653,9 +8653,9 @@ components:
                   next_hop:
                     prefix_list: prefix_list
                     access_list: access_list
-                metric: 1780525090
+                metric: 2147483647
                 interface: interface
-              name: 65310
+              name: 43801
               action: permit
               description: description
             - set:
@@ -8668,9 +8668,9 @@ components:
                   next_hop:
                     prefix_list: prefix_list
                     access_list: access_list
-                metric: 1780525090
+                metric: 2147483647
                 interface: interface
-              name: 65310
+              name: 43801
               action: permit
               description: description
           ospf:
@@ -8689,9 +8689,9 @@ components:
                   next_hop:
                     prefix_list: prefix_list
                     access_list: access_list
-                metric: 1780525090
+                metric: 2132545103
                 interface: interface
-              name: 32540
+              name: 32931
               action: permit
               description: description
             - set:
@@ -8708,9 +8708,9 @@ components:
                   next_hop:
                     prefix_list: prefix_list
                     access_list: access_list
-                metric: 1780525090
+                metric: 2132545103
                 interface: interface
-              name: 32540
+              name: 32931
               action: permit
               description: description
         folder: My Folder
@@ -8847,18 +8847,18 @@ components:
                   value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 2147483647
+                  as: 1527803716
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 42194
-                - 42194
-                weight: 551756841
-                tag: 2147483647
-                local_preference: 1527803716
+                - 45646
+                - 45646
+                weight: 2147483647
+                tag: 1238738201
+                local_preference: 551756841
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8873,7 +8873,7 @@ components:
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 57422
+              name: 42194
               action: permit
               description: description
             - set:
@@ -8885,18 +8885,18 @@ components:
                   value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 2147483647
+                  as: 1527803716
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 42194
-                - 42194
-                weight: 551756841
-                tag: 2147483647
-                local_preference: 1527803716
+                - 45646
+                - 45646
+                weight: 2147483647
+                tag: 1238738201
+                local_preference: 551756841
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8911,7 +8911,7 @@ components:
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 57422
+              name: 42194
               action: permit
               description: description
           rib:
@@ -8922,13 +8922,13 @@ components:
                 address:
                   prefix_list: prefix_list
                   access_list: access_list
-                metric: 1238738200
+                metric: 2147483647
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 45075
+              name: 43935
               action: permit
               description: description
             - set:
@@ -8937,13 +8937,13 @@ components:
                 address:
                   prefix_list: prefix_list
                   access_list: access_list
-                metric: 1238738200
+                metric: 2147483647
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 45075
+              name: 43935
               action: permit
               description: description
       properties:
@@ -18007,6 +18007,31 @@ components:
         unicast:
           $ref: '#/components/schemas/bgp_redistribution_profiles_ipv4_unicast'
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address:
+      description: bgp-route-map-redistributions ipv4 object address
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_next_hop:
+      description: bgp-route-map-redistributions ipv4 object next_hop
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_route_source:
+      description: bgp-route-map-redistributions ipv4 object route_source
       example:
         prefix_list: prefix_list
         access_list: access_list
@@ -18033,9 +18058,9 @@ components:
         address:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_next_hop'
         route_source:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_route_source'
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_match:
       example:
         as_path_access_list: as_path_access_list
@@ -18258,6 +18283,41 @@ components:
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner'
           type: array
+    bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_address:
+      description: bgp-route-map-redistributions ipv4 rib object address
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_next_hop:
+      description: bgp-route-map-redistributions ipv4 rib object next_hop
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source:
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
     bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4:
       example:
         address:
@@ -18271,11 +18331,11 @@ components:
           access_list: access_list
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_address'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_next_hop'
         route_source:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
     bgp_route_map_redistributions_bgp_rib_route_map_inner_match:
       example:
         as_path_access_list: as_path_access_list
@@ -18579,6 +18639,7 @@ components:
         rib:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib'
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match_ipv4:
+      description: bgp-route-map-redistributions connected-static ipv4
       example:
         address:
           prefix_list: prefix_list
@@ -18588,9 +18649,9 @@ components:
           access_list: access_list
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match:
       example:
         ipv4:
@@ -18881,6 +18942,42 @@ components:
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner'
           type: array
+    bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4:
+      description: bgp-route-map-redistributions connected-static match ipv4
+      example:
+        address:
+          prefix_list: prefix_list
+          access_list: access_list
+        next_hop:
+          prefix_list: prefix_list
+          access_list: access_list
+      properties:
+        address:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+        next_hop:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+    bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match:
+      example:
+        ipv4:
+          address:
+            prefix_list: prefix_list
+            access_list: access_list
+          next_hop:
+            prefix_list: prefix_list
+            access_list: access_list
+        metric: 2132545103
+        interface: interface
+      properties:
+        interface:
+          description: Interface
+          type: string
+        ipv4:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4'
+        metric:
+          description: Metric
+          maximum: 4294967295
+          minimum: 0
+          type: integer
     bgp_route_map_redistributions_connected_static_ospf_route_map_inner_set:
       example:
         metric:
@@ -18918,9 +19015,9 @@ components:
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
-          metric: 1780525090
+          metric: 2132545103
           interface: interface
-        name: 32540
+        name: 32931
         action: permit
         description: description
       properties:
@@ -18934,7 +19031,7 @@ components:
           description: Description
           type: string
         match:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match'
         name:
           description: Sequence number
           maximum: 65535
@@ -18959,9 +19056,9 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-            metric: 1780525090
+            metric: 2132545103
             interface: interface
-          name: 32540
+          name: 32931
           action: permit
           description: description
         - set:
@@ -18978,9 +19075,9 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-            metric: 1780525090
+            metric: 2132545103
             interface: interface
-          name: 32540
+          name: 32931
           action: permit
           description: description
       properties:
@@ -18989,6 +19086,41 @@ components:
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner'
           type: array
+    bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4:
+      example:
+        address:
+          prefix_list: prefix_list
+          access_list: access_list
+        next_hop:
+          prefix_list: prefix_list
+          access_list: access_list
+      properties:
+        address:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+        next_hop:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+    bgp_route_map_redistributions_connected_static_rib_route_map_inner_match:
+      example:
+        ipv4:
+          address:
+            prefix_list: prefix_list
+            access_list: access_list
+          next_hop:
+            prefix_list: prefix_list
+            access_list: access_list
+        metric: 2147483647
+        interface: interface
+      properties:
+        interface:
+          description: Interface
+          type: string
+        ipv4:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4'
+        metric:
+          description: Metric
+          maximum: 4294967295
+          minimum: 0
+          type: integer
     bgp_route_map_redistributions_connected_static_rib_route_map_inner:
       example:
         set:
@@ -19001,9 +19133,9 @@ components:
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
-          metric: 1780525090
+          metric: 2147483647
           interface: interface
-        name: 65310
+        name: 43801
         action: permit
         description: description
       properties:
@@ -19017,7 +19149,7 @@ components:
           description: Description
           type: string
         match:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner_match'
         name:
           description: Sequence number
           maximum: 65535
@@ -19038,9 +19170,9 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-            metric: 1780525090
+            metric: 2147483647
             interface: interface
-          name: 65310
+          name: 43801
           action: permit
           description: description
         - set:
@@ -19053,9 +19185,9 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-            metric: 1780525090
+            metric: 2147483647
             interface: interface
-          name: 65310
+          name: 43801
           action: permit
           description: description
       properties:
@@ -19156,9 +19288,9 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-              metric: 1780525090
+              metric: 2147483647
               interface: interface
-            name: 65310
+            name: 43801
             action: permit
             description: description
           - set:
@@ -19171,9 +19303,9 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-              metric: 1780525090
+              metric: 2147483647
               interface: interface
-            name: 65310
+            name: 43801
             action: permit
             description: description
         ospf:
@@ -19192,9 +19324,9 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-              metric: 1780525090
+              metric: 2132545103
               interface: interface
-            name: 32540
+            name: 32931
             action: permit
             description: description
           - set:
@@ -19211,9 +19343,9 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-              metric: 1780525090
+              metric: 2132545103
               interface: interface
-            name: 32540
+            name: 32931
             action: permit
             description: description
       properties:
@@ -19223,6 +19355,30 @@ components:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf'
         rib:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib'
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_address:
+      description: bgp-route-map-redistributions ospf address
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_next_hop:
+      description: bgp-route-map-redistributions ospf next_hop
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
     bgp_route_map_redistributions_ospf_bgp_route_map_inner_match:
       example:
         address:
@@ -19236,7 +19392,7 @@ components:
         interface: interface
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_address'
         interface:
           description: Interface
           type: string
@@ -19246,7 +19402,7 @@ components:
           minimum: 0
           type: integer
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_next_hop'
         tag:
           description: Tag
           maximum: 4294967295
@@ -19255,7 +19411,7 @@ components:
     bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_aggregator:
       description: bgp-route-map-redistributions set aggregator
       example:
-        as: 2147483647
+        as: 1527803716
         router_id: router_id
       properties:
         as:
@@ -19276,18 +19432,18 @@ components:
           value: 2147483647
         originator_id: originator_id
         aggregator:
-          as: 2147483647
+          as: 1527803716
           router_id: router_id
         origin: none
         large_community:
         - large_community
         - large_community
         aspath_prepend:
-        - 42194
-        - 42194
-        weight: 551756841
-        tag: 2147483647
-        local_preference: 1527803716
+        - 45646
+        - 45646
+        weight: 2147483647
+        tag: 1238738201
+        local_preference: 551756841
         regular_community:
         - regular_community
         - regular_community
@@ -19359,18 +19515,18 @@ components:
             value: 2147483647
           originator_id: originator_id
           aggregator:
-            as: 2147483647
+            as: 1527803716
             router_id: router_id
           origin: none
           large_community:
           - large_community
           - large_community
           aspath_prepend:
-          - 42194
-          - 42194
-          weight: 551756841
-          tag: 2147483647
-          local_preference: 1527803716
+          - 45646
+          - 45646
+          weight: 2147483647
+          tag: 1238738201
+          local_preference: 551756841
           regular_community:
           - regular_community
           - regular_community
@@ -19385,7 +19541,7 @@ components:
             access_list: access_list
           tag: 2147483647
           interface: interface
-        name: 57422
+        name: 42194
         action: permit
         description: description
       properties:
@@ -19419,18 +19575,18 @@ components:
               value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 2147483647
+              as: 1527803716
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 42194
-            - 42194
-            weight: 551756841
-            tag: 2147483647
-            local_preference: 1527803716
+            - 45646
+            - 45646
+            weight: 2147483647
+            tag: 1238738201
+            local_preference: 551756841
             regular_community:
             - regular_community
             - regular_community
@@ -19445,7 +19601,7 @@ components:
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 57422
+          name: 42194
           action: permit
           description: description
         - set:
@@ -19457,18 +19613,18 @@ components:
               value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 2147483647
+              as: 1527803716
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 42194
-            - 42194
-            weight: 551756841
-            tag: 2147483647
-            local_preference: 1527803716
+            - 45646
+            - 45646
+            weight: 2147483647
+            tag: 1238738201
+            local_preference: 551756841
             regular_community:
             - regular_community
             - regular_community
@@ -19483,7 +19639,7 @@ components:
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 57422
+          name: 42194
           action: permit
           description: description
       properties:
@@ -19497,7 +19653,7 @@ components:
         address:
           prefix_list: prefix_list
           access_list: access_list
-        metric: 1238738200
+        metric: 2147483647
         next_hop:
           prefix_list: prefix_list
           access_list: access_list
@@ -19505,7 +19661,7 @@ components:
         interface: interface
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
         interface:
           description: Interface
           type: string
@@ -19515,7 +19671,7 @@ components:
           minimum: 0
           type: integer
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
         tag:
           maximum: 4294967295
           minimum: 1
@@ -19528,13 +19684,13 @@ components:
           address:
             prefix_list: prefix_list
             access_list: access_list
-          metric: 1238738200
+          metric: 2147483647
           next_hop:
             prefix_list: prefix_list
             access_list: access_list
           tag: 2147483647
           interface: interface
-        name: 45075
+        name: 43935
         action: permit
         description: description
       properties:
@@ -19565,13 +19721,13 @@ components:
             address:
               prefix_list: prefix_list
               access_list: access_list
-            metric: 1238738200
+            metric: 2147483647
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 45075
+          name: 43935
           action: permit
           description: description
         - set:
@@ -19580,13 +19736,13 @@ components:
             address:
               prefix_list: prefix_list
               access_list: access_list
-            metric: 1238738200
+            metric: 2147483647
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 45075
+          name: 43935
           action: permit
           description: description
       properties:
@@ -19608,18 +19764,18 @@ components:
                 value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 2147483647
+                as: 1527803716
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 42194
-              - 42194
-              weight: 551756841
-              tag: 2147483647
-              local_preference: 1527803716
+              - 45646
+              - 45646
+              weight: 2147483647
+              tag: 1238738201
+              local_preference: 551756841
               regular_community:
               - regular_community
               - regular_community
@@ -19634,7 +19790,7 @@ components:
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 57422
+            name: 42194
             action: permit
             description: description
           - set:
@@ -19646,18 +19802,18 @@ components:
                 value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 2147483647
+                as: 1527803716
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 42194
-              - 42194
-              weight: 551756841
-              tag: 2147483647
-              local_preference: 1527803716
+              - 45646
+              - 45646
+              weight: 2147483647
+              tag: 1238738201
+              local_preference: 551756841
               regular_community:
               - regular_community
               - regular_community
@@ -19672,7 +19828,7 @@ components:
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 57422
+            name: 42194
             action: permit
             description: description
         rib:
@@ -19683,13 +19839,13 @@ components:
               address:
                 prefix_list: prefix_list
                 access_list: access_list
-              metric: 1238738200
+              metric: 2147483647
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 45075
+            name: 43935
             action: permit
             description: description
           - set:
@@ -19698,13 +19854,13 @@ components:
               address:
                 prefix_list: prefix_list
                 access_list: access_list
-              metric: 1238738200
+              metric: 2147483647
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 45075
+            name: 43935
             action: permit
             description: description
       properties:
@@ -19726,11 +19882,11 @@ components:
           access_list: access_list
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
         route_source:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
     bgp_route_maps_route_map_inner_match:
       example:
         as_path_access_list: as_path_access_list
