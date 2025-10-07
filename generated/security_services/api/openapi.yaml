@@ -15174,6 +15174,7 @@ components:
           type: string
       type: object
     anti_spyware_signatures_signature_combination:
+      description: anti spyware signature combination
       example:
         order_free: false
         and_condition:
@@ -17337,6 +17338,38 @@ components:
         reset_server:
           type: object
       type: object
+    vulnerability_protection_signatures_signature_combination:
+      description: vulnerability protection signature combination
+      example:
+        order_free: false
+        and_condition:
+        - or_condition:
+          - name: name
+            threat_id: threat_id
+          - name: name
+            threat_id: threat_id
+          name: name
+        - or_condition:
+          - name: name
+            threat_id: threat_id
+          - name: name
+            threat_id: threat_id
+          name: name
+        time_attribute:
+          track_by: source-and-destination
+          interval: 2170
+          threshold: 38
+      properties:
+        and_condition:
+          items:
+            $ref: '#/components/schemas/anti_spyware_signatures_signature_combination_and_condition_inner'
+          type: array
+        order_free:
+          default: false
+          type: boolean
+        time_attribute:
+          $ref: '#/components/schemas/anti_spyware_signatures_signature_combination_time_attribute'
+      type: object
     vulnerability_protection_signatures_signature:
       description: vulnerability protection signature
       example:
@@ -17668,7 +17701,7 @@ components:
             threshold: 38
       properties:
         combination:
-          $ref: '#/components/schemas/anti_spyware_signatures_signature_combination'
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination'
         standard:
           items:
             $ref: '#/components/schemas/anti_spyware_signatures_signature_standard_inner'
