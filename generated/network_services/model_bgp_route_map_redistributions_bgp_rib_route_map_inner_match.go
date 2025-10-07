@@ -15,21 +15,22 @@ import (
 	"encoding/json"
 )
 
-// checks if the BgpRouteMapsRouteMapInnerMatch type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &BgpRouteMapsRouteMapInnerMatch{}
+// checks if the BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch{}
 
-// BgpRouteMapsRouteMapInnerMatch struct for BgpRouteMapsRouteMapInnerMatch
-type BgpRouteMapsRouteMapInnerMatch struct {
+// BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch struct for BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch
+type BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch struct {
 	// AS path access list
 	AsPathAccessList *string `json:"as_path_access_list,omitempty"`
 	// Extended community
 	ExtendedCommunity *string `json:"extended_community,omitempty"`
 	// Interface
-	Interface *string                             `json:"interface,omitempty"`
-	Ipv4      *BgpRouteMapsRouteMapInnerMatchIpv4 `json:"ipv4,omitempty"`
+	Interface *string                                                 `json:"interface,omitempty"`
+	Ipv4      *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4 `json:"ipv4,omitempty"`
 	// Large community
-	LargeCommunity  *string `json:"large_community,omitempty"`
-	LocalPreference *int32  `json:"local_preference,omitempty"`
+	LargeCommunity *string `json:"large_community,omitempty"`
+	// Local preference
+	LocalPreference *int32 `json:"local_preference,omitempty"`
 	// Metric
 	Metric *int32 `json:"metric,omitempty"`
 	// Origin
@@ -43,27 +44,27 @@ type BgpRouteMapsRouteMapInnerMatch struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _BgpRouteMapsRouteMapInnerMatch BgpRouteMapsRouteMapInnerMatch
+type _BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch
 
-// NewBgpRouteMapsRouteMapInnerMatch instantiates a new BgpRouteMapsRouteMapInnerMatch object
+// NewBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch instantiates a new BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBgpRouteMapsRouteMapInnerMatch() *BgpRouteMapsRouteMapInnerMatch {
-	this := BgpRouteMapsRouteMapInnerMatch{}
+func NewBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch() *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch {
+	this := BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch{}
 	return &this
 }
 
-// NewBgpRouteMapsRouteMapInnerMatchWithDefaults instantiates a new BgpRouteMapsRouteMapInnerMatch object
+// NewBgpRouteMapRedistributionsBgpRibRouteMapInnerMatchWithDefaults instantiates a new BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewBgpRouteMapsRouteMapInnerMatchWithDefaults() *BgpRouteMapsRouteMapInnerMatch {
-	this := BgpRouteMapsRouteMapInnerMatch{}
+func NewBgpRouteMapRedistributionsBgpRibRouteMapInnerMatchWithDefaults() *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch {
+	this := BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch{}
 	return &this
 }
 
 // GetAsPathAccessList returns the AsPathAccessList field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetAsPathAccessList() string {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetAsPathAccessList() string {
 	if o == nil || IsNil(o.AsPathAccessList) {
 		var ret string
 		return ret
@@ -73,7 +74,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetAsPathAccessList() string {
 
 // GetAsPathAccessListOk returns a tuple with the AsPathAccessList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetAsPathAccessListOk() (*string, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetAsPathAccessListOk() (*string, bool) {
 	if o == nil || IsNil(o.AsPathAccessList) {
 		return nil, false
 	}
@@ -81,7 +82,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetAsPathAccessListOk() (*string, bool)
 }
 
 // HasAsPathAccessList returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasAsPathAccessList() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasAsPathAccessList() bool {
 	if o != nil && !IsNil(o.AsPathAccessList) {
 		return true
 	}
@@ -90,12 +91,12 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasAsPathAccessList() bool {
 }
 
 // SetAsPathAccessList gets a reference to the given string and assigns it to the AsPathAccessList field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetAsPathAccessList(v string) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetAsPathAccessList(v string) {
 	o.AsPathAccessList = &v
 }
 
 // GetExtendedCommunity returns the ExtendedCommunity field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetExtendedCommunity() string {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetExtendedCommunity() string {
 	if o == nil || IsNil(o.ExtendedCommunity) {
 		var ret string
 		return ret
@@ -105,7 +106,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetExtendedCommunity() string {
 
 // GetExtendedCommunityOk returns a tuple with the ExtendedCommunity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetExtendedCommunityOk() (*string, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetExtendedCommunityOk() (*string, bool) {
 	if o == nil || IsNil(o.ExtendedCommunity) {
 		return nil, false
 	}
@@ -113,7 +114,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetExtendedCommunityOk() (*string, bool
 }
 
 // HasExtendedCommunity returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasExtendedCommunity() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasExtendedCommunity() bool {
 	if o != nil && !IsNil(o.ExtendedCommunity) {
 		return true
 	}
@@ -122,12 +123,12 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasExtendedCommunity() bool {
 }
 
 // SetExtendedCommunity gets a reference to the given string and assigns it to the ExtendedCommunity field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetExtendedCommunity(v string) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetExtendedCommunity(v string) {
 	o.ExtendedCommunity = &v
 }
 
 // GetInterface returns the Interface field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetInterface() string {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetInterface() string {
 	if o == nil || IsNil(o.Interface) {
 		var ret string
 		return ret
@@ -137,7 +138,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetInterface() string {
 
 // GetInterfaceOk returns a tuple with the Interface field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetInterfaceOk() (*string, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetInterfaceOk() (*string, bool) {
 	if o == nil || IsNil(o.Interface) {
 		return nil, false
 	}
@@ -145,7 +146,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetInterfaceOk() (*string, bool) {
 }
 
 // HasInterface returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasInterface() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasInterface() bool {
 	if o != nil && !IsNil(o.Interface) {
 		return true
 	}
@@ -154,14 +155,14 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasInterface() bool {
 }
 
 // SetInterface gets a reference to the given string and assigns it to the Interface field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetInterface(v string) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetInterface(v string) {
 	o.Interface = &v
 }
 
 // GetIpv4 returns the Ipv4 field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetIpv4() BgpRouteMapsRouteMapInnerMatchIpv4 {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetIpv4() BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4 {
 	if o == nil || IsNil(o.Ipv4) {
-		var ret BgpRouteMapsRouteMapInnerMatchIpv4
+		var ret BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4
 		return ret
 	}
 	return *o.Ipv4
@@ -169,7 +170,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetIpv4() BgpRouteMapsRouteMapInnerMatc
 
 // GetIpv4Ok returns a tuple with the Ipv4 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetIpv4Ok() (*BgpRouteMapsRouteMapInnerMatchIpv4, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetIpv4Ok() (*BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4, bool) {
 	if o == nil || IsNil(o.Ipv4) {
 		return nil, false
 	}
@@ -177,7 +178,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetIpv4Ok() (*BgpRouteMapsRouteMapInner
 }
 
 // HasIpv4 returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasIpv4() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasIpv4() bool {
 	if o != nil && !IsNil(o.Ipv4) {
 		return true
 	}
@@ -185,13 +186,13 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasIpv4() bool {
 	return false
 }
 
-// SetIpv4 gets a reference to the given BgpRouteMapsRouteMapInnerMatchIpv4 and assigns it to the Ipv4 field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetIpv4(v BgpRouteMapsRouteMapInnerMatchIpv4) {
+// SetIpv4 gets a reference to the given BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4 and assigns it to the Ipv4 field.
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetIpv4(v BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4) {
 	o.Ipv4 = &v
 }
 
 // GetLargeCommunity returns the LargeCommunity field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetLargeCommunity() string {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetLargeCommunity() string {
 	if o == nil || IsNil(o.LargeCommunity) {
 		var ret string
 		return ret
@@ -201,7 +202,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetLargeCommunity() string {
 
 // GetLargeCommunityOk returns a tuple with the LargeCommunity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetLargeCommunityOk() (*string, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetLargeCommunityOk() (*string, bool) {
 	if o == nil || IsNil(o.LargeCommunity) {
 		return nil, false
 	}
@@ -209,7 +210,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetLargeCommunityOk() (*string, bool) {
 }
 
 // HasLargeCommunity returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasLargeCommunity() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasLargeCommunity() bool {
 	if o != nil && !IsNil(o.LargeCommunity) {
 		return true
 	}
@@ -218,12 +219,12 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasLargeCommunity() bool {
 }
 
 // SetLargeCommunity gets a reference to the given string and assigns it to the LargeCommunity field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetLargeCommunity(v string) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetLargeCommunity(v string) {
 	o.LargeCommunity = &v
 }
 
 // GetLocalPreference returns the LocalPreference field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetLocalPreference() int32 {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetLocalPreference() int32 {
 	if o == nil || IsNil(o.LocalPreference) {
 		var ret int32
 		return ret
@@ -233,7 +234,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetLocalPreference() int32 {
 
 // GetLocalPreferenceOk returns a tuple with the LocalPreference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetLocalPreferenceOk() (*int32, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetLocalPreferenceOk() (*int32, bool) {
 	if o == nil || IsNil(o.LocalPreference) {
 		return nil, false
 	}
@@ -241,7 +242,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetLocalPreferenceOk() (*int32, bool) {
 }
 
 // HasLocalPreference returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasLocalPreference() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasLocalPreference() bool {
 	if o != nil && !IsNil(o.LocalPreference) {
 		return true
 	}
@@ -250,12 +251,12 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasLocalPreference() bool {
 }
 
 // SetLocalPreference gets a reference to the given int32 and assigns it to the LocalPreference field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetLocalPreference(v int32) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetLocalPreference(v int32) {
 	o.LocalPreference = &v
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetMetric() int32 {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetMetric() int32 {
 	if o == nil || IsNil(o.Metric) {
 		var ret int32
 		return ret
@@ -265,7 +266,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetMetric() int32 {
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetMetricOk() (*int32, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -273,7 +274,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetMetricOk() (*int32, bool) {
 }
 
 // HasMetric returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasMetric() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasMetric() bool {
 	if o != nil && !IsNil(o.Metric) {
 		return true
 	}
@@ -282,12 +283,12 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasMetric() bool {
 }
 
 // SetMetric gets a reference to the given int32 and assigns it to the Metric field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetMetric(v int32) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetMetric(v int32) {
 	o.Metric = &v
 }
 
 // GetOrigin returns the Origin field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetOrigin() string {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetOrigin() string {
 	if o == nil || IsNil(o.Origin) {
 		var ret string
 		return ret
@@ -297,7 +298,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetOrigin() string {
 
 // GetOriginOk returns a tuple with the Origin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetOriginOk() (*string, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetOriginOk() (*string, bool) {
 	if o == nil || IsNil(o.Origin) {
 		return nil, false
 	}
@@ -305,7 +306,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetOriginOk() (*string, bool) {
 }
 
 // HasOrigin returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasOrigin() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasOrigin() bool {
 	if o != nil && !IsNil(o.Origin) {
 		return true
 	}
@@ -314,12 +315,12 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasOrigin() bool {
 }
 
 // SetOrigin gets a reference to the given string and assigns it to the Origin field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetOrigin(v string) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetOrigin(v string) {
 	o.Origin = &v
 }
 
 // GetPeer returns the Peer field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetPeer() string {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetPeer() string {
 	if o == nil || IsNil(o.Peer) {
 		var ret string
 		return ret
@@ -329,7 +330,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetPeer() string {
 
 // GetPeerOk returns a tuple with the Peer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetPeerOk() (*string, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetPeerOk() (*string, bool) {
 	if o == nil || IsNil(o.Peer) {
 		return nil, false
 	}
@@ -337,7 +338,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetPeerOk() (*string, bool) {
 }
 
 // HasPeer returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasPeer() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasPeer() bool {
 	if o != nil && !IsNil(o.Peer) {
 		return true
 	}
@@ -346,12 +347,12 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasPeer() bool {
 }
 
 // SetPeer gets a reference to the given string and assigns it to the Peer field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetPeer(v string) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetPeer(v string) {
 	o.Peer = &v
 }
 
 // GetRegularCommunity returns the RegularCommunity field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetRegularCommunity() string {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetRegularCommunity() string {
 	if o == nil || IsNil(o.RegularCommunity) {
 		var ret string
 		return ret
@@ -361,7 +362,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetRegularCommunity() string {
 
 // GetRegularCommunityOk returns a tuple with the RegularCommunity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetRegularCommunityOk() (*string, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetRegularCommunityOk() (*string, bool) {
 	if o == nil || IsNil(o.RegularCommunity) {
 		return nil, false
 	}
@@ -369,7 +370,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetRegularCommunityOk() (*string, bool)
 }
 
 // HasRegularCommunity returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasRegularCommunity() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasRegularCommunity() bool {
 	if o != nil && !IsNil(o.RegularCommunity) {
 		return true
 	}
@@ -378,12 +379,12 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasRegularCommunity() bool {
 }
 
 // SetRegularCommunity gets a reference to the given string and assigns it to the RegularCommunity field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetRegularCommunity(v string) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetRegularCommunity(v string) {
 	o.RegularCommunity = &v
 }
 
 // GetTag returns the Tag field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetTag() int32 {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetTag() int32 {
 	if o == nil || IsNil(o.Tag) {
 		var ret int32
 		return ret
@@ -393,7 +394,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetTag() int32 {
 
 // GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetTagOk() (*int32, bool) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) GetTagOk() (*int32, bool) {
 	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
@@ -401,7 +402,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetTagOk() (*int32, bool) {
 }
 
 // HasTag returns a boolean if a field has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) HasTag() bool {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) HasTag() bool {
 	if o != nil && !IsNil(o.Tag) {
 		return true
 	}
@@ -410,11 +411,11 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasTag() bool {
 }
 
 // SetTag gets a reference to the given int32 and assigns it to the Tag field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetTag(v int32) {
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) SetTag(v int32) {
 	o.Tag = &v
 }
 
-func (o BgpRouteMapsRouteMapInnerMatch) MarshalJSON() ([]byte, error) {
+func (o BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -422,7 +423,7 @@ func (o BgpRouteMapsRouteMapInnerMatch) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o BgpRouteMapsRouteMapInnerMatch) ToMap() (map[string]interface{}, error) {
+func (o BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.AsPathAccessList) {
 		toSerialize["as_path_access_list"] = o.AsPathAccessList
@@ -465,16 +466,16 @@ func (o BgpRouteMapsRouteMapInnerMatch) ToMap() (map[string]interface{}, error) 
 	return toSerialize, nil
 }
 
-func (o *BgpRouteMapsRouteMapInnerMatch) UnmarshalJSON(data []byte) (err error) {
-	varBgpRouteMapsRouteMapInnerMatch := _BgpRouteMapsRouteMapInnerMatch{}
+func (o *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) UnmarshalJSON(data []byte) (err error) {
+	varBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch := _BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch{}
 
-	err = json.Unmarshal(data, &varBgpRouteMapsRouteMapInnerMatch)
+	err = json.Unmarshal(data, &varBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch)
 
 	if err != nil {
 		return err
 	}
 
-	*o = BgpRouteMapsRouteMapInnerMatch(varBgpRouteMapsRouteMapInnerMatch)
+	*o = BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch(varBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -496,38 +497,38 @@ func (o *BgpRouteMapsRouteMapInnerMatch) UnmarshalJSON(data []byte) (err error) 
 	return err
 }
 
-type NullableBgpRouteMapsRouteMapInnerMatch struct {
-	value *BgpRouteMapsRouteMapInnerMatch
+type NullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch struct {
+	value *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch
 	isSet bool
 }
 
-func (v NullableBgpRouteMapsRouteMapInnerMatch) Get() *BgpRouteMapsRouteMapInnerMatch {
+func (v NullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) Get() *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch {
 	return v.value
 }
 
-func (v *NullableBgpRouteMapsRouteMapInnerMatch) Set(val *BgpRouteMapsRouteMapInnerMatch) {
+func (v *NullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) Set(val *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableBgpRouteMapsRouteMapInnerMatch) IsSet() bool {
+func (v NullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableBgpRouteMapsRouteMapInnerMatch) Unset() {
+func (v *NullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableBgpRouteMapsRouteMapInnerMatch(val *BgpRouteMapsRouteMapInnerMatch) *NullableBgpRouteMapsRouteMapInnerMatch {
-	return &NullableBgpRouteMapsRouteMapInnerMatch{value: val, isSet: true}
+func NewNullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch(val *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) *NullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch {
+	return &NullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch{value: val, isSet: true}
 }
 
-func (v NullableBgpRouteMapsRouteMapInnerMatch) MarshalJSON() ([]byte, error) {
+func (v NullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableBgpRouteMapsRouteMapInnerMatch) UnmarshalJSON(src []byte) error {
+func (v *NullableBgpRouteMapRedistributionsBgpRibRouteMapInnerMatch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
