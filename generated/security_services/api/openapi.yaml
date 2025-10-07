@@ -14348,7 +14348,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 343953088
                   greater_than:
                     qualifier:
                     - name: name
@@ -14364,7 +14364,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 629561881
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14384,7 +14384,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 343953088
                   greater_than:
                     qualifier:
                     - name: name
@@ -14400,7 +14400,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 629561881
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14422,7 +14422,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 343953088
                   greater_than:
                     qualifier:
                     - name: name
@@ -14438,7 +14438,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 629561881
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14458,7 +14458,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 343953088
                   greater_than:
                     qualifier:
                     - name: name
@@ -14474,7 +14474,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 629561881
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14501,7 +14501,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 343953088
                   greater_than:
                     qualifier:
                     - name: name
@@ -14517,7 +14517,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 629561881
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14537,7 +14537,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 343953088
                   greater_than:
                     qualifier:
                     - name: name
@@ -14553,7 +14553,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 629561881
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14575,7 +14575,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 343953088
                   greater_than:
                     qualifier:
                     - name: name
@@ -14591,7 +14591,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 629561881
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14611,7 +14611,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 343953088
                   greater_than:
                     qualifier:
                     - name: name
@@ -14627,7 +14627,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 629561881
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14661,7 +14661,7 @@ components:
         bugtraq:
         - bugtraq
         - bugtraq
-        threat_id: 590288
+        threat_id: 4130427
         threatname: threatname
         default_action:
           allow: "{}"
@@ -17338,8 +17338,40 @@ components:
         reset_server:
           type: object
       type: object
+    vulnerability_protection_signatures_signature_combination_and_condition_inner_or_condition_inner:
+      description: vulnerability protection signature combination object and condition
+        object or condition object
+      example:
+        name: name
+        threat_id: threat_id
+      properties:
+        name:
+          type: string
+        threat_id:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_combination_and_condition_inner:
+      description: vulnerability protection signature combination object and condition
+        object
+      example:
+        or_condition:
+        - name: name
+          threat_id: threat_id
+        - name: name
+          threat_id: threat_id
+        name: name
+      properties:
+        name:
+          type: string
+        or_condition:
+          description: vulnerability protection signature combination object and condition
+            object or condition
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination_and_condition_inner_or_condition_inner'
+          type: array
+      type: object
     vulnerability_protection_signatures_signature_combination:
-      description: vulnerability protection signature combination
+      description: vulnerability protection signature combination object
       example:
         order_free: false
         and_condition:
@@ -17361,14 +17393,529 @@ components:
           threshold: 38
       properties:
         and_condition:
+          description: vulnerability protection signature combination object and condition
           items:
-            $ref: '#/components/schemas/anti_spyware_signatures_signature_combination_and_condition_inner'
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination_and_condition_inner'
           type: array
         order_free:
           default: false
           type: boolean
         time_attribute:
           $ref: '#/components/schemas/anti_spyware_signatures_signature_combination_time_attribute'
+      type: object
+    ? vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_equal_to_qualifier_inner
+    : description: vulnerability protection signature standard object and condition
+        object or condition object operators equal_to qualifier array object
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_equal_to:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators equal_to
+      example:
+        negate: false
+        qualifier:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        context: context
+        value: 343953088
+      properties:
+        context:
+          type: string
+        negate:
+          default: false
+          type: boolean
+        qualifier:
+          description: vulnerability protection signature standard object and condition
+            object or condition object operators equal_to qualifier array
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_equal_to_qualifier_inner'
+          type: array
+        value:
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+      type: object
+    ? vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_greater_than_qualifier_inner
+    : description: vulnerability protection signature standard object and condition
+        object or condition object operators greater_than qualifier object
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_greater_than:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators greater_than
+      example:
+        qualifier:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        context: context
+        value: 2147483647
+      properties:
+        context:
+          type: string
+        qualifier:
+          description: vulnerability protection signature standard object and condition
+            object or condition object operators greater_than qualifier
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_greater_than_qualifier_inner'
+          type: array
+        value:
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+      type: object
+    ? vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_less_than_qualifier_inner
+    : description: vulnerability protection signature standard object and condition
+        object or condition object operators less_than array object
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_less_than:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators less_than
+      example:
+        qualifier:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        context: context
+        value: 629561881
+      properties:
+        context:
+          type: string
+        qualifier:
+          description: vulnerability protection signature standard object and condition
+            object or condition object operators less_than array
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_less_than_qualifier_inner'
+          type: array
+        value:
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+      type: object
+    ? vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_pattern_match_qualifier_inner
+    : description: vulnerability protection signature standard object and condition
+        object or condition object operators pattern match qualifier object
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_pattern_match:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators pattern match
+      example:
+        negate: false
+        qualifier:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        context: context
+        pattern: pattern
+      properties:
+        context:
+          type: string
+        negate:
+          default: false
+          type: boolean
+        pattern:
+          type: string
+        qualifier:
+          description: vulnerability protection signature standard object and condition
+            object or condition object operators pattern match qualifier
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_pattern_match_qualifier_inner'
+          type: array
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators
+      example:
+        equal_to:
+          negate: false
+          qualifier:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          context: context
+          value: 343953088
+        greater_than:
+          qualifier:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          context: context
+          value: 2147483647
+        less_than:
+          qualifier:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          context: context
+          value: 629561881
+        pattern_match:
+          negate: false
+          qualifier:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          context: context
+          pattern: pattern
+      properties:
+        equal_to:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_equal_to'
+        greater_than:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_greater_than'
+        less_than:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_less_than'
+        pattern_match:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_pattern_match'
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner:
+      description: vulnerability protection signature standard object and condition
+        object or condition object
+      example:
+        name: name
+        operator:
+          equal_to:
+            negate: false
+            qualifier:
+            - name: name
+              value: value
+            - name: name
+              value: value
+            context: context
+            value: 343953088
+          greater_than:
+            qualifier:
+            - name: name
+              value: value
+            - name: name
+              value: value
+            context: context
+            value: 2147483647
+          less_than:
+            qualifier:
+            - name: name
+              value: value
+            - name: name
+              value: value
+            context: context
+            value: 629561881
+          pattern_match:
+            negate: false
+            qualifier:
+            - name: name
+              value: value
+            - name: name
+              value: value
+            context: context
+            pattern: pattern
+      properties:
+        name:
+          type: string
+        operator:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator'
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner:
+      description: vulnerability protection signature standard object and condition
+        object
+      example:
+        or_condition:
+        - name: name
+          operator:
+            equal_to:
+              negate: false
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 343953088
+            greater_than:
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 2147483647
+            less_than:
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 629561881
+            pattern_match:
+              negate: false
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              pattern: pattern
+        - name: name
+          operator:
+            equal_to:
+              negate: false
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 343953088
+            greater_than:
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 2147483647
+            less_than:
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 629561881
+            pattern_match:
+              negate: false
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              pattern: pattern
+        name: name
+      properties:
+        name:
+          type: string
+        or_condition:
+          description: vulnerability protection signature standard object and condition
+            object or condition
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner'
+          type: array
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner:
+      description: vulnerability protection signature standard object
+      example:
+        order_free: false
+        scope: protocol-data-unit
+        name: name
+        and_condition:
+        - or_condition:
+          - name: name
+            operator:
+              equal_to:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 343953088
+              greater_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              less_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 629561881
+              pattern_match:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                pattern: pattern
+          - name: name
+            operator:
+              equal_to:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 343953088
+              greater_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              less_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 629561881
+              pattern_match:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                pattern: pattern
+          name: name
+        - or_condition:
+          - name: name
+            operator:
+              equal_to:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 343953088
+              greater_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              less_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 629561881
+              pattern_match:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                pattern: pattern
+          - name: name
+            operator:
+              equal_to:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 343953088
+              greater_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              less_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 629561881
+              pattern_match:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                pattern: pattern
+          name: name
+        comment: comment
+      properties:
+        and_condition:
+          description: vulnerability protection signature standard object and condition
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner'
+          type: array
+        comment:
+          maxLength: 256
+          type: string
+        name:
+          type: string
+        order_free:
+          default: false
+          type: boolean
+        scope:
+          enum:
+          - protocol-data-unit
+          - session
+          type: string
+      required:
+      - name
       type: object
     vulnerability_protection_signatures_signature:
       description: vulnerability protection signature
@@ -17389,7 +17936,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 343953088
                 greater_than:
                   qualifier:
                   - name: name
@@ -17405,7 +17952,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 629561881
                 pattern_match:
                   negate: false
                   qualifier:
@@ -17425,7 +17972,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 343953088
                 greater_than:
                   qualifier:
                   - name: name
@@ -17441,7 +17988,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 629561881
                 pattern_match:
                   negate: false
                   qualifier:
@@ -17463,7 +18010,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 343953088
                 greater_than:
                   qualifier:
                   - name: name
@@ -17479,7 +18026,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 629561881
                 pattern_match:
                   negate: false
                   qualifier:
@@ -17499,7 +18046,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 343953088
                 greater_than:
                   qualifier:
                   - name: name
@@ -17515,7 +18062,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 629561881
                 pattern_match:
                   negate: false
                   qualifier:
@@ -17542,7 +18089,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 343953088
                 greater_than:
                   qualifier:
                   - name: name
@@ -17558,7 +18105,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 629561881
                 pattern_match:
                   negate: false
                   qualifier:
@@ -17578,7 +18125,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 343953088
                 greater_than:
                   qualifier:
                   - name: name
@@ -17594,7 +18141,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 629561881
                 pattern_match:
                   negate: false
                   qualifier:
@@ -17616,7 +18163,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 343953088
                 greater_than:
                   qualifier:
                   - name: name
@@ -17632,7 +18179,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 629561881
                 pattern_match:
                   negate: false
                   qualifier:
@@ -17652,7 +18199,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 343953088
                 greater_than:
                   qualifier:
                   - name: name
@@ -17668,7 +18215,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 2147483647
+                  value: 629561881
                 pattern_match:
                   negate: false
                   qualifier:
@@ -17703,8 +18250,9 @@ components:
         combination:
           $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination'
         standard:
+          description: vulnerability protection signature standard array
           items:
-            $ref: '#/components/schemas/anti_spyware_signatures_signature_standard_inner'
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner'
           type: array
       type: object
     wildfire_anti_virus_profiles_mlav_exception_inner:

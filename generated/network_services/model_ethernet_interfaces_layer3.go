@@ -21,9 +21,9 @@ var _ MappedNullable = &EthernetInterfacesLayer3{}
 // EthernetInterfacesLayer3 struct for EthernetInterfacesLayer3
 type EthernetInterfacesLayer3 struct {
 	// ARP configuration
-	Arp        []ArpInner  `json:"arp,omitempty"`
-	DdnsConfig *DdnsConfig `json:"ddns-config,omitempty"`
-	DhcpClient *DhcpClient `json:"dhcp-client,omitempty"`
+	Arp        []ArpInner                          `json:"arp,omitempty"`
+	DdnsConfig *EthernetInterfacesLayer3DdnsConfig `json:"ddns-config,omitempty"`
+	DhcpClient *DhcpClient                         `json:"dhcp-client,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface-management-profile,omitempty"`
 	// Interface IP addresses
@@ -90,9 +90,9 @@ func (o *EthernetInterfacesLayer3) SetArp(v []ArpInner) {
 }
 
 // GetDdnsConfig returns the DdnsConfig field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetDdnsConfig() DdnsConfig {
+func (o *EthernetInterfacesLayer3) GetDdnsConfig() EthernetInterfacesLayer3DdnsConfig {
 	if o == nil || IsNil(o.DdnsConfig) {
-		var ret DdnsConfig
+		var ret EthernetInterfacesLayer3DdnsConfig
 		return ret
 	}
 	return *o.DdnsConfig
@@ -100,7 +100,7 @@ func (o *EthernetInterfacesLayer3) GetDdnsConfig() DdnsConfig {
 
 // GetDdnsConfigOk returns a tuple with the DdnsConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetDdnsConfigOk() (*DdnsConfig, bool) {
+func (o *EthernetInterfacesLayer3) GetDdnsConfigOk() (*EthernetInterfacesLayer3DdnsConfig, bool) {
 	if o == nil || IsNil(o.DdnsConfig) {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *EthernetInterfacesLayer3) HasDdnsConfig() bool {
 	return false
 }
 
-// SetDdnsConfig gets a reference to the given DdnsConfig and assigns it to the DdnsConfig field.
-func (o *EthernetInterfacesLayer3) SetDdnsConfig(v DdnsConfig) {
+// SetDdnsConfig gets a reference to the given EthernetInterfacesLayer3DdnsConfig and assigns it to the DdnsConfig field.
+func (o *EthernetInterfacesLayer3) SetDdnsConfig(v EthernetInterfacesLayer3DdnsConfig) {
 	o.DdnsConfig = &v
 }
 

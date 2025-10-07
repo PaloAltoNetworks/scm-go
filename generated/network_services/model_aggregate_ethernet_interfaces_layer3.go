@@ -22,7 +22,7 @@ var _ MappedNullable = &AggregateEthernetInterfacesLayer3{}
 type AggregateEthernetInterfacesLayer3 struct {
 	// ARP configuration
 	Arp        []ArpInner                                   `json:"arp,omitempty"`
-	DdnsConfig *DdnsConfig                                  `json:"ddns-config,omitempty"`
+	DdnsConfig *AggregateEthernetInterfacesLayer3DdnsConfig `json:"ddns-config,omitempty"`
 	DhcpClient *AggregateEthernetInterfacesLayer3DhcpClient `json:"dhcp-client,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface-management-profile,omitempty"`
@@ -90,9 +90,9 @@ func (o *AggregateEthernetInterfacesLayer3) SetArp(v []ArpInner) {
 }
 
 // GetDdnsConfig returns the DdnsConfig field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfig() DdnsConfig {
+func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfig() AggregateEthernetInterfacesLayer3DdnsConfig {
 	if o == nil || IsNil(o.DdnsConfig) {
-		var ret DdnsConfig
+		var ret AggregateEthernetInterfacesLayer3DdnsConfig
 		return ret
 	}
 	return *o.DdnsConfig
@@ -100,7 +100,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfig() DdnsConfig {
 
 // GetDdnsConfigOk returns a tuple with the DdnsConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfigOk() (*DdnsConfig, bool) {
+func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfigOk() (*AggregateEthernetInterfacesLayer3DdnsConfig, bool) {
 	if o == nil || IsNil(o.DdnsConfig) {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *AggregateEthernetInterfacesLayer3) HasDdnsConfig() bool {
 	return false
 }
 
-// SetDdnsConfig gets a reference to the given DdnsConfig and assigns it to the DdnsConfig field.
-func (o *AggregateEthernetInterfacesLayer3) SetDdnsConfig(v DdnsConfig) {
+// SetDdnsConfig gets a reference to the given AggregateEthernetInterfacesLayer3DdnsConfig and assigns it to the DdnsConfig field.
+func (o *AggregateEthernetInterfacesLayer3) SetDdnsConfig(v AggregateEthernetInterfacesLayer3DdnsConfig) {
 	o.DdnsConfig = &v
 }
 

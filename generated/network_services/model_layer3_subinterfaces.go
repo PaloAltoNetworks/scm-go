@@ -24,8 +24,8 @@ type Layer3Subinterfaces struct {
 	// ARP configuration
 	Arp []ArpInner `json:"arp,omitempty"`
 	// Description
-	Comment    *string     `json:"comment,omitempty"`
-	DdnsConfig *DdnsConfig `json:"ddns_config,omitempty"`
+	Comment    *string                        `json:"comment,omitempty"`
+	DdnsConfig *Layer3SubinterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// The device in which the resource is defined
 	Device     *string                                      `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
 	DhcpClient *AggregateEthernetInterfacesLayer3DhcpClient `json:"dhcp-client,omitempty"`
@@ -134,9 +134,9 @@ func (o *Layer3Subinterfaces) SetComment(v string) {
 }
 
 // GetDdnsConfig returns the DdnsConfig field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetDdnsConfig() DdnsConfig {
+func (o *Layer3Subinterfaces) GetDdnsConfig() Layer3SubinterfacesDdnsConfig {
 	if o == nil || IsNil(o.DdnsConfig) {
-		var ret DdnsConfig
+		var ret Layer3SubinterfacesDdnsConfig
 		return ret
 	}
 	return *o.DdnsConfig
@@ -144,7 +144,7 @@ func (o *Layer3Subinterfaces) GetDdnsConfig() DdnsConfig {
 
 // GetDdnsConfigOk returns a tuple with the DdnsConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetDdnsConfigOk() (*DdnsConfig, bool) {
+func (o *Layer3Subinterfaces) GetDdnsConfigOk() (*Layer3SubinterfacesDdnsConfig, bool) {
 	if o == nil || IsNil(o.DdnsConfig) {
 		return nil, false
 	}
@@ -160,8 +160,8 @@ func (o *Layer3Subinterfaces) HasDdnsConfig() bool {
 	return false
 }
 
-// SetDdnsConfig gets a reference to the given DdnsConfig and assigns it to the DdnsConfig field.
-func (o *Layer3Subinterfaces) SetDdnsConfig(v DdnsConfig) {
+// SetDdnsConfig gets a reference to the given Layer3SubinterfacesDdnsConfig and assigns it to the DdnsConfig field.
+func (o *Layer3Subinterfaces) SetDdnsConfig(v Layer3SubinterfacesDdnsConfig) {
 	o.DdnsConfig = &v
 }
 

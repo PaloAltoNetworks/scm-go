@@ -9135,14 +9135,6 @@ components:
       required:
       - name
     ddns-config:
-      example:
-        ddns-enabled: false
-        ddns-vendor-config: ddns-vendor-config
-        ddns-hostname: ddns-hostname
-        ddns-cert-profile: ddns-cert-profile
-        ddns-update-interval: 18
-        ddns-ip: ddns-ip
-        ddns-vendor: ddns-vendor
       properties:
         ddns-cert-profile:
           description: Certificate profile
@@ -9432,7 +9424,7 @@ components:
         tap: "{}"
         poe:
           poe-enabled: false
-          poe-rsvd-pwr: 53
+          poe-rsvd-pwr: 50
         link-speed: auto
         link-duplex: auto
         folder: My Folder
@@ -9463,7 +9455,7 @@ components:
             static-address:
               ip: ip
             access-concentrator: access-concentrator
-            default-route-metric: 9607
+            default-route-metric: 39073
             passive: false
             authentication: CHAP
             username: username
@@ -9473,7 +9465,7 @@ components:
             name: name
           - hw-address: hw-address
             name: name
-          mtu: 5783
+          mtu: 1842
         name: name
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
@@ -10141,7 +10133,7 @@ components:
         - ip
         parent-interface: parent-interface
         interface_management_profile: string
-        mtu: 1267.915556558314
+        mtu: 5783.722142172828
         folder: My Folder
         dhcp-client:
           enable: true
@@ -10155,13 +10147,13 @@ components:
           ddns-vendor-config: ddns-vendor-config
           ddns-hostname: ddns-hostname
           ddns-cert-profile: ddns-cert-profile
-          ddns-update-interval: 18
+          ddns-update-interval: 3
           ddns-ip: ddns-ip
           ddns-vendor: ddns-vendor
         name: name
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
-        tag: 2469.24330696733
+        tag: 601.2504155159561
         device: My Device
         arp:
         - hw-address: hw-address
@@ -10178,7 +10170,7 @@ components:
           description: Description
           type: string
         ddns_config:
-          $ref: '#/components/schemas/ddns-config'
+          $ref: '#/components/schemas/layer3_subinterfaces_ddns_config'
         device:
           description: The device in which the resource is defined
           example: My Device
@@ -15517,7 +15509,7 @@ components:
     poe:
       example:
         poe-enabled: false
-        poe-rsvd-pwr: 53
+        poe-rsvd-pwr: 50
       properties:
         poe-enabled:
           default: false
@@ -16419,12 +16411,12 @@ components:
       example:
         snippet: My Snippet
         default-value: default-value
-        vlan-tag: 2469.24330696733
+        vlan-tag: 601.2504155159561
         ip:
         - ip
         - ip
         interface_management_profile: string
-        mtu: 1267.915556558314
+        mtu: 5783.722142172828
         folder: My Folder
         dhcp-client:
           enable: true
@@ -16438,7 +16430,7 @@ components:
           ddns-vendor-config: ddns-vendor-config
           ddns-hostname: ddns-hostname
           ddns-cert-profile: ddns-cert-profile
-          ddns-update-interval: 18
+          ddns-update-interval: 3
           ddns-ip: ddns-ip
           ddns-vendor: ddns-vendor
         name: name
@@ -16462,7 +16454,7 @@ components:
           description: Description
           type: string
         ddns_config:
-          $ref: '#/components/schemas/ddns-config'
+          $ref: '#/components/schemas/vlan_interfaces_ddns_config'
         default-value:
           description: Default interface assignment
           type: string
@@ -16918,6 +16910,51 @@ components:
           maximum: 9999
           minimum: 1
           type: integer
+    aggregate_ethernet_interfaces_layer3_ddns_config:
+      description: Dynamic DNS configuration specific to the Aggregate Ethernet Interface.
+      example:
+        ddns-enabled: false
+        ddns-vendor-config: ddns-vendor-config
+        ddns-hostname: ddns-hostname
+        ddns-cert-profile: ddns-cert-profile
+        ddns-update-interval: 18
+        ddns-ip: ddns-ip
+        ddns-vendor: ddns-vendor
+      properties:
+        ddns-cert-profile:
+          description: Certificate profile
+          type: string
+        ddns-enabled:
+          default: false
+          description: Enable DDNS?
+          type: boolean
+        ddns-hostname:
+          maxLength: 255
+          pattern: "^[a-zA-Z0-9_\\.\\-]+$"
+          type: string
+        ddns-ip:
+          description: IP to register (static only)
+          format: ip-address
+          type: string
+        ddns-update-interval:
+          default: 1
+          description: Update interval (days)
+          maximum: 30
+          minimum: 1
+          type: integer
+        ddns-vendor:
+          description: DDNS vendor
+          maxLength: 127
+          type: string
+        ddns-vendor-config:
+          description: DDNS vendor
+          maxLength: 255
+          type: string
+      required:
+      - ddns-cert-profile
+      - ddns-hostname
+      - ddns-vendor
+      - ddns-vendor-config
     aggregate_ethernet_interfaces_layer3_dhcp_client_send_hostname:
       description: Send hostname
       example:
@@ -17001,7 +17038,7 @@ components:
             $ref: '#/components/schemas/arp_inner'
           type: array
         ddns-config:
-          $ref: '#/components/schemas/ddns-config'
+          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_ddns_config'
         dhcp-client:
           $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client'
         interface-management-profile:
@@ -20241,6 +20278,51 @@ components:
           maximum: 9999
           minimum: 1
           type: integer
+    ethernet_interfaces_layer3_ddns_config:
+      description: Dynamic DNS configuration specific to the Ethernet Interfaces.
+      example:
+        ddns-enabled: false
+        ddns-vendor-config: ddns-vendor-config
+        ddns-hostname: ddns-hostname
+        ddns-cert-profile: ddns-cert-profile
+        ddns-update-interval: 18
+        ddns-ip: ddns-ip
+        ddns-vendor: ddns-vendor
+      properties:
+        ddns-cert-profile:
+          description: Certificate profile
+          type: string
+        ddns-enabled:
+          default: false
+          description: Enable DDNS?
+          type: boolean
+        ddns-hostname:
+          maxLength: 255
+          pattern: "^[a-zA-Z0-9_\\.\\-]+$"
+          type: string
+        ddns-ip:
+          description: IP to register (static only)
+          format: ip-address
+          type: string
+        ddns-update-interval:
+          default: 1
+          description: Update interval (days)
+          maximum: 30
+          minimum: 1
+          type: integer
+        ddns-vendor:
+          description: DDNS vendor
+          maxLength: 127
+          type: string
+        ddns-vendor-config:
+          description: DDNS vendor
+          maxLength: 255
+          type: string
+      required:
+      - ddns-cert-profile
+      - ddns-hostname
+      - ddns-vendor
+      - ddns-vendor-config
     ethernet_interfaces_layer3_pppoe_static_address:
       example:
         ip: ip
@@ -20259,7 +20341,7 @@ components:
         static-address:
           ip: ip
         access-concentrator: access-concentrator
-        default-route-metric: 9607
+        default-route-metric: 39073
         passive: false
         authentication: CHAP
         username: username
@@ -20337,7 +20419,7 @@ components:
           static-address:
             ip: ip
           access-concentrator: access-concentrator
-          default-route-metric: 9607
+          default-route-metric: 39073
           passive: false
           authentication: CHAP
           username: username
@@ -20347,7 +20429,7 @@ components:
           name: name
         - hw-address: hw-address
           name: name
-        mtu: 5783
+        mtu: 1842
       properties:
         arp:
           description: ARP configuration
@@ -20355,7 +20437,7 @@ components:
             $ref: '#/components/schemas/arp_inner'
           type: array
         ddns-config:
-          $ref: '#/components/schemas/ddns-config'
+          $ref: '#/components/schemas/ethernet_interfaces_layer3_ddns_config'
         dhcp-client:
           $ref: '#/components/schemas/dhcp-client'
         interface-management-profile:
@@ -20858,6 +20940,51 @@ components:
           type: string
       required:
       - destination_ip
+    layer3_subinterfaces_ddns_config:
+      description: Dynamic DNS configuration specific to the Layer 3 sub Interfaces.
+      example:
+        ddns-enabled: false
+        ddns-vendor-config: ddns-vendor-config
+        ddns-hostname: ddns-hostname
+        ddns-cert-profile: ddns-cert-profile
+        ddns-update-interval: 3
+        ddns-ip: ddns-ip
+        ddns-vendor: ddns-vendor
+      properties:
+        ddns-cert-profile:
+          description: Certificate profile
+          type: string
+        ddns-enabled:
+          default: false
+          description: Enable DDNS?
+          type: boolean
+        ddns-hostname:
+          maxLength: 255
+          pattern: "^[a-zA-Z0-9_\\.\\-]+$"
+          type: string
+        ddns-ip:
+          description: IP to register (static only)
+          format: ip-address
+          type: string
+        ddns-update-interval:
+          default: 1
+          description: Update interval (days)
+          maximum: 30
+          minimum: 1
+          type: integer
+        ddns-vendor:
+          description: DDNS vendor
+          maxLength: 127
+          type: string
+        ddns-vendor-config:
+          description: DDNS vendor
+          maxLength: 255
+          type: string
+      required:
+      - ddns-cert-profile
+      - ddns-hostname
+      - ddns-vendor
+      - ddns-vendor-config
     logical_routers_vrf_inner_admin_dists:
       example:
         bgp_local: 1.4658129805029452
@@ -32756,6 +32883,51 @@ components:
           description: IP address
           format: ip-address
           type: string
+    vlan_interfaces_ddns_config:
+      description: Dynamic DNS configuration specific to the Vlan Interfaces.
+      example:
+        ddns-enabled: false
+        ddns-vendor-config: ddns-vendor-config
+        ddns-hostname: ddns-hostname
+        ddns-cert-profile: ddns-cert-profile
+        ddns-update-interval: 3
+        ddns-ip: ddns-ip
+        ddns-vendor: ddns-vendor
+      properties:
+        ddns-cert-profile:
+          description: Certificate profile
+          type: string
+        ddns-enabled:
+          default: false
+          description: Enable DDNS?
+          type: boolean
+        ddns-hostname:
+          maxLength: 255
+          pattern: "^[a-zA-Z0-9_\\.\\-]+$"
+          type: string
+        ddns-ip:
+          description: IP to register (static only)
+          format: ip-address
+          type: string
+        ddns-update-interval:
+          default: 1
+          description: Update interval (days)
+          maximum: 30
+          minimum: 1
+          type: integer
+        ddns-vendor:
+          description: DDNS vendor
+          maxLength: 127
+          type: string
+        ddns-vendor-config:
+          description: DDNS vendor
+          maxLength: 255
+          type: string
+      required:
+      - ddns-cert-profile
+      - ddns-hostname
+      - ddns-vendor
+      - ddns-vendor-config
     zone_protection_profiles_flood_icmp_red:
       example:
         alarm_rate: 10000

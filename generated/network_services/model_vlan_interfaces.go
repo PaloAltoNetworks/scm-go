@@ -24,8 +24,8 @@ type VlanInterfaces struct {
 	// ARP configuration
 	Arp []VlanInterfacesArpInner `json:"arp,omitempty"`
 	// Description
-	Comment    *string     `json:"comment,omitempty"`
-	DdnsConfig *DdnsConfig `json:"ddns_config,omitempty"`
+	Comment    *string                   `json:"comment,omitempty"`
+	DdnsConfig *VlanInterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// Default interface assignment
 	DefaultValue *string `json:"default-value,omitempty"`
 	// The device in which the resource is defined
@@ -134,9 +134,9 @@ func (o *VlanInterfaces) SetComment(v string) {
 }
 
 // GetDdnsConfig returns the DdnsConfig field value if set, zero value otherwise.
-func (o *VlanInterfaces) GetDdnsConfig() DdnsConfig {
+func (o *VlanInterfaces) GetDdnsConfig() VlanInterfacesDdnsConfig {
 	if o == nil || IsNil(o.DdnsConfig) {
-		var ret DdnsConfig
+		var ret VlanInterfacesDdnsConfig
 		return ret
 	}
 	return *o.DdnsConfig
@@ -144,7 +144,7 @@ func (o *VlanInterfaces) GetDdnsConfig() DdnsConfig {
 
 // GetDdnsConfigOk returns a tuple with the DdnsConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VlanInterfaces) GetDdnsConfigOk() (*DdnsConfig, bool) {
+func (o *VlanInterfaces) GetDdnsConfigOk() (*VlanInterfacesDdnsConfig, bool) {
 	if o == nil || IsNil(o.DdnsConfig) {
 		return nil, false
 	}
@@ -160,8 +160,8 @@ func (o *VlanInterfaces) HasDdnsConfig() bool {
 	return false
 }
 
-// SetDdnsConfig gets a reference to the given DdnsConfig and assigns it to the DdnsConfig field.
-func (o *VlanInterfaces) SetDdnsConfig(v DdnsConfig) {
+// SetDdnsConfig gets a reference to the given VlanInterfacesDdnsConfig and assigns it to the DdnsConfig field.
+func (o *VlanInterfaces) SetDdnsConfig(v VlanInterfacesDdnsConfig) {
 	o.DdnsConfig = &v
 }
 
