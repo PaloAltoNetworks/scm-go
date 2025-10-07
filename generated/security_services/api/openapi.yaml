@@ -14203,14 +14203,14 @@ components:
             reset_client: "{}"
             alert: "{}"
             block_ip:
-              duration: 289
+              duration: 2170
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
           time_attribute:
             track_by: source
-            interval: 2170
-            threshold: 9607
+            interval: 528
+            threshold: 39073
           packet_capture: disable
         - notes: notes
           exempt_ip:
@@ -14224,14 +14224,14 @@ components:
             reset_client: "{}"
             alert: "{}"
             block_ip:
-              duration: 289
+              duration: 2170
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
           time_attribute:
             track_by: source
-            interval: 2170
-            threshold: 9607
+            interval: 528
+            threshold: 39073
           packet_capture: disable
         description: description
         rules:
@@ -14348,7 +14348,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 343953088
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14364,7 +14364,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14384,7 +14384,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 343953088
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14400,7 +14400,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14422,7 +14422,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 343953088
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14438,7 +14438,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14458,7 +14458,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 343953088
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14474,7 +14474,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14501,7 +14501,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 343953088
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14517,7 +14517,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14537,7 +14537,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 343953088
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14553,7 +14553,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14575,7 +14575,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 343953088
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14591,7 +14591,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14611,7 +14611,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 343953088
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14627,7 +14627,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14661,7 +14661,7 @@ components:
         bugtraq:
         - bugtraq
         - bugtraq
-        threat_id: 4130427
+        threat_id: 4884415
         threatname: threatname
         default_action:
           allow: "{}"
@@ -15153,6 +15153,7 @@ components:
           type: array
       type: object
     anti_spyware_signatures_signature_combination_time_attribute:
+      description: anti spyware time attribute
       example:
         track_by: source-and-destination
         interval: 2170
@@ -17078,6 +17079,7 @@ components:
           $ref: '#/components/schemas/url_access_profiles_credential_enforcement_mode'
       type: object
     vulnerability_protection_profiles_rules_inner_action_block_ip:
+      description: vulnerability protection block ip
       example:
         duration: 289
         track_by: source-and-destination
@@ -17195,6 +17197,22 @@ components:
             type: string
           type: array
       type: object
+    vulnerability_protection_profiles_threat_exception_inner_action_block_ip:
+      description: vulnerability protection threat exception block ip
+      example:
+        duration: 2170
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          type: string
+      type: object
     vulnerability_protection_profiles_threat_exception_inner_action:
       description: vulnerability threat exception default action
       example:
@@ -17204,7 +17222,7 @@ components:
         reset_client: "{}"
         alert: "{}"
         block_ip:
-          duration: 289
+          duration: 2170
           track_by: source-and-destination
         reset_both: "{}"
         reset_server: "{}"
@@ -17214,7 +17232,7 @@ components:
         allow:
           type: object
         block_ip:
-          $ref: '#/components/schemas/vulnerability_protection_profiles_rules_inner_action_block_ip'
+          $ref: '#/components/schemas/vulnerability_protection_profiles_threat_exception_inner_action_block_ip'
         default:
           type: object
         drop:
@@ -17238,10 +17256,11 @@ components:
       - name
       type: object
     vulnerability_protection_profiles_threat_exception_inner_time_attribute:
+      description: vulnerability time attribute
       example:
         track_by: source
-        interval: 2170
-        threshold: 9607
+        interval: 528
+        threshold: 39073
       properties:
         interval:
           maximum: 3600
@@ -17272,14 +17291,14 @@ components:
           reset_client: "{}"
           alert: "{}"
           block_ip:
-            duration: 289
+            duration: 2170
             track_by: source-and-destination
           reset_both: "{}"
           reset_server: "{}"
         time_attribute:
           track_by: source
-          interval: 2170
-          threshold: 9607
+          interval: 528
+          threshold: 39073
         packet_capture: disable
       properties:
         action:
@@ -17311,6 +17330,22 @@ components:
         server:
           type: boolean
       type: object
+    vulnerability_protection_signatures_default_action_block_ip:
+      description: vulnerability protection bugtraq block ip
+      example:
+        duration: 289
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          type: string
+      type: object
     vulnerability_protection_signatures_default_action:
       example:
         allow: "{}"
@@ -17328,7 +17363,7 @@ components:
         allow:
           type: object
         block_ip:
-          $ref: '#/components/schemas/vulnerability_protection_profiles_rules_inner_action_block_ip'
+          $ref: '#/components/schemas/vulnerability_protection_signatures_default_action_block_ip'
         drop:
           type: object
         reset_both:
@@ -17370,6 +17405,27 @@ components:
             $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination_and_condition_inner_or_condition_inner'
           type: array
       type: object
+    vulnerability_protection_signatures_signature_combination_time_attribute:
+      example:
+        track_by: source-and-destination
+        interval: 2170
+        threshold: 38
+      properties:
+        interval:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        threshold:
+          maximum: 255
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          - destination
+          type: string
+      type: object
     vulnerability_protection_signatures_signature_combination:
       description: vulnerability protection signature combination object
       example:
@@ -17401,7 +17457,7 @@ components:
           default: false
           type: boolean
         time_attribute:
-          $ref: '#/components/schemas/anti_spyware_signatures_signature_combination_time_attribute'
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination_time_attribute'
       type: object
     ? vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_equal_to_qualifier_inner
     : description: vulnerability protection signature standard object and condition
@@ -17426,7 +17482,7 @@ components:
         - name: name
           value: value
         context: context
-        value: 343953088
+        value: 2147483647
       properties:
         context:
           type: string
@@ -17503,7 +17559,7 @@ components:
         - name: name
           value: value
         context: context
-        value: 629561881
+        value: 988759834
       properties:
         context:
           type: string
@@ -17569,7 +17625,7 @@ components:
           - name: name
             value: value
           context: context
-          value: 343953088
+          value: 2147483647
         greater_than:
           qualifier:
           - name: name
@@ -17585,7 +17641,7 @@ components:
           - name: name
             value: value
           context: context
-          value: 629561881
+          value: 988759834
         pattern_match:
           negate: false
           qualifier:
@@ -17619,7 +17675,7 @@ components:
             - name: name
               value: value
             context: context
-            value: 343953088
+            value: 2147483647
           greater_than:
             qualifier:
             - name: name
@@ -17635,7 +17691,7 @@ components:
             - name: name
               value: value
             context: context
-            value: 629561881
+            value: 988759834
           pattern_match:
             negate: false
             qualifier:
@@ -17666,7 +17722,7 @@ components:
               - name: name
                 value: value
               context: context
-              value: 343953088
+              value: 2147483647
             greater_than:
               qualifier:
               - name: name
@@ -17682,7 +17738,7 @@ components:
               - name: name
                 value: value
               context: context
-              value: 629561881
+              value: 988759834
             pattern_match:
               negate: false
               qualifier:
@@ -17702,7 +17758,7 @@ components:
               - name: name
                 value: value
               context: context
-              value: 343953088
+              value: 2147483647
             greater_than:
               qualifier:
               - name: name
@@ -17718,7 +17774,7 @@ components:
               - name: name
                 value: value
               context: context
-              value: 629561881
+              value: 988759834
             pattern_match:
               negate: false
               qualifier:
@@ -17757,7 +17813,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 343953088
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -17773,7 +17829,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 988759834
               pattern_match:
                 negate: false
                 qualifier:
@@ -17793,7 +17849,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 343953088
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -17809,7 +17865,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 988759834
               pattern_match:
                 negate: false
                 qualifier:
@@ -17831,7 +17887,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 343953088
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -17847,7 +17903,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 988759834
               pattern_match:
                 negate: false
                 qualifier:
@@ -17867,7 +17923,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 343953088
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -17883,7 +17939,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 988759834
               pattern_match:
                 negate: false
                 qualifier:
@@ -17936,7 +17992,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 343953088
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -17952,7 +18008,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 988759834
                 pattern_match:
                   negate: false
                   qualifier:
@@ -17972,7 +18028,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 343953088
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -17988,7 +18044,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 988759834
                 pattern_match:
                   negate: false
                   qualifier:
@@ -18010,7 +18066,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 343953088
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -18026,7 +18082,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 988759834
                 pattern_match:
                   negate: false
                   qualifier:
@@ -18046,7 +18102,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 343953088
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -18062,7 +18118,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 988759834
                 pattern_match:
                   negate: false
                   qualifier:
@@ -18089,7 +18145,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 343953088
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -18105,7 +18161,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 988759834
                 pattern_match:
                   negate: false
                   qualifier:
@@ -18125,7 +18181,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 343953088
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -18141,7 +18197,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 988759834
                 pattern_match:
                   negate: false
                   qualifier:
@@ -18163,7 +18219,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 343953088
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -18179,7 +18235,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 988759834
                 pattern_match:
                   negate: false
                   qualifier:
@@ -18199,7 +18255,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 343953088
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -18215,7 +18271,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 988759834
                 pattern_match:
                   negate: false
                   qualifier:
