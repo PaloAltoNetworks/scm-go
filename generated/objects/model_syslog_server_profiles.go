@@ -22,9 +22,9 @@ var _ MappedNullable = &SyslogServerProfiles{}
 // SyslogServerProfiles struct for SyslogServerProfiles
 type SyslogServerProfiles struct {
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string                     `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string                     `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Format *SyslogServerProfilesFormat `json:"format,omitempty"`
 	// The UUID of the syslog server profile
 	Id string `json:"id"`
@@ -32,7 +32,7 @@ type SyslogServerProfiles struct {
 	Name    string                       `json:"name"`
 	Servers *SyslogServerProfilesServers `json:"servers,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

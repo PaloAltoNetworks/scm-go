@@ -22,15 +22,15 @@ var _ MappedNullable = &LocalUserGroups{}
 // LocalUserGroups struct for LocalUserGroups
 type LocalUserGroups struct {
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the local user group
 	Id string `json:"id"`
 	// The name of the local user group
 	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9._-]+$"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The local user group users
 	User                 []string `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}

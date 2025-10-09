@@ -27,17 +27,17 @@ type IpsecTunnels struct {
 	// Copy IP TOS bits from inner packet to IPSec packet (not recommended)
 	CopyTos *bool `json:"copy_tos,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// allow GRE over IPSec
 	EnableGreEncapsulation *bool `json:"enable_gre_encapsulation,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Alphanumeric string begin with letter: [0-9a-zA-Z._-]
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Tunnel interface variable or hardcoded tunnel. Default will be tunnels.
 	TunnelInterface      *string                    `json:"tunnel_interface,omitempty"`
 	TunnelMonitor        *IpsecTunnelsTunnelMonitor `json:"tunnel_monitor,omitempty"`

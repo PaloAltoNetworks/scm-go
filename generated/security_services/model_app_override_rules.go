@@ -25,10 +25,10 @@ type AppOverrideRules struct {
 	Description *string  `json:"description,omitempty"`
 	Destination []string `json:"destination"`
 	// The device in which the resource is defined
-	Device   *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device   *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Disabled *bool   `json:"disabled,omitempty"`
 	// The folder in which the resource is defined
-	Folder   *string  `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder   *string  `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	From     []string `json:"from"`
 	GroupTag *string  `json:"group_tag,omitempty"`
 	// UUID of the resource
@@ -39,7 +39,7 @@ type AppOverrideRules struct {
 	Port              int32  `json:"port"`
 	Protocol          string `json:"protocol"`
 	// The snippet in which the resource is defined
-	Snippet              *string  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Source               []string `json:"source"`
 	Tag                  []string `json:"tag,omitempty"`
 	To                   []string `json:"to"`

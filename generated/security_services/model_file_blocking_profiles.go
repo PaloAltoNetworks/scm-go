@@ -23,9 +23,9 @@ var _ MappedNullable = &FileBlockingProfiles{}
 type FileBlockingProfiles struct {
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the file blocking profile
 	Id string `json:"id"`
 	// The name of the file blocking profile
@@ -33,7 +33,7 @@ type FileBlockingProfiles struct {
 	// A list of file blocking rules
 	Rules []FileBlockingProfilesRulesInner `json:"rules,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

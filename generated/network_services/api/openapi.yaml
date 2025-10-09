@@ -7745,13 +7745,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -7769,7 +7769,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -8319,13 +8319,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8341,7 +8341,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -8358,13 +8358,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8382,7 +8382,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -8481,13 +8481,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8502,7 +8502,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -8532,13 +8532,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8554,7 +8554,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - ipv4
@@ -8958,13 +8958,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8980,7 +8980,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -9112,13 +9112,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9135,7 +9135,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -9254,13 +9254,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9278,7 +9278,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -9346,7 +9346,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         domain-servers:
           description: DNS proxy rules
@@ -9360,7 +9360,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9381,7 +9381,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         static-entries:
           items:
@@ -9477,13 +9477,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9531,7 +9531,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         tap:
           default: {}
@@ -9600,7 +9600,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dh_group:
           items:
@@ -9633,7 +9633,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         hash:
           items:
@@ -9663,7 +9663,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - dh_group
@@ -9722,13 +9722,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9755,7 +9755,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - authentication
@@ -9787,13 +9787,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         http:
           description: Allow HTTP?
@@ -9825,7 +9825,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         ssh:
           description: Allow SSH?
@@ -9880,7 +9880,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dh_group:
           default: group2
@@ -9900,7 +9900,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9919,7 +9919,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - lifetime
@@ -10004,7 +10004,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         enable_gre_encapsulation:
           default: false
@@ -10014,7 +10014,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -10029,7 +10029,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         tunnel_interface:
           default: tunnel
@@ -10102,13 +10102,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -10126,7 +10126,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         vlan-tag:
           description: VLAN tag
@@ -10191,7 +10191,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dhcp-client:
           $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client'
@@ -10199,7 +10199,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -10229,7 +10229,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         tag:
           description: VLAN tag
@@ -10306,13 +10306,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the link tag
@@ -10327,7 +10327,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15099,13 +15099,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15123,7 +15123,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         vrf:
           items:
@@ -15159,13 +15159,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15190,7 +15190,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15254,7 +15254,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         disabled:
           default: false
@@ -15275,7 +15275,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           description: Source zone(s) of the original packet
@@ -15308,7 +15308,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           description: Source address(es) of the original packet
@@ -15371,13 +15371,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15400,7 +15400,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15476,7 +15476,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         enforce_symmetric_return:
           $ref: '#/components/schemas/pbf_rules_enforce_symmetric_return'
@@ -15484,7 +15484,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           $ref: '#/components/schemas/pbf_rules_from'
@@ -15509,7 +15509,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           description: Source addresses
@@ -15590,7 +15590,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dscp_tos:
           $ref: '#/components/schemas/qos_policy_rules_dscp_tos'
@@ -15598,7 +15598,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15613,7 +15613,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - action
@@ -15662,13 +15662,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15683,7 +15683,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15722,13 +15722,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15742,7 +15742,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         type:
           $ref: '#/components/schemas/route_access_lists_type'
@@ -15813,13 +15813,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15833,7 +15833,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         type:
           $ref: '#/components/schemas/route_community_lists_type'
@@ -15867,13 +15867,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15887,7 +15887,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15925,13 +15925,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15947,7 +15947,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15973,13 +15973,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15994,7 +15994,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - activation_threshold
@@ -16022,13 +16022,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16045,7 +16045,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - metric
@@ -16113,7 +16113,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         disabled:
           default: false
@@ -16126,7 +16126,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           description: List of source zones
@@ -16172,7 +16172,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           description: List of source addresses
@@ -16235,13 +16235,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16257,7 +16257,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - monitor_mode
@@ -16280,13 +16280,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16306,7 +16306,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         traffic-distribution:
           default: Best Available Path
@@ -16393,13 +16393,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16424,7 +16424,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -16483,7 +16483,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dhcp-client:
           $ref: '#/components/schemas/vlan_interfaces_dhcp_client'
@@ -16491,7 +16491,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16518,7 +16518,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         vlan-tag:
           description: VLAN tag
@@ -16679,7 +16679,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         discard_icmp_embedded_error:
           description: Discard ICMP packets that are embedded with an error message.
@@ -16690,7 +16690,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         fragmented_traffic_discard:
           description: |
@@ -16776,7 +16776,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         spoofed_ip_discard:
           description: |
@@ -16870,7 +16870,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         device_acl:
           $ref: '#/components/schemas/zones_device_acl'
@@ -16900,7 +16900,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         user_acl:
           $ref: '#/components/schemas/zones_device_acl'

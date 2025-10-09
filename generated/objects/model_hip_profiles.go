@@ -23,16 +23,16 @@ var _ MappedNullable = &HipProfiles{}
 type HipProfiles struct {
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id    string `json:"id"`
 	Match string `json:"match"`
 	// The name of the HIP profile
-	Name string `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.-_]+$"`
+	Name string `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.\\\\-_]+$"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

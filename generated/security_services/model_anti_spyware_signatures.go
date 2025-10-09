@@ -26,17 +26,17 @@ type AntiSpywareSignatures struct {
 	Cve           []string                            `json:"cve,omitempty"`
 	DefaultAction *AntiSpywareSignaturesDefaultAction `json:"default_action,omitempty"`
 	// The device in which the resource is defined
-	Device    *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device    *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Direction *string `json:"direction,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id        string                          `json:"id"`
 	Reference []string                        `json:"reference,omitempty"`
 	Severity  *string                         `json:"severity,omitempty"`
 	Signature *AntiSpywareSignaturesSignature `json:"signature,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// threat id range <15000-18000> and <6900001-7000000>
 	ThreatId             int32    `json:"threat_id"`
 	Threatname           string   `json:"threatname"`

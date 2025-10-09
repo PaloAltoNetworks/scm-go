@@ -26,13 +26,13 @@ type ScepProfiles struct {
 	CaIdentityName        string                             `json:"ca_identity_name"`
 	CertificateAttributes *ScepProfilesCertificateAttributes `json:"certificate_attributes,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Digest for CSR
 	Digest string `json:"digest"`
 	// CA certificate fingerprint
 	Fingerprint *string `json:"fingerprint,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the SCEP profile
 	Id string `json:"id"`
 	// The name of the SCEP profile
@@ -45,7 +45,7 @@ type ScepProfiles struct {
 	// SCEP server URL
 	ScepUrl string `json:"scep_url"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Subject
 	Subject string `json:"subject"`
 	// Use as digital signature?

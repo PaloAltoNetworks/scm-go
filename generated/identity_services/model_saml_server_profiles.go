@@ -24,11 +24,11 @@ type SamlServerProfiles struct {
 	// The identity provider certificate
 	Certificate string `json:"certificate"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The identity provider ID
 	EntityId string `json:"entity_id"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the SAML server profile
 	Id string `json:"id"`
 	// Maxiumum clock skew
@@ -38,7 +38,7 @@ type SamlServerProfiles struct {
 	// SAML HTTP binding for SLO requests to the identity provider
 	SloBindings *string `json:"slo_bindings,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// SAML HTTP binding for SSO requests to the identity provider
 	SsoBindings string `json:"sso_bindings"`
 	// Identity provider SSO URL

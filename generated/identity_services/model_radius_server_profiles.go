@@ -22,9 +22,9 @@ var _ MappedNullable = &RadiusServerProfiles{}
 // RadiusServerProfiles struct for RadiusServerProfiles
 type RadiusServerProfiles struct {
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the RADIUS server profile
 	Id string `json:"id"`
 	// The name of the RADIUS server profile
@@ -34,7 +34,7 @@ type RadiusServerProfiles struct {
 	Retries *int32                            `json:"retries,omitempty"`
 	Server  []RadiusServerProfilesServerInner `json:"server"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The RADIUS server authentication timeout (seconds)
 	Timeout              *int32 `json:"timeout,omitempty"`
 	AdditionalProperties map[string]interface{}

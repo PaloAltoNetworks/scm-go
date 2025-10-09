@@ -36,11 +36,11 @@ type CertificateProfiles struct {
 	// CRL receive timeout (seconds)
 	CrlReceiveTimeout *string `json:"crl_receive_timeout,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// User domain
 	Domain *string `json:"domain,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the certificate profile
 	Id *string `json:"id,omitempty"`
 	// The name of the certificate profile
@@ -48,7 +48,7 @@ type CertificateProfiles struct {
 	// OCSP receive timeout (seconds)
 	OcspReceiveTimeout *string `json:"ocsp_receive_timeout,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Use CRL?
 	UseCrl *bool `json:"use_crl,omitempty"`
 	// Use OCSP?

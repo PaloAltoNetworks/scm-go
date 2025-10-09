@@ -24,17 +24,17 @@ type DynamicUserGroups struct {
 	// The description of the dynamic address group
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The tag-based filter for the dynamic user group
 	Filter string `json:"filter"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the dynamic user group
 	Id string `json:"id"`
 	// The name of the dynamic address group
-	Name string `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.-_]+$"`
+	Name string `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.\\\\-_]+$"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Tags associated with the dynamic user group
 	Tag                  []string `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}

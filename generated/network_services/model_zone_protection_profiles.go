@@ -26,12 +26,12 @@ type ZoneProtectionProfiles struct {
 	// The description of the profile
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Discard ICMP packets that are embedded with an error message.
 	DiscardIcmpEmbeddedError *bool                        `json:"discard_icmp_embedded_error,omitempty"`
 	Flood                    *ZoneProtectionProfilesFlood `json:"flood,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Discard fragmented IP packets.
 	FragmentedTrafficDiscard *bool `json:"fragmented_traffic_discard,omitempty"`
 	// Discard packets that consist of ICMP fragments.
@@ -64,7 +64,7 @@ type ZoneProtectionProfiles struct {
 	// Discard packets if the security option is defined.
 	SecurityDiscard *bool `json:"security_discard,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Check that the source IP address of the ingress packet is routable and the routing interface is in the same zone as the ingress interface. If either condition is not true, discard the packet.
 	SpoofedIpDiscard *bool `json:"spoofed_ip_discard,omitempty"`
 	// Discard packets if the Stream ID option is defined.

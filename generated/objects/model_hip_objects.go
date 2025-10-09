@@ -27,22 +27,22 @@ type HipObjects struct {
 	DataLossPrevention *HipObjectsDataLossPrevention `json:"data_loss_prevention,omitempty"`
 	Description        *string                       `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device         *string                   `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device         *string                   `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	DiskBackup     *HipObjectsDiskBackup     `json:"disk_backup,omitempty"`
 	DiskEncryption *HipObjectsDiskEncryption `json:"disk_encryption,omitempty"`
 	Firewall       *HipObjectsFirewall       `json:"firewall,omitempty"`
 	// The folder in which the resource is defined
-	Folder   *string             `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder   *string             `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	HostInfo *HipObjectsHostInfo `json:"host_info,omitempty"`
 	// UUID of the resource
 	Id           string                  `json:"id"`
 	MobileDevice *HipObjectsMobileDevice `json:"mobile_device,omitempty"`
 	// The name of the HIP object
-	Name            string                     `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.-_]+$"`
+	Name            string                     `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.\\\\-_]+$"`
 	NetworkInfo     *HipObjectsNetworkInfo     `json:"network_info,omitempty"`
 	PatchManagement *HipObjectsPatchManagement `json:"patch_management,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

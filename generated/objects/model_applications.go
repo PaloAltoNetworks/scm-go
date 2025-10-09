@@ -29,11 +29,11 @@ type Applications struct {
 	Default              *ApplicationsDefault `json:"default,omitempty"`
 	Description          *string              `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device          *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device          *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	EvasiveBehavior *bool   `json:"evasive_behavior,omitempty"`
 	FileTypeIdent   *bool   `json:"file_type_ident,omitempty"`
 	// The folder in which the resource is defined
-	Folder                *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder                *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	HasKnownVulnerability *bool   `json:"has_known_vulnerability,omitempty"`
 	// The UUID of the application
 	Id *string `json:"id,omitempty"`
@@ -46,7 +46,7 @@ type Applications struct {
 	Risk           interface{}                  `json:"risk"`
 	Signature      []ApplicationsSignatureInner `json:"signature,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet     *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet     *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Subcategory *string `json:"subcategory,omitempty"`
 	// timeout for half-close session in seconds
 	TcpHalfClosedTimeout *int32 `json:"tcp_half_closed_timeout,omitempty"`

@@ -38,12 +38,12 @@ type SecurityRules struct {
 	// The destination Host Integrity Profile(s)
 	DestinationHip []string `json:"destination_hip,omitempty"`
 	// The device in which the resource is defined
-	Device  *string  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device  *string  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Devices []string `json:"devices,omitempty"`
 	// Is the security rule disabled?
 	Disabled *bool `json:"disabled,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The source security zone(s)
 	From []string `json:"from,omitempty"`
 	// The UUID of the security rule
@@ -70,7 +70,7 @@ type SecurityRules struct {
 	// The service(s) being accessed
 	Service []string `json:"service,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The source addresses(es)
 	Source []string `json:"source,omitempty"`
 	// The source Host Integrity Profile(s)

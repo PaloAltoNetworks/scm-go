@@ -22,16 +22,16 @@ var _ MappedNullable = &ServiceGroups{}
 // ServiceGroups struct for ServiceGroups
 type ServiceGroups struct {
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the service group
 	Id      string   `json:"id"`
 	Members []string `json:"members"`
 	// The name of the service group
-	Name string `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.-_]+$"`
+	Name string `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.\\\\-_]+$"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Tags associated with the service group
 	Tag                  []string `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -22,7 +22,7 @@ var _ MappedNullable = &Zones{}
 // Zones struct for Zones
 type Zones struct {
 	// The device in which the resource is defined
-	Device                     *string         `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device                     *string         `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	DeviceAcl                  *ZonesDeviceAcl `json:"device_acl,omitempty"`
 	DosLogSetting              *string         `json:"dos_log_setting,omitempty"`
 	DosProfile                 *string         `json:"dos_profile,omitempty"`
@@ -35,7 +35,7 @@ type Zones struct {
 	Name    string        `json:"name"`
 	Network *ZonesNetwork `json:"network,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string         `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string         `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	UserAcl              *ZonesDeviceAcl `json:"user_acl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

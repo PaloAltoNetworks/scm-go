@@ -26,9 +26,9 @@ type AuthenticationPortals struct {
 	// The certificate profile
 	CertificateProfile *string `json:"certificate_profile,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UDP port for inbound authentication prompts
 	GpUdpPort *int32 `json:"gp_udp_port,omitempty"`
 	// The UUID of the authentication portal
@@ -38,7 +38,7 @@ type AuthenticationPortals struct {
 	// The authentication portal IP address or hostname
 	RedirectHost string `json:"redirect_host"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Timer   *int32  `json:"timer,omitempty"`
 	// The SSL/TLS service profile
 	TlsServiceProfile    *string `json:"tls_service_profile,omitempty"`

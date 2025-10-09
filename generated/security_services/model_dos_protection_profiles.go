@@ -24,17 +24,17 @@ type DosProtectionProfiles struct {
 	// Description
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string                     `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string                     `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Flood  *DosProtectionProfilesFlood `json:"flood,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the DNS security profile
 	Id *string `json:"id,omitempty"`
 	// Profile name
 	Name     string                         `json:"name"`
 	Resource *DosProtectionProfilesResource `json:"resource,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Type
 	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}

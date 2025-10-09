@@ -26,9 +26,9 @@ type EthernetInterfaces struct {
 	// Default interface assignment
 	DefaultValue *string `json:"default-value,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id     string                    `json:"id"`
 	Layer2 *EthernetInterfacesLayer2 `json:"layer2,omitempty"`
@@ -43,7 +43,7 @@ type EthernetInterfaces struct {
 	Name string `json:"name"`
 	Poe  *Poe   `json:"poe,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string                `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string                `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Tap                  map[string]interface{} `json:"tap,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

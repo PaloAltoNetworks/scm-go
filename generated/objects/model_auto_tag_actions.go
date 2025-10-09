@@ -24,18 +24,18 @@ type AutoTagActions struct {
 	Actions     []AutoTagActionsActionsInner `json:"actions,omitempty"`
 	Description *string                      `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Tag based filter defining group membership e.g. `tag1 AND tag2 OR tag3`
 	Filter string `json:"filter"`
 	// The folder in which the resource is defined
-	Folder  *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder  *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	LogType string  `json:"log_type"`
 	// Alphanumeric string [ 0-9a-zA-Z._-]
 	Name           string `json:"name"`
 	Quarantine     *bool  `json:"quarantine,omitempty"`
 	SendToPanorama *bool  `json:"send_to_panorama,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

@@ -24,12 +24,12 @@ type IkeCryptoProfiles struct {
 	// IKEv2 SA reauthentication interval equals authetication-multiple * rekey-lifetime; 0 means reauthentication disabled
 	AuthenticationMultiple *int32 `json:"authentication_multiple,omitempty"`
 	// The device in which the resource is defined
-	Device  *string  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device  *string  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	DhGroup []string `json:"dh_group"`
 	// Encryption algorithm
 	Encryption []string `json:"encryption"`
 	// The folder in which the resource is defined
-	Folder *string  `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string  `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Hash   []string `json:"hash"`
 	// UUID of the resource
 	Id       *string                    `json:"id,omitempty"`
@@ -37,7 +37,7 @@ type IkeCryptoProfiles struct {
 	// Alphanumeric string begin with letter: [0-9a-zA-Z._-]
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

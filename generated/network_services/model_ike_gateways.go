@@ -23,9 +23,9 @@ var _ MappedNullable = &IkeGateways{}
 type IkeGateways struct {
 	Authentication IkeGatewaysAuthentication `json:"authentication"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id           *string                  `json:"id,omitempty"`
 	LocalAddress *IkeGatewaysLocalAddress `json:"local_address,omitempty"`
@@ -37,7 +37,7 @@ type IkeGateways struct {
 	Protocol       IkeGatewaysProtocol        `json:"protocol"`
 	ProtocolCommon *IkeGatewaysProtocolCommon `json:"protocol_common,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

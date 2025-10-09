@@ -24,9 +24,9 @@ type AntiSpywareProfiles struct {
 	CloudInlineAnalysis *bool   `json:"cloud_inline_analysis,omitempty"`
 	Description         *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the anti-spyware profile
 	Id                       string                                             `json:"id"`
 	InlineExceptionEdlUrl    []string                                           `json:"inline_exception_edl_url,omitempty"`
@@ -36,7 +36,7 @@ type AntiSpywareProfiles struct {
 	Name  string                          `json:"name"`
 	Rules []AntiSpywareProfilesRulesInner `json:"rules,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string                                   `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string                                   `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	ThreatException      []AntiSpywareProfilesThreatExceptionInner `json:"threat_exception,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

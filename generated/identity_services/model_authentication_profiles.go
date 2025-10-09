@@ -23,9 +23,9 @@ var _ MappedNullable = &AuthenticationProfiles{}
 type AuthenticationProfiles struct {
 	AllowList []string `json:"allow_list,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the authentication profile
 	Id              string                                 `json:"id"`
 	Lockout         *AuthenticationProfilesLockout         `json:"lockout,omitempty"`
@@ -35,7 +35,7 @@ type AuthenticationProfiles struct {
 	Name         string                              `json:"name"`
 	SingleSignOn *AuthenticationProfilesSingleSignOn `json:"single_sign_on,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	UserDomain           *string `json:"user_domain,omitempty"`
 	UsernameModifier     *string `json:"username_modifier,omitempty"`
 	AdditionalProperties map[string]interface{}

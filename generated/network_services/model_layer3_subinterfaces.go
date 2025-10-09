@@ -27,10 +27,10 @@ type Layer3Subinterfaces struct {
 	Comment    *string                        `json:"comment,omitempty"`
 	DdnsConfig *Layer3SubinterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// The device in which the resource is defined
-	Device     *string                                  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device     *string                                  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	DhcpClient *Layer3SubInterfacesDhcpClientDhcpClient `json:"dhcp-client,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
@@ -43,7 +43,7 @@ type Layer3Subinterfaces struct {
 	// Parent interface
 	ParentInterface *string `json:"parent-interface,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
 	Tag                  *float32 `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}

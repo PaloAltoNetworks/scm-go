@@ -23,12 +23,12 @@ var _ MappedNullable = &IpsecCryptoProfiles{}
 type IpsecCryptoProfiles struct {
 	Ah *IpsecCryptoProfilesAh `json:"ah,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// phase-2 DH group (PFS DH group)
 	DhGroup *string                 `json:"dh_group,omitempty"`
 	Esp     *IpsecCryptoProfilesEsp `json:"esp,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id       *string                      `json:"id,omitempty"`
 	Lifesize *IpsecCryptoProfilesLifesize `json:"lifesize,omitempty"`
@@ -36,7 +36,7 @@ type IpsecCryptoProfiles struct {
 	// Alphanumeric string begin with letter: [0-9a-zA-Z._-]
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 
