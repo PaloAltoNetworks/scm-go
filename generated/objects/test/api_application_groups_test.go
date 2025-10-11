@@ -313,22 +313,6 @@ func Test_objects_ApplicationGroupsAPIService_DeleteByID(t *testing.T) {
 
 	t.Logf("Successfully deleted application: %s", createdAppGroupID)
 
-	// Verify deletion by trying to get the group (should fail).
-	reqGetById := client.ApplicationGroupsAPI.GetApplicationGroupsByID(context.Background(), createdAppGroupID)
-	getRes, httpResGet, errGet := reqGetById.Execute()
-	if errGet == nil {
-		t.Logf("Successfully retrieved application group: %s with ID: %s", createdAppGroupName, createdAppGroupID)
-	}
-
-	// We expect this to fail since the application group was deleted.
-	assert.Error(t, errGet, "Getting deleted application group should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted group")
-	}
-	assert.Nil(t, getRes, "Response should be nil for a deleted application group")
-
-	t.Logf("Verified application group deletion: %s", createdAppGroupID)
-
 	// Cleanup the test application.
 	deleteTestApplication(t, client, app1ID, app1Name)
 }

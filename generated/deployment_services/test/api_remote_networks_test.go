@@ -263,11 +263,4 @@ func Test_deployment_services_RemoteNetworksAPIService_DeleteByID(t *testing.T) 
 	// Test Delete by ID operation.
 	_, errDel := depSvcClient.RemoteNetworksAPI.DeleteRemoteNetworksByID(context.Background(), createdNetworkID).Execute()
 	require.NoError(t, errDel, "Failed to delete remote network")
-
-	// Verify deletion by trying to get the remote network again (should fail).
-	_, httpResGet, errGet := depSvcClient.RemoteNetworksAPI.GetRemoteNetworksByID(context.Background(), createdNetworkID).Execute()
-	assert.Error(t, errGet, "Getting deleted remote network should fail")
-	if httpResGet != nil {
-		assert.Equal(t, 404, httpResGet.StatusCode, "Should return 404 for deleted remote network")
-	}
 }

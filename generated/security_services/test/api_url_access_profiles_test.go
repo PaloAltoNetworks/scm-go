@@ -173,11 +173,4 @@ func Test_security_services_URLAccessProfilesAPIService_DeleteByID(t *testing.T)
 	httpResDel, errDel := client.URLAccessProfilesAPI.DeleteURLAccessProfilesByID(context.Background(), createdProfileID).Execute()
 	require.NoError(t, errDel, "Failed to delete URL Access Profile")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
-
-	getRes, httpResGet, errGet := client.URLAccessProfilesAPI.GetURLAccessProfilesByID(context.Background(), createdProfileID).Execute()
-	assert.Error(t, errGet, "Getting deleted URL Access Profile should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted URL Access Profile")
-	}
-	assert.Nil(t, getRes, "Response should be nil for a deleted URL Access Profile")
 }

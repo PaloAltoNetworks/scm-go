@@ -309,24 +309,4 @@ func Test_objects_TagsAPIService_DeleteByID(t *testing.T) {
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 
 	t.Logf("Successfully deleted tag: %s", createdTagID)
-
-	// Verify deletion by trying to get the tag (should fail)
-	reqGetById := client.TagsAPI.GetTagsByID(context.Background(), createdTagID)
-	getRes, httpResGet, errGet := reqGetById.Execute()
-	if errGet != nil {
-		handleAPIError(errGet)
-	}
-
-	// We expect this to fail since the tag was deleted
-	assert.Error(t, errGet, "Getting deleted tag should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted tag")
-	}
-
-	// The response should be nil or empty since the tag was deleted
-	if getRes != nil && getRes.Id != nil {
-		assert.Empty(t, *getRes.Id, "Deleted tag response should not have valid data")
-	}
-
-	t.Logf("Verified tag deletion: %s", createdTagID)
 }

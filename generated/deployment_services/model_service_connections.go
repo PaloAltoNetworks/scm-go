@@ -23,8 +23,6 @@ var _ MappedNullable = &ServiceConnections{}
 type ServiceConnections struct {
 	BackupSC *string                    `json:"backup_SC,omitempty"`
 	BgpPeer  *ServiceConnectionsBgpPeer `json:"bgp_peer,omitempty"`
-	// The folder containing the service connection
-	Folder string `json:"folder"`
 	// The UUID of the service connection
 	Id          string `json:"id"`
 	IpsecTunnel string `json:"ipsec_tunnel"`
@@ -48,9 +46,8 @@ type _ServiceConnections ServiceConnections
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceConnections(folder string, id string, ipsecTunnel string, name string, region string) *ServiceConnections {
+func NewServiceConnections(id string, ipsecTunnel string, name string, region string) *ServiceConnections {
 	this := ServiceConnections{}
-	this.Folder = folder
 	this.Id = id
 	this.IpsecTunnel = ipsecTunnel
 	this.Name = name
@@ -65,8 +62,6 @@ func NewServiceConnections(folder string, id string, ipsecTunnel string, name st
 // but it doesn't guarantee that properties required by API are set
 func NewServiceConnectionsWithDefaults() *ServiceConnections {
 	this := ServiceConnections{}
-	var folder string = "Service Connections"
-	this.Folder = folder
 	var onboardingType string = "classic"
 	this.OnboardingType = &onboardingType
 	return &this
@@ -134,30 +129,6 @@ func (o *ServiceConnections) HasBgpPeer() bool {
 // SetBgpPeer gets a reference to the given ServiceConnectionsBgpPeer and assigns it to the BgpPeer field.
 func (o *ServiceConnections) SetBgpPeer(v ServiceConnectionsBgpPeer) {
 	o.BgpPeer = &v
-}
-
-// GetFolder returns the Folder field value
-func (o *ServiceConnections) GetFolder() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Folder
-}
-
-// GetFolderOk returns a tuple with the Folder field value
-// and a boolean to check if the value has been set.
-func (o *ServiceConnections) GetFolderOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Folder, true
-}
-
-// SetFolder sets field value
-func (o *ServiceConnections) SetFolder(v string) {
-	o.Folder = v
 }
 
 // GetId returns the Id field value
@@ -528,7 +499,6 @@ func (o ServiceConnections) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BgpPeer) {
 		toSerialize["bgp_peer"] = o.BgpPeer
 	}
-	toSerialize["folder"] = o.Folder
 	toSerialize["id"] = o.Id
 	toSerialize["ipsec_tunnel"] = o.IpsecTunnel
 	toSerialize["name"] = o.Name
@@ -570,7 +540,6 @@ func (o *ServiceConnections) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"folder",
 		"id",
 		"ipsec_tunnel",
 		"name",
@@ -606,7 +575,6 @@ func (o *ServiceConnections) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "backup_SC")
 		delete(additionalProperties, "bgp_peer")
-		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "ipsec_tunnel")
 		delete(additionalProperties, "name")

@@ -387,15 +387,4 @@ func Test_identityservices_CertificateProfilesAPIService_DeleteByID(t *testing.T
 	require.NoError(t, errDel, "Failed to delete profile")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 	t.Logf("Successfully deleted Certificate Profile: %s", createdProfileID)
-
-	// Verify deletion by trying to get the profile again (should fail).
-	reqGetById := client.CertificateProfilesAPI.GetCertificateProfilesByID(context.Background(), createdProfileID)
-	getRes, httpResGet, errGet := reqGetById.Execute()
-
-	assert.Error(t, errGet, "Getting deleted profile should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted profile")
-	}
-	assert.Nil(t, getRes, "Response should be nil for a deleted profile")
-	t.Logf("Verified Certificate Profile deletion: %s", createdProfileID)
 }

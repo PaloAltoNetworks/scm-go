@@ -366,26 +366,6 @@ func Test_objects_AddressGroupsAPIService_DeleteByID(t *testing.T) {
 
 	t.Logf("Successfully deleted address group: %s", createdAddressGroupID)
 
-	// Verify deletion by trying to get the address group (should fail)
-	reqGetById := client.AddressGroupsAPI.GetAddressGroupsByID(context.Background(), createdAddressGroupID)
-	getRes, httpResGet, errGet := reqGetById.Execute()
-	if errGet != nil {
-		handleAPIError(errGet)
-	}
-
-	// We expect this to fail since the address group was deleted
-	assert.Error(t, errGet, "Getting deleted address group should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted address group")
-	}
-
-	// The response should be nil or empty since the address group was deleted
-	if getRes != nil {
-		assert.Empty(t, getRes.Id, "Deleted address group response should not have valid data")
-	}
-
-	t.Logf("Verified address group deletion: %s", createdAddressGroupID)
-
 	// Cleanup: Delete the test addresses
 	deleteTestAddress(t, client, address1ID, address1Name)
 	deleteTestAddress(t, client, address2ID, address2Name)

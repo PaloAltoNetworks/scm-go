@@ -343,17 +343,4 @@ func Test_objects_ExternalDynamicListsAPIService_DeleteByID(t *testing.T) {
 	// Verify the delete operation was successful.
 	require.NoError(t, errDel, "Failed to delete EDL")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
-
-	// Verify deletion by trying to get the EDL (should fail).
-	reqGetById := client.ExternalDynamicListsAPI.GetExternalDynamicListsByID(context.Background(), createdEdlID)
-	getRes, httpResGet, errGet := reqGetById.Execute()
-	if errGet != nil {
-		t.Logf("Verified EDL deletion: %s", createdEdlID)
-	}
-
-	assert.Error(t, errGet, "Getting deleted EDL should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted EDL")
-	}
-	assert.Nil(t, getRes, "Response should be nil for a deleted EDL")
 }

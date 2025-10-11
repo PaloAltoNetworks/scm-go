@@ -120,9 +120,14 @@ func handleAPIError(err error) {
 
 // CreateTestIKECryptoProfile creates a test IKE Crypto Profile dependency.
 // It returns the ID of the created profile.
-func CreateTestIKECryptoProfile(t *testing.T, client *network_services.APIClient, name string) string {
+func CreateTestIKECryptoProfile(t *testing.T, client *network_services.APIClient, name string, optionalFolder ...string) string {
+	folderName := "Remote Networks"
+	if len(optionalFolder) > 0 && optionalFolder[0] != "" {
+		folderName = optionalFolder[0]
+	}
+
 	profile := network_services.IkeCryptoProfiles{
-		Folder:     common.StringPtr("Remote Networks"), // A common folder for these tests
+		Folder:     common.StringPtr(folderName), // A common folder for these tests
 		Name:       name,
 		Hash:       []string{"sha256"},
 		DhGroup:    []string{"group14"},
@@ -176,9 +181,13 @@ func DeleteTestIPsecCryptoProfile(t *testing.T, client *network_services.APIClie
 }
 
 // CreateIkeGatewayTestObject Helper function to create the standard test object.
-func CreateIkeGatewayTestObject(name string, cryptoProfileName string) network_services.IkeGateways {
+func CreateIkeGatewayTestObject(name string, cryptoProfileName string, optionalFolder ...string) network_services.IkeGateways {
+	folderName := "Remote Networks"
+	if len(optionalFolder) > 0 && optionalFolder[0] != "" {
+		folderName = optionalFolder[0]
+	}
 	return network_services.IkeGateways{
-		Folder: common.StringPtr("Remote Networks"),
+		Folder: common.StringPtr(folderName),
 		Name:   name,
 		Authentication: network_services.IkeGatewaysAuthentication{
 			PreSharedKey: &network_services.IkeGatewaysAuthenticationPreSharedKey{
@@ -214,8 +223,8 @@ func CreateIkeGatewayTestObject(name string, cryptoProfileName string) network_s
 }
 
 // CreateTestIkeGateway Creates ike gateway given a gateway name and ikeCryptoProfileName
-func CreateTestIkeGateway(t *testing.T, client *network_services.APIClient, gatewayName string, ikeCryptoProfileName string) string {
-	gateway := CreateIkeGatewayTestObject(gatewayName, ikeCryptoProfileName)
+func CreateTestIkeGateway(t *testing.T, client *network_services.APIClient, gatewayName string, ikeCryptoProfileName string, optionalFolder ...string) string {
+	gateway := CreateIkeGatewayTestObject(gatewayName, ikeCryptoProfileName, optionalFolder...)
 
 	fmt.Printf("Attempting to create IKE Gateway with name: %s\n", gateway.Name)
 
@@ -235,9 +244,13 @@ func CreateTestIkeGateway(t *testing.T, client *network_services.APIClient, gate
 }
 
 // CreateTestIPSecTunnel Creates ipsec tunnel given a ipsec tunnel name and gateway name
-func CreateTestIPSecTunnel(t *testing.T, client *network_services.APIClient, ipsecTunnelName string, gatewayName string) string {
+func CreateTestIPSecTunnel(t *testing.T, client *network_services.APIClient, ipsecTunnelName string, gatewayName string, optionalFolder ...string) string {
+	folderName := "Remote Networks"
+	if len(optionalFolder) > 0 && optionalFolder[0] != "" {
+		folderName = optionalFolder[0]
+	}
 	tunnel := network_services.IpsecTunnels{
-		Folder:                 common.StringPtr("Remote Networks"),
+		Folder:                 common.StringPtr(folderName),
 		Name:                   ipsecTunnelName,
 		AntiReplay:             common.BoolPtr(true),
 		CopyTos:                common.BoolPtr(false),

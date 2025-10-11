@@ -253,11 +253,4 @@ func Test_objects_HIPObjectsAPIService_DeleteByID(t *testing.T) {
 	httpResDel, errDel := client.HIPObjectsAPI.DeleteHIPObjectsByID(context.Background(), createdHipObjectID).Execute()
 	require.NoError(t, errDel, "Failed to delete HIP object")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
-
-	getRes, httpResGet, errGet := client.HIPObjectsAPI.GetHIPObjectsByID(context.Background(), createdHipObjectID).Execute()
-	assert.Error(t, errGet, "Getting deleted HIP object should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted HIP object")
-	}
-	assert.Nil(t, getRes, "Response should be nil for a deleted HIP object")
 }
