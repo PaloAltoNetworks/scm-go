@@ -18,7 +18,7 @@ import (
 // checks if the IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp{}
 
-// IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp UDP
+// IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp IPv6 type of proxy_id protocol values for UDP protocol
 type IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp struct {
 	LocalPort            *int32 `json:"local_port,omitempty"`
 	RemotePort           *int32 `json:"remote_port,omitempty"`

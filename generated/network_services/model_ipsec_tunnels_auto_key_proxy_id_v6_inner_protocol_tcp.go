@@ -15,24 +15,24 @@ import (
 	"encoding/json"
 )
 
-// checks if the IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp{}
+// checks if the IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp{}
 
-// IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp IPv4 type of proxy_id protocol values for TCP protocol
-type IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp struct {
+// IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp IPv6 type of proxy_id protocol values for TCP protocol
+type IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp struct {
 	LocalPort            *int32 `json:"local_port,omitempty"`
 	RemotePort           *int32 `json:"remote_port,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp
+type _IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp
 
-// NewIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp instantiates a new IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp object
+// NewIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp instantiates a new IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp() *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp {
-	this := IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp{}
+func NewIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp() *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp {
+	this := IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp{}
 	var localPort int32 = 0
 	this.LocalPort = &localPort
 	var remotePort int32 = 0
@@ -40,11 +40,11 @@ func NewIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp() *IpsecTunnelsAutoKeyProxyId
 	return &this
 }
 
-// NewIpsecTunnelsAutoKeyProxyIdInnerProtocolTcpWithDefaults instantiates a new IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp object
+// NewIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcpWithDefaults instantiates a new IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewIpsecTunnelsAutoKeyProxyIdInnerProtocolTcpWithDefaults() *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp {
-	this := IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp{}
+func NewIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcpWithDefaults() *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp {
+	this := IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp{}
 	var localPort int32 = 0
 	this.LocalPort = &localPort
 	var remotePort int32 = 0
@@ -53,7 +53,7 @@ func NewIpsecTunnelsAutoKeyProxyIdInnerProtocolTcpWithDefaults() *IpsecTunnelsAu
 }
 
 // GetLocalPort returns the LocalPort field value if set, zero value otherwise.
-func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) GetLocalPort() int32 {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) GetLocalPort() int32 {
 	if o == nil || IsNil(o.LocalPort) {
 		var ret int32
 		return ret
@@ -63,7 +63,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) GetLocalPort() int32 {
 
 // GetLocalPortOk returns a tuple with the LocalPort field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) GetLocalPortOk() (*int32, bool) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) GetLocalPortOk() (*int32, bool) {
 	if o == nil || IsNil(o.LocalPort) {
 		return nil, false
 	}
@@ -71,7 +71,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) GetLocalPortOk() (*int32, b
 }
 
 // HasLocalPort returns a boolean if a field has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) HasLocalPort() bool {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) HasLocalPort() bool {
 	if o != nil && !IsNil(o.LocalPort) {
 		return true
 	}
@@ -80,12 +80,12 @@ func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) HasLocalPort() bool {
 }
 
 // SetLocalPort gets a reference to the given int32 and assigns it to the LocalPort field.
-func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) SetLocalPort(v int32) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) SetLocalPort(v int32) {
 	o.LocalPort = &v
 }
 
 // GetRemotePort returns the RemotePort field value if set, zero value otherwise.
-func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) GetRemotePort() int32 {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) GetRemotePort() int32 {
 	if o == nil || IsNil(o.RemotePort) {
 		var ret int32
 		return ret
@@ -95,7 +95,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) GetRemotePort() int32 {
 
 // GetRemotePortOk returns a tuple with the RemotePort field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) GetRemotePortOk() (*int32, bool) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) GetRemotePortOk() (*int32, bool) {
 	if o == nil || IsNil(o.RemotePort) {
 		return nil, false
 	}
@@ -103,7 +103,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) GetRemotePortOk() (*int32, 
 }
 
 // HasRemotePort returns a boolean if a field has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) HasRemotePort() bool {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) HasRemotePort() bool {
 	if o != nil && !IsNil(o.RemotePort) {
 		return true
 	}
@@ -112,11 +112,11 @@ func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) HasRemotePort() bool {
 }
 
 // SetRemotePort gets a reference to the given int32 and assigns it to the RemotePort field.
-func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) SetRemotePort(v int32) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) SetRemotePort(v int32) {
 	o.RemotePort = &v
 }
 
-func (o IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) MarshalJSON() ([]byte, error) {
+func (o IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -124,7 +124,7 @@ func (o IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) MarshalJSON() ([]byte, error
 	return json.Marshal(toSerialize)
 }
 
-func (o IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) ToMap() (map[string]interface{}, error) {
+func (o IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.LocalPort) {
 		toSerialize["local_port"] = o.LocalPort
@@ -140,16 +140,16 @@ func (o IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) ToMap() (map[string]interfac
 	return toSerialize, nil
 }
 
-func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) UnmarshalJSON(data []byte) (err error) {
-	varIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp := _IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp{}
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) UnmarshalJSON(data []byte) (err error) {
+	varIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp := _IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp{}
 
-	err = json.Unmarshal(data, &varIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp)
+	err = json.Unmarshal(data, &varIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp)
 
 	if err != nil {
 		return err
 	}
 
-	*o = IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp(varIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp)
+	*o = IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp(varIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -162,38 +162,38 @@ func (o *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) UnmarshalJSON(data []byte) 
 	return err
 }
 
-type NullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp struct {
-	value *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp
+type NullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp struct {
+	value *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp
 	isSet bool
 }
 
-func (v NullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) Get() *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp {
+func (v NullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) Get() *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp {
 	return v.value
 }
 
-func (v *NullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) Set(val *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) {
+func (v *NullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) Set(val *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) IsSet() bool {
+func (v NullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) Unset() {
+func (v *NullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp(val *IpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) *NullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp {
-	return &NullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp{value: val, isSet: true}
+func NewNullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp(val *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) *NullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp {
+	return &NullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp{value: val, isSet: true}
 }
 
-func (v NullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) MarshalJSON() ([]byte, error) {
+func (v NullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableIpsecTunnelsAutoKeyProxyIdInnerProtocolTcp) UnmarshalJSON(src []byte) error {
+func (v *NullableIpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

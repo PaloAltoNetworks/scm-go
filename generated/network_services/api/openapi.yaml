@@ -9944,23 +9944,23 @@ components:
           proxy_id_v6:
           - protocol:
               tcp:
-                local_port: 39500
-                remote_port: 9606
+                local_port: 46276
+                remote_port: 60957
               udp:
                 local_port: 39072
                 remote_port: 36944
-              number: 21
+              number: 59
             name: name
             remote: remote
             local: local
           - protocol:
               tcp:
-                local_port: 39500
-                remote_port: 9606
+                local_port: 46276
+                remote_port: 60957
               udp:
                 local_port: 39072
                 remote_port: 36944
-              number: 21
+              number: 59
             name: name
             remote: remote
             local: local
@@ -21230,7 +21230,7 @@ components:
         name:
           type: string
     ipsec_tunnels_auto_key_proxy_id_inner_protocol_tcp:
-      description: TCP
+      description: IPv4 type of proxy_id protocol values for TCP protocol
       example:
         local_port: 39500
         remote_port: 9606
@@ -21246,7 +21246,7 @@ components:
           minimum: 0
           type: integer
     ipsec_tunnels_auto_key_proxy_id_inner_protocol_udp:
-      description: UDP
+      description: IPv6 type of proxy_id protocol values for UDP protocol
       example:
         local_port: 39072
         remote_port: 36944
@@ -21262,6 +21262,7 @@ components:
           minimum: 0
           type: integer
     ipsec_tunnels_auto_key_proxy_id_inner_protocol:
+      description: IPv4 type of proxy_id protocol values for TCP protocol
       example:
         tcp:
           local_port: 39500
@@ -21281,6 +21282,7 @@ components:
         udp:
           $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_inner_protocol_udp'
     ipsec_tunnels_auto_key_proxy_id_inner:
+      description: IPv4 type of proxy_id values for TCP protocol
       example:
         protocol:
           tcp:
@@ -21304,6 +21306,67 @@ components:
           type: string
       required:
       - name
+    ipsec_tunnels_auto_key_proxy_id_v6_inner_protocol_tcp:
+      description: IPv6 type of proxy_id protocol values for TCP protocol
+      example:
+        local_port: 46276
+        remote_port: 60957
+      properties:
+        local_port:
+          default: 0
+          maximum: 65535
+          minimum: 0
+          type: integer
+        remote_port:
+          default: 0
+          maximum: 65535
+          minimum: 0
+          type: integer
+    ipsec_tunnels_auto_key_proxy_id_v6_inner_protocol:
+      description: IPv6 type of proxy_id protocol values for protocol
+      example:
+        tcp:
+          local_port: 46276
+          remote_port: 60957
+        udp:
+          local_port: 39072
+          remote_port: 36944
+        number: 59
+      properties:
+        number:
+          description: IP protocol number
+          maximum: 254
+          minimum: 1
+          type: integer
+        tcp:
+          $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_v6_inner_protocol_tcp'
+        udp:
+          $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_inner_protocol_udp'
+    ipsec_tunnels_auto_key_proxy_id_v6_inner:
+      description: IPv6 type of proxy_id values for TCP protocol
+      example:
+        protocol:
+          tcp:
+            local_port: 46276
+            remote_port: 60957
+          udp:
+            local_port: 39072
+            remote_port: 36944
+          number: 59
+        name: name
+        remote: remote
+        local: local
+      properties:
+        local:
+          type: string
+        name:
+          type: string
+        protocol:
+          $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_v6_inner_protocol'
+        remote:
+          type: string
+      required:
+      - name
     ipsec_tunnels_auto_key:
       example:
         ike_gateway:
@@ -21313,23 +21376,23 @@ components:
         proxy_id_v6:
         - protocol:
             tcp:
-              local_port: 39500
-              remote_port: 9606
+              local_port: 46276
+              remote_port: 60957
             udp:
               local_port: 39072
               remote_port: 36944
-            number: 21
+            number: 59
           name: name
           remote: remote
           local: local
         - protocol:
             tcp:
-              local_port: 39500
-              remote_port: 9606
+              local_port: 46276
+              remote_port: 60957
             udp:
               local_port: 39072
               remote_port: 36944
-            number: 21
+            number: 59
           name: name
           remote: remote
           local: local
@@ -21371,7 +21434,7 @@ components:
         proxy_id_v6:
           description: IPv6 type of proxy_id values
           items:
-            $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_inner'
+            $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_v6_inner'
           type: array
       required:
       - ike_gateway

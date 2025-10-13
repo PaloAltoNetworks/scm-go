@@ -16,40 +16,40 @@ import (
 	"fmt"
 )
 
-// checks if the IpsecTunnelsAutoKeyProxyIdInner type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &IpsecTunnelsAutoKeyProxyIdInner{}
+// checks if the IpsecTunnelsAutoKeyProxyIdV6Inner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IpsecTunnelsAutoKeyProxyIdV6Inner{}
 
-// IpsecTunnelsAutoKeyProxyIdInner IPv4 type of proxy_id values for TCP protocol
-type IpsecTunnelsAutoKeyProxyIdInner struct {
-	Local                *string                                  `json:"local,omitempty"`
-	Name                 string                                   `json:"name"`
-	Protocol             *IpsecTunnelsAutoKeyProxyIdInnerProtocol `json:"protocol,omitempty"`
-	Remote               *string                                  `json:"remote,omitempty"`
+// IpsecTunnelsAutoKeyProxyIdV6Inner IPv6 type of proxy_id values for TCP protocol
+type IpsecTunnelsAutoKeyProxyIdV6Inner struct {
+	Local                *string                                    `json:"local,omitempty"`
+	Name                 string                                     `json:"name"`
+	Protocol             *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol `json:"protocol,omitempty"`
+	Remote               *string                                    `json:"remote,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _IpsecTunnelsAutoKeyProxyIdInner IpsecTunnelsAutoKeyProxyIdInner
+type _IpsecTunnelsAutoKeyProxyIdV6Inner IpsecTunnelsAutoKeyProxyIdV6Inner
 
-// NewIpsecTunnelsAutoKeyProxyIdInner instantiates a new IpsecTunnelsAutoKeyProxyIdInner object
+// NewIpsecTunnelsAutoKeyProxyIdV6Inner instantiates a new IpsecTunnelsAutoKeyProxyIdV6Inner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIpsecTunnelsAutoKeyProxyIdInner(name string) *IpsecTunnelsAutoKeyProxyIdInner {
-	this := IpsecTunnelsAutoKeyProxyIdInner{}
+func NewIpsecTunnelsAutoKeyProxyIdV6Inner(name string) *IpsecTunnelsAutoKeyProxyIdV6Inner {
+	this := IpsecTunnelsAutoKeyProxyIdV6Inner{}
 	this.Name = name
 	return &this
 }
 
-// NewIpsecTunnelsAutoKeyProxyIdInnerWithDefaults instantiates a new IpsecTunnelsAutoKeyProxyIdInner object
+// NewIpsecTunnelsAutoKeyProxyIdV6InnerWithDefaults instantiates a new IpsecTunnelsAutoKeyProxyIdV6Inner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewIpsecTunnelsAutoKeyProxyIdInnerWithDefaults() *IpsecTunnelsAutoKeyProxyIdInner {
-	this := IpsecTunnelsAutoKeyProxyIdInner{}
+func NewIpsecTunnelsAutoKeyProxyIdV6InnerWithDefaults() *IpsecTunnelsAutoKeyProxyIdV6Inner {
+	this := IpsecTunnelsAutoKeyProxyIdV6Inner{}
 	return &this
 }
 
 // GetLocal returns the Local field value if set, zero value otherwise.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) GetLocal() string {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) GetLocal() string {
 	if o == nil || IsNil(o.Local) {
 		var ret string
 		return ret
@@ -59,7 +59,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) GetLocal() string {
 
 // GetLocalOk returns a tuple with the Local field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) GetLocalOk() (*string, bool) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) GetLocalOk() (*string, bool) {
 	if o == nil || IsNil(o.Local) {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) GetLocalOk() (*string, bool) {
 }
 
 // HasLocal returns a boolean if a field has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) HasLocal() bool {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) HasLocal() bool {
 	if o != nil && !IsNil(o.Local) {
 		return true
 	}
@@ -76,12 +76,12 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) HasLocal() bool {
 }
 
 // SetLocal gets a reference to the given string and assigns it to the Local field.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) SetLocal(v string) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) SetLocal(v string) {
 	o.Local = &v
 }
 
 // GetName returns the Name field value
-func (o *IpsecTunnelsAutoKeyProxyIdInner) GetName() string {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -92,7 +92,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) GetNameOk() (*string, bool) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -100,14 +100,14 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *IpsecTunnelsAutoKeyProxyIdInner) SetName(v string) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) SetName(v string) {
 	o.Name = v
 }
 
 // GetProtocol returns the Protocol field value if set, zero value otherwise.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) GetProtocol() IpsecTunnelsAutoKeyProxyIdInnerProtocol {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) GetProtocol() IpsecTunnelsAutoKeyProxyIdV6InnerProtocol {
 	if o == nil || IsNil(o.Protocol) {
-		var ret IpsecTunnelsAutoKeyProxyIdInnerProtocol
+		var ret IpsecTunnelsAutoKeyProxyIdV6InnerProtocol
 		return ret
 	}
 	return *o.Protocol
@@ -115,7 +115,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) GetProtocol() IpsecTunnelsAutoKeyProxy
 
 // GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) GetProtocolOk() (*IpsecTunnelsAutoKeyProxyIdInnerProtocol, bool) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) GetProtocolOk() (*IpsecTunnelsAutoKeyProxyIdV6InnerProtocol, bool) {
 	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
@@ -123,7 +123,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) GetProtocolOk() (*IpsecTunnelsAutoKeyP
 }
 
 // HasProtocol returns a boolean if a field has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) HasProtocol() bool {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) HasProtocol() bool {
 	if o != nil && !IsNil(o.Protocol) {
 		return true
 	}
@@ -131,13 +131,13 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) HasProtocol() bool {
 	return false
 }
 
-// SetProtocol gets a reference to the given IpsecTunnelsAutoKeyProxyIdInnerProtocol and assigns it to the Protocol field.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) SetProtocol(v IpsecTunnelsAutoKeyProxyIdInnerProtocol) {
+// SetProtocol gets a reference to the given IpsecTunnelsAutoKeyProxyIdV6InnerProtocol and assigns it to the Protocol field.
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) SetProtocol(v IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) {
 	o.Protocol = &v
 }
 
 // GetRemote returns the Remote field value if set, zero value otherwise.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) GetRemote() string {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) GetRemote() string {
 	if o == nil || IsNil(o.Remote) {
 		var ret string
 		return ret
@@ -147,7 +147,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) GetRemote() string {
 
 // GetRemoteOk returns a tuple with the Remote field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) GetRemoteOk() (*string, bool) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) GetRemoteOk() (*string, bool) {
 	if o == nil || IsNil(o.Remote) {
 		return nil, false
 	}
@@ -155,7 +155,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) GetRemoteOk() (*string, bool) {
 }
 
 // HasRemote returns a boolean if a field has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) HasRemote() bool {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) HasRemote() bool {
 	if o != nil && !IsNil(o.Remote) {
 		return true
 	}
@@ -164,11 +164,11 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) HasRemote() bool {
 }
 
 // SetRemote gets a reference to the given string and assigns it to the Remote field.
-func (o *IpsecTunnelsAutoKeyProxyIdInner) SetRemote(v string) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) SetRemote(v string) {
 	o.Remote = &v
 }
 
-func (o IpsecTunnelsAutoKeyProxyIdInner) MarshalJSON() ([]byte, error) {
+func (o IpsecTunnelsAutoKeyProxyIdV6Inner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -176,7 +176,7 @@ func (o IpsecTunnelsAutoKeyProxyIdInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o IpsecTunnelsAutoKeyProxyIdInner) ToMap() (map[string]interface{}, error) {
+func (o IpsecTunnelsAutoKeyProxyIdV6Inner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Local) {
 		toSerialize["local"] = o.Local
@@ -196,7 +196,7 @@ func (o IpsecTunnelsAutoKeyProxyIdInner) ToMap() (map[string]interface{}, error)
 	return toSerialize, nil
 }
 
-func (o *IpsecTunnelsAutoKeyProxyIdInner) UnmarshalJSON(data []byte) (err error) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6Inner) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -218,15 +218,15 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) UnmarshalJSON(data []byte) (err error)
 		}
 	}
 
-	varIpsecTunnelsAutoKeyProxyIdInner := _IpsecTunnelsAutoKeyProxyIdInner{}
+	varIpsecTunnelsAutoKeyProxyIdV6Inner := _IpsecTunnelsAutoKeyProxyIdV6Inner{}
 
-	err = json.Unmarshal(data, &varIpsecTunnelsAutoKeyProxyIdInner)
+	err = json.Unmarshal(data, &varIpsecTunnelsAutoKeyProxyIdV6Inner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = IpsecTunnelsAutoKeyProxyIdInner(varIpsecTunnelsAutoKeyProxyIdInner)
+	*o = IpsecTunnelsAutoKeyProxyIdV6Inner(varIpsecTunnelsAutoKeyProxyIdV6Inner)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -241,38 +241,38 @@ func (o *IpsecTunnelsAutoKeyProxyIdInner) UnmarshalJSON(data []byte) (err error)
 	return err
 }
 
-type NullableIpsecTunnelsAutoKeyProxyIdInner struct {
-	value *IpsecTunnelsAutoKeyProxyIdInner
+type NullableIpsecTunnelsAutoKeyProxyIdV6Inner struct {
+	value *IpsecTunnelsAutoKeyProxyIdV6Inner
 	isSet bool
 }
 
-func (v NullableIpsecTunnelsAutoKeyProxyIdInner) Get() *IpsecTunnelsAutoKeyProxyIdInner {
+func (v NullableIpsecTunnelsAutoKeyProxyIdV6Inner) Get() *IpsecTunnelsAutoKeyProxyIdV6Inner {
 	return v.value
 }
 
-func (v *NullableIpsecTunnelsAutoKeyProxyIdInner) Set(val *IpsecTunnelsAutoKeyProxyIdInner) {
+func (v *NullableIpsecTunnelsAutoKeyProxyIdV6Inner) Set(val *IpsecTunnelsAutoKeyProxyIdV6Inner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableIpsecTunnelsAutoKeyProxyIdInner) IsSet() bool {
+func (v NullableIpsecTunnelsAutoKeyProxyIdV6Inner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableIpsecTunnelsAutoKeyProxyIdInner) Unset() {
+func (v *NullableIpsecTunnelsAutoKeyProxyIdV6Inner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableIpsecTunnelsAutoKeyProxyIdInner(val *IpsecTunnelsAutoKeyProxyIdInner) *NullableIpsecTunnelsAutoKeyProxyIdInner {
-	return &NullableIpsecTunnelsAutoKeyProxyIdInner{value: val, isSet: true}
+func NewNullableIpsecTunnelsAutoKeyProxyIdV6Inner(val *IpsecTunnelsAutoKeyProxyIdV6Inner) *NullableIpsecTunnelsAutoKeyProxyIdV6Inner {
+	return &NullableIpsecTunnelsAutoKeyProxyIdV6Inner{value: val, isSet: true}
 }
 
-func (v NullableIpsecTunnelsAutoKeyProxyIdInner) MarshalJSON() ([]byte, error) {
+func (v NullableIpsecTunnelsAutoKeyProxyIdV6Inner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableIpsecTunnelsAutoKeyProxyIdInner) UnmarshalJSON(src []byte) error {
+func (v *NullableIpsecTunnelsAutoKeyProxyIdV6Inner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
