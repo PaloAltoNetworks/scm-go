@@ -5219,7 +5219,6 @@ components:
       type: object
     service-connection-groups:
       example:
-        folder: Service Connections
         pbf_only: true
         name: name
         disable_snat: true
@@ -5230,10 +5229,6 @@ components:
       properties:
         disable_snat:
           type: boolean
-        folder:
-          default: Service Connections
-          description: The folder containing the service connection group
-          type: string
         id:
           description: The UUID of the service connection group
           example: 123e4567-e89b-12d3-a456-426655440000
@@ -5249,7 +5244,6 @@ components:
             type: string
           type: array
       required:
-      - folder
       - id
       - name
       - target
@@ -5270,7 +5264,6 @@ components:
             secret: secret
             originate_default_route: true
             local_ip_address: local_ip_address
-        folder: Service Connections
         bgp_peer:
           peer_ipv6_address: peer_ipv6_address
           peer_ip_address: peer_ip_address
@@ -5295,10 +5288,6 @@ components:
           type: string
         bgp_peer:
           $ref: '#/components/schemas/service_connections_bgp_peer'
-        folder:
-          default: Service Connections
-          description: The folder containing the service connection
-          type: string
         id:
           description: The UUID of the service connection
           example: 123e4567-e89b-12d3-a456-426655440000
@@ -5339,7 +5328,6 @@ components:
             type: string
           type: array
       required:
-      - folder
       - id
       - ipsec_tunnel
       - name

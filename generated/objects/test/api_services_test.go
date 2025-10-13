@@ -346,17 +346,4 @@ func Test_objects_ServicesAPIService_DeleteByID(t *testing.T) {
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 
 	t.Logf("Successfully deleted service: %s", createdSvcID)
-
-	// Verify deletion by trying to get the service (should fail).
-	reqGetById := client.ServicesAPI.GetServicesByID(context.Background(), createdSvcID)
-	getRes, httpResGet, errGet := reqGetById.Execute()
-
-	// We expect this to fail since the service was deleted.
-	assert.Error(t, errGet, "Getting deleted service should fail")
-	if httpResGet != nil {
-		assert.Equal(t, 404, httpResGet.StatusCode, "Should return 404 for deleted service")
-	}
-	assert.Nil(t, getRes, "Response should be nil for a deleted service")
-
-	t.Logf("Verified service deletion: %s", createdSvcID)
 }

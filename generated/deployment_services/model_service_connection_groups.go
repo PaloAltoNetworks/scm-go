@@ -22,8 +22,6 @@ var _ MappedNullable = &ServiceConnectionGroups{}
 // ServiceConnectionGroups struct for ServiceConnectionGroups
 type ServiceConnectionGroups struct {
 	DisableSnat *bool `json:"disable_snat,omitempty"`
-	// The folder containing the service connection group
-	Folder string `json:"folder"`
 	// The UUID of the service connection group
 	Id                   string   `json:"id"`
 	Name                 string   `json:"name"`
@@ -38,9 +36,8 @@ type _ServiceConnectionGroups ServiceConnectionGroups
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceConnectionGroups(folder string, id string, name string, target []string) *ServiceConnectionGroups {
+func NewServiceConnectionGroups(id string, name string, target []string) *ServiceConnectionGroups {
 	this := ServiceConnectionGroups{}
-	this.Folder = folder
 	this.Id = id
 	this.Name = name
 	this.Target = target
@@ -52,8 +49,6 @@ func NewServiceConnectionGroups(folder string, id string, name string, target []
 // but it doesn't guarantee that properties required by API are set
 func NewServiceConnectionGroupsWithDefaults() *ServiceConnectionGroups {
 	this := ServiceConnectionGroups{}
-	var folder string = "Service Connections"
-	this.Folder = folder
 	return &this
 }
 
@@ -87,30 +82,6 @@ func (o *ServiceConnectionGroups) HasDisableSnat() bool {
 // SetDisableSnat gets a reference to the given bool and assigns it to the DisableSnat field.
 func (o *ServiceConnectionGroups) SetDisableSnat(v bool) {
 	o.DisableSnat = &v
-}
-
-// GetFolder returns the Folder field value
-func (o *ServiceConnectionGroups) GetFolder() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Folder
-}
-
-// GetFolderOk returns a tuple with the Folder field value
-// and a boolean to check if the value has been set.
-func (o *ServiceConnectionGroups) GetFolderOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Folder, true
-}
-
-// SetFolder sets field value
-func (o *ServiceConnectionGroups) SetFolder(v string) {
-	o.Folder = v
 }
 
 // GetId returns the Id field value
@@ -230,7 +201,6 @@ func (o ServiceConnectionGroups) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DisableSnat) {
 		toSerialize["disable_snat"] = o.DisableSnat
 	}
-	toSerialize["folder"] = o.Folder
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	if !IsNil(o.PbfOnly) {
@@ -250,7 +220,6 @@ func (o *ServiceConnectionGroups) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"folder",
 		"id",
 		"name",
 		"target",
@@ -284,7 +253,6 @@ func (o *ServiceConnectionGroups) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "disable_snat")
-		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "pbf_only")

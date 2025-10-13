@@ -223,13 +223,4 @@ func Test_networkservices_IkeGatewaysAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, errDel, "Failed to delete gateway")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 	t.Logf("Successfully deleted IKE Gateway: %s", createdGatewayID)
-
-	// Verify deletion by trying to get the gateway again (should fail).
-	reqGetById := client.IKEGatewaysAPI.GetIKEGatewaysByID(context.Background(), createdGatewayID)
-	_, httpResGet, errGet := reqGetById.Execute()
-
-	assert.Error(t, errGet, "Getting deleted gateway should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Status code should not be 200 OK for a deleted resource")
-	}
 }

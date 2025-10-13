@@ -27,11 +27,11 @@ type DosProtectionRules struct {
 	// List of destination addresses
 	Destination []string `json:"destination,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Rule disabled?
 	Disabled *bool `json:"disabled,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// List of source zones
 	From []string `json:"from,omitempty"`
 	// The UUID of the DNS security profile
@@ -48,7 +48,7 @@ type DosProtectionRules struct {
 	// List of services
 	Service []string `json:"service,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// List of source addresses
 	Source []string `json:"source,omitempty"`
 	// List of source users and/or groups.  Reserved words include `any`, `pre-login`, `known-user`, and `unknown`.

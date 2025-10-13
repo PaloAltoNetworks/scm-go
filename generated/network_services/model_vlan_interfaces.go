@@ -24,15 +24,15 @@ type VlanInterfaces struct {
 	// ARP configuration
 	Arp []VlanInterfacesArpInner `json:"arp,omitempty"`
 	// Description
-	Comment    *string     `json:"comment,omitempty"`
-	DdnsConfig *DdnsConfig `json:"ddns_config,omitempty"`
+	Comment    *string                   `json:"comment,omitempty"`
+	DdnsConfig *VlanInterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// Default interface assignment
 	DefaultValue *string `json:"default-value,omitempty"`
 	// The device in which the resource is defined
-	Device     *string                                      `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
-	DhcpClient *AggregateEthernetInterfacesLayer3DhcpClient `json:"dhcp-client,omitempty"`
+	Device     *string                   `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
+	DhcpClient *VlanInterfacesDhcpClient `json:"dhcp-client,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
@@ -43,7 +43,7 @@ type VlanInterfaces struct {
 	// L3 sub-interface name
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
 	VlanTag              *float32 `json:"vlan-tag,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -134,9 +134,9 @@ func (o *VlanInterfaces) SetComment(v string) {
 }
 
 // GetDdnsConfig returns the DdnsConfig field value if set, zero value otherwise.
-func (o *VlanInterfaces) GetDdnsConfig() DdnsConfig {
+func (o *VlanInterfaces) GetDdnsConfig() VlanInterfacesDdnsConfig {
 	if o == nil || IsNil(o.DdnsConfig) {
-		var ret DdnsConfig
+		var ret VlanInterfacesDdnsConfig
 		return ret
 	}
 	return *o.DdnsConfig
@@ -144,7 +144,7 @@ func (o *VlanInterfaces) GetDdnsConfig() DdnsConfig {
 
 // GetDdnsConfigOk returns a tuple with the DdnsConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VlanInterfaces) GetDdnsConfigOk() (*DdnsConfig, bool) {
+func (o *VlanInterfaces) GetDdnsConfigOk() (*VlanInterfacesDdnsConfig, bool) {
 	if o == nil || IsNil(o.DdnsConfig) {
 		return nil, false
 	}
@@ -160,8 +160,8 @@ func (o *VlanInterfaces) HasDdnsConfig() bool {
 	return false
 }
 
-// SetDdnsConfig gets a reference to the given DdnsConfig and assigns it to the DdnsConfig field.
-func (o *VlanInterfaces) SetDdnsConfig(v DdnsConfig) {
+// SetDdnsConfig gets a reference to the given VlanInterfacesDdnsConfig and assigns it to the DdnsConfig field.
+func (o *VlanInterfaces) SetDdnsConfig(v VlanInterfacesDdnsConfig) {
 	o.DdnsConfig = &v
 }
 
@@ -230,9 +230,9 @@ func (o *VlanInterfaces) SetDevice(v string) {
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *VlanInterfaces) GetDhcpClient() AggregateEthernetInterfacesLayer3DhcpClient {
+func (o *VlanInterfaces) GetDhcpClient() VlanInterfacesDhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret AggregateEthernetInterfacesLayer3DhcpClient
+		var ret VlanInterfacesDhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -240,7 +240,7 @@ func (o *VlanInterfaces) GetDhcpClient() AggregateEthernetInterfacesLayer3DhcpCl
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VlanInterfaces) GetDhcpClientOk() (*AggregateEthernetInterfacesLayer3DhcpClient, bool) {
+func (o *VlanInterfaces) GetDhcpClientOk() (*VlanInterfacesDhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -256,8 +256,8 @@ func (o *VlanInterfaces) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given AggregateEthernetInterfacesLayer3DhcpClient and assigns it to the DhcpClient field.
-func (o *VlanInterfaces) SetDhcpClient(v AggregateEthernetInterfacesLayer3DhcpClient) {
+// SetDhcpClient gets a reference to the given VlanInterfacesDhcpClient and assigns it to the DhcpClient field.
+func (o *VlanInterfaces) SetDhcpClient(v VlanInterfacesDhcpClient) {
 	o.DhcpClient = &v
 }
 

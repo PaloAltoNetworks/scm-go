@@ -32,11 +32,11 @@ type DecryptionRules struct {
 	// The Host Integrity Profile of the destination host
 	DestinationHip []string `json:"destination_hip,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Is the rule disabled?
 	Disabled *bool `json:"disabled,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The source security zone
 	From []string `json:"from"`
 	// The UUID of the decryption rule
@@ -58,7 +58,7 @@ type DecryptionRules struct {
 	// The destination services and/or service groups
 	Service []string `json:"service"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The source addresses
 	Source    []string `json:"source"`
 	SourceHip []string `json:"source_hip,omitempty"`

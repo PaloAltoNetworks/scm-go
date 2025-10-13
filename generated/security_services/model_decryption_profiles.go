@@ -22,15 +22,15 @@ var _ MappedNullable = &DecryptionProfiles{}
 // DecryptionProfiles struct for DecryptionProfiles
 type DecryptionProfiles struct {
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id string `json:"id"`
 	// Must start with alphanumeric char and should contain only alphanemeric, underscore, hyphen, dot or space
 	Name string `json:"name" validate:"regexp=^[A-Za-z0-9]{1}[A-Za-z0-9_\\\\-\\\\.\\\\s]{0,}$"`
 	// The snippet in which the resource is defined
-	Snippet              *string                                `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string                                `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	SslForwardProxy      *DecryptionProfilesSslForwardProxy     `json:"ssl_forward_proxy,omitempty"`
 	SslInboundProxy      *DecryptionProfilesSslInboundProxy     `json:"ssl_inbound_proxy,omitempty"`
 	SslNoProxy           *DecryptionProfilesSslNoProxy          `json:"ssl_no_proxy,omitempty"`

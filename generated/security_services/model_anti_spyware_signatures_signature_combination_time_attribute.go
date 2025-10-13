@@ -18,7 +18,7 @@ import (
 // checks if the AntiSpywareSignaturesSignatureCombinationTimeAttribute type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AntiSpywareSignaturesSignatureCombinationTimeAttribute{}
 
-// AntiSpywareSignaturesSignatureCombinationTimeAttribute struct for AntiSpywareSignaturesSignatureCombinationTimeAttribute
+// AntiSpywareSignaturesSignatureCombinationTimeAttribute anti spyware time attribute
 type AntiSpywareSignaturesSignatureCombinationTimeAttribute struct {
 	Interval             *int32  `json:"interval,omitempty"`
 	Threshold            *int32  `json:"threshold,omitempty"`

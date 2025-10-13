@@ -24,9 +24,9 @@ type HttpHeaderProfiles struct {
 	// The description of the HTTP header profile
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// A list of HTTP header profile rules
 	HttpHeaderInsertion []HttpHeaderProfilesHttpHeaderInsertionInner `json:"http_header_insertion,omitempty"`
 	// The UUID of the HTTP header profile
@@ -34,7 +34,7 @@ type HttpHeaderProfiles struct {
 	// The name of the HTTP header profile
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

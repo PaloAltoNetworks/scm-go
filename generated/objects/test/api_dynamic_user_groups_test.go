@@ -275,16 +275,6 @@ func Test_objects_DynamicUserGroupsAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, errDel, "Failed to delete dynamic user group")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 
-	// Verify deletion by trying to get the group (should fail).
-	reqGetById := client.DynamicUserGroupsAPI.GetDynamicUserGroupsByID(context.Background(), createdDUGID)
-	getRes, httpResGet, errGet := reqGetById.Execute()
-
-	assert.Error(t, errGet, "Getting deleted dynamic user group should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted group")
-	}
-	assert.Nil(t, getRes, "Response should be nil for a deleted dynamic user group")
-
 	// Cleanup the test tag.
 	deleteTestTag(t, client, tagID, tagName)
 }

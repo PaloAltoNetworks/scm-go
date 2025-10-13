@@ -21,22 +21,22 @@ var _ MappedNullable = &AntiSpywareSignatures{}
 
 // AntiSpywareSignatures struct for AntiSpywareSignatures
 type AntiSpywareSignatures struct {
-	Bugtraq       []string                             `json:"bugtraq,omitempty"`
-	Comment       *string                              `json:"comment,omitempty"`
-	Cve           []string                             `json:"cve,omitempty"`
-	DefaultAction *AntiSpywareProfilesRulesInnerAction `json:"default_action,omitempty"`
+	Bugtraq       []string                            `json:"bugtraq,omitempty"`
+	Comment       *string                             `json:"comment,omitempty"`
+	Cve           []string                            `json:"cve,omitempty"`
+	DefaultAction *AntiSpywareSignaturesDefaultAction `json:"default_action,omitempty"`
 	// The device in which the resource is defined
-	Device    *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device    *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Direction *string `json:"direction,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id        string                          `json:"id"`
 	Reference []string                        `json:"reference,omitempty"`
 	Severity  *string                         `json:"severity,omitempty"`
 	Signature *AntiSpywareSignaturesSignature `json:"signature,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// threat id range <15000-18000> and <6900001-7000000>
 	ThreatId             int32    `json:"threat_id"`
 	Threatname           string   `json:"threatname"`
@@ -163,9 +163,9 @@ func (o *AntiSpywareSignatures) SetCve(v []string) {
 }
 
 // GetDefaultAction returns the DefaultAction field value if set, zero value otherwise.
-func (o *AntiSpywareSignatures) GetDefaultAction() AntiSpywareProfilesRulesInnerAction {
+func (o *AntiSpywareSignatures) GetDefaultAction() AntiSpywareSignaturesDefaultAction {
 	if o == nil || IsNil(o.DefaultAction) {
-		var ret AntiSpywareProfilesRulesInnerAction
+		var ret AntiSpywareSignaturesDefaultAction
 		return ret
 	}
 	return *o.DefaultAction
@@ -173,7 +173,7 @@ func (o *AntiSpywareSignatures) GetDefaultAction() AntiSpywareProfilesRulesInner
 
 // GetDefaultActionOk returns a tuple with the DefaultAction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AntiSpywareSignatures) GetDefaultActionOk() (*AntiSpywareProfilesRulesInnerAction, bool) {
+func (o *AntiSpywareSignatures) GetDefaultActionOk() (*AntiSpywareSignaturesDefaultAction, bool) {
 	if o == nil || IsNil(o.DefaultAction) {
 		return nil, false
 	}
@@ -189,8 +189,8 @@ func (o *AntiSpywareSignatures) HasDefaultAction() bool {
 	return false
 }
 
-// SetDefaultAction gets a reference to the given AntiSpywareProfilesRulesInnerAction and assigns it to the DefaultAction field.
-func (o *AntiSpywareSignatures) SetDefaultAction(v AntiSpywareProfilesRulesInnerAction) {
+// SetDefaultAction gets a reference to the given AntiSpywareSignaturesDefaultAction and assigns it to the DefaultAction field.
+func (o *AntiSpywareSignatures) SetDefaultAction(v AntiSpywareSignaturesDefaultAction) {
 	o.DefaultAction = &v
 }
 

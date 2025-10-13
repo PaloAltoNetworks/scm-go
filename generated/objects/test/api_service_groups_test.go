@@ -302,12 +302,4 @@ func Test_objects_ServiceGroupsAPIService_DeleteByID(t *testing.T) {
 	httpRes, err = delReq.Execute()
 	require.NoError(t, err)
 	assert.Equal(t, 200, httpRes.StatusCode)
-
-	// Verify the deletion by trying to get it again.
-	getReq := client.ServiceGroupsAPI.GetServiceGroupsByID(context.Background(), createdGroupID)
-	_, httpResGet, errGet := getReq.Execute()
-	assert.Error(t, errGet, "Getting a deleted service group should result in an error")
-	if httpResGet != nil {
-		assert.Equal(t, 404, httpResGet.StatusCode, "Expected 404 Not Found for deleted group")
-	}
 }

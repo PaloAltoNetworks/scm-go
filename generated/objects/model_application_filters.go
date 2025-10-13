@@ -23,14 +23,14 @@ var _ MappedNullable = &ApplicationFilters{}
 type ApplicationFilters struct {
 	Category []string `json:"category,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// only True is a valid value
 	Evasive *bool `json:"evasive,omitempty"`
 	// only True is a valid value
 	ExcessiveBandwidthUse *bool    `json:"excessive_bandwidth_use,omitempty"`
 	Exclude               []string `json:"exclude,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// only True is a valid value
 	HasKnownVulnerabilities *bool `json:"has_known_vulnerabilities,omitempty"`
 	// UUID of the resource
@@ -49,7 +49,7 @@ type ApplicationFilters struct {
 	SaasCertifications []string `json:"saas_certifications,omitempty"`
 	SaasRisk           []string `json:"saas_risk,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet     *string                    `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet     *string                    `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Subcategory []string                   `json:"subcategory,omitempty"`
 	Tagging     *ApplicationFiltersTagging `json:"tagging,omitempty"`
 	Technology  []string                   `json:"technology,omitempty"`

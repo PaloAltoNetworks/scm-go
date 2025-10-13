@@ -19,7 +19,7 @@ import (
 // checks if the IpsecTunnelsAutoKeyProxyIdInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IpsecTunnelsAutoKeyProxyIdInner{}
 
-// IpsecTunnelsAutoKeyProxyIdInner struct for IpsecTunnelsAutoKeyProxyIdInner
+// IpsecTunnelsAutoKeyProxyIdInner IPv4 type of proxy_id values for TCP protocol
 type IpsecTunnelsAutoKeyProxyIdInner struct {
 	Local                *string                                  `json:"local,omitempty"`
 	Name                 string                                   `json:"name"`

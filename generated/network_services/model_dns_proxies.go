@@ -24,13 +24,13 @@ type DnsProxies struct {
 	Cache   *DnsProxiesCache  `json:"cache,omitempty"`
 	Default DnsProxiesDefault `json:"default"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// DNS proxy rules
 	DomainServers []DnsProxiesDomainServersInner `json:"domain-servers,omitempty"`
 	// Enable DNS proxy?
 	Enabled *bool `json:"enabled,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interfaces on which to enable DNS proxy service
@@ -38,7 +38,7 @@ type DnsProxies struct {
 	// DNS proxy name
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
-	Snippet              *string                        `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string                        `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	StaticEntries        []DnsProxiesStaticEntriesInner `json:"static-entries,omitempty"`
 	TcpQueries           *DnsProxiesTcpQueries          `json:"tcp-queries,omitempty"`
 	UdpQueries           *DnsProxiesUdpQueries          `json:"udp-queries,omitempty"`

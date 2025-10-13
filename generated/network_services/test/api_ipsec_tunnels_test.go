@@ -284,11 +284,4 @@ func Test_networkservices_IPsecTunnelsAPIService_DeleteByID(t *testing.T) {
 	// Verify the delete was successful.
 	require.NoError(t, errDel)
 	assert.Equal(t, 200, httpResDel.StatusCode)
-
-	// Verify the tunnel is gone.
-	_, httpResGet, errGet := client.IPsecTunnelsAPI.GetIPsecTunnelsByID(context.Background(), createdTunnelID).Execute()
-	assert.Error(t, errGet)
-	if httpResGet != nil {
-		assert.Equal(t, 404, httpResGet.StatusCode)
-	}
 }

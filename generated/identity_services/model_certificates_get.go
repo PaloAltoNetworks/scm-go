@@ -28,10 +28,10 @@ type CertificatesGet struct {
 	CommonName    *string `json:"common_name,omitempty"`
 	CommonNameInt *string `json:"common_name_int,omitempty"`
 	// The device in which the resource is defined
-	Device      *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device      *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	ExpiryEpoch *string `json:"expiry_epoch,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the certificate
 	Id *string `json:"id,omitempty"`
 	// Issuer
@@ -47,7 +47,7 @@ type CertificatesGet struct {
 	// Public key
 	PublicKey *string `json:"public_key,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Subject
 	Subject *string `json:"subject,omitempty"`
 	// Subject hash

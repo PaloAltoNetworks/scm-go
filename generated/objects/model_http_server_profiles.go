@@ -22,9 +22,9 @@ var _ MappedNullable = &HttpServerProfiles{}
 // HttpServerProfiles struct for HttpServerProfiles
 type HttpServerProfiles struct {
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string                   `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string                   `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Format *HttpServerProfilesFormat `json:"format,omitempty"`
 	// The UUID of the HTTP server profile
 	Id string `json:"id"`
@@ -32,7 +32,7 @@ type HttpServerProfiles struct {
 	Name   string                          `json:"name"`
 	Server []HttpServerProfilesServerInner `json:"server,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Register tags on match
 	TagRegistration      *bool `json:"tag_registration,omitempty"`
 	AdditionalProperties map[string]interface{}

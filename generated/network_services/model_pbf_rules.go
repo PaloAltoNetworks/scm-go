@@ -28,10 +28,10 @@ type PbfRules struct {
 	// Destination addresses
 	Destination []string `json:"destination,omitempty"`
 	// The device in which the resource is defined
-	Device                 *string                         `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device                 *string                         `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	EnforceSymmetricReturn *PbfRulesEnforceSymmetricReturn `json:"enforce_symmetric_return,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string       `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string       `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	From   *PbfRulesFrom `json:"from,omitempty"`
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
@@ -42,7 +42,7 @@ type PbfRules struct {
 	// Services
 	Service []string `json:"service,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Source addresses
 	Source []string `json:"source,omitempty"`
 	// Source users

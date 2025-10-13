@@ -7672,6 +7672,16 @@ components:
       - limit
       - offset
       - total
+    agg-ethernet-arp:
+      description: Aggregate Ethernet ARP configuration
+      items:
+        $ref: '#/components/schemas/agg_ethernet_arp_inner'
+      type: array
+    agg-ethernet-dhcp-client:
+      description: Aggregate Ethernet DHCP Client
+      properties:
+        dhcp-client:
+          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
     aggregate-ethernet-interfaces:
       example:
         snippet: My Snippet
@@ -7735,13 +7745,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -7759,15 +7769,10 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
-    arp:
-      description: ARP configuration
-      items:
-        $ref: '#/components/schemas/arp_inner'
-      type: array
     auto-vpn-clusters:
       example:
         gateways:
@@ -8314,13 +8319,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8336,7 +8341,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -8353,13 +8358,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8377,7 +8382,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -8476,13 +8481,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8497,7 +8502,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -8527,13 +8532,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8549,7 +8554,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - ipv4
@@ -8566,21 +8571,21 @@ components:
                   source_address: source_address
                 metric:
                   action: set
-                  value: 528931036
+                  value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 870642709
+                  as: 528931037
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 27168
-                - 27168
-                weight: 639699262
-                tag: 440081978
-                local_preference: 2147483647
+                - 6715
+                - 6715
+                weight: 503831554
+                tag: 2147483647
+                local_preference: 639699262
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8593,9 +8598,9 @@ components:
                   next_hop:
                     prefix_list: prefix_list
                     access_list: access_list
-                metric: 2147483647
+                metric: 1780525090
                 interface: interface
-              name: 23698
+              name: 48406
               action: permit
               description: description
             - set:
@@ -8604,21 +8609,21 @@ components:
                   source_address: source_address
                 metric:
                   action: set
-                  value: 528931036
+                  value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 870642709
+                  as: 528931037
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 27168
-                - 27168
-                weight: 639699262
-                tag: 440081978
-                local_preference: 2147483647
+                - 6715
+                - 6715
+                weight: 503831554
+                tag: 2147483647
+                local_preference: 639699262
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8631,9 +8636,9 @@ components:
                   next_hop:
                     prefix_list: prefix_list
                     access_list: access_list
-                metric: 2147483647
+                metric: 1780525090
                 interface: interface
-              name: 23698
+              name: 48406
               action: permit
               description: description
           rib:
@@ -8650,7 +8655,7 @@ components:
                     access_list: access_list
                 metric: 2147483647
                 interface: interface
-              name: 7688
+              name: 43801
               action: permit
               description: description
             - set:
@@ -8665,7 +8670,7 @@ components:
                     access_list: access_list
                 metric: 2147483647
                 interface: interface
-              name: 7688
+              name: 43801
               action: permit
               description: description
           ospf:
@@ -8673,7 +8678,7 @@ components:
             - set:
                 metric:
                   action: set
-                  value: 528931036
+                  value: 2147483647
                 metric_type: type-1
                 tag: 2147483647
               match:
@@ -8684,15 +8689,15 @@ components:
                   next_hop:
                     prefix_list: prefix_list
                     access_list: access_list
-                metric: 2147483647
+                metric: 2132545103
                 interface: interface
-              name: 44871
+              name: 32931
               action: permit
               description: description
             - set:
                 metric:
                   action: set
-                  value: 528931036
+                  value: 2147483647
                 metric_type: type-1
                 tag: 2147483647
               match:
@@ -8703,9 +8708,9 @@ components:
                   next_hop:
                     prefix_list: prefix_list
                     access_list: access_list
-                metric: 2147483647
+                metric: 2132545103
                 interface: interface
-              name: 44871
+              name: 32931
               action: permit
               description: description
         folder: My Folder
@@ -8733,11 +8738,11 @@ components:
                 peer: local
                 origin: origin
                 large_community: large_community
-                tag: 629561882
+                tag: 1553093138
                 interface: interface
-                local_preference: 343953089
+                local_preference: 2147483647
                 regular_community: regular_community
-              name: 46277
+              name: 13285
               action: permit
               description: description
             - set:
@@ -8759,11 +8764,11 @@ components:
                 peer: local
                 origin: origin
                 large_community: large_community
-                tag: 629561882
+                tag: 1553093138
                 interface: interface
-                local_preference: 343953089
+                local_preference: 2147483647
                 regular_community: regular_community
-              name: 46277
+              name: 13285
               action: permit
               description: description
           ospf:
@@ -8839,21 +8844,21 @@ components:
                   source_address: source_address
                 metric:
                   action: set
-                  value: 528931036
+                  value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 870642709
+                  as: 1527803716
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 27168
-                - 27168
-                weight: 639699262
-                tag: 440081978
-                local_preference: 2147483647
+                - 45646
+                - 45646
+                weight: 2147483647
+                tag: 1238738201
+                local_preference: 551756841
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8862,13 +8867,13 @@ components:
                 address:
                   prefix_list: prefix_list
                   access_list: access_list
-                metric: 2132545103
+                metric: 2147483647
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 65310
+              name: 42194
               action: permit
               description: description
             - set:
@@ -8877,21 +8882,21 @@ components:
                   source_address: source_address
                 metric:
                   action: set
-                  value: 528931036
+                  value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 870642709
+                  as: 1527803716
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 27168
-                - 27168
-                weight: 639699262
-                tag: 440081978
-                local_preference: 2147483647
+                - 45646
+                - 45646
+                weight: 2147483647
+                tag: 1238738201
+                local_preference: 551756841
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8900,13 +8905,13 @@ components:
                 address:
                   prefix_list: prefix_list
                   access_list: access_list
-                metric: 2132545103
+                metric: 2147483647
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 65310
+              name: 42194
               action: permit
               description: description
           rib:
@@ -8923,7 +8928,7 @@ components:
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 57422
+              name: 43935
               action: permit
               description: description
             - set:
@@ -8938,7 +8943,7 @@ components:
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 57422
+              name: 43935
               action: permit
               description: description
       properties:
@@ -8953,13 +8958,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -8975,7 +8980,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -8987,16 +8992,16 @@ components:
         - set:
             originator_id: originator_id
             aggregator:
-              as: 870642709
+              as: 2147483647
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 2
-            - 2
-            weight: 1553093137
+            - 7
+            - 7
+            weight: 870642708
             remove_large_community: remove_large_community
             local_preference: 2147483647
             regular_community:
@@ -9010,12 +9015,12 @@ components:
               source_address: source_address
             metric:
               action: set
-              value: 528931036
+              value: 2147483647
             overwrite_regular_community: true
             aspath_exclude:
-            - 5
-            - 5
-            tag: 2147483647
+            - 2
+            - 2
+            tag: 1553093137
           match:
             as_path_access_list: as_path_access_list
             ipv4:
@@ -9043,16 +9048,16 @@ components:
         - set:
             originator_id: originator_id
             aggregator:
-              as: 870642709
+              as: 2147483647
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 2
-            - 2
-            weight: 1553093137
+            - 7
+            - 7
+            weight: 870642708
             remove_large_community: remove_large_community
             local_preference: 2147483647
             regular_community:
@@ -9066,12 +9071,12 @@ components:
               source_address: source_address
             metric:
               action: set
-              value: 528931036
+              value: 2147483647
             overwrite_regular_community: true
             aspath_exclude:
-            - 5
-            - 5
-            tag: 2147483647
+            - 2
+            - 2
+            tag: 1553093137
           match:
             as_path_access_list: as_path_access_list
             ipv4:
@@ -9107,13 +9112,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9130,19 +9135,11 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
     ddns-config:
-      example:
-        ddns-enabled: false
-        ddns-vendor-config: ddns-vendor-config
-        ddns-hostname: ddns-hostname
-        ddns-cert-profile: ddns-cert-profile
-        ddns-update-interval: 18
-        ddns-ip: ddns-ip
-        ddns-vendor: ddns-vendor
       properties:
         ddns-cert-profile:
           description: Certificate profile
@@ -9178,18 +9175,6 @@ components:
       - ddns-hostname
       - ddns-vendor
       - ddns-vendor-config
-    dhcp-client:
-      example:
-        dhcp-client:
-          enable: true
-          create-default-route: true
-          send-hostname:
-            hostname: system-hostname
-            enable: true
-          default-route-metric: 36944
-      properties:
-        dhcp-client:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client'
     dhcp-interfaces:
       example:
         snippet: My Snippet
@@ -9269,13 +9254,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9293,7 +9278,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -9361,7 +9346,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         domain-servers:
           description: DNS proxy rules
@@ -9375,7 +9360,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9396,7 +9381,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         static-entries:
           items:
@@ -9432,7 +9417,7 @@ components:
         tap: "{}"
         poe:
           poe-enabled: false
-          poe-rsvd-pwr: 53
+          poe-rsvd-pwr: 20
         link-speed: auto
         link-duplex: auto
         folder: My Folder
@@ -9452,7 +9437,7 @@ components:
               send-hostname:
                 hostname: system-hostname
                 enable: true
-              default-route-metric: 36944
+              default-route-metric: 9607
           ip:
           - ip
           - ip
@@ -9463,7 +9448,7 @@ components:
             static-address:
               ip: ip
             access-concentrator: access-concentrator
-            default-route-metric: 9607
+            default-route-metric: 36944
             passive: false
             authentication: CHAP
             username: username
@@ -9473,7 +9458,7 @@ components:
             name: name
           - hw-address: hw-address
             name: name
-          mtu: 5783
+          mtu: 5727
         name: name
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
@@ -9492,13 +9477,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9546,7 +9531,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         tap:
           default: {}
@@ -9554,6 +9539,24 @@ components:
       required:
       - id
       - name
+    ethernet-interfaces-arp:
+      description: Ethernet Interfaces ARP configuration
+      items:
+        $ref: '#/components/schemas/ethernet_interfaces_arp_inner'
+      type: array
+    ethernet-interfaces-dhcp-client:
+      description: Ethernet Interfaces DHCP Client
+      example:
+        dhcp-client:
+          enable: true
+          create-default-route: true
+          send-hostname:
+            hostname: system-hostname
+            enable: true
+          default-route-metric: 9607
+      properties:
+        dhcp-client:
+          $ref: '#/components/schemas/ethernet_interfaces_dhcp_client_dhcp_client'
     generic_error:
       properties:
         _errors:
@@ -9597,7 +9600,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dh_group:
           items:
@@ -9630,7 +9633,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         hash:
           items:
@@ -9660,7 +9663,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - dh_group
@@ -9690,7 +9693,7 @@ components:
         protocol_common:
           nat_traversal:
             enable: true
-          passive_mode: true
+          passive_mode: false
           fragmentation:
             enable: false
         peer_address:
@@ -9719,13 +9722,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9752,7 +9755,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - authentication
@@ -9784,13 +9787,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         http:
           description: Allow HTTP?
@@ -9822,7 +9825,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         ssh:
           description: Allow SSH?
@@ -9877,7 +9880,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dh_group:
           default: group2
@@ -9897,7 +9900,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -9916,7 +9919,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - lifetime
@@ -9944,8 +9947,8 @@ components:
                 local_port: 46276
                 remote_port: 60957
               udp:
-                local_port: 46276
-                remote_port: 60957
+                local_port: 39072
+                remote_port: 36944
               number: 59
             name: name
             remote: remote
@@ -9955,8 +9958,8 @@ components:
                 local_port: 46276
                 remote_port: 60957
               udp:
-                local_port: 46276
-                remote_port: 60957
+                local_port: 39072
+                remote_port: 36944
               number: 59
             name: name
             remote: remote
@@ -10001,7 +10004,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         enable_gre_encapsulation:
           default: false
@@ -10011,7 +10014,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -10026,7 +10029,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         tunnel_interface:
           default: tunnel
@@ -10099,13 +10102,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -10123,7 +10126,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         vlan-tag:
           description: VLAN tag
@@ -10133,6 +10136,11 @@ components:
       required:
       - name
       - vlan-tag
+    layer3-sub-interfaces-dhcp-client:
+      description: Layer3 sub interfaces DHCP Client
+      properties:
+        dhcp-client:
+          $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client'
     layer3-subinterfaces:
       example:
         snippet: My Snippet
@@ -10141,7 +10149,7 @@ components:
         - ip
         parent-interface: parent-interface
         interface_management_profile: string
-        mtu: 1267.915556558314
+        mtu: 1842.4624151545447
         folder: My Folder
         dhcp-client:
           enable: true
@@ -10149,19 +10157,19 @@ components:
           send-hostname:
             hostname: system-hostname
             enable: true
-          default-route-metric: 36944
+          default-route-metric: 39501
         ddns_config:
           ddns-enabled: false
           ddns-vendor-config: ddns-vendor-config
           ddns-hostname: ddns-hostname
           ddns-cert-profile: ddns-cert-profile
-          ddns-update-interval: 18
+          ddns-update-interval: 3
           ddns-ip: ddns-ip
           ddns-vendor: ddns-vendor
         name: name
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
-        tag: 2469.24330696733
+        tag: 2442.493838881763
         device: My Device
         arp:
         - hw-address: hw-address
@@ -10170,28 +10178,28 @@ components:
           name: name
       properties:
         arp:
-          description: ARP configuration
+          description: Layer 3 sub Interfaces ARP configuration
           items:
-            $ref: '#/components/schemas/arp_inner'
+            $ref: '#/components/schemas/layer3_subinterfaces_arp_inner'
           type: array
         comment:
           description: Description
           type: string
         ddns_config:
-          $ref: '#/components/schemas/ddns-config'
+          $ref: '#/components/schemas/layer3_subinterfaces_ddns_config'
         device:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dhcp-client:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client'
+          $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client'
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -10221,7 +10229,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         tag:
           description: VLAN tag
@@ -10230,6 +10238,11 @@ components:
           type: number
       required:
       - name
+    layer3-subinterfaces-arp:
+      description: Layer 3 sub Interfaces ARP configuration
+      items:
+        $ref: '#/components/schemas/layer3_subinterfaces_arp_inner'
+      type: array
     link-tags:
       example:
         snippet: My Snippet
@@ -10293,13 +10306,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the link tag
@@ -10314,7 +10327,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15086,13 +15099,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15110,7 +15123,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         vrf:
           items:
@@ -15146,13 +15159,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15177,7 +15190,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15241,7 +15254,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         disabled:
           default: false
@@ -15262,7 +15275,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           description: Source zone(s) of the original packet
@@ -15295,7 +15308,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           description: Source address(es) of the original packet
@@ -15358,13 +15371,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15387,7 +15400,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15463,7 +15476,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         enforce_symmetric_return:
           $ref: '#/components/schemas/pbf_rules_enforce_symmetric_return'
@@ -15471,7 +15484,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           $ref: '#/components/schemas/pbf_rules_from'
@@ -15496,7 +15509,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           description: Source addresses
@@ -15517,7 +15530,7 @@ components:
     poe:
       example:
         poe-enabled: false
-        poe-rsvd-pwr: 53
+        poe-rsvd-pwr: 20
       properties:
         poe-enabled:
           default: false
@@ -15577,7 +15590,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dscp_tos:
           $ref: '#/components/schemas/qos_policy_rules_dscp_tos'
@@ -15585,7 +15598,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15600,7 +15613,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - action
@@ -15649,13 +15662,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15670,7 +15683,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15709,13 +15722,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15729,7 +15742,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         type:
           $ref: '#/components/schemas/route_access_lists_type'
@@ -15800,13 +15813,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15820,7 +15833,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         type:
           $ref: '#/components/schemas/route_community_lists_type'
@@ -15854,13 +15867,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15874,7 +15887,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15912,13 +15925,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15934,7 +15947,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -15960,13 +15973,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -15981,7 +15994,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - activation_threshold
@@ -16009,13 +16022,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16032,7 +16045,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - metric
@@ -16100,7 +16113,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         disabled:
           default: false
@@ -16113,7 +16126,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           description: List of source zones
@@ -16159,7 +16172,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           description: List of source addresses
@@ -16222,13 +16235,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16244,7 +16257,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - monitor_mode
@@ -16267,13 +16280,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16293,7 +16306,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         traffic-distribution:
           default: Best Available Path
@@ -16380,13 +16393,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16398,7 +16411,7 @@ components:
           example: string
           type: string
         ip:
-          $ref: '#/components/schemas/loopback_interfaces_ip'
+          $ref: '#/components/schemas/tunnel_interfaces_ip'
         mtu:
           description: MTU
           maximum: 9216
@@ -16411,7 +16424,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -16419,12 +16432,12 @@ components:
       example:
         snippet: My Snippet
         default-value: default-value
-        vlan-tag: 2469.24330696733
+        vlan-tag: 2442.493838881763
         ip:
         - ip
         - ip
         interface_management_profile: string
-        mtu: 1267.915556558314
+        mtu: 1842.4624151545447
         folder: My Folder
         dhcp-client:
           enable: true
@@ -16432,13 +16445,13 @@ components:
           send-hostname:
             hostname: system-hostname
             enable: true
-          default-route-metric: 36944
+          default-route-metric: 39501
         ddns_config:
           ddns-enabled: false
           ddns-vendor-config: ddns-vendor-config
           ddns-hostname: ddns-hostname
           ddns-cert-profile: ddns-cert-profile
-          ddns-update-interval: 18
+          ddns-update-interval: 3
           ddns-ip: ddns-ip
           ddns-vendor: ddns-vendor
         name: name
@@ -16462,7 +16475,7 @@ components:
           description: Description
           type: string
         ddns_config:
-          $ref: '#/components/schemas/ddns-config'
+          $ref: '#/components/schemas/vlan_interfaces_ddns_config'
         default-value:
           description: Default interface assignment
           type: string
@@ -16470,15 +16483,15 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dhcp-client:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client'
+          $ref: '#/components/schemas/vlan_interfaces_dhcp_client'
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -16505,7 +16518,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         vlan-tag:
           description: VLAN tag
@@ -16514,6 +16527,11 @@ components:
           type: number
       required:
       - name
+    vlan-interfaces-dhcp-client:
+      description: Vlan interfaces DHCP Client
+      properties:
+        dhcp-client:
+          $ref: '#/components/schemas/vlan_interfaces_dhcp_client'
     zone-protection-profiles:
       example:
         icmp_frag_discard: true
@@ -16661,7 +16679,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         discard_icmp_embedded_error:
           description: Discard ICMP packets that are embedded with an error message.
@@ -16672,7 +16690,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         fragmented_traffic_discard:
           description: |
@@ -16758,7 +16776,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         spoofed_ip_discard:
           description: |
@@ -16852,7 +16870,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         device_acl:
           $ref: '#/components/schemas/zones_device_acl'
@@ -16882,7 +16900,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         user_acl:
           $ref: '#/components/schemas/zones_device_acl'
@@ -16900,26 +16918,23 @@ components:
         error:
           example: Failed to retrieve license data
           type: string
-    aggregate_ethernet_interfaces_layer2:
+    agg_ethernet_arp_inner:
+      default: {}
+      description: Aggregate Ethernet ARP configuration object
       example:
-        lacp:
-          max-ports: 1
-          mode: passive
-          transmission-rate: slow
-          fast-failover: false
-          enable: false
-          system-priority: 39501
-        vlan-tag: 1466
+        hw-address: hw-address
+        name: name
       properties:
-        lacp:
-          $ref: '#/components/schemas/lacp'
-        vlan-tag:
-          description: Assign interface to VLAN tag
-          maximum: 9999
-          minimum: 1
-          type: integer
-    aggregate_ethernet_interfaces_layer3_dhcp_client_send_hostname:
-      description: Send hostname
+        hw-address:
+          description: MAC address
+          format: mac-address
+          type: string
+        name:
+          description: IP address
+          format: ip-address
+          type: string
+    agg_ethernet_dhcp_client_dhcp_client_send_hostname:
+      description: Aggregate Ethernet DHCP Client Send hostname
       example:
         hostname: system-hostname
         enable: true
@@ -16934,7 +16949,8 @@ components:
           minLength: 1
           pattern: "^[a-zA-Z0-9\\._-]+$"
           type: string
-    aggregate_ethernet_interfaces_layer3_dhcp_client:
+    agg_ethernet_dhcp_client_dhcp_client:
+      description: Aggregate Ethernet DHCP Client Object
       example:
         enable: true
         create-default-route: true
@@ -16959,7 +16975,70 @@ components:
           description: Enable DHCP?
           type: boolean
         send-hostname:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client_send_hostname'
+          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
+    aggregate_ethernet_interfaces_layer2:
+      example:
+        lacp:
+          max-ports: 1
+          mode: passive
+          transmission-rate: slow
+          fast-failover: false
+          enable: false
+          system-priority: 39501
+        vlan-tag: 1466
+      properties:
+        lacp:
+          $ref: '#/components/schemas/lacp'
+        vlan-tag:
+          description: Assign interface to VLAN tag
+          maximum: 9999
+          minimum: 1
+          type: integer
+    aggregate_ethernet_interfaces_layer3_ddns_config:
+      description: Dynamic DNS configuration specific to the Aggregate Ethernet Interface.
+      example:
+        ddns-enabled: false
+        ddns-vendor-config: ddns-vendor-config
+        ddns-hostname: ddns-hostname
+        ddns-cert-profile: ddns-cert-profile
+        ddns-update-interval: 18
+        ddns-ip: ddns-ip
+        ddns-vendor: ddns-vendor
+      properties:
+        ddns-cert-profile:
+          description: Certificate profile
+          type: string
+        ddns-enabled:
+          default: false
+          description: Enable DDNS?
+          type: boolean
+        ddns-hostname:
+          maxLength: 255
+          pattern: "^[a-zA-Z0-9_\\.\\-]+$"
+          type: string
+        ddns-ip:
+          description: IP to register (static only)
+          format: ip-address
+          type: string
+        ddns-update-interval:
+          default: 1
+          description: Update interval (days)
+          maximum: 30
+          minimum: 1
+          type: integer
+        ddns-vendor:
+          description: DDNS vendor
+          maxLength: 127
+          type: string
+        ddns-vendor-config:
+          description: DDNS vendor
+          maxLength: 255
+          type: string
+      required:
+      - ddns-cert-profile
+      - ddns-hostname
+      - ddns-vendor
+      - ddns-vendor-config
     aggregate_ethernet_interfaces_layer3:
       example:
         lacp:
@@ -16996,14 +17075,14 @@ components:
         mtu: 2565
       properties:
         arp:
-          description: ARP configuration
+          description: Aggregate Ethernet ARP configuration
           items:
-            $ref: '#/components/schemas/arp_inner'
+            $ref: '#/components/schemas/agg_ethernet_arp_inner'
           type: array
         ddns-config:
-          $ref: '#/components/schemas/ddns-config'
+          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_ddns_config'
         dhcp-client:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_dhcp_client'
+          $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
         interface-management-profile:
           description: Interface management profile
           maxLength: 31
@@ -17021,20 +17100,6 @@ components:
           maximum: 9216
           minimum: 576
           type: integer
-    arp_inner:
-      default: {}
-      example:
-        hw-address: hw-address
-        name: name
-      properties:
-        hw-address:
-          description: MAC address
-          format: mac-address
-          type: string
-        name:
-          description: IP address
-          format: ip-address
-          type: string
     auto_vpn_clusters_branches_inner_interfaces_inner_sdwan_link_settings_upstream_nat_static_ip:
       example:
         fqdn: fqdn
@@ -17942,6 +18007,31 @@ components:
         unicast:
           $ref: '#/components/schemas/bgp_redistribution_profiles_ipv4_unicast'
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address:
+      description: bgp-route-map-redistributions ipv4 object address
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_next_hop:
+      description: bgp-route-map-redistributions ipv4 object next_hop
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_route_source:
+      description: bgp-route-map-redistributions ipv4 object route_source
       example:
         prefix_list: prefix_list
         access_list: access_list
@@ -17953,6 +18043,7 @@ components:
           description: Prefix list
           type: string
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4:
+      description: bgp-route-map-redistributions ipv4 object
       example:
         address:
           prefix_list: prefix_list
@@ -17967,9 +18058,9 @@ components:
         address:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_next_hop'
         route_source:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_route_source'
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_match:
       example:
         as_path_access_list: as_path_access_list
@@ -18192,6 +18283,123 @@ components:
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner'
           type: array
+    bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_address:
+      description: bgp-route-map-redistributions ipv4 rib object address
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_next_hop:
+      description: bgp-route-map-redistributions ipv4 rib object next_hop
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source:
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4:
+      example:
+        address:
+          prefix_list: prefix_list
+          access_list: access_list
+        next_hop:
+          prefix_list: prefix_list
+          access_list: access_list
+        route_source:
+          prefix_list: prefix_list
+          access_list: access_list
+      properties:
+        address:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_address'
+        next_hop:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_next_hop'
+        route_source:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+    bgp_route_map_redistributions_bgp_rib_route_map_inner_match:
+      example:
+        as_path_access_list: as_path_access_list
+        ipv4:
+          address:
+            prefix_list: prefix_list
+            access_list: access_list
+          next_hop:
+            prefix_list: prefix_list
+            access_list: access_list
+          route_source:
+            prefix_list: prefix_list
+            access_list: access_list
+        metric: 2147483647
+        extended_community: extended_community
+        peer: local
+        origin: origin
+        large_community: large_community
+        tag: 1553093138
+        interface: interface
+        local_preference: 2147483647
+        regular_community: regular_community
+      properties:
+        as_path_access_list:
+          description: AS path access list
+          type: string
+        extended_community:
+          description: Extended community
+          type: string
+        interface:
+          description: Interface
+          type: string
+        ipv4:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4'
+        large_community:
+          description: Large community
+          type: string
+        local_preference:
+          description: Local preference
+          maximum: 4294967295
+          minimum: 1
+          type: integer
+        metric:
+          description: Metric
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+        origin:
+          description: Origin
+          type: string
+        peer:
+          description: Peer
+          enum:
+          - local
+          - none
+          type: string
+        regular_community:
+          description: Regular community
+          type: string
+        tag:
+          description: Tag
+          maximum: 4294967295
+          minimum: 1
+          type: integer
     bgp_route_map_redistributions_bgp_rib_route_map_inner_set:
       example:
         source_address: source_address
@@ -18220,11 +18428,11 @@ components:
           peer: local
           origin: origin
           large_community: large_community
-          tag: 629561882
+          tag: 1553093138
           interface: interface
-          local_preference: 343953089
+          local_preference: 2147483647
           regular_community: regular_community
-        name: 46277
+        name: 13285
         action: permit
         description: description
       properties:
@@ -18238,7 +18446,7 @@ components:
           description: Description
           type: string
         match:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match'
         name:
           description: Sequence number
           maximum: 65535
@@ -18268,11 +18476,11 @@ components:
             peer: local
             origin: origin
             large_community: large_community
-            tag: 629561882
+            tag: 1553093138
             interface: interface
-            local_preference: 343953089
+            local_preference: 2147483647
             regular_community: regular_community
-          name: 46277
+          name: 13285
           action: permit
           description: description
         - set:
@@ -18294,11 +18502,11 @@ components:
             peer: local
             origin: origin
             large_community: large_community
-            tag: 629561882
+            tag: 1553093138
             interface: interface
-            local_preference: 343953089
+            local_preference: 2147483647
             regular_community: regular_community
-          name: 46277
+          name: 13285
           action: permit
           description: description
       properties:
@@ -18330,11 +18538,11 @@ components:
               peer: local
               origin: origin
               large_community: large_community
-              tag: 629561882
+              tag: 1553093138
               interface: interface
-              local_preference: 343953089
+              local_preference: 2147483647
               regular_community: regular_community
-            name: 46277
+            name: 13285
             action: permit
             description: description
           - set:
@@ -18356,11 +18564,11 @@ components:
               peer: local
               origin: origin
               large_community: large_community
-              tag: 629561882
+              tag: 1553093138
               interface: interface
-              local_preference: 343953089
+              local_preference: 2147483647
               regular_community: regular_community
-            name: 46277
+            name: 13285
             action: permit
             description: description
         ospf:
@@ -18431,6 +18639,7 @@ components:
         rib:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib'
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match_ipv4:
+      description: bgp-route-map-redistributions connected-static ipv4
       example:
         address:
           prefix_list: prefix_list
@@ -18440,9 +18649,9 @@ components:
           access_list: access_list
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match:
       example:
         ipv4:
@@ -18452,7 +18661,7 @@ components:
           next_hop:
             prefix_list: prefix_list
             access_list: access_list
-        metric: 2147483647
+        metric: 1780525090
         interface: interface
       properties:
         interface:
@@ -18466,8 +18675,9 @@ components:
           minimum: 0
           type: integer
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_aggregator:
+      description: bgp-route-map-redistributions connected_static aggregator
       example:
-        as: 870642709
+        as: 528931037
         router_id: router_id
       properties:
         as:
@@ -18492,7 +18702,7 @@ components:
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_metric:
       example:
         action: set
-        value: 528931036
+        value: 2147483647
       properties:
         action:
           description: Metric action
@@ -18513,21 +18723,21 @@ components:
           source_address: source_address
         metric:
           action: set
-          value: 528931036
+          value: 2147483647
         originator_id: originator_id
         aggregator:
-          as: 870642709
+          as: 528931037
           router_id: router_id
         origin: none
         large_community:
         - large_community
         - large_community
         aspath_prepend:
-        - 27168
-        - 27168
-        weight: 639699262
-        tag: 440081978
-        local_preference: 2147483647
+        - 6715
+        - 6715
+        weight: 503831554
+        tag: 2147483647
+        local_preference: 639699262
         regular_community:
         - regular_community
         - regular_community
@@ -18596,21 +18806,21 @@ components:
             source_address: source_address
           metric:
             action: set
-            value: 528931036
+            value: 2147483647
           originator_id: originator_id
           aggregator:
-            as: 870642709
+            as: 528931037
             router_id: router_id
           origin: none
           large_community:
           - large_community
           - large_community
           aspath_prepend:
-          - 27168
-          - 27168
-          weight: 639699262
-          tag: 440081978
-          local_preference: 2147483647
+          - 6715
+          - 6715
+          weight: 503831554
+          tag: 2147483647
+          local_preference: 639699262
           regular_community:
           - regular_community
           - regular_community
@@ -18623,9 +18833,9 @@ components:
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
-          metric: 2147483647
+          metric: 1780525090
           interface: interface
-        name: 23698
+        name: 48406
         action: permit
         description: description
       properties:
@@ -18656,21 +18866,21 @@ components:
               source_address: source_address
             metric:
               action: set
-              value: 528931036
+              value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 870642709
+              as: 528931037
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 27168
-            - 27168
-            weight: 639699262
-            tag: 440081978
-            local_preference: 2147483647
+            - 6715
+            - 6715
+            weight: 503831554
+            tag: 2147483647
+            local_preference: 639699262
             regular_community:
             - regular_community
             - regular_community
@@ -18683,9 +18893,9 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-            metric: 2147483647
+            metric: 1780525090
             interface: interface
-          name: 23698
+          name: 48406
           action: permit
           description: description
         - set:
@@ -18694,21 +18904,21 @@ components:
               source_address: source_address
             metric:
               action: set
-              value: 528931036
+              value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 870642709
+              as: 528931037
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 27168
-            - 27168
-            weight: 639699262
-            tag: 440081978
-            local_preference: 2147483647
+            - 6715
+            - 6715
+            weight: 503831554
+            tag: 2147483647
+            local_preference: 639699262
             regular_community:
             - regular_community
             - regular_community
@@ -18721,9 +18931,9 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-            metric: 2147483647
+            metric: 1780525090
             interface: interface
-          name: 23698
+          name: 48406
           action: permit
           description: description
       properties:
@@ -18732,11 +18942,47 @@ components:
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner'
           type: array
+    bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4:
+      description: bgp-route-map-redistributions connected-static match ipv4
+      example:
+        address:
+          prefix_list: prefix_list
+          access_list: access_list
+        next_hop:
+          prefix_list: prefix_list
+          access_list: access_list
+      properties:
+        address:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+        next_hop:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+    bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match:
+      example:
+        ipv4:
+          address:
+            prefix_list: prefix_list
+            access_list: access_list
+          next_hop:
+            prefix_list: prefix_list
+            access_list: access_list
+        metric: 2132545103
+        interface: interface
+      properties:
+        interface:
+          description: Interface
+          type: string
+        ipv4:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4'
+        metric:
+          description: Metric
+          maximum: 4294967295
+          minimum: 0
+          type: integer
     bgp_route_map_redistributions_connected_static_ospf_route_map_inner_set:
       example:
         metric:
           action: set
-          value: 528931036
+          value: 2147483647
         metric_type: type-1
         tag: 2147483647
       properties:
@@ -18758,7 +19004,7 @@ components:
         set:
           metric:
             action: set
-            value: 528931036
+            value: 2147483647
           metric_type: type-1
           tag: 2147483647
         match:
@@ -18769,9 +19015,9 @@ components:
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
-          metric: 2147483647
+          metric: 2132545103
           interface: interface
-        name: 44871
+        name: 32931
         action: permit
         description: description
       properties:
@@ -18785,7 +19031,7 @@ components:
           description: Description
           type: string
         match:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match'
         name:
           description: Sequence number
           maximum: 65535
@@ -18799,7 +19045,7 @@ components:
         - set:
             metric:
               action: set
-              value: 528931036
+              value: 2147483647
             metric_type: type-1
             tag: 2147483647
           match:
@@ -18810,15 +19056,15 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-            metric: 2147483647
+            metric: 2132545103
             interface: interface
-          name: 44871
+          name: 32931
           action: permit
           description: description
         - set:
             metric:
               action: set
-              value: 528931036
+              value: 2147483647
             metric_type: type-1
             tag: 2147483647
           match:
@@ -18829,9 +19075,9 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-            metric: 2147483647
+            metric: 2132545103
             interface: interface
-          name: 44871
+          name: 32931
           action: permit
           description: description
       properties:
@@ -18840,6 +19086,41 @@ components:
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner'
           type: array
+    bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4:
+      example:
+        address:
+          prefix_list: prefix_list
+          access_list: access_list
+        next_hop:
+          prefix_list: prefix_list
+          access_list: access_list
+      properties:
+        address:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+        next_hop:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+    bgp_route_map_redistributions_connected_static_rib_route_map_inner_match:
+      example:
+        ipv4:
+          address:
+            prefix_list: prefix_list
+            access_list: access_list
+          next_hop:
+            prefix_list: prefix_list
+            access_list: access_list
+        metric: 2147483647
+        interface: interface
+      properties:
+        interface:
+          description: Interface
+          type: string
+        ipv4:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4'
+        metric:
+          description: Metric
+          maximum: 4294967295
+          minimum: 0
+          type: integer
     bgp_route_map_redistributions_connected_static_rib_route_map_inner:
       example:
         set:
@@ -18854,7 +19135,7 @@ components:
               access_list: access_list
           metric: 2147483647
           interface: interface
-        name: 7688
+        name: 43801
         action: permit
         description: description
       properties:
@@ -18868,7 +19149,7 @@ components:
           description: Description
           type: string
         match:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner_match'
         name:
           description: Sequence number
           maximum: 65535
@@ -18891,7 +19172,7 @@ components:
                 access_list: access_list
             metric: 2147483647
             interface: interface
-          name: 7688
+          name: 43801
           action: permit
           description: description
         - set:
@@ -18906,7 +19187,7 @@ components:
                 access_list: access_list
             metric: 2147483647
             interface: interface
-          name: 7688
+          name: 43801
           action: permit
           description: description
       properties:
@@ -18925,21 +19206,21 @@ components:
                 source_address: source_address
               metric:
                 action: set
-                value: 528931036
+                value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 870642709
+                as: 528931037
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 27168
-              - 27168
-              weight: 639699262
-              tag: 440081978
-              local_preference: 2147483647
+              - 6715
+              - 6715
+              weight: 503831554
+              tag: 2147483647
+              local_preference: 639699262
               regular_community:
               - regular_community
               - regular_community
@@ -18952,9 +19233,9 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-              metric: 2147483647
+              metric: 1780525090
               interface: interface
-            name: 23698
+            name: 48406
             action: permit
             description: description
           - set:
@@ -18963,21 +19244,21 @@ components:
                 source_address: source_address
               metric:
                 action: set
-                value: 528931036
+                value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 870642709
+                as: 528931037
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 27168
-              - 27168
-              weight: 639699262
-              tag: 440081978
-              local_preference: 2147483647
+              - 6715
+              - 6715
+              weight: 503831554
+              tag: 2147483647
+              local_preference: 639699262
               regular_community:
               - regular_community
               - regular_community
@@ -18990,9 +19271,9 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-              metric: 2147483647
+              metric: 1780525090
               interface: interface
-            name: 23698
+            name: 48406
             action: permit
             description: description
         rib:
@@ -19009,7 +19290,7 @@ components:
                   access_list: access_list
               metric: 2147483647
               interface: interface
-            name: 7688
+            name: 43801
             action: permit
             description: description
           - set:
@@ -19024,7 +19305,7 @@ components:
                   access_list: access_list
               metric: 2147483647
               interface: interface
-            name: 7688
+            name: 43801
             action: permit
             description: description
         ospf:
@@ -19032,7 +19313,7 @@ components:
           - set:
               metric:
                 action: set
-                value: 528931036
+                value: 2147483647
               metric_type: type-1
               tag: 2147483647
             match:
@@ -19043,15 +19324,15 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-              metric: 2147483647
+              metric: 2132545103
               interface: interface
-            name: 44871
+            name: 32931
             action: permit
             description: description
           - set:
               metric:
                 action: set
-                value: 528931036
+                value: 2147483647
               metric_type: type-1
               tag: 2147483647
             match:
@@ -19062,9 +19343,9 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-              metric: 2147483647
+              metric: 2132545103
               interface: interface
-            name: 44871
+            name: 32931
             action: permit
             description: description
       properties:
@@ -19074,12 +19355,36 @@ components:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf'
         rib:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib'
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_address:
+      description: bgp-route-map-redistributions ospf address
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_next_hop:
+      description: bgp-route-map-redistributions ospf next_hop
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
     bgp_route_map_redistributions_ospf_bgp_route_map_inner_match:
       example:
         address:
           prefix_list: prefix_list
           access_list: access_list
-        metric: 2132545103
+        metric: 2147483647
         next_hop:
           prefix_list: prefix_list
           access_list: access_list
@@ -19087,7 +19392,7 @@ components:
         interface: interface
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_address'
         interface:
           description: Interface
           type: string
@@ -19097,11 +19402,107 @@ components:
           minimum: 0
           type: integer
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_next_hop'
         tag:
           description: Tag
           maximum: 4294967295
           minimum: 1
+          type: integer
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_aggregator:
+      description: bgp-route-map-redistributions set aggregator
+      example:
+        as: 1527803716
+        router_id: router_id
+      properties:
+        as:
+          description: Aggregator AS
+          maximum: 4294967295
+          minimum: 1
+          type: integer
+        router_id:
+          description: Router ID
+          type: string
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_set:
+      example:
+        ipv4:
+          next_hop: next_hop
+          source_address: source_address
+        metric:
+          action: set
+          value: 2147483647
+        originator_id: originator_id
+        aggregator:
+          as: 1527803716
+          router_id: router_id
+        origin: none
+        large_community:
+        - large_community
+        - large_community
+        aspath_prepend:
+        - 45646
+        - 45646
+        weight: 2147483647
+        tag: 1238738201
+        local_preference: 551756841
+        regular_community:
+        - regular_community
+        - regular_community
+        atomic_aggregate: true
+      properties:
+        aggregator:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_aggregator'
+        aspath_prepend:
+          description: AS numbers
+          items:
+            description: AS number
+            maximum: 65535
+            minimum: 1
+            type: integer
+          type: array
+        atomic_aggregate:
+          description: Enable BGP atomic aggregate?
+          type: boolean
+        ipv4:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_ipv4'
+        large_community:
+          description: Large communities
+          items:
+            description: Large community
+            type: string
+          type: array
+        local_preference:
+          description: Local preference
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+        metric:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_metric'
+        origin:
+          description: Origin
+          enum:
+          - none
+          - egp
+          - igp
+          - incomplete
+          type: string
+        originator_id:
+          description: Originator ID
+          type: string
+        regular_community:
+          description: Regular communities
+          items:
+            description: Regular community
+            type: string
+          type: array
+        tag:
+          description: Tag
+          maximum: 4294967295
+          minimum: 1
+          type: integer
+        weight:
+          description: Weight
+          maximum: 4294967295
+          minimum: 0
           type: integer
     bgp_route_map_redistributions_ospf_bgp_route_map_inner:
       example:
@@ -19111,21 +19512,21 @@ components:
             source_address: source_address
           metric:
             action: set
-            value: 528931036
+            value: 2147483647
           originator_id: originator_id
           aggregator:
-            as: 870642709
+            as: 1527803716
             router_id: router_id
           origin: none
           large_community:
           - large_community
           - large_community
           aspath_prepend:
-          - 27168
-          - 27168
-          weight: 639699262
-          tag: 440081978
-          local_preference: 2147483647
+          - 45646
+          - 45646
+          weight: 2147483647
+          tag: 1238738201
+          local_preference: 551756841
           regular_community:
           - regular_community
           - regular_community
@@ -19134,13 +19535,13 @@ components:
           address:
             prefix_list: prefix_list
             access_list: access_list
-          metric: 2132545103
+          metric: 2147483647
           next_hop:
             prefix_list: prefix_list
             access_list: access_list
           tag: 2147483647
           interface: interface
-        name: 65310
+        name: 42194
         action: permit
         description: description
       properties:
@@ -19161,7 +19562,7 @@ components:
           minimum: 1
           type: integer
         set:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_set'
     bgp_route_map_redistributions_ospf_bgp:
       example:
         route_map:
@@ -19171,21 +19572,21 @@ components:
               source_address: source_address
             metric:
               action: set
-              value: 528931036
+              value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 870642709
+              as: 1527803716
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 27168
-            - 27168
-            weight: 639699262
-            tag: 440081978
-            local_preference: 2147483647
+            - 45646
+            - 45646
+            weight: 2147483647
+            tag: 1238738201
+            local_preference: 551756841
             regular_community:
             - regular_community
             - regular_community
@@ -19194,13 +19595,13 @@ components:
             address:
               prefix_list: prefix_list
               access_list: access_list
-            metric: 2132545103
+            metric: 2147483647
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 65310
+          name: 42194
           action: permit
           description: description
         - set:
@@ -19209,21 +19610,21 @@ components:
               source_address: source_address
             metric:
               action: set
-              value: 528931036
+              value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 870642709
+              as: 1527803716
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 27168
-            - 27168
-            weight: 639699262
-            tag: 440081978
-            local_preference: 2147483647
+            - 45646
+            - 45646
+            weight: 2147483647
+            tag: 1238738201
+            local_preference: 551756841
             regular_community:
             - regular_community
             - regular_community
@@ -19232,13 +19633,13 @@ components:
             address:
               prefix_list: prefix_list
               access_list: access_list
-            metric: 2132545103
+            metric: 2147483647
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 65310
+          name: 42194
           action: permit
           description: description
       properties:
@@ -19260,7 +19661,7 @@ components:
         interface: interface
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
         interface:
           description: Interface
           type: string
@@ -19270,7 +19671,7 @@ components:
           minimum: 0
           type: integer
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
         tag:
           maximum: 4294967295
           minimum: 1
@@ -19289,7 +19690,7 @@ components:
             access_list: access_list
           tag: 2147483647
           interface: interface
-        name: 57422
+        name: 43935
         action: permit
         description: description
       properties:
@@ -19326,7 +19727,7 @@ components:
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 57422
+          name: 43935
           action: permit
           description: description
         - set:
@@ -19341,7 +19742,7 @@ components:
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 57422
+          name: 43935
           action: permit
           description: description
       properties:
@@ -19360,21 +19761,21 @@ components:
                 source_address: source_address
               metric:
                 action: set
-                value: 528931036
+                value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 870642709
+                as: 1527803716
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 27168
-              - 27168
-              weight: 639699262
-              tag: 440081978
-              local_preference: 2147483647
+              - 45646
+              - 45646
+              weight: 2147483647
+              tag: 1238738201
+              local_preference: 551756841
               regular_community:
               - regular_community
               - regular_community
@@ -19383,13 +19784,13 @@ components:
               address:
                 prefix_list: prefix_list
                 access_list: access_list
-              metric: 2132545103
+              metric: 2147483647
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 65310
+            name: 42194
             action: permit
             description: description
           - set:
@@ -19398,21 +19799,21 @@ components:
                 source_address: source_address
               metric:
                 action: set
-                value: 528931036
+                value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 870642709
+                as: 1527803716
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 27168
-              - 27168
-              weight: 639699262
-              tag: 440081978
-              local_preference: 2147483647
+              - 45646
+              - 45646
+              weight: 2147483647
+              tag: 1238738201
+              local_preference: 551756841
               regular_community:
               - regular_community
               - regular_community
@@ -19421,13 +19822,13 @@ components:
               address:
                 prefix_list: prefix_list
                 access_list: access_list
-              metric: 2132545103
+              metric: 2147483647
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 65310
+            name: 42194
             action: permit
             description: description
         rib:
@@ -19444,7 +19845,7 @@ components:
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 57422
+            name: 43935
             action: permit
             description: description
           - set:
@@ -19459,7 +19860,7 @@ components:
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 57422
+            name: 43935
             action: permit
             description: description
       properties:
@@ -19467,6 +19868,25 @@ components:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp'
         rib:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_rib'
+    bgp_route_maps_route_map_inner_match_ipv4:
+      description: bgp-route-maps ipv4 object
+      example:
+        address:
+          prefix_list: prefix_list
+          access_list: access_list
+        next_hop:
+          prefix_list: prefix_list
+          access_list: access_list
+        route_source:
+          prefix_list: prefix_list
+          access_list: access_list
+      properties:
+        address:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+        next_hop:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+        route_source:
+          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
     bgp_route_maps_route_map_inner_match:
       example:
         as_path_access_list: as_path_access_list
@@ -19500,7 +19920,7 @@ components:
           description: Interface
           type: string
         ipv4:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4'
+          $ref: '#/components/schemas/bgp_route_maps_route_map_inner_match_ipv4'
         large_community:
           description: Large community
           type: string
@@ -19530,20 +19950,34 @@ components:
           maximum: 4294967295
           minimum: 1
           type: integer
+    bgp_route_maps_route_map_inner_set_aggregator:
+      description: bgp-route-maps aggregator
+      example:
+        as: 2147483647
+        router_id: router_id
+      properties:
+        as:
+          description: Aggregator AS
+          maximum: 4294967295
+          minimum: 1
+          type: integer
+        router_id:
+          description: Router ID
+          type: string
     bgp_route_maps_route_map_inner_set:
       example:
         originator_id: originator_id
         aggregator:
-          as: 870642709
+          as: 2147483647
           router_id: router_id
         origin: none
         large_community:
         - large_community
         - large_community
         aspath_prepend:
-        - 2
-        - 2
-        weight: 1553093137
+        - 7
+        - 7
+        weight: 870642708
         remove_large_community: remove_large_community
         local_preference: 2147483647
         regular_community:
@@ -19557,15 +19991,15 @@ components:
           source_address: source_address
         metric:
           action: set
-          value: 528931036
+          value: 2147483647
         overwrite_regular_community: true
         aspath_exclude:
-        - 5
-        - 5
-        tag: 2147483647
+        - 2
+        - 2
+        tag: 1553093137
       properties:
         aggregator:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_aggregator'
+          $ref: '#/components/schemas/bgp_route_maps_route_map_inner_set_aggregator'
         aspath_exclude:
           items:
             description: AS number
@@ -19648,16 +20082,16 @@ components:
         set:
           originator_id: originator_id
           aggregator:
-            as: 870642709
+            as: 2147483647
             router_id: router_id
           origin: none
           large_community:
           - large_community
           - large_community
           aspath_prepend:
-          - 2
-          - 2
-          weight: 1553093137
+          - 7
+          - 7
+          weight: 870642708
           remove_large_community: remove_large_community
           local_preference: 2147483647
           regular_community:
@@ -19671,12 +20105,12 @@ components:
             source_address: source_address
           metric:
             action: set
-            value: 528931036
+            value: 2147483647
           overwrite_regular_community: true
           aspath_exclude:
-          - 5
-          - 5
-          tag: 2147483647
+          - 2
+          - 2
+          tag: 1553093137
         match:
           as_path_access_list: as_path_access_list
           ipv4:
@@ -20241,6 +20675,51 @@ components:
           maximum: 9999
           minimum: 1
           type: integer
+    ethernet_interfaces_layer3_ddns_config:
+      description: Dynamic DNS configuration specific to the Ethernet Interfaces.
+      example:
+        ddns-enabled: false
+        ddns-vendor-config: ddns-vendor-config
+        ddns-hostname: ddns-hostname
+        ddns-cert-profile: ddns-cert-profile
+        ddns-update-interval: 18
+        ddns-ip: ddns-ip
+        ddns-vendor: ddns-vendor
+      properties:
+        ddns-cert-profile:
+          description: Certificate profile
+          type: string
+        ddns-enabled:
+          default: false
+          description: Enable DDNS?
+          type: boolean
+        ddns-hostname:
+          maxLength: 255
+          pattern: "^[a-zA-Z0-9_\\.\\-]+$"
+          type: string
+        ddns-ip:
+          description: IP to register (static only)
+          format: ip-address
+          type: string
+        ddns-update-interval:
+          default: 1
+          description: Update interval (days)
+          maximum: 30
+          minimum: 1
+          type: integer
+        ddns-vendor:
+          description: DDNS vendor
+          maxLength: 127
+          type: string
+        ddns-vendor-config:
+          description: DDNS vendor
+          maxLength: 255
+          type: string
+      required:
+      - ddns-cert-profile
+      - ddns-hostname
+      - ddns-vendor
+      - ddns-vendor-config
     ethernet_interfaces_layer3_pppoe_static_address:
       example:
         ip: ip
@@ -20259,7 +20738,7 @@ components:
         static-address:
           ip: ip
         access-concentrator: access-concentrator
-        default-route-metric: 9607
+        default-route-metric: 36944
         passive: false
         authentication: CHAP
         username: username
@@ -20326,7 +20805,7 @@ components:
             send-hostname:
               hostname: system-hostname
               enable: true
-            default-route-metric: 36944
+            default-route-metric: 9607
         ip:
         - ip
         - ip
@@ -20337,7 +20816,7 @@ components:
           static-address:
             ip: ip
           access-concentrator: access-concentrator
-          default-route-metric: 9607
+          default-route-metric: 36944
           passive: false
           authentication: CHAP
           username: username
@@ -20347,17 +20826,17 @@ components:
           name: name
         - hw-address: hw-address
           name: name
-        mtu: 5783
+        mtu: 5727
       properties:
         arp:
-          description: ARP configuration
+          description: Ethernet Interfaces ARP configuration
           items:
-            $ref: '#/components/schemas/arp_inner'
+            $ref: '#/components/schemas/ethernet_interfaces_arp_inner'
           type: array
         ddns-config:
-          $ref: '#/components/schemas/ddns-config'
+          $ref: '#/components/schemas/ethernet_interfaces_layer3_ddns_config'
         dhcp-client:
-          $ref: '#/components/schemas/dhcp-client'
+          $ref: '#/components/schemas/ethernet-interfaces-dhcp-client'
         interface-management-profile:
           description: Interface management profile
           maxLength: 31
@@ -20375,6 +20854,64 @@ components:
           type: integer
         pppoe:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_pppoe'
+    ethernet_interfaces_arp_inner:
+      default: {}
+      description: Ethernet Interfaces ARP configuration object
+      example:
+        hw-address: hw-address
+        name: name
+      properties:
+        hw-address:
+          description: MAC address
+          format: mac-address
+          type: string
+        name:
+          description: IP address
+          format: ip-address
+          type: string
+    ethernet_interfaces_dhcp_client_dhcp_client_send_hostname:
+      description: Ethernet Interfaces DHCP ClientSend hostname
+      example:
+        hostname: system-hostname
+        enable: true
+      properties:
+        enable:
+          default: true
+          type: boolean
+        hostname:
+          default: system-hostname
+          description: Set interface hostname
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\._-]+$"
+          type: string
+    ethernet_interfaces_dhcp_client_dhcp_client:
+      description: Ethernet Interfaces DHCP Client Object
+      example:
+        enable: true
+        create-default-route: true
+        send-hostname:
+          hostname: system-hostname
+          enable: true
+        default-route-metric: 9607
+      properties:
+        create-default-route:
+          default: true
+          description: Automatically create default route pointing to default gateway
+            provided by server
+          type: boolean
+        default-route-metric:
+          default: 10
+          description: Metric of the default route created
+          maximum: 65535
+          minimum: 1
+          type: integer
+        enable:
+          default: true
+          description: Enable DHCP?
+          type: boolean
+        send-hostname:
+          $ref: '#/components/schemas/ethernet_interfaces_dhcp_client_dhcp_client_send_hostname'
     ike_crypto_profiles_lifetime:
       description: Ike crypto profile lifetime
       example:
@@ -20569,7 +21106,7 @@ components:
       example:
         nat_traversal:
           enable: true
-        passive_mode: true
+        passive_mode: false
         fragmentation:
           enable: false
       properties:
@@ -20578,6 +21115,7 @@ components:
         nat_traversal:
           $ref: '#/components/schemas/ike_gateways_protocol_common_nat_traversal'
         passive_mode:
+          default: false
           type: boolean
     ipsec_crypto_profiles_ah:
       example:
@@ -20692,7 +21230,7 @@ components:
         name:
           type: string
     ipsec_tunnels_auto_key_proxy_id_inner_protocol_tcp:
-      description: TCP
+      description: IPv4 type of proxy_id protocol values for TCP protocol
       example:
         local_port: 39500
         remote_port: 9606
@@ -20708,7 +21246,7 @@ components:
           minimum: 0
           type: integer
     ipsec_tunnels_auto_key_proxy_id_inner_protocol_udp:
-      description: UDP
+      description: IPv6 type of proxy_id protocol values for UDP protocol
       example:
         local_port: 39072
         remote_port: 36944
@@ -20724,6 +21262,7 @@ components:
           minimum: 0
           type: integer
     ipsec_tunnels_auto_key_proxy_id_inner_protocol:
+      description: IPv4 type of proxy_id protocol values for TCP protocol
       example:
         tcp:
           local_port: 39500
@@ -20743,6 +21282,7 @@ components:
         udp:
           $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_inner_protocol_udp'
     ipsec_tunnels_auto_key_proxy_id_inner:
+      description: IPv4 type of proxy_id values for TCP protocol
       example:
         protocol:
           tcp:
@@ -20767,6 +21307,7 @@ components:
       required:
       - name
     ipsec_tunnels_auto_key_proxy_id_v6_inner_protocol_tcp:
+      description: IPv6 type of proxy_id protocol values for TCP protocol
       example:
         local_port: 46276
         remote_port: 60957
@@ -20782,13 +21323,14 @@ components:
           minimum: 0
           type: integer
     ipsec_tunnels_auto_key_proxy_id_v6_inner_protocol:
+      description: IPv6 type of proxy_id protocol values for protocol
       example:
         tcp:
           local_port: 46276
           remote_port: 60957
         udp:
-          local_port: 46276
-          remote_port: 60957
+          local_port: 39072
+          remote_port: 36944
         number: 59
       properties:
         number:
@@ -20799,16 +21341,17 @@ components:
         tcp:
           $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_v6_inner_protocol_tcp'
         udp:
-          $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_v6_inner_protocol_tcp'
+          $ref: '#/components/schemas/ipsec_tunnels_auto_key_proxy_id_inner_protocol_udp'
     ipsec_tunnels_auto_key_proxy_id_v6_inner:
+      description: IPv6 type of proxy_id values for TCP protocol
       example:
         protocol:
           tcp:
             local_port: 46276
             remote_port: 60957
           udp:
-            local_port: 46276
-            remote_port: 60957
+            local_port: 39072
+            remote_port: 36944
           number: 59
         name: name
         remote: remote
@@ -20836,8 +21379,8 @@ components:
               local_port: 46276
               remote_port: 60957
             udp:
-              local_port: 46276
-              remote_port: 60957
+              local_port: 39072
+              remote_port: 36944
             number: 59
           name: name
           remote: remote
@@ -20847,8 +21390,8 @@ components:
               local_port: 46276
               remote_port: 60957
             udp:
-              local_port: 46276
-              remote_port: 60957
+              local_port: 39072
+              remote_port: 36944
             number: 59
           name: name
           remote: remote
@@ -20915,6 +21458,109 @@ components:
           type: string
       required:
       - destination_ip
+    layer3_sub_interfaces_dhcp_client_dhcp_client_send_hostname:
+      description: Layer3 sub interfaces DHCP Client Send hostname
+      example:
+        hostname: system-hostname
+        enable: true
+      properties:
+        enable:
+          default: true
+          type: boolean
+        hostname:
+          default: system-hostname
+          description: Set interface hostname
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\._-]+$"
+          type: string
+    layer3_sub_interfaces_dhcp_client_dhcp_client:
+      description: Layer3 sub interfaces DHCP Client Object
+      example:
+        enable: true
+        create-default-route: true
+        send-hostname:
+          hostname: system-hostname
+          enable: true
+        default-route-metric: 39501
+      properties:
+        create-default-route:
+          default: true
+          description: Automatically create default route pointing to default gateway
+            provided by server
+          type: boolean
+        default-route-metric:
+          default: 10
+          description: Metric of the default route created
+          maximum: 65535
+          minimum: 1
+          type: integer
+        enable:
+          default: true
+          description: Enable DHCP?
+          type: boolean
+        send-hostname:
+          $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client_send_hostname'
+    layer3_subinterfaces_ddns_config:
+      description: Dynamic DNS configuration specific to the Layer 3 sub Interfaces.
+      example:
+        ddns-enabled: false
+        ddns-vendor-config: ddns-vendor-config
+        ddns-hostname: ddns-hostname
+        ddns-cert-profile: ddns-cert-profile
+        ddns-update-interval: 3
+        ddns-ip: ddns-ip
+        ddns-vendor: ddns-vendor
+      properties:
+        ddns-cert-profile:
+          description: Certificate profile
+          type: string
+        ddns-enabled:
+          default: false
+          description: Enable DDNS?
+          type: boolean
+        ddns-hostname:
+          maxLength: 255
+          pattern: "^[a-zA-Z0-9_\\.\\-]+$"
+          type: string
+        ddns-ip:
+          description: IP to register (static only)
+          format: ip-address
+          type: string
+        ddns-update-interval:
+          default: 1
+          description: Update interval (days)
+          maximum: 30
+          minimum: 1
+          type: integer
+        ddns-vendor:
+          description: DDNS vendor
+          maxLength: 127
+          type: string
+        ddns-vendor-config:
+          description: DDNS vendor
+          maxLength: 255
+          type: string
+      required:
+      - ddns-cert-profile
+      - ddns-hostname
+      - ddns-vendor
+      - ddns-vendor-config
+    layer3_subinterfaces_arp_inner:
+      default: {}
+      description: Layer 3 sub Interfaces ARP configuration object
+      example:
+        hw-address: hw-address
+        name: name
+      properties:
+        hw-address:
+          description: MAC address
+          format: mac-address
+          type: string
+        name:
+          description: IP address
+          format: ip-address
+          type: string
     logical_routers_vrf_inner_admin_dists:
       example:
         bgp_local: 1.4658129805029452
@@ -31659,13 +32305,14 @@ components:
       required:
       - name
     loopback_interfaces_ip:
+      description: loopback ip parent
       example:
         ip:
         - ip
         - ip
       properties:
         ip:
-          description: IP address(es)
+          description: Loopback IP address(es)
           items:
             type: string
           type: array
@@ -32783,6 +33430,18 @@ components:
           type: boolean
         name:
           type: string
+    tunnel_interfaces_ip:
+      description: tunnel interfaces ip parent
+      example:
+        ip:
+        - ip
+        - ip
+      properties:
+        ip:
+          description: tunnel interfaces IP address(es)
+          items:
+            type: string
+          type: array
     vlan_interfaces_arp_inner:
       example:
         hw-address: hw-address
@@ -32800,6 +33459,94 @@ components:
           description: IP address
           format: ip-address
           type: string
+    vlan_interfaces_ddns_config:
+      description: Dynamic DNS configuration specific to the Vlan Interfaces.
+      example:
+        ddns-enabled: false
+        ddns-vendor-config: ddns-vendor-config
+        ddns-hostname: ddns-hostname
+        ddns-cert-profile: ddns-cert-profile
+        ddns-update-interval: 3
+        ddns-ip: ddns-ip
+        ddns-vendor: ddns-vendor
+      properties:
+        ddns-cert-profile:
+          description: Certificate profile
+          type: string
+        ddns-enabled:
+          default: false
+          description: Enable DDNS?
+          type: boolean
+        ddns-hostname:
+          maxLength: 255
+          pattern: "^[a-zA-Z0-9_\\.\\-]+$"
+          type: string
+        ddns-ip:
+          description: IP to register (static only)
+          format: ip-address
+          type: string
+        ddns-update-interval:
+          default: 1
+          description: Update interval (days)
+          maximum: 30
+          minimum: 1
+          type: integer
+        ddns-vendor:
+          description: DDNS vendor
+          maxLength: 127
+          type: string
+        ddns-vendor-config:
+          description: DDNS vendor
+          maxLength: 255
+          type: string
+      required:
+      - ddns-cert-profile
+      - ddns-hostname
+      - ddns-vendor
+      - ddns-vendor-config
+    vlan_interfaces_dhcp_client_send_hostname:
+      description: Send hostname
+      example:
+        hostname: system-hostname
+        enable: true
+      properties:
+        enable:
+          default: true
+          type: boolean
+        hostname:
+          default: system-hostname
+          description: Set interface hostname
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\._-]+$"
+          type: string
+    vlan_interfaces_dhcp_client:
+      description: Vlan interfaces DHCP Client Object
+      example:
+        enable: true
+        create-default-route: true
+        send-hostname:
+          hostname: system-hostname
+          enable: true
+        default-route-metric: 39501
+      properties:
+        create-default-route:
+          default: true
+          description: Automatically create default route pointing to default gateway
+            provided by server
+          type: boolean
+        default-route-metric:
+          default: 10
+          description: Metric of the default route created
+          maximum: 65535
+          minimum: 1
+          type: integer
+        enable:
+          default: true
+          description: Enable DHCP?
+          type: boolean
+        send-hostname:
+          $ref: '#/components/schemas/vlan_interfaces_dhcp_client_send_hostname'
     zone_protection_profiles_flood_icmp_red:
       example:
         alarm_rate: 10000

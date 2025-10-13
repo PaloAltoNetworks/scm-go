@@ -18,12 +18,12 @@ import (
 // checks if the IpsecTunnelsAutoKeyProxyIdV6InnerProtocol type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IpsecTunnelsAutoKeyProxyIdV6InnerProtocol{}
 
-// IpsecTunnelsAutoKeyProxyIdV6InnerProtocol struct for IpsecTunnelsAutoKeyProxyIdV6InnerProtocol
+// IpsecTunnelsAutoKeyProxyIdV6InnerProtocol IPv6 type of proxy_id protocol values for protocol
 type IpsecTunnelsAutoKeyProxyIdV6InnerProtocol struct {
 	// IP protocol number
 	Number               *int32                                        `json:"number,omitempty"`
 	Tcp                  *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp `json:"tcp,omitempty"`
-	Udp                  *IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp `json:"udp,omitempty"`
+	Udp                  *IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp   `json:"udp,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -111,9 +111,9 @@ func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) SetTcp(v IpsecTunnelsAutoKey
 }
 
 // GetUdp returns the Udp field value if set, zero value otherwise.
-func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) GetUdp() IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) GetUdp() IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp {
 	if o == nil || IsNil(o.Udp) {
-		var ret IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp
+		var ret IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp
 		return ret
 	}
 	return *o.Udp
@@ -121,7 +121,7 @@ func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) GetUdp() IpsecTunnelsAutoKey
 
 // GetUdpOk returns a tuple with the Udp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) GetUdpOk() (*IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp, bool) {
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) GetUdpOk() (*IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp, bool) {
 	if o == nil || IsNil(o.Udp) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) HasUdp() bool {
 	return false
 }
 
-// SetUdp gets a reference to the given IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp and assigns it to the Udp field.
-func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) SetUdp(v IpsecTunnelsAutoKeyProxyIdV6InnerProtocolTcp) {
+// SetUdp gets a reference to the given IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp and assigns it to the Udp field.
+func (o *IpsecTunnelsAutoKeyProxyIdV6InnerProtocol) SetUdp(v IpsecTunnelsAutoKeyProxyIdInnerProtocolUdp) {
 	o.Udp = &v
 }
 

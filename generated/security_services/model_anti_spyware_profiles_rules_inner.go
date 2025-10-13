@@ -37,6 +37,8 @@ type _AntiSpywareProfilesRulesInner AntiSpywareProfilesRulesInner
 // will change when the set of required properties is changed
 func NewAntiSpywareProfilesRulesInner() *AntiSpywareProfilesRulesInner {
 	this := AntiSpywareProfilesRulesInner{}
+	var threatName string = "any"
+	this.ThreatName = &threatName
 	return &this
 }
 
@@ -45,6 +47,8 @@ func NewAntiSpywareProfilesRulesInner() *AntiSpywareProfilesRulesInner {
 // but it doesn't guarantee that properties required by API are set
 func NewAntiSpywareProfilesRulesInnerWithDefaults() *AntiSpywareProfilesRulesInner {
 	this := AntiSpywareProfilesRulesInner{}
+	var threatName string = "any"
+	this.ThreatName = &threatName
 	return &this
 }
 

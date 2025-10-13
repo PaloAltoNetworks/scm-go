@@ -35,13 +35,13 @@ type CertificatesPost struct {
 	// Department
 	Department []string `json:"department,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Hash algorithm
 	Digest string `json:"digest"`
 	// Email
 	Email *string `json:"email,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Hostname
 	Hostname []string `json:"hostname,omitempty"`
 	// IP address
@@ -57,7 +57,7 @@ type CertificatesPost struct {
 	// Signed by
 	SignedBy string `json:"signed_by"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// State
 	State                *string `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}

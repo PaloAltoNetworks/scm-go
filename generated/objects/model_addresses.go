@@ -24,9 +24,9 @@ type Addresses struct {
 	// The description of the address object
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Fully qualified domain name
 	Fqdn *string `json:"fqdn,omitempty" validate:"regexp=^[a-zA-Z0-9_]([a-zA-Z0-9._-])+[a-zA-Z0-9]$"`
 	// The UUID of the address object
@@ -39,7 +39,7 @@ type Addresses struct {
 	// The name of the address object
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Tags assocaited with the address object
 	Tag                  []string `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}

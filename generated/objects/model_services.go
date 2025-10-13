@@ -23,16 +23,16 @@ var _ MappedNullable = &Services{}
 type Services struct {
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the service
 	Id *string `json:"id,omitempty"`
 	// The name of the service
-	Name     string            `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.-_]+$"`
+	Name     string            `json:"name" validate:"regexp=^[ a-zA-Z\\\\d.\\\\-_]+$"`
 	Protocol *ServicesProtocol `json:"protocol,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Tags for service object
 	Tag                  []string `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}

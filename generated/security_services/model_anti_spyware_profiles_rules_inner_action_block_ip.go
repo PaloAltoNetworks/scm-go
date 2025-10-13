@@ -18,7 +18,7 @@ import (
 // checks if the AntiSpywareProfilesRulesInnerActionBlockIp type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AntiSpywareProfilesRulesInnerActionBlockIp{}
 
-// AntiSpywareProfilesRulesInnerActionBlockIp struct for AntiSpywareProfilesRulesInnerActionBlockIp
+// AntiSpywareProfilesRulesInnerActionBlockIp anti spyware profiles rules action block ip
 type AntiSpywareProfilesRulesInnerActionBlockIp struct {
 	Duration             *int32  `json:"duration,omitempty"`
 	TrackBy              *string `json:"track_by,omitempty"`

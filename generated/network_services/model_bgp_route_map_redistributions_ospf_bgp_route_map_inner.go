@@ -26,8 +26,8 @@ type BgpRouteMapRedistributionsOspfBgpRouteMapInner struct {
 	Description *string                                              `json:"description,omitempty"`
 	Match       *BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatch `json:"match,omitempty"`
 	// Sequence number
-	Name                 *int32                                                        `json:"name,omitempty"`
-	Set                  *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSet `json:"set,omitempty"`
+	Name                 *int32                                             `json:"name,omitempty"`
+	Set                  *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet `json:"set,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -179,9 +179,9 @@ func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInner) SetName(v int32) {
 }
 
 // GetSet returns the Set field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInner) GetSet() BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSet {
+func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInner) GetSet() BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet {
 	if o == nil || IsNil(o.Set) {
-		var ret BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSet
+		var ret BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet
 		return ret
 	}
 	return *o.Set
@@ -189,7 +189,7 @@ func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInner) GetSet() BgpRouteMapRed
 
 // GetSetOk returns a tuple with the Set field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInner) GetSetOk() (*BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSet, bool) {
+func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInner) GetSetOk() (*BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet, bool) {
 	if o == nil || IsNil(o.Set) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInner) HasSet() bool {
 	return false
 }
 
-// SetSet gets a reference to the given BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSet and assigns it to the Set field.
-func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInner) SetSet(v BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSet) {
+// SetSet gets a reference to the given BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet and assigns it to the Set field.
+func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInner) SetSet(v BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) {
 	o.Set = &v
 }
 

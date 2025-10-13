@@ -22,9 +22,9 @@ var _ MappedNullable = &TacacsServerProfiles{}
 // TacacsServerProfiles struct for TacacsServerProfiles
 type TacacsServerProfiles struct {
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the TACACS+ server profile
 	Id string `json:"id"`
 	// The name of the TACACS+ server profile
@@ -34,7 +34,7 @@ type TacacsServerProfiles struct {
 	// The TACACS+ server configuration
 	Server []TacacsServerProfilesServerInner `json:"server"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The TACACS+ timeout (seconds)
 	Timeout *int32 `json:"timeout,omitempty"`
 	// Use a single TACACS+ connection?

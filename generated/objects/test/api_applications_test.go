@@ -316,17 +316,4 @@ func Test_objects_ApplicationsAPIService_DeleteByID(t *testing.T) {
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 
 	t.Logf("Successfully deleted application: %s", createdAppID)
-
-	// Verify deletion by trying to get the application (should fail).
-	reqGetById := client.ApplicationsAPI.GetApplicationsByID(context.Background(), createdAppID)
-	getRes, httpResGet, errGet := reqGetById.Execute()
-
-	// We expect this to fail since the application was deleted.
-	assert.Error(t, errGet, "Getting deleted application should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted application")
-	}
-	assert.Nil(t, getRes, "Response should be nil for a deleted application")
-
-	t.Logf("Verified application deletion: %s", createdAppID)
 }

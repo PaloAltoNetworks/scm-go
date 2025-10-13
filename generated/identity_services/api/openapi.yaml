@@ -3449,106 +3449,6 @@ paths:
       summary: Export a certificate
       tags:
       - Certificates
-  /certificates:import:
-    post:
-      description: |
-        Import a certificate.
-      operationId: ImportCertificates
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/certificates-import'
-        description: Created
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/certificates-import'
-          description: OK
-        "400":
-          content:
-            application/json:
-              examples:
-                input_format_mismatch:
-                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
-                invalid_object:
-                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
-                invalid_query_parameter:
-                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
-                missing_body:
-                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
-                missing_query_parameter:
-                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
-                output_format_mismatch:
-                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: Bad Request
-        "401":
-          content:
-            application/json:
-              examples:
-                auth_not_authenticated:
-                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
-                invalid_credential:
-                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
-                key_expired:
-                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
-                key_too_long:
-                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
-                need_password_change:
-                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: Unauthorized
-        "403":
-          content:
-            application/json:
-              examples:
-                auth_unauthorized:
-                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: Forbidden
-        "409":
-          content:
-            application/json:
-              examples:
-                name_not_unique:
-                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
-                object_not_unique:
-                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
-                reference_not_zero:
-                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: Conflict
-        default:
-          content:
-            application/json:
-              examples:
-                action_not_supported:
-                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
-                bad_xpath:
-                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
-                invalid_command:
-                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
-                malformed_command:
-                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
-                method_not_allowed:
-                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
-                session_timeout:
-                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
-                version_not_supported:
-                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: General Errors
-      summary: Import a certificate
-      tags:
-      - Certificates
   /kerberos-server-profiles:
     get:
       description: |
@@ -10776,13 +10676,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         gp_udp_port:
           description: The UDP port for inbound authentication prompts
@@ -10806,7 +10706,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         timer:
           maximum: 1440
@@ -10877,13 +10777,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the authentication profile
@@ -10905,7 +10805,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         user_domain:
           maxLength: 63
@@ -11101,13 +11001,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the authentication sequence
@@ -11121,7 +11021,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         use_domain_find_profile:
           default: true
@@ -11190,7 +11090,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         domain:
           description: User domain
@@ -11199,7 +11099,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the certificate profile
@@ -11217,7 +11117,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         use_crl:
           description: Use CRL?
@@ -11267,7 +11167,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         expiry_epoch:
           type: string
@@ -11275,7 +11175,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the certificate
@@ -11307,7 +11207,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         subject:
           description: Subject
@@ -11319,15 +11219,6 @@ components:
           type: string
       type: object
     certificates-import:
-      example:
-        snippet: My Snippet
-        certificate_file: certificate_file
-        folder: My Folder
-        key_file: key_file
-        format: pem
-        name: name
-        passphrase: passphrase
-        device: My Device
       properties:
         certificate_file:
           description: The Base64 encoded content of the certificate public key
@@ -11336,13 +11227,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         format:
           default: pem
@@ -11367,7 +11258,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - certificate_file
@@ -11406,7 +11297,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         digest:
           description: Hash algorithm
@@ -11426,7 +11317,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         hostname:
           description: Hostname
@@ -11465,7 +11356,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         state:
           description: State
@@ -11563,13 +11454,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the Kerberos server profile
@@ -11588,7 +11479,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - id
@@ -11639,13 +11530,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the LDAP server profile
@@ -11675,7 +11566,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         ssl:
           description: Require SSL/TLS secured connection?
@@ -11706,13 +11597,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the local user group
@@ -11728,7 +11619,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         user:
           description: The local user group users
@@ -11753,7 +11644,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         disabled:
           default: false
@@ -11763,7 +11654,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the local user
@@ -11783,7 +11674,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - id
@@ -11830,13 +11721,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the MFA server
@@ -11855,7 +11746,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - id
@@ -11875,13 +11766,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         host_name:
           description: The hostname or IP address of the OCSP server
@@ -11902,7 +11793,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - host_name
@@ -11945,13 +11836,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the RADIUS server profile
@@ -11976,7 +11867,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         timeout:
           description: The RADIUS server authentication timeout (seconds)
@@ -12013,7 +11904,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         entity_id:
           description: The identity provider ID
@@ -12024,7 +11915,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the SAML server profile
@@ -12049,7 +11940,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         sso_bindings:
           description: SAML HTTP binding for SSO requests to the identity provider
@@ -12118,7 +12009,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         digest:
           description: Digest for CSR
@@ -12135,7 +12026,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the SCEP profile
@@ -12162,7 +12053,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         subject:
           default: CN=$USERNAME
@@ -12208,13 +12099,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the TACACS+ server profile
@@ -12239,7 +12130,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         timeout:
           description: The TACACS+ timeout (seconds)
@@ -12287,13 +12178,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the TLS service profile
@@ -12312,7 +12203,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - certificate

@@ -11401,6 +11401,21 @@ components:
       - offset
       - total
       type: object
+    SecurityRuleListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/security-rules'
+          type: array
+        limit:
+          default: 200
+          type: integer
+        offset:
+          default: 0
+          type: integer
+        total:
+          type: integer
+      type: object
     URLAccessProfilesListResponse:
       example:
         total: 1
@@ -11606,7 +11621,7 @@ components:
             reset_client: "{}"
             alert: "{}"
             block_ip:
-              duration: 289
+              duration: 2170
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
@@ -11623,7 +11638,7 @@ components:
             reset_client: "{}"
             alert: "{}"
             block_ip:
-              duration: 289
+              duration: 2170
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
@@ -11638,7 +11653,7 @@ components:
         - severity:
           - severity
           - severity
-          threat_name: threat_name
+          threat_name: any
           name: name
           action:
             allow: "{}"
@@ -11650,12 +11665,12 @@ components:
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
-          category: dns-proxy
+          category: adns-adtracking
           packet_capture: disable
         - severity:
           - severity
           - severity
-          threat_name: threat_name
+          threat_name: any
           name: name
           action:
             allow: "{}"
@@ -11667,7 +11682,7 @@ components:
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
-          category: dns-proxy
+          category: adns-adtracking
           packet_capture: disable
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
@@ -11681,13 +11696,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the anti-spyware profile
@@ -11717,7 +11732,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         threat_exception:
           items:
@@ -11748,7 +11763,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11784,7 +11799,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11822,7 +11837,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11858,7 +11873,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11901,7 +11916,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11937,7 +11952,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -11975,7 +11990,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -12011,7 +12026,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -12056,12 +12071,12 @@ components:
               name: name
             time_attribute:
               track_by: source-and-destination
-              interval: 289
-              threshold: 154
+              interval: 2170
+              threshold: 38
         bugtraq:
         - bugtraq
         - bugtraq
-        threat_id: 39468180
+        threat_id: 16126498
         threatname: threatname
         default_action:
           allow: "{}"
@@ -12100,12 +12115,12 @@ components:
             type: string
           type: array
         default_action:
-          $ref: '#/components/schemas/anti_spyware_profiles_rules_inner_action'
+          $ref: '#/components/schemas/anti_spyware_signatures_default_action'
         device:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         direction:
           enum:
@@ -12117,7 +12132,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -12142,7 +12157,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         threat_id:
           description: threat id range <15000-18000> and <6900001-7000000>
@@ -12207,7 +12222,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         disabled:
           default: false
@@ -12216,7 +12231,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           default:
@@ -12254,7 +12269,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           default:
@@ -12283,6 +12298,96 @@ components:
       - source
       - to
       type: object
+    base-rule-properties:
+      properties:
+        action:
+          description: The action to be taken when the rule is matched
+          enum:
+          - allow
+          - deny
+          - drop
+          - reset-client
+          - reset-server
+          - reset-both
+          type: string
+        description:
+          description: The description of the security rule
+          type: string
+        destination:
+          description: The destination address(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        disabled:
+          default: false
+          description: Is the security rule disabled?
+          type: boolean
+        from:
+          description: The source security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        id:
+          description: The UUID of the security rule
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: uuid
+          readOnly: true
+          type: string
+        name:
+          description: The name of the security rule
+          type: string
+        negate_source:
+          default: false
+          description: Negate the source address(es)?
+          type: boolean
+        policy_type:
+          default: Security
+          type: string
+        schedule:
+          description: Schedule in which this rule will be applied
+          type: string
+        service:
+          description: The service(s) being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source:
+          description: The source addresses(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source_user:
+          description: "List of source users and/or groups.  Reserved words include\
+            \ `any`, `pre-login`, `known-user`, and `unknown`."
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        tag:
+          description: The tags associated with the security rule
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        to:
+          description: The destination security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - name
+      type: object
     decryption-exclusions:
       example:
         snippet: My Snippet
@@ -12298,13 +12403,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -12317,7 +12422,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - id
@@ -12372,13 +12477,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -12394,7 +12499,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         ssl_forward_proxy:
           $ref: '#/components/schemas/decryption_profiles_ssl_forward_proxy'
@@ -12486,7 +12591,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         disabled:
           description: Is the rule disabled?
@@ -12495,7 +12600,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           description: The source security zone
@@ -12537,7 +12642,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           description: The source addresses
@@ -12630,13 +12735,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the DNS security profile
@@ -12650,7 +12755,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       type: object
     dos-protection-profiles:
@@ -12722,7 +12827,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         flood:
           $ref: '#/components/schemas/dos_protection_profiles_flood'
@@ -12730,7 +12835,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the DNS security profile
@@ -12747,7 +12852,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         type:
           description: Type
@@ -12820,7 +12925,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         disabled:
           default: false
@@ -12830,7 +12935,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           description: List of source zones
@@ -12873,7 +12978,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           description: List of source addresses
@@ -12958,13 +13063,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the file blocking profile
@@ -12983,7 +13088,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - action
@@ -13088,13 +13193,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         http_header_insertion:
           description: A list of HTTP header profile rules
@@ -13113,8 +13218,130 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
+      required:
+      - name
+      type: object
+    internet-rule-type:
+      description: A simplified security rule for controlling internet access.
+      properties:
+        action:
+          description: The action to be taken when the rule is matched
+          enum:
+          - allow
+          - deny
+          - drop
+          - reset-client
+          - reset-server
+          - reset-both
+          type: string
+        allow_url_category:
+          items:
+            $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner'
+          type: array
+        allow_web_application:
+          items:
+            $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner'
+          type: array
+        block_url_category:
+          items:
+            type: string
+          type: array
+        block_web_application:
+          items:
+            type: string
+          type: array
+        default_profile_settings:
+          $ref: '#/components/schemas/internet_rule_type_default_profile_settings'
+        description:
+          description: The description of the security rule
+          type: string
+        destination:
+          description: The destination address(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        devices:
+          default:
+          - any
+          items:
+            type: string
+          type: array
+        disabled:
+          default: false
+          description: Is the security rule disabled?
+          type: boolean
+        from:
+          description: The source security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        id:
+          description: The UUID of the security rule
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: uuid
+          readOnly: true
+          type: string
+        log_settings:
+          $ref: '#/components/schemas/internet_rule_type_log_settings'
+        name:
+          description: The name of the security rule
+          type: string
+        negate_source:
+          default: false
+          description: Negate the source address(es)?
+          type: boolean
+        negate_user:
+          default: false
+          type: boolean
+        policy_type:
+          default: Security
+          type: string
+        schedule:
+          description: Schedule in which this rule will be applied
+          type: string
+        security_settings:
+          $ref: '#/components/schemas/internet_rule_type_security_settings'
+        service:
+          description: The service(s) being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source:
+          description: The source addresses(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source_user:
+          description: "List of source users and/or groups.  Reserved words include\
+            \ `any`, `pre-login`, `known-user`, and `unknown`."
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        tag:
+          description: The tags associated with the security rule
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        to:
+          description: The destination security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
       required:
       - name
       type: object
@@ -13167,7 +13394,7 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         dns_security:
           items:
@@ -13183,7 +13410,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: The UUID of the profile group
@@ -13202,7 +13429,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         spyware:
           items:
@@ -13273,9 +13500,159 @@ components:
             type: string
           type: array
       type: object
+    security-rule-type:
+      description: A standard security rule for controlling traffic between zones.
+      properties:
+        action:
+          description: The action to be taken when the rule is matched
+          enum:
+          - allow
+          - deny
+          - drop
+          - reset-client
+          - reset-server
+          - reset-both
+          type: string
+        application:
+          description: The application(s) being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        category:
+          description: The URL categories being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        description:
+          description: The description of the security rule
+          type: string
+        destination:
+          description: The destination address(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        destination_hip:
+          description: The destination Host Integrity Profile(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        disabled:
+          default: false
+          description: Is the security rule disabled?
+          type: boolean
+        from:
+          description: The source security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        id:
+          description: The UUID of the security rule
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: uuid
+          readOnly: true
+          type: string
+        log_end:
+          description: Log at session end?
+          type: boolean
+        log_setting:
+          description: The external log forwarding profile
+          type: string
+        log_start:
+          description: Log at session start?
+          type: boolean
+        name:
+          description: The name of the security rule
+          type: string
+        negate_destination:
+          default: false
+          description: Negate the destination addresses(es)?
+          type: boolean
+        negate_source:
+          default: false
+          description: Negate the source address(es)?
+          type: boolean
+        policy_type:
+          default: Security
+          type: string
+        profile_setting:
+          $ref: '#/components/schemas/security_rule_type_profile_setting'
+        schedule:
+          description: Schedule in which this rule will be applied
+          type: string
+        service:
+          description: The service(s) being accessed
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source:
+          description: The source addresses(es)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        source_hip:
+          description: The source Host Integrity Profile(s)
+          items:
+            default: any
+            type: string
+          type: array
+        source_user:
+          description: "List of source users and/or groups.  Reserved words include\
+            \ `any`, `pre-login`, `known-user`, and `unknown`."
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+        tag:
+          description: The tags associated with the security rule
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+        tenant_restrictions:
+          items:
+            default: any
+            type: string
+          type: array
+        to:
+          description: The destination security zone(s)
+          items:
+            default: any
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - action
+      - application
+      - category
+      - destination
+      - from
+      - name
+      - service
+      - source
+      - source_user
+      - to
+      type: object
     security-rules:
+      description: |-
+        Represents a Security or Internet security rule.
+        A rule must be one of the policy types AND exist in one scope (folder, snippet, or device).
       example:
-        snippet: My Snippet
+        snippet: snippet
         allow_web_application:
         - saas_enterprise_control:
             enterprise_access:
@@ -13423,7 +13800,7 @@ components:
             download: allow-all-file-types
             upload: allow-all-file-types
         policy_type: Security
-        folder: My Folder
+        folder: folder
         application:
         - any
         - any
@@ -13438,7 +13815,7 @@ components:
         category:
         - any
         - any
-        device: My Device
+        device: device
       properties:
         action:
           description: The action to be taken when the rule is matched
@@ -13452,11 +13829,11 @@ components:
           type: string
         allow_url_category:
           items:
-            $ref: '#/components/schemas/security_rules_allow_url_category_inner'
+            $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner'
           type: array
         allow_web_application:
           items:
-            $ref: '#/components/schemas/security_rules_allow_web_application_inner'
+            $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner'
           type: array
         application:
           description: The application(s) being accessed
@@ -13481,7 +13858,7 @@ components:
           type: array
           uniqueItems: true
         default_profile_settings:
-          $ref: '#/components/schemas/security_rules_default_profile_settings'
+          $ref: '#/components/schemas/internet_rule_type_default_profile_settings'
         description:
           description: The description of the security rule
           type: string
@@ -13501,9 +13878,8 @@ components:
           uniqueItems: true
         device:
           description: The device in which the resource is defined
-          example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         devices:
           default:
@@ -13517,9 +13893,8 @@ components:
           type: boolean
         folder:
           description: The folder in which the resource is defined
-          example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
           description: The source security zone(s)
@@ -13541,7 +13916,7 @@ components:
           description: The external log forwarding profile
           type: string
         log_settings:
-          $ref: '#/components/schemas/security_rules_log_settings'
+          $ref: '#/components/schemas/internet_rule_type_log_settings'
         log_start:
           description: Log at session start?
           type: boolean
@@ -13563,12 +13938,12 @@ components:
           default: Security
           type: string
         profile_setting:
-          $ref: '#/components/schemas/security_rules_profile_setting'
+          $ref: '#/components/schemas/security_rule_type_profile_setting'
         schedule:
           description: Schedule in which this rule will be applied
           type: string
         security_settings:
-          $ref: '#/components/schemas/security_rules_security_settings'
+          $ref: '#/components/schemas/internet_rule_type_security_settings'
         service:
           description: The service(s) being accessed
           items:
@@ -13578,9 +13953,8 @@ components:
           uniqueItems: true
         snippet:
           description: The snippet in which the resource is defined
-          example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         source:
           description: The source addresses(es)
@@ -13702,13 +14076,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -13746,7 +14120,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
       - name
@@ -13770,13 +14144,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -13793,7 +14167,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         type:
           default: URL List
@@ -13829,14 +14203,14 @@ components:
             reset_client: "{}"
             alert: "{}"
             block_ip:
-              duration: 289
+              duration: 2170
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
           time_attribute:
             track_by: source
-            interval: 289
-            threshold: 39501
+            interval: 528
+            threshold: 39073
           packet_capture: disable
         - notes: notes
           exempt_ip:
@@ -13850,14 +14224,14 @@ components:
             reset_client: "{}"
             alert: "{}"
             block_ip:
-              duration: 289
+              duration: 2170
               track_by: source-and-destination
             reset_both: "{}"
             reset_server: "{}"
           time_attribute:
             track_by: source
-            interval: 289
-            threshold: 39501
+            interval: 528
+            threshold: 39073
           packet_capture: disable
         description: description
         rules:
@@ -13920,13 +14294,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -13944,7 +14318,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         threat_exception:
           items:
@@ -13974,7 +14348,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -13990,7 +14364,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14010,7 +14384,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14026,7 +14400,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14048,7 +14422,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14064,7 +14438,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14084,7 +14458,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14100,7 +14474,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14127,7 +14501,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14143,7 +14517,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14163,7 +14537,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14179,7 +14553,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14201,7 +14575,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14217,7 +14591,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14237,7 +14611,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 629561881
+                    value: 2147483647
                   greater_than:
                     qualifier:
                     - name: name
@@ -14253,7 +14627,7 @@ components:
                     - name: name
                       value: value
                     context: context
-                    value: 2147483647
+                    value: 988759834
                   pattern_match:
                     negate: false
                     qualifier:
@@ -14282,12 +14656,12 @@ components:
               name: name
             time_attribute:
               track_by: source-and-destination
-              interval: 289
-              threshold: 154
+              interval: 2170
+              threshold: 38
         bugtraq:
         - bugtraq
         - bugtraq
-        threat_id: 590288
+        threat_id: 4884415
         threatname: threatname
         default_action:
           allow: "{}"
@@ -14331,12 +14705,12 @@ components:
             type: string
           type: array
         default_action:
-          $ref: '#/components/schemas/anti_spyware_profiles_rules_inner_action'
+          $ref: '#/components/schemas/vulnerability_protection_signatures_default_action'
         device:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         direction:
           enum:
@@ -14348,7 +14722,7 @@ components:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -14368,12 +14742,12 @@ components:
           - informational
           type: string
         signature:
-          $ref: '#/components/schemas/anti_spyware_signatures_signature'
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature'
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         threat_id:
           description: threat id range <41000-45000> and <6800001-6900000>
@@ -14438,13 +14812,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
           description: UUID of the resource
@@ -14468,7 +14842,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         threat_exception:
           items:
@@ -14496,6 +14870,7 @@ components:
           type: string
       type: object
     anti_spyware_profiles_rules_inner_action_block_ip:
+      description: anti spyware profiles rules action block ip
       example:
         duration: 289
         track_by: source-and-destination
@@ -14511,6 +14886,7 @@ components:
           type: string
       type: object
     anti_spyware_profiles_rules_inner_action:
+      description: anti spyware profiles rules default action
       example:
         allow: "{}"
         drop: "{}"
@@ -14542,7 +14918,7 @@ components:
         severity:
         - severity
         - severity
-        threat_name: threat_name
+        threat_name: any
         name: name
         action:
           allow: "{}"
@@ -14554,47 +14930,60 @@ components:
             track_by: source-and-destination
           reset_both: "{}"
           reset_server: "{}"
-        category: dns-proxy
+        category: adns-adtracking
         packet_capture: disable
       properties:
         action:
           $ref: '#/components/schemas/anti_spyware_profiles_rules_inner_action'
         category:
           enum:
-          - dns-proxy
-          - backdoor
-          - data-theft
+          - adns-adtracking
+          - adns-benign
+          - adns-c2
+          - adns-ddns
+          - adns-dnsmisconfig
+          - adns-grayware
+          - adns-hijacking
+          - adns-malware
+          - adns-new-domain
+          - adns-parked
+          - adns-phishing
+          - adns-proxy
+          - adware
+          - any
           - autogen
-          - spyware
-          - dns-security
-          - downloader
-          - dns-phishing
-          - phishing-kit
-          - cryptominer
-          - hacktool
-          - dns-benign
-          - dns-wildfire
+          - backdoor
           - botnet
+          - browser-hijack
+          - command-and-control
+          - cryptominer
+          - data-theft
+          - dns
+          - dns-adtracking
+          - dns-benign
+          - dns-c2
+          - dns-ddns
           - dns-grayware
+          - dns-malware
+          - dns-new-domain
+          - dns-parked
+          - dns-phishing
+          - dns-proxy
+          - dns-security
+          - dns-wildfire
+          - domain-edl
+          - downloader
+          - fraud
+          - hacktool
           - inline-cloud-c2
           - keylogger
-          - p2p-communication
-          - domain-edl
-          - webshell
-          - command-and-control
-          - dns-ddns
           - net-worm
-          - any
-          - tls-fingerprint
-          - dns-new-domain
-          - dns
-          - fraud
-          - dns-c2
-          - adware
+          - p2p-communication
+          - phishing-kit
           - post-exploitation
-          - dns-malware
-          - browser-hijack
-          - dns-parked
+          - spyware
+          - tls-fingerprint
+          - webshell
           type: string
         name:
           type: string
@@ -14609,10 +14998,28 @@ components:
             type: string
           type: array
         threat_name:
-          minLength: 4
+          default: any
+          minLength: 3
+          type: string
+      type: object
+    anti_spyware_profiles_threat_exception_inner_action_block_ip:
+      description: anti spyware profiles threat exception action block ip
+      example:
+        duration: 2170
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
           type: string
       type: object
     anti_spyware_profiles_threat_exception_inner_action:
+      description: anti spyware profiles threat exception default action
       example:
         allow: "{}"
         drop: "{}"
@@ -14620,7 +15027,7 @@ components:
         reset_client: "{}"
         alert: "{}"
         block_ip:
-          duration: 289
+          duration: 2170
           track_by: source-and-destination
         reset_both: "{}"
         reset_server: "{}"
@@ -14630,7 +15037,7 @@ components:
         allow:
           type: object
         block_ip:
-          $ref: '#/components/schemas/anti_spyware_profiles_rules_inner_action_block_ip'
+          $ref: '#/components/schemas/anti_spyware_profiles_threat_exception_inner_action_block_ip'
         default:
           type: object
         drop:
@@ -14643,6 +15050,7 @@ components:
           type: object
       type: object
     anti_spyware_profiles_threat_exception_inner_exempt_ip_inner:
+      description: anti spyware protection IP address to be exempted from threat exception
       example:
         name: name
       properties:
@@ -14665,7 +15073,7 @@ components:
           reset_client: "{}"
           alert: "{}"
           block_ip:
-            duration: 289
+            duration: 2170
             track_by: source-and-destination
           reset_both: "{}"
           reset_server: "{}"
@@ -14687,6 +15095,50 @@ components:
           - single-packet
           - extended-capture
           type: string
+      type: object
+    anti_spyware_signatures_default_action_block_ip:
+      description: anti spyware signature block ip
+      example:
+        duration: 289
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          type: string
+      type: object
+    anti_spyware_signatures_default_action:
+      description: anti spyware signature default action
+      example:
+        allow: "{}"
+        drop: "{}"
+        reset_client: "{}"
+        alert: "{}"
+        block_ip:
+          duration: 289
+          track_by: source-and-destination
+        reset_both: "{}"
+        reset_server: "{}"
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/anti_spyware_signatures_default_action_block_ip'
+        drop:
+          type: object
+        reset_both:
+          type: object
+        reset_client:
+          type: object
+        reset_server:
+          type: object
       type: object
     anti_spyware_signatures_signature_combination_and_condition_inner_or_condition_inner:
       example:
@@ -14715,10 +15167,11 @@ components:
           type: array
       type: object
     anti_spyware_signatures_signature_combination_time_attribute:
+      description: anti spyware time attribute
       example:
         track_by: source-and-destination
-        interval: 289
-        threshold: 154
+        interval: 2170
+        threshold: 38
       properties:
         interval:
           maximum: 3600
@@ -14736,6 +15189,7 @@ components:
           type: string
       type: object
     anti_spyware_signatures_signature_combination:
+      description: anti spyware signature combination
       example:
         order_free: false
         and_condition:
@@ -14753,8 +15207,8 @@ components:
           name: name
         time_attribute:
           track_by: source-and-destination
-          interval: 289
-          threshold: 154
+          interval: 2170
+          threshold: 38
       properties:
         and_condition:
           items:
@@ -14785,7 +15239,7 @@ components:
         - name: name
           value: value
         context: context
-        value: 629561881
+        value: 2147483647
       properties:
         context:
           type: string
@@ -14855,7 +15309,7 @@ components:
           - name: name
             value: value
           context: context
-          value: 629561881
+          value: 2147483647
         greater_than:
           qualifier:
           - name: name
@@ -14903,7 +15357,7 @@ components:
             - name: name
               value: value
             context: context
-            value: 629561881
+            value: 2147483647
           greater_than:
             qualifier:
             - name: name
@@ -14948,7 +15402,7 @@ components:
               - name: name
                 value: value
               context: context
-              value: 629561881
+              value: 2147483647
             greater_than:
               qualifier:
               - name: name
@@ -14984,7 +15438,7 @@ components:
               - name: name
                 value: value
               context: context
-              value: 629561881
+              value: 2147483647
             greater_than:
               qualifier:
               - name: name
@@ -15036,7 +15490,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -15072,7 +15526,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -15110,7 +15564,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -15146,7 +15600,7 @@ components:
                 - name: name
                   value: value
                 context: context
-                value: 629561881
+                value: 2147483647
               greater_than:
                 qualifier:
                 - name: name
@@ -15196,6 +15650,7 @@ components:
       - name
       type: object
     anti_spyware_signatures_signature:
+      description: anti spyware signature
       example:
         standard:
         - order_free: false
@@ -15213,7 +15668,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15249,7 +15704,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15287,7 +15742,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15323,7 +15778,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15366,7 +15821,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15402,7 +15857,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15440,7 +15895,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15476,7 +15931,7 @@ components:
                   - name: name
                     value: value
                   context: context
-                  value: 629561881
+                  value: 2147483647
                 greater_than:
                   qualifier:
                   - name: name
@@ -15521,8 +15976,8 @@ components:
             name: name
           time_attribute:
             track_by: source-and-destination
-            interval: 289
-            threshold: 154
+            interval: 2170
+            threshold: 38
       properties:
         combination:
           $ref: '#/components/schemas/anti_spyware_signatures_signature_combination'
@@ -16307,27 +16762,7 @@ components:
       - name
       - type
       type: object
-    saas_tenant_restrictions_headers_inner:
-      example:
-        name: name
-        header: header
-        value: value
-      properties:
-        header:
-          description: "Header string associated with the tenant restriction (example\
-            \ - Restrict-Access-To-Tenants, Restrict-Access-Context, X-Dropbox-allowed-Team-Ids,\
-            \ YouTube-Restrict, X-GooGApps-Allowed-Domains)"
-          type: string
-        name:
-          description: "Header name associated with tenant restrictions (example -\
-            \ Permitted Tenant List, Tenant Directory ID)"
-          type: string
-        value:
-          description: "Header value associated with tenant restriction (example -\
-            \ tenant1,tenant2,strict etc.)"
-          type: string
-      type: object
-    security_rules_allow_url_category_inner_file_control:
+    internet_rule_type_allow_url_category_inner_file_control:
       example:
         download: allow-all-file-types
         upload: allow-all-file-types
@@ -16345,7 +16780,7 @@ components:
           - block-all-file-types
           type: string
       type: object
-    security_rules_allow_url_category_inner:
+    internet_rule_type_allow_url_category_inner:
       example:
         isolation_profiles: none
         name: name
@@ -16380,14 +16815,14 @@ components:
         dlp:
           type: string
         file_control:
-          $ref: '#/components/schemas/security_rules_allow_url_category_inner_file_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner_file_control'
         isolation_profiles:
           default: none
           type: string
         name:
           type: string
       type: object
-    security_rules_allow_web_application_inner_saas_enterprise_control_consumer_access:
+    internet_rule_type_allow_web_application_inner_saas_enterprise_control_consumer_access:
       example:
         enable: "yes"
       properties:
@@ -16397,7 +16832,7 @@ components:
           - "no"
           type: string
       type: object
-    security_rules_allow_web_application_inner_saas_enterprise_control_enterprise_access:
+    internet_rule_type_allow_web_application_inner_saas_enterprise_control_enterprise_access:
       example:
         tenant_restrictions:
         - tenant_restrictions
@@ -16414,7 +16849,7 @@ components:
             type: string
           type: array
       type: object
-    security_rules_allow_web_application_inner_saas_enterprise_control:
+    internet_rule_type_allow_web_application_inner_saas_enterprise_control:
       example:
         enterprise_access:
           tenant_restrictions:
@@ -16425,11 +16860,11 @@ components:
           enable: "yes"
       properties:
         consumer_access:
-          $ref: '#/components/schemas/security_rules_allow_web_application_inner_saas_enterprise_control_consumer_access'
+          $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner_saas_enterprise_control_consumer_access'
         enterprise_access:
-          $ref: '#/components/schemas/security_rules_allow_web_application_inner_saas_enterprise_control_enterprise_access'
+          $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner_saas_enterprise_control_enterprise_access'
       type: object
-    security_rules_allow_web_application_inner_tenant_control:
+    internet_rule_type_allow_web_application_inner_tenant_control:
       example:
         allowed_activities:
         - allowed_activities
@@ -16457,7 +16892,7 @@ components:
             type: string
           type: array
       type: object
-    security_rules_allow_web_application_inner:
+    internet_rule_type_allow_web_application_inner:
       example:
         saas_enterprise_control:
           enterprise_access:
@@ -16501,11 +16936,11 @@ components:
         dlp:
           type: string
         file_control:
-          $ref: '#/components/schemas/security_rules_allow_url_category_inner_file_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner_file_control'
         name:
           type: string
         saas_enterprise_control:
-          $ref: '#/components/schemas/security_rules_allow_web_application_inner_saas_enterprise_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner_saas_enterprise_control'
         saas_tenant_list:
           items:
             type: string
@@ -16515,11 +16950,11 @@ components:
             type: string
           type: array
         tenant_control:
-          $ref: '#/components/schemas/security_rules_allow_web_application_inner_tenant_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_web_application_inner_tenant_control'
         type:
           type: string
       type: object
-    security_rules_default_profile_settings:
+    internet_rule_type_default_profile_settings:
       example:
         dlp: dlp
         file_control:
@@ -16529,9 +16964,9 @@ components:
         dlp:
           type: string
         file_control:
-          $ref: '#/components/schemas/security_rules_allow_url_category_inner_file_control'
+          $ref: '#/components/schemas/internet_rule_type_allow_url_category_inner_file_control'
       type: object
-    security_rules_log_settings:
+    internet_rule_type_log_settings:
       example:
         log_sessions: true
       properties:
@@ -16539,21 +16974,7 @@ components:
           default: true
           type: boolean
       type: object
-    security_rules_profile_setting:
-      description: The security profile object
-      example:
-        group:
-        - best-practice
-        - best-practice
-      properties:
-        group:
-          description: The security profile group
-          items:
-            default: best-practice
-            type: string
-          type: array
-      type: object
-    security_rules_security_settings:
+    internet_rule_type_security_settings:
       example:
         anti_spyware: "yes"
         virus_and_wildfire_analysis: "yes"
@@ -16577,6 +16998,40 @@ components:
           - "yes"
           - "no"
           type: string
+      type: object
+    saas_tenant_restrictions_headers_inner:
+      example:
+        name: name
+        header: header
+        value: value
+      properties:
+        header:
+          description: "Header string associated with the tenant restriction (example\
+            \ - Restrict-Access-To-Tenants, Restrict-Access-Context, X-Dropbox-allowed-Team-Ids,\
+            \ YouTube-Restrict, X-GooGApps-Allowed-Domains)"
+          type: string
+        name:
+          description: "Header name associated with tenant restrictions (example -\
+            \ Permitted Tenant List, Tenant Directory ID)"
+          type: string
+        value:
+          description: "Header value associated with tenant restriction (example -\
+            \ tenant1,tenant2,strict etc.)"
+          type: string
+      type: object
+    security_rule_type_profile_setting:
+      description: The security profile object
+      example:
+        group:
+        - best-practice
+        - best-practice
+      properties:
+        group:
+          description: The security profile group
+          items:
+            default: best-practice
+            type: string
+          type: array
       type: object
     url_access_profiles_credential_enforcement_mode:
       example:
@@ -16637,6 +17092,53 @@ components:
         mode:
           $ref: '#/components/schemas/url_access_profiles_credential_enforcement_mode'
       type: object
+    vulnerability_protection_profiles_rules_inner_action_block_ip:
+      description: vulnerability protection block ip
+      example:
+        duration: 289
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          type: string
+      type: object
+    vulnerability_protection_profiles_rules_inner_action:
+      description: vulnerability profiles threat exception default action
+      example:
+        allow: "{}"
+        drop: "{}"
+        default: "{}"
+        reset_client: "{}"
+        alert: "{}"
+        block_ip:
+          duration: 289
+          track_by: source-and-destination
+        reset_both: "{}"
+        reset_server: "{}"
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/vulnerability_protection_profiles_rules_inner_action_block_ip'
+        default:
+          type: object
+        drop:
+          type: object
+        reset_both:
+          type: object
+        reset_client:
+          type: object
+        reset_server:
+          type: object
+      type: object
     vulnerability_protection_profiles_rules_inner:
       example:
         severity:
@@ -16666,7 +17168,7 @@ components:
         packet_capture: disable
       properties:
         action:
-          $ref: '#/components/schemas/anti_spyware_profiles_threat_exception_inner_action'
+          $ref: '#/components/schemas/vulnerability_protection_profiles_rules_inner_action'
         category:
           enum:
           - any
@@ -16709,11 +17211,70 @@ components:
             type: string
           type: array
       type: object
+    vulnerability_protection_profiles_threat_exception_inner_action_block_ip:
+      description: vulnerability protection threat exception block ip
+      example:
+        duration: 2170
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          type: string
+      type: object
+    vulnerability_protection_profiles_threat_exception_inner_action:
+      description: vulnerability threat exception default action
+      example:
+        allow: "{}"
+        drop: "{}"
+        default: "{}"
+        reset_client: "{}"
+        alert: "{}"
+        block_ip:
+          duration: 2170
+          track_by: source-and-destination
+        reset_both: "{}"
+        reset_server: "{}"
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/vulnerability_protection_profiles_threat_exception_inner_action_block_ip'
+        default:
+          type: object
+        drop:
+          type: object
+        reset_both:
+          type: object
+        reset_client:
+          type: object
+        reset_server:
+          type: object
+      type: object
+    vulnerability_protection_profiles_threat_exception_inner_exempt_ip_inner:
+      description: Vulnerability protection IP address to be exempted from threat
+        exception
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
     vulnerability_protection_profiles_threat_exception_inner_time_attribute:
+      description: vulnerability time attribute
       example:
         track_by: source
-        interval: 289
-        threshold: 39501
+        interval: 528
+        threshold: 39073
       properties:
         interval:
           maximum: 3600
@@ -16744,21 +17305,21 @@ components:
           reset_client: "{}"
           alert: "{}"
           block_ip:
-            duration: 289
+            duration: 2170
             track_by: source-and-destination
           reset_both: "{}"
           reset_server: "{}"
         time_attribute:
           track_by: source
-          interval: 289
-          threshold: 39501
+          interval: 528
+          threshold: 39073
         packet_capture: disable
       properties:
         action:
-          $ref: '#/components/schemas/anti_spyware_profiles_threat_exception_inner_action'
+          $ref: '#/components/schemas/vulnerability_protection_profiles_threat_exception_inner_action'
         exempt_ip:
           items:
-            $ref: '#/components/schemas/anti_spyware_profiles_threat_exception_inner_exempt_ip_inner'
+            $ref: '#/components/schemas/vulnerability_protection_profiles_threat_exception_inner_exempt_ip_inner'
           type: array
         name:
           type: string
@@ -16782,6 +17343,987 @@ components:
           type: boolean
         server:
           type: boolean
+      type: object
+    vulnerability_protection_signatures_default_action_block_ip:
+      description: vulnerability protection bugtraq block ip
+      example:
+        duration: 289
+        track_by: source-and-destination
+      properties:
+        duration:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          type: string
+      type: object
+    vulnerability_protection_signatures_default_action:
+      example:
+        allow: "{}"
+        drop: "{}"
+        reset_client: "{}"
+        alert: "{}"
+        block_ip:
+          duration: 289
+          track_by: source-and-destination
+        reset_both: "{}"
+        reset_server: "{}"
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_default_action_block_ip'
+        drop:
+          type: object
+        reset_both:
+          type: object
+        reset_client:
+          type: object
+        reset_server:
+          type: object
+      type: object
+    vulnerability_protection_signatures_signature_combination_and_condition_inner_or_condition_inner:
+      description: vulnerability protection signature combination object and condition
+        object or condition object
+      example:
+        name: name
+        threat_id: threat_id
+      properties:
+        name:
+          type: string
+        threat_id:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_combination_and_condition_inner:
+      description: vulnerability protection signature combination object and condition
+        object
+      example:
+        or_condition:
+        - name: name
+          threat_id: threat_id
+        - name: name
+          threat_id: threat_id
+        name: name
+      properties:
+        name:
+          type: string
+        or_condition:
+          description: vulnerability protection signature combination object and condition
+            object or condition
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination_and_condition_inner_or_condition_inner'
+          type: array
+      type: object
+    vulnerability_protection_signatures_signature_combination_time_attribute:
+      example:
+        track_by: source-and-destination
+        interval: 2170
+        threshold: 38
+      properties:
+        interval:
+          maximum: 3600
+          minimum: 1
+          type: integer
+        threshold:
+          maximum: 255
+          minimum: 1
+          type: integer
+        track_by:
+          enum:
+          - source-and-destination
+          - source
+          - destination
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_combination:
+      description: vulnerability protection signature combination object
+      example:
+        order_free: false
+        and_condition:
+        - or_condition:
+          - name: name
+            threat_id: threat_id
+          - name: name
+            threat_id: threat_id
+          name: name
+        - or_condition:
+          - name: name
+            threat_id: threat_id
+          - name: name
+            threat_id: threat_id
+          name: name
+        time_attribute:
+          track_by: source-and-destination
+          interval: 2170
+          threshold: 38
+      properties:
+        and_condition:
+          description: vulnerability protection signature combination object and condition
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination_and_condition_inner'
+          type: array
+        order_free:
+          default: false
+          type: boolean
+        time_attribute:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination_time_attribute'
+      type: object
+    ? vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_equal_to_qualifier_inner
+    : description: vulnerability protection signature standard object and condition
+        object or condition object operators equal_to qualifier array object
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_equal_to:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators equal_to
+      example:
+        negate: false
+        qualifier:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        context: context
+        value: 2147483647
+      properties:
+        context:
+          type: string
+        negate:
+          default: false
+          type: boolean
+        qualifier:
+          description: vulnerability protection signature standard object and condition
+            object or condition object operators equal_to qualifier array
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_equal_to_qualifier_inner'
+          type: array
+        value:
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+      type: object
+    ? vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_greater_than_qualifier_inner
+    : description: vulnerability protection signature standard object and condition
+        object or condition object operators greater_than qualifier object
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_greater_than:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators greater_than
+      example:
+        qualifier:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        context: context
+        value: 2147483647
+      properties:
+        context:
+          type: string
+        qualifier:
+          description: vulnerability protection signature standard object and condition
+            object or condition object operators greater_than qualifier
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_greater_than_qualifier_inner'
+          type: array
+        value:
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+      type: object
+    ? vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_less_than_qualifier_inner
+    : description: vulnerability protection signature standard object and condition
+        object or condition object operators less_than array object
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_less_than:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators less_than
+      example:
+        qualifier:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        context: context
+        value: 988759834
+      properties:
+        context:
+          type: string
+        qualifier:
+          description: vulnerability protection signature standard object and condition
+            object or condition object operators less_than array
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_less_than_qualifier_inner'
+          type: array
+        value:
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+      type: object
+    ? vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_pattern_match_qualifier_inner
+    : description: vulnerability protection signature standard object and condition
+        object or condition object operators pattern match qualifier object
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_pattern_match:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators pattern match
+      example:
+        negate: false
+        qualifier:
+        - name: name
+          value: value
+        - name: name
+          value: value
+        context: context
+        pattern: pattern
+      properties:
+        context:
+          type: string
+        negate:
+          default: false
+          type: boolean
+        pattern:
+          type: string
+        qualifier:
+          description: vulnerability protection signature standard object and condition
+            object or condition object operators pattern match qualifier
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_pattern_match_qualifier_inner'
+          type: array
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator:
+      description: vulnerability protection signature standard object and condition
+        object or condition object operators
+      example:
+        equal_to:
+          negate: false
+          qualifier:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          context: context
+          value: 2147483647
+        greater_than:
+          qualifier:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          context: context
+          value: 2147483647
+        less_than:
+          qualifier:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          context: context
+          value: 988759834
+        pattern_match:
+          negate: false
+          qualifier:
+          - name: name
+            value: value
+          - name: name
+            value: value
+          context: context
+          pattern: pattern
+      properties:
+        equal_to:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_equal_to'
+        greater_than:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_greater_than'
+        less_than:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_less_than'
+        pattern_match:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator_pattern_match'
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner:
+      description: vulnerability protection signature standard object and condition
+        object or condition object
+      example:
+        name: name
+        operator:
+          equal_to:
+            negate: false
+            qualifier:
+            - name: name
+              value: value
+            - name: name
+              value: value
+            context: context
+            value: 2147483647
+          greater_than:
+            qualifier:
+            - name: name
+              value: value
+            - name: name
+              value: value
+            context: context
+            value: 2147483647
+          less_than:
+            qualifier:
+            - name: name
+              value: value
+            - name: name
+              value: value
+            context: context
+            value: 988759834
+          pattern_match:
+            negate: false
+            qualifier:
+            - name: name
+              value: value
+            - name: name
+              value: value
+            context: context
+            pattern: pattern
+      properties:
+        name:
+          type: string
+        operator:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner_operator'
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner_and_condition_inner:
+      description: vulnerability protection signature standard object and condition
+        object
+      example:
+        or_condition:
+        - name: name
+          operator:
+            equal_to:
+              negate: false
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 2147483647
+            greater_than:
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 2147483647
+            less_than:
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 988759834
+            pattern_match:
+              negate: false
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              pattern: pattern
+        - name: name
+          operator:
+            equal_to:
+              negate: false
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 2147483647
+            greater_than:
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 2147483647
+            less_than:
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              value: 988759834
+            pattern_match:
+              negate: false
+              qualifier:
+              - name: name
+                value: value
+              - name: name
+                value: value
+              context: context
+              pattern: pattern
+        name: name
+      properties:
+        name:
+          type: string
+        or_condition:
+          description: vulnerability protection signature standard object and condition
+            object or condition
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner_or_condition_inner'
+          type: array
+      type: object
+    vulnerability_protection_signatures_signature_standard_inner:
+      description: vulnerability protection signature standard object
+      example:
+        order_free: false
+        scope: protocol-data-unit
+        name: name
+        and_condition:
+        - or_condition:
+          - name: name
+            operator:
+              equal_to:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              greater_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              less_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 988759834
+              pattern_match:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                pattern: pattern
+          - name: name
+            operator:
+              equal_to:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              greater_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              less_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 988759834
+              pattern_match:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                pattern: pattern
+          name: name
+        - or_condition:
+          - name: name
+            operator:
+              equal_to:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              greater_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              less_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 988759834
+              pattern_match:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                pattern: pattern
+          - name: name
+            operator:
+              equal_to:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              greater_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 2147483647
+              less_than:
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                value: 988759834
+              pattern_match:
+                negate: false
+                qualifier:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+                context: context
+                pattern: pattern
+          name: name
+        comment: comment
+      properties:
+        and_condition:
+          description: vulnerability protection signature standard object and condition
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner_and_condition_inner'
+          type: array
+        comment:
+          maxLength: 256
+          type: string
+        name:
+          type: string
+        order_free:
+          default: false
+          type: boolean
+        scope:
+          enum:
+          - protocol-data-unit
+          - session
+          type: string
+      required:
+      - name
+      type: object
+    vulnerability_protection_signatures_signature:
+      description: vulnerability protection signature
+      example:
+        standard:
+        - order_free: false
+          scope: protocol-data-unit
+          name: name
+          and_condition:
+          - or_condition:
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 988759834
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 988759834
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            name: name
+          - or_condition:
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 988759834
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 988759834
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            name: name
+          comment: comment
+        - order_free: false
+          scope: protocol-data-unit
+          name: name
+          and_condition:
+          - or_condition:
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 988759834
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 988759834
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            name: name
+          - or_condition:
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 988759834
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            - name: name
+              operator:
+                equal_to:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                greater_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 2147483647
+                less_than:
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  value: 988759834
+                pattern_match:
+                  negate: false
+                  qualifier:
+                  - name: name
+                    value: value
+                  - name: name
+                    value: value
+                  context: context
+                  pattern: pattern
+            name: name
+          comment: comment
+        combination:
+          order_free: false
+          and_condition:
+          - or_condition:
+            - name: name
+              threat_id: threat_id
+            - name: name
+              threat_id: threat_id
+            name: name
+          - or_condition:
+            - name: name
+              threat_id: threat_id
+            - name: name
+              threat_id: threat_id
+            name: name
+          time_attribute:
+            track_by: source-and-destination
+            interval: 2170
+            threshold: 38
+      properties:
+        combination:
+          $ref: '#/components/schemas/vulnerability_protection_signatures_signature_combination'
+        standard:
+          description: vulnerability protection signature standard array
+          items:
+            $ref: '#/components/schemas/vulnerability_protection_signatures_signature_standard_inner'
+          type: array
       type: object
     wildfire_anti_virus_profiles_mlav_exception_inner:
       example:

@@ -25,8 +25,8 @@ type BgpRouteMapsRouteMapInnerMatch struct {
 	// Extended community
 	ExtendedCommunity *string `json:"extended_community,omitempty"`
 	// Interface
-	Interface *string                                                  `json:"interface,omitempty"`
-	Ipv4      *BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4 `json:"ipv4,omitempty"`
+	Interface *string                             `json:"interface,omitempty"`
+	Ipv4      *BgpRouteMapsRouteMapInnerMatchIpv4 `json:"ipv4,omitempty"`
 	// Large community
 	LargeCommunity  *string `json:"large_community,omitempty"`
 	LocalPreference *int32  `json:"local_preference,omitempty"`
@@ -159,9 +159,9 @@ func (o *BgpRouteMapsRouteMapInnerMatch) SetInterface(v string) {
 }
 
 // GetIpv4 returns the Ipv4 field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetIpv4() BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4 {
+func (o *BgpRouteMapsRouteMapInnerMatch) GetIpv4() BgpRouteMapsRouteMapInnerMatchIpv4 {
 	if o == nil || IsNil(o.Ipv4) {
-		var ret BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4
+		var ret BgpRouteMapsRouteMapInnerMatchIpv4
 		return ret
 	}
 	return *o.Ipv4
@@ -169,7 +169,7 @@ func (o *BgpRouteMapsRouteMapInnerMatch) GetIpv4() BgpRouteMapRedistributionsBgp
 
 // GetIpv4Ok returns a tuple with the Ipv4 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatch) GetIpv4Ok() (*BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4, bool) {
+func (o *BgpRouteMapsRouteMapInnerMatch) GetIpv4Ok() (*BgpRouteMapsRouteMapInnerMatchIpv4, bool) {
 	if o == nil || IsNil(o.Ipv4) {
 		return nil, false
 	}
@@ -185,8 +185,8 @@ func (o *BgpRouteMapsRouteMapInnerMatch) HasIpv4() bool {
 	return false
 }
 
-// SetIpv4 gets a reference to the given BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4 and assigns it to the Ipv4 field.
-func (o *BgpRouteMapsRouteMapInnerMatch) SetIpv4(v BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4) {
+// SetIpv4 gets a reference to the given BgpRouteMapsRouteMapInnerMatchIpv4 and assigns it to the Ipv4 field.
+func (o *BgpRouteMapsRouteMapInnerMatch) SetIpv4(v BgpRouteMapsRouteMapInnerMatchIpv4) {
 	o.Ipv4 = &v
 }
 

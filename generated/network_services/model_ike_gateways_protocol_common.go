@@ -34,6 +34,8 @@ type _IkeGatewaysProtocolCommon IkeGatewaysProtocolCommon
 // will change when the set of required properties is changed
 func NewIkeGatewaysProtocolCommon() *IkeGatewaysProtocolCommon {
 	this := IkeGatewaysProtocolCommon{}
+	var passiveMode bool = false
+	this.PassiveMode = &passiveMode
 	return &this
 }
 
@@ -42,6 +44,8 @@ func NewIkeGatewaysProtocolCommon() *IkeGatewaysProtocolCommon {
 // but it doesn't guarantee that properties required by API are set
 func NewIkeGatewaysProtocolCommonWithDefaults() *IkeGatewaysProtocolCommon {
 	this := IkeGatewaysProtocolCommon{}
+	var passiveMode bool = false
+	this.PassiveMode = &passiveMode
 	return &this
 }
 

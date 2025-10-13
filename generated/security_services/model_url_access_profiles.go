@@ -29,9 +29,9 @@ type UrlAccessProfiles struct {
 	CredentialEnforcement *UrlAccessProfilesCredentialEnforcement `json:"credential_enforcement,omitempty"`
 	Description           *string                                 `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id                    *string  `json:"id,omitempty"`
 	LocalInlineCat        *bool    `json:"local_inline_cat,omitempty"`
@@ -44,7 +44,7 @@ type UrlAccessProfiles struct {
 	Redirect              []string `json:"redirect,omitempty"`
 	SafeSearchEnforcement *bool    `json:"safe_search_enforcement,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

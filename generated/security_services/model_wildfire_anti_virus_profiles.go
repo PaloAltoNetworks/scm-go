@@ -23,9 +23,9 @@ var _ MappedNullable = &WildfireAntiVirusProfiles{}
 type WildfireAntiVirusProfiles struct {
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id            *string                                       `json:"id,omitempty"`
 	MlavException []WildfireAntiVirusProfilesMlavExceptionInner `json:"mlav_exception,omitempty"`
@@ -33,7 +33,7 @@ type WildfireAntiVirusProfiles struct {
 	PacketCapture *bool                                         `json:"packet_capture,omitempty"`
 	Rules         []WildfireAntiVirusProfilesRulesInner         `json:"rules,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet              *string                                         `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string                                         `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	ThreatException      []WildfireAntiVirusProfilesThreatExceptionInner `json:"threat_exception,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

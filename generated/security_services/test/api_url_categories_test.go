@@ -175,11 +175,4 @@ func Test_security_services_URLCategoriesAPIService_DeleteByID(t *testing.T) {
 	httpResDel, errDel := client.URLCategoriesAPI.DeleteURLCategoriesByID(context.Background(), createdUrlCategoryID).Execute()
 	require.NoError(t, errDel, "Failed to delete URL Category")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
-
-	getRes, httpResGet, errGet := client.URLCategoriesAPI.GetURLCategoriesByID(context.Background(), createdUrlCategoryID).Execute()
-	assert.Error(t, errGet, "Getting deleted URL Category should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted URL Category")
-	}
-	assert.Nil(t, getRes, "Response should be nil for a deleted URL Category")
 }

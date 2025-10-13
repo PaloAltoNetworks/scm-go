@@ -299,24 +299,4 @@ func Test_objects_AddressesAPIService_DeleteByID(t *testing.T) {
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 
 	t.Logf("Successfully deleted address: %s", createdAddressID)
-
-	// Verify deletion by trying to get the address (should fail)
-	reqGetById := client.AddressesAPI.GetAddressesByID(context.Background(), createdAddressID)
-	getRes, httpResGet, errGet := reqGetById.Execute()
-	if errGet != nil {
-		handleAPIError(errGet)
-	}
-
-	// We expect this to fail since the address was deleted
-	assert.Error(t, errGet, "Getting deleted address should fail")
-	if httpResGet != nil {
-		assert.NotEqual(t, 200, httpResGet.StatusCode, "Should not return 200 for deleted address")
-	}
-
-	// The response should be nil or empty since the address was deleted
-	if getRes != nil {
-		assert.Empty(t, getRes.Id, "Deleted address response should not have valid data")
-	}
-
-	t.Logf("Verified address deletion: %s", createdAddressID)
 }

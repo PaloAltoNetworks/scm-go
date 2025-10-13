@@ -18,9 +18,9 @@ import (
 // checks if the LoopbackInterfacesIp type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &LoopbackInterfacesIp{}
 
-// LoopbackInterfacesIp struct for LoopbackInterfacesIp
+// LoopbackInterfacesIp loopback ip parent
 type LoopbackInterfacesIp struct {
-	// IP address(es)
+	// Loopback IP address(es)
 	Ip                   []string `json:"ip,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

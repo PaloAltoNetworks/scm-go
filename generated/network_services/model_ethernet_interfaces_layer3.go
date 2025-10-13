@@ -20,10 +20,10 @@ var _ MappedNullable = &EthernetInterfacesLayer3{}
 
 // EthernetInterfacesLayer3 struct for EthernetInterfacesLayer3
 type EthernetInterfacesLayer3 struct {
-	// ARP configuration
-	Arp        []ArpInner  `json:"arp,omitempty"`
-	DdnsConfig *DdnsConfig `json:"ddns-config,omitempty"`
-	DhcpClient *DhcpClient `json:"dhcp-client,omitempty"`
+	// Ethernet Interfaces ARP configuration
+	Arp        []EthernetInterfacesArpInner        `json:"arp,omitempty"`
+	DdnsConfig *EthernetInterfacesLayer3DdnsConfig `json:"ddns-config,omitempty"`
+	DhcpClient *EthernetInterfacesDhcpClient       `json:"dhcp-client,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface-management-profile,omitempty"`
 	// Interface IP addresses
@@ -58,9 +58,9 @@ func NewEthernetInterfacesLayer3WithDefaults() *EthernetInterfacesLayer3 {
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetArp() []ArpInner {
+func (o *EthernetInterfacesLayer3) GetArp() []EthernetInterfacesArpInner {
 	if o == nil || IsNil(o.Arp) {
-		var ret []ArpInner
+		var ret []EthernetInterfacesArpInner
 		return ret
 	}
 	return o.Arp
@@ -68,7 +68,7 @@ func (o *EthernetInterfacesLayer3) GetArp() []ArpInner {
 
 // GetArpOk returns a tuple with the Arp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetArpOk() ([]ArpInner, bool) {
+func (o *EthernetInterfacesLayer3) GetArpOk() ([]EthernetInterfacesArpInner, bool) {
 	if o == nil || IsNil(o.Arp) {
 		return nil, false
 	}
@@ -84,15 +84,15 @@ func (o *EthernetInterfacesLayer3) HasArp() bool {
 	return false
 }
 
-// SetArp gets a reference to the given []ArpInner and assigns it to the Arp field.
-func (o *EthernetInterfacesLayer3) SetArp(v []ArpInner) {
+// SetArp gets a reference to the given []EthernetInterfacesArpInner and assigns it to the Arp field.
+func (o *EthernetInterfacesLayer3) SetArp(v []EthernetInterfacesArpInner) {
 	o.Arp = v
 }
 
 // GetDdnsConfig returns the DdnsConfig field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetDdnsConfig() DdnsConfig {
+func (o *EthernetInterfacesLayer3) GetDdnsConfig() EthernetInterfacesLayer3DdnsConfig {
 	if o == nil || IsNil(o.DdnsConfig) {
-		var ret DdnsConfig
+		var ret EthernetInterfacesLayer3DdnsConfig
 		return ret
 	}
 	return *o.DdnsConfig
@@ -100,7 +100,7 @@ func (o *EthernetInterfacesLayer3) GetDdnsConfig() DdnsConfig {
 
 // GetDdnsConfigOk returns a tuple with the DdnsConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetDdnsConfigOk() (*DdnsConfig, bool) {
+func (o *EthernetInterfacesLayer3) GetDdnsConfigOk() (*EthernetInterfacesLayer3DdnsConfig, bool) {
 	if o == nil || IsNil(o.DdnsConfig) {
 		return nil, false
 	}
@@ -116,15 +116,15 @@ func (o *EthernetInterfacesLayer3) HasDdnsConfig() bool {
 	return false
 }
 
-// SetDdnsConfig gets a reference to the given DdnsConfig and assigns it to the DdnsConfig field.
-func (o *EthernetInterfacesLayer3) SetDdnsConfig(v DdnsConfig) {
+// SetDdnsConfig gets a reference to the given EthernetInterfacesLayer3DdnsConfig and assigns it to the DdnsConfig field.
+func (o *EthernetInterfacesLayer3) SetDdnsConfig(v EthernetInterfacesLayer3DdnsConfig) {
 	o.DdnsConfig = &v
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetDhcpClient() DhcpClient {
+func (o *EthernetInterfacesLayer3) GetDhcpClient() EthernetInterfacesDhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret DhcpClient
+		var ret EthernetInterfacesDhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -132,7 +132,7 @@ func (o *EthernetInterfacesLayer3) GetDhcpClient() DhcpClient {
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetDhcpClientOk() (*DhcpClient, bool) {
+func (o *EthernetInterfacesLayer3) GetDhcpClientOk() (*EthernetInterfacesDhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -148,8 +148,8 @@ func (o *EthernetInterfacesLayer3) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given DhcpClient and assigns it to the DhcpClient field.
-func (o *EthernetInterfacesLayer3) SetDhcpClient(v DhcpClient) {
+// SetDhcpClient gets a reference to the given EthernetInterfacesDhcpClient and assigns it to the DhcpClient field.
+func (o *EthernetInterfacesLayer3) SetDhcpClient(v EthernetInterfacesDhcpClient) {
 	o.DhcpClient = &v
 }
 

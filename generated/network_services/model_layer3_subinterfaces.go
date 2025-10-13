@@ -21,16 +21,16 @@ var _ MappedNullable = &Layer3Subinterfaces{}
 
 // Layer3Subinterfaces struct for Layer3Subinterfaces
 type Layer3Subinterfaces struct {
-	// ARP configuration
-	Arp []ArpInner `json:"arp,omitempty"`
+	// Layer 3 sub Interfaces ARP configuration
+	Arp []Layer3SubinterfacesArpInner `json:"arp,omitempty"`
 	// Description
-	Comment    *string     `json:"comment,omitempty"`
-	DdnsConfig *DdnsConfig `json:"ddns_config,omitempty"`
+	Comment    *string                        `json:"comment,omitempty"`
+	DdnsConfig *Layer3SubinterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// The device in which the resource is defined
-	Device     *string                                      `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
-	DhcpClient *AggregateEthernetInterfacesLayer3DhcpClient `json:"dhcp-client,omitempty"`
+	Device     *string                                  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
+	DhcpClient *Layer3SubInterfacesDhcpClientDhcpClient `json:"dhcp-client,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
@@ -43,7 +43,7 @@ type Layer3Subinterfaces struct {
 	// Parent interface
 	ParentInterface *string `json:"parent-interface,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
 	Tag                  *float32 `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -70,9 +70,9 @@ func NewLayer3SubinterfacesWithDefaults() *Layer3Subinterfaces {
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetArp() []ArpInner {
+func (o *Layer3Subinterfaces) GetArp() []Layer3SubinterfacesArpInner {
 	if o == nil || IsNil(o.Arp) {
-		var ret []ArpInner
+		var ret []Layer3SubinterfacesArpInner
 		return ret
 	}
 	return o.Arp
@@ -80,7 +80,7 @@ func (o *Layer3Subinterfaces) GetArp() []ArpInner {
 
 // GetArpOk returns a tuple with the Arp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetArpOk() ([]ArpInner, bool) {
+func (o *Layer3Subinterfaces) GetArpOk() ([]Layer3SubinterfacesArpInner, bool) {
 	if o == nil || IsNil(o.Arp) {
 		return nil, false
 	}
@@ -96,8 +96,8 @@ func (o *Layer3Subinterfaces) HasArp() bool {
 	return false
 }
 
-// SetArp gets a reference to the given []ArpInner and assigns it to the Arp field.
-func (o *Layer3Subinterfaces) SetArp(v []ArpInner) {
+// SetArp gets a reference to the given []Layer3SubinterfacesArpInner and assigns it to the Arp field.
+func (o *Layer3Subinterfaces) SetArp(v []Layer3SubinterfacesArpInner) {
 	o.Arp = v
 }
 
@@ -134,9 +134,9 @@ func (o *Layer3Subinterfaces) SetComment(v string) {
 }
 
 // GetDdnsConfig returns the DdnsConfig field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetDdnsConfig() DdnsConfig {
+func (o *Layer3Subinterfaces) GetDdnsConfig() Layer3SubinterfacesDdnsConfig {
 	if o == nil || IsNil(o.DdnsConfig) {
-		var ret DdnsConfig
+		var ret Layer3SubinterfacesDdnsConfig
 		return ret
 	}
 	return *o.DdnsConfig
@@ -144,7 +144,7 @@ func (o *Layer3Subinterfaces) GetDdnsConfig() DdnsConfig {
 
 // GetDdnsConfigOk returns a tuple with the DdnsConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetDdnsConfigOk() (*DdnsConfig, bool) {
+func (o *Layer3Subinterfaces) GetDdnsConfigOk() (*Layer3SubinterfacesDdnsConfig, bool) {
 	if o == nil || IsNil(o.DdnsConfig) {
 		return nil, false
 	}
@@ -160,8 +160,8 @@ func (o *Layer3Subinterfaces) HasDdnsConfig() bool {
 	return false
 }
 
-// SetDdnsConfig gets a reference to the given DdnsConfig and assigns it to the DdnsConfig field.
-func (o *Layer3Subinterfaces) SetDdnsConfig(v DdnsConfig) {
+// SetDdnsConfig gets a reference to the given Layer3SubinterfacesDdnsConfig and assigns it to the DdnsConfig field.
+func (o *Layer3Subinterfaces) SetDdnsConfig(v Layer3SubinterfacesDdnsConfig) {
 	o.DdnsConfig = &v
 }
 
@@ -198,9 +198,9 @@ func (o *Layer3Subinterfaces) SetDevice(v string) {
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetDhcpClient() AggregateEthernetInterfacesLayer3DhcpClient {
+func (o *Layer3Subinterfaces) GetDhcpClient() Layer3SubInterfacesDhcpClientDhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret AggregateEthernetInterfacesLayer3DhcpClient
+		var ret Layer3SubInterfacesDhcpClientDhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -208,7 +208,7 @@ func (o *Layer3Subinterfaces) GetDhcpClient() AggregateEthernetInterfacesLayer3D
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetDhcpClientOk() (*AggregateEthernetInterfacesLayer3DhcpClient, bool) {
+func (o *Layer3Subinterfaces) GetDhcpClientOk() (*Layer3SubInterfacesDhcpClientDhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -224,8 +224,8 @@ func (o *Layer3Subinterfaces) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given AggregateEthernetInterfacesLayer3DhcpClient and assigns it to the DhcpClient field.
-func (o *Layer3Subinterfaces) SetDhcpClient(v AggregateEthernetInterfacesLayer3DhcpClient) {
+// SetDhcpClient gets a reference to the given Layer3SubInterfacesDhcpClientDhcpClient and assigns it to the DhcpClient field.
+func (o *Layer3Subinterfaces) SetDhcpClient(v Layer3SubInterfacesDhcpClientDhcpClient) {
 	o.DhcpClient = &v
 }
 

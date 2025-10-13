@@ -20,10 +20,10 @@ var _ MappedNullable = &AggregateEthernetInterfacesLayer3{}
 
 // AggregateEthernetInterfacesLayer3 struct for AggregateEthernetInterfacesLayer3
 type AggregateEthernetInterfacesLayer3 struct {
-	// ARP configuration
-	Arp        []ArpInner                                   `json:"arp,omitempty"`
-	DdnsConfig *DdnsConfig                                  `json:"ddns-config,omitempty"`
-	DhcpClient *AggregateEthernetInterfacesLayer3DhcpClient `json:"dhcp-client,omitempty"`
+	// Aggregate Ethernet ARP configuration
+	Arp        []AggEthernetArpInner                        `json:"arp,omitempty"`
+	DdnsConfig *AggregateEthernetInterfacesLayer3DdnsConfig `json:"ddns-config,omitempty"`
+	DhcpClient *AggEthernetDhcpClientDhcpClient             `json:"dhcp-client,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface-management-profile,omitempty"`
 	// Interface IP addresses
@@ -58,9 +58,9 @@ func NewAggregateEthernetInterfacesLayer3WithDefaults() *AggregateEthernetInterf
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetArp() []ArpInner {
+func (o *AggregateEthernetInterfacesLayer3) GetArp() []AggEthernetArpInner {
 	if o == nil || IsNil(o.Arp) {
-		var ret []ArpInner
+		var ret []AggEthernetArpInner
 		return ret
 	}
 	return o.Arp
@@ -68,7 +68,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetArp() []ArpInner {
 
 // GetArpOk returns a tuple with the Arp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetArpOk() ([]ArpInner, bool) {
+func (o *AggregateEthernetInterfacesLayer3) GetArpOk() ([]AggEthernetArpInner, bool) {
 	if o == nil || IsNil(o.Arp) {
 		return nil, false
 	}
@@ -84,15 +84,15 @@ func (o *AggregateEthernetInterfacesLayer3) HasArp() bool {
 	return false
 }
 
-// SetArp gets a reference to the given []ArpInner and assigns it to the Arp field.
-func (o *AggregateEthernetInterfacesLayer3) SetArp(v []ArpInner) {
+// SetArp gets a reference to the given []AggEthernetArpInner and assigns it to the Arp field.
+func (o *AggregateEthernetInterfacesLayer3) SetArp(v []AggEthernetArpInner) {
 	o.Arp = v
 }
 
 // GetDdnsConfig returns the DdnsConfig field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfig() DdnsConfig {
+func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfig() AggregateEthernetInterfacesLayer3DdnsConfig {
 	if o == nil || IsNil(o.DdnsConfig) {
-		var ret DdnsConfig
+		var ret AggregateEthernetInterfacesLayer3DdnsConfig
 		return ret
 	}
 	return *o.DdnsConfig
@@ -100,7 +100,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfig() DdnsConfig {
 
 // GetDdnsConfigOk returns a tuple with the DdnsConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfigOk() (*DdnsConfig, bool) {
+func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfigOk() (*AggregateEthernetInterfacesLayer3DdnsConfig, bool) {
 	if o == nil || IsNil(o.DdnsConfig) {
 		return nil, false
 	}
@@ -116,15 +116,15 @@ func (o *AggregateEthernetInterfacesLayer3) HasDdnsConfig() bool {
 	return false
 }
 
-// SetDdnsConfig gets a reference to the given DdnsConfig and assigns it to the DdnsConfig field.
-func (o *AggregateEthernetInterfacesLayer3) SetDdnsConfig(v DdnsConfig) {
+// SetDdnsConfig gets a reference to the given AggregateEthernetInterfacesLayer3DdnsConfig and assigns it to the DdnsConfig field.
+func (o *AggregateEthernetInterfacesLayer3) SetDdnsConfig(v AggregateEthernetInterfacesLayer3DdnsConfig) {
 	o.DdnsConfig = &v
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetDhcpClient() AggregateEthernetInterfacesLayer3DhcpClient {
+func (o *AggregateEthernetInterfacesLayer3) GetDhcpClient() AggEthernetDhcpClientDhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret AggregateEthernetInterfacesLayer3DhcpClient
+		var ret AggEthernetDhcpClientDhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -132,7 +132,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetDhcpClient() AggregateEthernetInt
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetDhcpClientOk() (*AggregateEthernetInterfacesLayer3DhcpClient, bool) {
+func (o *AggregateEthernetInterfacesLayer3) GetDhcpClientOk() (*AggEthernetDhcpClientDhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -148,8 +148,8 @@ func (o *AggregateEthernetInterfacesLayer3) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given AggregateEthernetInterfacesLayer3DhcpClient and assigns it to the DhcpClient field.
-func (o *AggregateEthernetInterfacesLayer3) SetDhcpClient(v AggregateEthernetInterfacesLayer3DhcpClient) {
+// SetDhcpClient gets a reference to the given AggEthernetDhcpClientDhcpClient and assigns it to the DhcpClient field.
+func (o *AggregateEthernetInterfacesLayer3) SetDhcpClient(v AggEthernetDhcpClientDhcpClient) {
 	o.DhcpClient = &v
 }
 

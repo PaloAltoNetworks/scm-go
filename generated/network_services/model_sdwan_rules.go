@@ -29,13 +29,13 @@ type SdwanRules struct {
 	// List of destination addresses
 	Destination []string `json:"destination"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Disable rule?
 	Disabled *bool `json:"disabled,omitempty"`
 	// Error correction profile
 	ErrorCorrectionProfile *string `json:"error_correction_profile,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// List of source zones
 	From []string `json:"from"`
 	// UUID of the resource
@@ -55,7 +55,7 @@ type SdwanRules struct {
 	// List of services
 	Service []string `json:"service"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// List of source addresses
 	Source []string `json:"source"`
 	// List of source users

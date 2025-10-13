@@ -18,19 +18,19 @@ import (
 // checks if the SecurityRules type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityRules{}
 
-// SecurityRules struct for SecurityRules
+// SecurityRules Represents a Security or Internet security rule. A rule must be one of the policy types AND exist in one scope (folder, snippet, or device).
 type SecurityRules struct {
 	// The action to be taken when the rule is matched
-	Action              *string                                 `json:"action,omitempty"`
-	AllowUrlCategory    []SecurityRulesAllowUrlCategoryInner    `json:"allow_url_category,omitempty"`
-	AllowWebApplication []SecurityRulesAllowWebApplicationInner `json:"allow_web_application,omitempty"`
+	Action              *string                                    `json:"action,omitempty"`
+	AllowUrlCategory    []InternetRuleTypeAllowUrlCategoryInner    `json:"allow_url_category,omitempty"`
+	AllowWebApplication []InternetRuleTypeAllowWebApplicationInner `json:"allow_web_application,omitempty"`
 	// The application(s) being accessed
 	Application         []string `json:"application,omitempty"`
 	BlockUrlCategory    []string `json:"block_url_category,omitempty"`
 	BlockWebApplication []string `json:"block_web_application,omitempty"`
 	// The URL categories being accessed
-	Category               []string                             `json:"category,omitempty"`
-	DefaultProfileSettings *SecurityRulesDefaultProfileSettings `json:"default_profile_settings,omitempty"`
+	Category               []string                                `json:"category,omitempty"`
+	DefaultProfileSettings *InternetRuleTypeDefaultProfileSettings `json:"default_profile_settings,omitempty"`
 	// The description of the security rule
 	Description *string `json:"description,omitempty"`
 	// The destination address(es)
@@ -38,12 +38,12 @@ type SecurityRules struct {
 	// The destination Host Integrity Profile(s)
 	DestinationHip []string `json:"destination_hip,omitempty"`
 	// The device in which the resource is defined
-	Device  *string  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device  *string  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Devices []string `json:"devices,omitempty"`
 	// Is the security rule disabled?
 	Disabled *bool `json:"disabled,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The source security zone(s)
 	From []string `json:"from,omitempty"`
 	// The UUID of the security rule
@@ -51,8 +51,8 @@ type SecurityRules struct {
 	// Log at session end?
 	LogEnd *bool `json:"log_end,omitempty"`
 	// The external log forwarding profile
-	LogSetting  *string                   `json:"log_setting,omitempty"`
-	LogSettings *SecurityRulesLogSettings `json:"log_settings,omitempty"`
+	LogSetting  *string                      `json:"log_setting,omitempty"`
+	LogSettings *InternetRuleTypeLogSettings `json:"log_settings,omitempty"`
 	// Log at session start?
 	LogStart *bool `json:"log_start,omitempty"`
 	// The name of the security rule
@@ -60,17 +60,17 @@ type SecurityRules struct {
 	// Negate the destination addresses(es)?
 	NegateDestination *bool `json:"negate_destination,omitempty"`
 	// Negate the source address(es)?
-	NegateSource   *bool                        `json:"negate_source,omitempty"`
-	NegateUser     *bool                        `json:"negate_user,omitempty"`
-	PolicyType     *string                      `json:"policy_type,omitempty"`
-	ProfileSetting *SecurityRulesProfileSetting `json:"profile_setting,omitempty"`
+	NegateSource   *bool                           `json:"negate_source,omitempty"`
+	NegateUser     *bool                           `json:"negate_user,omitempty"`
+	PolicyType     *string                         `json:"policy_type,omitempty"`
+	ProfileSetting *SecurityRuleTypeProfileSetting `json:"profile_setting,omitempty"`
 	// Schedule in which this rule will be applied
-	Schedule         *string                        `json:"schedule,omitempty"`
-	SecuritySettings *SecurityRulesSecuritySettings `json:"security_settings,omitempty"`
+	Schedule         *string                           `json:"schedule,omitempty"`
+	SecuritySettings *InternetRuleTypeSecuritySettings `json:"security_settings,omitempty"`
 	// The service(s) being accessed
 	Service []string `json:"service,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The source addresses(es)
 	Source []string `json:"source,omitempty"`
 	// The source Host Integrity Profile(s)
@@ -157,9 +157,9 @@ func (o *SecurityRules) SetAction(v string) {
 }
 
 // GetAllowUrlCategory returns the AllowUrlCategory field value if set, zero value otherwise.
-func (o *SecurityRules) GetAllowUrlCategory() []SecurityRulesAllowUrlCategoryInner {
+func (o *SecurityRules) GetAllowUrlCategory() []InternetRuleTypeAllowUrlCategoryInner {
 	if o == nil || IsNil(o.AllowUrlCategory) {
-		var ret []SecurityRulesAllowUrlCategoryInner
+		var ret []InternetRuleTypeAllowUrlCategoryInner
 		return ret
 	}
 	return o.AllowUrlCategory
@@ -167,7 +167,7 @@ func (o *SecurityRules) GetAllowUrlCategory() []SecurityRulesAllowUrlCategoryInn
 
 // GetAllowUrlCategoryOk returns a tuple with the AllowUrlCategory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityRules) GetAllowUrlCategoryOk() ([]SecurityRulesAllowUrlCategoryInner, bool) {
+func (o *SecurityRules) GetAllowUrlCategoryOk() ([]InternetRuleTypeAllowUrlCategoryInner, bool) {
 	if o == nil || IsNil(o.AllowUrlCategory) {
 		return nil, false
 	}
@@ -183,15 +183,15 @@ func (o *SecurityRules) HasAllowUrlCategory() bool {
 	return false
 }
 
-// SetAllowUrlCategory gets a reference to the given []SecurityRulesAllowUrlCategoryInner and assigns it to the AllowUrlCategory field.
-func (o *SecurityRules) SetAllowUrlCategory(v []SecurityRulesAllowUrlCategoryInner) {
+// SetAllowUrlCategory gets a reference to the given []InternetRuleTypeAllowUrlCategoryInner and assigns it to the AllowUrlCategory field.
+func (o *SecurityRules) SetAllowUrlCategory(v []InternetRuleTypeAllowUrlCategoryInner) {
 	o.AllowUrlCategory = v
 }
 
 // GetAllowWebApplication returns the AllowWebApplication field value if set, zero value otherwise.
-func (o *SecurityRules) GetAllowWebApplication() []SecurityRulesAllowWebApplicationInner {
+func (o *SecurityRules) GetAllowWebApplication() []InternetRuleTypeAllowWebApplicationInner {
 	if o == nil || IsNil(o.AllowWebApplication) {
-		var ret []SecurityRulesAllowWebApplicationInner
+		var ret []InternetRuleTypeAllowWebApplicationInner
 		return ret
 	}
 	return o.AllowWebApplication
@@ -199,7 +199,7 @@ func (o *SecurityRules) GetAllowWebApplication() []SecurityRulesAllowWebApplicat
 
 // GetAllowWebApplicationOk returns a tuple with the AllowWebApplication field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityRules) GetAllowWebApplicationOk() ([]SecurityRulesAllowWebApplicationInner, bool) {
+func (o *SecurityRules) GetAllowWebApplicationOk() ([]InternetRuleTypeAllowWebApplicationInner, bool) {
 	if o == nil || IsNil(o.AllowWebApplication) {
 		return nil, false
 	}
@@ -215,8 +215,8 @@ func (o *SecurityRules) HasAllowWebApplication() bool {
 	return false
 }
 
-// SetAllowWebApplication gets a reference to the given []SecurityRulesAllowWebApplicationInner and assigns it to the AllowWebApplication field.
-func (o *SecurityRules) SetAllowWebApplication(v []SecurityRulesAllowWebApplicationInner) {
+// SetAllowWebApplication gets a reference to the given []InternetRuleTypeAllowWebApplicationInner and assigns it to the AllowWebApplication field.
+func (o *SecurityRules) SetAllowWebApplication(v []InternetRuleTypeAllowWebApplicationInner) {
 	o.AllowWebApplication = v
 }
 
@@ -349,9 +349,9 @@ func (o *SecurityRules) SetCategory(v []string) {
 }
 
 // GetDefaultProfileSettings returns the DefaultProfileSettings field value if set, zero value otherwise.
-func (o *SecurityRules) GetDefaultProfileSettings() SecurityRulesDefaultProfileSettings {
+func (o *SecurityRules) GetDefaultProfileSettings() InternetRuleTypeDefaultProfileSettings {
 	if o == nil || IsNil(o.DefaultProfileSettings) {
-		var ret SecurityRulesDefaultProfileSettings
+		var ret InternetRuleTypeDefaultProfileSettings
 		return ret
 	}
 	return *o.DefaultProfileSettings
@@ -359,7 +359,7 @@ func (o *SecurityRules) GetDefaultProfileSettings() SecurityRulesDefaultProfileS
 
 // GetDefaultProfileSettingsOk returns a tuple with the DefaultProfileSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityRules) GetDefaultProfileSettingsOk() (*SecurityRulesDefaultProfileSettings, bool) {
+func (o *SecurityRules) GetDefaultProfileSettingsOk() (*InternetRuleTypeDefaultProfileSettings, bool) {
 	if o == nil || IsNil(o.DefaultProfileSettings) {
 		return nil, false
 	}
@@ -375,8 +375,8 @@ func (o *SecurityRules) HasDefaultProfileSettings() bool {
 	return false
 }
 
-// SetDefaultProfileSettings gets a reference to the given SecurityRulesDefaultProfileSettings and assigns it to the DefaultProfileSettings field.
-func (o *SecurityRules) SetDefaultProfileSettings(v SecurityRulesDefaultProfileSettings) {
+// SetDefaultProfileSettings gets a reference to the given InternetRuleTypeDefaultProfileSettings and assigns it to the DefaultProfileSettings field.
+func (o *SecurityRules) SetDefaultProfileSettings(v InternetRuleTypeDefaultProfileSettings) {
 	o.DefaultProfileSettings = &v
 }
 
@@ -733,9 +733,9 @@ func (o *SecurityRules) SetLogSetting(v string) {
 }
 
 // GetLogSettings returns the LogSettings field value if set, zero value otherwise.
-func (o *SecurityRules) GetLogSettings() SecurityRulesLogSettings {
+func (o *SecurityRules) GetLogSettings() InternetRuleTypeLogSettings {
 	if o == nil || IsNil(o.LogSettings) {
-		var ret SecurityRulesLogSettings
+		var ret InternetRuleTypeLogSettings
 		return ret
 	}
 	return *o.LogSettings
@@ -743,7 +743,7 @@ func (o *SecurityRules) GetLogSettings() SecurityRulesLogSettings {
 
 // GetLogSettingsOk returns a tuple with the LogSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityRules) GetLogSettingsOk() (*SecurityRulesLogSettings, bool) {
+func (o *SecurityRules) GetLogSettingsOk() (*InternetRuleTypeLogSettings, bool) {
 	if o == nil || IsNil(o.LogSettings) {
 		return nil, false
 	}
@@ -759,8 +759,8 @@ func (o *SecurityRules) HasLogSettings() bool {
 	return false
 }
 
-// SetLogSettings gets a reference to the given SecurityRulesLogSettings and assigns it to the LogSettings field.
-func (o *SecurityRules) SetLogSettings(v SecurityRulesLogSettings) {
+// SetLogSettings gets a reference to the given InternetRuleTypeLogSettings and assigns it to the LogSettings field.
+func (o *SecurityRules) SetLogSettings(v InternetRuleTypeLogSettings) {
 	o.LogSettings = &v
 }
 
@@ -957,9 +957,9 @@ func (o *SecurityRules) SetPolicyType(v string) {
 }
 
 // GetProfileSetting returns the ProfileSetting field value if set, zero value otherwise.
-func (o *SecurityRules) GetProfileSetting() SecurityRulesProfileSetting {
+func (o *SecurityRules) GetProfileSetting() SecurityRuleTypeProfileSetting {
 	if o == nil || IsNil(o.ProfileSetting) {
-		var ret SecurityRulesProfileSetting
+		var ret SecurityRuleTypeProfileSetting
 		return ret
 	}
 	return *o.ProfileSetting
@@ -967,7 +967,7 @@ func (o *SecurityRules) GetProfileSetting() SecurityRulesProfileSetting {
 
 // GetProfileSettingOk returns a tuple with the ProfileSetting field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityRules) GetProfileSettingOk() (*SecurityRulesProfileSetting, bool) {
+func (o *SecurityRules) GetProfileSettingOk() (*SecurityRuleTypeProfileSetting, bool) {
 	if o == nil || IsNil(o.ProfileSetting) {
 		return nil, false
 	}
@@ -983,8 +983,8 @@ func (o *SecurityRules) HasProfileSetting() bool {
 	return false
 }
 
-// SetProfileSetting gets a reference to the given SecurityRulesProfileSetting and assigns it to the ProfileSetting field.
-func (o *SecurityRules) SetProfileSetting(v SecurityRulesProfileSetting) {
+// SetProfileSetting gets a reference to the given SecurityRuleTypeProfileSetting and assigns it to the ProfileSetting field.
+func (o *SecurityRules) SetProfileSetting(v SecurityRuleTypeProfileSetting) {
 	o.ProfileSetting = &v
 }
 
@@ -1021,9 +1021,9 @@ func (o *SecurityRules) SetSchedule(v string) {
 }
 
 // GetSecuritySettings returns the SecuritySettings field value if set, zero value otherwise.
-func (o *SecurityRules) GetSecuritySettings() SecurityRulesSecuritySettings {
+func (o *SecurityRules) GetSecuritySettings() InternetRuleTypeSecuritySettings {
 	if o == nil || IsNil(o.SecuritySettings) {
-		var ret SecurityRulesSecuritySettings
+		var ret InternetRuleTypeSecuritySettings
 		return ret
 	}
 	return *o.SecuritySettings
@@ -1031,7 +1031,7 @@ func (o *SecurityRules) GetSecuritySettings() SecurityRulesSecuritySettings {
 
 // GetSecuritySettingsOk returns a tuple with the SecuritySettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityRules) GetSecuritySettingsOk() (*SecurityRulesSecuritySettings, bool) {
+func (o *SecurityRules) GetSecuritySettingsOk() (*InternetRuleTypeSecuritySettings, bool) {
 	if o == nil || IsNil(o.SecuritySettings) {
 		return nil, false
 	}
@@ -1047,8 +1047,8 @@ func (o *SecurityRules) HasSecuritySettings() bool {
 	return false
 }
 
-// SetSecuritySettings gets a reference to the given SecurityRulesSecuritySettings and assigns it to the SecuritySettings field.
-func (o *SecurityRules) SetSecuritySettings(v SecurityRulesSecuritySettings) {
+// SetSecuritySettings gets a reference to the given InternetRuleTypeSecuritySettings and assigns it to the SecuritySettings field.
+func (o *SecurityRules) SetSecuritySettings(v InternetRuleTypeSecuritySettings) {
 	o.SecuritySettings = &v
 }
 

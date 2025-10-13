@@ -24,18 +24,18 @@ type ProfileGroups struct {
 	AiSecurity    []string `json:"ai_security,omitempty"`
 	DataFiltering []string `json:"data_filtering,omitempty"`
 	// The device in which the resource is defined
-	Device       *string  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device       *string  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	DnsSecurity  []string `json:"dns_security,omitempty"`
 	FileBlocking []string `json:"file_blocking,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the profile group
 	Id *string `json:"id,omitempty"`
 	// The name of the profile group
 	Name         string   `json:"name"`
 	SaasSecurity []string `json:"saas_security,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet                  *string  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet                  *string  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Spyware                  []string `json:"spyware,omitempty"`
 	UrlFiltering             []string `json:"url_filtering,omitempty"`
 	VirusAndWildfireAnalysis []string `json:"virus_and_wildfire_analysis,omitempty"`

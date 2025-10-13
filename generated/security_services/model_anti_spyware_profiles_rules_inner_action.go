@@ -18,7 +18,7 @@ import (
 // checks if the AntiSpywareProfilesRulesInnerAction type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AntiSpywareProfilesRulesInnerAction{}
 
-// AntiSpywareProfilesRulesInnerAction struct for AntiSpywareProfilesRulesInnerAction
+// AntiSpywareProfilesRulesInnerAction anti spyware profiles rules default action
 type AntiSpywareProfilesRulesInnerAction struct {
 	Alert                map[string]interface{}                      `json:"alert,omitempty"`
 	Allow                map[string]interface{}                      `json:"allow,omitempty"`

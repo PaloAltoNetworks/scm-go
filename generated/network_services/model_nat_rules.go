@@ -27,14 +27,14 @@ type NatRules struct {
 	// Destination address(es) of the original packet
 	Destination []string `json:"destination"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Disable NAT rule?
 	Disabled *bool `json:"disabled,omitempty"`
 	// Distribution method
 	Distribution *string             `json:"distribution,omitempty"`
 	DnsRewrite   *NatRulesDnsRewrite `json:"dns_rewrite,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Source zone(s) of the original packet
 	From []string `json:"from"`
 	// UUID of the resource
@@ -46,7 +46,7 @@ type NatRules struct {
 	// The service of the original packet
 	Service string `json:"service"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Source address(es) of the original packet
 	Source            []string                   `json:"source"`
 	SourceTranslation *NatRulesSourceTranslation `json:"source_translation,omitempty"`

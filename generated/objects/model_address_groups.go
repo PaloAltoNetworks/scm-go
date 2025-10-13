@@ -23,16 +23,16 @@ var _ MappedNullable = &AddressGroups{}
 type AddressGroups struct {
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device  *string               `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device  *string               `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Dynamic *AddressGroupsDynamic `json:"dynamic,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the address group
 	Id string `json:"id"`
 	// The name of the address group
 	Name string `json:"name" validate:"regexp=^[ a-zA-Z\\\\d._-]+$"`
 	// The snippet in which the resource is defined
-	Snippet *string  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Static  []string `json:"static,omitempty"`
 	// Tags for address group object
 	Tag                  []string `json:"tag,omitempty"`

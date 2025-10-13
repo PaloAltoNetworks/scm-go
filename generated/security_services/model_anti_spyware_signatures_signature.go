@@ -18,7 +18,7 @@ import (
 // checks if the AntiSpywareSignaturesSignature type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AntiSpywareSignaturesSignature{}
 
-// AntiSpywareSignaturesSignature struct for AntiSpywareSignaturesSignature
+// AntiSpywareSignaturesSignature anti spyware signature
 type AntiSpywareSignaturesSignature struct {
 	Combination          *AntiSpywareSignaturesSignatureCombination    `json:"combination,omitempty"`
 	Standard             []AntiSpywareSignaturesSignatureStandardInner `json:"standard,omitempty"`
