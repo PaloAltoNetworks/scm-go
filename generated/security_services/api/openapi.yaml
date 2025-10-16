@@ -1746,6 +1746,113 @@ paths:
       summary: Update an application override rule
       tags:
       - Application Override Rules
+  /app-override-rules/{id}:move:
+    post:
+      description: |
+        Move an existing application override rule.
+      operationId: MoveApplicationOverrideRulesByID
+      parameters:
+      - description: The UUID of the configuration resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/rule-based-move'
+        description: The app override rule you want to move
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Move an application override rule
+      tags:
+      - Application Override Rules
   /decryption-exclusions:
     get:
       description: |
@@ -3455,6 +3562,113 @@ paths:
                 $ref: '#/components/schemas/generic_error'
           description: General Errors
       summary: Update a decryption rule
+      tags:
+      - Decryption Rules
+  /decryption-rules/{id}:move:
+    post:
+      description: |
+        Move an existing decryption rule.
+      operationId: MoveDecryptionRulesByID
+      parameters:
+      - description: The UUID of the configuration resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/rule-based-move'
+        description: OK
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Move a decryption rule
       tags:
       - Decryption Rules
   /dns-security-profiles:
@@ -7667,6 +7881,113 @@ paths:
                 $ref: '#/components/schemas/generic_error'
           description: General Errors
       summary: Update a security rule
+      tags:
+      - Security Rules
+  /security-rules/{id}:move:
+    post:
+      description: |
+        Move an existing security rule.
+      operationId: MoveSecurityRulesByID
+      parameters:
+      - description: The UUID of the configuration resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/rule-based-move'
+        description: OK
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Move a security rule
       tags:
       - Security Rules
   /url-access-profiles:
@@ -13453,6 +13774,33 @@ components:
           type: array
       required:
       - name
+      type: object
+    rule-based-move:
+      properties:
+        destination:
+          description: "A destination of the rule. Valid destination values are top,\
+            \ bottom, before and after."
+          enum:
+          - top
+          - bottom
+          - before
+          - after
+          type: string
+        destination_rule:
+          description: A destination_rule attribute is required only if the destination
+            value is before or after. Valid destination_rule values are existing rule
+            UUIDs within the same container.
+          type: string
+        rulebase:
+          description: A base of a rule. Valid rulebase values are pre and post.
+          enum:
+          - pre
+          - post
+          type: string
+      required:
+      - destination
+      - rulebase
+      title: rule-based-move
       type: object
     saas-tenant-restrictions:
       example:
