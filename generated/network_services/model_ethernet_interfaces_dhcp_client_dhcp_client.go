@@ -21,12 +21,12 @@ var _ MappedNullable = &EthernetInterfacesDhcpClientDhcpClient{}
 // EthernetInterfacesDhcpClientDhcpClient Ethernet Interfaces DHCP Client Object
 type EthernetInterfacesDhcpClientDhcpClient struct {
 	// Automatically create default route pointing to default gateway provided by server
-	CreateDefaultRoute *bool `json:"create-default-route,omitempty"`
+	CreateDefaultRoute *bool `json:"create_default_route,omitempty"`
 	// Metric of the default route created
-	DefaultRouteMetric *int32 `json:"default-route-metric,omitempty"`
+	DefaultRouteMetric *int32 `json:"default_route_metric,omitempty"`
 	// Enable DHCP?
 	Enable               *bool                                               `json:"enable,omitempty"`
-	SendHostname         *EthernetInterfacesDhcpClientDhcpClientSendHostname `json:"send-hostname,omitempty"`
+	SendHostname         *EthernetInterfacesDhcpClientDhcpClientSendHostname `json:"send_hostname,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -200,16 +200,16 @@ func (o EthernetInterfacesDhcpClientDhcpClient) MarshalJSON() ([]byte, error) {
 func (o EthernetInterfacesDhcpClientDhcpClient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CreateDefaultRoute) {
-		toSerialize["create-default-route"] = o.CreateDefaultRoute
+		toSerialize["create_default_route"] = o.CreateDefaultRoute
 	}
 	if !IsNil(o.DefaultRouteMetric) {
-		toSerialize["default-route-metric"] = o.DefaultRouteMetric
+		toSerialize["default_route_metric"] = o.DefaultRouteMetric
 	}
 	if !IsNil(o.Enable) {
 		toSerialize["enable"] = o.Enable
 	}
 	if !IsNil(o.SendHostname) {
-		toSerialize["send-hostname"] = o.SendHostname
+		toSerialize["send_hostname"] = o.SendHostname
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -233,10 +233,10 @@ func (o *EthernetInterfacesDhcpClientDhcpClient) UnmarshalJSON(data []byte) (err
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "create-default-route")
-		delete(additionalProperties, "default-route-metric")
+		delete(additionalProperties, "create_default_route")
+		delete(additionalProperties, "default_route_metric")
 		delete(additionalProperties, "enable")
-		delete(additionalProperties, "send-hostname")
+		delete(additionalProperties, "send_hostname")
 		o.AdditionalProperties = additionalProperties
 	}
 

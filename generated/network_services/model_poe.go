@@ -21,9 +21,9 @@ var _ MappedNullable = &Poe{}
 // Poe struct for Poe
 type Poe struct {
 	// Enabled PoE?
-	PoeEnabled *bool `json:"poe-enabled,omitempty"`
+	PoeEnabled *bool `json:"poe_enabled,omitempty"`
 	// PoE reserved power
-	PoeRsvdPwr           *int32 `json:"poe-rsvd-pwr,omitempty"`
+	PoeRsvdPwr           *int32 `json:"poe_rsvd_pwr,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -129,10 +129,10 @@ func (o Poe) MarshalJSON() ([]byte, error) {
 func (o Poe) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.PoeEnabled) {
-		toSerialize["poe-enabled"] = o.PoeEnabled
+		toSerialize["poe_enabled"] = o.PoeEnabled
 	}
 	if !IsNil(o.PoeRsvdPwr) {
-		toSerialize["poe-rsvd-pwr"] = o.PoeRsvdPwr
+		toSerialize["poe_rsvd_pwr"] = o.PoeRsvdPwr
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -156,8 +156,8 @@ func (o *Poe) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "poe-enabled")
-		delete(additionalProperties, "poe-rsvd-pwr")
+		delete(additionalProperties, "poe_enabled")
+		delete(additionalProperties, "poe_rsvd_pwr")
 		o.AdditionalProperties = additionalProperties
 	}
 

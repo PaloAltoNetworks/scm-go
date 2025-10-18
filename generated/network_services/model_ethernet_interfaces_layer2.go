@@ -21,7 +21,7 @@ var _ MappedNullable = &EthernetInterfacesLayer2{}
 // EthernetInterfacesLayer2 struct for EthernetInterfacesLayer2
 type EthernetInterfacesLayer2 struct {
 	// Assign interface to VLAN tag
-	VlanTag              *int32 `json:"vlan-tag,omitempty"`
+	VlanTag              *int32 `json:"vlan_tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,7 +87,7 @@ func (o EthernetInterfacesLayer2) MarshalJSON() ([]byte, error) {
 func (o EthernetInterfacesLayer2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.VlanTag) {
-		toSerialize["vlan-tag"] = o.VlanTag
+		toSerialize["vlan_tag"] = o.VlanTag
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,7 +111,7 @@ func (o *EthernetInterfacesLayer2) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "vlan-tag")
+		delete(additionalProperties, "vlan_tag")
 		o.AdditionalProperties = additionalProperties
 	}
 

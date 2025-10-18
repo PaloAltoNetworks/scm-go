@@ -21,9 +21,9 @@ var _ MappedNullable = &SdwanPathQualityProfilesMetric{}
 
 // SdwanPathQualityProfilesMetric struct for SdwanPathQualityProfilesMetric
 type SdwanPathQualityProfilesMetric struct {
-	Jitter               SdwanPathQualityProfilesMetricJitter  `json:"jitter"`
-	Latency              SdwanPathQualityProfilesMetricLatency `json:"latency"`
-	PktLoss              SdwanPathQualityProfilesMetricPktLoss `json:"pkt-loss"`
+	Jitter               SdwanPathQualityProfilesMetricJitter   `json:"jitter"`
+	Latency              SdwanPathQualityProfilesMetricLatency  `json:"latency"`
+	PktLoss              *SdwanPathQualityProfilesMetricPktLoss `json:"pkt_loss,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,11 +33,10 @@ type _SdwanPathQualityProfilesMetric SdwanPathQualityProfilesMetric
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSdwanPathQualityProfilesMetric(jitter SdwanPathQualityProfilesMetricJitter, latency SdwanPathQualityProfilesMetricLatency, pktLoss SdwanPathQualityProfilesMetricPktLoss) *SdwanPathQualityProfilesMetric {
+func NewSdwanPathQualityProfilesMetric(jitter SdwanPathQualityProfilesMetricJitter, latency SdwanPathQualityProfilesMetricLatency) *SdwanPathQualityProfilesMetric {
 	this := SdwanPathQualityProfilesMetric{}
 	this.Jitter = jitter
 	this.Latency = latency
-	this.PktLoss = pktLoss
 	return &this
 }
 
@@ -97,28 +96,36 @@ func (o *SdwanPathQualityProfilesMetric) SetLatency(v SdwanPathQualityProfilesMe
 	o.Latency = v
 }
 
-// GetPktLoss returns the PktLoss field value
+// GetPktLoss returns the PktLoss field value if set, zero value otherwise.
 func (o *SdwanPathQualityProfilesMetric) GetPktLoss() SdwanPathQualityProfilesMetricPktLoss {
-	if o == nil {
+	if o == nil || IsNil(o.PktLoss) {
 		var ret SdwanPathQualityProfilesMetricPktLoss
 		return ret
 	}
-
-	return o.PktLoss
+	return *o.PktLoss
 }
 
-// GetPktLossOk returns a tuple with the PktLoss field value
+// GetPktLossOk returns a tuple with the PktLoss field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SdwanPathQualityProfilesMetric) GetPktLossOk() (*SdwanPathQualityProfilesMetricPktLoss, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PktLoss) {
 		return nil, false
 	}
-	return &o.PktLoss, true
+	return o.PktLoss, true
 }
 
-// SetPktLoss sets field value
+// HasPktLoss returns a boolean if a field has been set.
+func (o *SdwanPathQualityProfilesMetric) HasPktLoss() bool {
+	if o != nil && !IsNil(o.PktLoss) {
+		return true
+	}
+
+	return false
+}
+
+// SetPktLoss gets a reference to the given SdwanPathQualityProfilesMetricPktLoss and assigns it to the PktLoss field.
 func (o *SdwanPathQualityProfilesMetric) SetPktLoss(v SdwanPathQualityProfilesMetricPktLoss) {
-	o.PktLoss = v
+	o.PktLoss = &v
 }
 
 func (o SdwanPathQualityProfilesMetric) MarshalJSON() ([]byte, error) {
@@ -133,7 +140,9 @@ func (o SdwanPathQualityProfilesMetric) ToMap() (map[string]interface{}, error) 
 	toSerialize := map[string]interface{}{}
 	toSerialize["jitter"] = o.Jitter
 	toSerialize["latency"] = o.Latency
-	toSerialize["pkt-loss"] = o.PktLoss
+	if !IsNil(o.PktLoss) {
+		toSerialize["pkt_loss"] = o.PktLoss
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -149,7 +158,6 @@ func (o *SdwanPathQualityProfilesMetric) UnmarshalJSON(data []byte) (err error) 
 	requiredProperties := []string{
 		"jitter",
 		"latency",
-		"pkt-loss",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -181,7 +189,7 @@ func (o *SdwanPathQualityProfilesMetric) UnmarshalJSON(data []byte) (err error) 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "jitter")
 		delete(additionalProperties, "latency")
-		delete(additionalProperties, "pkt-loss")
+		delete(additionalProperties, "pkt_loss")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -24,7 +24,7 @@ type DnsProxiesCacheMaxTtl struct {
 	// Enable max ttl for this DNS object
 	Enabled bool `json:"enabled"`
 	// Time in seconds after which entry is cleared
-	TimeToLive           *int32 `json:"time-to-live,omitempty"`
+	TimeToLive           *int32 `json:"time_to_live,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -118,7 +118,7 @@ func (o DnsProxiesCacheMaxTtl) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["enabled"] = o.Enabled
 	if !IsNil(o.TimeToLive) {
-		toSerialize["time-to-live"] = o.TimeToLive
+		toSerialize["time_to_live"] = o.TimeToLive
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -164,7 +164,7 @@ func (o *DnsProxiesCacheMaxTtl) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enabled")
-		delete(additionalProperties, "time-to-live")
+		delete(additionalProperties, "time_to_live")
 		o.AdditionalProperties = additionalProperties
 	}
 

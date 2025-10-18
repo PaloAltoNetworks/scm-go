@@ -24,7 +24,7 @@ type TunnelInterfaces struct {
 	// Description
 	Comment *string `json:"comment,omitempty"`
 	// Default interface assignment
-	DefaultValue *int32 `json:"default-value,omitempty"`
+	DefaultValue *int32 `json:"default_value,omitempty"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
@@ -389,7 +389,7 @@ func (o TunnelInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["comment"] = o.Comment
 	}
 	if !IsNil(o.DefaultValue) {
-		toSerialize["default-value"] = o.DefaultValue
+		toSerialize["default_value"] = o.DefaultValue
 	}
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
@@ -457,7 +457,7 @@ func (o *TunnelInterfaces) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "comment")
-		delete(additionalProperties, "default-value")
+		delete(additionalProperties, "default_value")
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")

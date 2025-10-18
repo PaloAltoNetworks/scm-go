@@ -27,10 +27,10 @@ type VlanInterfaces struct {
 	Comment    *string                   `json:"comment,omitempty"`
 	DdnsConfig *VlanInterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// Default interface assignment
-	DefaultValue *string `json:"default-value,omitempty"`
+	DefaultValue *string `json:"default_value,omitempty"`
 	// The device in which the resource is defined
 	Device     *string                   `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	DhcpClient *VlanInterfacesDhcpClient `json:"dhcp-client,omitempty"`
+	DhcpClient *VlanInterfacesDhcpClient `json:"dhcp_client,omitempty"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
@@ -45,7 +45,7 @@ type VlanInterfaces struct {
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
-	VlanTag              *float32 `json:"vlan-tag,omitempty"`
+	VlanTag              *float32 `json:"vlan_tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -529,13 +529,13 @@ func (o VlanInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["ddns_config"] = o.DdnsConfig
 	}
 	if !IsNil(o.DefaultValue) {
-		toSerialize["default-value"] = o.DefaultValue
+		toSerialize["default_value"] = o.DefaultValue
 	}
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
 	if !IsNil(o.DhcpClient) {
-		toSerialize["dhcp-client"] = o.DhcpClient
+		toSerialize["dhcp_client"] = o.DhcpClient
 	}
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
@@ -557,7 +557,7 @@ func (o VlanInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["snippet"] = o.Snippet
 	}
 	if !IsNil(o.VlanTag) {
-		toSerialize["vlan-tag"] = o.VlanTag
+		toSerialize["vlan_tag"] = o.VlanTag
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -605,9 +605,9 @@ func (o *VlanInterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "arp")
 		delete(additionalProperties, "comment")
 		delete(additionalProperties, "ddns_config")
-		delete(additionalProperties, "default-value")
+		delete(additionalProperties, "default_value")
 		delete(additionalProperties, "device")
-		delete(additionalProperties, "dhcp-client")
+		delete(additionalProperties, "dhcp_client")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "interface_management_profile")
@@ -615,7 +615,7 @@ func (o *VlanInterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "snippet")
-		delete(additionalProperties, "vlan-tag")
+		delete(additionalProperties, "vlan_tag")
 		o.AdditionalProperties = additionalProperties
 	}
 

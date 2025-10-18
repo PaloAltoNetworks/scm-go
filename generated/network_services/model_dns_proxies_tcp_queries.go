@@ -24,7 +24,7 @@ type DnsProxiesTcpQueries struct {
 	// Turn on forwarding of TCP DNS queries?
 	Enabled bool `json:"enabled"`
 	// Upper limit on number of concurrent TCP DNS requests
-	MaxPendingRequests   *int32 `json:"max-pending-requests,omitempty"`
+	MaxPendingRequests   *int32 `json:"max_pending_requests,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -122,7 +122,7 @@ func (o DnsProxiesTcpQueries) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["enabled"] = o.Enabled
 	if !IsNil(o.MaxPendingRequests) {
-		toSerialize["max-pending-requests"] = o.MaxPendingRequests
+		toSerialize["max_pending_requests"] = o.MaxPendingRequests
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -168,7 +168,7 @@ func (o *DnsProxiesTcpQueries) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enabled")
-		delete(additionalProperties, "max-pending-requests")
+		delete(additionalProperties, "max_pending_requests")
 		o.AdditionalProperties = additionalProperties
 	}
 

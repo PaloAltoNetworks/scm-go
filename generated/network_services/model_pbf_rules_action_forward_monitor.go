@@ -23,7 +23,7 @@ type PbfRulesActionForwardMonitor struct {
 	// Disable this rule if nexthop/monitor ip is unreachable?
 	DisableIfUnreachable *bool `json:"disable_if_unreachable,omitempty"`
 	// Monitor IP address
-	IpAddress *string `json:"ip-address,omitempty"`
+	IpAddress *string `json:"ip_address,omitempty"`
 	// Monitoring profile
 	Profile              *string `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -158,7 +158,7 @@ func (o PbfRulesActionForwardMonitor) ToMap() (map[string]interface{}, error) {
 		toSerialize["disable_if_unreachable"] = o.DisableIfUnreachable
 	}
 	if !IsNil(o.IpAddress) {
-		toSerialize["ip-address"] = o.IpAddress
+		toSerialize["ip_address"] = o.IpAddress
 	}
 	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
@@ -186,7 +186,7 @@ func (o *PbfRulesActionForwardMonitor) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "disable_if_unreachable")
-		delete(additionalProperties, "ip-address")
+		delete(additionalProperties, "ip_address")
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
 	}

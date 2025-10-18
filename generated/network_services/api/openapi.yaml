@@ -7709,65 +7709,65 @@ components:
     agg-ethernet-dhcp-client:
       description: Aggregate Ethernet DHCP Client
       properties:
-        dhcp-client:
+        dhcp_client:
           $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
     aggregate-ethernet-interfaces:
       example:
         snippet: My Snippet
-        default-value: default-value
         folder: My Folder
         layer3:
-          lacp:
-            max-ports: 1
-            mode: passive
-            transmission-rate: slow
-            fast-failover: false
-            enable: false
-            system-priority: 39501
-          ddns-config:
-            ddns-enabled: false
-            ddns-vendor-config: ddns-vendor-config
-            ddns-hostname: ddns-hostname
-            ddns-cert-profile: ddns-cert-profile
-            ddns-update-interval: 18
-            ddns-ip: ddns-ip
-            ddns-vendor: ddns-vendor
-          dhcp-client:
+          dhcp_client:
             enable: true
-            create-default-route: true
-            send-hostname:
+            create_default_route: true
+            send_hostname:
               hostname: system-hostname
               enable: true
-            default-route-metric: 36944
+            default_route_metric: 36944
+          lacp:
+            mode: passive
+            fast_failover: false
+            transmission_rate: slow
+            enable: false
+            system_priority: 39501
+            max_ports: 1
           ip:
           - ip
           - ip
-          interface-management-profile: interface-management-profile
+          ddns_config:
+            ddns_enabled: false
+            ddns_hostname: ddns_hostname
+            ddns_vendor: ddns_vendor
+            ddns_update_interval: 18
+            ddns_ip: ddns_ip
+            ddns_cert_profile: ddns_cert_profile
+            ddns_vendor_config: ddns_vendor_config
+          interface_management_profile: interface_management_profile
           arp:
-          - hw-address: hw-address
+          - hw_address: hw_address
             name: name
-          - hw-address: hw-address
+          - hw_address: hw_address
             name: name
           mtu: 2565
         name: name
         comment: comment
+        default_value: default_value
         id: 123e4567-e89b-12d3-a456-426655440000
         layer2:
           lacp:
-            max-ports: 1
             mode: passive
-            transmission-rate: slow
-            fast-failover: false
+            fast_failover: false
+            transmission_rate: slow
             enable: false
-            system-priority: 39501
-          vlan-tag: 1466
+            system_priority: 39501
+            max_ports: 1
+          vlan_tag: 1466
         device: My Device
       properties:
         comment:
           description: Aggregate interface description
           maxLength: 1023
           type: string
-        default-value:
+        default_value:
           description: Default interface assignment
           type: string
         device:
@@ -9170,40 +9170,40 @@ components:
       - name
     ddns-config:
       properties:
-        ddns-cert-profile:
+        ddns_cert_profile:
           description: Certificate profile
           type: string
-        ddns-enabled:
+        ddns_enabled:
           default: false
           description: Enable DDNS?
           type: boolean
-        ddns-hostname:
+        ddns_hostname:
           maxLength: 255
           pattern: "^[a-zA-Z0-9_\\.\\-]+$"
           type: string
-        ddns-ip:
+        ddns_ip:
           description: IP to register (static only)
           format: ip-address
           type: string
-        ddns-update-interval:
+        ddns_update_interval:
           default: 1
           description: Update interval (days)
           maximum: 30
           minimum: 1
           type: integer
-        ddns-vendor:
+        ddns_vendor:
           description: DDNS vendor
           maxLength: 127
           type: string
-        ddns-vendor-config:
+        ddns_vendor_config:
           description: DDNS vendor
           maxLength: 255
           type: string
       required:
-      - ddns-cert-profile
-      - ddns-hostname
-      - ddns-vendor
-      - ddns-vendor-config
+      - ddns_cert_profile
+      - ddns_hostname
+      - ddns_vendor
+      - ddns_vendor_config
     dhcp-interfaces:
       example:
         snippet: My Snippet
@@ -9315,29 +9315,45 @@ components:
       example:
         snippet: My Snippet
         cache:
-          cache-edns: true
-          max-ttl:
-            time-to-live: 6974
+          max_ttl:
+            time_to_live: 6974
             enabled: false
+          cache_edns: true
           enabled: true
-        tcp-queries:
-          max-pending-requests: 179
-          enabled: false
+        static_entries:
+        - address:
+          - address
+          - address
+          domain: domain
+          name: name
+        - address:
+          - address
+          - address
+          domain: domain
+          name: name
+        udp_queries:
+          retries:
+            interval: 18
+            attempts: 5
         interface:
         - interface
         - interface
+        domain_servers:
+        - secondary: secondary
+          domain_name:
+          - domain_name
+          - domain_name
+          name: name
+          cacheable: true
+          primary: primary
+        - secondary: secondary
+          domain_name:
+          - domain_name
+          - domain_name
+          name: name
+          cacheable: true
+          primary: primary
         enabled: true
-        static-entries:
-        - address:
-          - address
-          - address
-          domain: domain
-          name: name
-        - address:
-          - address
-          - address
-          domain: domain
-          name: name
         default:
           secondary: inherited
           inheritance:
@@ -9345,27 +9361,11 @@ components:
           primary: inherited
         folder: My Folder
         name: name
-        domain-servers:
-        - domain-name:
-          - domain-name
-          - domain-name
-          secondary: secondary
-          name: name
-          cacheable: true
-          primary: primary
-        - domain-name:
-          - domain-name
-          - domain-name
-          secondary: secondary
-          name: name
-          cacheable: true
-          primary: primary
         id: 123e4567-e89b-12d3-a456-426655440000
+        tcp_queries:
+          max_pending_requests: 179
+          enabled: false
         device: My Device
-        udp-queries:
-          retries:
-            interval: 18
-            attempts: 5
       properties:
         cache:
           $ref: '#/components/schemas/dns_proxies_cache'
@@ -9377,7 +9377,7 @@ components:
           maxLength: 64
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
-        domain-servers:
+        domain_servers:
           description: DNS proxy rules
           items:
             $ref: '#/components/schemas/dns_proxies_domain_servers_inner'
@@ -9412,13 +9412,13 @@ components:
           maxLength: 64
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
-        static-entries:
+        static_entries:
           items:
             $ref: '#/components/schemas/dns_proxies_static_entries_inner'
           type: array
-        tcp-queries:
+        tcp_queries:
           $ref: '#/components/schemas/dns_proxies_tcp_queries'
-        udp-queries:
+        udp_queries:
           $ref: '#/components/schemas/dns_proxies_udp_queries'
       required:
       - default
@@ -9440,66 +9440,66 @@ components:
       x-examples: {}
     ethernet-interfaces:
       example:
-        link-state: auto
         snippet: My Snippet
-        default-value: default-value
         tap: "{}"
         poe:
-          poe-enabled: false
-          poe-rsvd-pwr: 20
-        link-speed: auto
-        link-duplex: auto
+          poe_rsvd_pwr: 20
+          poe_enabled: false
+        default_value: default_value
+        link_speed: auto
         folder: My Folder
         layer3:
-          ddns-config:
-            ddns-enabled: false
-            ddns-vendor-config: ddns-vendor-config
-            ddns-hostname: ddns-hostname
-            ddns-cert-profile: ddns-cert-profile
-            ddns-update-interval: 18
-            ddns-ip: ddns-ip
-            ddns-vendor: ddns-vendor
-          dhcp-client:
-            dhcp-client:
+          dhcp_client:
+            dhcp_client:
               enable: true
-              create-default-route: true
-              send-hostname:
+              create_default_route: true
+              send_hostname:
                 hostname: system-hostname
                 enable: true
-              default-route-metric: 9607
+              default_route_metric: 9607
           ip:
-          - ip
-          - ip
+          - name: name
+          - name: name
+          ddns_config:
+            ddns_enabled: false
+            ddns_hostname: ddns_hostname
+            ddns_vendor: ddns_vendor
+            ddns_update_interval: 18
+            ddns_ip: ddns_ip
+            ddns_cert_profile: ddns_cert_profile
+            ddns_vendor_config: ddns_vendor_config
           pppoe:
             password: password
             enable: true
             service: service
-            static-address:
-              ip: ip
-            access-concentrator: access-concentrator
-            default-route-metric: 36944
+            default_route_metric: 36944
+            access_concentrator: access_concentrator
             passive: false
+            static_address:
+              ip: ip
             authentication: CHAP
             username: username
-          interface-management-profile: interface-management-profile
+          interface_management_profile: interface_management_profile
           arp:
-          - hw-address: hw-address
+          - hw_address: hw_address
             name: name
-          - hw-address: hw-address
+          - hw_address: hw_address
             name: name
           mtu: 5727
         name: name
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
         layer2:
-          vlan-tag: 801
+          vlan_tag: 801
+        link_state: auto
         device: My Device
+        link_duplex: auto
       properties:
         comment:
           description: Interface description
           maxLength: 1023
           type: string
-        default-value:
+        default_value:
           description: Default interface assignment
           type: string
         device:
@@ -9523,7 +9523,7 @@ components:
           $ref: '#/components/schemas/ethernet_interfaces_layer2'
         layer3:
           $ref: '#/components/schemas/ethernet_interfaces_layer3'
-        link-duplex:
+        link_duplex:
           default: auto
           description: Link duplex
           enum:
@@ -9531,7 +9531,7 @@ components:
           - half
           - full
           type: string
-        link-speed:
+        link_speed:
           default: auto
           description: Link speed
           enum:
@@ -9543,7 +9543,7 @@ components:
           - "40000"
           - "100000"
           type: string
-        link-state:
+        link_state:
           default: auto
           description: Link state
           enum:
@@ -9576,15 +9576,15 @@ components:
     ethernet-interfaces-dhcp-client:
       description: Ethernet Interfaces DHCP Client
       example:
-        dhcp-client:
+        dhcp_client:
           enable: true
-          create-default-route: true
-          send-hostname:
+          create_default_route: true
+          send_hostname:
             hostname: system-hostname
             enable: true
-          default-route-metric: 9607
+          default_route_metric: 9607
       properties:
-        dhcp-client:
+        dhcp_client:
           $ref: '#/components/schemas/ethernet_interfaces_dhcp_client_dhcp_client'
     generic_error:
       properties:
@@ -9794,23 +9794,23 @@ components:
     interface-management-profiles:
       example:
         snippet: My Snippet
-        http-ocsp: true
+        userid_syslog_listener_udp: true
         ping: true
+        permitted_ip:
+        - permitted_ip
+        - permitted_ip
+        response_pages: ""
         ssh: true
-        userid-syslog-listener-udp: true
+        userid_service: true
         folder: My Folder
-        permitted-ip:
-        - permitted-ip
-        - permitted-ip
-        userid-service: true
         telnet: true
-        response-pages: ""
+        userid_syslog_listener_ssl: true
         name: name
         http: true
         https: true
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
-        userid-syslog-listener-ssl: true
+        http_ocsp: true
       properties:
         device:
           description: The device in which the resource is defined
@@ -9827,7 +9827,7 @@ components:
         http:
           description: Allow HTTP?
           type: boolean
-        http-ocsp:
+        http_ocsp:
           description: Allow HTTP OCSP?
           type: boolean
         https:
@@ -9841,7 +9841,7 @@ components:
         name:
           description: Name
           type: string
-        permitted-ip:
+        permitted_ip:
           description: Allowed IP address(es)
           items:
             type: string
@@ -9849,7 +9849,7 @@ components:
         ping:
           description: Allow ping?
           type: boolean
-        response-pages: {}
+        response_pages: {}
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
@@ -9862,13 +9862,13 @@ components:
         telnet:
           description: "Allow telnet? Seriously, why would you do this?!?"
           type: boolean
-        userid-service:
+        userid_service:
           description: Allow User-ID?
           type: boolean
-        userid-syslog-listener-ssl:
+        userid_syslog_listener_ssl:
           description: Allow User-ID syslog listener (SSL)?
           type: boolean
-        userid-syslog-listener-udp:
+        userid_syslog_listener_udp:
           description: Allow User-ID syslog listener (UDP)?
           type: boolean
       required:
@@ -10072,22 +10072,22 @@ components:
       - name
     lacp:
       example:
-        max-ports: 1
         mode: passive
-        transmission-rate: slow
-        fast-failover: false
+        fast_failover: false
+        transmission_rate: slow
         enable: false
-        system-priority: 39501
+        system_priority: 39501
+        max_ports: 1
       properties:
         enable:
           default: false
           description: Enable LACP?
           type: boolean
-        fast-failover:
+        fast_failover:
           default: false
           description: Fast failover
           type: boolean
-        max-ports:
+        max_ports:
           default: 8
           description: Maximum number of physical ports bundled in the LAG
           maximum: 8
@@ -10100,13 +10100,13 @@ components:
           - passive
           - active
           type: string
-        system-priority:
+        system_priority:
           default: 32768
           description: LACP system priority in system ID
           maximum: 65535
           minimum: 1
           type: integer
-        transmission-rate:
+        transmission_rate:
           default: slow
           description: Transmission mode
           enum:
@@ -10116,10 +10116,10 @@ components:
     layer2-subinterfaces:
       example:
         snippet: My Snippet
+        parent_interface: parent_interface
+        vlan_tag: 801.6680248229193
         folder: My Folder
-        vlan-tag: 801.6680248229193
         name: parent-interface.vlan-tag
-        parent-interface: parent-interface
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
@@ -10148,7 +10148,7 @@ components:
           description: L2 sub-interface name
           example: parent-interface.vlan-tag
           type: string
-        parent-interface:
+        parent_interface:
           description: Parent interface
           type: string
         snippet:
@@ -10157,18 +10157,17 @@ components:
           maxLength: 64
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
-        vlan-tag:
+        vlan_tag:
           description: VLAN tag
           maximum: 9999
           minimum: 1
           type: number
       required:
       - name
-      - vlan-tag
     layer3-sub-interfaces-dhcp-client:
       description: Layer3 sub interfaces DHCP Client
       properties:
-        dhcp-client:
+        dhcp_client:
           $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client'
     layer3-subinterfaces:
       example:
@@ -10179,31 +10178,31 @@ components:
         parent-interface: parent-interface
         interface_management_profile: string
         mtu: 1842.4624151545447
-        folder: My Folder
-        dhcp-client:
+        dhcp_client:
           enable: true
-          create-default-route: true
-          send-hostname:
+          create_default_route: true
+          send_hostname:
             hostname: system-hostname
             enable: true
-          default-route-metric: 39501
+          default_route_metric: 39501
+        folder: My Folder
         ddns_config:
-          ddns-enabled: false
-          ddns-vendor-config: ddns-vendor-config
-          ddns-hostname: ddns-hostname
-          ddns-cert-profile: ddns-cert-profile
-          ddns-update-interval: 3
-          ddns-ip: ddns-ip
-          ddns-vendor: ddns-vendor
+          ddns_enabled: false
+          ddns_hostname: ddns_hostname
+          ddns_vendor: ddns_vendor
+          ddns_update_interval: 3
+          ddns_ip: ddns_ip
+          ddns_cert_profile: ddns_cert_profile
+          ddns_vendor_config: ddns_vendor_config
         name: name
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
         tag: 2442.493838881763
         device: My Device
         arp:
-        - hw-address: hw-address
+        - hw_address: hw_address
           name: name
-        - hw-address: hw-address
+        - hw_address: hw_address
           name: name
       properties:
         arp:
@@ -10222,7 +10221,7 @@ components:
           maxLength: 64
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
-        dhcp-client:
+        dhcp_client:
           $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client'
         folder:
           description: The folder in which the resource is defined
@@ -15163,7 +15162,6 @@ components:
     loopback-interfaces:
       example:
         snippet: My Snippet
-        default-value: 801
         folder: My Folder
         ip:
           ip:
@@ -15172,6 +15170,7 @@ components:
         name: name
         interface_management_profile: string
         comment: comment
+        default_value: 801
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
         mtu: 5783.722142172828
@@ -15179,7 +15178,7 @@ components:
         comment:
           description: Description
           type: string
-        default-value:
+        default_value:
           description: Default interface assignment
           maximum: 9999
           minimum: 1
@@ -15462,12 +15461,12 @@ components:
           forward:
             egress_interface: egress_interface
             monitor:
-              ip-address: ip-address
               profile: profile
+              ip_address: ip_address
               disable_if_unreachable: true
             nexthop:
-              ip-address: ip-address
               fqdn: fqdn
+              ip_address: ip_address
           no_pbf: "{}"
         from:
           zone:
@@ -15558,14 +15557,14 @@ components:
           type: array
     poe:
       example:
-        poe-enabled: false
-        poe-rsvd-pwr: 20
+        poe_rsvd_pwr: 20
+        poe_enabled: false
       properties:
-        poe-enabled:
+        poe_enabled:
           default: false
           description: Enabled PoE?
           type: boolean
-        poe-rsvd-pwr:
+        poe_rsvd_pwr:
           default: 0
           description: PoE reserved power
           maximum: 90
@@ -16066,7 +16065,7 @@ components:
           latency:
             threshold: 1812
             sensitivity: medium
-          pkt-loss:
+          pkt_loss:
             threshold: 15
             sensitivity: medium
         name: name
@@ -16320,14 +16319,14 @@ components:
     sdwan-traffic-distribution-profiles:
       example:
         snippet: My Snippet
-        link-tags:
+        link_tags:
         - name: name
           weight: 8
         - name: name
           weight: 8
         folder: My Folder
+        traffic_distribution: Best Available Path
         name: name
-        traffic-distribution: Best Available Path
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
       properties:
@@ -16348,7 +16347,7 @@ components:
           example: 123e4567-e89b-12d3-a456-426655440000
           readOnly: true
           type: string
-        link-tags:
+        link_tags:
           description: Link-Tags for interfaces identified by defined tags
           items:
             $ref: '#/components/schemas/sdwan_traffic_distribution_profiles_link_tags_inner'
@@ -16363,7 +16362,7 @@ components:
           maxLength: 64
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
-        traffic-distribution:
+        traffic_distribution:
           default: Best Available Path
           description: Traffic distribution
           enum:
@@ -16372,9 +16371,7 @@ components:
           - Weighted Session Distribution
           type: string
       required:
-      - link-tags
       - name
-      - traffic-distribution
     ssl-decryption-settings:
       example:
         forward_trust_certificate:
@@ -16423,7 +16420,6 @@ components:
     tunnel-interfaces:
       example:
         snippet: My Snippet
-        default-value: 801
         folder: My Folder
         ip:
           ip:
@@ -16432,6 +16428,7 @@ components:
         name: name
         interface_management_profile: string
         comment: comment
+        default_value: 801
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
         mtu: 5783.722142172828
@@ -16439,7 +16436,7 @@ components:
         comment:
           description: Description
           type: string
-        default-value:
+        default_value:
           description: Default interface assignment
           maximum: 9999
           minimum: 1
@@ -16486,38 +16483,38 @@ components:
     vlan-interfaces:
       example:
         snippet: My Snippet
-        default-value: default-value
-        vlan-tag: 2442.493838881763
         ip:
         - ip
         - ip
         interface_management_profile: string
+        default_value: default_value
         mtu: 1842.4624151545447
-        folder: My Folder
-        dhcp-client:
+        dhcp_client:
           enable: true
-          create-default-route: true
-          send-hostname:
+          create_default_route: true
+          send_hostname:
             hostname: system-hostname
             enable: true
-          default-route-metric: 39501
+          default_route_metric: 39501
+        vlan_tag: 2442.493838881763
+        folder: My Folder
         ddns_config:
-          ddns-enabled: false
-          ddns-vendor-config: ddns-vendor-config
-          ddns-hostname: ddns-hostname
-          ddns-cert-profile: ddns-cert-profile
-          ddns-update-interval: 3
-          ddns-ip: ddns-ip
-          ddns-vendor: ddns-vendor
+          ddns_enabled: false
+          ddns_hostname: ddns_hostname
+          ddns_vendor: ddns_vendor
+          ddns_update_interval: 3
+          ddns_ip: ddns_ip
+          ddns_cert_profile: ddns_cert_profile
+          ddns_vendor_config: ddns_vendor_config
         name: name
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
         arp:
-        - hw-address: hw-address
+        - hw_address: hw_address
           name: name
           interface: interface
-        - hw-address: hw-address
+        - hw_address: hw_address
           name: name
           interface: interface
       properties:
@@ -16531,7 +16528,7 @@ components:
           type: string
         ddns_config:
           $ref: '#/components/schemas/vlan_interfaces_ddns_config'
-        default-value:
+        default_value:
           description: Default interface assignment
           type: string
         device:
@@ -16540,7 +16537,7 @@ components:
           maxLength: 64
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
-        dhcp-client:
+        dhcp_client:
           $ref: '#/components/schemas/vlan_interfaces_dhcp_client'
         folder:
           description: The folder in which the resource is defined
@@ -16575,7 +16572,7 @@ components:
           maxLength: 64
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
-        vlan-tag:
+        vlan_tag:
           description: VLAN tag
           maximum: 4096
           minimum: 1
@@ -16585,7 +16582,7 @@ components:
     vlan-interfaces-dhcp-client:
       description: Vlan interfaces DHCP Client
       properties:
-        dhcp-client:
+        dhcp_client:
           $ref: '#/components/schemas/vlan_interfaces_dhcp_client'
     zone-protection-profiles:
       example:
@@ -16977,10 +16974,10 @@ components:
       default: {}
       description: Aggregate Ethernet ARP configuration object
       example:
-        hw-address: hw-address
+        hw_address: hw_address
         name: name
       properties:
-        hw-address:
+        hw_address:
           description: MAC address
           format: mac-address
           type: string
@@ -17008,18 +17005,18 @@ components:
       description: Aggregate Ethernet DHCP Client Object
       example:
         enable: true
-        create-default-route: true
-        send-hostname:
+        create_default_route: true
+        send_hostname:
           hostname: system-hostname
           enable: true
-        default-route-metric: 36944
+        default_route_metric: 36944
       properties:
-        create-default-route:
+        create_default_route:
           default: true
           description: Automatically create default route pointing to default gateway
             provided by server
           type: boolean
-        default-route-metric:
+        default_route_metric:
           default: 10
           description: Metric of the default route created
           maximum: 65535
@@ -17029,22 +17026,22 @@ components:
           default: true
           description: Enable DHCP?
           type: boolean
-        send-hostname:
+        send_hostname:
           $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
     aggregate_ethernet_interfaces_layer2:
       example:
         lacp:
-          max-ports: 1
           mode: passive
-          transmission-rate: slow
-          fast-failover: false
+          fast_failover: false
+          transmission_rate: slow
           enable: false
-          system-priority: 39501
-        vlan-tag: 1466
+          system_priority: 39501
+          max_ports: 1
+        vlan_tag: 1466
       properties:
         lacp:
           $ref: '#/components/schemas/lacp'
-        vlan-tag:
+        vlan_tag:
           description: Assign interface to VLAN tag
           maximum: 9999
           minimum: 1
@@ -17052,80 +17049,80 @@ components:
     aggregate_ethernet_interfaces_layer3_ddns_config:
       description: Dynamic DNS configuration specific to the Aggregate Ethernet Interface.
       example:
-        ddns-enabled: false
-        ddns-vendor-config: ddns-vendor-config
-        ddns-hostname: ddns-hostname
-        ddns-cert-profile: ddns-cert-profile
-        ddns-update-interval: 18
-        ddns-ip: ddns-ip
-        ddns-vendor: ddns-vendor
+        ddns_enabled: false
+        ddns_hostname: ddns_hostname
+        ddns_vendor: ddns_vendor
+        ddns_update_interval: 18
+        ddns_ip: ddns_ip
+        ddns_cert_profile: ddns_cert_profile
+        ddns_vendor_config: ddns_vendor_config
       properties:
-        ddns-cert-profile:
+        ddns_cert_profile:
           description: Certificate profile
           type: string
-        ddns-enabled:
+        ddns_enabled:
           default: false
           description: Enable DDNS?
           type: boolean
-        ddns-hostname:
+        ddns_hostname:
           maxLength: 255
           pattern: "^[a-zA-Z0-9_\\.\\-]+$"
           type: string
-        ddns-ip:
+        ddns_ip:
           description: IP to register (static only)
           format: ip-address
           type: string
-        ddns-update-interval:
+        ddns_update_interval:
           default: 1
           description: Update interval (days)
           maximum: 30
           minimum: 1
           type: integer
-        ddns-vendor:
+        ddns_vendor:
           description: DDNS vendor
           maxLength: 127
           type: string
-        ddns-vendor-config:
+        ddns_vendor_config:
           description: DDNS vendor
           maxLength: 255
           type: string
       required:
-      - ddns-cert-profile
-      - ddns-hostname
-      - ddns-vendor
-      - ddns-vendor-config
+      - ddns_cert_profile
+      - ddns_hostname
+      - ddns_vendor
+      - ddns_vendor_config
     aggregate_ethernet_interfaces_layer3:
       example:
-        lacp:
-          max-ports: 1
-          mode: passive
-          transmission-rate: slow
-          fast-failover: false
-          enable: false
-          system-priority: 39501
-        ddns-config:
-          ddns-enabled: false
-          ddns-vendor-config: ddns-vendor-config
-          ddns-hostname: ddns-hostname
-          ddns-cert-profile: ddns-cert-profile
-          ddns-update-interval: 18
-          ddns-ip: ddns-ip
-          ddns-vendor: ddns-vendor
-        dhcp-client:
+        dhcp_client:
           enable: true
-          create-default-route: true
-          send-hostname:
+          create_default_route: true
+          send_hostname:
             hostname: system-hostname
             enable: true
-          default-route-metric: 36944
+          default_route_metric: 36944
+        lacp:
+          mode: passive
+          fast_failover: false
+          transmission_rate: slow
+          enable: false
+          system_priority: 39501
+          max_ports: 1
         ip:
         - ip
         - ip
-        interface-management-profile: interface-management-profile
+        ddns_config:
+          ddns_enabled: false
+          ddns_hostname: ddns_hostname
+          ddns_vendor: ddns_vendor
+          ddns_update_interval: 18
+          ddns_ip: ddns_ip
+          ddns_cert_profile: ddns_cert_profile
+          ddns_vendor_config: ddns_vendor_config
+        interface_management_profile: interface_management_profile
         arp:
-        - hw-address: hw-address
+        - hw_address: hw_address
           name: name
-        - hw-address: hw-address
+        - hw_address: hw_address
           name: name
         mtu: 2565
       properties:
@@ -17134,11 +17131,11 @@ components:
           items:
             $ref: '#/components/schemas/agg_ethernet_arp_inner'
           type: array
-        ddns-config:
+        ddns_config:
           $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_ddns_config'
-        dhcp-client:
+        dhcp_client:
           $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
-        interface-management-profile:
+        interface_management_profile:
           description: Interface management profile
           maxLength: 31
           type: string
@@ -20555,14 +20552,14 @@ components:
           type: array
     dns_proxies_cache_max_ttl:
       example:
-        time-to-live: 6974
+        time_to_live: 6974
         enabled: false
       properties:
         enabled:
           default: false
           description: Enable max ttl for this DNS object
           type: boolean
-        time-to-live:
+        time_to_live:
           description: Time in seconds after which entry is cleared
           maximum: 86400
           minimum: 60
@@ -20571,13 +20568,13 @@ components:
       - enabled
     dns_proxies_cache:
       example:
-        cache-edns: true
-        max-ttl:
-          time-to-live: 6974
+        max_ttl:
+          time_to_live: 6974
           enabled: false
+        cache_edns: true
         enabled: true
       properties:
-        cache-edns:
+        cache_edns:
           default: true
           description: Cache EDNS UDP response
           type: boolean
@@ -20585,7 +20582,7 @@ components:
           default: true
           description: Turn on caching for this DNS object
           type: boolean
-        max-ttl:
+        max_ttl:
           $ref: '#/components/schemas/dns_proxies_cache_max_ttl'
       required:
       - enabled
@@ -20617,10 +20614,10 @@ components:
       - primary
     dns_proxies_domain_servers_inner:
       example:
-        domain-name:
-        - domain-name
-        - domain-name
         secondary: secondary
+        domain_name:
+        - domain_name
+        - domain_name
         name: name
         cacheable: true
         primary: primary
@@ -20628,7 +20625,7 @@ components:
         cacheable:
           description: Enable caching for this DNS proxy rule?
           type: boolean
-        domain-name:
+        domain_name:
           description: Domain names(s) that will be matched
           items:
             description: Domain name
@@ -20648,7 +20645,6 @@ components:
           format: ip-address
           type: string
       required:
-      - domain-name
       - name
       - primary
     dns_proxies_static_entries_inner:
@@ -20681,14 +20677,14 @@ components:
       - name
     dns_proxies_tcp_queries:
       example:
-        max-pending-requests: 179
+        max_pending_requests: 179
         enabled: false
       properties:
         enabled:
           default: false
           description: Turn on forwarding of TCP DNS queries?
           type: boolean
-        max-pending-requests:
+        max_pending_requests:
           default: 64
           description: Upper limit on number of concurrent TCP DNS requests
           maximum: 256
@@ -20723,9 +20719,9 @@ components:
           $ref: '#/components/schemas/dns_proxies_udp_queries_retries'
     ethernet_interfaces_layer2:
       example:
-        vlan-tag: 801
+        vlan_tag: 801
       properties:
-        vlan-tag:
+        vlan_tag:
           description: Assign interface to VLAN tag
           maximum: 9999
           minimum: 1
@@ -20733,48 +20729,56 @@ components:
     ethernet_interfaces_layer3_ddns_config:
       description: Dynamic DNS configuration specific to the Ethernet Interfaces.
       example:
-        ddns-enabled: false
-        ddns-vendor-config: ddns-vendor-config
-        ddns-hostname: ddns-hostname
-        ddns-cert-profile: ddns-cert-profile
-        ddns-update-interval: 18
-        ddns-ip: ddns-ip
-        ddns-vendor: ddns-vendor
+        ddns_enabled: false
+        ddns_hostname: ddns_hostname
+        ddns_vendor: ddns_vendor
+        ddns_update_interval: 18
+        ddns_ip: ddns_ip
+        ddns_cert_profile: ddns_cert_profile
+        ddns_vendor_config: ddns_vendor_config
       properties:
-        ddns-cert-profile:
+        ddns_cert_profile:
           description: Certificate profile
           type: string
-        ddns-enabled:
+        ddns_enabled:
           default: false
           description: Enable DDNS?
           type: boolean
-        ddns-hostname:
+        ddns_hostname:
           maxLength: 255
           pattern: "^[a-zA-Z0-9_\\.\\-]+$"
           type: string
-        ddns-ip:
+        ddns_ip:
           description: IP to register (static only)
           format: ip-address
           type: string
-        ddns-update-interval:
+        ddns_update_interval:
           default: 1
           description: Update interval (days)
           maximum: 30
           minimum: 1
           type: integer
-        ddns-vendor:
+        ddns_vendor:
           description: DDNS vendor
           maxLength: 127
           type: string
-        ddns-vendor-config:
+        ddns_vendor_config:
           description: DDNS vendor
           maxLength: 255
           type: string
       required:
-      - ddns-cert-profile
-      - ddns-hostname
-      - ddns-vendor
-      - ddns-vendor-config
+      - ddns_cert_profile
+      - ddns_hostname
+      - ddns_vendor
+      - ddns_vendor_config
+    ethernet_interfaces_layer3_ip_inner:
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      required:
+      - name
     ethernet_interfaces_layer3_pppoe_static_address:
       example:
         ip: ip
@@ -20790,15 +20794,15 @@ components:
         password: password
         enable: true
         service: service
-        static-address:
-          ip: ip
-        access-concentrator: access-concentrator
-        default-route-metric: 36944
+        default_route_metric: 36944
+        access_concentrator: access_concentrator
         passive: false
+        static_address:
+          ip: ip
         authentication: CHAP
         username: username
       properties:
-        access-concentrator:
+        access_concentrator:
           description: Access concentrator
           maxLength: 255
           minLength: 1
@@ -20810,7 +20814,7 @@ components:
           - PAP
           - auto
           type: string
-        default-route-metric:
+        default_route_metric:
           default: 10
           description: Metric of the default route created
           maximum: 65535
@@ -20833,7 +20837,7 @@ components:
           maxLength: 255
           minLength: 1
           type: string
-        static-address:
+        static_address:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_pppoe_static_address'
         username:
           description: Username
@@ -20845,41 +20849,41 @@ components:
       - username
     ethernet_interfaces_layer3:
       example:
-        ddns-config:
-          ddns-enabled: false
-          ddns-vendor-config: ddns-vendor-config
-          ddns-hostname: ddns-hostname
-          ddns-cert-profile: ddns-cert-profile
-          ddns-update-interval: 18
-          ddns-ip: ddns-ip
-          ddns-vendor: ddns-vendor
-        dhcp-client:
-          dhcp-client:
+        dhcp_client:
+          dhcp_client:
             enable: true
-            create-default-route: true
-            send-hostname:
+            create_default_route: true
+            send_hostname:
               hostname: system-hostname
               enable: true
-            default-route-metric: 9607
+            default_route_metric: 9607
         ip:
-        - ip
-        - ip
+        - name: name
+        - name: name
+        ddns_config:
+          ddns_enabled: false
+          ddns_hostname: ddns_hostname
+          ddns_vendor: ddns_vendor
+          ddns_update_interval: 18
+          ddns_ip: ddns_ip
+          ddns_cert_profile: ddns_cert_profile
+          ddns_vendor_config: ddns_vendor_config
         pppoe:
           password: password
           enable: true
           service: service
-          static-address:
-            ip: ip
-          access-concentrator: access-concentrator
-          default-route-metric: 36944
+          default_route_metric: 36944
+          access_concentrator: access_concentrator
           passive: false
+          static_address:
+            ip: ip
           authentication: CHAP
           username: username
-        interface-management-profile: interface-management-profile
+        interface_management_profile: interface_management_profile
         arp:
-        - hw-address: hw-address
+        - hw_address: hw_address
           name: name
-        - hw-address: hw-address
+        - hw_address: hw_address
           name: name
         mtu: 5727
       properties:
@@ -20888,18 +20892,18 @@ components:
           items:
             $ref: '#/components/schemas/ethernet_interfaces_arp_inner'
           type: array
-        ddns-config:
+        ddns_config:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_ddns_config'
-        dhcp-client:
+        dhcp_client:
           $ref: '#/components/schemas/ethernet-interfaces-dhcp-client'
-        interface-management-profile:
+        interface_management_profile:
           description: Interface management profile
           maxLength: 31
           type: string
         ip:
           description: Interface IP addresses
           items:
-            type: string
+            $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
           type: array
         mtu:
           default: 1500
@@ -20913,10 +20917,10 @@ components:
       default: {}
       description: Ethernet Interfaces ARP configuration object
       example:
-        hw-address: hw-address
+        hw_address: hw_address
         name: name
       properties:
-        hw-address:
+        hw_address:
           description: MAC address
           format: mac-address
           type: string
@@ -20944,18 +20948,18 @@ components:
       description: Ethernet Interfaces DHCP Client Object
       example:
         enable: true
-        create-default-route: true
-        send-hostname:
+        create_default_route: true
+        send_hostname:
           hostname: system-hostname
           enable: true
-        default-route-metric: 9607
+        default_route_metric: 9607
       properties:
-        create-default-route:
+        create_default_route:
           default: true
           description: Automatically create default route pointing to default gateway
             provided by server
           type: boolean
-        default-route-metric:
+        default_route_metric:
           default: 10
           description: Metric of the default route created
           maximum: 65535
@@ -20965,7 +20969,7 @@ components:
           default: true
           description: Enable DHCP?
           type: boolean
-        send-hostname:
+        send_hostname:
           $ref: '#/components/schemas/ethernet_interfaces_dhcp_client_dhcp_client_send_hostname'
     ike_crypto_profiles_lifetime:
       description: Ike crypto profile lifetime
@@ -21533,18 +21537,18 @@ components:
       description: Layer3 sub interfaces DHCP Client Object
       example:
         enable: true
-        create-default-route: true
-        send-hostname:
+        create_default_route: true
+        send_hostname:
           hostname: system-hostname
           enable: true
-        default-route-metric: 39501
+        default_route_metric: 39501
       properties:
-        create-default-route:
+        create_default_route:
           default: true
           description: Automatically create default route pointing to default gateway
             provided by server
           type: boolean
-        default-route-metric:
+        default_route_metric:
           default: 10
           description: Metric of the default route created
           maximum: 65535
@@ -21554,61 +21558,61 @@ components:
           default: true
           description: Enable DHCP?
           type: boolean
-        send-hostname:
+        send_hostname:
           $ref: '#/components/schemas/layer3_sub_interfaces_dhcp_client_dhcp_client_send_hostname'
     layer3_subinterfaces_ddns_config:
       description: Dynamic DNS configuration specific to the Layer 3 sub Interfaces.
       example:
-        ddns-enabled: false
-        ddns-vendor-config: ddns-vendor-config
-        ddns-hostname: ddns-hostname
-        ddns-cert-profile: ddns-cert-profile
-        ddns-update-interval: 3
-        ddns-ip: ddns-ip
-        ddns-vendor: ddns-vendor
+        ddns_enabled: false
+        ddns_hostname: ddns_hostname
+        ddns_vendor: ddns_vendor
+        ddns_update_interval: 3
+        ddns_ip: ddns_ip
+        ddns_cert_profile: ddns_cert_profile
+        ddns_vendor_config: ddns_vendor_config
       properties:
-        ddns-cert-profile:
+        ddns_cert_profile:
           description: Certificate profile
           type: string
-        ddns-enabled:
+        ddns_enabled:
           default: false
           description: Enable DDNS?
           type: boolean
-        ddns-hostname:
+        ddns_hostname:
           maxLength: 255
           pattern: "^[a-zA-Z0-9_\\.\\-]+$"
           type: string
-        ddns-ip:
+        ddns_ip:
           description: IP to register (static only)
           format: ip-address
           type: string
-        ddns-update-interval:
+        ddns_update_interval:
           default: 1
           description: Update interval (days)
           maximum: 30
           minimum: 1
           type: integer
-        ddns-vendor:
+        ddns_vendor:
           description: DDNS vendor
           maxLength: 127
           type: string
-        ddns-vendor-config:
+        ddns_vendor_config:
           description: DDNS vendor
           maxLength: 255
           type: string
       required:
-      - ddns-cert-profile
-      - ddns-hostname
-      - ddns-vendor
-      - ddns-vendor-config
+      - ddns_cert_profile
+      - ddns_hostname
+      - ddns_vendor
+      - ddns_vendor_config
     layer3_subinterfaces_arp_inner:
       default: {}
       description: Layer 3 sub Interfaces ARP configuration object
       example:
-        hw-address: hw-address
+        hw_address: hw_address
         name: name
       properties:
-        hw-address:
+        hw_address:
           description: MAC address
           format: mac-address
           type: string
@@ -26216,14 +26220,6 @@ components:
           - "2"
           - "3"
           type: string
-    logical_routers_vrf_inner_multicast_interface_group_inner_pim_allowed_neighbors_inner:
-      example:
-        name: name
-      properties:
-        name:
-          type: string
-      required:
-      - name
     logical_routers_vrf_inner_multicast_interface_group_inner_pim:
       example:
         dr_priority: 7.04836565559697
@@ -26238,7 +26234,7 @@ components:
       properties:
         allowed_neighbors:
           items:
-            $ref: '#/components/schemas/logical_routers_vrf_inner_multicast_interface_group_inner_pim_allowed_neighbors_inner'
+            $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
           type: array
         assert_interval:
           type: number
@@ -28208,7 +28204,7 @@ components:
           type: string
         neighbor:
           items:
-            $ref: '#/components/schemas/logical_routers_vrf_inner_multicast_interface_group_inner_pim_allowed_neighbors_inner'
+            $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
           type: array
         passive:
           type: boolean
@@ -32436,14 +32432,14 @@ components:
           type: boolean
     pbf_rules_action_forward_monitor:
       example:
-        ip-address: ip-address
         profile: profile
+        ip_address: ip_address
         disable_if_unreachable: true
       properties:
         disable_if_unreachable:
           description: Disable this rule if nexthop/monitor ip is unreachable?
           type: boolean
-        ip-address:
+        ip_address:
           description: Monitor IP address
           type: string
         profile:
@@ -32451,25 +32447,25 @@ components:
           type: string
     pbf_rules_action_forward_nexthop:
       example:
-        ip-address: ip-address
         fqdn: fqdn
+        ip_address: ip_address
       properties:
         fqdn:
           description: Next hop FQDN
           type: string
-        ip-address:
+        ip_address:
           description: Next hop IP address
           type: string
     pbf_rules_action_forward:
       example:
         egress_interface: egress_interface
         monitor:
-          ip-address: ip-address
           profile: profile
+          ip_address: ip_address
           disable_if_unreachable: true
         nexthop:
-          ip-address: ip-address
           fqdn: fqdn
+          ip_address: ip_address
       properties:
         egress_interface:
           description: Egress interface
@@ -32484,12 +32480,12 @@ components:
         forward:
           egress_interface: egress_interface
           monitor:
-            ip-address: ip-address
             profile: profile
+            ip_address: ip_address
             disable_if_unreachable: true
           nexthop:
-            ip-address: ip-address
             fqdn: fqdn
+            ip_address: ip_address
         no_pbf: "{}"
       properties:
         discard:
@@ -33333,7 +33329,7 @@ components:
         latency:
           threshold: 1812
           sensitivity: medium
-        pkt-loss:
+        pkt_loss:
           threshold: 15
           sensitivity: medium
       properties:
@@ -33341,12 +33337,11 @@ components:
           $ref: '#/components/schemas/sdwan_path_quality_profiles_metric_jitter'
         latency:
           $ref: '#/components/schemas/sdwan_path_quality_profiles_metric_latency'
-        pkt-loss:
+        pkt_loss:
           $ref: '#/components/schemas/sdwan_path_quality_profiles_metric_pkt_loss'
       required:
       - jitter
       - latency
-      - pkt-loss
     sdwan_rules_action:
       example:
         traffic_distribution_profile: traffic_distribution_profile
@@ -33499,11 +33494,11 @@ components:
           type: array
     vlan_interfaces_arp_inner:
       example:
-        hw-address: hw-address
+        hw_address: hw_address
         name: name
         interface: interface
       properties:
-        hw-address:
+        hw_address:
           description: MAC address
           format: mac-address
           type: string
@@ -33517,48 +33512,48 @@ components:
     vlan_interfaces_ddns_config:
       description: Dynamic DNS configuration specific to the Vlan Interfaces.
       example:
-        ddns-enabled: false
-        ddns-vendor-config: ddns-vendor-config
-        ddns-hostname: ddns-hostname
-        ddns-cert-profile: ddns-cert-profile
-        ddns-update-interval: 3
-        ddns-ip: ddns-ip
-        ddns-vendor: ddns-vendor
+        ddns_enabled: false
+        ddns_hostname: ddns_hostname
+        ddns_vendor: ddns_vendor
+        ddns_update_interval: 3
+        ddns_ip: ddns_ip
+        ddns_cert_profile: ddns_cert_profile
+        ddns_vendor_config: ddns_vendor_config
       properties:
-        ddns-cert-profile:
+        ddns_cert_profile:
           description: Certificate profile
           type: string
-        ddns-enabled:
+        ddns_enabled:
           default: false
           description: Enable DDNS?
           type: boolean
-        ddns-hostname:
+        ddns_hostname:
           maxLength: 255
           pattern: "^[a-zA-Z0-9_\\.\\-]+$"
           type: string
-        ddns-ip:
+        ddns_ip:
           description: IP to register (static only)
           format: ip-address
           type: string
-        ddns-update-interval:
+        ddns_update_interval:
           default: 1
           description: Update interval (days)
           maximum: 30
           minimum: 1
           type: integer
-        ddns-vendor:
+        ddns_vendor:
           description: DDNS vendor
           maxLength: 127
           type: string
-        ddns-vendor-config:
+        ddns_vendor_config:
           description: DDNS vendor
           maxLength: 255
           type: string
       required:
-      - ddns-cert-profile
-      - ddns-hostname
-      - ddns-vendor
-      - ddns-vendor-config
+      - ddns_cert_profile
+      - ddns_hostname
+      - ddns_vendor
+      - ddns_vendor_config
     vlan_interfaces_dhcp_client_send_hostname:
       description: Send hostname
       example:
@@ -33579,18 +33574,18 @@ components:
       description: Vlan interfaces DHCP Client Object
       example:
         enable: true
-        create-default-route: true
-        send-hostname:
+        create_default_route: true
+        send_hostname:
           hostname: system-hostname
           enable: true
-        default-route-metric: 39501
+        default_route_metric: 39501
       properties:
-        create-default-route:
+        create_default_route:
           default: true
           description: Automatically create default route pointing to default gateway
             provided by server
           type: boolean
-        default-route-metric:
+        default_route_metric:
           default: 10
           description: Metric of the default route created
           maximum: 65535
@@ -33600,7 +33595,7 @@ components:
           default: true
           description: Enable DHCP?
           type: boolean
-        send-hostname:
+        send_hostname:
           $ref: '#/components/schemas/vlan_interfaces_dhcp_client_send_hostname'
     zone_protection_profiles_flood_icmp_red:
       example:

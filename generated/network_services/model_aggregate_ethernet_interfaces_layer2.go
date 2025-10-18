@@ -22,7 +22,7 @@ var _ MappedNullable = &AggregateEthernetInterfacesLayer2{}
 type AggregateEthernetInterfacesLayer2 struct {
 	Lacp *Lacp `json:"lacp,omitempty"`
 	// Assign interface to VLAN tag
-	VlanTag              *int32 `json:"vlan-tag,omitempty"`
+	VlanTag              *int32 `json:"vlan_tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -123,7 +123,7 @@ func (o AggregateEthernetInterfacesLayer2) ToMap() (map[string]interface{}, erro
 		toSerialize["lacp"] = o.Lacp
 	}
 	if !IsNil(o.VlanTag) {
-		toSerialize["vlan-tag"] = o.VlanTag
+		toSerialize["vlan_tag"] = o.VlanTag
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -148,7 +148,7 @@ func (o *AggregateEthernetInterfacesLayer2) UnmarshalJSON(data []byte) (err erro
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lacp")
-		delete(additionalProperties, "vlan-tag")
+		delete(additionalProperties, "vlan_tag")
 		o.AdditionalProperties = additionalProperties
 	}
 

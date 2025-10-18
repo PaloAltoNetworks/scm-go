@@ -24,7 +24,7 @@ type DnsProxiesDomainServersInner struct {
 	// Enable caching for this DNS proxy rule?
 	Cacheable *bool `json:"cacheable,omitempty"`
 	// Domain names(s) that will be matched
-	DomainName []string `json:"domain-name"`
+	DomainName []string `json:"domain_name,omitempty"`
 	// Proxy rule name
 	Name string `json:"name"`
 	// Primary DNS server IP address
@@ -40,9 +40,8 @@ type _DnsProxiesDomainServersInner DnsProxiesDomainServersInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDnsProxiesDomainServersInner(domainName []string, name string, primary string) *DnsProxiesDomainServersInner {
+func NewDnsProxiesDomainServersInner(name string, primary string) *DnsProxiesDomainServersInner {
 	this := DnsProxiesDomainServersInner{}
-	this.DomainName = domainName
 	this.Name = name
 	this.Primary = primary
 	return &this
@@ -88,26 +87,34 @@ func (o *DnsProxiesDomainServersInner) SetCacheable(v bool) {
 	o.Cacheable = &v
 }
 
-// GetDomainName returns the DomainName field value
+// GetDomainName returns the DomainName field value if set, zero value otherwise.
 func (o *DnsProxiesDomainServersInner) GetDomainName() []string {
-	if o == nil {
+	if o == nil || IsNil(o.DomainName) {
 		var ret []string
 		return ret
 	}
-
 	return o.DomainName
 }
 
-// GetDomainNameOk returns a tuple with the DomainName field value
+// GetDomainNameOk returns a tuple with the DomainName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DnsProxiesDomainServersInner) GetDomainNameOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DomainName) {
 		return nil, false
 	}
 	return o.DomainName, true
 }
 
-// SetDomainName sets field value
+// HasDomainName returns a boolean if a field has been set.
+func (o *DnsProxiesDomainServersInner) HasDomainName() bool {
+	if o != nil && !IsNil(o.DomainName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDomainName gets a reference to the given []string and assigns it to the DomainName field.
 func (o *DnsProxiesDomainServersInner) SetDomainName(v []string) {
 	o.DomainName = v
 }
@@ -205,7 +212,9 @@ func (o DnsProxiesDomainServersInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Cacheable) {
 		toSerialize["cacheable"] = o.Cacheable
 	}
-	toSerialize["domain-name"] = o.DomainName
+	if !IsNil(o.DomainName) {
+		toSerialize["domain_name"] = o.DomainName
+	}
 	toSerialize["name"] = o.Name
 	toSerialize["primary"] = o.Primary
 	if !IsNil(o.Secondary) {
@@ -224,7 +233,6 @@ func (o *DnsProxiesDomainServersInner) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"domain-name",
 		"name",
 		"primary",
 	}
@@ -257,7 +265,7 @@ func (o *DnsProxiesDomainServersInner) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "cacheable")
-		delete(additionalProperties, "domain-name")
+		delete(additionalProperties, "domain_name")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "primary")
 		delete(additionalProperties, "secondary")

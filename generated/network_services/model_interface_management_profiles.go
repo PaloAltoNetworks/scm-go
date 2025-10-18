@@ -28,7 +28,7 @@ type InterfaceManagementProfiles struct {
 	// Allow HTTP?
 	Http *bool `json:"http,omitempty"`
 	// Allow HTTP OCSP?
-	HttpOcsp *bool `json:"http-ocsp,omitempty"`
+	HttpOcsp *bool `json:"http_ocsp,omitempty"`
 	// Allow HTTPS?
 	Https *bool `json:"https,omitempty"`
 	// UUID of the resource
@@ -36,10 +36,10 @@ type InterfaceManagementProfiles struct {
 	// Name
 	Name string `json:"name"`
 	// Allowed IP address(es)
-	PermittedIp []string `json:"permitted-ip,omitempty"`
+	PermittedIp []string `json:"permitted_ip,omitempty"`
 	// Allow ping?
 	Ping          *bool       `json:"ping,omitempty"`
-	ResponsePages interface{} `json:"response-pages,omitempty"`
+	ResponsePages interface{} `json:"response_pages,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Allow SSH?
@@ -47,11 +47,11 @@ type InterfaceManagementProfiles struct {
 	// Allow telnet? Seriously, why would you do this?!?
 	Telnet *bool `json:"telnet,omitempty"`
 	// Allow User-ID?
-	UseridService *bool `json:"userid-service,omitempty"`
+	UseridService *bool `json:"userid_service,omitempty"`
 	// Allow User-ID syslog listener (SSL)?
-	UseridSyslogListenerSsl *bool `json:"userid-syslog-listener-ssl,omitempty"`
+	UseridSyslogListenerSsl *bool `json:"userid_syslog_listener_ssl,omitempty"`
 	// Allow User-ID syslog listener (UDP)?
-	UseridSyslogListenerUdp *bool `json:"userid-syslog-listener-udp,omitempty"`
+	UseridSyslogListenerUdp *bool `json:"userid_syslog_listener_udp,omitempty"`
 	AdditionalProperties    map[string]interface{}
 }
 
@@ -600,7 +600,7 @@ func (o InterfaceManagementProfiles) ToMap() (map[string]interface{}, error) {
 		toSerialize["http"] = o.Http
 	}
 	if !IsNil(o.HttpOcsp) {
-		toSerialize["http-ocsp"] = o.HttpOcsp
+		toSerialize["http_ocsp"] = o.HttpOcsp
 	}
 	if !IsNil(o.Https) {
 		toSerialize["https"] = o.Https
@@ -610,13 +610,13 @@ func (o InterfaceManagementProfiles) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.PermittedIp) {
-		toSerialize["permitted-ip"] = o.PermittedIp
+		toSerialize["permitted_ip"] = o.PermittedIp
 	}
 	if !IsNil(o.Ping) {
 		toSerialize["ping"] = o.Ping
 	}
 	if o.ResponsePages != nil {
-		toSerialize["response-pages"] = o.ResponsePages
+		toSerialize["response_pages"] = o.ResponsePages
 	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
@@ -628,13 +628,13 @@ func (o InterfaceManagementProfiles) ToMap() (map[string]interface{}, error) {
 		toSerialize["telnet"] = o.Telnet
 	}
 	if !IsNil(o.UseridService) {
-		toSerialize["userid-service"] = o.UseridService
+		toSerialize["userid_service"] = o.UseridService
 	}
 	if !IsNil(o.UseridSyslogListenerSsl) {
-		toSerialize["userid-syslog-listener-ssl"] = o.UseridSyslogListenerSsl
+		toSerialize["userid_syslog_listener_ssl"] = o.UseridSyslogListenerSsl
 	}
 	if !IsNil(o.UseridSyslogListenerUdp) {
-		toSerialize["userid-syslog-listener-udp"] = o.UseridSyslogListenerUdp
+		toSerialize["userid_syslog_listener_udp"] = o.UseridSyslogListenerUdp
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -682,19 +682,19 @@ func (o *InterfaceManagementProfiles) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "http")
-		delete(additionalProperties, "http-ocsp")
+		delete(additionalProperties, "http_ocsp")
 		delete(additionalProperties, "https")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
-		delete(additionalProperties, "permitted-ip")
+		delete(additionalProperties, "permitted_ip")
 		delete(additionalProperties, "ping")
-		delete(additionalProperties, "response-pages")
+		delete(additionalProperties, "response_pages")
 		delete(additionalProperties, "snippet")
 		delete(additionalProperties, "ssh")
 		delete(additionalProperties, "telnet")
-		delete(additionalProperties, "userid-service")
-		delete(additionalProperties, "userid-syslog-listener-ssl")
-		delete(additionalProperties, "userid-syslog-listener-udp")
+		delete(additionalProperties, "userid_service")
+		delete(additionalProperties, "userid_syslog_listener_ssl")
+		delete(additionalProperties, "userid_syslog_listener_udp")
 		o.AdditionalProperties = additionalProperties
 	}
 

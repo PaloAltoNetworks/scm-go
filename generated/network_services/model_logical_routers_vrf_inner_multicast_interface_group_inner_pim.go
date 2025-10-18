@@ -20,13 +20,13 @@ var _ MappedNullable = &LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim{}
 
 // LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim struct for LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim
 type LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim struct {
-	AllowedNeighbors     []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner `json:"allowed_neighbors,omitempty"`
-	AssertInterval       *float32                                                                     `json:"assert_interval,omitempty"`
-	BsrBorder            *bool                                                                        `json:"bsr_border,omitempty"`
-	DrPriority           *float32                                                                     `json:"dr_priority,omitempty"`
-	Enable               *bool                                                                        `json:"enable,omitempty"`
-	HelloInterval        *float32                                                                     `json:"hello_interval,omitempty"`
-	JoinPruneInterval    *float32                                                                     `json:"join_prune_interval,omitempty"`
+	AllowedNeighbors     []EthernetInterfacesLayer3IpInner `json:"allowed_neighbors,omitempty"`
+	AssertInterval       *float32                          `json:"assert_interval,omitempty"`
+	BsrBorder            *bool                             `json:"bsr_border,omitempty"`
+	DrPriority           *float32                          `json:"dr_priority,omitempty"`
+	Enable               *bool                             `json:"enable,omitempty"`
+	HelloInterval        *float32                          `json:"hello_interval,omitempty"`
+	JoinPruneInterval    *float32                          `json:"join_prune_interval,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -50,9 +50,9 @@ func NewLogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimWithDefaults() *Log
 }
 
 // GetAllowedNeighbors returns the AllowedNeighbors field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighbors() []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighbors() []EthernetInterfacesLayer3IpInner {
 	if o == nil || IsNil(o.AllowedNeighbors) {
-		var ret []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner
+		var ret []EthernetInterfacesLayer3IpInner
 		return ret
 	}
 	return o.AllowedNeighbors
@@ -60,7 +60,7 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighb
 
 // GetAllowedNeighborsOk returns a tuple with the AllowedNeighbors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighborsOk() ([]LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner, bool) {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighborsOk() ([]EthernetInterfacesLayer3IpInner, bool) {
 	if o == nil || IsNil(o.AllowedNeighbors) {
 		return nil, false
 	}
@@ -76,8 +76,8 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) HasAllowedNeighb
 	return false
 }
 
-// SetAllowedNeighbors gets a reference to the given []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner and assigns it to the AllowedNeighbors field.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetAllowedNeighbors(v []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner) {
+// SetAllowedNeighbors gets a reference to the given []EthernetInterfacesLayer3IpInner and assigns it to the AllowedNeighbors field.
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetAllowedNeighbors(v []EthernetInterfacesLayer3IpInner) {
 	o.AllowedNeighbors = v
 }
 

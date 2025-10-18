@@ -21,19 +21,19 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner{}
 
 // LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner struct for LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner
 type LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner struct {
-	Authentication       *string                                                                      `json:"authentication,omitempty"`
-	Bfd                  *LogicalRoutersVrfInnerBgpGlobalBfd                                          `json:"bfd,omitempty"`
-	Enable               *bool                                                                        `json:"enable,omitempty"`
-	InstanceId           *float32                                                                     `json:"instance_id,omitempty"`
-	LinkType             *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkType                   `json:"link_type,omitempty"`
-	Metric               *float32                                                                     `json:"metric,omitempty"`
-	MtuIgnore            *bool                                                                        `json:"mtu_ignore,omitempty"`
-	Name                 string                                                                       `json:"name"`
-	Neighbor             []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner `json:"neighbor,omitempty"`
-	Passive              *bool                                                                        `json:"passive,omitempty"`
-	Priority             *float32                                                                     `json:"priority,omitempty"`
-	Timing               *string                                                                      `json:"timing,omitempty"`
-	VrTiming             *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming                   `json:"vr_timing,omitempty"`
+	Authentication       *string                                                    `json:"authentication,omitempty"`
+	Bfd                  *LogicalRoutersVrfInnerBgpGlobalBfd                        `json:"bfd,omitempty"`
+	Enable               *bool                                                      `json:"enable,omitempty"`
+	InstanceId           *float32                                                   `json:"instance_id,omitempty"`
+	LinkType             *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkType `json:"link_type,omitempty"`
+	Metric               *float32                                                   `json:"metric,omitempty"`
+	MtuIgnore            *bool                                                      `json:"mtu_ignore,omitempty"`
+	Name                 string                                                     `json:"name"`
+	Neighbor             []EthernetInterfacesLayer3IpInner                          `json:"neighbor,omitempty"`
+	Passive              *bool                                                      `json:"passive,omitempty"`
+	Priority             *float32                                                   `json:"priority,omitempty"`
+	Timing               *string                                                    `json:"timing,omitempty"`
+	VrTiming             *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming `json:"vr_timing,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -306,9 +306,9 @@ func (o *LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner) SetName(v string) 
 }
 
 // GetNeighbor returns the Neighbor field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner) GetNeighbor() []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner {
+func (o *LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner) GetNeighbor() []EthernetInterfacesLayer3IpInner {
 	if o == nil || IsNil(o.Neighbor) {
-		var ret []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner
+		var ret []EthernetInterfacesLayer3IpInner
 		return ret
 	}
 	return o.Neighbor
@@ -316,7 +316,7 @@ func (o *LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner) GetNeighbor() []Lo
 
 // GetNeighborOk returns a tuple with the Neighbor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner) GetNeighborOk() ([]LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner, bool) {
+func (o *LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner) GetNeighborOk() ([]EthernetInterfacesLayer3IpInner, bool) {
 	if o == nil || IsNil(o.Neighbor) {
 		return nil, false
 	}
@@ -332,8 +332,8 @@ func (o *LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner) HasNeighbor() bool
 	return false
 }
 
-// SetNeighbor gets a reference to the given []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner and assigns it to the Neighbor field.
-func (o *LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner) SetNeighbor(v []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner) {
+// SetNeighbor gets a reference to the given []EthernetInterfacesLayer3IpInner and assigns it to the Neighbor field.
+func (o *LogicalRoutersVrfInnerOspfv3AreaInnerInterfaceInner) SetNeighbor(v []EthernetInterfacesLayer3IpInner) {
 	o.Neighbor = v
 }
 

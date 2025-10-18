@@ -28,7 +28,7 @@ type Layer3Subinterfaces struct {
 	DdnsConfig *Layer3SubinterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// The device in which the resource is defined
 	Device     *string                                  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	DhcpClient *Layer3SubInterfacesDhcpClientDhcpClient `json:"dhcp-client,omitempty"`
+	DhcpClient *Layer3SubInterfacesDhcpClientDhcpClient `json:"dhcp_client,omitempty"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
@@ -532,7 +532,7 @@ func (o Layer3Subinterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["device"] = o.Device
 	}
 	if !IsNil(o.DhcpClient) {
-		toSerialize["dhcp-client"] = o.DhcpClient
+		toSerialize["dhcp_client"] = o.DhcpClient
 	}
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
@@ -606,7 +606,7 @@ func (o *Layer3Subinterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "comment")
 		delete(additionalProperties, "ddns_config")
 		delete(additionalProperties, "device")
-		delete(additionalProperties, "dhcp-client")
+		delete(additionalProperties, "dhcp_client")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "interface_management_profile")

@@ -20,7 +20,7 @@ var _ MappedNullable = &AggEthernetDhcpClient{}
 
 // AggEthernetDhcpClient Aggregate Ethernet DHCP Client
 type AggEthernetDhcpClient struct {
-	DhcpClient           *AggEthernetDhcpClientDhcpClient `json:"dhcp-client,omitempty"`
+	DhcpClient           *AggEthernetDhcpClientDhcpClient `json:"dhcp_client,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -86,7 +86,7 @@ func (o AggEthernetDhcpClient) MarshalJSON() ([]byte, error) {
 func (o AggEthernetDhcpClient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.DhcpClient) {
-		toSerialize["dhcp-client"] = o.DhcpClient
+		toSerialize["dhcp_client"] = o.DhcpClient
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -110,7 +110,7 @@ func (o *AggEthernetDhcpClient) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "dhcp-client")
+		delete(additionalProperties, "dhcp_client")
 		o.AdditionalProperties = additionalProperties
 	}
 
