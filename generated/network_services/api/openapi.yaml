@@ -9450,13 +9450,12 @@ components:
         folder: My Folder
         layer3:
           dhcp_client:
-            dhcp_client:
+            enable: true
+            create_default_route: true
+            send_hostname:
+              hostname: system-hostname
               enable: true
-              create_default_route: true
-              send_hostname:
-                hostname: system-hostname
-                enable: true
-              default_route_metric: 9607
+            default_route_metric: 9607
           ip:
           - name: name
           - name: name
@@ -9575,17 +9574,9 @@ components:
       type: array
     ethernet-interfaces-dhcp-client:
       description: Ethernet Interfaces DHCP Client
-      example:
-        dhcp_client:
-          enable: true
-          create_default_route: true
-          send_hostname:
-            hostname: system-hostname
-            enable: true
-          default_route_metric: 9607
       properties:
         dhcp_client:
-          $ref: '#/components/schemas/ethernet_interfaces_dhcp_client_dhcp_client'
+          $ref: '#/components/schemas/ethernet_interfaces_layer3_dhcp_client'
     generic_error:
       properties:
         _errors:
@@ -20771,6 +20762,49 @@ components:
       - ddns_hostname
       - ddns_vendor
       - ddns_vendor_config
+    ethernet_interfaces_layer3_dhcp_client_send_hostname:
+      description: Ethernet Interfaces DHCP ClientSend hostname
+      example:
+        hostname: system-hostname
+        enable: true
+      properties:
+        enable:
+          default: true
+          type: boolean
+        hostname:
+          default: system-hostname
+          description: Set interface hostname
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\._-]+$"
+          type: string
+    ethernet_interfaces_layer3_dhcp_client:
+      description: Ethernet Interfaces DHCP Client Object
+      example:
+        enable: true
+        create_default_route: true
+        send_hostname:
+          hostname: system-hostname
+          enable: true
+        default_route_metric: 9607
+      properties:
+        create_default_route:
+          default: true
+          description: Automatically create default route pointing to default gateway
+            provided by server
+          type: boolean
+        default_route_metric:
+          default: 10
+          description: Metric of the default route created
+          maximum: 65535
+          minimum: 1
+          type: integer
+        enable:
+          default: true
+          description: Enable DHCP?
+          type: boolean
+        send_hostname:
+          $ref: '#/components/schemas/ethernet_interfaces_layer3_dhcp_client_send_hostname'
     ethernet_interfaces_layer3_ip_inner:
       example:
         name: name
@@ -20850,13 +20884,12 @@ components:
     ethernet_interfaces_layer3:
       example:
         dhcp_client:
-          dhcp_client:
+          enable: true
+          create_default_route: true
+          send_hostname:
+            hostname: system-hostname
             enable: true
-            create_default_route: true
-            send_hostname:
-              hostname: system-hostname
-              enable: true
-            default_route_metric: 9607
+          default_route_metric: 9607
         ip:
         - name: name
         - name: name
@@ -20895,7 +20928,7 @@ components:
         ddns_config:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_ddns_config'
         dhcp_client:
-          $ref: '#/components/schemas/ethernet-interfaces-dhcp-client'
+          $ref: '#/components/schemas/ethernet_interfaces_layer3_dhcp_client'
         interface_management_profile:
           description: Interface management profile
           maxLength: 31
@@ -20928,49 +20961,6 @@ components:
           description: IP address
           format: ip-address
           type: string
-    ethernet_interfaces_dhcp_client_dhcp_client_send_hostname:
-      description: Ethernet Interfaces DHCP ClientSend hostname
-      example:
-        hostname: system-hostname
-        enable: true
-      properties:
-        enable:
-          default: true
-          type: boolean
-        hostname:
-          default: system-hostname
-          description: Set interface hostname
-          maxLength: 64
-          minLength: 1
-          pattern: "^[a-zA-Z0-9\\._-]+$"
-          type: string
-    ethernet_interfaces_dhcp_client_dhcp_client:
-      description: Ethernet Interfaces DHCP Client Object
-      example:
-        enable: true
-        create_default_route: true
-        send_hostname:
-          hostname: system-hostname
-          enable: true
-        default_route_metric: 9607
-      properties:
-        create_default_route:
-          default: true
-          description: Automatically create default route pointing to default gateway
-            provided by server
-          type: boolean
-        default_route_metric:
-          default: 10
-          description: Metric of the default route created
-          maximum: 65535
-          minimum: 1
-          type: integer
-        enable:
-          default: true
-          description: Enable DHCP?
-          type: boolean
-        send_hostname:
-          $ref: '#/components/schemas/ethernet_interfaces_dhcp_client_dhcp_client_send_hostname'
     ike_crypto_profiles_lifetime:
       description: Ike crypto profile lifetime
       example:

@@ -23,7 +23,7 @@ type EthernetInterfacesLayer3 struct {
 	// Ethernet Interfaces ARP configuration
 	Arp        []EthernetInterfacesArpInner        `json:"arp,omitempty"`
 	DdnsConfig *EthernetInterfacesLayer3DdnsConfig `json:"ddns_config,omitempty"`
-	DhcpClient *EthernetInterfacesDhcpClient       `json:"dhcp_client,omitempty"`
+	DhcpClient *EthernetInterfacesLayer3DhcpClient `json:"dhcp_client,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
 	// Interface IP addresses
@@ -122,9 +122,9 @@ func (o *EthernetInterfacesLayer3) SetDdnsConfig(v EthernetInterfacesLayer3DdnsC
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetDhcpClient() EthernetInterfacesDhcpClient {
+func (o *EthernetInterfacesLayer3) GetDhcpClient() EthernetInterfacesLayer3DhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret EthernetInterfacesDhcpClient
+		var ret EthernetInterfacesLayer3DhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -132,7 +132,7 @@ func (o *EthernetInterfacesLayer3) GetDhcpClient() EthernetInterfacesDhcpClient 
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetDhcpClientOk() (*EthernetInterfacesDhcpClient, bool) {
+func (o *EthernetInterfacesLayer3) GetDhcpClientOk() (*EthernetInterfacesLayer3DhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -148,8 +148,8 @@ func (o *EthernetInterfacesLayer3) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given EthernetInterfacesDhcpClient and assigns it to the DhcpClient field.
-func (o *EthernetInterfacesLayer3) SetDhcpClient(v EthernetInterfacesDhcpClient) {
+// SetDhcpClient gets a reference to the given EthernetInterfacesLayer3DhcpClient and assigns it to the DhcpClient field.
+func (o *EthernetInterfacesLayer3) SetDhcpClient(v EthernetInterfacesLayer3DhcpClient) {
 	o.DhcpClient = &v
 }
 
