@@ -32,12 +32,13 @@ type LoopbackInterfaces struct {
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
-	InterfaceManagementProfile *string               `json:"interface_management_profile,omitempty"`
-	Ip                         *LoopbackInterfacesIp `json:"ip,omitempty"`
+	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
+	// loopback ip parent
+	Ip []LoopbackInterfacesIpInner `json:"ip,omitempty"`
 	// MTU
-	Mtu *float32 `json:"mtu,omitempty"`
+	Mtu *int32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^\\\\$[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The snippet in which the resource is defined
 	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
@@ -256,17 +257,17 @@ func (o *LoopbackInterfaces) SetInterfaceManagementProfile(v string) {
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *LoopbackInterfaces) GetIp() LoopbackInterfacesIp {
+func (o *LoopbackInterfaces) GetIp() []LoopbackInterfacesIpInner {
 	if o == nil || IsNil(o.Ip) {
-		var ret LoopbackInterfacesIp
+		var ret []LoopbackInterfacesIpInner
 		return ret
 	}
-	return *o.Ip
+	return o.Ip
 }
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfaces) GetIpOk() (*LoopbackInterfacesIp, bool) {
+func (o *LoopbackInterfaces) GetIpOk() ([]LoopbackInterfacesIpInner, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -282,15 +283,15 @@ func (o *LoopbackInterfaces) HasIp() bool {
 	return false
 }
 
-// SetIp gets a reference to the given LoopbackInterfacesIp and assigns it to the Ip field.
-func (o *LoopbackInterfaces) SetIp(v LoopbackInterfacesIp) {
-	o.Ip = &v
+// SetIp gets a reference to the given []LoopbackInterfacesIpInner and assigns it to the Ip field.
+func (o *LoopbackInterfaces) SetIp(v []LoopbackInterfacesIpInner) {
+	o.Ip = v
 }
 
 // GetMtu returns the Mtu field value if set, zero value otherwise.
-func (o *LoopbackInterfaces) GetMtu() float32 {
+func (o *LoopbackInterfaces) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Mtu
@@ -298,7 +299,7 @@ func (o *LoopbackInterfaces) GetMtu() float32 {
 
 // GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfaces) GetMtuOk() (*float32, bool) {
+func (o *LoopbackInterfaces) GetMtuOk() (*int32, bool) {
 	if o == nil || IsNil(o.Mtu) {
 		return nil, false
 	}
@@ -314,8 +315,8 @@ func (o *LoopbackInterfaces) HasMtu() bool {
 	return false
 }
 
-// SetMtu gets a reference to the given float32 and assigns it to the Mtu field.
-func (o *LoopbackInterfaces) SetMtu(v float32) {
+// SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
+func (o *LoopbackInterfaces) SetMtu(v int32) {
 	o.Mtu = &v
 }
 

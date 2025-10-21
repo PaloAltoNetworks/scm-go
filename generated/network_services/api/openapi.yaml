@@ -10168,7 +10168,7 @@ components:
         - ip
         parent-interface: parent-interface
         interface_management_profile: string
-        mtu: 1842.4624151545447
+        mtu: 1842
         dhcp_client:
           enable: true
           create_default_route: true
@@ -10237,7 +10237,7 @@ components:
           description: MTU
           maximum: 9216
           minimum: 576
-          type: number
+          type: integer
         name:
           description: L3 sub-interface name
           type: string
@@ -15155,16 +15155,15 @@ components:
         snippet: My Snippet
         folder: My Folder
         ip:
-          ip:
-          - ip
-          - ip
+        - name: name
+        - name: name
         name: name
         interface_management_profile: string
         comment: comment
         default_value: 801
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
-        mtu: 5783.722142172828
+        mtu: 5783
       properties:
         comment:
           description: Description
@@ -15196,14 +15195,18 @@ components:
           example: string
           type: string
         ip:
-          $ref: '#/components/schemas/loopback_interfaces_ip'
+          description: loopback ip parent
+          items:
+            $ref: '#/components/schemas/loopback_interfaces_ip_inner'
+          type: array
         mtu:
           description: MTU
           maximum: 9216
           minimum: 576
-          type: number
+          type: integer
         name:
           description: L3 sub-interface name
+          pattern: "^\\$[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         snippet:
           description: The snippet in which the resource is defined
@@ -16422,7 +16425,7 @@ components:
         default_value: 801
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
-        mtu: 5783.722142172828
+        mtu: 5783
       properties:
         comment:
           description: Description
@@ -16459,7 +16462,7 @@ components:
           description: MTU
           maximum: 9216
           minimum: 576
-          type: number
+          type: integer
         name:
           description: L3 sub-interface name
           type: string
@@ -16479,7 +16482,7 @@ components:
         - ip
         interface_management_profile: string
         default_value: default_value
-        mtu: 1842.4624151545447
+        mtu: 1842
         dhcp_client:
           enable: true
           create_default_route: true
@@ -16553,7 +16556,7 @@ components:
           description: MTU
           maximum: 9216
           minimum: 576
-          type: number
+          type: integer
         name:
           description: L3 sub-interface name
           type: string
@@ -32345,18 +32348,15 @@ components:
           type: string
       required:
       - name
-    loopback_interfaces_ip:
-      description: loopback ip parent
+    loopback_interfaces_ip_inner:
       example:
-        ip:
-        - ip
-        - ip
+        name: name
       properties:
-        ip:
+        name:
           description: Loopback IP address(es)
-          items:
-            type: string
-          type: array
+          type: string
+      required:
+      - name
     nat_rules_dns_rewrite:
       description: DNS rewrite
       example:

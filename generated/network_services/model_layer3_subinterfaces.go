@@ -37,7 +37,7 @@ type Layer3Subinterfaces struct {
 	InterfaceManagementProfile *string  `json:"interface_management_profile,omitempty"`
 	Ip                         []string `json:"ip,omitempty"`
 	// MTU
-	Mtu *float32 `json:"mtu,omitempty"`
+	Mtu *int32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
 	Name string `json:"name"`
 	// Parent interface
@@ -358,9 +358,9 @@ func (o *Layer3Subinterfaces) SetIp(v []string) {
 }
 
 // GetMtu returns the Mtu field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetMtu() float32 {
+func (o *Layer3Subinterfaces) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Mtu
@@ -368,7 +368,7 @@ func (o *Layer3Subinterfaces) GetMtu() float32 {
 
 // GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetMtuOk() (*float32, bool) {
+func (o *Layer3Subinterfaces) GetMtuOk() (*int32, bool) {
 	if o == nil || IsNil(o.Mtu) {
 		return nil, false
 	}
@@ -384,8 +384,8 @@ func (o *Layer3Subinterfaces) HasMtu() bool {
 	return false
 }
 
-// SetMtu gets a reference to the given float32 and assigns it to the Mtu field.
-func (o *Layer3Subinterfaces) SetMtu(v float32) {
+// SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
+func (o *Layer3Subinterfaces) SetMtu(v int32) {
 	o.Mtu = &v
 }
 

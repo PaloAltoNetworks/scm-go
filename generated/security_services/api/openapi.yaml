@@ -15009,7 +15009,7 @@ components:
         bugtraq:
         - bugtraq
         - bugtraq
-        threat_id: 4884415
+        threat_id: threat_id
         threatname: threatname
         default_action:
           allow: "{}"
@@ -15099,9 +15099,7 @@ components:
           type: string
         threat_id:
           description: threat id range <41000-45000> and <6800001-6900000>
-          maximum: 6900000
-          minimum: 41000
-          type: integer
+          type: string
         threatname:
           maxLength: 1024
           type: string

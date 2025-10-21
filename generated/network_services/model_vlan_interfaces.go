@@ -39,7 +39,7 @@ type VlanInterfaces struct {
 	InterfaceManagementProfile *string  `json:"interface_management_profile,omitempty"`
 	Ip                         []string `json:"ip,omitempty"`
 	// MTU
-	Mtu *float32 `json:"mtu,omitempty"`
+	Mtu *int32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
@@ -390,9 +390,9 @@ func (o *VlanInterfaces) SetIp(v []string) {
 }
 
 // GetMtu returns the Mtu field value if set, zero value otherwise.
-func (o *VlanInterfaces) GetMtu() float32 {
+func (o *VlanInterfaces) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Mtu
@@ -400,7 +400,7 @@ func (o *VlanInterfaces) GetMtu() float32 {
 
 // GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VlanInterfaces) GetMtuOk() (*float32, bool) {
+func (o *VlanInterfaces) GetMtuOk() (*int32, bool) {
 	if o == nil || IsNil(o.Mtu) {
 		return nil, false
 	}
@@ -416,8 +416,8 @@ func (o *VlanInterfaces) HasMtu() bool {
 	return false
 }
 
-// SetMtu gets a reference to the given float32 and assigns it to the Mtu field.
-func (o *VlanInterfaces) SetMtu(v float32) {
+// SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
+func (o *VlanInterfaces) SetMtu(v int32) {
 	o.Mtu = &v
 }
 
