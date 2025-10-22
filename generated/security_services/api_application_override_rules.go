@@ -26,7 +26,14 @@ type ApplicationOverrideRulesAPIService service
 type ApiCreateApplicationOverrideRulesRequest struct {
 	ctx              context.Context
 	ApiService       *ApplicationOverrideRulesAPIService
+	position         *string
 	appOverrideRules *AppOverrideRules
+}
+
+// The position of a security rule
+func (r ApiCreateApplicationOverrideRulesRequest) Position(position string) ApiCreateApplicationOverrideRulesRequest {
+	r.position = &position
+	return r
 }
 
 // Created
@@ -75,7 +82,11 @@ func (a *ApplicationOverrideRulesAPIService) CreateApplicationOverrideRulesExecu
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.position == nil {
+		return localVarReturnValue, nil, reportError("position is required and must be specified")
+	}
 
+	parameterAddToHeaderOrQuery(localVarQueryParams, "position", r.position, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

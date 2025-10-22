@@ -11081,7 +11081,6 @@ components:
       required:
       - destination
       - from
-      - id
       - name
       - service
       - source

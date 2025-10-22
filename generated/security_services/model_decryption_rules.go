@@ -40,7 +40,7 @@ type DecryptionRules struct {
 	// The source security zone
 	From []string `json:"from"`
 	// The UUID of the decryption rule
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// Log failed decryption events?
 	LogFail *bool `json:"log_fail,omitempty"`
 	// The log settings of the decryption rule
@@ -78,13 +78,12 @@ type _DecryptionRules DecryptionRules
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDecryptionRules(action string, category []string, destination []string, from []string, id string, name string, service []string, source []string, sourceUser []string, to []string) *DecryptionRules {
+func NewDecryptionRules(action string, category []string, destination []string, from []string, name string, service []string, source []string, sourceUser []string, to []string) *DecryptionRules {
 	this := DecryptionRules{}
 	this.Action = action
 	this.Category = category
 	this.Destination = destination
 	this.From = from
-	this.Id = id
 	this.Name = name
 	this.Service = service
 	this.Source = source
@@ -357,28 +356,36 @@ func (o *DecryptionRules) SetFrom(v []string) {
 	o.From = v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *DecryptionRules) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DecryptionRules) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *DecryptionRules) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *DecryptionRules) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetLogFail returns the LogFail field value if set, zero value otherwise.
@@ -850,7 +857,9 @@ func (o DecryptionRules) ToMap() (map[string]interface{}, error) {
 		toSerialize["folder"] = o.Folder
 	}
 	toSerialize["from"] = o.From
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.LogFail) {
 		toSerialize["log_fail"] = o.LogFail
 	}
@@ -903,7 +912,6 @@ func (o *DecryptionRules) UnmarshalJSON(data []byte) (err error) {
 		"category",
 		"destination",
 		"from",
-		"id",
 		"name",
 		"service",
 		"source",

@@ -1330,6 +1330,20 @@ paths:
       description: |
         Create a new application override rule.
       operationId: CreateApplicationOverrideRules
+      parameters:
+      - description: |
+          The position of a security rule
+        explode: true
+        in: query
+        name: position
+        required: true
+        schema:
+          default: pre
+          enum:
+          - pre
+          - post
+          type: string
+        style: form
       requestBody:
         content:
           application/json:
@@ -12612,7 +12626,6 @@ components:
       - application
       - destination
       - from
-      - id
       - name
       - port
       - protocol
@@ -12998,7 +13011,6 @@ components:
       - category
       - destination
       - from
-      - id
       - name
       - service
       - source
