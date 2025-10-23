@@ -20,7 +20,7 @@ import (
 	"github.com/paloaltonetworks/scm-go/generated/config_setup"
 )
 
-func SetupDeploymentSvcTestClient(t *testing.T) *config_setup.APIClient {
+func SetupConfigSvcTestClient(t *testing.T) *config_setup.APIClient {
 	configPath := common.GetConfigPath()
 	setupClient := &setup.Client{
 		AuthFile:         configPath,

@@ -24,7 +24,7 @@ type LoopbackInterfaces struct {
 	// Description
 	Comment *string `json:"comment,omitempty"`
 	// Default interface assignment
-	DefaultValue *int32 `json:"default_value,omitempty"`
+	DefaultValue *string `json:"default_value,omitempty" validate:"regexp=^loopback\\\\.([1-9][0-9]{0,3})$"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
@@ -33,11 +33,12 @@ type LoopbackInterfaces struct {
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
-	// loopback ip parent
-	Ip []LoopbackInterfacesIpInner `json:"ip,omitempty"`
+	// Loopback IP Parent
+	Ip   []LoopbackInterfacesIpInner `json:"ip,omitempty"`
+	Ipv6 *LoopbackInterfacesIpv6     `json:"ipv6,omitempty"`
 	// MTU
 	Mtu *int32 `json:"mtu,omitempty"`
-	// L3 sub-interface name
+	// Loopback Interface name
 	Name string `json:"name" validate:"regexp=^\\\\$[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The snippet in which the resource is defined
 	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
@@ -97,9 +98,9 @@ func (o *LoopbackInterfaces) SetComment(v string) {
 }
 
 // GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
-func (o *LoopbackInterfaces) GetDefaultValue() int32 {
+func (o *LoopbackInterfaces) GetDefaultValue() string {
 	if o == nil || IsNil(o.DefaultValue) {
-		var ret int32
+		var ret string
 		return ret
 	}
 	return *o.DefaultValue
@@ -107,7 +108,7 @@ func (o *LoopbackInterfaces) GetDefaultValue() int32 {
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfaces) GetDefaultValueOk() (*int32, bool) {
+func (o *LoopbackInterfaces) GetDefaultValueOk() (*string, bool) {
 	if o == nil || IsNil(o.DefaultValue) {
 		return nil, false
 	}
@@ -123,8 +124,8 @@ func (o *LoopbackInterfaces) HasDefaultValue() bool {
 	return false
 }
 
-// SetDefaultValue gets a reference to the given int32 and assigns it to the DefaultValue field.
-func (o *LoopbackInterfaces) SetDefaultValue(v int32) {
+// SetDefaultValue gets a reference to the given string and assigns it to the DefaultValue field.
+func (o *LoopbackInterfaces) SetDefaultValue(v string) {
 	o.DefaultValue = &v
 }
 
@@ -288,6 +289,38 @@ func (o *LoopbackInterfaces) SetIp(v []LoopbackInterfacesIpInner) {
 	o.Ip = v
 }
 
+// GetIpv6 returns the Ipv6 field value if set, zero value otherwise.
+func (o *LoopbackInterfaces) GetIpv6() LoopbackInterfacesIpv6 {
+	if o == nil || IsNil(o.Ipv6) {
+		var ret LoopbackInterfacesIpv6
+		return ret
+	}
+	return *o.Ipv6
+}
+
+// GetIpv6Ok returns a tuple with the Ipv6 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoopbackInterfaces) GetIpv6Ok() (*LoopbackInterfacesIpv6, bool) {
+	if o == nil || IsNil(o.Ipv6) {
+		return nil, false
+	}
+	return o.Ipv6, true
+}
+
+// HasIpv6 returns a boolean if a field has been set.
+func (o *LoopbackInterfaces) HasIpv6() bool {
+	if o != nil && !IsNil(o.Ipv6) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpv6 gets a reference to the given LoopbackInterfacesIpv6 and assigns it to the Ipv6 field.
+func (o *LoopbackInterfaces) SetIpv6(v LoopbackInterfacesIpv6) {
+	o.Ipv6 = &v
+}
+
 // GetMtu returns the Mtu field value if set, zero value otherwise.
 func (o *LoopbackInterfaces) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
@@ -407,6 +440,9 @@ func (o LoopbackInterfaces) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
 	}
+	if !IsNil(o.Ipv6) {
+		toSerialize["ipv6"] = o.Ipv6
+	}
 	if !IsNil(o.Mtu) {
 		toSerialize["mtu"] = o.Mtu
 	}
@@ -464,6 +500,7 @@ func (o *LoopbackInterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
+		delete(additionalProperties, "ipv6")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "snippet")

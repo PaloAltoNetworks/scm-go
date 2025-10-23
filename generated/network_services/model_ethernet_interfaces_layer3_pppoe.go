@@ -26,10 +26,9 @@ type EthernetInterfacesLayer3Pppoe struct {
 	// Authentication protocol
 	Authentication *string `json:"authentication,omitempty"`
 	// Metric of the default route created
-	DefaultRouteMetric *int32 `json:"default_route_metric,omitempty"`
-	Enable             *bool  `json:"enable,omitempty"`
-	// Passive
-	Passive *bool `json:"passive,omitempty"`
+	DefaultRouteMetric *int32                                `json:"default_route_metric,omitempty"`
+	Enable             *bool                                 `json:"enable,omitempty"`
+	Passive            *EthernetInterfacesLayer3PppoePassive `json:"passive,omitempty"`
 	// Password
 	Password string `json:"password"`
 	// Service
@@ -52,8 +51,6 @@ func NewEthernetInterfacesLayer3Pppoe(password string, username string) *Etherne
 	this.DefaultRouteMetric = &defaultRouteMetric
 	var enable bool = true
 	this.Enable = &enable
-	var passive bool = false
-	this.Passive = &passive
 	this.Password = password
 	this.Username = username
 	return &this
@@ -68,8 +65,6 @@ func NewEthernetInterfacesLayer3PppoeWithDefaults() *EthernetInterfacesLayer3Ppp
 	this.DefaultRouteMetric = &defaultRouteMetric
 	var enable bool = true
 	this.Enable = &enable
-	var passive bool = false
-	this.Passive = &passive
 	return &this
 }
 
@@ -202,9 +197,9 @@ func (o *EthernetInterfacesLayer3Pppoe) SetEnable(v bool) {
 }
 
 // GetPassive returns the Passive field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3Pppoe) GetPassive() bool {
+func (o *EthernetInterfacesLayer3Pppoe) GetPassive() EthernetInterfacesLayer3PppoePassive {
 	if o == nil || IsNil(o.Passive) {
-		var ret bool
+		var ret EthernetInterfacesLayer3PppoePassive
 		return ret
 	}
 	return *o.Passive
@@ -212,7 +207,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetPassive() bool {
 
 // GetPassiveOk returns a tuple with the Passive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetPassiveOk() (*bool, bool) {
+func (o *EthernetInterfacesLayer3Pppoe) GetPassiveOk() (*EthernetInterfacesLayer3PppoePassive, bool) {
 	if o == nil || IsNil(o.Passive) {
 		return nil, false
 	}
@@ -228,8 +223,8 @@ func (o *EthernetInterfacesLayer3Pppoe) HasPassive() bool {
 	return false
 }
 
-// SetPassive gets a reference to the given bool and assigns it to the Passive field.
-func (o *EthernetInterfacesLayer3Pppoe) SetPassive(v bool) {
+// SetPassive gets a reference to the given EthernetInterfacesLayer3PppoePassive and assigns it to the Passive field.
+func (o *EthernetInterfacesLayer3Pppoe) SetPassive(v EthernetInterfacesLayer3PppoePassive) {
 	o.Passive = &v
 }
 

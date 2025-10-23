@@ -9473,7 +9473,8 @@ components:
             service: service
             default_route_metric: 36944
             access_concentrator: access_concentrator
-            passive: false
+            passive:
+              enable: false
             static_address:
               ip: ip
             authentication: CHAP
@@ -15154,25 +15155,34 @@ components:
       example:
         snippet: My Snippet
         folder: My Folder
+        ipv6:
+          address:
+          - interface_id: EUI-64
+            name: 2001:DB8::1/128
+            enable_on_interface: true
+          - interface_id: EUI-64
+            name: 2001:DB8::1/128
+            enable_on_interface: true
+          enabled: false
         ip:
         - name: name
         - name: name
         name: name
         interface_management_profile: string
         comment: comment
-        default_value: 801
+        default_value: loopback.123
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
-        mtu: 5783
+        mtu: 1267
       properties:
         comment:
           description: Description
           type: string
         default_value:
           description: Default interface assignment
-          maximum: 9999
-          minimum: 1
-          type: integer
+          example: loopback.123
+          pattern: "^loopback\\.([1-9][0-9]{0,3})$"
+          type: string
         device:
           description: The device in which the resource is defined
           example: My Device
@@ -15195,17 +15205,19 @@ components:
           example: string
           type: string
         ip:
-          description: loopback ip parent
+          description: Loopback IP Parent
           items:
             $ref: '#/components/schemas/loopback_interfaces_ip_inner'
           type: array
+        ipv6:
+          $ref: '#/components/schemas/loopback_interfaces_ipv6'
         mtu:
           description: MTU
           maximum: 9216
           minimum: 576
           type: integer
         name:
-          description: L3 sub-interface name
+          description: Loopback Interface name
           pattern: "^\\$[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         snippet:
@@ -16416,25 +16428,24 @@ components:
         snippet: My Snippet
         folder: My Folder
         ip:
-          ip:
-          - ip
-          - ip
+        - name: name
+        - name: name
         name: name
         interface_management_profile: string
         comment: comment
-        default_value: 801
+        default_value: tunnel.123
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
-        mtu: 5783
+        mtu: 1267
       properties:
         comment:
           description: Description
           type: string
         default_value:
           description: Default interface assignment
-          maximum: 9999
-          minimum: 1
-          type: integer
+          example: tunnel.123
+          pattern: "^tunnel\\.([1-9][0-9]{0,3})$"
+          type: string
         device:
           description: The device in which the resource is defined
           example: My Device
@@ -16457,7 +16468,10 @@ components:
           example: string
           type: string
         ip:
-          $ref: '#/components/schemas/tunnel_interfaces_ip'
+          description: Tunnel Interface IP Parent
+          items:
+            $ref: '#/components/schemas/tunnel_interfaces_ip_inner'
+          type: array
         mtu:
           description: MTU
           maximum: 9216
@@ -16481,7 +16495,7 @@ components:
         - ip
         - ip
         interface_management_profile: string
-        default_value: default_value
+        default_value: vlan.123
         mtu: 1842
         dhcp_client:
           enable: true
@@ -16524,6 +16538,8 @@ components:
           $ref: '#/components/schemas/vlan_interfaces_ddns_config'
         default_value:
           description: Default interface assignment
+          example: vlan.123
+          pattern: "^vlan\\.([1-9][0-9]{0,3})$"
           type: string
         device:
           description: The device in which the resource is defined
@@ -20816,6 +20832,16 @@ components:
           type: string
       required:
       - name
+    ethernet_interfaces_layer3_pppoe_passive:
+      example:
+        enable: false
+      properties:
+        enable:
+          default: false
+          description: Passive Mode enabled
+          type: boolean
+      required:
+      - enable
     ethernet_interfaces_layer3_pppoe_static_address:
       example:
         ip: ip
@@ -20833,7 +20859,8 @@ components:
         service: service
         default_route_metric: 36944
         access_concentrator: access_concentrator
-        passive: false
+        passive:
+          enable: false
         static_address:
           ip: ip
         authentication: CHAP
@@ -20861,9 +20888,7 @@ components:
           default: true
           type: boolean
         passive:
-          default: false
-          description: Passive
-          type: boolean
+          $ref: '#/components/schemas/ethernet_interfaces_layer3_pppoe_passive'
         password:
           description: Password
           format: password
@@ -20910,7 +20935,8 @@ components:
           service: service
           default_route_metric: 36944
           access_concentrator: access_concentrator
-          passive: false
+          passive:
+            enable: false
           static_address:
             ip: ip
           authentication: CHAP
@@ -32357,6 +32383,45 @@ components:
           type: string
       required:
       - name
+    loopback_interfaces_ipv6_address_inner:
+      example:
+        interface_id: EUI-64
+        name: 2001:DB8::1/128
+        enable_on_interface: true
+      properties:
+        enable_on_interface:
+          default: true
+          description: Enable Address on Interface
+          type: boolean
+        interface_id:
+          default: EUI-64
+          description: Interface ID
+          type: string
+        name:
+          description: IPv6 Address
+          example: 2001:DB8::1/128
+          type: string
+    loopback_interfaces_ipv6:
+      description: Loopback IPv6 Configuration
+      example:
+        address:
+        - interface_id: EUI-64
+          name: 2001:DB8::1/128
+          enable_on_interface: true
+        - interface_id: EUI-64
+          name: 2001:DB8::1/128
+          enable_on_interface: true
+        enabled: false
+      properties:
+        address:
+          description: IPv6 Address Parent
+          items:
+            $ref: '#/components/schemas/loopback_interfaces_ipv6_address_inner'
+          type: array
+        enabled:
+          default: false
+          description: Enable IPv6
+          type: boolean
     nat_rules_dns_rewrite:
       description: DNS rewrite
       example:
@@ -33470,18 +33535,15 @@ components:
           type: boolean
         name:
           type: string
-    tunnel_interfaces_ip:
-      description: tunnel interfaces ip parent
+    tunnel_interfaces_ip_inner:
       example:
-        ip:
-        - ip
-        - ip
+        name: name
       properties:
-        ip:
-          description: tunnel interfaces IP address(es)
-          items:
-            type: string
-          type: array
+        name:
+          description: Tunnel Interface IP address(es)
+          type: string
+      required:
+      - name
     vlan_interfaces_arp_inner:
       example:
         hw_address: hw_address

@@ -27,7 +27,7 @@ type VlanInterfaces struct {
 	Comment    *string                   `json:"comment,omitempty"`
 	DdnsConfig *VlanInterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// Default interface assignment
-	DefaultValue *string `json:"default_value,omitempty"`
+	DefaultValue *string `json:"default_value,omitempty" validate:"regexp=^vlan\\\\.([1-9][0-9]{0,3})$"`
 	// The device in which the resource is defined
 	Device     *string                   `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	DhcpClient *VlanInterfacesDhcpClient `json:"dhcp_client,omitempty"`
