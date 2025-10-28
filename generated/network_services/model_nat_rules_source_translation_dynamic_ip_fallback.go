@@ -15,11 +15,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the NatRulesSourceTranslationFallback type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &NatRulesSourceTranslationFallback{}
+// checks if the NatRulesSourceTranslationDynamicIpFallback type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NatRulesSourceTranslationDynamicIpFallback{}
 
-// NatRulesSourceTranslationFallback struct for NatRulesSourceTranslationFallback
-type NatRulesSourceTranslationFallback struct {
+// NatRulesSourceTranslationDynamicIpFallback struct for NatRulesSourceTranslationDynamicIpFallback
+type NatRulesSourceTranslationDynamicIpFallback struct {
 	// Floating IP address
 	FloatingIp *string `json:"floating_ip,omitempty"`
 	// Interface name
@@ -31,27 +31,27 @@ type NatRulesSourceTranslationFallback struct {
 	AdditionalProperties   map[string]interface{}
 }
 
-type _NatRulesSourceTranslationFallback NatRulesSourceTranslationFallback
+type _NatRulesSourceTranslationDynamicIpFallback NatRulesSourceTranslationDynamicIpFallback
 
-// NewNatRulesSourceTranslationFallback instantiates a new NatRulesSourceTranslationFallback object
+// NewNatRulesSourceTranslationDynamicIpFallback instantiates a new NatRulesSourceTranslationDynamicIpFallback object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNatRulesSourceTranslationFallback() *NatRulesSourceTranslationFallback {
-	this := NatRulesSourceTranslationFallback{}
+func NewNatRulesSourceTranslationDynamicIpFallback() *NatRulesSourceTranslationDynamicIpFallback {
+	this := NatRulesSourceTranslationDynamicIpFallback{}
 	return &this
 }
 
-// NewNatRulesSourceTranslationFallbackWithDefaults instantiates a new NatRulesSourceTranslationFallback object
+// NewNatRulesSourceTranslationDynamicIpFallbackWithDefaults instantiates a new NatRulesSourceTranslationDynamicIpFallback object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewNatRulesSourceTranslationFallbackWithDefaults() *NatRulesSourceTranslationFallback {
-	this := NatRulesSourceTranslationFallback{}
+func NewNatRulesSourceTranslationDynamicIpFallbackWithDefaults() *NatRulesSourceTranslationDynamicIpFallback {
+	this := NatRulesSourceTranslationDynamicIpFallback{}
 	return &this
 }
 
 // GetFloatingIp returns the FloatingIp field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslationFallback) GetFloatingIp() string {
+func (o *NatRulesSourceTranslationDynamicIpFallback) GetFloatingIp() string {
 	if o == nil || IsNil(o.FloatingIp) {
 		var ret string
 		return ret
@@ -61,7 +61,7 @@ func (o *NatRulesSourceTranslationFallback) GetFloatingIp() string {
 
 // GetFloatingIpOk returns a tuple with the FloatingIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslationFallback) GetFloatingIpOk() (*string, bool) {
+func (o *NatRulesSourceTranslationDynamicIpFallback) GetFloatingIpOk() (*string, bool) {
 	if o == nil || IsNil(o.FloatingIp) {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *NatRulesSourceTranslationFallback) GetFloatingIpOk() (*string, bool) {
 }
 
 // HasFloatingIp returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslationFallback) HasFloatingIp() bool {
+func (o *NatRulesSourceTranslationDynamicIpFallback) HasFloatingIp() bool {
 	if o != nil && !IsNil(o.FloatingIp) {
 		return true
 	}
@@ -78,12 +78,12 @@ func (o *NatRulesSourceTranslationFallback) HasFloatingIp() bool {
 }
 
 // SetFloatingIp gets a reference to the given string and assigns it to the FloatingIp field.
-func (o *NatRulesSourceTranslationFallback) SetFloatingIp(v string) {
+func (o *NatRulesSourceTranslationDynamicIpFallback) SetFloatingIp(v string) {
 	o.FloatingIp = &v
 }
 
 // GetInterface returns the Interface field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslationFallback) GetInterface() string {
+func (o *NatRulesSourceTranslationDynamicIpFallback) GetInterface() string {
 	if o == nil || IsNil(o.Interface) {
 		var ret string
 		return ret
@@ -93,7 +93,7 @@ func (o *NatRulesSourceTranslationFallback) GetInterface() string {
 
 // GetInterfaceOk returns a tuple with the Interface field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslationFallback) GetInterfaceOk() (*string, bool) {
+func (o *NatRulesSourceTranslationDynamicIpFallback) GetInterfaceOk() (*string, bool) {
 	if o == nil || IsNil(o.Interface) {
 		return nil, false
 	}
@@ -101,7 +101,7 @@ func (o *NatRulesSourceTranslationFallback) GetInterfaceOk() (*string, bool) {
 }
 
 // HasInterface returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslationFallback) HasInterface() bool {
+func (o *NatRulesSourceTranslationDynamicIpFallback) HasInterface() bool {
 	if o != nil && !IsNil(o.Interface) {
 		return true
 	}
@@ -110,12 +110,12 @@ func (o *NatRulesSourceTranslationFallback) HasInterface() bool {
 }
 
 // SetInterface gets a reference to the given string and assigns it to the Interface field.
-func (o *NatRulesSourceTranslationFallback) SetInterface(v string) {
+func (o *NatRulesSourceTranslationDynamicIpFallback) SetInterface(v string) {
 	o.Interface = &v
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslationFallback) GetIp() string {
+func (o *NatRulesSourceTranslationDynamicIpFallback) GetIp() string {
 	if o == nil || IsNil(o.Ip) {
 		var ret string
 		return ret
@@ -125,7 +125,7 @@ func (o *NatRulesSourceTranslationFallback) GetIp() string {
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslationFallback) GetIpOk() (*string, bool) {
+func (o *NatRulesSourceTranslationDynamicIpFallback) GetIpOk() (*string, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -133,7 +133,7 @@ func (o *NatRulesSourceTranslationFallback) GetIpOk() (*string, bool) {
 }
 
 // HasIp returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslationFallback) HasIp() bool {
+func (o *NatRulesSourceTranslationDynamicIpFallback) HasIp() bool {
 	if o != nil && !IsNil(o.Ip) {
 		return true
 	}
@@ -142,12 +142,12 @@ func (o *NatRulesSourceTranslationFallback) HasIp() bool {
 }
 
 // SetIp gets a reference to the given string and assigns it to the Ip field.
-func (o *NatRulesSourceTranslationFallback) SetIp(v string) {
+func (o *NatRulesSourceTranslationDynamicIpFallback) SetIp(v string) {
 	o.Ip = &v
 }
 
 // GetTranslatedAddressArray returns the TranslatedAddressArray field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslationFallback) GetTranslatedAddressArray() []string {
+func (o *NatRulesSourceTranslationDynamicIpFallback) GetTranslatedAddressArray() []string {
 	if o == nil || IsNil(o.TranslatedAddressArray) {
 		var ret []string
 		return ret
@@ -157,7 +157,7 @@ func (o *NatRulesSourceTranslationFallback) GetTranslatedAddressArray() []string
 
 // GetTranslatedAddressArrayOk returns a tuple with the TranslatedAddressArray field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslationFallback) GetTranslatedAddressArrayOk() ([]string, bool) {
+func (o *NatRulesSourceTranslationDynamicIpFallback) GetTranslatedAddressArrayOk() ([]string, bool) {
 	if o == nil || IsNil(o.TranslatedAddressArray) {
 		return nil, false
 	}
@@ -165,7 +165,7 @@ func (o *NatRulesSourceTranslationFallback) GetTranslatedAddressArrayOk() ([]str
 }
 
 // HasTranslatedAddressArray returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslationFallback) HasTranslatedAddressArray() bool {
+func (o *NatRulesSourceTranslationDynamicIpFallback) HasTranslatedAddressArray() bool {
 	if o != nil && !IsNil(o.TranslatedAddressArray) {
 		return true
 	}
@@ -174,11 +174,11 @@ func (o *NatRulesSourceTranslationFallback) HasTranslatedAddressArray() bool {
 }
 
 // SetTranslatedAddressArray gets a reference to the given []string and assigns it to the TranslatedAddressArray field.
-func (o *NatRulesSourceTranslationFallback) SetTranslatedAddressArray(v []string) {
+func (o *NatRulesSourceTranslationDynamicIpFallback) SetTranslatedAddressArray(v []string) {
 	o.TranslatedAddressArray = v
 }
 
-func (o NatRulesSourceTranslationFallback) MarshalJSON() ([]byte, error) {
+func (o NatRulesSourceTranslationDynamicIpFallback) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -186,7 +186,7 @@ func (o NatRulesSourceTranslationFallback) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o NatRulesSourceTranslationFallback) ToMap() (map[string]interface{}, error) {
+func (o NatRulesSourceTranslationDynamicIpFallback) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.FloatingIp) {
 		toSerialize["floating_ip"] = o.FloatingIp
@@ -208,16 +208,16 @@ func (o NatRulesSourceTranslationFallback) ToMap() (map[string]interface{}, erro
 	return toSerialize, nil
 }
 
-func (o *NatRulesSourceTranslationFallback) UnmarshalJSON(data []byte) (err error) {
-	varNatRulesSourceTranslationFallback := _NatRulesSourceTranslationFallback{}
+func (o *NatRulesSourceTranslationDynamicIpFallback) UnmarshalJSON(data []byte) (err error) {
+	varNatRulesSourceTranslationDynamicIpFallback := _NatRulesSourceTranslationDynamicIpFallback{}
 
-	err = json.Unmarshal(data, &varNatRulesSourceTranslationFallback)
+	err = json.Unmarshal(data, &varNatRulesSourceTranslationDynamicIpFallback)
 
 	if err != nil {
 		return err
 	}
 
-	*o = NatRulesSourceTranslationFallback(varNatRulesSourceTranslationFallback)
+	*o = NatRulesSourceTranslationDynamicIpFallback(varNatRulesSourceTranslationDynamicIpFallback)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -232,38 +232,38 @@ func (o *NatRulesSourceTranslationFallback) UnmarshalJSON(data []byte) (err erro
 	return err
 }
 
-type NullableNatRulesSourceTranslationFallback struct {
-	value *NatRulesSourceTranslationFallback
+type NullableNatRulesSourceTranslationDynamicIpFallback struct {
+	value *NatRulesSourceTranslationDynamicIpFallback
 	isSet bool
 }
 
-func (v NullableNatRulesSourceTranslationFallback) Get() *NatRulesSourceTranslationFallback {
+func (v NullableNatRulesSourceTranslationDynamicIpFallback) Get() *NatRulesSourceTranslationDynamicIpFallback {
 	return v.value
 }
 
-func (v *NullableNatRulesSourceTranslationFallback) Set(val *NatRulesSourceTranslationFallback) {
+func (v *NullableNatRulesSourceTranslationDynamicIpFallback) Set(val *NatRulesSourceTranslationDynamicIpFallback) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableNatRulesSourceTranslationFallback) IsSet() bool {
+func (v NullableNatRulesSourceTranslationDynamicIpFallback) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableNatRulesSourceTranslationFallback) Unset() {
+func (v *NullableNatRulesSourceTranslationDynamicIpFallback) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableNatRulesSourceTranslationFallback(val *NatRulesSourceTranslationFallback) *NullableNatRulesSourceTranslationFallback {
-	return &NullableNatRulesSourceTranslationFallback{value: val, isSet: true}
+func NewNullableNatRulesSourceTranslationDynamicIpFallback(val *NatRulesSourceTranslationDynamicIpFallback) *NullableNatRulesSourceTranslationDynamicIpFallback {
+	return &NullableNatRulesSourceTranslationDynamicIpFallback{value: val, isSet: true}
 }
 
-func (v NullableNatRulesSourceTranslationFallback) MarshalJSON() ([]byte, error) {
+func (v NullableNatRulesSourceTranslationDynamicIpFallback) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableNatRulesSourceTranslationFallback) UnmarshalJSON(src []byte) error {
+func (v *NullableNatRulesSourceTranslationDynamicIpFallback) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

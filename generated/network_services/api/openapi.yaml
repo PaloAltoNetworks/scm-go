@@ -15233,34 +15233,40 @@ components:
       - name
     nat-rules:
       example:
+        destination_translation:
+          dns_rewrite:
+            direction: reverse
+          translated_port: 5249
+          translated_address: translated_address
         snippet: My Snippet
-        dns_rewrite:
-          direction: reverse
         destination:
         - any
-        translated_port: 5249
         description: description
-        translated_address: translated_address
         source:
         - any
         to_interface: any
-        distribution: round-robin
         source_translation:
-          translated_address_array:
-          - translated_address_array
-          - translated_address_array
-          floating_ip: floating_ip
-          ip: ip
-          translated_address: translated_address
-          interface: interface
-          fallback:
+          static_ip:
+            translated_address: translated_address
+            bi_directional: true
+          dynamic_ip_and_port:
             translated_address_array:
             - translated_address_array
             - translated_address_array
             floating_ip: floating_ip
             ip: ip
             interface: interface
-          bi_directional: true
+          dynamic_ip:
+            translated_address_array:
+            - translated_address_array
+            - translated_address_array
+            fallback:
+              translated_address_array:
+              - translated_address_array
+              - translated_address_array
+              floating_ip: floating_ip
+              ip: ip
+              interface: interface
         folder: My Folder
         service: any
         name: name
@@ -15276,6 +15282,10 @@ components:
         - any
         active_active_device_binding: primary
         device: My Device
+        dynamic_destination_translation:
+          translated_port: 39501
+          translated_address: translated_address
+          distribution: round-robin
       properties:
         active_active_device_binding:
           enum:
@@ -15294,6 +15304,8 @@ components:
           items:
             type: string
           type: array
+        destination_translation:
+          $ref: '#/components/schemas/nat_rules_destination_translation'
         device:
           description: The device in which the resource is defined
           example: My Device
@@ -15304,17 +15316,8 @@ components:
           default: false
           description: Disable NAT rule?
           type: boolean
-        distribution:
-          description: Distribution method
-          enum:
-          - round-robin
-          - source-ip-hash
-          - ip-modulo
-          - ip-hash
-          - least-sessions
-          type: string
-        dns_rewrite:
-          $ref: '#/components/schemas/nat_rules_dns_rewrite'
+        dynamic_destination_translation:
+          $ref: '#/components/schemas/nat_rules_dynamic_destination_translation'
         folder:
           description: The folder in which the resource is defined
           example: My Folder
@@ -15379,14 +15382,6 @@ components:
           description: Destination interface of the original packet
           example: any
           type: string
-        translated_address:
-          description: Translated destination IP address
-          type: string
-        translated_port:
-          description: Translated destination port
-          maximum: 65535
-          minimum: 1
-          type: integer
       required:
       - destination
       - from
@@ -32482,8 +32477,7 @@ components:
           default: false
           description: Enable IPv6
           type: boolean
-    nat_rules_dns_rewrite:
-      description: DNS rewrite
+    nat_rules_destination_translation_dns_rewrite:
       example:
         direction: reverse
       properties:
@@ -32492,7 +32486,46 @@ components:
           - reverse
           - forward
           type: string
-    nat_rules_source_translation_fallback:
+    nat_rules_destination_translation:
+      description: Destination translation configuration (Static/P-D-N-T).
+      example:
+        dns_rewrite:
+          direction: reverse
+        translated_port: 5249
+        translated_address: translated_address
+      properties:
+        dns_rewrite:
+          $ref: '#/components/schemas/nat_rules_destination_translation_dns_rewrite'
+        translated_address:
+          type: string
+        translated_port:
+          format: int32
+          maximum: 65535
+          minimum: 1
+          type: integer
+    nat_rules_dynamic_destination_translation:
+      description: Dynamic destination translation configuration.
+      example:
+        translated_port: 39501
+        translated_address: translated_address
+        distribution: round-robin
+      properties:
+        distribution:
+          enum:
+          - round-robin
+          - source-ip-hash
+          - ip-modulo
+          - ip-hash
+          - least-sessions
+          type: string
+        translated_address:
+          type: string
+        translated_port:
+          format: int32
+          maximum: 65535
+          minimum: 1
+          type: integer
+    nat_rules_source_translation_dynamic_ip_fallback:
       example:
         translated_address_array:
         - translated_address_array
@@ -32515,15 +32548,12 @@ components:
           items:
             type: string
           type: array
-    nat_rules_source_translation:
+    nat_rules_source_translation_dynamic_ip:
+      description: Dynamic IP
       example:
         translated_address_array:
         - translated_address_array
         - translated_address_array
-        floating_ip: floating_ip
-        ip: ip
-        translated_address: translated_address
-        interface: interface
         fallback:
           translated_address_array:
           - translated_address_array
@@ -32531,12 +32561,25 @@ components:
           floating_ip: floating_ip
           ip: ip
           interface: interface
-        bi_directional: true
       properties:
-        bi_directional:
-          type: boolean
         fallback:
-          $ref: '#/components/schemas/nat_rules_source_translation_fallback'
+          $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip_fallback'
+        translated_address_array:
+          description: Translated IP addresses
+          items:
+            description: IP address
+            type: string
+          type: array
+    nat_rules_source_translation_dynamic_ip_and_port:
+      description: Dynamic IP and port
+      example:
+        translated_address_array:
+        - translated_address_array
+        - translated_address_array
+        floating_ip: floating_ip
+        ip: ip
+        interface: interface
+      properties:
         floating_ip:
           description: Floating IP address
           type: string
@@ -32546,15 +32589,54 @@ components:
         ip:
           description: Translated source IP address
           type: string
-        translated_address:
-          description: Translated IP address
-          type: string
         translated_address_array:
           description: Translated source IP addresses
           items:
             description: IP address
             type: string
           type: array
+    nat_rules_source_translation_static_ip:
+      description: Static IP
+      example:
+        translated_address: translated_address
+        bi_directional: true
+      properties:
+        bi_directional:
+          type: boolean
+        translated_address:
+          description: Translated IP address
+          type: string
+    nat_rules_source_translation:
+      description: Source translation configuration (Static/P-D-N-T).
+      example:
+        static_ip:
+          translated_address: translated_address
+          bi_directional: true
+        dynamic_ip_and_port:
+          translated_address_array:
+          - translated_address_array
+          - translated_address_array
+          floating_ip: floating_ip
+          ip: ip
+          interface: interface
+        dynamic_ip:
+          translated_address_array:
+          - translated_address_array
+          - translated_address_array
+          fallback:
+            translated_address_array:
+            - translated_address_array
+            - translated_address_array
+            floating_ip: floating_ip
+            ip: ip
+            interface: interface
+      properties:
+        dynamic_ip:
+          $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip'
+        dynamic_ip_and_port:
+          $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip_and_port'
+        static_ip:
+          $ref: '#/components/schemas/nat_rules_source_translation_static_ip'
     ospf_auth_profiles_md5_inner:
       example:
         name: 21
