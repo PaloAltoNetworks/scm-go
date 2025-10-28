@@ -25,7 +25,7 @@ type LogicalRoutersVrfInnerMulticastMsdpPeerInner struct {
 	Enable               *bool                                                         `json:"enable,omitempty"`
 	InboundSaFilter      *string                                                       `json:"inbound_sa_filter,omitempty"`
 	LocalAddress         *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerLocalAddress `json:"local_address,omitempty"`
-	MaxSa                *float32                                                      `json:"max_sa,omitempty"`
+	MaxSa                *int32                                                        `json:"max_sa,omitempty"`
 	Name                 string                                                        `json:"name"`
 	OutboundSaFilter     *string                                                       `json:"outbound_sa_filter,omitempty"`
 	PeerAddress          *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerPeerAddress  `json:"peer_address,omitempty"`
@@ -182,9 +182,9 @@ func (o *LogicalRoutersVrfInnerMulticastMsdpPeerInner) SetLocalAddress(v Logical
 }
 
 // GetMaxSa returns the MaxSa field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastMsdpPeerInner) GetMaxSa() float32 {
+func (o *LogicalRoutersVrfInnerMulticastMsdpPeerInner) GetMaxSa() int32 {
 	if o == nil || IsNil(o.MaxSa) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MaxSa
@@ -192,7 +192,7 @@ func (o *LogicalRoutersVrfInnerMulticastMsdpPeerInner) GetMaxSa() float32 {
 
 // GetMaxSaOk returns a tuple with the MaxSa field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastMsdpPeerInner) GetMaxSaOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastMsdpPeerInner) GetMaxSaOk() (*int32, bool) {
 	if o == nil || IsNil(o.MaxSa) {
 		return nil, false
 	}
@@ -208,8 +208,8 @@ func (o *LogicalRoutersVrfInnerMulticastMsdpPeerInner) HasMaxSa() bool {
 	return false
 }
 
-// SetMaxSa gets a reference to the given float32 and assigns it to the MaxSa field.
-func (o *LogicalRoutersVrfInnerMulticastMsdpPeerInner) SetMaxSa(v float32) {
+// SetMaxSa gets a reference to the given int32 and assigns it to the MaxSa field.
+func (o *LogicalRoutersVrfInnerMulticastMsdpPeerInner) SetMaxSa(v int32) {
 	o.MaxSa = &v
 }
 

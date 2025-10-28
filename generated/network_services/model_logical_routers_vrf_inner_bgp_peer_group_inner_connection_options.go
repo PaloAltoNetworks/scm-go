@@ -20,10 +20,10 @@ var _ MappedNullable = &LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions
 
 // LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions struct for LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions
 type LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions struct {
-	Authentication       *string  `json:"authentication,omitempty"`
-	Dampening            *string  `json:"dampening,omitempty"`
-	Multihop             *float32 `json:"multihop,omitempty"`
-	Timers               *string  `json:"timers,omitempty"`
+	Authentication       *string `json:"authentication,omitempty"`
+	Dampening            *string `json:"dampening,omitempty"`
+	Multihop             *int32  `json:"multihop,omitempty"`
+	Timers               *string `json:"timers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -111,9 +111,9 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions) SetDampening(
 }
 
 // GetMultihop returns the Multihop field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions) GetMultihop() float32 {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions) GetMultihop() int32 {
 	if o == nil || IsNil(o.Multihop) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Multihop
@@ -121,7 +121,7 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions) GetMultihop()
 
 // GetMultihopOk returns a tuple with the Multihop field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions) GetMultihopOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions) GetMultihopOk() (*int32, bool) {
 	if o == nil || IsNil(o.Multihop) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions) HasMultihop()
 	return false
 }
 
-// SetMultihop gets a reference to the given float32 and assigns it to the Multihop field.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions) SetMultihop(v float32) {
+// SetMultihop gets a reference to the given int32 and assigns it to the Multihop field.
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerConnectionOptions) SetMultihop(v int32) {
 	o.Multihop = &v
 }
 

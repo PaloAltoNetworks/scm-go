@@ -21,10 +21,10 @@ var _ MappedNullable = &LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp{}
 // LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp struct for LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp
 type LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp struct {
 	Address               *string  `json:"address,omitempty"`
-	AdvertisementInterval *float32 `json:"advertisement_interval,omitempty"`
+	AdvertisementInterval *int32   `json:"advertisement_interval,omitempty"`
 	GroupAddresses        []string `json:"group_addresses,omitempty"`
 	Interface             *string  `json:"interface,omitempty"`
-	Priority              *float32 `json:"priority,omitempty"`
+	Priority              *int32   `json:"priority,omitempty"`
 	AdditionalProperties  map[string]interface{}
 }
 
@@ -80,9 +80,9 @@ func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) SetAddress(v strin
 }
 
 // GetAdvertisementInterval returns the AdvertisementInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetAdvertisementInterval() float32 {
+func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetAdvertisementInterval() int32 {
 	if o == nil || IsNil(o.AdvertisementInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.AdvertisementInterval
@@ -90,7 +90,7 @@ func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetAdvertisementIn
 
 // GetAdvertisementIntervalOk returns a tuple with the AdvertisementInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetAdvertisementIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetAdvertisementIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.AdvertisementInterval) {
 		return nil, false
 	}
@@ -106,8 +106,8 @@ func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) HasAdvertisementIn
 	return false
 }
 
-// SetAdvertisementInterval gets a reference to the given float32 and assigns it to the AdvertisementInterval field.
-func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) SetAdvertisementInterval(v float32) {
+// SetAdvertisementInterval gets a reference to the given int32 and assigns it to the AdvertisementInterval field.
+func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) SetAdvertisementInterval(v int32) {
 	o.AdvertisementInterval = &v
 }
 
@@ -176,9 +176,9 @@ func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) SetInterface(v str
 }
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetPriority() float32 {
+func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetPriority() int32 {
 	if o == nil || IsNil(o.Priority) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Priority
@@ -186,7 +186,7 @@ func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetPriority() floa
 
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetPriorityOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) GetPriorityOk() (*int32, bool) {
 	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) HasPriority() bool
 	return false
 }
 
-// SetPriority gets a reference to the given float32 and assigns it to the Priority field.
-func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) SetPriority(v float32) {
+// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
+func (o *LogicalRoutersVrfInnerMulticastRpLocalRpCandidateRp) SetPriority(v int32) {
 	o.Priority = &v
 }
 

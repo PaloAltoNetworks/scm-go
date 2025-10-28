@@ -27,7 +27,7 @@ type LogicalRoutersVrfInnerBgp struct {
 	AlwaysAdvertiseNetworkRoute *bool                                           `json:"always_advertise_network_route,omitempty"`
 	AsFormat                    *string                                         `json:"as_format,omitempty"`
 	ConfederationMemberAs       *string                                         `json:"confederation_member_as,omitempty"`
-	DefaultLocalPreference      *float32                                        `json:"default_local_preference,omitempty"`
+	DefaultLocalPreference      *int32                                          `json:"default_local_preference,omitempty"`
 	EcmpMultiAs                 *bool                                           `json:"ecmp_multi_as,omitempty"`
 	Enable                      *bool                                           `json:"enable,omitempty"`
 	EnforceFirstAs              *bool                                           `json:"enforce_first_as,omitempty"`
@@ -291,9 +291,9 @@ func (o *LogicalRoutersVrfInnerBgp) SetConfederationMemberAs(v string) {
 }
 
 // GetDefaultLocalPreference returns the DefaultLocalPreference field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgp) GetDefaultLocalPreference() float32 {
+func (o *LogicalRoutersVrfInnerBgp) GetDefaultLocalPreference() int32 {
 	if o == nil || IsNil(o.DefaultLocalPreference) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.DefaultLocalPreference
@@ -301,7 +301,7 @@ func (o *LogicalRoutersVrfInnerBgp) GetDefaultLocalPreference() float32 {
 
 // GetDefaultLocalPreferenceOk returns a tuple with the DefaultLocalPreference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgp) GetDefaultLocalPreferenceOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgp) GetDefaultLocalPreferenceOk() (*int32, bool) {
 	if o == nil || IsNil(o.DefaultLocalPreference) {
 		return nil, false
 	}
@@ -317,8 +317,8 @@ func (o *LogicalRoutersVrfInnerBgp) HasDefaultLocalPreference() bool {
 	return false
 }
 
-// SetDefaultLocalPreference gets a reference to the given float32 and assigns it to the DefaultLocalPreference field.
-func (o *LogicalRoutersVrfInnerBgp) SetDefaultLocalPreference(v float32) {
+// SetDefaultLocalPreference gets a reference to the given int32 and assigns it to the DefaultLocalPreference field.
+func (o *LogicalRoutersVrfInnerBgp) SetDefaultLocalPreference(v int32) {
 	o.DefaultLocalPreference = &v
 }
 

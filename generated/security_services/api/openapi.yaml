@@ -12525,7 +12525,7 @@ components:
         protocol: tcp
         folder: My Folder
         application: application
-        port: 5248
+        port: port
         name: name
         disabled: false
         from:
@@ -12594,7 +12594,7 @@ components:
         port:
           maximum: 65535
           minimum: 0
-          type: integer
+          type: string
         protocol:
           enum:
           - tcp

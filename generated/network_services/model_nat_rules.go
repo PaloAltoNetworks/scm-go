@@ -57,7 +57,7 @@ type NatRules struct {
 	// Destination interface of the original packet
 	ToInterface *string `json:"to_interface,omitempty"`
 	// Translated destination IP address
-	TranslatedAddressSingle *string `json:"translated_address_single,omitempty"`
+	TranslatedAddress *string `json:"translated_address,omitempty"`
 	// Translated destination port
 	TranslatedPort       *int32 `json:"translated_port,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -649,36 +649,36 @@ func (o *NatRules) SetToInterface(v string) {
 	o.ToInterface = &v
 }
 
-// GetTranslatedAddressSingle returns the TranslatedAddressSingle field value if set, zero value otherwise.
-func (o *NatRules) GetTranslatedAddressSingle() string {
-	if o == nil || IsNil(o.TranslatedAddressSingle) {
+// GetTranslatedAddress returns the TranslatedAddress field value if set, zero value otherwise.
+func (o *NatRules) GetTranslatedAddress() string {
+	if o == nil || IsNil(o.TranslatedAddress) {
 		var ret string
 		return ret
 	}
-	return *o.TranslatedAddressSingle
+	return *o.TranslatedAddress
 }
 
-// GetTranslatedAddressSingleOk returns a tuple with the TranslatedAddressSingle field value if set, nil otherwise
+// GetTranslatedAddressOk returns a tuple with the TranslatedAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRules) GetTranslatedAddressSingleOk() (*string, bool) {
-	if o == nil || IsNil(o.TranslatedAddressSingle) {
+func (o *NatRules) GetTranslatedAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.TranslatedAddress) {
 		return nil, false
 	}
-	return o.TranslatedAddressSingle, true
+	return o.TranslatedAddress, true
 }
 
-// HasTranslatedAddressSingle returns a boolean if a field has been set.
-func (o *NatRules) HasTranslatedAddressSingle() bool {
-	if o != nil && !IsNil(o.TranslatedAddressSingle) {
+// HasTranslatedAddress returns a boolean if a field has been set.
+func (o *NatRules) HasTranslatedAddress() bool {
+	if o != nil && !IsNil(o.TranslatedAddress) {
 		return true
 	}
 
 	return false
 }
 
-// SetTranslatedAddressSingle gets a reference to the given string and assigns it to the TranslatedAddressSingle field.
-func (o *NatRules) SetTranslatedAddressSingle(v string) {
-	o.TranslatedAddressSingle = &v
+// SetTranslatedAddress gets a reference to the given string and assigns it to the TranslatedAddress field.
+func (o *NatRules) SetTranslatedAddress(v string) {
+	o.TranslatedAddress = &v
 }
 
 // GetTranslatedPort returns the TranslatedPort field value if set, zero value otherwise.
@@ -766,8 +766,8 @@ func (o NatRules) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ToInterface) {
 		toSerialize["to_interface"] = o.ToInterface
 	}
-	if !IsNil(o.TranslatedAddressSingle) {
-		toSerialize["translated_address_single"] = o.TranslatedAddressSingle
+	if !IsNil(o.TranslatedAddress) {
+		toSerialize["translated_address"] = o.TranslatedAddress
 	}
 	if !IsNil(o.TranslatedPort) {
 		toSerialize["translated_port"] = o.TranslatedPort
@@ -840,7 +840,7 @@ func (o *NatRules) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "tag")
 		delete(additionalProperties, "to")
 		delete(additionalProperties, "to_interface")
-		delete(additionalProperties, "translated_address_single")
+		delete(additionalProperties, "translated_address")
 		delete(additionalProperties, "translated_port")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -24,7 +24,7 @@ type LogicalRoutersVrfInnerMulticastPim struct {
 	GroupPermission      *string                                               `json:"group_permission,omitempty"`
 	IfTimerGlobal        *string                                               `json:"if_timer_global,omitempty"`
 	Interface            []LogicalRoutersVrfInnerMulticastPimInterfaceInner    `json:"interface,omitempty"`
-	RouteAgeoutTime      *float32                                              `json:"route_ageout_time,omitempty"`
+	RouteAgeoutTime      *int32                                                `json:"route_ageout_time,omitempty"`
 	Rp                   *LogicalRoutersVrfInnerMulticastPimRp                 `json:"rp,omitempty"`
 	RpfLookupMode        *string                                               `json:"rpf_lookup_mode,omitempty"`
 	SptThreshold         []LogicalRoutersVrfInnerMulticastPimSptThresholdInner `json:"spt_threshold,omitempty"`
@@ -180,9 +180,9 @@ func (o *LogicalRoutersVrfInnerMulticastPim) SetInterface(v []LogicalRoutersVrfI
 }
 
 // GetRouteAgeoutTime returns the RouteAgeoutTime field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastPim) GetRouteAgeoutTime() float32 {
+func (o *LogicalRoutersVrfInnerMulticastPim) GetRouteAgeoutTime() int32 {
 	if o == nil || IsNil(o.RouteAgeoutTime) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.RouteAgeoutTime
@@ -190,7 +190,7 @@ func (o *LogicalRoutersVrfInnerMulticastPim) GetRouteAgeoutTime() float32 {
 
 // GetRouteAgeoutTimeOk returns a tuple with the RouteAgeoutTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastPim) GetRouteAgeoutTimeOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastPim) GetRouteAgeoutTimeOk() (*int32, bool) {
 	if o == nil || IsNil(o.RouteAgeoutTime) {
 		return nil, false
 	}
@@ -206,8 +206,8 @@ func (o *LogicalRoutersVrfInnerMulticastPim) HasRouteAgeoutTime() bool {
 	return false
 }
 
-// SetRouteAgeoutTime gets a reference to the given float32 and assigns it to the RouteAgeoutTime field.
-func (o *LogicalRoutersVrfInnerMulticastPim) SetRouteAgeoutTime(v float32) {
+// SetRouteAgeoutTime gets a reference to the given int32 and assigns it to the RouteAgeoutTime field.
+func (o *LogicalRoutersVrfInnerMulticastPim) SetRouteAgeoutTime(v int32) {
 	o.RouteAgeoutTime = &v
 }
 

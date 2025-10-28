@@ -21,9 +21,9 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRan
 
 // LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner struct for LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner
 type LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner struct {
-	Advertise            *bool    `json:"advertise,omitempty"`
-	Name                 string   `json:"name"`
-	RouteTag             *float32 `json:"route_tag,omitempty"`
+	Advertise            *bool  `json:"advertise,omitempty"`
+	Name                 string `json:"name"`
+	RouteTag             *int32 `json:"route_tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -104,9 +104,9 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner) SetNam
 }
 
 // GetRouteTag returns the RouteTag field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner) GetRouteTag() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner) GetRouteTag() int32 {
 	if o == nil || IsNil(o.RouteTag) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.RouteTag
@@ -114,7 +114,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner) GetRou
 
 // GetRouteTagOk returns a tuple with the RouteTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner) GetRouteTagOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner) GetRouteTagOk() (*int32, bool) {
 	if o == nil || IsNil(o.RouteTag) {
 		return nil, false
 	}
@@ -130,8 +130,8 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner) HasRou
 	return false
 }
 
-// SetRouteTag gets a reference to the given float32 and assigns it to the RouteTag field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner) SetRouteTag(v float32) {
+// SetRouteTag gets a reference to the given int32 and assigns it to the RouteTag field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaAbrNssaExtRangeInner) SetRouteTag(v int32) {
 	o.RouteTag = &v
 }
 

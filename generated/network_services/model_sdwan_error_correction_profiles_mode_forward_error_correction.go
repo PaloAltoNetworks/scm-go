@@ -21,8 +21,8 @@ var _ MappedNullable = &SdwanErrorCorrectionProfilesModeForwardErrorCorrection{}
 
 // SdwanErrorCorrectionProfilesModeForwardErrorCorrection struct for SdwanErrorCorrectionProfilesModeForwardErrorCorrection
 type SdwanErrorCorrectionProfilesModeForwardErrorCorrection struct {
-	Ratio                string  `json:"ratio"`
-	RecoveryDuration     float32 `json:"recovery_duration"`
+	Ratio                string `json:"ratio"`
+	RecoveryDuration     int32  `json:"recovery_duration"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,7 +32,7 @@ type _SdwanErrorCorrectionProfilesModeForwardErrorCorrection SdwanErrorCorrectio
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSdwanErrorCorrectionProfilesModeForwardErrorCorrection(ratio string, recoveryDuration float32) *SdwanErrorCorrectionProfilesModeForwardErrorCorrection {
+func NewSdwanErrorCorrectionProfilesModeForwardErrorCorrection(ratio string, recoveryDuration int32) *SdwanErrorCorrectionProfilesModeForwardErrorCorrection {
 	this := SdwanErrorCorrectionProfilesModeForwardErrorCorrection{}
 	this.Ratio = ratio
 	this.RecoveryDuration = recoveryDuration
@@ -72,9 +72,9 @@ func (o *SdwanErrorCorrectionProfilesModeForwardErrorCorrection) SetRatio(v stri
 }
 
 // GetRecoveryDuration returns the RecoveryDuration field value
-func (o *SdwanErrorCorrectionProfilesModeForwardErrorCorrection) GetRecoveryDuration() float32 {
+func (o *SdwanErrorCorrectionProfilesModeForwardErrorCorrection) GetRecoveryDuration() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *SdwanErrorCorrectionProfilesModeForwardErrorCorrection) GetRecoveryDura
 
 // GetRecoveryDurationOk returns a tuple with the RecoveryDuration field value
 // and a boolean to check if the value has been set.
-func (o *SdwanErrorCorrectionProfilesModeForwardErrorCorrection) GetRecoveryDurationOk() (*float32, bool) {
+func (o *SdwanErrorCorrectionProfilesModeForwardErrorCorrection) GetRecoveryDurationOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *SdwanErrorCorrectionProfilesModeForwardErrorCorrection) GetRecoveryDura
 }
 
 // SetRecoveryDuration sets field value
-func (o *SdwanErrorCorrectionProfilesModeForwardErrorCorrection) SetRecoveryDuration(v float32) {
+func (o *SdwanErrorCorrectionProfilesModeForwardErrorCorrection) SetRecoveryDuration(v int32) {
 	o.RecoveryDuration = v
 }
 

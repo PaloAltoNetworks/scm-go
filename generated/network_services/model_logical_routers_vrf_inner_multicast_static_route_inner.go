@@ -25,7 +25,7 @@ type LogicalRoutersVrfInnerMulticastStaticRouteInner struct {
 	Interface            *string                                                 `json:"interface,omitempty"`
 	Name                 string                                                  `json:"name"`
 	Nexthop              *LogicalRoutersVrfInnerMulticastStaticRouteInnerNexthop `json:"nexthop,omitempty"`
-	Preference           *float32                                                `json:"preference,omitempty"`
+	Preference           *int32                                                  `json:"preference,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -170,9 +170,9 @@ func (o *LogicalRoutersVrfInnerMulticastStaticRouteInner) SetNexthop(v LogicalRo
 }
 
 // GetPreference returns the Preference field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastStaticRouteInner) GetPreference() float32 {
+func (o *LogicalRoutersVrfInnerMulticastStaticRouteInner) GetPreference() int32 {
 	if o == nil || IsNil(o.Preference) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Preference
@@ -180,7 +180,7 @@ func (o *LogicalRoutersVrfInnerMulticastStaticRouteInner) GetPreference() float3
 
 // GetPreferenceOk returns a tuple with the Preference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastStaticRouteInner) GetPreferenceOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastStaticRouteInner) GetPreferenceOk() (*int32, bool) {
 	if o == nil || IsNil(o.Preference) {
 		return nil, false
 	}
@@ -196,8 +196,8 @@ func (o *LogicalRoutersVrfInnerMulticastStaticRouteInner) HasPreference() bool {
 	return false
 }
 
-// SetPreference gets a reference to the given float32 and assigns it to the Preference field.
-func (o *LogicalRoutersVrfInnerMulticastStaticRouteInner) SetPreference(v float32) {
+// SetPreference gets a reference to the given int32 and assigns it to the Preference field.
+func (o *LogicalRoutersVrfInnerMulticastStaticRouteInner) SetPreference(v int32) {
 	o.Preference = &v
 }
 

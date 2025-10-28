@@ -21,8 +21,8 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTyp
 
 // LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborInner struct for LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborInner
 type LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborInner struct {
-	Name                 string   `json:"name"`
-	Priority             *float32 `json:"priority,omitempty"`
+	Name                 string `json:"name"`
+	Priority             *int32 `json:"priority,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -71,9 +71,9 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborIn
 }
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborInner) GetPriority() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborInner) GetPriority() int32 {
 	if o == nil || IsNil(o.Priority) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Priority
@@ -81,7 +81,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborIn
 
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborInner) GetPriorityOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborInner) GetPriorityOk() (*int32, bool) {
 	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborIn
 	return false
 }
 
-// SetPriority gets a reference to the given float32 and assigns it to the Priority field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborInner) SetPriority(v float32) {
+// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkTypeP2mpNeighborInner) SetPriority(v int32) {
 	o.Priority = &v
 }
 

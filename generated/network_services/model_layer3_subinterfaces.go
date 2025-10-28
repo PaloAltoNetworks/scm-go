@@ -34,18 +34,19 @@ type Layer3Subinterfaces struct {
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
-	InterfaceManagementProfile *string  `json:"interface_management_profile,omitempty"`
-	Ip                         []string `json:"ip,omitempty"`
+	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
+	// L3 sub-interface IP Parent
+	Ip []Layer3SubinterfacesIpInner `json:"ip,omitempty"`
 	// MTU
 	Mtu *int32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
 	Name string `json:"name"`
 	// Parent interface
-	ParentInterface *string `json:"parent-interface,omitempty"`
+	ParentInterface *string `json:"parent_interface,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
-	Tag                  *float32 `json:"tag,omitempty"`
+	Tag                  *int32 `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -326,9 +327,9 @@ func (o *Layer3Subinterfaces) SetInterfaceManagementProfile(v string) {
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetIp() []string {
+func (o *Layer3Subinterfaces) GetIp() []Layer3SubinterfacesIpInner {
 	if o == nil || IsNil(o.Ip) {
-		var ret []string
+		var ret []Layer3SubinterfacesIpInner
 		return ret
 	}
 	return o.Ip
@@ -336,7 +337,7 @@ func (o *Layer3Subinterfaces) GetIp() []string {
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetIpOk() ([]string, bool) {
+func (o *Layer3Subinterfaces) GetIpOk() ([]Layer3SubinterfacesIpInner, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -352,8 +353,8 @@ func (o *Layer3Subinterfaces) HasIp() bool {
 	return false
 }
 
-// SetIp gets a reference to the given []string and assigns it to the Ip field.
-func (o *Layer3Subinterfaces) SetIp(v []string) {
+// SetIp gets a reference to the given []Layer3SubinterfacesIpInner and assigns it to the Ip field.
+func (o *Layer3Subinterfaces) SetIp(v []Layer3SubinterfacesIpInner) {
 	o.Ip = v
 }
 
@@ -478,9 +479,9 @@ func (o *Layer3Subinterfaces) SetSnippet(v string) {
 }
 
 // GetTag returns the Tag field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetTag() float32 {
+func (o *Layer3Subinterfaces) GetTag() int32 {
 	if o == nil || IsNil(o.Tag) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Tag
@@ -488,7 +489,7 @@ func (o *Layer3Subinterfaces) GetTag() float32 {
 
 // GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetTagOk() (*float32, bool) {
+func (o *Layer3Subinterfaces) GetTagOk() (*int32, bool) {
 	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
@@ -504,8 +505,8 @@ func (o *Layer3Subinterfaces) HasTag() bool {
 	return false
 }
 
-// SetTag gets a reference to the given float32 and assigns it to the Tag field.
-func (o *Layer3Subinterfaces) SetTag(v float32) {
+// SetTag gets a reference to the given int32 and assigns it to the Tag field.
+func (o *Layer3Subinterfaces) SetTag(v int32) {
 	o.Tag = &v
 }
 
@@ -551,7 +552,7 @@ func (o Layer3Subinterfaces) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.ParentInterface) {
-		toSerialize["parent-interface"] = o.ParentInterface
+		toSerialize["parent_interface"] = o.ParentInterface
 	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
@@ -613,7 +614,7 @@ func (o *Layer3Subinterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "name")
-		delete(additionalProperties, "parent-interface")
+		delete(additionalProperties, "parent_interface")
 		delete(additionalProperties, "snippet")
 		delete(additionalProperties, "tag")
 		o.AdditionalProperties = additionalProperties

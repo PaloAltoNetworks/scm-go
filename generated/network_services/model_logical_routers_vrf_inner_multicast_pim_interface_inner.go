@@ -21,12 +21,12 @@ var _ MappedNullable = &LogicalRoutersVrfInnerMulticastPimInterfaceInner{}
 
 // LogicalRoutersVrfInnerMulticastPimInterfaceInner struct for LogicalRoutersVrfInnerMulticastPimInterfaceInner
 type LogicalRoutersVrfInnerMulticastPimInterfaceInner struct {
-	Description          *string  `json:"description,omitempty"`
-	DrPriority           *float32 `json:"dr_priority,omitempty"`
-	IfTimer              *string  `json:"if_timer,omitempty"`
-	Name                 string   `json:"name"`
-	NeighborFilter       *string  `json:"neighbor_filter,omitempty"`
-	SendBsm              *bool    `json:"send_bsm,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	DrPriority           *int32  `json:"dr_priority,omitempty"`
+	IfTimer              *string `json:"if_timer,omitempty"`
+	Name                 string  `json:"name"`
+	NeighborFilter       *string `json:"neighbor_filter,omitempty"`
+	SendBsm              *bool   `json:"send_bsm,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -83,9 +83,9 @@ func (o *LogicalRoutersVrfInnerMulticastPimInterfaceInner) SetDescription(v stri
 }
 
 // GetDrPriority returns the DrPriority field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastPimInterfaceInner) GetDrPriority() float32 {
+func (o *LogicalRoutersVrfInnerMulticastPimInterfaceInner) GetDrPriority() int32 {
 	if o == nil || IsNil(o.DrPriority) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.DrPriority
@@ -93,7 +93,7 @@ func (o *LogicalRoutersVrfInnerMulticastPimInterfaceInner) GetDrPriority() float
 
 // GetDrPriorityOk returns a tuple with the DrPriority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastPimInterfaceInner) GetDrPriorityOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastPimInterfaceInner) GetDrPriorityOk() (*int32, bool) {
 	if o == nil || IsNil(o.DrPriority) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *LogicalRoutersVrfInnerMulticastPimInterfaceInner) HasDrPriority() bool 
 	return false
 }
 
-// SetDrPriority gets a reference to the given float32 and assigns it to the DrPriority field.
-func (o *LogicalRoutersVrfInnerMulticastPimInterfaceInner) SetDrPriority(v float32) {
+// SetDrPriority gets a reference to the given int32 and assigns it to the DrPriority field.
+func (o *LogicalRoutersVrfInnerMulticastPimInterfaceInner) SetDrPriority(v int32) {
 	o.DrPriority = &v
 }
 

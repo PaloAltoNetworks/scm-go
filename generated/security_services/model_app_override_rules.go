@@ -36,7 +36,7 @@ type AppOverrideRules struct {
 	Name              string  `json:"name" validate:"regexp=^[a-zA-Z0-9._-]+$"`
 	NegateDestination *bool   `json:"negate_destination,omitempty"`
 	NegateSource      *bool   `json:"negate_source,omitempty"`
-	Port              int32   `json:"port"`
+	Port              string  `json:"port"`
 	Protocol          string  `json:"protocol"`
 	// The snippet in which the resource is defined
 	Snippet              *string  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
@@ -52,7 +52,7 @@ type _AppOverrideRules AppOverrideRules
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppOverrideRules(application string, destination []string, from []string, name string, port int32, protocol string, source []string, to []string) *AppOverrideRules {
+func NewAppOverrideRules(application string, destination []string, from []string, name string, port string, protocol string, source []string, to []string) *AppOverrideRules {
 	this := AppOverrideRules{}
 	this.Application = application
 	this.Destination = destination
@@ -438,9 +438,9 @@ func (o *AppOverrideRules) SetNegateSource(v bool) {
 }
 
 // GetPort returns the Port field value
-func (o *AppOverrideRules) GetPort() int32 {
+func (o *AppOverrideRules) GetPort() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
@@ -449,7 +449,7 @@ func (o *AppOverrideRules) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value
 // and a boolean to check if the value has been set.
-func (o *AppOverrideRules) GetPortOk() (*int32, bool) {
+func (o *AppOverrideRules) GetPortOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -457,7 +457,7 @@ func (o *AppOverrideRules) GetPortOk() (*int32, bool) {
 }
 
 // SetPort sets field value
-func (o *AppOverrideRules) SetPort(v int32) {
+func (o *AppOverrideRules) SetPort(v string) {
 	o.Port = v
 }
 

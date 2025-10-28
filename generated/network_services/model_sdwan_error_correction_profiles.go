@@ -21,7 +21,7 @@ var _ MappedNullable = &SdwanErrorCorrectionProfiles{}
 
 // SdwanErrorCorrectionProfiles struct for SdwanErrorCorrectionProfiles
 type SdwanErrorCorrectionProfiles struct {
-	ActivationThreshold float32 `json:"activation_threshold"`
+	ActivationThreshold int32 `json:"activation_threshold"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
@@ -41,7 +41,7 @@ type _SdwanErrorCorrectionProfiles SdwanErrorCorrectionProfiles
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSdwanErrorCorrectionProfiles(activationThreshold float32, mode SdwanErrorCorrectionProfilesMode, name string) *SdwanErrorCorrectionProfiles {
+func NewSdwanErrorCorrectionProfiles(activationThreshold int32, mode SdwanErrorCorrectionProfilesMode, name string) *SdwanErrorCorrectionProfiles {
 	this := SdwanErrorCorrectionProfiles{}
 	this.ActivationThreshold = activationThreshold
 	this.Mode = mode
@@ -58,9 +58,9 @@ func NewSdwanErrorCorrectionProfilesWithDefaults() *SdwanErrorCorrectionProfiles
 }
 
 // GetActivationThreshold returns the ActivationThreshold field value
-func (o *SdwanErrorCorrectionProfiles) GetActivationThreshold() float32 {
+func (o *SdwanErrorCorrectionProfiles) GetActivationThreshold() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -69,7 +69,7 @@ func (o *SdwanErrorCorrectionProfiles) GetActivationThreshold() float32 {
 
 // GetActivationThresholdOk returns a tuple with the ActivationThreshold field value
 // and a boolean to check if the value has been set.
-func (o *SdwanErrorCorrectionProfiles) GetActivationThresholdOk() (*float32, bool) {
+func (o *SdwanErrorCorrectionProfiles) GetActivationThresholdOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -77,7 +77,7 @@ func (o *SdwanErrorCorrectionProfiles) GetActivationThresholdOk() (*float32, boo
 }
 
 // SetActivationThreshold sets field value
-func (o *SdwanErrorCorrectionProfiles) SetActivationThreshold(v float32) {
+func (o *SdwanErrorCorrectionProfiles) SetActivationThreshold(v int32) {
 	o.ActivationThreshold = v
 }
 

@@ -25,11 +25,11 @@ type LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner struct {
 	Bfd                  *LogicalRoutersVrfInnerBgpGlobalBfd                        `json:"bfd,omitempty"`
 	Enable               *bool                                                      `json:"enable,omitempty"`
 	LinkType             *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerLinkType `json:"link_type,omitempty"`
-	Metric               *float32                                                   `json:"metric,omitempty"`
+	Metric               *int32                                                     `json:"metric,omitempty"`
 	MtuIgnore            *bool                                                      `json:"mtu_ignore,omitempty"`
 	Name                 string                                                     `json:"name"`
 	Passive              *bool                                                      `json:"passive,omitempty"`
-	Priority             *float32                                                   `json:"priority,omitempty"`
+	Priority             *int32                                                     `json:"priority,omitempty"`
 	Timing               *string                                                    `json:"timing,omitempty"`
 	VrTiming             *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming `json:"vr_timing,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -184,9 +184,9 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) SetLinkType(v Logica
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetMetric() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetMetric() int32 {
 	if o == nil || IsNil(o.Metric) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Metric
@@ -194,7 +194,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetMetric() float32 
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetMetricOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -210,8 +210,8 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) HasMetric() bool {
 	return false
 }
 
-// SetMetric gets a reference to the given float32 and assigns it to the Metric field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) SetMetric(v float32) {
+// SetMetric gets a reference to the given int32 and assigns it to the Metric field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) SetMetric(v int32) {
 	o.Metric = &v
 }
 
@@ -304,9 +304,9 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) SetPassive(v bool) {
 }
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetPriority() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetPriority() int32 {
 	if o == nil || IsNil(o.Priority) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Priority
@@ -314,7 +314,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetPriority() float3
 
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetPriorityOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) GetPriorityOk() (*int32, bool) {
 	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
@@ -330,8 +330,8 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) HasPriority() bool {
 	return false
 }
 
-// SetPriority gets a reference to the given float32 and assigns it to the Priority field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) SetPriority(v float32) {
+// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInner) SetPriority(v int32) {
 	o.Priority = &v
 }
 

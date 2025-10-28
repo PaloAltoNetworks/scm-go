@@ -22,7 +22,7 @@ var _ MappedNullable = &LogicalRoutersVrfInnerEcmp{}
 type LogicalRoutersVrfInnerEcmp struct {
 	Algorithm            *LogicalRoutersVrfInnerEcmpAlgorithm `json:"algorithm,omitempty"`
 	Enable               *bool                                `json:"enable,omitempty"`
-	MaxPath              *float32                             `json:"max_path,omitempty"`
+	MaxPath              *int32                               `json:"max_path,omitempty"`
 	StrictSourcePath     *bool                                `json:"strict_source_path,omitempty"`
 	SymmetricReturn      *bool                                `json:"symmetric_return,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -112,9 +112,9 @@ func (o *LogicalRoutersVrfInnerEcmp) SetEnable(v bool) {
 }
 
 // GetMaxPath returns the MaxPath field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerEcmp) GetMaxPath() float32 {
+func (o *LogicalRoutersVrfInnerEcmp) GetMaxPath() int32 {
 	if o == nil || IsNil(o.MaxPath) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MaxPath
@@ -122,7 +122,7 @@ func (o *LogicalRoutersVrfInnerEcmp) GetMaxPath() float32 {
 
 // GetMaxPathOk returns a tuple with the MaxPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerEcmp) GetMaxPathOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerEcmp) GetMaxPathOk() (*int32, bool) {
 	if o == nil || IsNil(o.MaxPath) {
 		return nil, false
 	}
@@ -138,8 +138,8 @@ func (o *LogicalRoutersVrfInnerEcmp) HasMaxPath() bool {
 	return false
 }
 
-// SetMaxPath gets a reference to the given float32 and assigns it to the MaxPath field.
-func (o *LogicalRoutersVrfInnerEcmp) SetMaxPath(v float32) {
+// SetMaxPath gets a reference to the given int32 and assigns it to the MaxPath field.
+func (o *LogicalRoutersVrfInnerEcmp) SetMaxPath(v int32) {
 	o.MaxPath = &v
 }
 

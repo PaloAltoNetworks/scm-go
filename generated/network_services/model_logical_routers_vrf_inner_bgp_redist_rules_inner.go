@@ -23,14 +23,14 @@ var _ MappedNullable = &LogicalRoutersVrfInnerBgpRedistRulesInner{}
 type LogicalRoutersVrfInnerBgpRedistRulesInner struct {
 	AddressFamilyIdentifier *string  `json:"address_family_identifier,omitempty"`
 	Enable                  *bool    `json:"enable,omitempty"`
-	Metric                  *float32 `json:"metric,omitempty"`
+	Metric                  *int32   `json:"metric,omitempty"`
 	Name                    string   `json:"name"`
 	RouteTable              *string  `json:"route_table,omitempty"`
-	SetAsPathLimit          *float32 `json:"set_as_path_limit,omitempty"`
+	SetAsPathLimit          *int32   `json:"set_as_path_limit,omitempty"`
 	SetCommunity            []string `json:"set_community,omitempty"`
 	SetExtendedCommunity    []string `json:"set_extended_community,omitempty"`
-	SetLocalPreference      *float32 `json:"set_local_preference,omitempty"`
-	SetMed                  *float32 `json:"set_med,omitempty"`
+	SetLocalPreference      *int32   `json:"set_local_preference,omitempty"`
+	SetMed                  *int32   `json:"set_med,omitempty"`
 	SetOrigin               *string  `json:"set_origin,omitempty"`
 	AdditionalProperties    map[string]interface{}
 }
@@ -120,9 +120,9 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetEnable(v bool) {
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetMetric() float32 {
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetMetric() int32 {
 	if o == nil || IsNil(o.Metric) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Metric
@@ -130,7 +130,7 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetMetric() float32 {
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetMetricOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -146,8 +146,8 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) HasMetric() bool {
 	return false
 }
 
-// SetMetric gets a reference to the given float32 and assigns it to the Metric field.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetMetric(v float32) {
+// SetMetric gets a reference to the given int32 and assigns it to the Metric field.
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetMetric(v int32) {
 	o.Metric = &v
 }
 
@@ -208,9 +208,9 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetRouteTable(v string) {
 }
 
 // GetSetAsPathLimit returns the SetAsPathLimit field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetAsPathLimit() float32 {
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetAsPathLimit() int32 {
 	if o == nil || IsNil(o.SetAsPathLimit) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.SetAsPathLimit
@@ -218,7 +218,7 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetAsPathLimit() float32 
 
 // GetSetAsPathLimitOk returns a tuple with the SetAsPathLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetAsPathLimitOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetAsPathLimitOk() (*int32, bool) {
 	if o == nil || IsNil(o.SetAsPathLimit) {
 		return nil, false
 	}
@@ -234,8 +234,8 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) HasSetAsPathLimit() bool {
 	return false
 }
 
-// SetSetAsPathLimit gets a reference to the given float32 and assigns it to the SetAsPathLimit field.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetSetAsPathLimit(v float32) {
+// SetSetAsPathLimit gets a reference to the given int32 and assigns it to the SetAsPathLimit field.
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetSetAsPathLimit(v int32) {
 	o.SetAsPathLimit = &v
 }
 
@@ -304,9 +304,9 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetSetExtendedCommunity(v []
 }
 
 // GetSetLocalPreference returns the SetLocalPreference field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetLocalPreference() float32 {
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetLocalPreference() int32 {
 	if o == nil || IsNil(o.SetLocalPreference) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.SetLocalPreference
@@ -314,7 +314,7 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetLocalPreference() floa
 
 // GetSetLocalPreferenceOk returns a tuple with the SetLocalPreference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetLocalPreferenceOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetLocalPreferenceOk() (*int32, bool) {
 	if o == nil || IsNil(o.SetLocalPreference) {
 		return nil, false
 	}
@@ -330,15 +330,15 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) HasSetLocalPreference() bool
 	return false
 }
 
-// SetSetLocalPreference gets a reference to the given float32 and assigns it to the SetLocalPreference field.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetSetLocalPreference(v float32) {
+// SetSetLocalPreference gets a reference to the given int32 and assigns it to the SetLocalPreference field.
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetSetLocalPreference(v int32) {
 	o.SetLocalPreference = &v
 }
 
 // GetSetMed returns the SetMed field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetMed() float32 {
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetMed() int32 {
 	if o == nil || IsNil(o.SetMed) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.SetMed
@@ -346,7 +346,7 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetMed() float32 {
 
 // GetSetMedOk returns a tuple with the SetMed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetMedOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) GetSetMedOk() (*int32, bool) {
 	if o == nil || IsNil(o.SetMed) {
 		return nil, false
 	}
@@ -362,8 +362,8 @@ func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) HasSetMed() bool {
 	return false
 }
 
-// SetSetMed gets a reference to the given float32 and assigns it to the SetMed field.
-func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetSetMed(v float32) {
+// SetSetMed gets a reference to the given int32 and assigns it to the SetMed field.
+func (o *LogicalRoutersVrfInnerBgpRedistRulesInner) SetSetMed(v int32) {
 	o.SetMed = &v
 }
 

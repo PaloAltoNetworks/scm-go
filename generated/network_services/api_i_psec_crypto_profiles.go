@@ -339,27 +339,27 @@ func (a *IPsecCryptoProfilesAPIService) DeleteIPsecCryptoProfilesByIDExecute(r A
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetIPsecCrytoProfilesByIDRequest struct {
+type ApiGetIPsecCryptoProfilesByIDRequest struct {
 	ctx        context.Context
 	ApiService *IPsecCryptoProfilesAPIService
 	id         string
 }
 
-func (r ApiGetIPsecCrytoProfilesByIDRequest) Execute() (*IpsecCryptoProfiles, *http.Response, error) {
-	return r.ApiService.GetIPsecCrytoProfilesByIDExecute(r)
+func (r ApiGetIPsecCryptoProfilesByIDRequest) Execute() (*IpsecCryptoProfiles, *http.Response, error) {
+	return r.ApiService.GetIPsecCryptoProfilesByIDExecute(r)
 }
 
 /*
-GetIPsecCrytoProfilesByID Get an IPsec crypto profile
+GetIPsecCryptoProfilesByID Get an IPsec crypto profile
 
 Get an existing IPsec crypto profile.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The UUID of the configuration resource
-	@return ApiGetIPsecCrytoProfilesByIDRequest
+	@return ApiGetIPsecCryptoProfilesByIDRequest
 */
-func (a *IPsecCryptoProfilesAPIService) GetIPsecCrytoProfilesByID(ctx context.Context, id string) ApiGetIPsecCrytoProfilesByIDRequest {
-	return ApiGetIPsecCrytoProfilesByIDRequest{
+func (a *IPsecCryptoProfilesAPIService) GetIPsecCryptoProfilesByID(ctx context.Context, id string) ApiGetIPsecCryptoProfilesByIDRequest {
+	return ApiGetIPsecCryptoProfilesByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -369,7 +369,7 @@ func (a *IPsecCryptoProfilesAPIService) GetIPsecCrytoProfilesByID(ctx context.Co
 // Execute executes the request
 //
 //	@return IpsecCryptoProfiles
-func (a *IPsecCryptoProfilesAPIService) GetIPsecCrytoProfilesByIDExecute(r ApiGetIPsecCrytoProfilesByIDRequest) (*IpsecCryptoProfiles, *http.Response, error) {
+func (a *IPsecCryptoProfilesAPIService) GetIPsecCryptoProfilesByIDExecute(r ApiGetIPsecCryptoProfilesByIDRequest) (*IpsecCryptoProfiles, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -377,7 +377,7 @@ func (a *IPsecCryptoProfilesAPIService) GetIPsecCrytoProfilesByIDExecute(r ApiGe
 		localVarReturnValue *IpsecCryptoProfiles
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPsecCryptoProfilesAPIService.GetIPsecCrytoProfilesByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IPsecCryptoProfilesAPIService.GetIPsecCryptoProfilesByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

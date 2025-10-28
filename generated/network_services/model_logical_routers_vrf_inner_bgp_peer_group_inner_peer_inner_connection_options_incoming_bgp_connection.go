@@ -20,8 +20,8 @@ var _ MappedNullable = &LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnecti
 
 // LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection struct for LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection
 type LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection struct {
-	Allow                *bool    `json:"allow,omitempty"`
-	RemotePort           *float32 `json:"remote_port,omitempty"`
+	Allow                *bool  `json:"allow,omitempty"`
+	RemotePort           *int32 `json:"remote_port,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,9 +77,9 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomi
 }
 
 // GetRemotePort returns the RemotePort field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection) GetRemotePort() float32 {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection) GetRemotePort() int32 {
 	if o == nil || IsNil(o.RemotePort) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.RemotePort
@@ -87,7 +87,7 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomi
 
 // GetRemotePortOk returns a tuple with the RemotePort field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection) GetRemotePortOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection) GetRemotePortOk() (*int32, bool) {
 	if o == nil || IsNil(o.RemotePort) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomi
 	return false
 }
 
-// SetRemotePort gets a reference to the given float32 and assigns it to the RemotePort field.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection) SetRemotePort(v float32) {
+// SetRemotePort gets a reference to the given int32 and assigns it to the RemotePort field.
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection) SetRemotePort(v int32) {
 	o.RemotePort = &v
 }
 

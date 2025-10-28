@@ -20,9 +20,15 @@ var _ MappedNullable = &ZonesNetwork{}
 
 // ZonesNetwork struct for ZonesNetwork
 type ZonesNetwork struct {
-	EnablePacketBufferProtection *bool   `json:"enable_packet_buffer_protection,omitempty"`
-	LogSetting                   *string `json:"log_setting,omitempty"`
-	ZoneProtectionProfile        *string `json:"zone_protection_profile,omitempty"`
+	EnablePacketBufferProtection *bool                  `json:"enable_packet_buffer_protection,omitempty"`
+	External                     []string               `json:"external,omitempty"`
+	Layer2                       []string               `json:"layer2,omitempty"`
+	Layer3                       []string               `json:"layer3,omitempty"`
+	LogSetting                   *string                `json:"log_setting,omitempty"`
+	Tap                          []string               `json:"tap,omitempty"`
+	Tunnel                       map[string]interface{} `json:"tunnel,omitempty"`
+	VirtualWire                  []string               `json:"virtual_wire,omitempty"`
+	ZoneProtectionProfile        *string                `json:"zone_protection_profile,omitempty"`
 	AdditionalProperties         map[string]interface{}
 }
 
@@ -77,6 +83,102 @@ func (o *ZonesNetwork) SetEnablePacketBufferProtection(v bool) {
 	o.EnablePacketBufferProtection = &v
 }
 
+// GetExternal returns the External field value if set, zero value otherwise.
+func (o *ZonesNetwork) GetExternal() []string {
+	if o == nil || IsNil(o.External) {
+		var ret []string
+		return ret
+	}
+	return o.External
+}
+
+// GetExternalOk returns a tuple with the External field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZonesNetwork) GetExternalOk() ([]string, bool) {
+	if o == nil || IsNil(o.External) {
+		return nil, false
+	}
+	return o.External, true
+}
+
+// HasExternal returns a boolean if a field has been set.
+func (o *ZonesNetwork) HasExternal() bool {
+	if o != nil && !IsNil(o.External) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternal gets a reference to the given []string and assigns it to the External field.
+func (o *ZonesNetwork) SetExternal(v []string) {
+	o.External = v
+}
+
+// GetLayer2 returns the Layer2 field value if set, zero value otherwise.
+func (o *ZonesNetwork) GetLayer2() []string {
+	if o == nil || IsNil(o.Layer2) {
+		var ret []string
+		return ret
+	}
+	return o.Layer2
+}
+
+// GetLayer2Ok returns a tuple with the Layer2 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZonesNetwork) GetLayer2Ok() ([]string, bool) {
+	if o == nil || IsNil(o.Layer2) {
+		return nil, false
+	}
+	return o.Layer2, true
+}
+
+// HasLayer2 returns a boolean if a field has been set.
+func (o *ZonesNetwork) HasLayer2() bool {
+	if o != nil && !IsNil(o.Layer2) {
+		return true
+	}
+
+	return false
+}
+
+// SetLayer2 gets a reference to the given []string and assigns it to the Layer2 field.
+func (o *ZonesNetwork) SetLayer2(v []string) {
+	o.Layer2 = v
+}
+
+// GetLayer3 returns the Layer3 field value if set, zero value otherwise.
+func (o *ZonesNetwork) GetLayer3() []string {
+	if o == nil || IsNil(o.Layer3) {
+		var ret []string
+		return ret
+	}
+	return o.Layer3
+}
+
+// GetLayer3Ok returns a tuple with the Layer3 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZonesNetwork) GetLayer3Ok() ([]string, bool) {
+	if o == nil || IsNil(o.Layer3) {
+		return nil, false
+	}
+	return o.Layer3, true
+}
+
+// HasLayer3 returns a boolean if a field has been set.
+func (o *ZonesNetwork) HasLayer3() bool {
+	if o != nil && !IsNil(o.Layer3) {
+		return true
+	}
+
+	return false
+}
+
+// SetLayer3 gets a reference to the given []string and assigns it to the Layer3 field.
+func (o *ZonesNetwork) SetLayer3(v []string) {
+	o.Layer3 = v
+}
+
 // GetLogSetting returns the LogSetting field value if set, zero value otherwise.
 func (o *ZonesNetwork) GetLogSetting() string {
 	if o == nil || IsNil(o.LogSetting) {
@@ -107,6 +209,102 @@ func (o *ZonesNetwork) HasLogSetting() bool {
 // SetLogSetting gets a reference to the given string and assigns it to the LogSetting field.
 func (o *ZonesNetwork) SetLogSetting(v string) {
 	o.LogSetting = &v
+}
+
+// GetTap returns the Tap field value if set, zero value otherwise.
+func (o *ZonesNetwork) GetTap() []string {
+	if o == nil || IsNil(o.Tap) {
+		var ret []string
+		return ret
+	}
+	return o.Tap
+}
+
+// GetTapOk returns a tuple with the Tap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZonesNetwork) GetTapOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tap) {
+		return nil, false
+	}
+	return o.Tap, true
+}
+
+// HasTap returns a boolean if a field has been set.
+func (o *ZonesNetwork) HasTap() bool {
+	if o != nil && !IsNil(o.Tap) {
+		return true
+	}
+
+	return false
+}
+
+// SetTap gets a reference to the given []string and assigns it to the Tap field.
+func (o *ZonesNetwork) SetTap(v []string) {
+	o.Tap = v
+}
+
+// GetTunnel returns the Tunnel field value if set, zero value otherwise.
+func (o *ZonesNetwork) GetTunnel() map[string]interface{} {
+	if o == nil || IsNil(o.Tunnel) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Tunnel
+}
+
+// GetTunnelOk returns a tuple with the Tunnel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZonesNetwork) GetTunnelOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Tunnel) {
+		return map[string]interface{}{}, false
+	}
+	return o.Tunnel, true
+}
+
+// HasTunnel returns a boolean if a field has been set.
+func (o *ZonesNetwork) HasTunnel() bool {
+	if o != nil && !IsNil(o.Tunnel) {
+		return true
+	}
+
+	return false
+}
+
+// SetTunnel gets a reference to the given map[string]interface{} and assigns it to the Tunnel field.
+func (o *ZonesNetwork) SetTunnel(v map[string]interface{}) {
+	o.Tunnel = v
+}
+
+// GetVirtualWire returns the VirtualWire field value if set, zero value otherwise.
+func (o *ZonesNetwork) GetVirtualWire() []string {
+	if o == nil || IsNil(o.VirtualWire) {
+		var ret []string
+		return ret
+	}
+	return o.VirtualWire
+}
+
+// GetVirtualWireOk returns a tuple with the VirtualWire field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZonesNetwork) GetVirtualWireOk() ([]string, bool) {
+	if o == nil || IsNil(o.VirtualWire) {
+		return nil, false
+	}
+	return o.VirtualWire, true
+}
+
+// HasVirtualWire returns a boolean if a field has been set.
+func (o *ZonesNetwork) HasVirtualWire() bool {
+	if o != nil && !IsNil(o.VirtualWire) {
+		return true
+	}
+
+	return false
+}
+
+// SetVirtualWire gets a reference to the given []string and assigns it to the VirtualWire field.
+func (o *ZonesNetwork) SetVirtualWire(v []string) {
+	o.VirtualWire = v
 }
 
 // GetZoneProtectionProfile returns the ZoneProtectionProfile field value if set, zero value otherwise.
@@ -154,8 +352,26 @@ func (o ZonesNetwork) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EnablePacketBufferProtection) {
 		toSerialize["enable_packet_buffer_protection"] = o.EnablePacketBufferProtection
 	}
+	if !IsNil(o.External) {
+		toSerialize["external"] = o.External
+	}
+	if !IsNil(o.Layer2) {
+		toSerialize["layer2"] = o.Layer2
+	}
+	if !IsNil(o.Layer3) {
+		toSerialize["layer3"] = o.Layer3
+	}
 	if !IsNil(o.LogSetting) {
 		toSerialize["log_setting"] = o.LogSetting
+	}
+	if !IsNil(o.Tap) {
+		toSerialize["tap"] = o.Tap
+	}
+	if !IsNil(o.Tunnel) {
+		toSerialize["tunnel"] = o.Tunnel
+	}
+	if !IsNil(o.VirtualWire) {
+		toSerialize["virtual_wire"] = o.VirtualWire
 	}
 	if !IsNil(o.ZoneProtectionProfile) {
 		toSerialize["zone_protection_profile"] = o.ZoneProtectionProfile
@@ -183,7 +399,13 @@ func (o *ZonesNetwork) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enable_packet_buffer_protection")
+		delete(additionalProperties, "external")
+		delete(additionalProperties, "layer2")
+		delete(additionalProperties, "layer3")
 		delete(additionalProperties, "log_setting")
+		delete(additionalProperties, "tap")
+		delete(additionalProperties, "tunnel")
+		delete(additionalProperties, "virtual_wire")
 		delete(additionalProperties, "zone_protection_profile")
 		o.AdditionalProperties = additionalProperties
 	}

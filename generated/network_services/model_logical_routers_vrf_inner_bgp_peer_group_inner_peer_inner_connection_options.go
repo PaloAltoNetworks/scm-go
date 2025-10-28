@@ -23,13 +23,13 @@ type LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions struct {
 	Authentication        *string                                                                                 `json:"authentication,omitempty"`
 	Dampening             *string                                                                                 `json:"dampening,omitempty"`
 	HoldTime              *string                                                                                 `json:"hold_time,omitempty"`
-	IdleHoldTime          *float32                                                                                `json:"idle_hold_time,omitempty"`
+	IdleHoldTime          *int32                                                                                  `json:"idle_hold_time,omitempty"`
 	IncomingBgpConnection *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsIncomingBgpConnection `json:"incoming_bgp_connection,omitempty"`
 	KeepAliveInterval     *string                                                                                 `json:"keep_alive_interval,omitempty"`
 	MaxPrefixes           *string                                                                                 `json:"max_prefixes,omitempty"`
-	MinRouteAdvInterval   *float32                                                                                `json:"min_route_adv_interval,omitempty"`
+	MinRouteAdvInterval   *int32                                                                                  `json:"min_route_adv_interval,omitempty"`
 	Multihop              *string                                                                                 `json:"multihop,omitempty"`
-	OpenDelayTime         *float32                                                                                `json:"open_delay_time,omitempty"`
+	OpenDelayTime         *int32                                                                                  `json:"open_delay_time,omitempty"`
 	OutgoingBgpConnection *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection `json:"outgoing_bgp_connection,omitempty"`
 	Timers                *string                                                                                 `json:"timers,omitempty"`
 	AdditionalProperties  map[string]interface{}
@@ -151,9 +151,9 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) SetH
 }
 
 // GetIdleHoldTime returns the IdleHoldTime field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetIdleHoldTime() float32 {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetIdleHoldTime() int32 {
 	if o == nil || IsNil(o.IdleHoldTime) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.IdleHoldTime
@@ -161,7 +161,7 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetI
 
 // GetIdleHoldTimeOk returns a tuple with the IdleHoldTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetIdleHoldTimeOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetIdleHoldTimeOk() (*int32, bool) {
 	if o == nil || IsNil(o.IdleHoldTime) {
 		return nil, false
 	}
@@ -177,8 +177,8 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) HasI
 	return false
 }
 
-// SetIdleHoldTime gets a reference to the given float32 and assigns it to the IdleHoldTime field.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) SetIdleHoldTime(v float32) {
+// SetIdleHoldTime gets a reference to the given int32 and assigns it to the IdleHoldTime field.
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) SetIdleHoldTime(v int32) {
 	o.IdleHoldTime = &v
 }
 
@@ -279,9 +279,9 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) SetM
 }
 
 // GetMinRouteAdvInterval returns the MinRouteAdvInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetMinRouteAdvInterval() float32 {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetMinRouteAdvInterval() int32 {
 	if o == nil || IsNil(o.MinRouteAdvInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MinRouteAdvInterval
@@ -289,7 +289,7 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetM
 
 // GetMinRouteAdvIntervalOk returns a tuple with the MinRouteAdvInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetMinRouteAdvIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetMinRouteAdvIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.MinRouteAdvInterval) {
 		return nil, false
 	}
@@ -305,8 +305,8 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) HasM
 	return false
 }
 
-// SetMinRouteAdvInterval gets a reference to the given float32 and assigns it to the MinRouteAdvInterval field.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) SetMinRouteAdvInterval(v float32) {
+// SetMinRouteAdvInterval gets a reference to the given int32 and assigns it to the MinRouteAdvInterval field.
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) SetMinRouteAdvInterval(v int32) {
 	o.MinRouteAdvInterval = &v
 }
 
@@ -343,9 +343,9 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) SetM
 }
 
 // GetOpenDelayTime returns the OpenDelayTime field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetOpenDelayTime() float32 {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetOpenDelayTime() int32 {
 	if o == nil || IsNil(o.OpenDelayTime) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.OpenDelayTime
@@ -353,7 +353,7 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetO
 
 // GetOpenDelayTimeOk returns a tuple with the OpenDelayTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetOpenDelayTimeOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) GetOpenDelayTimeOk() (*int32, bool) {
 	if o == nil || IsNil(o.OpenDelayTime) {
 		return nil, false
 	}
@@ -369,8 +369,8 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) HasO
 	return false
 }
 
-// SetOpenDelayTime gets a reference to the given float32 and assigns it to the OpenDelayTime field.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) SetOpenDelayTime(v float32) {
+// SetOpenDelayTime gets a reference to the given int32 and assigns it to the OpenDelayTime field.
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptions) SetOpenDelayTime(v int32) {
 	o.OpenDelayTime = &v
 }
 

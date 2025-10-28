@@ -20,17 +20,17 @@ var _ MappedNullable = &LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp{}
 
 // LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp struct for LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp
 type LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp struct {
-	Enable                  *bool    `json:"enable,omitempty"`
-	ImmediateLeave          *bool    `json:"immediate_leave,omitempty"`
-	LastMemberQueryInterval *float32 `json:"last_member_query_interval,omitempty"`
-	MaxGroups               *string  `json:"max_groups,omitempty"`
-	MaxQueryResponseTime    *float32 `json:"max_query_response_time,omitempty"`
-	MaxSources              *string  `json:"max_sources,omitempty"`
-	Mode                    *string  `json:"mode,omitempty"`
-	QueryInterval           *float32 `json:"query_interval,omitempty"`
-	Robustness              *string  `json:"robustness,omitempty"`
-	RouterAlertPolicing     *bool    `json:"router_alert_policing,omitempty"`
-	Version                 *string  `json:"version,omitempty"`
+	Enable                  *bool   `json:"enable,omitempty"`
+	ImmediateLeave          *bool   `json:"immediate_leave,omitempty"`
+	LastMemberQueryInterval *int32  `json:"last_member_query_interval,omitempty"`
+	MaxGroups               *string `json:"max_groups,omitempty"`
+	MaxQueryResponseTime    *int32  `json:"max_query_response_time,omitempty"`
+	MaxSources              *string `json:"max_sources,omitempty"`
+	Mode                    *string `json:"mode,omitempty"`
+	QueryInterval           *int32  `json:"query_interval,omitempty"`
+	Robustness              *string `json:"robustness,omitempty"`
+	RouterAlertPolicing     *bool   `json:"router_alert_policing,omitempty"`
+	Version                 *string `json:"version,omitempty"`
 	AdditionalProperties    map[string]interface{}
 }
 
@@ -118,9 +118,9 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) SetImmediateLea
 }
 
 // GetLastMemberQueryInterval returns the LastMemberQueryInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetLastMemberQueryInterval() float32 {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetLastMemberQueryInterval() int32 {
 	if o == nil || IsNil(o.LastMemberQueryInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.LastMemberQueryInterval
@@ -128,7 +128,7 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetLastMemberQu
 
 // GetLastMemberQueryIntervalOk returns a tuple with the LastMemberQueryInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetLastMemberQueryIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetLastMemberQueryIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.LastMemberQueryInterval) {
 		return nil, false
 	}
@@ -144,8 +144,8 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) HasLastMemberQu
 	return false
 }
 
-// SetLastMemberQueryInterval gets a reference to the given float32 and assigns it to the LastMemberQueryInterval field.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) SetLastMemberQueryInterval(v float32) {
+// SetLastMemberQueryInterval gets a reference to the given int32 and assigns it to the LastMemberQueryInterval field.
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) SetLastMemberQueryInterval(v int32) {
 	o.LastMemberQueryInterval = &v
 }
 
@@ -182,9 +182,9 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) SetMaxGroups(v 
 }
 
 // GetMaxQueryResponseTime returns the MaxQueryResponseTime field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetMaxQueryResponseTime() float32 {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetMaxQueryResponseTime() int32 {
 	if o == nil || IsNil(o.MaxQueryResponseTime) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MaxQueryResponseTime
@@ -192,7 +192,7 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetMaxQueryResp
 
 // GetMaxQueryResponseTimeOk returns a tuple with the MaxQueryResponseTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetMaxQueryResponseTimeOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetMaxQueryResponseTimeOk() (*int32, bool) {
 	if o == nil || IsNil(o.MaxQueryResponseTime) {
 		return nil, false
 	}
@@ -208,8 +208,8 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) HasMaxQueryResp
 	return false
 }
 
-// SetMaxQueryResponseTime gets a reference to the given float32 and assigns it to the MaxQueryResponseTime field.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) SetMaxQueryResponseTime(v float32) {
+// SetMaxQueryResponseTime gets a reference to the given int32 and assigns it to the MaxQueryResponseTime field.
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) SetMaxQueryResponseTime(v int32) {
 	o.MaxQueryResponseTime = &v
 }
 
@@ -278,9 +278,9 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) SetMode(v strin
 }
 
 // GetQueryInterval returns the QueryInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetQueryInterval() float32 {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetQueryInterval() int32 {
 	if o == nil || IsNil(o.QueryInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.QueryInterval
@@ -288,7 +288,7 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetQueryInterva
 
 // GetQueryIntervalOk returns a tuple with the QueryInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetQueryIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) GetQueryIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.QueryInterval) {
 		return nil, false
 	}
@@ -304,8 +304,8 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) HasQueryInterva
 	return false
 }
 
-// SetQueryInterval gets a reference to the given float32 and assigns it to the QueryInterval field.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) SetQueryInterval(v float32) {
+// SetQueryInterval gets a reference to the given int32 and assigns it to the QueryInterval field.
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerIgmp) SetQueryInterval(v int32) {
 	o.QueryInterval = &v
 }
 

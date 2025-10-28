@@ -21,9 +21,9 @@ var _ MappedNullable = &LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAg
 // LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath struct for LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath
 type LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath struct {
 	None                 map[string]interface{} `json:"none,omitempty"`
-	Prepend              *float32               `json:"prepend,omitempty"`
+	Prepend              *int32                 `json:"prepend,omitempty"`
 	Remove               map[string]interface{} `json:"remove,omitempty"`
-	RemoveAndPrepend     *float32               `json:"remove_and_prepend,omitempty"`
+	RemoveAndPrepend     *int32                 `json:"remove_and_prepend,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -79,9 +79,9 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 }
 
 // GetPrepend returns the Prepend field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) GetPrepend() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) GetPrepend() int32 {
 	if o == nil || IsNil(o.Prepend) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Prepend
@@ -89,7 +89,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 
 // GetPrependOk returns a tuple with the Prepend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) GetPrependOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) GetPrependOk() (*int32, bool) {
 	if o == nil || IsNil(o.Prepend) {
 		return nil, false
 	}
@@ -105,8 +105,8 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 	return false
 }
 
-// SetPrepend gets a reference to the given float32 and assigns it to the Prepend field.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) SetPrepend(v float32) {
+// SetPrepend gets a reference to the given int32 and assigns it to the Prepend field.
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) SetPrepend(v int32) {
 	o.Prepend = &v
 }
 
@@ -143,9 +143,9 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 }
 
 // GetRemoveAndPrepend returns the RemoveAndPrepend field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) GetRemoveAndPrepend() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) GetRemoveAndPrepend() int32 {
 	if o == nil || IsNil(o.RemoveAndPrepend) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.RemoveAndPrepend
@@ -153,7 +153,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 
 // GetRemoveAndPrependOk returns a tuple with the RemoveAndPrepend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) GetRemoveAndPrependOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) GetRemoveAndPrependOk() (*int32, bool) {
 	if o == nil || IsNil(o.RemoveAndPrepend) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 	return false
 }
 
-// SetRemoveAndPrepend gets a reference to the given float32 and assigns it to the RemoveAndPrepend field.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) SetRemoveAndPrepend(v float32) {
+// SetRemoveAndPrepend gets a reference to the given int32 and assigns it to the RemoveAndPrepend field.
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath) SetRemoveAndPrepend(v int32) {
 	o.RemoveAndPrepend = &v
 }
 

@@ -20,11 +20,11 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfGracefulRestart{}
 
 // LogicalRoutersVrfInnerOspfGracefulRestart struct for LogicalRoutersVrfInnerOspfGracefulRestart
 type LogicalRoutersVrfInnerOspfGracefulRestart struct {
-	Enable                 *bool    `json:"enable,omitempty"`
-	GracePeriod            *float32 `json:"grace_period,omitempty"`
-	HelperEnable           *bool    `json:"helper_enable,omitempty"`
-	MaxNeighborRestartTime *float32 `json:"max_neighbor_restart_time,omitempty"`
-	StrictLSAChecking      *bool    `json:"strict_LSA_checking,omitempty"`
+	Enable                 *bool  `json:"enable,omitempty"`
+	GracePeriod            *int32 `json:"grace_period,omitempty"`
+	HelperEnable           *bool  `json:"helper_enable,omitempty"`
+	MaxNeighborRestartTime *int32 `json:"max_neighbor_restart_time,omitempty"`
+	StrictLSAChecking      *bool  `json:"strict_LSA_checking,omitempty"`
 	AdditionalProperties   map[string]interface{}
 }
 
@@ -80,9 +80,9 @@ func (o *LogicalRoutersVrfInnerOspfGracefulRestart) SetEnable(v bool) {
 }
 
 // GetGracePeriod returns the GracePeriod field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetGracePeriod() float32 {
+func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetGracePeriod() int32 {
 	if o == nil || IsNil(o.GracePeriod) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.GracePeriod
@@ -90,7 +90,7 @@ func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetGracePeriod() float32 {
 
 // GetGracePeriodOk returns a tuple with the GracePeriod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetGracePeriodOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetGracePeriodOk() (*int32, bool) {
 	if o == nil || IsNil(o.GracePeriod) {
 		return nil, false
 	}
@@ -106,8 +106,8 @@ func (o *LogicalRoutersVrfInnerOspfGracefulRestart) HasGracePeriod() bool {
 	return false
 }
 
-// SetGracePeriod gets a reference to the given float32 and assigns it to the GracePeriod field.
-func (o *LogicalRoutersVrfInnerOspfGracefulRestart) SetGracePeriod(v float32) {
+// SetGracePeriod gets a reference to the given int32 and assigns it to the GracePeriod field.
+func (o *LogicalRoutersVrfInnerOspfGracefulRestart) SetGracePeriod(v int32) {
 	o.GracePeriod = &v
 }
 
@@ -144,9 +144,9 @@ func (o *LogicalRoutersVrfInnerOspfGracefulRestart) SetHelperEnable(v bool) {
 }
 
 // GetMaxNeighborRestartTime returns the MaxNeighborRestartTime field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetMaxNeighborRestartTime() float32 {
+func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetMaxNeighborRestartTime() int32 {
 	if o == nil || IsNil(o.MaxNeighborRestartTime) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MaxNeighborRestartTime
@@ -154,7 +154,7 @@ func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetMaxNeighborRestartTime() 
 
 // GetMaxNeighborRestartTimeOk returns a tuple with the MaxNeighborRestartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetMaxNeighborRestartTimeOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfGracefulRestart) GetMaxNeighborRestartTimeOk() (*int32, bool) {
 	if o == nil || IsNil(o.MaxNeighborRestartTime) {
 		return nil, false
 	}
@@ -170,8 +170,8 @@ func (o *LogicalRoutersVrfInnerOspfGracefulRestart) HasMaxNeighborRestartTime() 
 	return false
 }
 
-// SetMaxNeighborRestartTime gets a reference to the given float32 and assigns it to the MaxNeighborRestartTime field.
-func (o *LogicalRoutersVrfInnerOspfGracefulRestart) SetMaxNeighborRestartTime(v float32) {
+// SetMaxNeighborRestartTime gets a reference to the given int32 and assigns it to the MaxNeighborRestartTime field.
+func (o *LogicalRoutersVrfInnerOspfGracefulRestart) SetMaxNeighborRestartTime(v int32) {
 	o.MaxNeighborRestartTime = &v
 }
 

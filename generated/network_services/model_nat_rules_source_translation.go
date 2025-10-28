@@ -22,13 +22,17 @@ var _ MappedNullable = &NatRulesSourceTranslation{}
 type NatRulesSourceTranslation struct {
 	BiDirectional *bool                              `json:"bi_directional,omitempty"`
 	Fallback      *NatRulesSourceTranslationFallback `json:"fallback,omitempty"`
+	// Floating IP address
+	FloatingIp *string `json:"floating_ip,omitempty"`
 	// Interface name
 	Interface *string `json:"interface,omitempty"`
-	// Translated IP addresses
-	TranslatedAddressArray []string `json:"translated_address_array,omitempty"`
+	// Translated source IP address
+	Ip *string `json:"ip,omitempty"`
 	// Translated IP address
-	TranslatedAddressSingle *string `json:"translated_address_single,omitempty"`
-	AdditionalProperties    map[string]interface{}
+	TranslatedAddress *string `json:"translated_address,omitempty"`
+	// Translated source IP addresses
+	TranslatedAddressArray []string `json:"translated_address_array,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _NatRulesSourceTranslation NatRulesSourceTranslation
@@ -114,6 +118,38 @@ func (o *NatRulesSourceTranslation) SetFallback(v NatRulesSourceTranslationFallb
 	o.Fallback = &v
 }
 
+// GetFloatingIp returns the FloatingIp field value if set, zero value otherwise.
+func (o *NatRulesSourceTranslation) GetFloatingIp() string {
+	if o == nil || IsNil(o.FloatingIp) {
+		var ret string
+		return ret
+	}
+	return *o.FloatingIp
+}
+
+// GetFloatingIpOk returns a tuple with the FloatingIp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NatRulesSourceTranslation) GetFloatingIpOk() (*string, bool) {
+	if o == nil || IsNil(o.FloatingIp) {
+		return nil, false
+	}
+	return o.FloatingIp, true
+}
+
+// HasFloatingIp returns a boolean if a field has been set.
+func (o *NatRulesSourceTranslation) HasFloatingIp() bool {
+	if o != nil && !IsNil(o.FloatingIp) {
+		return true
+	}
+
+	return false
+}
+
+// SetFloatingIp gets a reference to the given string and assigns it to the FloatingIp field.
+func (o *NatRulesSourceTranslation) SetFloatingIp(v string) {
+	o.FloatingIp = &v
+}
+
 // GetInterface returns the Interface field value if set, zero value otherwise.
 func (o *NatRulesSourceTranslation) GetInterface() string {
 	if o == nil || IsNil(o.Interface) {
@@ -144,6 +180,70 @@ func (o *NatRulesSourceTranslation) HasInterface() bool {
 // SetInterface gets a reference to the given string and assigns it to the Interface field.
 func (o *NatRulesSourceTranslation) SetInterface(v string) {
 	o.Interface = &v
+}
+
+// GetIp returns the Ip field value if set, zero value otherwise.
+func (o *NatRulesSourceTranslation) GetIp() string {
+	if o == nil || IsNil(o.Ip) {
+		var ret string
+		return ret
+	}
+	return *o.Ip
+}
+
+// GetIpOk returns a tuple with the Ip field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NatRulesSourceTranslation) GetIpOk() (*string, bool) {
+	if o == nil || IsNil(o.Ip) {
+		return nil, false
+	}
+	return o.Ip, true
+}
+
+// HasIp returns a boolean if a field has been set.
+func (o *NatRulesSourceTranslation) HasIp() bool {
+	if o != nil && !IsNil(o.Ip) {
+		return true
+	}
+
+	return false
+}
+
+// SetIp gets a reference to the given string and assigns it to the Ip field.
+func (o *NatRulesSourceTranslation) SetIp(v string) {
+	o.Ip = &v
+}
+
+// GetTranslatedAddress returns the TranslatedAddress field value if set, zero value otherwise.
+func (o *NatRulesSourceTranslation) GetTranslatedAddress() string {
+	if o == nil || IsNil(o.TranslatedAddress) {
+		var ret string
+		return ret
+	}
+	return *o.TranslatedAddress
+}
+
+// GetTranslatedAddressOk returns a tuple with the TranslatedAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NatRulesSourceTranslation) GetTranslatedAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.TranslatedAddress) {
+		return nil, false
+	}
+	return o.TranslatedAddress, true
+}
+
+// HasTranslatedAddress returns a boolean if a field has been set.
+func (o *NatRulesSourceTranslation) HasTranslatedAddress() bool {
+	if o != nil && !IsNil(o.TranslatedAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetTranslatedAddress gets a reference to the given string and assigns it to the TranslatedAddress field.
+func (o *NatRulesSourceTranslation) SetTranslatedAddress(v string) {
+	o.TranslatedAddress = &v
 }
 
 // GetTranslatedAddressArray returns the TranslatedAddressArray field value if set, zero value otherwise.
@@ -178,38 +278,6 @@ func (o *NatRulesSourceTranslation) SetTranslatedAddressArray(v []string) {
 	o.TranslatedAddressArray = v
 }
 
-// GetTranslatedAddressSingle returns the TranslatedAddressSingle field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslation) GetTranslatedAddressSingle() string {
-	if o == nil || IsNil(o.TranslatedAddressSingle) {
-		var ret string
-		return ret
-	}
-	return *o.TranslatedAddressSingle
-}
-
-// GetTranslatedAddressSingleOk returns a tuple with the TranslatedAddressSingle field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslation) GetTranslatedAddressSingleOk() (*string, bool) {
-	if o == nil || IsNil(o.TranslatedAddressSingle) {
-		return nil, false
-	}
-	return o.TranslatedAddressSingle, true
-}
-
-// HasTranslatedAddressSingle returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslation) HasTranslatedAddressSingle() bool {
-	if o != nil && !IsNil(o.TranslatedAddressSingle) {
-		return true
-	}
-
-	return false
-}
-
-// SetTranslatedAddressSingle gets a reference to the given string and assigns it to the TranslatedAddressSingle field.
-func (o *NatRulesSourceTranslation) SetTranslatedAddressSingle(v string) {
-	o.TranslatedAddressSingle = &v
-}
-
 func (o NatRulesSourceTranslation) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -226,14 +294,20 @@ func (o NatRulesSourceTranslation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Fallback) {
 		toSerialize["fallback"] = o.Fallback
 	}
+	if !IsNil(o.FloatingIp) {
+		toSerialize["floating_ip"] = o.FloatingIp
+	}
 	if !IsNil(o.Interface) {
 		toSerialize["interface"] = o.Interface
 	}
+	if !IsNil(o.Ip) {
+		toSerialize["ip"] = o.Ip
+	}
+	if !IsNil(o.TranslatedAddress) {
+		toSerialize["translated_address"] = o.TranslatedAddress
+	}
 	if !IsNil(o.TranslatedAddressArray) {
 		toSerialize["translated_address_array"] = o.TranslatedAddressArray
-	}
-	if !IsNil(o.TranslatedAddressSingle) {
-		toSerialize["translated_address_single"] = o.TranslatedAddressSingle
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -259,9 +333,11 @@ func (o *NatRulesSourceTranslation) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "bi_directional")
 		delete(additionalProperties, "fallback")
+		delete(additionalProperties, "floating_ip")
 		delete(additionalProperties, "interface")
+		delete(additionalProperties, "ip")
+		delete(additionalProperties, "translated_address")
 		delete(additionalProperties, "translated_address_array")
-		delete(additionalProperties, "translated_address_single")
 		o.AdditionalProperties = additionalProperties
 	}
 

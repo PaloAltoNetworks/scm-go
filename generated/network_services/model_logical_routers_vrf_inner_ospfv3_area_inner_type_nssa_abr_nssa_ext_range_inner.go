@@ -23,7 +23,7 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtR
 type LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner struct {
 	Advertise            map[string]interface{} `json:"advertise,omitempty"`
 	Name                 string                 `json:"name"`
-	RouteTag             *float32               `json:"route_tag,omitempty"`
+	RouteTag             *int32                 `json:"route_tag,omitempty"`
 	Suppress             map[string]interface{} `json:"suppress,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -105,9 +105,9 @@ func (o *LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner) SetN
 }
 
 // GetRouteTag returns the RouteTag field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner) GetRouteTag() float32 {
+func (o *LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner) GetRouteTag() int32 {
 	if o == nil || IsNil(o.RouteTag) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.RouteTag
@@ -115,7 +115,7 @@ func (o *LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner) GetR
 
 // GetRouteTagOk returns a tuple with the RouteTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner) GetRouteTagOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner) GetRouteTagOk() (*int32, bool) {
 	if o == nil || IsNil(o.RouteTag) {
 		return nil, false
 	}
@@ -131,8 +131,8 @@ func (o *LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner) HasR
 	return false
 }
 
-// SetRouteTag gets a reference to the given float32 and assigns it to the RouteTag field.
-func (o *LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner) SetRouteTag(v float32) {
+// SetRouteTag gets a reference to the given int32 and assigns it to the RouteTag field.
+func (o *LogicalRoutersVrfInnerOspfv3AreaInnerTypeNssaAbrNssaExtRangeInner) SetRouteTag(v int32) {
 	o.RouteTag = &v
 }
 

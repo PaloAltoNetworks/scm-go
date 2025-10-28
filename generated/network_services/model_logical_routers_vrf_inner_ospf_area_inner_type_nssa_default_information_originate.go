@@ -20,8 +20,8 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInform
 
 // LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate struct for LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate
 type LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate struct {
-	Metric               *float32 `json:"metric,omitempty"`
-	MetricType           *string  `json:"metric_type,omitempty"`
+	Metric               *int32  `json:"metric,omitempty"`
+	MetricType           *string `json:"metric_type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -45,9 +45,9 @@ func NewLogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginateWi
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate) GetMetric() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate) GetMetric() int32 {
 	if o == nil || IsNil(o.Metric) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Metric
@@ -55,7 +55,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate)
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate) GetMetricOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate) GetMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate)
 	return false
 }
 
-// SetMetric gets a reference to the given float32 and assigns it to the Metric field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate) SetMetric(v float32) {
+// SetMetric gets a reference to the given int32 and assigns it to the Metric field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultInformationOriginate) SetMetric(v int32) {
 	o.Metric = &v
 }
 

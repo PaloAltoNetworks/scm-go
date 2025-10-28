@@ -22,7 +22,7 @@ var _ MappedNullable = &LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPath
 type LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor struct {
 	Enable               *bool                                                                                     `json:"enable,omitempty"`
 	FailureCondition     *string                                                                                   `json:"failure_condition,omitempty"`
-	HoldTime             *float32                                                                                  `json:"hold_time,omitempty"`
+	HoldTime             *int32                                                                                    `json:"hold_time,omitempty"`
 	MonitorDestinations  []LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner `json:"monitor_destinations,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -111,9 +111,9 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor) SetFai
 }
 
 // GetHoldTime returns the HoldTime field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor) GetHoldTime() float32 {
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor) GetHoldTime() int32 {
 	if o == nil || IsNil(o.HoldTime) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.HoldTime
@@ -121,7 +121,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor) GetHol
 
 // GetHoldTimeOk returns a tuple with the HoldTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor) GetHoldTimeOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor) GetHoldTimeOk() (*int32, bool) {
 	if o == nil || IsNil(o.HoldTime) {
 		return nil, false
 	}
@@ -137,8 +137,8 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor) HasHol
 	return false
 }
 
-// SetHoldTime gets a reference to the given float32 and assigns it to the HoldTime field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor) SetHoldTime(v float32) {
+// SetHoldTime gets a reference to the given int32 and assigns it to the HoldTime field.
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor) SetHoldTime(v int32) {
 	o.HoldTime = &v
 }
 

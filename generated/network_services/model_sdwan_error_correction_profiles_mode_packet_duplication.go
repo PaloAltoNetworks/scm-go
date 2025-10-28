@@ -21,7 +21,7 @@ var _ MappedNullable = &SdwanErrorCorrectionProfilesModePacketDuplication{}
 
 // SdwanErrorCorrectionProfilesModePacketDuplication struct for SdwanErrorCorrectionProfilesModePacketDuplication
 type SdwanErrorCorrectionProfilesModePacketDuplication struct {
-	RecoveryDurationPd   float32 `json:"recovery_duration_pd"`
+	RecoveryDurationPd   int32 `json:"recovery_duration_pd"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _SdwanErrorCorrectionProfilesModePacketDuplication SdwanErrorCorrectionProf
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSdwanErrorCorrectionProfilesModePacketDuplication(recoveryDurationPd float32) *SdwanErrorCorrectionProfilesModePacketDuplication {
+func NewSdwanErrorCorrectionProfilesModePacketDuplication(recoveryDurationPd int32) *SdwanErrorCorrectionProfilesModePacketDuplication {
 	this := SdwanErrorCorrectionProfilesModePacketDuplication{}
 	this.RecoveryDurationPd = recoveryDurationPd
 	return &this
@@ -46,9 +46,9 @@ func NewSdwanErrorCorrectionProfilesModePacketDuplicationWithDefaults() *SdwanEr
 }
 
 // GetRecoveryDurationPd returns the RecoveryDurationPd field value
-func (o *SdwanErrorCorrectionProfilesModePacketDuplication) GetRecoveryDurationPd() float32 {
+func (o *SdwanErrorCorrectionProfilesModePacketDuplication) GetRecoveryDurationPd() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -57,7 +57,7 @@ func (o *SdwanErrorCorrectionProfilesModePacketDuplication) GetRecoveryDurationP
 
 // GetRecoveryDurationPdOk returns a tuple with the RecoveryDurationPd field value
 // and a boolean to check if the value has been set.
-func (o *SdwanErrorCorrectionProfilesModePacketDuplication) GetRecoveryDurationPdOk() (*float32, bool) {
+func (o *SdwanErrorCorrectionProfilesModePacketDuplication) GetRecoveryDurationPdOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,7 +65,7 @@ func (o *SdwanErrorCorrectionProfilesModePacketDuplication) GetRecoveryDurationP
 }
 
 // SetRecoveryDurationPd sets field value
-func (o *SdwanErrorCorrectionProfilesModePacketDuplication) SetRecoveryDurationPd(v float32) {
+func (o *SdwanErrorCorrectionProfilesModePacketDuplication) SetRecoveryDurationPd(v int32) {
 	o.RecoveryDurationPd = v
 }
 

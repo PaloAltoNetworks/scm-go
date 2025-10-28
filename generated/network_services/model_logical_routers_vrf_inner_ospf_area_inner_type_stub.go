@@ -23,7 +23,7 @@ type LogicalRoutersVrfInnerOspfAreaInnerTypeStub struct {
 	Abr                  *LogicalRoutersVrfInnerOspfAreaInnerTypeNormalAbr        `json:"abr,omitempty"`
 	AcceptSummary        *bool                                                    `json:"accept_summary,omitempty"`
 	DefaultRoute         *LogicalRoutersVrfInnerOspfAreaInnerTypeStubDefaultRoute `json:"default_route,omitempty"`
-	DefaultRouteMetric   *float32                                                 `json:"default_route_metric,omitempty"`
+	DefaultRouteMetric   *int32                                                   `json:"default_route_metric,omitempty"`
 	NoSummary            *bool                                                    `json:"no_summary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -144,9 +144,9 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeStub) SetDefaultRoute(v LogicalR
 }
 
 // GetDefaultRouteMetric returns the DefaultRouteMetric field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeStub) GetDefaultRouteMetric() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeStub) GetDefaultRouteMetric() int32 {
 	if o == nil || IsNil(o.DefaultRouteMetric) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.DefaultRouteMetric
@@ -154,7 +154,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeStub) GetDefaultRouteMetric() fl
 
 // GetDefaultRouteMetricOk returns a tuple with the DefaultRouteMetric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeStub) GetDefaultRouteMetricOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeStub) GetDefaultRouteMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.DefaultRouteMetric) {
 		return nil, false
 	}
@@ -170,8 +170,8 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeStub) HasDefaultRouteMetric() bo
 	return false
 }
 
-// SetDefaultRouteMetric gets a reference to the given float32 and assigns it to the DefaultRouteMetric field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeStub) SetDefaultRouteMetric(v float32) {
+// SetDefaultRouteMetric gets a reference to the given int32 and assigns it to the DefaultRouteMetric field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeStub) SetDefaultRouteMetric(v int32) {
 	o.DefaultRouteMetric = &v
 }
 

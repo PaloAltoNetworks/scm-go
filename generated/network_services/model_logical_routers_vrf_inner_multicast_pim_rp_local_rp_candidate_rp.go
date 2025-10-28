@@ -20,11 +20,11 @@ var _ MappedNullable = &LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp{}
 
 // LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp struct for LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp
 type LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp struct {
-	Address               *string  `json:"address,omitempty"`
-	AdvertisementInterval *float32 `json:"advertisement_interval,omitempty"`
-	GroupList             *string  `json:"group_list,omitempty"`
-	Interface             *string  `json:"interface,omitempty"`
-	Priority              *float32 `json:"priority,omitempty"`
+	Address               *string `json:"address,omitempty"`
+	AdvertisementInterval *int32  `json:"advertisement_interval,omitempty"`
+	GroupList             *string `json:"group_list,omitempty"`
+	Interface             *string `json:"interface,omitempty"`
+	Priority              *int32  `json:"priority,omitempty"`
 	AdditionalProperties  map[string]interface{}
 }
 
@@ -80,9 +80,9 @@ func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) SetAddress(v st
 }
 
 // GetAdvertisementInterval returns the AdvertisementInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetAdvertisementInterval() float32 {
+func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetAdvertisementInterval() int32 {
 	if o == nil || IsNil(o.AdvertisementInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.AdvertisementInterval
@@ -90,7 +90,7 @@ func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetAdvertisemen
 
 // GetAdvertisementIntervalOk returns a tuple with the AdvertisementInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetAdvertisementIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetAdvertisementIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.AdvertisementInterval) {
 		return nil, false
 	}
@@ -106,8 +106,8 @@ func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) HasAdvertisemen
 	return false
 }
 
-// SetAdvertisementInterval gets a reference to the given float32 and assigns it to the AdvertisementInterval field.
-func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) SetAdvertisementInterval(v float32) {
+// SetAdvertisementInterval gets a reference to the given int32 and assigns it to the AdvertisementInterval field.
+func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) SetAdvertisementInterval(v int32) {
 	o.AdvertisementInterval = &v
 }
 
@@ -176,9 +176,9 @@ func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) SetInterface(v 
 }
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetPriority() float32 {
+func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetPriority() int32 {
 	if o == nil || IsNil(o.Priority) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Priority
@@ -186,7 +186,7 @@ func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetPriority() f
 
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetPriorityOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) GetPriorityOk() (*int32, bool) {
 	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) HasPriority() b
 	return false
 }
 
-// SetPriority gets a reference to the given float32 and assigns it to the Priority field.
-func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) SetPriority(v float32) {
+// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
+func (o *LogicalRoutersVrfInnerMulticastPimRpLocalRpCandidateRp) SetPriority(v int32) {
 	o.Priority = &v
 }
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMulti
 
 // LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop struct for LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop
 type LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop struct {
-	MinReceivedTtl       *float32 `json:"min_received_ttl,omitempty"`
+	MinReceivedTtl       *int32 `json:"min_received_ttl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,9 +44,9 @@ func NewLogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihopWithDefaults(
 }
 
 // GetMinReceivedTtl returns the MinReceivedTtl field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop) GetMinReceivedTtl() float32 {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop) GetMinReceivedTtl() int32 {
 	if o == nil || IsNil(o.MinReceivedTtl) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MinReceivedTtl
@@ -54,7 +54,7 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop) GetMinRece
 
 // GetMinReceivedTtlOk returns a tuple with the MinReceivedTtl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop) GetMinReceivedTtlOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop) GetMinReceivedTtlOk() (*int32, bool) {
 	if o == nil || IsNil(o.MinReceivedTtl) {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop) HasMinRece
 	return false
 }
 
-// SetMinReceivedTtl gets a reference to the given float32 and assigns it to the MinReceivedTtl field.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop) SetMinReceivedTtl(v float32) {
+// SetMinReceivedTtl gets a reference to the given int32 and assigns it to the MinReceivedTtl field.
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerBfdMultihop) SetMinReceivedTtl(v int32) {
 	o.MinReceivedTtl = &v
 }
 

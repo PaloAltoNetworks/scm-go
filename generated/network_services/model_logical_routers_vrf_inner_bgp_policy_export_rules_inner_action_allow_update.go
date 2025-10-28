@@ -21,11 +21,11 @@ var _ MappedNullable = &LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAll
 // LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate struct for LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate
 type LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate struct {
 	AsPath               *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath    `json:"as_path,omitempty"`
-	AsPathLimit          *float32                                                                                 `json:"as_path_limit,omitempty"`
+	AsPathLimit          *int32                                                                                   `json:"as_path_limit,omitempty"`
 	Community            *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesCommunity `json:"community,omitempty"`
 	ExtendedCommunity    *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesCommunity `json:"extended_community,omitempty"`
-	LocalPreference      *float32                                                                                 `json:"local_preference,omitempty"`
-	Med                  *float32                                                                                 `json:"med,omitempty"`
+	LocalPreference      *int32                                                                                   `json:"local_preference,omitempty"`
+	Med                  *int32                                                                                   `json:"med,omitempty"`
 	Nexthop              *string                                                                                  `json:"nexthop,omitempty"`
 	Origin               *string                                                                                  `json:"origin,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -83,9 +83,9 @@ func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) SetAs
 }
 
 // GetAsPathLimit returns the AsPathLimit field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetAsPathLimit() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetAsPathLimit() int32 {
 	if o == nil || IsNil(o.AsPathLimit) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.AsPathLimit
@@ -93,7 +93,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetAs
 
 // GetAsPathLimitOk returns a tuple with the AsPathLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetAsPathLimitOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetAsPathLimitOk() (*int32, bool) {
 	if o == nil || IsNil(o.AsPathLimit) {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) HasAs
 	return false
 }
 
-// SetAsPathLimit gets a reference to the given float32 and assigns it to the AsPathLimit field.
-func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) SetAsPathLimit(v float32) {
+// SetAsPathLimit gets a reference to the given int32 and assigns it to the AsPathLimit field.
+func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) SetAsPathLimit(v int32) {
 	o.AsPathLimit = &v
 }
 
@@ -179,9 +179,9 @@ func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) SetEx
 }
 
 // GetLocalPreference returns the LocalPreference field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetLocalPreference() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetLocalPreference() int32 {
 	if o == nil || IsNil(o.LocalPreference) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.LocalPreference
@@ -189,7 +189,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetLo
 
 // GetLocalPreferenceOk returns a tuple with the LocalPreference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetLocalPreferenceOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetLocalPreferenceOk() (*int32, bool) {
 	if o == nil || IsNil(o.LocalPreference) {
 		return nil, false
 	}
@@ -205,15 +205,15 @@ func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) HasLo
 	return false
 }
 
-// SetLocalPreference gets a reference to the given float32 and assigns it to the LocalPreference field.
-func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) SetLocalPreference(v float32) {
+// SetLocalPreference gets a reference to the given int32 and assigns it to the LocalPreference field.
+func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) SetLocalPreference(v int32) {
 	o.LocalPreference = &v
 }
 
 // GetMed returns the Med field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetMed() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetMed() int32 {
 	if o == nil || IsNil(o.Med) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Med
@@ -221,7 +221,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetMe
 
 // GetMedOk returns a tuple with the Med field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetMedOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) GetMedOk() (*int32, bool) {
 	if o == nil || IsNil(o.Med) {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) HasMe
 	return false
 }
 
-// SetMed gets a reference to the given float32 and assigns it to the Med field.
-func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) SetMed(v float32) {
+// SetMed gets a reference to the given int32 and assigns it to the Med field.
+func (o *LogicalRoutersVrfInnerBgpPolicyExportRulesInnerActionAllowUpdate) SetMed(v int32) {
 	o.Med = &v
 }
 
