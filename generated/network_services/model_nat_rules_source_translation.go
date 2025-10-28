@@ -18,17 +18,12 @@ import (
 // checks if the NatRulesSourceTranslation type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NatRulesSourceTranslation{}
 
-// NatRulesSourceTranslation struct for NatRulesSourceTranslation
+// NatRulesSourceTranslation Source translation configuration (Static/P-D-N-T).
 type NatRulesSourceTranslation struct {
-	BiDirectional *bool                              `json:"bi_directional,omitempty"`
-	Fallback      *NatRulesSourceTranslationFallback `json:"fallback,omitempty"`
-	// Interface name
-	Interface *string `json:"interface,omitempty"`
-	// Translated IP addresses
-	TranslatedAddressArray []string `json:"translated_address_array,omitempty"`
-	// Translated IP address
-	TranslatedAddressSingle *string `json:"translated_address_single,omitempty"`
-	AdditionalProperties    map[string]interface{}
+	DynamicIp            *NatRulesSourceTranslationDynamicIp        `json:"dynamic_ip,omitempty"`
+	DynamicIpAndPort     *NatRulesSourceTranslationDynamicIpAndPort `json:"dynamic_ip_and_port,omitempty"`
+	StaticIp             *NatRulesSourceTranslationStaticIp         `json:"static_ip,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NatRulesSourceTranslation NatRulesSourceTranslation
@@ -50,164 +45,100 @@ func NewNatRulesSourceTranslationWithDefaults() *NatRulesSourceTranslation {
 	return &this
 }
 
-// GetBiDirectional returns the BiDirectional field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslation) GetBiDirectional() bool {
-	if o == nil || IsNil(o.BiDirectional) {
-		var ret bool
+// GetDynamicIp returns the DynamicIp field value if set, zero value otherwise.
+func (o *NatRulesSourceTranslation) GetDynamicIp() NatRulesSourceTranslationDynamicIp {
+	if o == nil || IsNil(o.DynamicIp) {
+		var ret NatRulesSourceTranslationDynamicIp
 		return ret
 	}
-	return *o.BiDirectional
+	return *o.DynamicIp
 }
 
-// GetBiDirectionalOk returns a tuple with the BiDirectional field value if set, nil otherwise
+// GetDynamicIpOk returns a tuple with the DynamicIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslation) GetBiDirectionalOk() (*bool, bool) {
-	if o == nil || IsNil(o.BiDirectional) {
+func (o *NatRulesSourceTranslation) GetDynamicIpOk() (*NatRulesSourceTranslationDynamicIp, bool) {
+	if o == nil || IsNil(o.DynamicIp) {
 		return nil, false
 	}
-	return o.BiDirectional, true
+	return o.DynamicIp, true
 }
 
-// HasBiDirectional returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslation) HasBiDirectional() bool {
-	if o != nil && !IsNil(o.BiDirectional) {
+// HasDynamicIp returns a boolean if a field has been set.
+func (o *NatRulesSourceTranslation) HasDynamicIp() bool {
+	if o != nil && !IsNil(o.DynamicIp) {
 		return true
 	}
 
 	return false
 }
 
-// SetBiDirectional gets a reference to the given bool and assigns it to the BiDirectional field.
-func (o *NatRulesSourceTranslation) SetBiDirectional(v bool) {
-	o.BiDirectional = &v
+// SetDynamicIp gets a reference to the given NatRulesSourceTranslationDynamicIp and assigns it to the DynamicIp field.
+func (o *NatRulesSourceTranslation) SetDynamicIp(v NatRulesSourceTranslationDynamicIp) {
+	o.DynamicIp = &v
 }
 
-// GetFallback returns the Fallback field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslation) GetFallback() NatRulesSourceTranslationFallback {
-	if o == nil || IsNil(o.Fallback) {
-		var ret NatRulesSourceTranslationFallback
+// GetDynamicIpAndPort returns the DynamicIpAndPort field value if set, zero value otherwise.
+func (o *NatRulesSourceTranslation) GetDynamicIpAndPort() NatRulesSourceTranslationDynamicIpAndPort {
+	if o == nil || IsNil(o.DynamicIpAndPort) {
+		var ret NatRulesSourceTranslationDynamicIpAndPort
 		return ret
 	}
-	return *o.Fallback
+	return *o.DynamicIpAndPort
 }
 
-// GetFallbackOk returns a tuple with the Fallback field value if set, nil otherwise
+// GetDynamicIpAndPortOk returns a tuple with the DynamicIpAndPort field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslation) GetFallbackOk() (*NatRulesSourceTranslationFallback, bool) {
-	if o == nil || IsNil(o.Fallback) {
+func (o *NatRulesSourceTranslation) GetDynamicIpAndPortOk() (*NatRulesSourceTranslationDynamicIpAndPort, bool) {
+	if o == nil || IsNil(o.DynamicIpAndPort) {
 		return nil, false
 	}
-	return o.Fallback, true
+	return o.DynamicIpAndPort, true
 }
 
-// HasFallback returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslation) HasFallback() bool {
-	if o != nil && !IsNil(o.Fallback) {
+// HasDynamicIpAndPort returns a boolean if a field has been set.
+func (o *NatRulesSourceTranslation) HasDynamicIpAndPort() bool {
+	if o != nil && !IsNil(o.DynamicIpAndPort) {
 		return true
 	}
 
 	return false
 }
 
-// SetFallback gets a reference to the given NatRulesSourceTranslationFallback and assigns it to the Fallback field.
-func (o *NatRulesSourceTranslation) SetFallback(v NatRulesSourceTranslationFallback) {
-	o.Fallback = &v
+// SetDynamicIpAndPort gets a reference to the given NatRulesSourceTranslationDynamicIpAndPort and assigns it to the DynamicIpAndPort field.
+func (o *NatRulesSourceTranslation) SetDynamicIpAndPort(v NatRulesSourceTranslationDynamicIpAndPort) {
+	o.DynamicIpAndPort = &v
 }
 
-// GetInterface returns the Interface field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslation) GetInterface() string {
-	if o == nil || IsNil(o.Interface) {
-		var ret string
+// GetStaticIp returns the StaticIp field value if set, zero value otherwise.
+func (o *NatRulesSourceTranslation) GetStaticIp() NatRulesSourceTranslationStaticIp {
+	if o == nil || IsNil(o.StaticIp) {
+		var ret NatRulesSourceTranslationStaticIp
 		return ret
 	}
-	return *o.Interface
+	return *o.StaticIp
 }
 
-// GetInterfaceOk returns a tuple with the Interface field value if set, nil otherwise
+// GetStaticIpOk returns a tuple with the StaticIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslation) GetInterfaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Interface) {
+func (o *NatRulesSourceTranslation) GetStaticIpOk() (*NatRulesSourceTranslationStaticIp, bool) {
+	if o == nil || IsNil(o.StaticIp) {
 		return nil, false
 	}
-	return o.Interface, true
+	return o.StaticIp, true
 }
 
-// HasInterface returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslation) HasInterface() bool {
-	if o != nil && !IsNil(o.Interface) {
+// HasStaticIp returns a boolean if a field has been set.
+func (o *NatRulesSourceTranslation) HasStaticIp() bool {
+	if o != nil && !IsNil(o.StaticIp) {
 		return true
 	}
 
 	return false
 }
 
-// SetInterface gets a reference to the given string and assigns it to the Interface field.
-func (o *NatRulesSourceTranslation) SetInterface(v string) {
-	o.Interface = &v
-}
-
-// GetTranslatedAddressArray returns the TranslatedAddressArray field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslation) GetTranslatedAddressArray() []string {
-	if o == nil || IsNil(o.TranslatedAddressArray) {
-		var ret []string
-		return ret
-	}
-	return o.TranslatedAddressArray
-}
-
-// GetTranslatedAddressArrayOk returns a tuple with the TranslatedAddressArray field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslation) GetTranslatedAddressArrayOk() ([]string, bool) {
-	if o == nil || IsNil(o.TranslatedAddressArray) {
-		return nil, false
-	}
-	return o.TranslatedAddressArray, true
-}
-
-// HasTranslatedAddressArray returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslation) HasTranslatedAddressArray() bool {
-	if o != nil && !IsNil(o.TranslatedAddressArray) {
-		return true
-	}
-
-	return false
-}
-
-// SetTranslatedAddressArray gets a reference to the given []string and assigns it to the TranslatedAddressArray field.
-func (o *NatRulesSourceTranslation) SetTranslatedAddressArray(v []string) {
-	o.TranslatedAddressArray = v
-}
-
-// GetTranslatedAddressSingle returns the TranslatedAddressSingle field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslation) GetTranslatedAddressSingle() string {
-	if o == nil || IsNil(o.TranslatedAddressSingle) {
-		var ret string
-		return ret
-	}
-	return *o.TranslatedAddressSingle
-}
-
-// GetTranslatedAddressSingleOk returns a tuple with the TranslatedAddressSingle field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslation) GetTranslatedAddressSingleOk() (*string, bool) {
-	if o == nil || IsNil(o.TranslatedAddressSingle) {
-		return nil, false
-	}
-	return o.TranslatedAddressSingle, true
-}
-
-// HasTranslatedAddressSingle returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslation) HasTranslatedAddressSingle() bool {
-	if o != nil && !IsNil(o.TranslatedAddressSingle) {
-		return true
-	}
-
-	return false
-}
-
-// SetTranslatedAddressSingle gets a reference to the given string and assigns it to the TranslatedAddressSingle field.
-func (o *NatRulesSourceTranslation) SetTranslatedAddressSingle(v string) {
-	o.TranslatedAddressSingle = &v
+// SetStaticIp gets a reference to the given NatRulesSourceTranslationStaticIp and assigns it to the StaticIp field.
+func (o *NatRulesSourceTranslation) SetStaticIp(v NatRulesSourceTranslationStaticIp) {
+	o.StaticIp = &v
 }
 
 func (o NatRulesSourceTranslation) MarshalJSON() ([]byte, error) {
@@ -220,20 +151,14 @@ func (o NatRulesSourceTranslation) MarshalJSON() ([]byte, error) {
 
 func (o NatRulesSourceTranslation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.BiDirectional) {
-		toSerialize["bi_directional"] = o.BiDirectional
+	if !IsNil(o.DynamicIp) {
+		toSerialize["dynamic_ip"] = o.DynamicIp
 	}
-	if !IsNil(o.Fallback) {
-		toSerialize["fallback"] = o.Fallback
+	if !IsNil(o.DynamicIpAndPort) {
+		toSerialize["dynamic_ip_and_port"] = o.DynamicIpAndPort
 	}
-	if !IsNil(o.Interface) {
-		toSerialize["interface"] = o.Interface
-	}
-	if !IsNil(o.TranslatedAddressArray) {
-		toSerialize["translated_address_array"] = o.TranslatedAddressArray
-	}
-	if !IsNil(o.TranslatedAddressSingle) {
-		toSerialize["translated_address_single"] = o.TranslatedAddressSingle
+	if !IsNil(o.StaticIp) {
+		toSerialize["static_ip"] = o.StaticIp
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -257,11 +182,9 @@ func (o *NatRulesSourceTranslation) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "bi_directional")
-		delete(additionalProperties, "fallback")
-		delete(additionalProperties, "interface")
-		delete(additionalProperties, "translated_address_array")
-		delete(additionalProperties, "translated_address_single")
+		delete(additionalProperties, "dynamic_ip")
+		delete(additionalProperties, "dynamic_ip_and_port")
+		delete(additionalProperties, "static_ip")
 		o.AdditionalProperties = additionalProperties
 	}
 

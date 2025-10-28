@@ -20,8 +20,9 @@ var _ MappedNullable = &EthernetInterfacesLayer2{}
 
 // EthernetInterfacesLayer2 struct for EthernetInterfacesLayer2
 type EthernetInterfacesLayer2 struct {
+	Lldp *EthernetInterfacesLayer2Lldp `json:"lldp,omitempty"`
 	// Assign interface to VLAN tag
-	VlanTag              *int32 `json:"vlan-tag,omitempty"`
+	VlanTag              *string `json:"vlan_tag,omitempty" validate:"regexp=^([1-9]\\\\d{0,2}|[1-3]\\\\d{3}|40[0-8]\\\\d|409[0-6])$"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,10 +45,42 @@ func NewEthernetInterfacesLayer2WithDefaults() *EthernetInterfacesLayer2 {
 	return &this
 }
 
+// GetLldp returns the Lldp field value if set, zero value otherwise.
+func (o *EthernetInterfacesLayer2) GetLldp() EthernetInterfacesLayer2Lldp {
+	if o == nil || IsNil(o.Lldp) {
+		var ret EthernetInterfacesLayer2Lldp
+		return ret
+	}
+	return *o.Lldp
+}
+
+// GetLldpOk returns a tuple with the Lldp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EthernetInterfacesLayer2) GetLldpOk() (*EthernetInterfacesLayer2Lldp, bool) {
+	if o == nil || IsNil(o.Lldp) {
+		return nil, false
+	}
+	return o.Lldp, true
+}
+
+// HasLldp returns a boolean if a field has been set.
+func (o *EthernetInterfacesLayer2) HasLldp() bool {
+	if o != nil && !IsNil(o.Lldp) {
+		return true
+	}
+
+	return false
+}
+
+// SetLldp gets a reference to the given EthernetInterfacesLayer2Lldp and assigns it to the Lldp field.
+func (o *EthernetInterfacesLayer2) SetLldp(v EthernetInterfacesLayer2Lldp) {
+	o.Lldp = &v
+}
+
 // GetVlanTag returns the VlanTag field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer2) GetVlanTag() int32 {
+func (o *EthernetInterfacesLayer2) GetVlanTag() string {
 	if o == nil || IsNil(o.VlanTag) {
-		var ret int32
+		var ret string
 		return ret
 	}
 	return *o.VlanTag
@@ -55,7 +88,7 @@ func (o *EthernetInterfacesLayer2) GetVlanTag() int32 {
 
 // GetVlanTagOk returns a tuple with the VlanTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer2) GetVlanTagOk() (*int32, bool) {
+func (o *EthernetInterfacesLayer2) GetVlanTagOk() (*string, bool) {
 	if o == nil || IsNil(o.VlanTag) {
 		return nil, false
 	}
@@ -71,8 +104,8 @@ func (o *EthernetInterfacesLayer2) HasVlanTag() bool {
 	return false
 }
 
-// SetVlanTag gets a reference to the given int32 and assigns it to the VlanTag field.
-func (o *EthernetInterfacesLayer2) SetVlanTag(v int32) {
+// SetVlanTag gets a reference to the given string and assigns it to the VlanTag field.
+func (o *EthernetInterfacesLayer2) SetVlanTag(v string) {
 	o.VlanTag = &v
 }
 
@@ -86,8 +119,11 @@ func (o EthernetInterfacesLayer2) MarshalJSON() ([]byte, error) {
 
 func (o EthernetInterfacesLayer2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Lldp) {
+		toSerialize["lldp"] = o.Lldp
+	}
 	if !IsNil(o.VlanTag) {
-		toSerialize["vlan-tag"] = o.VlanTag
+		toSerialize["vlan_tag"] = o.VlanTag
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,7 +147,8 @@ func (o *EthernetInterfacesLayer2) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "vlan-tag")
+		delete(additionalProperties, "lldp")
+		delete(additionalProperties, "vlan_tag")
 		o.AdditionalProperties = additionalProperties
 	}
 

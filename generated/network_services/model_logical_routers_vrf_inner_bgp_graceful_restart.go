@@ -20,10 +20,10 @@ var _ MappedNullable = &LogicalRoutersVrfInnerBgpGracefulRestart{}
 
 // LogicalRoutersVrfInnerBgpGracefulRestart struct for LogicalRoutersVrfInnerBgpGracefulRestart
 type LogicalRoutersVrfInnerBgpGracefulRestart struct {
-	Enable               *bool    `json:"enable,omitempty"`
-	LocalRestartTime     *float32 `json:"local_restart_time,omitempty"`
-	MaxPeerRestartTime   *float32 `json:"max_peer_restart_time,omitempty"`
-	StaleRouteTime       *float32 `json:"stale_route_time,omitempty"`
+	Enable               *bool  `json:"enable,omitempty"`
+	LocalRestartTime     *int32 `json:"local_restart_time,omitempty"`
+	MaxPeerRestartTime   *int32 `json:"max_peer_restart_time,omitempty"`
+	StaleRouteTime       *int32 `json:"stale_route_time,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -79,9 +79,9 @@ func (o *LogicalRoutersVrfInnerBgpGracefulRestart) SetEnable(v bool) {
 }
 
 // GetLocalRestartTime returns the LocalRestartTime field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetLocalRestartTime() float32 {
+func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetLocalRestartTime() int32 {
 	if o == nil || IsNil(o.LocalRestartTime) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.LocalRestartTime
@@ -89,7 +89,7 @@ func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetLocalRestartTime() float32
 
 // GetLocalRestartTimeOk returns a tuple with the LocalRestartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetLocalRestartTimeOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetLocalRestartTimeOk() (*int32, bool) {
 	if o == nil || IsNil(o.LocalRestartTime) {
 		return nil, false
 	}
@@ -105,15 +105,15 @@ func (o *LogicalRoutersVrfInnerBgpGracefulRestart) HasLocalRestartTime() bool {
 	return false
 }
 
-// SetLocalRestartTime gets a reference to the given float32 and assigns it to the LocalRestartTime field.
-func (o *LogicalRoutersVrfInnerBgpGracefulRestart) SetLocalRestartTime(v float32) {
+// SetLocalRestartTime gets a reference to the given int32 and assigns it to the LocalRestartTime field.
+func (o *LogicalRoutersVrfInnerBgpGracefulRestart) SetLocalRestartTime(v int32) {
 	o.LocalRestartTime = &v
 }
 
 // GetMaxPeerRestartTime returns the MaxPeerRestartTime field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetMaxPeerRestartTime() float32 {
+func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetMaxPeerRestartTime() int32 {
 	if o == nil || IsNil(o.MaxPeerRestartTime) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MaxPeerRestartTime
@@ -121,7 +121,7 @@ func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetMaxPeerRestartTime() float
 
 // GetMaxPeerRestartTimeOk returns a tuple with the MaxPeerRestartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetMaxPeerRestartTimeOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetMaxPeerRestartTimeOk() (*int32, bool) {
 	if o == nil || IsNil(o.MaxPeerRestartTime) {
 		return nil, false
 	}
@@ -137,15 +137,15 @@ func (o *LogicalRoutersVrfInnerBgpGracefulRestart) HasMaxPeerRestartTime() bool 
 	return false
 }
 
-// SetMaxPeerRestartTime gets a reference to the given float32 and assigns it to the MaxPeerRestartTime field.
-func (o *LogicalRoutersVrfInnerBgpGracefulRestart) SetMaxPeerRestartTime(v float32) {
+// SetMaxPeerRestartTime gets a reference to the given int32 and assigns it to the MaxPeerRestartTime field.
+func (o *LogicalRoutersVrfInnerBgpGracefulRestart) SetMaxPeerRestartTime(v int32) {
 	o.MaxPeerRestartTime = &v
 }
 
 // GetStaleRouteTime returns the StaleRouteTime field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetStaleRouteTime() float32 {
+func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetStaleRouteTime() int32 {
 	if o == nil || IsNil(o.StaleRouteTime) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.StaleRouteTime
@@ -153,7 +153,7 @@ func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetStaleRouteTime() float32 {
 
 // GetStaleRouteTimeOk returns a tuple with the StaleRouteTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetStaleRouteTimeOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpGracefulRestart) GetStaleRouteTimeOk() (*int32, bool) {
 	if o == nil || IsNil(o.StaleRouteTime) {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *LogicalRoutersVrfInnerBgpGracefulRestart) HasStaleRouteTime() bool {
 	return false
 }
 
-// SetStaleRouteTime gets a reference to the given float32 and assigns it to the StaleRouteTime field.
-func (o *LogicalRoutersVrfInnerBgpGracefulRestart) SetStaleRouteTime(v float32) {
+// SetStaleRouteTime gets a reference to the given int32 and assigns it to the StaleRouteTime field.
+func (o *LogicalRoutersVrfInnerBgpGracefulRestart) SetStaleRouteTime(v int32) {
 	o.StaleRouteTime = &v
 }
 

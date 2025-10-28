@@ -28,24 +28,25 @@ type Layer3Subinterfaces struct {
 	DdnsConfig *Layer3SubinterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// The device in which the resource is defined
 	Device     *string                                  `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	DhcpClient *Layer3SubInterfacesDhcpClientDhcpClient `json:"dhcp-client,omitempty"`
+	DhcpClient *Layer3SubInterfacesDhcpClientDhcpClient `json:"dhcp_client,omitempty"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
-	InterfaceManagementProfile *string  `json:"interface_management_profile,omitempty"`
-	Ip                         []string `json:"ip,omitempty"`
+	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
+	// L3 sub-interface IP Parent
+	Ip []Layer3SubinterfacesIpInner `json:"ip,omitempty"`
 	// MTU
-	Mtu *float32 `json:"mtu,omitempty"`
+	Mtu *int32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
 	Name string `json:"name"`
 	// Parent interface
-	ParentInterface *string `json:"parent-interface,omitempty"`
+	ParentInterface *string `json:"parent_interface,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
-	Tag                  *float32 `json:"tag,omitempty"`
+	Tag                  *int32 `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -326,9 +327,9 @@ func (o *Layer3Subinterfaces) SetInterfaceManagementProfile(v string) {
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetIp() []string {
+func (o *Layer3Subinterfaces) GetIp() []Layer3SubinterfacesIpInner {
 	if o == nil || IsNil(o.Ip) {
-		var ret []string
+		var ret []Layer3SubinterfacesIpInner
 		return ret
 	}
 	return o.Ip
@@ -336,7 +337,7 @@ func (o *Layer3Subinterfaces) GetIp() []string {
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetIpOk() ([]string, bool) {
+func (o *Layer3Subinterfaces) GetIpOk() ([]Layer3SubinterfacesIpInner, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -352,15 +353,15 @@ func (o *Layer3Subinterfaces) HasIp() bool {
 	return false
 }
 
-// SetIp gets a reference to the given []string and assigns it to the Ip field.
-func (o *Layer3Subinterfaces) SetIp(v []string) {
+// SetIp gets a reference to the given []Layer3SubinterfacesIpInner and assigns it to the Ip field.
+func (o *Layer3Subinterfaces) SetIp(v []Layer3SubinterfacesIpInner) {
 	o.Ip = v
 }
 
 // GetMtu returns the Mtu field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetMtu() float32 {
+func (o *Layer3Subinterfaces) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Mtu
@@ -368,7 +369,7 @@ func (o *Layer3Subinterfaces) GetMtu() float32 {
 
 // GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetMtuOk() (*float32, bool) {
+func (o *Layer3Subinterfaces) GetMtuOk() (*int32, bool) {
 	if o == nil || IsNil(o.Mtu) {
 		return nil, false
 	}
@@ -384,8 +385,8 @@ func (o *Layer3Subinterfaces) HasMtu() bool {
 	return false
 }
 
-// SetMtu gets a reference to the given float32 and assigns it to the Mtu field.
-func (o *Layer3Subinterfaces) SetMtu(v float32) {
+// SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
+func (o *Layer3Subinterfaces) SetMtu(v int32) {
 	o.Mtu = &v
 }
 
@@ -478,9 +479,9 @@ func (o *Layer3Subinterfaces) SetSnippet(v string) {
 }
 
 // GetTag returns the Tag field value if set, zero value otherwise.
-func (o *Layer3Subinterfaces) GetTag() float32 {
+func (o *Layer3Subinterfaces) GetTag() int32 {
 	if o == nil || IsNil(o.Tag) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Tag
@@ -488,7 +489,7 @@ func (o *Layer3Subinterfaces) GetTag() float32 {
 
 // GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Layer3Subinterfaces) GetTagOk() (*float32, bool) {
+func (o *Layer3Subinterfaces) GetTagOk() (*int32, bool) {
 	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
@@ -504,8 +505,8 @@ func (o *Layer3Subinterfaces) HasTag() bool {
 	return false
 }
 
-// SetTag gets a reference to the given float32 and assigns it to the Tag field.
-func (o *Layer3Subinterfaces) SetTag(v float32) {
+// SetTag gets a reference to the given int32 and assigns it to the Tag field.
+func (o *Layer3Subinterfaces) SetTag(v int32) {
 	o.Tag = &v
 }
 
@@ -532,7 +533,7 @@ func (o Layer3Subinterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["device"] = o.Device
 	}
 	if !IsNil(o.DhcpClient) {
-		toSerialize["dhcp-client"] = o.DhcpClient
+		toSerialize["dhcp_client"] = o.DhcpClient
 	}
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
@@ -551,7 +552,7 @@ func (o Layer3Subinterfaces) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.ParentInterface) {
-		toSerialize["parent-interface"] = o.ParentInterface
+		toSerialize["parent_interface"] = o.ParentInterface
 	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
@@ -606,14 +607,14 @@ func (o *Layer3Subinterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "comment")
 		delete(additionalProperties, "ddns_config")
 		delete(additionalProperties, "device")
-		delete(additionalProperties, "dhcp-client")
+		delete(additionalProperties, "dhcp_client")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "name")
-		delete(additionalProperties, "parent-interface")
+		delete(additionalProperties, "parent_interface")
 		delete(additionalProperties, "snippet")
 		delete(additionalProperties, "tag")
 		o.AdditionalProperties = additionalProperties

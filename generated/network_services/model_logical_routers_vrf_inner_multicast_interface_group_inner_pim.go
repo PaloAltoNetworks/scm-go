@@ -20,13 +20,13 @@ var _ MappedNullable = &LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim{}
 
 // LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim struct for LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim
 type LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim struct {
-	AllowedNeighbors     []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner `json:"allowed_neighbors,omitempty"`
-	AssertInterval       *float32                                                                     `json:"assert_interval,omitempty"`
-	BsrBorder            *bool                                                                        `json:"bsr_border,omitempty"`
-	DrPriority           *float32                                                                     `json:"dr_priority,omitempty"`
-	Enable               *bool                                                                        `json:"enable,omitempty"`
-	HelloInterval        *float32                                                                     `json:"hello_interval,omitempty"`
-	JoinPruneInterval    *float32                                                                     `json:"join_prune_interval,omitempty"`
+	AllowedNeighbors     []EthernetInterfacesLayer3IpInner `json:"allowed_neighbors,omitempty"`
+	AssertInterval       *int32                            `json:"assert_interval,omitempty"`
+	BsrBorder            *bool                             `json:"bsr_border,omitempty"`
+	DrPriority           *int32                            `json:"dr_priority,omitempty"`
+	Enable               *bool                             `json:"enable,omitempty"`
+	HelloInterval        *int32                            `json:"hello_interval,omitempty"`
+	JoinPruneInterval    *int32                            `json:"join_prune_interval,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -50,9 +50,9 @@ func NewLogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimWithDefaults() *Log
 }
 
 // GetAllowedNeighbors returns the AllowedNeighbors field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighbors() []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighbors() []EthernetInterfacesLayer3IpInner {
 	if o == nil || IsNil(o.AllowedNeighbors) {
-		var ret []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner
+		var ret []EthernetInterfacesLayer3IpInner
 		return ret
 	}
 	return o.AllowedNeighbors
@@ -60,7 +60,7 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighb
 
 // GetAllowedNeighborsOk returns a tuple with the AllowedNeighbors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighborsOk() ([]LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner, bool) {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAllowedNeighborsOk() ([]EthernetInterfacesLayer3IpInner, bool) {
 	if o == nil || IsNil(o.AllowedNeighbors) {
 		return nil, false
 	}
@@ -76,15 +76,15 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) HasAllowedNeighb
 	return false
 }
 
-// SetAllowedNeighbors gets a reference to the given []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner and assigns it to the AllowedNeighbors field.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetAllowedNeighbors(v []LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPimAllowedNeighborsInner) {
+// SetAllowedNeighbors gets a reference to the given []EthernetInterfacesLayer3IpInner and assigns it to the AllowedNeighbors field.
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetAllowedNeighbors(v []EthernetInterfacesLayer3IpInner) {
 	o.AllowedNeighbors = v
 }
 
 // GetAssertInterval returns the AssertInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAssertInterval() float32 {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAssertInterval() int32 {
 	if o == nil || IsNil(o.AssertInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.AssertInterval
@@ -92,7 +92,7 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAssertInterva
 
 // GetAssertIntervalOk returns a tuple with the AssertInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAssertIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetAssertIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.AssertInterval) {
 		return nil, false
 	}
@@ -108,8 +108,8 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) HasAssertInterva
 	return false
 }
 
-// SetAssertInterval gets a reference to the given float32 and assigns it to the AssertInterval field.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetAssertInterval(v float32) {
+// SetAssertInterval gets a reference to the given int32 and assigns it to the AssertInterval field.
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetAssertInterval(v int32) {
 	o.AssertInterval = &v
 }
 
@@ -146,9 +146,9 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetBsrBorder(v b
 }
 
 // GetDrPriority returns the DrPriority field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetDrPriority() float32 {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetDrPriority() int32 {
 	if o == nil || IsNil(o.DrPriority) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.DrPriority
@@ -156,7 +156,7 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetDrPriority() 
 
 // GetDrPriorityOk returns a tuple with the DrPriority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetDrPriorityOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetDrPriorityOk() (*int32, bool) {
 	if o == nil || IsNil(o.DrPriority) {
 		return nil, false
 	}
@@ -172,8 +172,8 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) HasDrPriority() 
 	return false
 }
 
-// SetDrPriority gets a reference to the given float32 and assigns it to the DrPriority field.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetDrPriority(v float32) {
+// SetDrPriority gets a reference to the given int32 and assigns it to the DrPriority field.
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetDrPriority(v int32) {
 	o.DrPriority = &v
 }
 
@@ -210,9 +210,9 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetEnable(v bool
 }
 
 // GetHelloInterval returns the HelloInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetHelloInterval() float32 {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetHelloInterval() int32 {
 	if o == nil || IsNil(o.HelloInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.HelloInterval
@@ -220,7 +220,7 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetHelloInterval
 
 // GetHelloIntervalOk returns a tuple with the HelloInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetHelloIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetHelloIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.HelloInterval) {
 		return nil, false
 	}
@@ -236,15 +236,15 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) HasHelloInterval
 	return false
 }
 
-// SetHelloInterval gets a reference to the given float32 and assigns it to the HelloInterval field.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetHelloInterval(v float32) {
+// SetHelloInterval gets a reference to the given int32 and assigns it to the HelloInterval field.
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetHelloInterval(v int32) {
 	o.HelloInterval = &v
 }
 
 // GetJoinPruneInterval returns the JoinPruneInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetJoinPruneInterval() float32 {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetJoinPruneInterval() int32 {
 	if o == nil || IsNil(o.JoinPruneInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.JoinPruneInterval
@@ -252,7 +252,7 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetJoinPruneInte
 
 // GetJoinPruneIntervalOk returns a tuple with the JoinPruneInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetJoinPruneIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) GetJoinPruneIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.JoinPruneInterval) {
 		return nil, false
 	}
@@ -268,8 +268,8 @@ func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) HasJoinPruneInte
 	return false
 }
 
-// SetJoinPruneInterval gets a reference to the given float32 and assigns it to the JoinPruneInterval field.
-func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetJoinPruneInterval(v float32) {
+// SetJoinPruneInterval gets a reference to the given int32 and assigns it to the JoinPruneInterval field.
+func (o *LogicalRoutersVrfInnerMulticastInterfaceGroupInnerPim) SetJoinPruneInterval(v int32) {
 	o.JoinPruneInterval = &v
 }
 

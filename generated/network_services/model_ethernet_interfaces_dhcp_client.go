@@ -20,7 +20,7 @@ var _ MappedNullable = &EthernetInterfacesDhcpClient{}
 
 // EthernetInterfacesDhcpClient Ethernet Interfaces DHCP Client
 type EthernetInterfacesDhcpClient struct {
-	DhcpClient           *EthernetInterfacesDhcpClientDhcpClient `json:"dhcp-client,omitempty"`
+	DhcpClient           *EthernetInterfacesLayer3DhcpClient `json:"dhcp_client,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,9 +44,9 @@ func NewEthernetInterfacesDhcpClientWithDefaults() *EthernetInterfacesDhcpClient
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *EthernetInterfacesDhcpClient) GetDhcpClient() EthernetInterfacesDhcpClientDhcpClient {
+func (o *EthernetInterfacesDhcpClient) GetDhcpClient() EthernetInterfacesLayer3DhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret EthernetInterfacesDhcpClientDhcpClient
+		var ret EthernetInterfacesLayer3DhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -54,7 +54,7 @@ func (o *EthernetInterfacesDhcpClient) GetDhcpClient() EthernetInterfacesDhcpCli
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesDhcpClient) GetDhcpClientOk() (*EthernetInterfacesDhcpClientDhcpClient, bool) {
+func (o *EthernetInterfacesDhcpClient) GetDhcpClientOk() (*EthernetInterfacesLayer3DhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *EthernetInterfacesDhcpClient) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given EthernetInterfacesDhcpClientDhcpClient and assigns it to the DhcpClient field.
-func (o *EthernetInterfacesDhcpClient) SetDhcpClient(v EthernetInterfacesDhcpClientDhcpClient) {
+// SetDhcpClient gets a reference to the given EthernetInterfacesLayer3DhcpClient and assigns it to the DhcpClient field.
+func (o *EthernetInterfacesDhcpClient) SetDhcpClient(v EthernetInterfacesLayer3DhcpClient) {
 	o.DhcpClient = &v
 }
 
@@ -86,7 +86,7 @@ func (o EthernetInterfacesDhcpClient) MarshalJSON() ([]byte, error) {
 func (o EthernetInterfacesDhcpClient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.DhcpClient) {
-		toSerialize["dhcp-client"] = o.DhcpClient
+		toSerialize["dhcp_client"] = o.DhcpClient
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -110,7 +110,7 @@ func (o *EthernetInterfacesDhcpClient) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "dhcp-client")
+		delete(additionalProperties, "dhcp_client")
 		o.AdditionalProperties = additionalProperties
 	}
 

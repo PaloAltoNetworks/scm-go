@@ -21,7 +21,7 @@ var _ MappedNullable = &AggEthernetArpInner{}
 // AggEthernetArpInner Aggregate Ethernet ARP configuration object
 type AggEthernetArpInner struct {
 	// MAC address
-	HwAddress *string `json:"hw-address,omitempty"`
+	HwAddress *string `json:"hw_address,omitempty"`
 	// IP address
 	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -121,7 +121,7 @@ func (o AggEthernetArpInner) MarshalJSON() ([]byte, error) {
 func (o AggEthernetArpInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.HwAddress) {
-		toSerialize["hw-address"] = o.HwAddress
+		toSerialize["hw_address"] = o.HwAddress
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
@@ -148,7 +148,7 @@ func (o *AggEthernetArpInner) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "hw-address")
+		delete(additionalProperties, "hw_address")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -20,15 +20,15 @@ var _ MappedNullable = &LogicalRoutersVrfInnerVrAdminDists{}
 
 // LogicalRoutersVrfInnerVrAdminDists struct for LogicalRoutersVrfInnerVrAdminDists
 type LogicalRoutersVrfInnerVrAdminDists struct {
-	Ebgp                 *float32 `json:"ebgp,omitempty"`
-	Ibgp                 *float32 `json:"ibgp,omitempty"`
-	OspfExt              *float32 `json:"ospf_ext,omitempty"`
-	OspfInt              *float32 `json:"ospf_int,omitempty"`
-	Ospfv3Ext            *float32 `json:"ospfv3_ext,omitempty"`
-	Ospfv3Int            *float32 `json:"ospfv3_int,omitempty"`
-	Rip                  *float32 `json:"rip,omitempty"`
-	Static               *float32 `json:"static,omitempty"`
-	StaticIpv6           *float32 `json:"static_ipv6,omitempty"`
+	Ebgp                 *int32 `json:"ebgp,omitempty"`
+	Ibgp                 *int32 `json:"ibgp,omitempty"`
+	OspfExt              *int32 `json:"ospf_ext,omitempty"`
+	OspfInt              *int32 `json:"ospf_int,omitempty"`
+	Ospfv3Ext            *int32 `json:"ospfv3_ext,omitempty"`
+	Ospfv3Int            *int32 `json:"ospfv3_int,omitempty"`
+	Rip                  *int32 `json:"rip,omitempty"`
+	Static               *int32 `json:"static,omitempty"`
+	StaticIpv6           *int32 `json:"static_ipv6,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -52,9 +52,9 @@ func NewLogicalRoutersVrfInnerVrAdminDistsWithDefaults() *LogicalRoutersVrfInner
 }
 
 // GetEbgp returns the Ebgp field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetEbgp() float32 {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetEbgp() int32 {
 	if o == nil || IsNil(o.Ebgp) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Ebgp
@@ -62,7 +62,7 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) GetEbgp() float32 {
 
 // GetEbgpOk returns a tuple with the Ebgp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetEbgpOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetEbgpOk() (*int32, bool) {
 	if o == nil || IsNil(o.Ebgp) {
 		return nil, false
 	}
@@ -78,15 +78,15 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) HasEbgp() bool {
 	return false
 }
 
-// SetEbgp gets a reference to the given float32 and assigns it to the Ebgp field.
-func (o *LogicalRoutersVrfInnerVrAdminDists) SetEbgp(v float32) {
+// SetEbgp gets a reference to the given int32 and assigns it to the Ebgp field.
+func (o *LogicalRoutersVrfInnerVrAdminDists) SetEbgp(v int32) {
 	o.Ebgp = &v
 }
 
 // GetIbgp returns the Ibgp field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetIbgp() float32 {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetIbgp() int32 {
 	if o == nil || IsNil(o.Ibgp) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Ibgp
@@ -94,7 +94,7 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) GetIbgp() float32 {
 
 // GetIbgpOk returns a tuple with the Ibgp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetIbgpOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetIbgpOk() (*int32, bool) {
 	if o == nil || IsNil(o.Ibgp) {
 		return nil, false
 	}
@@ -110,15 +110,15 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) HasIbgp() bool {
 	return false
 }
 
-// SetIbgp gets a reference to the given float32 and assigns it to the Ibgp field.
-func (o *LogicalRoutersVrfInnerVrAdminDists) SetIbgp(v float32) {
+// SetIbgp gets a reference to the given int32 and assigns it to the Ibgp field.
+func (o *LogicalRoutersVrfInnerVrAdminDists) SetIbgp(v int32) {
 	o.Ibgp = &v
 }
 
 // GetOspfExt returns the OspfExt field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfExt() float32 {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfExt() int32 {
 	if o == nil || IsNil(o.OspfExt) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.OspfExt
@@ -126,7 +126,7 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfExt() float32 {
 
 // GetOspfExtOk returns a tuple with the OspfExt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfExtOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfExtOk() (*int32, bool) {
 	if o == nil || IsNil(o.OspfExt) {
 		return nil, false
 	}
@@ -142,15 +142,15 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) HasOspfExt() bool {
 	return false
 }
 
-// SetOspfExt gets a reference to the given float32 and assigns it to the OspfExt field.
-func (o *LogicalRoutersVrfInnerVrAdminDists) SetOspfExt(v float32) {
+// SetOspfExt gets a reference to the given int32 and assigns it to the OspfExt field.
+func (o *LogicalRoutersVrfInnerVrAdminDists) SetOspfExt(v int32) {
 	o.OspfExt = &v
 }
 
 // GetOspfInt returns the OspfInt field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfInt() float32 {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfInt() int32 {
 	if o == nil || IsNil(o.OspfInt) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.OspfInt
@@ -158,7 +158,7 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfInt() float32 {
 
 // GetOspfIntOk returns a tuple with the OspfInt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfIntOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfIntOk() (*int32, bool) {
 	if o == nil || IsNil(o.OspfInt) {
 		return nil, false
 	}
@@ -174,15 +174,15 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) HasOspfInt() bool {
 	return false
 }
 
-// SetOspfInt gets a reference to the given float32 and assigns it to the OspfInt field.
-func (o *LogicalRoutersVrfInnerVrAdminDists) SetOspfInt(v float32) {
+// SetOspfInt gets a reference to the given int32 and assigns it to the OspfInt field.
+func (o *LogicalRoutersVrfInnerVrAdminDists) SetOspfInt(v int32) {
 	o.OspfInt = &v
 }
 
 // GetOspfv3Ext returns the Ospfv3Ext field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3Ext() float32 {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3Ext() int32 {
 	if o == nil || IsNil(o.Ospfv3Ext) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Ospfv3Ext
@@ -190,7 +190,7 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3Ext() float32 {
 
 // GetOspfv3ExtOk returns a tuple with the Ospfv3Ext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3ExtOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3ExtOk() (*int32, bool) {
 	if o == nil || IsNil(o.Ospfv3Ext) {
 		return nil, false
 	}
@@ -206,15 +206,15 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) HasOspfv3Ext() bool {
 	return false
 }
 
-// SetOspfv3Ext gets a reference to the given float32 and assigns it to the Ospfv3Ext field.
-func (o *LogicalRoutersVrfInnerVrAdminDists) SetOspfv3Ext(v float32) {
+// SetOspfv3Ext gets a reference to the given int32 and assigns it to the Ospfv3Ext field.
+func (o *LogicalRoutersVrfInnerVrAdminDists) SetOspfv3Ext(v int32) {
 	o.Ospfv3Ext = &v
 }
 
 // GetOspfv3Int returns the Ospfv3Int field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3Int() float32 {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3Int() int32 {
 	if o == nil || IsNil(o.Ospfv3Int) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Ospfv3Int
@@ -222,7 +222,7 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3Int() float32 {
 
 // GetOspfv3IntOk returns a tuple with the Ospfv3Int field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3IntOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetOspfv3IntOk() (*int32, bool) {
 	if o == nil || IsNil(o.Ospfv3Int) {
 		return nil, false
 	}
@@ -238,15 +238,15 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) HasOspfv3Int() bool {
 	return false
 }
 
-// SetOspfv3Int gets a reference to the given float32 and assigns it to the Ospfv3Int field.
-func (o *LogicalRoutersVrfInnerVrAdminDists) SetOspfv3Int(v float32) {
+// SetOspfv3Int gets a reference to the given int32 and assigns it to the Ospfv3Int field.
+func (o *LogicalRoutersVrfInnerVrAdminDists) SetOspfv3Int(v int32) {
 	o.Ospfv3Int = &v
 }
 
 // GetRip returns the Rip field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetRip() float32 {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetRip() int32 {
 	if o == nil || IsNil(o.Rip) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Rip
@@ -254,7 +254,7 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) GetRip() float32 {
 
 // GetRipOk returns a tuple with the Rip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetRipOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetRipOk() (*int32, bool) {
 	if o == nil || IsNil(o.Rip) {
 		return nil, false
 	}
@@ -270,15 +270,15 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) HasRip() bool {
 	return false
 }
 
-// SetRip gets a reference to the given float32 and assigns it to the Rip field.
-func (o *LogicalRoutersVrfInnerVrAdminDists) SetRip(v float32) {
+// SetRip gets a reference to the given int32 and assigns it to the Rip field.
+func (o *LogicalRoutersVrfInnerVrAdminDists) SetRip(v int32) {
 	o.Rip = &v
 }
 
 // GetStatic returns the Static field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetStatic() float32 {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetStatic() int32 {
 	if o == nil || IsNil(o.Static) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Static
@@ -286,7 +286,7 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) GetStatic() float32 {
 
 // GetStaticOk returns a tuple with the Static field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetStaticOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetStaticOk() (*int32, bool) {
 	if o == nil || IsNil(o.Static) {
 		return nil, false
 	}
@@ -302,15 +302,15 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) HasStatic() bool {
 	return false
 }
 
-// SetStatic gets a reference to the given float32 and assigns it to the Static field.
-func (o *LogicalRoutersVrfInnerVrAdminDists) SetStatic(v float32) {
+// SetStatic gets a reference to the given int32 and assigns it to the Static field.
+func (o *LogicalRoutersVrfInnerVrAdminDists) SetStatic(v int32) {
 	o.Static = &v
 }
 
 // GetStaticIpv6 returns the StaticIpv6 field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetStaticIpv6() float32 {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetStaticIpv6() int32 {
 	if o == nil || IsNil(o.StaticIpv6) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.StaticIpv6
@@ -318,7 +318,7 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) GetStaticIpv6() float32 {
 
 // GetStaticIpv6Ok returns a tuple with the StaticIpv6 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerVrAdminDists) GetStaticIpv6Ok() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerVrAdminDists) GetStaticIpv6Ok() (*int32, bool) {
 	if o == nil || IsNil(o.StaticIpv6) {
 		return nil, false
 	}
@@ -334,8 +334,8 @@ func (o *LogicalRoutersVrfInnerVrAdminDists) HasStaticIpv6() bool {
 	return false
 }
 
-// SetStaticIpv6 gets a reference to the given float32 and assigns it to the StaticIpv6 field.
-func (o *LogicalRoutersVrfInnerVrAdminDists) SetStaticIpv6(v float32) {
+// SetStaticIpv6 gets a reference to the given int32 and assigns it to the StaticIpv6 field.
+func (o *LogicalRoutersVrfInnerVrAdminDists) SetStaticIpv6(v int32) {
 	o.StaticIpv6 = &v
 }
 

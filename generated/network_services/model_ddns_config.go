@@ -22,18 +22,18 @@ var _ MappedNullable = &DdnsConfig{}
 // DdnsConfig struct for DdnsConfig
 type DdnsConfig struct {
 	// Certificate profile
-	DdnsCertProfile string `json:"ddns-cert-profile"`
+	DdnsCertProfile string `json:"ddns_cert_profile"`
 	// Enable DDNS?
-	DdnsEnabled  *bool  `json:"ddns-enabled,omitempty"`
-	DdnsHostname string `json:"ddns-hostname" validate:"regexp=^[a-zA-Z0-9_\\\\.\\\\-]+$"`
+	DdnsEnabled  *bool  `json:"ddns_enabled,omitempty"`
+	DdnsHostname string `json:"ddns_hostname" validate:"regexp=^[a-zA-Z0-9_\\\\.\\\\-]+$"`
 	// IP to register (static only)
-	DdnsIp *string `json:"ddns-ip,omitempty"`
+	DdnsIp *string `json:"ddns_ip,omitempty"`
 	// Update interval (days)
-	DdnsUpdateInterval *int32 `json:"ddns-update-interval,omitempty"`
+	DdnsUpdateInterval *int32 `json:"ddns_update_interval,omitempty"`
 	// DDNS vendor
-	DdnsVendor string `json:"ddns-vendor"`
+	DdnsVendor string `json:"ddns_vendor"`
 	// DDNS vendor
-	DdnsVendorConfig     string `json:"ddns-vendor-config"`
+	DdnsVendorConfig     string `json:"ddns_vendor_config"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -270,19 +270,19 @@ func (o DdnsConfig) MarshalJSON() ([]byte, error) {
 
 func (o DdnsConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["ddns-cert-profile"] = o.DdnsCertProfile
+	toSerialize["ddns_cert_profile"] = o.DdnsCertProfile
 	if !IsNil(o.DdnsEnabled) {
-		toSerialize["ddns-enabled"] = o.DdnsEnabled
+		toSerialize["ddns_enabled"] = o.DdnsEnabled
 	}
-	toSerialize["ddns-hostname"] = o.DdnsHostname
+	toSerialize["ddns_hostname"] = o.DdnsHostname
 	if !IsNil(o.DdnsIp) {
-		toSerialize["ddns-ip"] = o.DdnsIp
+		toSerialize["ddns_ip"] = o.DdnsIp
 	}
 	if !IsNil(o.DdnsUpdateInterval) {
-		toSerialize["ddns-update-interval"] = o.DdnsUpdateInterval
+		toSerialize["ddns_update_interval"] = o.DdnsUpdateInterval
 	}
-	toSerialize["ddns-vendor"] = o.DdnsVendor
-	toSerialize["ddns-vendor-config"] = o.DdnsVendorConfig
+	toSerialize["ddns_vendor"] = o.DdnsVendor
+	toSerialize["ddns_vendor_config"] = o.DdnsVendorConfig
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -296,10 +296,10 @@ func (o *DdnsConfig) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"ddns-cert-profile",
-		"ddns-hostname",
-		"ddns-vendor",
-		"ddns-vendor-config",
+		"ddns_cert_profile",
+		"ddns_hostname",
+		"ddns_vendor",
+		"ddns_vendor_config",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -329,13 +329,13 @@ func (o *DdnsConfig) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "ddns-cert-profile")
-		delete(additionalProperties, "ddns-enabled")
-		delete(additionalProperties, "ddns-hostname")
-		delete(additionalProperties, "ddns-ip")
-		delete(additionalProperties, "ddns-update-interval")
-		delete(additionalProperties, "ddns-vendor")
-		delete(additionalProperties, "ddns-vendor-config")
+		delete(additionalProperties, "ddns_cert_profile")
+		delete(additionalProperties, "ddns_enabled")
+		delete(additionalProperties, "ddns_hostname")
+		delete(additionalProperties, "ddns_ip")
+		delete(additionalProperties, "ddns_update_interval")
+		delete(additionalProperties, "ddns_vendor")
+		delete(additionalProperties, "ddns_vendor_config")
 		o.AdditionalProperties = additionalProperties
 	}
 

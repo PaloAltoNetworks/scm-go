@@ -23,15 +23,15 @@ type Lacp struct {
 	// Enable LACP?
 	Enable *bool `json:"enable,omitempty"`
 	// Fast failover
-	FastFailover *bool `json:"fast-failover,omitempty"`
+	FastFailover *bool `json:"fast_failover,omitempty"`
 	// Maximum number of physical ports bundled in the LAG
-	MaxPorts *int32 `json:"max-ports,omitempty"`
+	MaxPorts *int32 `json:"max_ports,omitempty"`
 	// Mode
 	Mode *string `json:"mode,omitempty"`
 	// LACP system priority in system ID
-	SystemPriority *int32 `json:"system-priority,omitempty"`
+	SystemPriority *int32 `json:"system_priority,omitempty"`
 	// Transmission mode
-	TransmissionRate     *string `json:"transmission-rate,omitempty"`
+	TransmissionRate     *string `json:"transmission_rate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -284,19 +284,19 @@ func (o Lacp) ToMap() (map[string]interface{}, error) {
 		toSerialize["enable"] = o.Enable
 	}
 	if !IsNil(o.FastFailover) {
-		toSerialize["fast-failover"] = o.FastFailover
+		toSerialize["fast_failover"] = o.FastFailover
 	}
 	if !IsNil(o.MaxPorts) {
-		toSerialize["max-ports"] = o.MaxPorts
+		toSerialize["max_ports"] = o.MaxPorts
 	}
 	if !IsNil(o.Mode) {
 		toSerialize["mode"] = o.Mode
 	}
 	if !IsNil(o.SystemPriority) {
-		toSerialize["system-priority"] = o.SystemPriority
+		toSerialize["system_priority"] = o.SystemPriority
 	}
 	if !IsNil(o.TransmissionRate) {
-		toSerialize["transmission-rate"] = o.TransmissionRate
+		toSerialize["transmission_rate"] = o.TransmissionRate
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -321,11 +321,11 @@ func (o *Lacp) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enable")
-		delete(additionalProperties, "fast-failover")
-		delete(additionalProperties, "max-ports")
+		delete(additionalProperties, "fast_failover")
+		delete(additionalProperties, "max_ports")
 		delete(additionalProperties, "mode")
-		delete(additionalProperties, "system-priority")
-		delete(additionalProperties, "transmission-rate")
+		delete(additionalProperties, "system_priority")
+		delete(additionalProperties, "transmission_rate")
 		o.AdditionalProperties = additionalProperties
 	}
 

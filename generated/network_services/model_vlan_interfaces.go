@@ -27,25 +27,26 @@ type VlanInterfaces struct {
 	Comment    *string                   `json:"comment,omitempty"`
 	DdnsConfig *VlanInterfacesDdnsConfig `json:"ddns_config,omitempty"`
 	// Default interface assignment
-	DefaultValue *string `json:"default-value,omitempty"`
+	DefaultValue *string `json:"default_value,omitempty" validate:"regexp=^vlan\\\\.([1-9]\\\\d{0,2}|[1-3]\\\\d{3}|40[0-8]\\\\d|409[0-6])$"`
 	// The device in which the resource is defined
 	Device     *string                   `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	DhcpClient *VlanInterfacesDhcpClient `json:"dhcp-client,omitempty"`
+	DhcpClient *VlanInterfacesDhcpClient `json:"dhcp_client,omitempty"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
-	InterfaceManagementProfile *string  `json:"interface_management_profile,omitempty"`
-	Ip                         []string `json:"ip,omitempty"`
+	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
+	// VLAN Interface IP Parent
+	Ip []VlanInterfacesIpInner `json:"ip,omitempty"`
 	// MTU
-	Mtu *float32 `json:"mtu,omitempty"`
+	Mtu *int32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
-	VlanTag              *float32 `json:"vlan-tag,omitempty"`
+	VlanTag              *string `json:"vlan_tag,omitempty" validate:"regexp=^([1-9]\\\\d{0,2}|[1-3]\\\\d{3}|40[0-8]\\\\d|409[0-6])$"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -358,9 +359,9 @@ func (o *VlanInterfaces) SetInterfaceManagementProfile(v string) {
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *VlanInterfaces) GetIp() []string {
+func (o *VlanInterfaces) GetIp() []VlanInterfacesIpInner {
 	if o == nil || IsNil(o.Ip) {
-		var ret []string
+		var ret []VlanInterfacesIpInner
 		return ret
 	}
 	return o.Ip
@@ -368,7 +369,7 @@ func (o *VlanInterfaces) GetIp() []string {
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VlanInterfaces) GetIpOk() ([]string, bool) {
+func (o *VlanInterfaces) GetIpOk() ([]VlanInterfacesIpInner, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -384,15 +385,15 @@ func (o *VlanInterfaces) HasIp() bool {
 	return false
 }
 
-// SetIp gets a reference to the given []string and assigns it to the Ip field.
-func (o *VlanInterfaces) SetIp(v []string) {
+// SetIp gets a reference to the given []VlanInterfacesIpInner and assigns it to the Ip field.
+func (o *VlanInterfaces) SetIp(v []VlanInterfacesIpInner) {
 	o.Ip = v
 }
 
 // GetMtu returns the Mtu field value if set, zero value otherwise.
-func (o *VlanInterfaces) GetMtu() float32 {
+func (o *VlanInterfaces) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Mtu
@@ -400,7 +401,7 @@ func (o *VlanInterfaces) GetMtu() float32 {
 
 // GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VlanInterfaces) GetMtuOk() (*float32, bool) {
+func (o *VlanInterfaces) GetMtuOk() (*int32, bool) {
 	if o == nil || IsNil(o.Mtu) {
 		return nil, false
 	}
@@ -416,8 +417,8 @@ func (o *VlanInterfaces) HasMtu() bool {
 	return false
 }
 
-// SetMtu gets a reference to the given float32 and assigns it to the Mtu field.
-func (o *VlanInterfaces) SetMtu(v float32) {
+// SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
+func (o *VlanInterfaces) SetMtu(v int32) {
 	o.Mtu = &v
 }
 
@@ -478,9 +479,9 @@ func (o *VlanInterfaces) SetSnippet(v string) {
 }
 
 // GetVlanTag returns the VlanTag field value if set, zero value otherwise.
-func (o *VlanInterfaces) GetVlanTag() float32 {
+func (o *VlanInterfaces) GetVlanTag() string {
 	if o == nil || IsNil(o.VlanTag) {
-		var ret float32
+		var ret string
 		return ret
 	}
 	return *o.VlanTag
@@ -488,7 +489,7 @@ func (o *VlanInterfaces) GetVlanTag() float32 {
 
 // GetVlanTagOk returns a tuple with the VlanTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VlanInterfaces) GetVlanTagOk() (*float32, bool) {
+func (o *VlanInterfaces) GetVlanTagOk() (*string, bool) {
 	if o == nil || IsNil(o.VlanTag) {
 		return nil, false
 	}
@@ -504,8 +505,8 @@ func (o *VlanInterfaces) HasVlanTag() bool {
 	return false
 }
 
-// SetVlanTag gets a reference to the given float32 and assigns it to the VlanTag field.
-func (o *VlanInterfaces) SetVlanTag(v float32) {
+// SetVlanTag gets a reference to the given string and assigns it to the VlanTag field.
+func (o *VlanInterfaces) SetVlanTag(v string) {
 	o.VlanTag = &v
 }
 
@@ -529,13 +530,13 @@ func (o VlanInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["ddns_config"] = o.DdnsConfig
 	}
 	if !IsNil(o.DefaultValue) {
-		toSerialize["default-value"] = o.DefaultValue
+		toSerialize["default_value"] = o.DefaultValue
 	}
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
 	if !IsNil(o.DhcpClient) {
-		toSerialize["dhcp-client"] = o.DhcpClient
+		toSerialize["dhcp_client"] = o.DhcpClient
 	}
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
@@ -557,7 +558,7 @@ func (o VlanInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["snippet"] = o.Snippet
 	}
 	if !IsNil(o.VlanTag) {
-		toSerialize["vlan-tag"] = o.VlanTag
+		toSerialize["vlan_tag"] = o.VlanTag
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -605,9 +606,9 @@ func (o *VlanInterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "arp")
 		delete(additionalProperties, "comment")
 		delete(additionalProperties, "ddns_config")
-		delete(additionalProperties, "default-value")
+		delete(additionalProperties, "default_value")
 		delete(additionalProperties, "device")
-		delete(additionalProperties, "dhcp-client")
+		delete(additionalProperties, "dhcp_client")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "interface_management_profile")
@@ -615,7 +616,7 @@ func (o *VlanInterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "snippet")
-		delete(additionalProperties, "vlan-tag")
+		delete(additionalProperties, "vlan_tag")
 		o.AdditionalProperties = additionalProperties
 	}
 

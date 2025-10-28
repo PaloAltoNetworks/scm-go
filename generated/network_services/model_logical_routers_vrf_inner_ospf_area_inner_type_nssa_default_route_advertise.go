@@ -20,8 +20,8 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteA
 
 // LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise struct for LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise
 type LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise struct {
-	Metric               *float32 `json:"metric,omitempty"`
-	Type                 *string  `json:"type,omitempty"`
+	Metric               *int32  `json:"metric,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -45,9 +45,9 @@ func NewLogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertiseWithDefa
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise) GetMetric() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise) GetMetric() int32 {
 	if o == nil || IsNil(o.Metric) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Metric
@@ -55,7 +55,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise) GetMe
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise) GetMetricOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise) GetMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise) HasMe
 	return false
 }
 
-// SetMetric gets a reference to the given float32 and assigns it to the Metric field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise) SetMetric(v float32) {
+// SetMetric gets a reference to the given int32 and assigns it to the Metric field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerTypeNssaDefaultRouteAdvertise) SetMetric(v int32) {
 	o.Metric = &v
 }
 

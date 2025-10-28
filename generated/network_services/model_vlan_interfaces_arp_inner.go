@@ -21,7 +21,7 @@ var _ MappedNullable = &VlanInterfacesArpInner{}
 // VlanInterfacesArpInner struct for VlanInterfacesArpInner
 type VlanInterfacesArpInner struct {
 	// MAC address
-	HwAddress *string `json:"hw-address,omitempty"`
+	HwAddress *string `json:"hw_address,omitempty"`
 	// ARP interface
 	Interface *string `json:"interface,omitempty"`
 	// IP address
@@ -155,7 +155,7 @@ func (o VlanInterfacesArpInner) MarshalJSON() ([]byte, error) {
 func (o VlanInterfacesArpInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.HwAddress) {
-		toSerialize["hw-address"] = o.HwAddress
+		toSerialize["hw_address"] = o.HwAddress
 	}
 	if !IsNil(o.Interface) {
 		toSerialize["interface"] = o.Interface
@@ -185,7 +185,7 @@ func (o *VlanInterfacesArpInner) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "hw-address")
+		delete(additionalProperties, "hw_address")
 		delete(additionalProperties, "interface")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties

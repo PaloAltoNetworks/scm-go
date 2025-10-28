@@ -32,11 +32,11 @@ type Layer2Subinterfaces struct {
 	// L2 sub-interface name
 	Name string `json:"name"`
 	// Parent interface
-	ParentInterface *string `json:"parent-interface,omitempty"`
+	ParentInterface *string `json:"parent_interface,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
-	VlanTag              float32 `json:"vlan-tag"`
+	VlanTag              string `json:"vlan_tag" validate:"regexp=^([1-9]\\\\d{0,2}|[1-3]\\\\d{3}|40[0-8]\\\\d|409[0-6])$"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,7 +46,7 @@ type _Layer2Subinterfaces Layer2Subinterfaces
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLayer2Subinterfaces(name string, vlanTag float32) *Layer2Subinterfaces {
+func NewLayer2Subinterfaces(name string, vlanTag string) *Layer2Subinterfaces {
 	this := Layer2Subinterfaces{}
 	this.Name = name
 	this.VlanTag = vlanTag
@@ -278,9 +278,9 @@ func (o *Layer2Subinterfaces) SetSnippet(v string) {
 }
 
 // GetVlanTag returns the VlanTag field value
-func (o *Layer2Subinterfaces) GetVlanTag() float32 {
+func (o *Layer2Subinterfaces) GetVlanTag() string {
 	if o == nil {
-		var ret float32
+		var ret string
 		return ret
 	}
 
@@ -289,7 +289,7 @@ func (o *Layer2Subinterfaces) GetVlanTag() float32 {
 
 // GetVlanTagOk returns a tuple with the VlanTag field value
 // and a boolean to check if the value has been set.
-func (o *Layer2Subinterfaces) GetVlanTagOk() (*float32, bool) {
+func (o *Layer2Subinterfaces) GetVlanTagOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -297,7 +297,7 @@ func (o *Layer2Subinterfaces) GetVlanTagOk() (*float32, bool) {
 }
 
 // SetVlanTag sets field value
-func (o *Layer2Subinterfaces) SetVlanTag(v float32) {
+func (o *Layer2Subinterfaces) SetVlanTag(v string) {
 	o.VlanTag = v
 }
 
@@ -325,12 +325,12 @@ func (o Layer2Subinterfaces) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.ParentInterface) {
-		toSerialize["parent-interface"] = o.ParentInterface
+		toSerialize["parent_interface"] = o.ParentInterface
 	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
-	toSerialize["vlan-tag"] = o.VlanTag
+	toSerialize["vlan_tag"] = o.VlanTag
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -345,7 +345,7 @@ func (o *Layer2Subinterfaces) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"name",
-		"vlan-tag",
+		"vlan_tag",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -380,9 +380,9 @@ func (o *Layer2Subinterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
-		delete(additionalProperties, "parent-interface")
+		delete(additionalProperties, "parent_interface")
 		delete(additionalProperties, "snippet")
-		delete(additionalProperties, "vlan-tag")
+		delete(additionalProperties, "vlan_tag")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -21,6 +21,8 @@ var _ MappedNullable = &ZoneProtectionProfilesScanWhiteListInner{}
 
 // ZoneProtectionProfilesScanWhiteListInner struct for ZoneProtectionProfilesScanWhiteListInner
 type ZoneProtectionProfilesScanWhiteListInner struct {
+	Ipv4 *string `json:"ipv4,omitempty"`
+	Ipv6 *string `json:"ipv6,omitempty"`
 	// A descriptive name for the address to exclude.
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
@@ -44,6 +46,70 @@ func NewZoneProtectionProfilesScanWhiteListInner(name string) *ZoneProtectionPro
 func NewZoneProtectionProfilesScanWhiteListInnerWithDefaults() *ZoneProtectionProfilesScanWhiteListInner {
 	this := ZoneProtectionProfilesScanWhiteListInner{}
 	return &this
+}
+
+// GetIpv4 returns the Ipv4 field value if set, zero value otherwise.
+func (o *ZoneProtectionProfilesScanWhiteListInner) GetIpv4() string {
+	if o == nil || IsNil(o.Ipv4) {
+		var ret string
+		return ret
+	}
+	return *o.Ipv4
+}
+
+// GetIpv4Ok returns a tuple with the Ipv4 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZoneProtectionProfilesScanWhiteListInner) GetIpv4Ok() (*string, bool) {
+	if o == nil || IsNil(o.Ipv4) {
+		return nil, false
+	}
+	return o.Ipv4, true
+}
+
+// HasIpv4 returns a boolean if a field has been set.
+func (o *ZoneProtectionProfilesScanWhiteListInner) HasIpv4() bool {
+	if o != nil && !IsNil(o.Ipv4) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpv4 gets a reference to the given string and assigns it to the Ipv4 field.
+func (o *ZoneProtectionProfilesScanWhiteListInner) SetIpv4(v string) {
+	o.Ipv4 = &v
+}
+
+// GetIpv6 returns the Ipv6 field value if set, zero value otherwise.
+func (o *ZoneProtectionProfilesScanWhiteListInner) GetIpv6() string {
+	if o == nil || IsNil(o.Ipv6) {
+		var ret string
+		return ret
+	}
+	return *o.Ipv6
+}
+
+// GetIpv6Ok returns a tuple with the Ipv6 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZoneProtectionProfilesScanWhiteListInner) GetIpv6Ok() (*string, bool) {
+	if o == nil || IsNil(o.Ipv6) {
+		return nil, false
+	}
+	return o.Ipv6, true
+}
+
+// HasIpv6 returns a boolean if a field has been set.
+func (o *ZoneProtectionProfilesScanWhiteListInner) HasIpv6() bool {
+	if o != nil && !IsNil(o.Ipv6) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpv6 gets a reference to the given string and assigns it to the Ipv6 field.
+func (o *ZoneProtectionProfilesScanWhiteListInner) SetIpv6(v string) {
+	o.Ipv6 = &v
 }
 
 // GetName returns the Name field value
@@ -80,6 +146,12 @@ func (o ZoneProtectionProfilesScanWhiteListInner) MarshalJSON() ([]byte, error) 
 
 func (o ZoneProtectionProfilesScanWhiteListInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Ipv4) {
+		toSerialize["ipv4"] = o.Ipv4
+	}
+	if !IsNil(o.Ipv6) {
+		toSerialize["ipv6"] = o.Ipv6
+	}
 	toSerialize["name"] = o.Name
 
 	for key, value := range o.AdditionalProperties {
@@ -124,6 +196,8 @@ func (o *ZoneProtectionProfilesScanWhiteListInner) UnmarshalJSON(data []byte) (e
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ipv4")
+		delete(additionalProperties, "ipv6")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
 	}

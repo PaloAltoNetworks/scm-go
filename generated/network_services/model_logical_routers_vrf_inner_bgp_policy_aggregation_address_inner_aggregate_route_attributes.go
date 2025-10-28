@@ -21,14 +21,14 @@ var _ MappedNullable = &LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAg
 // LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes struct for LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes
 type LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes struct {
 	AsPath               *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesAsPath    `json:"as_path,omitempty"`
-	AsPathLimit          *float32                                                                                 `json:"as_path_limit,omitempty"`
+	AsPathLimit          *int32                                                                                   `json:"as_path_limit,omitempty"`
 	Community            *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesCommunity `json:"community,omitempty"`
 	ExtendedCommunity    *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributesCommunity `json:"extended_community,omitempty"`
-	LocalPreference      *float32                                                                                 `json:"local_preference,omitempty"`
-	Med                  *float32                                                                                 `json:"med,omitempty"`
+	LocalPreference      *int32                                                                                   `json:"local_preference,omitempty"`
+	Med                  *int32                                                                                   `json:"med,omitempty"`
 	Nexthop              *string                                                                                  `json:"nexthop,omitempty"`
 	Origin               *string                                                                                  `json:"origin,omitempty"`
-	Weight               *float32                                                                                 `json:"weight,omitempty"`
+	Weight               *int32                                                                                   `json:"weight,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -84,9 +84,9 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 }
 
 // GetAsPathLimit returns the AsPathLimit field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetAsPathLimit() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetAsPathLimit() int32 {
 	if o == nil || IsNil(o.AsPathLimit) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.AsPathLimit
@@ -94,7 +94,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 
 // GetAsPathLimitOk returns a tuple with the AsPathLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetAsPathLimitOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetAsPathLimitOk() (*int32, bool) {
 	if o == nil || IsNil(o.AsPathLimit) {
 		return nil, false
 	}
@@ -110,8 +110,8 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 	return false
 }
 
-// SetAsPathLimit gets a reference to the given float32 and assigns it to the AsPathLimit field.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) SetAsPathLimit(v float32) {
+// SetAsPathLimit gets a reference to the given int32 and assigns it to the AsPathLimit field.
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) SetAsPathLimit(v int32) {
 	o.AsPathLimit = &v
 }
 
@@ -180,9 +180,9 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 }
 
 // GetLocalPreference returns the LocalPreference field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetLocalPreference() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetLocalPreference() int32 {
 	if o == nil || IsNil(o.LocalPreference) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.LocalPreference
@@ -190,7 +190,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 
 // GetLocalPreferenceOk returns a tuple with the LocalPreference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetLocalPreferenceOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetLocalPreferenceOk() (*int32, bool) {
 	if o == nil || IsNil(o.LocalPreference) {
 		return nil, false
 	}
@@ -206,15 +206,15 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 	return false
 }
 
-// SetLocalPreference gets a reference to the given float32 and assigns it to the LocalPreference field.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) SetLocalPreference(v float32) {
+// SetLocalPreference gets a reference to the given int32 and assigns it to the LocalPreference field.
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) SetLocalPreference(v int32) {
 	o.LocalPreference = &v
 }
 
 // GetMed returns the Med field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetMed() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetMed() int32 {
 	if o == nil || IsNil(o.Med) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Med
@@ -222,7 +222,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 
 // GetMedOk returns a tuple with the Med field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetMedOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetMedOk() (*int32, bool) {
 	if o == nil || IsNil(o.Med) {
 		return nil, false
 	}
@@ -238,8 +238,8 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 	return false
 }
 
-// SetMed gets a reference to the given float32 and assigns it to the Med field.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) SetMed(v float32) {
+// SetMed gets a reference to the given int32 and assigns it to the Med field.
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) SetMed(v int32) {
 	o.Med = &v
 }
 
@@ -308,9 +308,9 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 }
 
 // GetWeight returns the Weight field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetWeight() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetWeight() int32 {
 	if o == nil || IsNil(o.Weight) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Weight
@@ -318,7 +318,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 
 // GetWeightOk returns a tuple with the Weight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetWeightOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) GetWeightOk() (*int32, bool) {
 	if o == nil || IsNil(o.Weight) {
 		return nil, false
 	}
@@ -334,8 +334,8 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAtt
 	return false
 }
 
-// SetWeight gets a reference to the given float32 and assigns it to the Weight field.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) SetWeight(v float32) {
+// SetWeight gets a reference to the given int32 and assigns it to the Weight field.
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAggregateRouteAttributes) SetWeight(v int32) {
 	o.Weight = &v
 }
 

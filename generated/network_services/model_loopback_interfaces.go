@@ -24,7 +24,7 @@ type LoopbackInterfaces struct {
 	// Description
 	Comment *string `json:"comment,omitempty"`
 	// Default interface assignment
-	DefaultValue *int32 `json:"default-value,omitempty"`
+	DefaultValue *string `json:"default_value,omitempty" validate:"regexp=^loopback\\\\.([1-9][0-9]{0,3})$"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
@@ -32,12 +32,14 @@ type LoopbackInterfaces struct {
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
-	InterfaceManagementProfile *string               `json:"interface_management_profile,omitempty"`
-	Ip                         *LoopbackInterfacesIp `json:"ip,omitempty"`
+	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
+	// Loopback IP Parent
+	Ip   []LoopbackInterfacesIpInner `json:"ip,omitempty"`
+	Ipv6 *LoopbackInterfacesIpv6     `json:"ipv6,omitempty"`
 	// MTU
-	Mtu *float32 `json:"mtu,omitempty"`
-	// L3 sub-interface name
-	Name string `json:"name"`
+	Mtu *int32 `json:"mtu,omitempty"`
+	// Loopback Interface name
+	Name string `json:"name" validate:"regexp=^\\\\$[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The snippet in which the resource is defined
 	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
@@ -96,9 +98,9 @@ func (o *LoopbackInterfaces) SetComment(v string) {
 }
 
 // GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
-func (o *LoopbackInterfaces) GetDefaultValue() int32 {
+func (o *LoopbackInterfaces) GetDefaultValue() string {
 	if o == nil || IsNil(o.DefaultValue) {
-		var ret int32
+		var ret string
 		return ret
 	}
 	return *o.DefaultValue
@@ -106,7 +108,7 @@ func (o *LoopbackInterfaces) GetDefaultValue() int32 {
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfaces) GetDefaultValueOk() (*int32, bool) {
+func (o *LoopbackInterfaces) GetDefaultValueOk() (*string, bool) {
 	if o == nil || IsNil(o.DefaultValue) {
 		return nil, false
 	}
@@ -122,8 +124,8 @@ func (o *LoopbackInterfaces) HasDefaultValue() bool {
 	return false
 }
 
-// SetDefaultValue gets a reference to the given int32 and assigns it to the DefaultValue field.
-func (o *LoopbackInterfaces) SetDefaultValue(v int32) {
+// SetDefaultValue gets a reference to the given string and assigns it to the DefaultValue field.
+func (o *LoopbackInterfaces) SetDefaultValue(v string) {
 	o.DefaultValue = &v
 }
 
@@ -256,17 +258,17 @@ func (o *LoopbackInterfaces) SetInterfaceManagementProfile(v string) {
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *LoopbackInterfaces) GetIp() LoopbackInterfacesIp {
+func (o *LoopbackInterfaces) GetIp() []LoopbackInterfacesIpInner {
 	if o == nil || IsNil(o.Ip) {
-		var ret LoopbackInterfacesIp
+		var ret []LoopbackInterfacesIpInner
 		return ret
 	}
-	return *o.Ip
+	return o.Ip
 }
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfaces) GetIpOk() (*LoopbackInterfacesIp, bool) {
+func (o *LoopbackInterfaces) GetIpOk() ([]LoopbackInterfacesIpInner, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -282,15 +284,47 @@ func (o *LoopbackInterfaces) HasIp() bool {
 	return false
 }
 
-// SetIp gets a reference to the given LoopbackInterfacesIp and assigns it to the Ip field.
-func (o *LoopbackInterfaces) SetIp(v LoopbackInterfacesIp) {
-	o.Ip = &v
+// SetIp gets a reference to the given []LoopbackInterfacesIpInner and assigns it to the Ip field.
+func (o *LoopbackInterfaces) SetIp(v []LoopbackInterfacesIpInner) {
+	o.Ip = v
+}
+
+// GetIpv6 returns the Ipv6 field value if set, zero value otherwise.
+func (o *LoopbackInterfaces) GetIpv6() LoopbackInterfacesIpv6 {
+	if o == nil || IsNil(o.Ipv6) {
+		var ret LoopbackInterfacesIpv6
+		return ret
+	}
+	return *o.Ipv6
+}
+
+// GetIpv6Ok returns a tuple with the Ipv6 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoopbackInterfaces) GetIpv6Ok() (*LoopbackInterfacesIpv6, bool) {
+	if o == nil || IsNil(o.Ipv6) {
+		return nil, false
+	}
+	return o.Ipv6, true
+}
+
+// HasIpv6 returns a boolean if a field has been set.
+func (o *LoopbackInterfaces) HasIpv6() bool {
+	if o != nil && !IsNil(o.Ipv6) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpv6 gets a reference to the given LoopbackInterfacesIpv6 and assigns it to the Ipv6 field.
+func (o *LoopbackInterfaces) SetIpv6(v LoopbackInterfacesIpv6) {
+	o.Ipv6 = &v
 }
 
 // GetMtu returns the Mtu field value if set, zero value otherwise.
-func (o *LoopbackInterfaces) GetMtu() float32 {
+func (o *LoopbackInterfaces) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Mtu
@@ -298,7 +332,7 @@ func (o *LoopbackInterfaces) GetMtu() float32 {
 
 // GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfaces) GetMtuOk() (*float32, bool) {
+func (o *LoopbackInterfaces) GetMtuOk() (*int32, bool) {
 	if o == nil || IsNil(o.Mtu) {
 		return nil, false
 	}
@@ -314,8 +348,8 @@ func (o *LoopbackInterfaces) HasMtu() bool {
 	return false
 }
 
-// SetMtu gets a reference to the given float32 and assigns it to the Mtu field.
-func (o *LoopbackInterfaces) SetMtu(v float32) {
+// SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
+func (o *LoopbackInterfaces) SetMtu(v int32) {
 	o.Mtu = &v
 }
 
@@ -389,7 +423,7 @@ func (o LoopbackInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["comment"] = o.Comment
 	}
 	if !IsNil(o.DefaultValue) {
-		toSerialize["default-value"] = o.DefaultValue
+		toSerialize["default_value"] = o.DefaultValue
 	}
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
@@ -405,6 +439,9 @@ func (o LoopbackInterfaces) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
+	}
+	if !IsNil(o.Ipv6) {
+		toSerialize["ipv6"] = o.Ipv6
 	}
 	if !IsNil(o.Mtu) {
 		toSerialize["mtu"] = o.Mtu
@@ -457,12 +494,13 @@ func (o *LoopbackInterfaces) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "comment")
-		delete(additionalProperties, "default-value")
+		delete(additionalProperties, "default_value")
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
+		delete(additionalProperties, "ipv6")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "snippet")

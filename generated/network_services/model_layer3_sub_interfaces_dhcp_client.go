@@ -20,7 +20,7 @@ var _ MappedNullable = &Layer3SubInterfacesDhcpClient{}
 
 // Layer3SubInterfacesDhcpClient Layer3 sub interfaces DHCP Client
 type Layer3SubInterfacesDhcpClient struct {
-	DhcpClient           *Layer3SubInterfacesDhcpClientDhcpClient `json:"dhcp-client,omitempty"`
+	DhcpClient           *Layer3SubInterfacesDhcpClientDhcpClient `json:"dhcp_client,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -86,7 +86,7 @@ func (o Layer3SubInterfacesDhcpClient) MarshalJSON() ([]byte, error) {
 func (o Layer3SubInterfacesDhcpClient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.DhcpClient) {
-		toSerialize["dhcp-client"] = o.DhcpClient
+		toSerialize["dhcp_client"] = o.DhcpClient
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -110,7 +110,7 @@ func (o *Layer3SubInterfacesDhcpClient) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "dhcp-client")
+		delete(additionalProperties, "dhcp_client")
 		o.AdditionalProperties = additionalProperties
 	}
 

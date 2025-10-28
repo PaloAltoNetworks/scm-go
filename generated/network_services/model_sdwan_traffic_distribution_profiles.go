@@ -28,13 +28,13 @@ type SdwanTrafficDistributionProfiles struct {
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Link-Tags for interfaces identified by defined tags
-	LinkTags []SdwanTrafficDistributionProfilesLinkTagsInner `json:"link-tags"`
+	LinkTags []SdwanTrafficDistributionProfilesLinkTagsInner `json:"link_tags,omitempty"`
 	// Profile name
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Traffic distribution
-	TrafficDistribution  string `json:"traffic-distribution"`
+	TrafficDistribution  *string `json:"traffic_distribution,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,11 +44,11 @@ type _SdwanTrafficDistributionProfiles SdwanTrafficDistributionProfiles
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSdwanTrafficDistributionProfiles(linkTags []SdwanTrafficDistributionProfilesLinkTagsInner, name string, trafficDistribution string) *SdwanTrafficDistributionProfiles {
+func NewSdwanTrafficDistributionProfiles(name string) *SdwanTrafficDistributionProfiles {
 	this := SdwanTrafficDistributionProfiles{}
-	this.LinkTags = linkTags
 	this.Name = name
-	this.TrafficDistribution = trafficDistribution
+	var trafficDistribution string = "Best Available Path"
+	this.TrafficDistribution = &trafficDistribution
 	return &this
 }
 
@@ -58,7 +58,7 @@ func NewSdwanTrafficDistributionProfiles(linkTags []SdwanTrafficDistributionProf
 func NewSdwanTrafficDistributionProfilesWithDefaults() *SdwanTrafficDistributionProfiles {
 	this := SdwanTrafficDistributionProfiles{}
 	var trafficDistribution string = "Best Available Path"
-	this.TrafficDistribution = trafficDistribution
+	this.TrafficDistribution = &trafficDistribution
 	return &this
 }
 
@@ -158,26 +158,34 @@ func (o *SdwanTrafficDistributionProfiles) SetId(v string) {
 	o.Id = &v
 }
 
-// GetLinkTags returns the LinkTags field value
+// GetLinkTags returns the LinkTags field value if set, zero value otherwise.
 func (o *SdwanTrafficDistributionProfiles) GetLinkTags() []SdwanTrafficDistributionProfilesLinkTagsInner {
-	if o == nil {
+	if o == nil || IsNil(o.LinkTags) {
 		var ret []SdwanTrafficDistributionProfilesLinkTagsInner
 		return ret
 	}
-
 	return o.LinkTags
 }
 
-// GetLinkTagsOk returns a tuple with the LinkTags field value
+// GetLinkTagsOk returns a tuple with the LinkTags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SdwanTrafficDistributionProfiles) GetLinkTagsOk() ([]SdwanTrafficDistributionProfilesLinkTagsInner, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LinkTags) {
 		return nil, false
 	}
 	return o.LinkTags, true
 }
 
-// SetLinkTags sets field value
+// HasLinkTags returns a boolean if a field has been set.
+func (o *SdwanTrafficDistributionProfiles) HasLinkTags() bool {
+	if o != nil && !IsNil(o.LinkTags) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinkTags gets a reference to the given []SdwanTrafficDistributionProfilesLinkTagsInner and assigns it to the LinkTags field.
 func (o *SdwanTrafficDistributionProfiles) SetLinkTags(v []SdwanTrafficDistributionProfilesLinkTagsInner) {
 	o.LinkTags = v
 }
@@ -238,28 +246,36 @@ func (o *SdwanTrafficDistributionProfiles) SetSnippet(v string) {
 	o.Snippet = &v
 }
 
-// GetTrafficDistribution returns the TrafficDistribution field value
+// GetTrafficDistribution returns the TrafficDistribution field value if set, zero value otherwise.
 func (o *SdwanTrafficDistributionProfiles) GetTrafficDistribution() string {
-	if o == nil {
+	if o == nil || IsNil(o.TrafficDistribution) {
 		var ret string
 		return ret
 	}
-
-	return o.TrafficDistribution
+	return *o.TrafficDistribution
 }
 
-// GetTrafficDistributionOk returns a tuple with the TrafficDistribution field value
+// GetTrafficDistributionOk returns a tuple with the TrafficDistribution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SdwanTrafficDistributionProfiles) GetTrafficDistributionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TrafficDistribution) {
 		return nil, false
 	}
-	return &o.TrafficDistribution, true
+	return o.TrafficDistribution, true
 }
 
-// SetTrafficDistribution sets field value
+// HasTrafficDistribution returns a boolean if a field has been set.
+func (o *SdwanTrafficDistributionProfiles) HasTrafficDistribution() bool {
+	if o != nil && !IsNil(o.TrafficDistribution) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrafficDistribution gets a reference to the given string and assigns it to the TrafficDistribution field.
 func (o *SdwanTrafficDistributionProfiles) SetTrafficDistribution(v string) {
-	o.TrafficDistribution = v
+	o.TrafficDistribution = &v
 }
 
 func (o SdwanTrafficDistributionProfiles) MarshalJSON() ([]byte, error) {
@@ -281,12 +297,16 @@ func (o SdwanTrafficDistributionProfiles) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	toSerialize["link-tags"] = o.LinkTags
+	if !IsNil(o.LinkTags) {
+		toSerialize["link_tags"] = o.LinkTags
+	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
-	toSerialize["traffic-distribution"] = o.TrafficDistribution
+	if !IsNil(o.TrafficDistribution) {
+		toSerialize["traffic_distribution"] = o.TrafficDistribution
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -300,9 +320,7 @@ func (o *SdwanTrafficDistributionProfiles) UnmarshalJSON(data []byte) (err error
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"link-tags",
 		"name",
-		"traffic-distribution",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -335,10 +353,10 @@ func (o *SdwanTrafficDistributionProfiles) UnmarshalJSON(data []byte) (err error
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "link-tags")
+		delete(additionalProperties, "link_tags")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "snippet")
-		delete(additionalProperties, "traffic-distribution")
+		delete(additionalProperties, "traffic_distribution")
 		o.AdditionalProperties = additionalProperties
 	}
 

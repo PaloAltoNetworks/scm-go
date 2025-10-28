@@ -20,8 +20,11 @@ var _ MappedNullable = &ZoneProtectionProfilesScanInnerAction{}
 
 // ZoneProtectionProfilesScanInnerAction struct for ZoneProtectionProfilesScanInnerAction
 type ZoneProtectionProfilesScanInnerAction struct {
-	Duration             *int32  `json:"duration,omitempty"`
-	TrackBy              *string `json:"track_by,omitempty"`
+	Alert                map[string]interface{} `json:"alert,omitempty"`
+	Allow                map[string]interface{} `json:"allow,omitempty"`
+	Block                map[string]interface{} `json:"block,omitempty"`
+	Duration             *int32                 `json:"duration,omitempty"`
+	TrackBy              *string                `json:"track_by,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -42,6 +45,102 @@ func NewZoneProtectionProfilesScanInnerAction() *ZoneProtectionProfilesScanInner
 func NewZoneProtectionProfilesScanInnerActionWithDefaults() *ZoneProtectionProfilesScanInnerAction {
 	this := ZoneProtectionProfilesScanInnerAction{}
 	return &this
+}
+
+// GetAlert returns the Alert field value if set, zero value otherwise.
+func (o *ZoneProtectionProfilesScanInnerAction) GetAlert() map[string]interface{} {
+	if o == nil || IsNil(o.Alert) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Alert
+}
+
+// GetAlertOk returns a tuple with the Alert field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZoneProtectionProfilesScanInnerAction) GetAlertOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Alert) {
+		return map[string]interface{}{}, false
+	}
+	return o.Alert, true
+}
+
+// HasAlert returns a boolean if a field has been set.
+func (o *ZoneProtectionProfilesScanInnerAction) HasAlert() bool {
+	if o != nil && !IsNil(o.Alert) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlert gets a reference to the given map[string]interface{} and assigns it to the Alert field.
+func (o *ZoneProtectionProfilesScanInnerAction) SetAlert(v map[string]interface{}) {
+	o.Alert = v
+}
+
+// GetAllow returns the Allow field value if set, zero value otherwise.
+func (o *ZoneProtectionProfilesScanInnerAction) GetAllow() map[string]interface{} {
+	if o == nil || IsNil(o.Allow) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Allow
+}
+
+// GetAllowOk returns a tuple with the Allow field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZoneProtectionProfilesScanInnerAction) GetAllowOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Allow) {
+		return map[string]interface{}{}, false
+	}
+	return o.Allow, true
+}
+
+// HasAllow returns a boolean if a field has been set.
+func (o *ZoneProtectionProfilesScanInnerAction) HasAllow() bool {
+	if o != nil && !IsNil(o.Allow) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllow gets a reference to the given map[string]interface{} and assigns it to the Allow field.
+func (o *ZoneProtectionProfilesScanInnerAction) SetAllow(v map[string]interface{}) {
+	o.Allow = v
+}
+
+// GetBlock returns the Block field value if set, zero value otherwise.
+func (o *ZoneProtectionProfilesScanInnerAction) GetBlock() map[string]interface{} {
+	if o == nil || IsNil(o.Block) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Block
+}
+
+// GetBlockOk returns a tuple with the Block field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZoneProtectionProfilesScanInnerAction) GetBlockOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Block) {
+		return map[string]interface{}{}, false
+	}
+	return o.Block, true
+}
+
+// HasBlock returns a boolean if a field has been set.
+func (o *ZoneProtectionProfilesScanInnerAction) HasBlock() bool {
+	if o != nil && !IsNil(o.Block) {
+		return true
+	}
+
+	return false
+}
+
+// SetBlock gets a reference to the given map[string]interface{} and assigns it to the Block field.
+func (o *ZoneProtectionProfilesScanInnerAction) SetBlock(v map[string]interface{}) {
+	o.Block = v
 }
 
 // GetDuration returns the Duration field value if set, zero value otherwise.
@@ -118,6 +217,15 @@ func (o ZoneProtectionProfilesScanInnerAction) MarshalJSON() ([]byte, error) {
 
 func (o ZoneProtectionProfilesScanInnerAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Alert) {
+		toSerialize["alert"] = o.Alert
+	}
+	if !IsNil(o.Allow) {
+		toSerialize["allow"] = o.Allow
+	}
+	if !IsNil(o.Block) {
+		toSerialize["block"] = o.Block
+	}
 	if !IsNil(o.Duration) {
 		toSerialize["duration"] = o.Duration
 	}
@@ -146,6 +254,9 @@ func (o *ZoneProtectionProfilesScanInnerAction) UnmarshalJSON(data []byte) (err 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alert")
+		delete(additionalProperties, "allow")
+		delete(additionalProperties, "block")
 		delete(additionalProperties, "duration")
 		delete(additionalProperties, "track_by")
 		o.AdditionalProperties = additionalProperties

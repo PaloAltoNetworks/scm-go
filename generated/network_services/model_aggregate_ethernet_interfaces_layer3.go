@@ -22,10 +22,10 @@ var _ MappedNullable = &AggregateEthernetInterfacesLayer3{}
 type AggregateEthernetInterfacesLayer3 struct {
 	// Aggregate Ethernet ARP configuration
 	Arp        []AggEthernetArpInner                        `json:"arp,omitempty"`
-	DdnsConfig *AggregateEthernetInterfacesLayer3DdnsConfig `json:"ddns-config,omitempty"`
-	DhcpClient *AggEthernetDhcpClientDhcpClient             `json:"dhcp-client,omitempty"`
+	DdnsConfig *AggregateEthernetInterfacesLayer3DdnsConfig `json:"ddns_config,omitempty"`
+	DhcpClient *AggEthernetDhcpClientDhcpClient             `json:"dhcp_client,omitempty"`
 	// Interface management profile
-	InterfaceManagementProfile *string `json:"interface-management-profile,omitempty"`
+	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
 	// Interface IP addresses
 	Ip   []string `json:"ip,omitempty"`
 	Lacp *Lacp    `json:"lacp,omitempty"`
@@ -295,13 +295,13 @@ func (o AggregateEthernetInterfacesLayer3) ToMap() (map[string]interface{}, erro
 		toSerialize["arp"] = o.Arp
 	}
 	if !IsNil(o.DdnsConfig) {
-		toSerialize["ddns-config"] = o.DdnsConfig
+		toSerialize["ddns_config"] = o.DdnsConfig
 	}
 	if !IsNil(o.DhcpClient) {
-		toSerialize["dhcp-client"] = o.DhcpClient
+		toSerialize["dhcp_client"] = o.DhcpClient
 	}
 	if !IsNil(o.InterfaceManagementProfile) {
-		toSerialize["interface-management-profile"] = o.InterfaceManagementProfile
+		toSerialize["interface_management_profile"] = o.InterfaceManagementProfile
 	}
 	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
@@ -335,9 +335,9 @@ func (o *AggregateEthernetInterfacesLayer3) UnmarshalJSON(data []byte) (err erro
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "arp")
-		delete(additionalProperties, "ddns-config")
-		delete(additionalProperties, "dhcp-client")
-		delete(additionalProperties, "interface-management-profile")
+		delete(additionalProperties, "ddns_config")
+		delete(additionalProperties, "dhcp_client")
+		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "lacp")
 		delete(additionalProperties, "mtu")

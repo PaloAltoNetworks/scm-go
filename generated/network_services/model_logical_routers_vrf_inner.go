@@ -24,7 +24,7 @@ type LogicalRoutersVrfInner struct {
 	AdminDists           *LogicalRoutersVrfInnerAdminDists   `json:"admin_dists,omitempty"`
 	Bgp                  *LogicalRoutersVrfInnerBgp          `json:"bgp,omitempty"`
 	Ecmp                 *LogicalRoutersVrfInnerEcmp         `json:"ecmp,omitempty"`
-	GlobalVrid           *float32                            `json:"global_vrid,omitempty"`
+	GlobalVrid           *int32                              `json:"global_vrid,omitempty"`
 	Interface            []string                            `json:"interface,omitempty"`
 	Multicast            *LogicalRoutersVrfInnerMulticast    `json:"multicast,omitempty"`
 	Name                 string                              `json:"name"`
@@ -156,9 +156,9 @@ func (o *LogicalRoutersVrfInner) SetEcmp(v LogicalRoutersVrfInnerEcmp) {
 }
 
 // GetGlobalVrid returns the GlobalVrid field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInner) GetGlobalVrid() float32 {
+func (o *LogicalRoutersVrfInner) GetGlobalVrid() int32 {
 	if o == nil || IsNil(o.GlobalVrid) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.GlobalVrid
@@ -166,7 +166,7 @@ func (o *LogicalRoutersVrfInner) GetGlobalVrid() float32 {
 
 // GetGlobalVridOk returns a tuple with the GlobalVrid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInner) GetGlobalVridOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInner) GetGlobalVridOk() (*int32, bool) {
 	if o == nil || IsNil(o.GlobalVrid) {
 		return nil, false
 	}
@@ -182,8 +182,8 @@ func (o *LogicalRoutersVrfInner) HasGlobalVrid() bool {
 	return false
 }
 
-// SetGlobalVrid gets a reference to the given float32 and assigns it to the GlobalVrid field.
-func (o *LogicalRoutersVrfInner) SetGlobalVrid(v float32) {
+// SetGlobalVrid gets a reference to the given int32 and assigns it to the GlobalVrid field.
+func (o *LogicalRoutersVrfInner) SetGlobalVrid(v int32) {
 	o.GlobalVrid = &v
 }
 

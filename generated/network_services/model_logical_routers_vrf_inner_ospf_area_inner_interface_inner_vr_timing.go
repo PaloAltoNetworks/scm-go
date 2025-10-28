@@ -20,11 +20,11 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTimin
 
 // LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming struct for LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming
 type LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming struct {
-	DeadCounts           *float32 `json:"dead_counts,omitempty"`
-	GrDelay              *float32 `json:"gr_delay,omitempty"`
-	HelloInterval        *float32 `json:"hello_interval,omitempty"`
-	RetransmitInterval   *float32 `json:"retransmit_interval,omitempty"`
-	TransitDelay         *float32 `json:"transit_delay,omitempty"`
+	DeadCounts           *int32 `json:"dead_counts,omitempty"`
+	GrDelay              *int32 `json:"gr_delay,omitempty"`
+	HelloInterval        *int32 `json:"hello_interval,omitempty"`
+	RetransmitInterval   *int32 `json:"retransmit_interval,omitempty"`
+	TransitDelay         *int32 `json:"transit_delay,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -48,9 +48,9 @@ func NewLogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTimingWithDefaults() 
 }
 
 // GetDeadCounts returns the DeadCounts field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetDeadCounts() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetDeadCounts() int32 {
 	if o == nil || IsNil(o.DeadCounts) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.DeadCounts
@@ -58,7 +58,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetDeadCount
 
 // GetDeadCountsOk returns a tuple with the DeadCounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetDeadCountsOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetDeadCountsOk() (*int32, bool) {
 	if o == nil || IsNil(o.DeadCounts) {
 		return nil, false
 	}
@@ -74,15 +74,15 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) HasDeadCount
 	return false
 }
 
-// SetDeadCounts gets a reference to the given float32 and assigns it to the DeadCounts field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetDeadCounts(v float32) {
+// SetDeadCounts gets a reference to the given int32 and assigns it to the DeadCounts field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetDeadCounts(v int32) {
 	o.DeadCounts = &v
 }
 
 // GetGrDelay returns the GrDelay field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetGrDelay() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetGrDelay() int32 {
 	if o == nil || IsNil(o.GrDelay) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.GrDelay
@@ -90,7 +90,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetGrDelay()
 
 // GetGrDelayOk returns a tuple with the GrDelay field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetGrDelayOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetGrDelayOk() (*int32, bool) {
 	if o == nil || IsNil(o.GrDelay) {
 		return nil, false
 	}
@@ -106,15 +106,15 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) HasGrDelay()
 	return false
 }
 
-// SetGrDelay gets a reference to the given float32 and assigns it to the GrDelay field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetGrDelay(v float32) {
+// SetGrDelay gets a reference to the given int32 and assigns it to the GrDelay field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetGrDelay(v int32) {
 	o.GrDelay = &v
 }
 
 // GetHelloInterval returns the HelloInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetHelloInterval() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetHelloInterval() int32 {
 	if o == nil || IsNil(o.HelloInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.HelloInterval
@@ -122,7 +122,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetHelloInte
 
 // GetHelloIntervalOk returns a tuple with the HelloInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetHelloIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetHelloIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.HelloInterval) {
 		return nil, false
 	}
@@ -138,15 +138,15 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) HasHelloInte
 	return false
 }
 
-// SetHelloInterval gets a reference to the given float32 and assigns it to the HelloInterval field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetHelloInterval(v float32) {
+// SetHelloInterval gets a reference to the given int32 and assigns it to the HelloInterval field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetHelloInterval(v int32) {
 	o.HelloInterval = &v
 }
 
 // GetRetransmitInterval returns the RetransmitInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetRetransmitInterval() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetRetransmitInterval() int32 {
 	if o == nil || IsNil(o.RetransmitInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.RetransmitInterval
@@ -154,7 +154,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetRetransmi
 
 // GetRetransmitIntervalOk returns a tuple with the RetransmitInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetRetransmitIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetRetransmitIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.RetransmitInterval) {
 		return nil, false
 	}
@@ -170,15 +170,15 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) HasRetransmi
 	return false
 }
 
-// SetRetransmitInterval gets a reference to the given float32 and assigns it to the RetransmitInterval field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetRetransmitInterval(v float32) {
+// SetRetransmitInterval gets a reference to the given int32 and assigns it to the RetransmitInterval field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetRetransmitInterval(v int32) {
 	o.RetransmitInterval = &v
 }
 
 // GetTransitDelay returns the TransitDelay field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetTransitDelay() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetTransitDelay() int32 {
 	if o == nil || IsNil(o.TransitDelay) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.TransitDelay
@@ -186,7 +186,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetTransitDe
 
 // GetTransitDelayOk returns a tuple with the TransitDelay field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetTransitDelayOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) GetTransitDelayOk() (*int32, bool) {
 	if o == nil || IsNil(o.TransitDelay) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) HasTransitDe
 	return false
 }
 
-// SetTransitDelay gets a reference to the given float32 and assigns it to the TransitDelay field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetTransitDelay(v float32) {
+// SetTransitDelay gets a reference to the given int32 and assigns it to the TransitDelay field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerInterfaceInnerVrTiming) SetTransitDelay(v int32) {
 	o.TransitDelay = &v
 }
 

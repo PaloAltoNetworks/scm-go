@@ -32,12 +32,12 @@ type AppOverrideRules struct {
 	From     []string `json:"from"`
 	GroupTag *string  `json:"group_tag,omitempty"`
 	// UUID of the resource
-	Id                string `json:"id"`
-	Name              string `json:"name" validate:"regexp=^[a-zA-Z0-9._-]+$"`
-	NegateDestination *bool  `json:"negate_destination,omitempty"`
-	NegateSource      *bool  `json:"negate_source,omitempty"`
-	Port              int32  `json:"port"`
-	Protocol          string `json:"protocol"`
+	Id                *string `json:"id,omitempty"`
+	Name              string  `json:"name" validate:"regexp=^[a-zA-Z0-9._-]+$"`
+	NegateDestination *bool   `json:"negate_destination,omitempty"`
+	NegateSource      *bool   `json:"negate_source,omitempty"`
+	Port              string  `json:"port"`
+	Protocol          string  `json:"protocol"`
 	// The snippet in which the resource is defined
 	Snippet              *string  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Source               []string `json:"source"`
@@ -52,14 +52,13 @@ type _AppOverrideRules AppOverrideRules
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppOverrideRules(application string, destination []string, from []string, id string, name string, port int32, protocol string, source []string, to []string) *AppOverrideRules {
+func NewAppOverrideRules(application string, destination []string, from []string, name string, port string, protocol string, source []string, to []string) *AppOverrideRules {
 	this := AppOverrideRules{}
 	this.Application = application
 	this.Destination = destination
 	var disabled bool = false
 	this.Disabled = &disabled
 	this.From = from
-	this.Id = id
 	this.Name = name
 	var negateDestination bool = false
 	this.NegateDestination = &negateDestination
@@ -318,28 +317,36 @@ func (o *AppOverrideRules) SetGroupTag(v string) {
 	o.GroupTag = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *AppOverrideRules) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppOverrideRules) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *AppOverrideRules) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *AppOverrideRules) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetName returns the Name field value
@@ -431,9 +438,9 @@ func (o *AppOverrideRules) SetNegateSource(v bool) {
 }
 
 // GetPort returns the Port field value
-func (o *AppOverrideRules) GetPort() int32 {
+func (o *AppOverrideRules) GetPort() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
@@ -442,7 +449,7 @@ func (o *AppOverrideRules) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value
 // and a boolean to check if the value has been set.
-func (o *AppOverrideRules) GetPortOk() (*int32, bool) {
+func (o *AppOverrideRules) GetPortOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -450,7 +457,7 @@ func (o *AppOverrideRules) GetPortOk() (*int32, bool) {
 }
 
 // SetPort sets field value
-func (o *AppOverrideRules) SetPort(v int32) {
+func (o *AppOverrideRules) SetPort(v string) {
 	o.Port = v
 }
 
@@ -618,7 +625,9 @@ func (o AppOverrideRules) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GroupTag) {
 		toSerialize["group_tag"] = o.GroupTag
 	}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.NegateDestination) {
 		toSerialize["negate_destination"] = o.NegateDestination
@@ -652,7 +661,6 @@ func (o *AppOverrideRules) UnmarshalJSON(data []byte) (err error) {
 		"application",
 		"destination",
 		"from",
-		"id",
 		"name",
 		"port",
 		"protocol",

@@ -24,7 +24,7 @@ import (
 // This test creates a new variable and then deletes it to ensure proper cleanup
 func Test_config_setup_VariableAPIService_Create(t *testing.T) {
 	// Setup the authenticated client
-	client := SetupDeploymentSvcTestClient(t)
+	client := SetupConfigSvcTestClient(t)
 
 	// Create a valid variable with unique name to avoid conflicts
 	createdVariableName := "$test-variable-" + common.GenerateRandomString(10)
@@ -79,7 +79,7 @@ func Test_config_setup_VariableAPIService_Create(t *testing.T) {
 // This test creates an variable, retrieves it by ID, then deletes it
 func Test_config_setup_VariablesAPIService_GetByID(t *testing.T) {
 	// Setup the authenticated client
-	client := SetupDeploymentSvcTestClient(t)
+	client := SetupConfigSvcTestClient(t)
 
 	// Create an variable first to have something to retrieve
 	createdVariableName := "$test-variable-getbyid-" + common.GenerateRandomString(10)
@@ -141,7 +141,7 @@ func Test_config_setup_VariablesAPIService_GetByID(t *testing.T) {
 // This test creates an variable, updates it, then deletes it
 func Test_config_setup_VariablesAPIService_Update(t *testing.T) {
 	// Setup the authenticated client
-	client := SetupDeploymentSvcTestClient(t)
+	client := SetupConfigSvcTestClient(t)
 
 	// Create an variable first to have something to update
 	createdVariableName := "$test-variable-update-" + common.GenerateRandomString(10)
@@ -211,7 +211,7 @@ func Test_config_setup_VariablesAPIService_Update(t *testing.T) {
 // This test creates an variable, lists variables to verify it's included, then deletes it
 func Test_config_setup_VariablesAPIService_List(t *testing.T) {
 	// Setup the authenticated client
-	client := SetupDeploymentSvcTestClient(t)
+	client := SetupConfigSvcTestClient(t)
 
 	// Create an variable first to have something to list
 	createdVariableName := "$test-variable-list-" + common.GenerateRandomString(10)
@@ -282,7 +282,7 @@ func Test_config_setup_VariablesAPIService_List(t *testing.T) {
 // This test creates an variable, deletes it, then verifies the deletion was successful
 func Test_config_setup_VariablesAPIService_DeleteByID(t *testing.T) {
 	// Setup the authenticated client
-	client := SetupDeploymentSvcTestClient(t)
+	client := SetupConfigSvcTestClient(t)
 
 	// Create an variable first to have something to delete
 	createdVariableName := "$test-variable-delete-" + common.GenerateRandomString(10)

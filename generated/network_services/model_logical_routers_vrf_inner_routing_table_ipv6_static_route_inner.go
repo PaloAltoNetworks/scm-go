@@ -21,11 +21,11 @@ var _ MappedNullable = &LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner{}
 
 // LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner struct for LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner
 type LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner struct {
-	AdminDist            *float32                                                         `json:"admin_dist,omitempty"`
+	AdminDist            *int32                                                           `json:"admin_dist,omitempty"`
 	Bfd                  *LogicalRoutersVrfInnerBgpGlobalBfd                              `json:"bfd,omitempty"`
 	Destination          *string                                                          `json:"destination,omitempty"`
 	Interface            *string                                                          `json:"interface,omitempty"`
-	Metric               *float32                                                         `json:"metric,omitempty"`
+	Metric               *int32                                                           `json:"metric,omitempty"`
 	Name                 string                                                           `json:"name"`
 	Nexthop              *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop     `json:"nexthop,omitempty"`
 	Option               *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerOption    `json:"option,omitempty"`
@@ -55,9 +55,9 @@ func NewLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerWithDefaults() *Lo
 }
 
 // GetAdminDist returns the AdminDist field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetAdminDist() float32 {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetAdminDist() int32 {
 	if o == nil || IsNil(o.AdminDist) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.AdminDist
@@ -65,7 +65,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetAdminDist() 
 
 // GetAdminDistOk returns a tuple with the AdminDist field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetAdminDistOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetAdminDistOk() (*int32, bool) {
 	if o == nil || IsNil(o.AdminDist) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) HasAdminDist() 
 	return false
 }
 
-// SetAdminDist gets a reference to the given float32 and assigns it to the AdminDist field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) SetAdminDist(v float32) {
+// SetAdminDist gets a reference to the given int32 and assigns it to the AdminDist field.
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) SetAdminDist(v int32) {
 	o.AdminDist = &v
 }
 
@@ -183,9 +183,9 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) SetInterface(v 
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetMetric() float32 {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetMetric() int32 {
 	if o == nil || IsNil(o.Metric) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Metric
@@ -193,7 +193,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetMetric() flo
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetMetricOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -209,8 +209,8 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) HasMetric() boo
 	return false
 }
 
-// SetMetric gets a reference to the given float32 and assigns it to the Metric field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) SetMetric(v float32) {
+// SetMetric gets a reference to the given int32 and assigns it to the Metric field.
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) SetMetric(v int32) {
 	o.Metric = &v
 }
 

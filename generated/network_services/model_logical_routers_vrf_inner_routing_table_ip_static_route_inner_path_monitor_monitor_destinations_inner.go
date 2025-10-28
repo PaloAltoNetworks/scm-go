@@ -21,13 +21,13 @@ var _ MappedNullable = &LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPath
 
 // LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner struct for LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner
 type LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner struct {
-	Count                *float32 `json:"count,omitempty"`
-	Destination          *string  `json:"destination,omitempty"`
-	DestinationFqdn      *string  `json:"destination_fqdn,omitempty"`
-	Enable               *bool    `json:"enable,omitempty"`
-	Interval             *float32 `json:"interval,omitempty"`
-	Name                 string   `json:"name"`
-	Source               *string  `json:"source,omitempty"`
+	Count                *int32  `json:"count,omitempty"`
+	Destination          *string `json:"destination,omitempty"`
+	DestinationFqdn      *string `json:"destination_fqdn,omitempty"`
+	Enable               *bool   `json:"enable,omitempty"`
+	Interval             *int32  `json:"interval,omitempty"`
+	Name                 string  `json:"name"`
+	Source               *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -52,9 +52,9 @@ func NewLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDe
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) GetCount() float32 {
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) GetCount() int32 {
 	if o == nil || IsNil(o.Count) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Count
@@ -62,7 +62,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorD
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) GetCountOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) GetCountOk() (*int32, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -78,8 +78,8 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorD
 	return false
 }
 
-// SetCount gets a reference to the given float32 and assigns it to the Count field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) SetCount(v float32) {
+// SetCount gets a reference to the given int32 and assigns it to the Count field.
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) SetCount(v int32) {
 	o.Count = &v
 }
 
@@ -180,9 +180,9 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorD
 }
 
 // GetInterval returns the Interval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) GetInterval() float32 {
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) GetInterval() int32 {
 	if o == nil || IsNil(o.Interval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Interval
@@ -190,7 +190,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorD
 
 // GetIntervalOk returns a tuple with the Interval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) GetIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) GetIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.Interval) {
 		return nil, false
 	}
@@ -206,8 +206,8 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorD
 	return false
 }
 
-// SetInterval gets a reference to the given float32 and assigns it to the Interval field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) SetInterval(v float32) {
+// SetInterval gets a reference to the given int32 and assigns it to the Interval field.
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitorMonitorDestinationsInner) SetInterval(v int32) {
 	o.Interval = &v
 }
 

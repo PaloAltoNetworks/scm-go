@@ -24,8 +24,8 @@ type LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner struct {
 	Authentication       *string                                                      `json:"authentication,omitempty"`
 	Bfd                  *LogicalRoutersVrfInnerBgpGlobalBfd                          `json:"bfd,omitempty"`
 	Enable               *bool                                                        `json:"enable,omitempty"`
-	InstanceId           *float32                                                     `json:"instance_id,omitempty"`
-	InterfaceId          *float32                                                     `json:"interface_id,omitempty"`
+	InstanceId           *int32                                                       `json:"instance_id,omitempty"`
+	InterfaceId          *int32                                                       `json:"interface_id,omitempty"`
 	Name                 string                                                       `json:"name"`
 	NeighborId           *string                                                      `json:"neighbor_id,omitempty"`
 	Passive              *bool                                                        `json:"passive,omitempty"`
@@ -152,9 +152,9 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) SetEnable(v bool) 
 }
 
 // GetInstanceId returns the InstanceId field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInstanceId() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInstanceId() int32 {
 	if o == nil || IsNil(o.InstanceId) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.InstanceId
@@ -162,7 +162,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInstanceId() fl
 
 // GetInstanceIdOk returns a tuple with the InstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInstanceIdOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInstanceIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.InstanceId) {
 		return nil, false
 	}
@@ -178,15 +178,15 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) HasInstanceId() bo
 	return false
 }
 
-// SetInstanceId gets a reference to the given float32 and assigns it to the InstanceId field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) SetInstanceId(v float32) {
+// SetInstanceId gets a reference to the given int32 and assigns it to the InstanceId field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) SetInstanceId(v int32) {
 	o.InstanceId = &v
 }
 
 // GetInterfaceId returns the InterfaceId field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInterfaceId() float32 {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInterfaceId() int32 {
 	if o == nil || IsNil(o.InterfaceId) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.InterfaceId
@@ -194,7 +194,7 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInterfaceId() f
 
 // GetInterfaceIdOk returns a tuple with the InterfaceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInterfaceIdOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) GetInterfaceIdOk() (*int32, bool) {
 	if o == nil || IsNil(o.InterfaceId) {
 		return nil, false
 	}
@@ -210,8 +210,8 @@ func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) HasInterfaceId() b
 	return false
 }
 
-// SetInterfaceId gets a reference to the given float32 and assigns it to the InterfaceId field.
-func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) SetInterfaceId(v float32) {
+// SetInterfaceId gets a reference to the given int32 and assigns it to the InterfaceId field.
+func (o *LogicalRoutersVrfInnerOspfAreaInnerVirtualLinkInner) SetInterfaceId(v int32) {
 	o.InterfaceId = &v
 }
 

@@ -22,12 +22,12 @@ var _ MappedNullable = &EthernetInterfacesLayer3{}
 type EthernetInterfacesLayer3 struct {
 	// Ethernet Interfaces ARP configuration
 	Arp        []EthernetInterfacesArpInner        `json:"arp,omitempty"`
-	DdnsConfig *EthernetInterfacesLayer3DdnsConfig `json:"ddns-config,omitempty"`
-	DhcpClient *EthernetInterfacesDhcpClient       `json:"dhcp-client,omitempty"`
+	DdnsConfig *EthernetInterfacesLayer3DdnsConfig `json:"ddns_config,omitempty"`
+	DhcpClient *EthernetInterfacesLayer3DhcpClient `json:"dhcp_client,omitempty"`
 	// Interface management profile
-	InterfaceManagementProfile *string `json:"interface-management-profile,omitempty"`
+	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
 	// Interface IP addresses
-	Ip []string `json:"ip,omitempty"`
+	Ip []EthernetInterfacesLayer3IpInner `json:"ip,omitempty"`
 	// MTU
 	Mtu                  *int32                         `json:"mtu,omitempty"`
 	Pppoe                *EthernetInterfacesLayer3Pppoe `json:"pppoe,omitempty"`
@@ -122,9 +122,9 @@ func (o *EthernetInterfacesLayer3) SetDdnsConfig(v EthernetInterfacesLayer3DdnsC
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetDhcpClient() EthernetInterfacesDhcpClient {
+func (o *EthernetInterfacesLayer3) GetDhcpClient() EthernetInterfacesLayer3DhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
-		var ret EthernetInterfacesDhcpClient
+		var ret EthernetInterfacesLayer3DhcpClient
 		return ret
 	}
 	return *o.DhcpClient
@@ -132,7 +132,7 @@ func (o *EthernetInterfacesLayer3) GetDhcpClient() EthernetInterfacesDhcpClient 
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetDhcpClientOk() (*EthernetInterfacesDhcpClient, bool) {
+func (o *EthernetInterfacesLayer3) GetDhcpClientOk() (*EthernetInterfacesLayer3DhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -148,8 +148,8 @@ func (o *EthernetInterfacesLayer3) HasDhcpClient() bool {
 	return false
 }
 
-// SetDhcpClient gets a reference to the given EthernetInterfacesDhcpClient and assigns it to the DhcpClient field.
-func (o *EthernetInterfacesLayer3) SetDhcpClient(v EthernetInterfacesDhcpClient) {
+// SetDhcpClient gets a reference to the given EthernetInterfacesLayer3DhcpClient and assigns it to the DhcpClient field.
+func (o *EthernetInterfacesLayer3) SetDhcpClient(v EthernetInterfacesLayer3DhcpClient) {
 	o.DhcpClient = &v
 }
 
@@ -186,9 +186,9 @@ func (o *EthernetInterfacesLayer3) SetInterfaceManagementProfile(v string) {
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetIp() []string {
+func (o *EthernetInterfacesLayer3) GetIp() []EthernetInterfacesLayer3IpInner {
 	if o == nil || IsNil(o.Ip) {
-		var ret []string
+		var ret []EthernetInterfacesLayer3IpInner
 		return ret
 	}
 	return o.Ip
@@ -196,7 +196,7 @@ func (o *EthernetInterfacesLayer3) GetIp() []string {
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetIpOk() ([]string, bool) {
+func (o *EthernetInterfacesLayer3) GetIpOk() ([]EthernetInterfacesLayer3IpInner, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -212,8 +212,8 @@ func (o *EthernetInterfacesLayer3) HasIp() bool {
 	return false
 }
 
-// SetIp gets a reference to the given []string and assigns it to the Ip field.
-func (o *EthernetInterfacesLayer3) SetIp(v []string) {
+// SetIp gets a reference to the given []EthernetInterfacesLayer3IpInner and assigns it to the Ip field.
+func (o *EthernetInterfacesLayer3) SetIp(v []EthernetInterfacesLayer3IpInner) {
 	o.Ip = v
 }
 
@@ -295,13 +295,13 @@ func (o EthernetInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 		toSerialize["arp"] = o.Arp
 	}
 	if !IsNil(o.DdnsConfig) {
-		toSerialize["ddns-config"] = o.DdnsConfig
+		toSerialize["ddns_config"] = o.DdnsConfig
 	}
 	if !IsNil(o.DhcpClient) {
-		toSerialize["dhcp-client"] = o.DhcpClient
+		toSerialize["dhcp_client"] = o.DhcpClient
 	}
 	if !IsNil(o.InterfaceManagementProfile) {
-		toSerialize["interface-management-profile"] = o.InterfaceManagementProfile
+		toSerialize["interface_management_profile"] = o.InterfaceManagementProfile
 	}
 	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
@@ -335,9 +335,9 @@ func (o *EthernetInterfacesLayer3) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "arp")
-		delete(additionalProperties, "ddns-config")
-		delete(additionalProperties, "dhcp-client")
-		delete(additionalProperties, "interface-management-profile")
+		delete(additionalProperties, "ddns_config")
+		delete(additionalProperties, "dhcp_client")
+		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "pppoe")

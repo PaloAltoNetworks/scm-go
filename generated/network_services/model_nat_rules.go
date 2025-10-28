@@ -25,14 +25,13 @@ type NatRules struct {
 	// NAT rule description
 	Description *string `json:"description,omitempty"`
 	// Destination address(es) of the original packet
-	Destination []string `json:"destination"`
+	Destination            []string                        `json:"destination"`
+	DestinationTranslation *NatRulesDestinationTranslation `json:"destination_translation,omitempty"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Disable NAT rule?
-	Disabled *bool `json:"disabled,omitempty"`
-	// Distribution method
-	Distribution *string             `json:"distribution,omitempty"`
-	DnsRewrite   *NatRulesDnsRewrite `json:"dns_rewrite,omitempty"`
+	Disabled                      *bool                                  `json:"disabled,omitempty"`
+	DynamicDestinationTranslation *NatRulesDynamicDestinationTranslation `json:"dynamic_destination_translation,omitempty"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Source zone(s) of the original packet
@@ -55,11 +54,7 @@ type NatRules struct {
 	// Destination zone of the original packet
 	To []string `json:"to"`
 	// Destination interface of the original packet
-	ToInterface *string `json:"to_interface,omitempty"`
-	// Translated destination IP address
-	TranslatedAddressSingle *string `json:"translated_address_single,omitempty"`
-	// Translated destination port
-	TranslatedPort       *int32 `json:"translated_port,omitempty"`
+	ToInterface          *string `json:"to_interface,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -185,6 +180,38 @@ func (o *NatRules) SetDestination(v []string) {
 	o.Destination = v
 }
 
+// GetDestinationTranslation returns the DestinationTranslation field value if set, zero value otherwise.
+func (o *NatRules) GetDestinationTranslation() NatRulesDestinationTranslation {
+	if o == nil || IsNil(o.DestinationTranslation) {
+		var ret NatRulesDestinationTranslation
+		return ret
+	}
+	return *o.DestinationTranslation
+}
+
+// GetDestinationTranslationOk returns a tuple with the DestinationTranslation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NatRules) GetDestinationTranslationOk() (*NatRulesDestinationTranslation, bool) {
+	if o == nil || IsNil(o.DestinationTranslation) {
+		return nil, false
+	}
+	return o.DestinationTranslation, true
+}
+
+// HasDestinationTranslation returns a boolean if a field has been set.
+func (o *NatRules) HasDestinationTranslation() bool {
+	if o != nil && !IsNil(o.DestinationTranslation) {
+		return true
+	}
+
+	return false
+}
+
+// SetDestinationTranslation gets a reference to the given NatRulesDestinationTranslation and assigns it to the DestinationTranslation field.
+func (o *NatRules) SetDestinationTranslation(v NatRulesDestinationTranslation) {
+	o.DestinationTranslation = &v
+}
+
 // GetDevice returns the Device field value if set, zero value otherwise.
 func (o *NatRules) GetDevice() string {
 	if o == nil || IsNil(o.Device) {
@@ -249,68 +276,36 @@ func (o *NatRules) SetDisabled(v bool) {
 	o.Disabled = &v
 }
 
-// GetDistribution returns the Distribution field value if set, zero value otherwise.
-func (o *NatRules) GetDistribution() string {
-	if o == nil || IsNil(o.Distribution) {
-		var ret string
+// GetDynamicDestinationTranslation returns the DynamicDestinationTranslation field value if set, zero value otherwise.
+func (o *NatRules) GetDynamicDestinationTranslation() NatRulesDynamicDestinationTranslation {
+	if o == nil || IsNil(o.DynamicDestinationTranslation) {
+		var ret NatRulesDynamicDestinationTranslation
 		return ret
 	}
-	return *o.Distribution
+	return *o.DynamicDestinationTranslation
 }
 
-// GetDistributionOk returns a tuple with the Distribution field value if set, nil otherwise
+// GetDynamicDestinationTranslationOk returns a tuple with the DynamicDestinationTranslation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRules) GetDistributionOk() (*string, bool) {
-	if o == nil || IsNil(o.Distribution) {
+func (o *NatRules) GetDynamicDestinationTranslationOk() (*NatRulesDynamicDestinationTranslation, bool) {
+	if o == nil || IsNil(o.DynamicDestinationTranslation) {
 		return nil, false
 	}
-	return o.Distribution, true
+	return o.DynamicDestinationTranslation, true
 }
 
-// HasDistribution returns a boolean if a field has been set.
-func (o *NatRules) HasDistribution() bool {
-	if o != nil && !IsNil(o.Distribution) {
+// HasDynamicDestinationTranslation returns a boolean if a field has been set.
+func (o *NatRules) HasDynamicDestinationTranslation() bool {
+	if o != nil && !IsNil(o.DynamicDestinationTranslation) {
 		return true
 	}
 
 	return false
 }
 
-// SetDistribution gets a reference to the given string and assigns it to the Distribution field.
-func (o *NatRules) SetDistribution(v string) {
-	o.Distribution = &v
-}
-
-// GetDnsRewrite returns the DnsRewrite field value if set, zero value otherwise.
-func (o *NatRules) GetDnsRewrite() NatRulesDnsRewrite {
-	if o == nil || IsNil(o.DnsRewrite) {
-		var ret NatRulesDnsRewrite
-		return ret
-	}
-	return *o.DnsRewrite
-}
-
-// GetDnsRewriteOk returns a tuple with the DnsRewrite field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatRules) GetDnsRewriteOk() (*NatRulesDnsRewrite, bool) {
-	if o == nil || IsNil(o.DnsRewrite) {
-		return nil, false
-	}
-	return o.DnsRewrite, true
-}
-
-// HasDnsRewrite returns a boolean if a field has been set.
-func (o *NatRules) HasDnsRewrite() bool {
-	if o != nil && !IsNil(o.DnsRewrite) {
-		return true
-	}
-
-	return false
-}
-
-// SetDnsRewrite gets a reference to the given NatRulesDnsRewrite and assigns it to the DnsRewrite field.
-func (o *NatRules) SetDnsRewrite(v NatRulesDnsRewrite) {
-	o.DnsRewrite = &v
+// SetDynamicDestinationTranslation gets a reference to the given NatRulesDynamicDestinationTranslation and assigns it to the DynamicDestinationTranslation field.
+func (o *NatRules) SetDynamicDestinationTranslation(v NatRulesDynamicDestinationTranslation) {
+	o.DynamicDestinationTranslation = &v
 }
 
 // GetFolder returns the Folder field value if set, zero value otherwise.
@@ -649,70 +644,6 @@ func (o *NatRules) SetToInterface(v string) {
 	o.ToInterface = &v
 }
 
-// GetTranslatedAddressSingle returns the TranslatedAddressSingle field value if set, zero value otherwise.
-func (o *NatRules) GetTranslatedAddressSingle() string {
-	if o == nil || IsNil(o.TranslatedAddressSingle) {
-		var ret string
-		return ret
-	}
-	return *o.TranslatedAddressSingle
-}
-
-// GetTranslatedAddressSingleOk returns a tuple with the TranslatedAddressSingle field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatRules) GetTranslatedAddressSingleOk() (*string, bool) {
-	if o == nil || IsNil(o.TranslatedAddressSingle) {
-		return nil, false
-	}
-	return o.TranslatedAddressSingle, true
-}
-
-// HasTranslatedAddressSingle returns a boolean if a field has been set.
-func (o *NatRules) HasTranslatedAddressSingle() bool {
-	if o != nil && !IsNil(o.TranslatedAddressSingle) {
-		return true
-	}
-
-	return false
-}
-
-// SetTranslatedAddressSingle gets a reference to the given string and assigns it to the TranslatedAddressSingle field.
-func (o *NatRules) SetTranslatedAddressSingle(v string) {
-	o.TranslatedAddressSingle = &v
-}
-
-// GetTranslatedPort returns the TranslatedPort field value if set, zero value otherwise.
-func (o *NatRules) GetTranslatedPort() int32 {
-	if o == nil || IsNil(o.TranslatedPort) {
-		var ret int32
-		return ret
-	}
-	return *o.TranslatedPort
-}
-
-// GetTranslatedPortOk returns a tuple with the TranslatedPort field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatRules) GetTranslatedPortOk() (*int32, bool) {
-	if o == nil || IsNil(o.TranslatedPort) {
-		return nil, false
-	}
-	return o.TranslatedPort, true
-}
-
-// HasTranslatedPort returns a boolean if a field has been set.
-func (o *NatRules) HasTranslatedPort() bool {
-	if o != nil && !IsNil(o.TranslatedPort) {
-		return true
-	}
-
-	return false
-}
-
-// SetTranslatedPort gets a reference to the given int32 and assigns it to the TranslatedPort field.
-func (o *NatRules) SetTranslatedPort(v int32) {
-	o.TranslatedPort = &v
-}
-
 func (o NatRules) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -730,17 +661,17 @@ func (o NatRules) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["destination"] = o.Destination
+	if !IsNil(o.DestinationTranslation) {
+		toSerialize["destination_translation"] = o.DestinationTranslation
+	}
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
 	if !IsNil(o.Disabled) {
 		toSerialize["disabled"] = o.Disabled
 	}
-	if !IsNil(o.Distribution) {
-		toSerialize["distribution"] = o.Distribution
-	}
-	if !IsNil(o.DnsRewrite) {
-		toSerialize["dns_rewrite"] = o.DnsRewrite
+	if !IsNil(o.DynamicDestinationTranslation) {
+		toSerialize["dynamic_destination_translation"] = o.DynamicDestinationTranslation
 	}
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
@@ -765,12 +696,6 @@ func (o NatRules) ToMap() (map[string]interface{}, error) {
 	toSerialize["to"] = o.To
 	if !IsNil(o.ToInterface) {
 		toSerialize["to_interface"] = o.ToInterface
-	}
-	if !IsNil(o.TranslatedAddressSingle) {
-		toSerialize["translated_address_single"] = o.TranslatedAddressSingle
-	}
-	if !IsNil(o.TranslatedPort) {
-		toSerialize["translated_port"] = o.TranslatedPort
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -824,10 +749,10 @@ func (o *NatRules) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "active_active_device_binding")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "destination")
+		delete(additionalProperties, "destination_translation")
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "disabled")
-		delete(additionalProperties, "distribution")
-		delete(additionalProperties, "dns_rewrite")
+		delete(additionalProperties, "dynamic_destination_translation")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "from")
 		delete(additionalProperties, "id")
@@ -840,8 +765,6 @@ func (o *NatRules) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "tag")
 		delete(additionalProperties, "to")
 		delete(additionalProperties, "to_interface")
-		delete(additionalProperties, "translated_address_single")
-		delete(additionalProperties, "translated_port")
 		o.AdditionalProperties = additionalProperties
 	}
 

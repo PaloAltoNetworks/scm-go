@@ -24,7 +24,7 @@ type EthernetInterfaces struct {
 	// Interface description
 	Comment *string `json:"comment,omitempty"`
 	// Default interface assignment
-	DefaultValue *string `json:"default-value,omitempty"`
+	DefaultValue *string `json:"default_value,omitempty"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
@@ -34,11 +34,11 @@ type EthernetInterfaces struct {
 	Layer2 *EthernetInterfacesLayer2 `json:"layer2,omitempty"`
 	Layer3 *EthernetInterfacesLayer3 `json:"layer3,omitempty"`
 	// Link duplex
-	LinkDuplex *string `json:"link-duplex,omitempty"`
+	LinkDuplex *string `json:"link_duplex,omitempty"`
 	// Link speed
-	LinkSpeed *string `json:"link-speed,omitempty"`
+	LinkSpeed *string `json:"link_speed,omitempty"`
 	// Link state
-	LinkState *string `json:"link-state,omitempty"`
+	LinkState *string `json:"link_state,omitempty"`
 	// Interface name
 	Name string `json:"name"`
 	Poe  *Poe   `json:"poe,omitempty"`
@@ -527,7 +527,7 @@ func (o EthernetInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["comment"] = o.Comment
 	}
 	if !IsNil(o.DefaultValue) {
-		toSerialize["default-value"] = o.DefaultValue
+		toSerialize["default_value"] = o.DefaultValue
 	}
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
@@ -543,13 +543,13 @@ func (o EthernetInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["layer3"] = o.Layer3
 	}
 	if !IsNil(o.LinkDuplex) {
-		toSerialize["link-duplex"] = o.LinkDuplex
+		toSerialize["link_duplex"] = o.LinkDuplex
 	}
 	if !IsNil(o.LinkSpeed) {
-		toSerialize["link-speed"] = o.LinkSpeed
+		toSerialize["link_speed"] = o.LinkSpeed
 	}
 	if !IsNil(o.LinkState) {
-		toSerialize["link-state"] = o.LinkState
+		toSerialize["link_state"] = o.LinkState
 	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Poe) {
@@ -606,15 +606,15 @@ func (o *EthernetInterfaces) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "comment")
-		delete(additionalProperties, "default-value")
+		delete(additionalProperties, "default_value")
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "layer2")
 		delete(additionalProperties, "layer3")
-		delete(additionalProperties, "link-duplex")
-		delete(additionalProperties, "link-speed")
-		delete(additionalProperties, "link-state")
+		delete(additionalProperties, "link_duplex")
+		delete(additionalProperties, "link_speed")
+		delete(additionalProperties, "link_state")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "poe")
 		delete(additionalProperties, "snippet")

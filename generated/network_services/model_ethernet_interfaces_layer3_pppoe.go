@@ -22,19 +22,18 @@ var _ MappedNullable = &EthernetInterfacesLayer3Pppoe{}
 // EthernetInterfacesLayer3Pppoe struct for EthernetInterfacesLayer3Pppoe
 type EthernetInterfacesLayer3Pppoe struct {
 	// Access concentrator
-	AccessConcentrator *string `json:"access-concentrator,omitempty"`
+	AccessConcentrator *string `json:"access_concentrator,omitempty"`
 	// Authentication protocol
 	Authentication *string `json:"authentication,omitempty"`
 	// Metric of the default route created
-	DefaultRouteMetric *int32 `json:"default-route-metric,omitempty"`
-	Enable             *bool  `json:"enable,omitempty"`
-	// Passive
-	Passive *bool `json:"passive,omitempty"`
+	DefaultRouteMetric *int32                                `json:"default_route_metric,omitempty"`
+	Enable             *bool                                 `json:"enable,omitempty"`
+	Passive            *EthernetInterfacesLayer3PppoePassive `json:"passive,omitempty"`
 	// Password
 	Password string `json:"password"`
 	// Service
 	Service       *string                                     `json:"service,omitempty"`
-	StaticAddress *EthernetInterfacesLayer3PppoeStaticAddress `json:"static-address,omitempty"`
+	StaticAddress *EthernetInterfacesLayer3PppoeStaticAddress `json:"static_address,omitempty"`
 	// Username
 	Username             string `json:"username"`
 	AdditionalProperties map[string]interface{}
@@ -52,8 +51,6 @@ func NewEthernetInterfacesLayer3Pppoe(password string, username string) *Etherne
 	this.DefaultRouteMetric = &defaultRouteMetric
 	var enable bool = true
 	this.Enable = &enable
-	var passive bool = false
-	this.Passive = &passive
 	this.Password = password
 	this.Username = username
 	return &this
@@ -68,8 +65,6 @@ func NewEthernetInterfacesLayer3PppoeWithDefaults() *EthernetInterfacesLayer3Ppp
 	this.DefaultRouteMetric = &defaultRouteMetric
 	var enable bool = true
 	this.Enable = &enable
-	var passive bool = false
-	this.Passive = &passive
 	return &this
 }
 
@@ -202,9 +197,9 @@ func (o *EthernetInterfacesLayer3Pppoe) SetEnable(v bool) {
 }
 
 // GetPassive returns the Passive field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3Pppoe) GetPassive() bool {
+func (o *EthernetInterfacesLayer3Pppoe) GetPassive() EthernetInterfacesLayer3PppoePassive {
 	if o == nil || IsNil(o.Passive) {
-		var ret bool
+		var ret EthernetInterfacesLayer3PppoePassive
 		return ret
 	}
 	return *o.Passive
@@ -212,7 +207,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetPassive() bool {
 
 // GetPassiveOk returns a tuple with the Passive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetPassiveOk() (*bool, bool) {
+func (o *EthernetInterfacesLayer3Pppoe) GetPassiveOk() (*EthernetInterfacesLayer3PppoePassive, bool) {
 	if o == nil || IsNil(o.Passive) {
 		return nil, false
 	}
@@ -228,8 +223,8 @@ func (o *EthernetInterfacesLayer3Pppoe) HasPassive() bool {
 	return false
 }
 
-// SetPassive gets a reference to the given bool and assigns it to the Passive field.
-func (o *EthernetInterfacesLayer3Pppoe) SetPassive(v bool) {
+// SetPassive gets a reference to the given EthernetInterfacesLayer3PppoePassive and assigns it to the Passive field.
+func (o *EthernetInterfacesLayer3Pppoe) SetPassive(v EthernetInterfacesLayer3PppoePassive) {
 	o.Passive = &v
 }
 
@@ -356,13 +351,13 @@ func (o EthernetInterfacesLayer3Pppoe) MarshalJSON() ([]byte, error) {
 func (o EthernetInterfacesLayer3Pppoe) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.AccessConcentrator) {
-		toSerialize["access-concentrator"] = o.AccessConcentrator
+		toSerialize["access_concentrator"] = o.AccessConcentrator
 	}
 	if !IsNil(o.Authentication) {
 		toSerialize["authentication"] = o.Authentication
 	}
 	if !IsNil(o.DefaultRouteMetric) {
-		toSerialize["default-route-metric"] = o.DefaultRouteMetric
+		toSerialize["default_route_metric"] = o.DefaultRouteMetric
 	}
 	if !IsNil(o.Enable) {
 		toSerialize["enable"] = o.Enable
@@ -375,7 +370,7 @@ func (o EthernetInterfacesLayer3Pppoe) ToMap() (map[string]interface{}, error) {
 		toSerialize["service"] = o.Service
 	}
 	if !IsNil(o.StaticAddress) {
-		toSerialize["static-address"] = o.StaticAddress
+		toSerialize["static_address"] = o.StaticAddress
 	}
 	toSerialize["username"] = o.Username
 
@@ -422,14 +417,14 @@ func (o *EthernetInterfacesLayer3Pppoe) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "access-concentrator")
+		delete(additionalProperties, "access_concentrator")
 		delete(additionalProperties, "authentication")
-		delete(additionalProperties, "default-route-metric")
+		delete(additionalProperties, "default_route_metric")
 		delete(additionalProperties, "enable")
 		delete(additionalProperties, "passive")
 		delete(additionalProperties, "password")
 		delete(additionalProperties, "service")
-		delete(additionalProperties, "static-address")
+		delete(additionalProperties, "static_address")
 		delete(additionalProperties, "username")
 		o.AdditionalProperties = additionalProperties
 	}

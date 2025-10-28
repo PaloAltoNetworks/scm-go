@@ -20,8 +20,8 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfVrTimers{}
 
 // LogicalRoutersVrfInnerOspfVrTimers struct for LogicalRoutersVrfInnerOspfVrTimers
 type LogicalRoutersVrfInnerOspfVrTimers struct {
-	LsaInterval          *float32 `json:"lsa_interval,omitempty"`
-	SpfCalculationDelay  *float32 `json:"spf_calculation_delay,omitempty"`
+	LsaInterval          *int32 `json:"lsa_interval,omitempty"`
+	SpfCalculationDelay  *int32 `json:"spf_calculation_delay,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -45,9 +45,9 @@ func NewLogicalRoutersVrfInnerOspfVrTimersWithDefaults() *LogicalRoutersVrfInner
 }
 
 // GetLsaInterval returns the LsaInterval field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfVrTimers) GetLsaInterval() float32 {
+func (o *LogicalRoutersVrfInnerOspfVrTimers) GetLsaInterval() int32 {
 	if o == nil || IsNil(o.LsaInterval) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.LsaInterval
@@ -55,7 +55,7 @@ func (o *LogicalRoutersVrfInnerOspfVrTimers) GetLsaInterval() float32 {
 
 // GetLsaIntervalOk returns a tuple with the LsaInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfVrTimers) GetLsaIntervalOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfVrTimers) GetLsaIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.LsaInterval) {
 		return nil, false
 	}
@@ -71,15 +71,15 @@ func (o *LogicalRoutersVrfInnerOspfVrTimers) HasLsaInterval() bool {
 	return false
 }
 
-// SetLsaInterval gets a reference to the given float32 and assigns it to the LsaInterval field.
-func (o *LogicalRoutersVrfInnerOspfVrTimers) SetLsaInterval(v float32) {
+// SetLsaInterval gets a reference to the given int32 and assigns it to the LsaInterval field.
+func (o *LogicalRoutersVrfInnerOspfVrTimers) SetLsaInterval(v int32) {
 	o.LsaInterval = &v
 }
 
 // GetSpfCalculationDelay returns the SpfCalculationDelay field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfVrTimers) GetSpfCalculationDelay() float32 {
+func (o *LogicalRoutersVrfInnerOspfVrTimers) GetSpfCalculationDelay() int32 {
 	if o == nil || IsNil(o.SpfCalculationDelay) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.SpfCalculationDelay
@@ -87,7 +87,7 @@ func (o *LogicalRoutersVrfInnerOspfVrTimers) GetSpfCalculationDelay() float32 {
 
 // GetSpfCalculationDelayOk returns a tuple with the SpfCalculationDelay field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfVrTimers) GetSpfCalculationDelayOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfVrTimers) GetSpfCalculationDelayOk() (*int32, bool) {
 	if o == nil || IsNil(o.SpfCalculationDelay) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *LogicalRoutersVrfInnerOspfVrTimers) HasSpfCalculationDelay() bool {
 	return false
 }
 
-// SetSpfCalculationDelay gets a reference to the given float32 and assigns it to the SpfCalculationDelay field.
-func (o *LogicalRoutersVrfInnerOspfVrTimers) SetSpfCalculationDelay(v float32) {
+// SetSpfCalculationDelay gets a reference to the given int32 and assigns it to the SpfCalculationDelay field.
+func (o *LogicalRoutersVrfInnerOspfVrTimers) SetSpfCalculationDelay(v int32) {
 	o.SpfCalculationDelay = &v
 }
 

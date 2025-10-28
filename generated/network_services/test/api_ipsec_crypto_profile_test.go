@@ -112,7 +112,7 @@ func Test_networkservices_IPsecCryptoProfilesAPIService_GetByID(t *testing.T) {
 
 	// Test Get by ID operation.
 	fmt.Printf("Attempting to get IPsec Crypto Profile with ID: %s\n", createdProfileID)
-	reqGetById := client.IPsecCryptoProfilesAPI.GetIPsecCrytoProfilesByID(context.Background(), createdProfileID)
+	reqGetById := client.IPsecCryptoProfilesAPI.GetIPsecCryptoProfilesByID(context.Background(), createdProfileID)
 	getRes, httpResGet, errGet := reqGetById.Execute()
 
 	if errGet != nil {

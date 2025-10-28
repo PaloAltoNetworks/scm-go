@@ -21,8 +21,8 @@ var _ MappedNullable = &LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInt
 
 // LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner struct for LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner
 type LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner struct {
-	Name                 string   `json:"name"`
-	Weight               *float32 `json:"weight,omitempty"`
+	Name                 string `json:"name"`
+	Weight               *int32 `json:"weight,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -71,9 +71,9 @@ func (o *LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner) Se
 }
 
 // GetWeight returns the Weight field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner) GetWeight() float32 {
+func (o *LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner) GetWeight() int32 {
 	if o == nil || IsNil(o.Weight) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Weight
@@ -81,7 +81,7 @@ func (o *LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner) Ge
 
 // GetWeightOk returns a tuple with the Weight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner) GetWeightOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner) GetWeightOk() (*int32, bool) {
 	if o == nil || IsNil(o.Weight) {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner) Ha
 	return false
 }
 
-// SetWeight gets a reference to the given float32 and assigns it to the Weight field.
-func (o *LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner) SetWeight(v float32) {
+// SetWeight gets a reference to the given int32 and assigns it to the Weight field.
+func (o *LogicalRoutersVrfInnerEcmpAlgorithmWeightedRoundRobinInterfaceInner) SetWeight(v int32) {
 	o.Weight = &v
 }
 

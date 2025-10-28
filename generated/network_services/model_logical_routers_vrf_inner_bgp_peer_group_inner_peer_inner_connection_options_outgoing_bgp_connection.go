@@ -20,8 +20,8 @@ var _ MappedNullable = &LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnecti
 
 // LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection struct for LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection
 type LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection struct {
-	Allow                *bool    `json:"allow,omitempty"`
-	LocalPort            *float32 `json:"local_port,omitempty"`
+	Allow                *bool  `json:"allow,omitempty"`
+	LocalPort            *int32 `json:"local_port,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,9 +77,9 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoi
 }
 
 // GetLocalPort returns the LocalPort field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection) GetLocalPort() float32 {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection) GetLocalPort() int32 {
 	if o == nil || IsNil(o.LocalPort) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.LocalPort
@@ -87,7 +87,7 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoi
 
 // GetLocalPortOk returns a tuple with the LocalPort field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection) GetLocalPortOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection) GetLocalPortOk() (*int32, bool) {
 	if o == nil || IsNil(o.LocalPort) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoi
 	return false
 }
 
-// SetLocalPort gets a reference to the given float32 and assigns it to the LocalPort field.
-func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection) SetLocalPort(v float32) {
+// SetLocalPort gets a reference to the given int32 and assigns it to the LocalPort field.
+func (o *LogicalRoutersVrfInnerBgpPeerGroupInnerPeerInnerConnectionOptionsOutgoingBgpConnection) SetLocalPort(v int32) {
 	o.LocalPort = &v
 }
 

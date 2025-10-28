@@ -26,7 +26,7 @@ type LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInner
 	Community            *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInnerMatchAsPath              `json:"community,omitempty"`
 	ExtendedCommunity    *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInnerMatchAsPath              `json:"extended_community,omitempty"`
 	FromPeer             []string                                                                                             `json:"from_peer,omitempty"`
-	Med                  *float32                                                                                             `json:"med,omitempty"`
+	Med                  *int32                                                                                               `json:"med,omitempty"`
 	Nexthop              []string                                                                                             `json:"nexthop,omitempty"`
 	RouteTable           *string                                                                                              `json:"route_table,omitempty"`
 	Safi                 *string                                                                                              `json:"safi,omitempty"`
@@ -245,9 +245,9 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersI
 }
 
 // GetMed returns the Med field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInnerMatch) GetMed() float32 {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInnerMatch) GetMed() int32 {
 	if o == nil || IsNil(o.Med) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Med
@@ -255,7 +255,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersI
 
 // GetMedOk returns a tuple with the Med field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInnerMatch) GetMedOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInnerMatch) GetMedOk() (*int32, bool) {
 	if o == nil || IsNil(o.Med) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersI
 	return false
 }
 
-// SetMed gets a reference to the given float32 and assigns it to the Med field.
-func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInnerMatch) SetMed(v float32) {
+// SetMed gets a reference to the given int32 and assigns it to the Med field.
+func (o *LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInnerMatch) SetMed(v int32) {
 	o.Med = &v
 }
 

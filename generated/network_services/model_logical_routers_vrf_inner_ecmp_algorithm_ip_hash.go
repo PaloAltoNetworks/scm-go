@@ -20,9 +20,9 @@ var _ MappedNullable = &LogicalRoutersVrfInnerEcmpAlgorithmIpHash{}
 
 // LogicalRoutersVrfInnerEcmpAlgorithmIpHash struct for LogicalRoutersVrfInnerEcmpAlgorithmIpHash
 type LogicalRoutersVrfInnerEcmpAlgorithmIpHash struct {
-	HashSeed             *float32 `json:"hash_seed,omitempty"`
-	SrcOnly              *bool    `json:"src_only,omitempty"`
-	UsePort              *bool    `json:"use_port,omitempty"`
+	HashSeed             *int32 `json:"hash_seed,omitempty"`
+	SrcOnly              *bool  `json:"src_only,omitempty"`
+	UsePort              *bool  `json:"use_port,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,9 +46,9 @@ func NewLogicalRoutersVrfInnerEcmpAlgorithmIpHashWithDefaults() *LogicalRoutersV
 }
 
 // GetHashSeed returns the HashSeed field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerEcmpAlgorithmIpHash) GetHashSeed() float32 {
+func (o *LogicalRoutersVrfInnerEcmpAlgorithmIpHash) GetHashSeed() int32 {
 	if o == nil || IsNil(o.HashSeed) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.HashSeed
@@ -56,7 +56,7 @@ func (o *LogicalRoutersVrfInnerEcmpAlgorithmIpHash) GetHashSeed() float32 {
 
 // GetHashSeedOk returns a tuple with the HashSeed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerEcmpAlgorithmIpHash) GetHashSeedOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerEcmpAlgorithmIpHash) GetHashSeedOk() (*int32, bool) {
 	if o == nil || IsNil(o.HashSeed) {
 		return nil, false
 	}
@@ -72,8 +72,8 @@ func (o *LogicalRoutersVrfInnerEcmpAlgorithmIpHash) HasHashSeed() bool {
 	return false
 }
 
-// SetHashSeed gets a reference to the given float32 and assigns it to the HashSeed field.
-func (o *LogicalRoutersVrfInnerEcmpAlgorithmIpHash) SetHashSeed(v float32) {
+// SetHashSeed gets a reference to the given int32 and assigns it to the HashSeed field.
+func (o *LogicalRoutersVrfInnerEcmpAlgorithmIpHash) SetHashSeed(v int32) {
 	o.HashSeed = &v
 }
 

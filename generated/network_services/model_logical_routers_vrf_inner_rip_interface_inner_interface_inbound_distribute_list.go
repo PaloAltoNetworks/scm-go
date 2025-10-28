@@ -20,8 +20,8 @@ var _ MappedNullable = &LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundD
 
 // LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList struct for LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList
 type LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList struct {
-	AccessList           *string  `json:"access_list,omitempty"`
-	Metric               *float32 `json:"metric,omitempty"`
+	AccessList           *string `json:"access_list,omitempty"`
+	Metric               *int32  `json:"metric,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,9 +77,9 @@ func (o *LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList) 
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList) GetMetric() float32 {
+func (o *LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList) GetMetric() int32 {
 	if o == nil || IsNil(o.Metric) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Metric
@@ -87,7 +87,7 @@ func (o *LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList) 
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList) GetMetricOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList) GetMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList) 
 	return false
 }
 
-// SetMetric gets a reference to the given float32 and assigns it to the Metric field.
-func (o *LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList) SetMetric(v float32) {
+// SetMetric gets a reference to the given int32 and assigns it to the Metric field.
+func (o *LogicalRoutersVrfInnerRipInterfaceInnerInterfaceInboundDistributeList) SetMetric(v int32) {
 	o.Metric = &v
 }
 

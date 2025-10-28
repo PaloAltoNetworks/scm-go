@@ -26,7 +26,7 @@ type DnsProxies struct {
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// DNS proxy rules
-	DomainServers []DnsProxiesDomainServersInner `json:"domain-servers,omitempty"`
+	DomainServers []DnsProxiesDomainServersInner `json:"domain_servers,omitempty"`
 	// Enable DNS proxy?
 	Enabled *bool `json:"enabled,omitempty"`
 	// The folder in which the resource is defined
@@ -39,9 +39,9 @@ type DnsProxies struct {
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
 	Snippet              *string                        `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	StaticEntries        []DnsProxiesStaticEntriesInner `json:"static-entries,omitempty"`
-	TcpQueries           *DnsProxiesTcpQueries          `json:"tcp-queries,omitempty"`
-	UdpQueries           *DnsProxiesUdpQueries          `json:"udp-queries,omitempty"`
+	StaticEntries        []DnsProxiesStaticEntriesInner `json:"static_entries,omitempty"`
+	TcpQueries           *DnsProxiesTcpQueries          `json:"tcp_queries,omitempty"`
+	UdpQueries           *DnsProxiesUdpQueries          `json:"udp_queries,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -484,7 +484,7 @@ func (o DnsProxies) ToMap() (map[string]interface{}, error) {
 		toSerialize["device"] = o.Device
 	}
 	if !IsNil(o.DomainServers) {
-		toSerialize["domain-servers"] = o.DomainServers
+		toSerialize["domain_servers"] = o.DomainServers
 	}
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
@@ -503,13 +503,13 @@ func (o DnsProxies) ToMap() (map[string]interface{}, error) {
 		toSerialize["snippet"] = o.Snippet
 	}
 	if !IsNil(o.StaticEntries) {
-		toSerialize["static-entries"] = o.StaticEntries
+		toSerialize["static_entries"] = o.StaticEntries
 	}
 	if !IsNil(o.TcpQueries) {
-		toSerialize["tcp-queries"] = o.TcpQueries
+		toSerialize["tcp_queries"] = o.TcpQueries
 	}
 	if !IsNil(o.UdpQueries) {
-		toSerialize["udp-queries"] = o.UdpQueries
+		toSerialize["udp_queries"] = o.UdpQueries
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -558,16 +558,16 @@ func (o *DnsProxies) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "cache")
 		delete(additionalProperties, "default")
 		delete(additionalProperties, "device")
-		delete(additionalProperties, "domain-servers")
+		delete(additionalProperties, "domain_servers")
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "interface")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "snippet")
-		delete(additionalProperties, "static-entries")
-		delete(additionalProperties, "tcp-queries")
-		delete(additionalProperties, "udp-queries")
+		delete(additionalProperties, "static_entries")
+		delete(additionalProperties, "tcp_queries")
+		delete(additionalProperties, "udp_queries")
 		o.AdditionalProperties = additionalProperties
 	}
 

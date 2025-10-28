@@ -20,8 +20,8 @@ var _ MappedNullable = &LogicalRoutersVrfInnerOspfFloodPreventionHello{}
 
 // LogicalRoutersVrfInnerOspfFloodPreventionHello struct for LogicalRoutersVrfInnerOspfFloodPreventionHello
 type LogicalRoutersVrfInnerOspfFloodPreventionHello struct {
-	Enable               *bool    `json:"enable,omitempty"`
-	MaxPacket            *float32 `json:"max_packet,omitempty"`
+	Enable               *bool  `json:"enable,omitempty"`
+	MaxPacket            *int32 `json:"max_packet,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,9 +77,9 @@ func (o *LogicalRoutersVrfInnerOspfFloodPreventionHello) SetEnable(v bool) {
 }
 
 // GetMaxPacket returns the MaxPacket field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerOspfFloodPreventionHello) GetMaxPacket() float32 {
+func (o *LogicalRoutersVrfInnerOspfFloodPreventionHello) GetMaxPacket() int32 {
 	if o == nil || IsNil(o.MaxPacket) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MaxPacket
@@ -87,7 +87,7 @@ func (o *LogicalRoutersVrfInnerOspfFloodPreventionHello) GetMaxPacket() float32 
 
 // GetMaxPacketOk returns a tuple with the MaxPacket field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerOspfFloodPreventionHello) GetMaxPacketOk() (*float32, bool) {
+func (o *LogicalRoutersVrfInnerOspfFloodPreventionHello) GetMaxPacketOk() (*int32, bool) {
 	if o == nil || IsNil(o.MaxPacket) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *LogicalRoutersVrfInnerOspfFloodPreventionHello) HasMaxPacket() bool {
 	return false
 }
 
-// SetMaxPacket gets a reference to the given float32 and assigns it to the MaxPacket field.
-func (o *LogicalRoutersVrfInnerOspfFloodPreventionHello) SetMaxPacket(v float32) {
+// SetMaxPacket gets a reference to the given int32 and assigns it to the MaxPacket field.
+func (o *LogicalRoutersVrfInnerOspfFloodPreventionHello) SetMaxPacket(v int32) {
 	o.MaxPacket = &v
 }
 

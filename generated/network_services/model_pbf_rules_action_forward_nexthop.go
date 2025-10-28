@@ -23,7 +23,7 @@ type PbfRulesActionForwardNexthop struct {
 	// Next hop FQDN
 	Fqdn *string `json:"fqdn,omitempty"`
 	// Next hop IP address
-	IpAddress            *string `json:"ip-address,omitempty"`
+	IpAddress            *string `json:"ip_address,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -124,7 +124,7 @@ func (o PbfRulesActionForwardNexthop) ToMap() (map[string]interface{}, error) {
 		toSerialize["fqdn"] = o.Fqdn
 	}
 	if !IsNil(o.IpAddress) {
-		toSerialize["ip-address"] = o.IpAddress
+		toSerialize["ip_address"] = o.IpAddress
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -149,7 +149,7 @@ func (o *PbfRulesActionForwardNexthop) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "fqdn")
-		delete(additionalProperties, "ip-address")
+		delete(additionalProperties, "ip_address")
 		o.AdditionalProperties = additionalProperties
 	}
 

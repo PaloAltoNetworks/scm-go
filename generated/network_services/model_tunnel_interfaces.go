@@ -24,7 +24,7 @@ type TunnelInterfaces struct {
 	// Description
 	Comment *string `json:"comment,omitempty"`
 	// Default interface assignment
-	DefaultValue *int32 `json:"default-value,omitempty"`
+	DefaultValue *string `json:"default_value,omitempty" validate:"regexp=^tunnel\\\\.([1-9][0-9]{0,3})$"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
@@ -32,10 +32,11 @@ type TunnelInterfaces struct {
 	// UUID of the resource
 	Id *string `json:"id,omitempty"`
 	// Interface management profile
-	InterfaceManagementProfile *string             `json:"interface_management_profile,omitempty"`
-	Ip                         *TunnelInterfacesIp `json:"ip,omitempty"`
+	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
+	// Tunnel Interface IP Parent
+	Ip []TunnelInterfacesIpInner `json:"ip,omitempty"`
 	// MTU
-	Mtu *float32 `json:"mtu,omitempty"`
+	Mtu *int32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
@@ -96,9 +97,9 @@ func (o *TunnelInterfaces) SetComment(v string) {
 }
 
 // GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
-func (o *TunnelInterfaces) GetDefaultValue() int32 {
+func (o *TunnelInterfaces) GetDefaultValue() string {
 	if o == nil || IsNil(o.DefaultValue) {
-		var ret int32
+		var ret string
 		return ret
 	}
 	return *o.DefaultValue
@@ -106,7 +107,7 @@ func (o *TunnelInterfaces) GetDefaultValue() int32 {
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TunnelInterfaces) GetDefaultValueOk() (*int32, bool) {
+func (o *TunnelInterfaces) GetDefaultValueOk() (*string, bool) {
 	if o == nil || IsNil(o.DefaultValue) {
 		return nil, false
 	}
@@ -122,8 +123,8 @@ func (o *TunnelInterfaces) HasDefaultValue() bool {
 	return false
 }
 
-// SetDefaultValue gets a reference to the given int32 and assigns it to the DefaultValue field.
-func (o *TunnelInterfaces) SetDefaultValue(v int32) {
+// SetDefaultValue gets a reference to the given string and assigns it to the DefaultValue field.
+func (o *TunnelInterfaces) SetDefaultValue(v string) {
 	o.DefaultValue = &v
 }
 
@@ -256,17 +257,17 @@ func (o *TunnelInterfaces) SetInterfaceManagementProfile(v string) {
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *TunnelInterfaces) GetIp() TunnelInterfacesIp {
+func (o *TunnelInterfaces) GetIp() []TunnelInterfacesIpInner {
 	if o == nil || IsNil(o.Ip) {
-		var ret TunnelInterfacesIp
+		var ret []TunnelInterfacesIpInner
 		return ret
 	}
-	return *o.Ip
+	return o.Ip
 }
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TunnelInterfaces) GetIpOk() (*TunnelInterfacesIp, bool) {
+func (o *TunnelInterfaces) GetIpOk() ([]TunnelInterfacesIpInner, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -282,15 +283,15 @@ func (o *TunnelInterfaces) HasIp() bool {
 	return false
 }
 
-// SetIp gets a reference to the given TunnelInterfacesIp and assigns it to the Ip field.
-func (o *TunnelInterfaces) SetIp(v TunnelInterfacesIp) {
-	o.Ip = &v
+// SetIp gets a reference to the given []TunnelInterfacesIpInner and assigns it to the Ip field.
+func (o *TunnelInterfaces) SetIp(v []TunnelInterfacesIpInner) {
+	o.Ip = v
 }
 
 // GetMtu returns the Mtu field value if set, zero value otherwise.
-func (o *TunnelInterfaces) GetMtu() float32 {
+func (o *TunnelInterfaces) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Mtu
@@ -298,7 +299,7 @@ func (o *TunnelInterfaces) GetMtu() float32 {
 
 // GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TunnelInterfaces) GetMtuOk() (*float32, bool) {
+func (o *TunnelInterfaces) GetMtuOk() (*int32, bool) {
 	if o == nil || IsNil(o.Mtu) {
 		return nil, false
 	}
@@ -314,8 +315,8 @@ func (o *TunnelInterfaces) HasMtu() bool {
 	return false
 }
 
-// SetMtu gets a reference to the given float32 and assigns it to the Mtu field.
-func (o *TunnelInterfaces) SetMtu(v float32) {
+// SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
+func (o *TunnelInterfaces) SetMtu(v int32) {
 	o.Mtu = &v
 }
 
@@ -389,7 +390,7 @@ func (o TunnelInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["comment"] = o.Comment
 	}
 	if !IsNil(o.DefaultValue) {
-		toSerialize["default-value"] = o.DefaultValue
+		toSerialize["default_value"] = o.DefaultValue
 	}
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
@@ -457,7 +458,7 @@ func (o *TunnelInterfaces) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "comment")
-		delete(additionalProperties, "default-value")
+		delete(additionalProperties, "default_value")
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")

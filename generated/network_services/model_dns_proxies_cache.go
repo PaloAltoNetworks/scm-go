@@ -22,10 +22,10 @@ var _ MappedNullable = &DnsProxiesCache{}
 // DnsProxiesCache struct for DnsProxiesCache
 type DnsProxiesCache struct {
 	// Cache EDNS UDP response
-	CacheEdns *bool `json:"cache-edns,omitempty"`
+	CacheEdns *bool `json:"cache_edns,omitempty"`
 	// Turn on caching for this DNS object
 	Enabled              bool                   `json:"enabled"`
-	MaxTtl               *DnsProxiesCacheMaxTtl `json:"max-ttl,omitempty"`
+	MaxTtl               *DnsProxiesCacheMaxTtl `json:"max_ttl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -154,11 +154,11 @@ func (o DnsProxiesCache) MarshalJSON() ([]byte, error) {
 func (o DnsProxiesCache) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CacheEdns) {
-		toSerialize["cache-edns"] = o.CacheEdns
+		toSerialize["cache_edns"] = o.CacheEdns
 	}
 	toSerialize["enabled"] = o.Enabled
 	if !IsNil(o.MaxTtl) {
-		toSerialize["max-ttl"] = o.MaxTtl
+		toSerialize["max_ttl"] = o.MaxTtl
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -203,9 +203,9 @@ func (o *DnsProxiesCache) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "cache-edns")
+		delete(additionalProperties, "cache_edns")
 		delete(additionalProperties, "enabled")
-		delete(additionalProperties, "max-ttl")
+		delete(additionalProperties, "max_ttl")
 		o.AdditionalProperties = additionalProperties
 	}
 
