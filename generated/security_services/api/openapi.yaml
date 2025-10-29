@@ -12411,7 +12411,7 @@ components:
         bugtraq:
         - bugtraq
         - bugtraq
-        threat_id: 16126498
+        threat_id: threat_id
         threatname: threatname
         default_action:
           allow: "{}"
@@ -12496,9 +12496,7 @@ components:
           type: string
         threat_id:
           description: threat id range <15000-18000> and <6900001-7000000>
-          maximum: 70000000
-          minimum: 15000
-          type: integer
+          type: string
         threatname:
           maxLength: 1024
           type: string
@@ -12844,7 +12842,6 @@ components:
         ssl_protocol_settings:
           $ref: '#/components/schemas/decryption_profiles_ssl_protocol_settings'
       required:
-      - id
       - name
       type: object
     decryption-rules:

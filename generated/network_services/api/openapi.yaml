@@ -15248,24 +15248,24 @@ components:
         source_translation:
           static_ip:
             translated_address: translated_address
-            bi_directional: true
+            bi_directional: bi_directional
           dynamic_ip_and_port:
-            translated_address_array:
-            - translated_address_array
-            - translated_address_array
             floating_ip: floating_ip
             ip: ip
+            translated_address:
+            - translated_address
+            - translated_address
             interface: interface
           dynamic_ip:
-            translated_address_array:
-            - translated_address_array
-            - translated_address_array
+            translated_address:
+            - translated_address
+            - translated_address
             fallback:
-              translated_address_array:
-              - translated_address_array
-              - translated_address_array
               floating_ip: floating_ip
               ip: ip
+              translated_address:
+              - translated_address
+              - translated_address
               interface: interface
         folder: My Folder
         service: any
@@ -32527,11 +32527,11 @@ components:
           type: integer
     nat_rules_source_translation_dynamic_ip_fallback:
       example:
-        translated_address_array:
-        - translated_address_array
-        - translated_address_array
         floating_ip: floating_ip
         ip: ip
+        translated_address:
+        - translated_address
+        - translated_address
         interface: interface
       properties:
         floating_ip:
@@ -32543,7 +32543,7 @@ components:
         ip:
           description: IP address
           type: string
-        translated_address_array:
+        translated_address:
           description: Fallback IP addresses
           items:
             type: string
@@ -32551,20 +32551,20 @@ components:
     nat_rules_source_translation_dynamic_ip:
       description: Dynamic IP
       example:
-        translated_address_array:
-        - translated_address_array
-        - translated_address_array
+        translated_address:
+        - translated_address
+        - translated_address
         fallback:
-          translated_address_array:
-          - translated_address_array
-          - translated_address_array
           floating_ip: floating_ip
           ip: ip
+          translated_address:
+          - translated_address
+          - translated_address
           interface: interface
       properties:
         fallback:
           $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip_fallback'
-        translated_address_array:
+        translated_address:
           description: Translated IP addresses
           items:
             description: IP address
@@ -32573,11 +32573,11 @@ components:
     nat_rules_source_translation_dynamic_ip_and_port:
       description: Dynamic IP and port
       example:
-        translated_address_array:
-        - translated_address_array
-        - translated_address_array
         floating_ip: floating_ip
         ip: ip
+        translated_address:
+        - translated_address
+        - translated_address
         interface: interface
       properties:
         floating_ip:
@@ -32589,7 +32589,7 @@ components:
         ip:
           description: Translated source IP address
           type: string
-        translated_address_array:
+        translated_address:
           description: Translated source IP addresses
           items:
             description: IP address
@@ -32599,10 +32599,10 @@ components:
       description: Static IP
       example:
         translated_address: translated_address
-        bi_directional: true
+        bi_directional: bi_directional
       properties:
         bi_directional:
-          type: boolean
+          type: string
         translated_address:
           description: Translated IP address
           type: string
@@ -32611,24 +32611,24 @@ components:
       example:
         static_ip:
           translated_address: translated_address
-          bi_directional: true
+          bi_directional: bi_directional
         dynamic_ip_and_port:
-          translated_address_array:
-          - translated_address_array
-          - translated_address_array
           floating_ip: floating_ip
           ip: ip
+          translated_address:
+          - translated_address
+          - translated_address
           interface: interface
         dynamic_ip:
-          translated_address_array:
-          - translated_address_array
-          - translated_address_array
+          translated_address:
+          - translated_address
+          - translated_address
           fallback:
-            translated_address_array:
-            - translated_address_array
-            - translated_address_array
             floating_ip: floating_ip
             ip: ip
+            translated_address:
+            - translated_address
+            - translated_address
             interface: interface
       properties:
         dynamic_ip:

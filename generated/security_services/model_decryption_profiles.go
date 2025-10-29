@@ -26,7 +26,7 @@ type DecryptionProfiles struct {
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// Must start with alphanumeric char and should contain only alphanemeric, underscore, hyphen, dot or space
 	Name string `json:"name" validate:"regexp=^[A-Za-z0-9]{1}[A-Za-z0-9_\\\\-\\\\.\\\\s]{0,}$"`
 	// The snippet in which the resource is defined
@@ -44,9 +44,8 @@ type _DecryptionProfiles DecryptionProfiles
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDecryptionProfiles(id string, name string) *DecryptionProfiles {
+func NewDecryptionProfiles(name string) *DecryptionProfiles {
 	this := DecryptionProfiles{}
-	this.Id = id
 	this.Name = name
 	return &this
 }
@@ -123,28 +122,36 @@ func (o *DecryptionProfiles) SetFolder(v string) {
 	o.Folder = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *DecryptionProfiles) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DecryptionProfiles) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *DecryptionProfiles) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *DecryptionProfiles) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetName returns the Name field value
@@ -347,7 +354,9 @@ func (o DecryptionProfiles) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
 	}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
@@ -377,7 +386,6 @@ func (o *DecryptionProfiles) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"name",
 	}
 

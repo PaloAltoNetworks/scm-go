@@ -38,7 +38,7 @@ type AntiSpywareSignatures struct {
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// threat id range <15000-18000> and <6900001-7000000>
-	ThreatId             int32    `json:"threat_id"`
+	ThreatId             string   `json:"threat_id"`
 	Threatname           string   `json:"threatname"`
 	Vendor               []string `json:"vendor,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -50,7 +50,7 @@ type _AntiSpywareSignatures AntiSpywareSignatures
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAntiSpywareSignatures(id string, threatId int32, threatname string) *AntiSpywareSignatures {
+func NewAntiSpywareSignatures(id string, threatId string, threatname string) *AntiSpywareSignatures {
 	this := AntiSpywareSignatures{}
 	this.Id = id
 	this.ThreatId = threatId
@@ -443,9 +443,9 @@ func (o *AntiSpywareSignatures) SetSnippet(v string) {
 }
 
 // GetThreatId returns the ThreatId field value
-func (o *AntiSpywareSignatures) GetThreatId() int32 {
+func (o *AntiSpywareSignatures) GetThreatId() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
@@ -454,7 +454,7 @@ func (o *AntiSpywareSignatures) GetThreatId() int32 {
 
 // GetThreatIdOk returns a tuple with the ThreatId field value
 // and a boolean to check if the value has been set.
-func (o *AntiSpywareSignatures) GetThreatIdOk() (*int32, bool) {
+func (o *AntiSpywareSignatures) GetThreatIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -462,7 +462,7 @@ func (o *AntiSpywareSignatures) GetThreatIdOk() (*int32, bool) {
 }
 
 // SetThreatId sets field value
-func (o *AntiSpywareSignatures) SetThreatId(v int32) {
+func (o *AntiSpywareSignatures) SetThreatId(v string) {
 	o.ThreatId = v
 }
 
