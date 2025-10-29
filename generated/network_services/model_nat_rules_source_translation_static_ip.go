@@ -20,7 +20,7 @@ var _ MappedNullable = &NatRulesSourceTranslationStaticIp{}
 
 // NatRulesSourceTranslationStaticIp Static IP
 type NatRulesSourceTranslationStaticIp struct {
-	BiDirectional *bool `json:"bi_directional,omitempty"`
+	BiDirectional *string `json:"bi_directional,omitempty"`
 	// Translated IP address
 	TranslatedAddress    *string `json:"translated_address,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -46,9 +46,9 @@ func NewNatRulesSourceTranslationStaticIpWithDefaults() *NatRulesSourceTranslati
 }
 
 // GetBiDirectional returns the BiDirectional field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslationStaticIp) GetBiDirectional() bool {
+func (o *NatRulesSourceTranslationStaticIp) GetBiDirectional() string {
 	if o == nil || IsNil(o.BiDirectional) {
-		var ret bool
+		var ret string
 		return ret
 	}
 	return *o.BiDirectional
@@ -56,7 +56,7 @@ func (o *NatRulesSourceTranslationStaticIp) GetBiDirectional() bool {
 
 // GetBiDirectionalOk returns a tuple with the BiDirectional field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslationStaticIp) GetBiDirectionalOk() (*bool, bool) {
+func (o *NatRulesSourceTranslationStaticIp) GetBiDirectionalOk() (*string, bool) {
 	if o == nil || IsNil(o.BiDirectional) {
 		return nil, false
 	}
@@ -72,8 +72,8 @@ func (o *NatRulesSourceTranslationStaticIp) HasBiDirectional() bool {
 	return false
 }
 
-// SetBiDirectional gets a reference to the given bool and assigns it to the BiDirectional field.
-func (o *NatRulesSourceTranslationStaticIp) SetBiDirectional(v bool) {
+// SetBiDirectional gets a reference to the given string and assigns it to the BiDirectional field.
+func (o *NatRulesSourceTranslationStaticIp) SetBiDirectional(v string) {
 	o.BiDirectional = &v
 }
 

@@ -161,7 +161,7 @@ func Test_identity_services_AuthenticationRulesAPIService_List(t *testing.T) {
 
 	// Test: List the rules, filtering by the specific name to avoid issues with default rules.
 	listRes, httpResList, errList := client.AuthenticationRulesAPI.ListAuthenticationRules(context.Background()).Position("pre").
-		Folder("All").Limit(10).Offset(10).
+		Folder("All").Limit(10).Offset(15).
 		Execute()
 
 	require.NoError(t, errList, "Failed to list Authentication Rules")

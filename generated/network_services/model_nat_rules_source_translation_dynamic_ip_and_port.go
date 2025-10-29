@@ -27,8 +27,8 @@ type NatRulesSourceTranslationDynamicIpAndPort struct {
 	// Translated source IP address
 	Ip *string `json:"ip,omitempty"`
 	// Translated source IP addresses
-	TranslatedAddressArray []string `json:"translated_address_array,omitempty"`
-	AdditionalProperties   map[string]interface{}
+	TranslatedAddress    []string `json:"translated_address,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NatRulesSourceTranslationDynamicIpAndPort NatRulesSourceTranslationDynamicIpAndPort
@@ -146,36 +146,36 @@ func (o *NatRulesSourceTranslationDynamicIpAndPort) SetIp(v string) {
 	o.Ip = &v
 }
 
-// GetTranslatedAddressArray returns the TranslatedAddressArray field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) GetTranslatedAddressArray() []string {
-	if o == nil || IsNil(o.TranslatedAddressArray) {
+// GetTranslatedAddress returns the TranslatedAddress field value if set, zero value otherwise.
+func (o *NatRulesSourceTranslationDynamicIpAndPort) GetTranslatedAddress() []string {
+	if o == nil || IsNil(o.TranslatedAddress) {
 		var ret []string
 		return ret
 	}
-	return o.TranslatedAddressArray
+	return o.TranslatedAddress
 }
 
-// GetTranslatedAddressArrayOk returns a tuple with the TranslatedAddressArray field value if set, nil otherwise
+// GetTranslatedAddressOk returns a tuple with the TranslatedAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) GetTranslatedAddressArrayOk() ([]string, bool) {
-	if o == nil || IsNil(o.TranslatedAddressArray) {
+func (o *NatRulesSourceTranslationDynamicIpAndPort) GetTranslatedAddressOk() ([]string, bool) {
+	if o == nil || IsNil(o.TranslatedAddress) {
 		return nil, false
 	}
-	return o.TranslatedAddressArray, true
+	return o.TranslatedAddress, true
 }
 
-// HasTranslatedAddressArray returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) HasTranslatedAddressArray() bool {
-	if o != nil && !IsNil(o.TranslatedAddressArray) {
+// HasTranslatedAddress returns a boolean if a field has been set.
+func (o *NatRulesSourceTranslationDynamicIpAndPort) HasTranslatedAddress() bool {
+	if o != nil && !IsNil(o.TranslatedAddress) {
 		return true
 	}
 
 	return false
 }
 
-// SetTranslatedAddressArray gets a reference to the given []string and assigns it to the TranslatedAddressArray field.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) SetTranslatedAddressArray(v []string) {
-	o.TranslatedAddressArray = v
+// SetTranslatedAddress gets a reference to the given []string and assigns it to the TranslatedAddress field.
+func (o *NatRulesSourceTranslationDynamicIpAndPort) SetTranslatedAddress(v []string) {
+	o.TranslatedAddress = v
 }
 
 func (o NatRulesSourceTranslationDynamicIpAndPort) MarshalJSON() ([]byte, error) {
@@ -197,8 +197,8 @@ func (o NatRulesSourceTranslationDynamicIpAndPort) ToMap() (map[string]interface
 	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
 	}
-	if !IsNil(o.TranslatedAddressArray) {
-		toSerialize["translated_address_array"] = o.TranslatedAddressArray
+	if !IsNil(o.TranslatedAddress) {
+		toSerialize["translated_address"] = o.TranslatedAddress
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -225,7 +225,7 @@ func (o *NatRulesSourceTranslationDynamicIpAndPort) UnmarshalJSON(data []byte) (
 		delete(additionalProperties, "floating_ip")
 		delete(additionalProperties, "interface")
 		delete(additionalProperties, "ip")
-		delete(additionalProperties, "translated_address_array")
+		delete(additionalProperties, "translated_address")
 		o.AdditionalProperties = additionalProperties
 	}
 
