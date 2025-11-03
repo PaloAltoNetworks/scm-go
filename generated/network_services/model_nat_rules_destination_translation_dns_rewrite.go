@@ -18,7 +18,7 @@ import (
 // checks if the NatRulesDestinationTranslationDnsRewrite type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NatRulesDestinationTranslationDnsRewrite{}
 
-// NatRulesDestinationTranslationDnsRewrite struct for NatRulesDestinationTranslationDnsRewrite
+// NatRulesDestinationTranslationDnsRewrite DNS rewrite
 type NatRulesDestinationTranslationDnsRewrite struct {
 	Direction            *string `json:"direction,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -15250,23 +15250,25 @@ components:
             translated_address: translated_address
             bi_directional: bi_directional
           dynamic_ip_and_port:
-            floating_ip: floating_ip
-            ip: ip
+            interface_address:
+              floating_ip: floating_ip
+              ip: ip
+              interface: interface
             translated_address:
             - translated_address
             - translated_address
-            interface: interface
           dynamic_ip:
             translated_address:
             - translated_address
             - translated_address
             fallback:
-              floating_ip: floating_ip
-              ip: ip
+              interface_address:
+                floating_ip: floating_ip
+                ip: ip
+                interface: interface
               translated_address:
               - translated_address
               - translated_address
-              interface: interface
         folder: My Folder
         service: any
         name: name
@@ -15737,19 +15739,27 @@ components:
           ipv4:
             ipv4_entry:
             - destination_address:
+                entry:
+                  address: address
+                  wildcard: wildcard
                 address: address
-                wildcard: wildcard
               source_address:
+                entry:
+                  address: address
+                  wildcard: wildcard
                 address: address
-                wildcard: wildcard
               name: 5249
               action: deny
             - destination_address:
+                entry:
+                  address: address
+                  wildcard: wildcard
                 address: address
-                wildcard: wildcard
               source_address:
+                entry:
+                  address: address
+                  wildcard: wildcard
                 address: address
-                wildcard: wildcard
               name: 5249
               action: deny
         device: My Device
@@ -16610,19 +16620,21 @@ components:
         - name: "8001"
           action:
             allow: "{}"
-            duration: 289
-            track_by: source-and-destination
             alert: "{}"
             block: "{}"
+            block_ip:
+              duration: 289
+              track_by: source-and-destination
           interval: 2
           threshold: 100
         - name: "8001"
           action:
             allow: "{}"
-            duration: 289
-            track_by: source-and-destination
             alert: "{}"
             block: "{}"
+            block_ip:
+              duration: 289
+              track_by: source-and-destination
           interval: 2
           threshold: 100
         description: description
@@ -16692,10 +16704,15 @@ components:
               activate_rate: 10000
             enable: true
           tcp_syn:
-            alarm_rate: 10000
+            red:
+              alarm_rate: 10000
+              maximal_rate: 40000
+              activate_rate: 10000
+            syn_cookies:
+              alarm_rate: 10000
+              maximal_rate: 1000000
+              activate_rate: 0
             enable: true
-            maximal_rate: 40000
-            activate_rate: 10000
           other_ip:
             red:
               alarm_rate: 10000
@@ -32478,6 +32495,7 @@ components:
           description: Enable IPv6
           type: boolean
     nat_rules_destination_translation_dns_rewrite:
+      description: DNS rewrite
       example:
         direction: reverse
       properties:
@@ -32487,7 +32505,7 @@ components:
           - forward
           type: string
     nat_rules_destination_translation:
-      description: Destination translation configuration (Static/P-D-N-T).
+      description: Destination translation
       example:
         dns_rewrite:
           direction: reverse
@@ -32497,20 +32515,22 @@ components:
         dns_rewrite:
           $ref: '#/components/schemas/nat_rules_destination_translation_dns_rewrite'
         translated_address:
+          description: Translated destination IP address
           type: string
         translated_port:
-          format: int32
+          description: Translated destination port
           maximum: 65535
           minimum: 1
           type: integer
     nat_rules_dynamic_destination_translation:
-      description: Dynamic destination translation configuration.
+      description: Dynamic destination translation
       example:
         translated_port: 39501
         translated_address: translated_address
         distribution: round-robin
       properties:
         distribution:
+          description: Distribution method
           enum:
           - round-robin
           - source-ip-hash
@@ -32519,19 +32539,18 @@ components:
           - least-sessions
           type: string
         translated_address:
+          description: Translated destination IP address
           type: string
         translated_port:
-          format: int32
+          description: Translated destination port
           maximum: 65535
           minimum: 1
           type: integer
-    nat_rules_source_translation_dynamic_ip_fallback:
+    nat_rules_source_translation_dynamic_ip_fallback_interface_address:
+      description: Fallback interface
       example:
         floating_ip: floating_ip
         ip: ip
-        translated_address:
-        - translated_address
-        - translated_address
         interface: interface
       properties:
         floating_ip:
@@ -32543,6 +32562,18 @@ components:
         ip:
           description: IP address
           type: string
+    nat_rules_source_translation_dynamic_ip_fallback:
+      example:
+        interface_address:
+          floating_ip: floating_ip
+          ip: ip
+          interface: interface
+        translated_address:
+        - translated_address
+        - translated_address
+      properties:
+        interface_address:
+          $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip_fallback_interface_address'
         translated_address:
           description: Fallback IP addresses
           items:
@@ -32555,12 +32586,13 @@ components:
         - translated_address
         - translated_address
         fallback:
-          floating_ip: floating_ip
-          ip: ip
+          interface_address:
+            floating_ip: floating_ip
+            ip: ip
+            interface: interface
           translated_address:
           - translated_address
           - translated_address
-          interface: interface
       properties:
         fallback:
           $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip_fallback'
@@ -32570,14 +32602,11 @@ components:
             description: IP address
             type: string
           type: array
-    nat_rules_source_translation_dynamic_ip_and_port:
-      description: Dynamic IP and port
+    nat_rules_source_translation_dynamic_ip_and_port_interface_address:
+      description: Translated source interface
       example:
         floating_ip: floating_ip
         ip: ip
-        translated_address:
-        - translated_address
-        - translated_address
         interface: interface
       properties:
         floating_ip:
@@ -32589,6 +32618,19 @@ components:
         ip:
           description: Translated source IP address
           type: string
+    nat_rules_source_translation_dynamic_ip_and_port:
+      description: Dynamic IP and port
+      example:
+        interface_address:
+          floating_ip: floating_ip
+          ip: ip
+          interface: interface
+        translated_address:
+        - translated_address
+        - translated_address
+      properties:
+        interface_address:
+          $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip_and_port_interface_address'
         translated_address:
           description: Translated source IP addresses
           items:
@@ -32607,29 +32649,30 @@ components:
           description: Translated IP address
           type: string
     nat_rules_source_translation:
-      description: Source translation configuration (Static/P-D-N-T).
       example:
         static_ip:
           translated_address: translated_address
           bi_directional: bi_directional
         dynamic_ip_and_port:
-          floating_ip: floating_ip
-          ip: ip
+          interface_address:
+            floating_ip: floating_ip
+            ip: ip
+            interface: interface
           translated_address:
           - translated_address
           - translated_address
-          interface: interface
         dynamic_ip:
           translated_address:
           - translated_address
           - translated_address
           fallback:
-            floating_ip: floating_ip
-            ip: ip
+            interface_address:
+              floating_ip: floating_ip
+              ip: ip
+              interface: interface
             translated_address:
             - translated_address
             - translated_address
-            interface: interface
       properties:
         dynamic_ip:
           $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip'
@@ -33032,7 +33075,7 @@ components:
           $ref: '#/components/schemas/qos_profiles_class_bandwidth_type_mbps'
         percentage:
           $ref: '#/components/schemas/qos_profiles_class_bandwidth_type_percentage'
-    route_access_lists_type_ipv4_ipv4_entry_inner_destination_address:
+    route_access_lists_type_ipv4_ipv4_entry_inner_destination_address_entry:
       example:
         address: address
         wildcard: wildcard
@@ -33043,7 +33086,19 @@ components:
         wildcard:
           description: Destination IP wildcard
           type: string
-    route_access_lists_type_ipv4_ipv4_entry_inner_source_address:
+    route_access_lists_type_ipv4_ipv4_entry_inner_destination_address:
+      example:
+        entry:
+          address: address
+          wildcard: wildcard
+        address: address
+      properties:
+        address:
+          description: Destination IP address
+          type: string
+        entry:
+          $ref: '#/components/schemas/route_access_lists_type_ipv4_ipv4_entry_inner_destination_address_entry'
+    route_access_lists_type_ipv4_ipv4_entry_inner_source_address_entry:
       example:
         address: address
         wildcard: wildcard
@@ -33054,14 +33109,30 @@ components:
         wildcard:
           description: Source IP wildcard
           type: string
+    route_access_lists_type_ipv4_ipv4_entry_inner_source_address:
+      example:
+        entry:
+          address: address
+          wildcard: wildcard
+        address: address
+      properties:
+        address:
+          description: Source IP address
+          type: string
+        entry:
+          $ref: '#/components/schemas/route_access_lists_type_ipv4_ipv4_entry_inner_source_address_entry'
     route_access_lists_type_ipv4_ipv4_entry_inner:
       example:
         destination_address:
+          entry:
+            address: address
+            wildcard: wildcard
           address: address
-          wildcard: wildcard
         source_address:
+          entry:
+            address: address
+            wildcard: wildcard
           address: address
-          wildcard: wildcard
         name: 5249
         action: deny
       properties:
@@ -33084,19 +33155,27 @@ components:
       example:
         ipv4_entry:
         - destination_address:
+            entry:
+              address: address
+              wildcard: wildcard
             address: address
-            wildcard: wildcard
           source_address:
+            entry:
+              address: address
+              wildcard: wildcard
             address: address
-            wildcard: wildcard
           name: 5249
           action: deny
         - destination_address:
+            entry:
+              address: address
+              wildcard: wildcard
             address: address
-            wildcard: wildcard
           source_address:
+            entry:
+              address: address
+              wildcard: wildcard
             address: address
-            wildcard: wildcard
           name: 5249
           action: deny
       properties:
@@ -33110,19 +33189,27 @@ components:
         ipv4:
           ipv4_entry:
           - destination_address:
+              entry:
+                address: address
+                wildcard: wildcard
               address: address
-              wildcard: wildcard
             source_address:
+              entry:
+                address: address
+                wildcard: wildcard
               address: address
-              wildcard: wildcard
             name: 5249
             action: deny
           - destination_address:
+              entry:
+                address: address
+                wildcard: wildcard
               address: address
-              wildcard: wildcard
             source_address:
+              entry:
+                address: address
+                wildcard: wildcard
               address: address
-              wildcard: wildcard
             name: 5249
             action: deny
       properties:
@@ -34018,10 +34105,9 @@ components:
           type: boolean
         red:
           $ref: '#/components/schemas/zone_protection_profiles_flood_sctp_init_red'
-    zone_protection_profiles_flood_tcp_syn:
+    zone_protection_profiles_flood_tcp_syn_red:
       example:
         alarm_rate: 10000
-        enable: true
         maximal_rate: 40000
         activate_rate: 10000
       properties:
@@ -34041,9 +34127,6 @@ components:
           maximum: 2000000
           minimum: 0
           type: integer
-        enable:
-          description: Enable protection against SYN floods?
-          type: boolean
         maximal_rate:
           description: "When the flow exceeds the `maximal_rate` threshold, 100% of\
             \ incoming SYN packets are dropped."
@@ -34052,6 +34135,63 @@ components:
           maximum: 2000000
           minimum: 0
           type: integer
+      required:
+      - activate_rate
+      - alarm_rate
+      - maximal_rate
+    zone_protection_profiles_flood_tcp_syn_syn_cookies:
+      example:
+        alarm_rate: 10000
+        maximal_rate: 1000000
+        activate_rate: 0
+      properties:
+        activate_rate:
+          description: "When the flow exceeds the `activate_rate`` threshold, the\
+            \ firewall drops individual SYN packets randomly to restrict the flow."
+          example: 0
+          format: int32
+          maximum: 2000000
+          minimum: 0
+          type: integer
+        alarm_rate:
+          description: "When the flow exceeds the `alert_rate`` threshold, an alarm\
+            \ is generated."
+          example: 10000
+          format: int32
+          maximum: 2000000
+          minimum: 0
+          type: integer
+        maximal_rate:
+          description: "When the flow exceeds the `maximal_rate` threshold, 100% of\
+            \ incoming SYN packets are dropped."
+          example: 1000000
+          format: int32
+          maximum: 2000000
+          minimum: 0
+          type: integer
+      required:
+      - activate_rate
+      - alarm_rate
+      - maximal_rate
+    zone_protection_profiles_flood_tcp_syn:
+      example:
+        red:
+          alarm_rate: 10000
+          maximal_rate: 40000
+          activate_rate: 10000
+        syn_cookies:
+          alarm_rate: 10000
+          maximal_rate: 1000000
+          activate_rate: 0
+        enable: true
+      properties:
+        enable:
+          description: Enable protection against SYN floods?
+          type: boolean
+        red:
+          $ref: '#/components/schemas/zone_protection_profiles_flood_tcp_syn_red'
+        syn_cookies:
+          $ref: '#/components/schemas/zone_protection_profiles_flood_tcp_syn_syn_cookies'
     zone_protection_profiles_flood_udp_red:
       example:
         alarm_rate: 10000
@@ -34110,10 +34250,15 @@ components:
             activate_rate: 10000
           enable: true
         tcp_syn:
-          alarm_rate: 10000
+          red:
+            alarm_rate: 10000
+            maximal_rate: 40000
+            activate_rate: 10000
+          syn_cookies:
+            alarm_rate: 10000
+            maximal_rate: 1000000
+            activate_rate: 0
           enable: true
-          maximal_rate: 40000
-          activate_rate: 10000
         other_ip:
           red:
             alarm_rate: 10000
@@ -34360,20 +34505,11 @@ components:
           items:
             $ref: '#/components/schemas/zone_protection_profiles_non_ip_protocol_protocol_inner'
           type: array
-    zone_protection_profiles_scan_inner_action:
+    zone_protection_profiles_scan_inner_action_block_ip:
       example:
-        allow: "{}"
         duration: 289
         track_by: source-and-destination
-        alert: "{}"
-        block: "{}"
       properties:
-        alert:
-          type: object
-        allow:
-          type: object
-        block:
-          type: object
         duration:
           format: int32
           maximum: 3600
@@ -34384,15 +34520,36 @@ components:
           - source-and-destination
           - source
           type: string
+      required:
+      - duration
+      - track_by
+    zone_protection_profiles_scan_inner_action:
+      example:
+        allow: "{}"
+        alert: "{}"
+        block: "{}"
+        block_ip:
+          duration: 289
+          track_by: source-and-destination
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/zone_protection_profiles_scan_inner_action_block_ip'
     zone_protection_profiles_scan_inner:
       example:
         name: "8001"
         action:
           allow: "{}"
-          duration: 289
-          track_by: source-and-destination
           alert: "{}"
           block: "{}"
+          block_ip:
+            duration: 289
+            track_by: source-and-destination
         interval: 2
         threshold: 100
       properties:

@@ -20,11 +20,10 @@ var _ MappedNullable = &ZoneProtectionProfilesScanInnerAction{}
 
 // ZoneProtectionProfilesScanInnerAction struct for ZoneProtectionProfilesScanInnerAction
 type ZoneProtectionProfilesScanInnerAction struct {
-	Alert                map[string]interface{} `json:"alert,omitempty"`
-	Allow                map[string]interface{} `json:"allow,omitempty"`
-	Block                map[string]interface{} `json:"block,omitempty"`
-	Duration             *int32                 `json:"duration,omitempty"`
-	TrackBy              *string                `json:"track_by,omitempty"`
+	Alert                map[string]interface{}                        `json:"alert,omitempty"`
+	Allow                map[string]interface{}                        `json:"allow,omitempty"`
+	Block                map[string]interface{}                        `json:"block,omitempty"`
+	BlockIp              *ZoneProtectionProfilesScanInnerActionBlockIp `json:"block_ip,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,68 +142,36 @@ func (o *ZoneProtectionProfilesScanInnerAction) SetBlock(v map[string]interface{
 	o.Block = v
 }
 
-// GetDuration returns the Duration field value if set, zero value otherwise.
-func (o *ZoneProtectionProfilesScanInnerAction) GetDuration() int32 {
-	if o == nil || IsNil(o.Duration) {
-		var ret int32
+// GetBlockIp returns the BlockIp field value if set, zero value otherwise.
+func (o *ZoneProtectionProfilesScanInnerAction) GetBlockIp() ZoneProtectionProfilesScanInnerActionBlockIp {
+	if o == nil || IsNil(o.BlockIp) {
+		var ret ZoneProtectionProfilesScanInnerActionBlockIp
 		return ret
 	}
-	return *o.Duration
+	return *o.BlockIp
 }
 
-// GetDurationOk returns a tuple with the Duration field value if set, nil otherwise
+// GetBlockIpOk returns a tuple with the BlockIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ZoneProtectionProfilesScanInnerAction) GetDurationOk() (*int32, bool) {
-	if o == nil || IsNil(o.Duration) {
+func (o *ZoneProtectionProfilesScanInnerAction) GetBlockIpOk() (*ZoneProtectionProfilesScanInnerActionBlockIp, bool) {
+	if o == nil || IsNil(o.BlockIp) {
 		return nil, false
 	}
-	return o.Duration, true
+	return o.BlockIp, true
 }
 
-// HasDuration returns a boolean if a field has been set.
-func (o *ZoneProtectionProfilesScanInnerAction) HasDuration() bool {
-	if o != nil && !IsNil(o.Duration) {
+// HasBlockIp returns a boolean if a field has been set.
+func (o *ZoneProtectionProfilesScanInnerAction) HasBlockIp() bool {
+	if o != nil && !IsNil(o.BlockIp) {
 		return true
 	}
 
 	return false
 }
 
-// SetDuration gets a reference to the given int32 and assigns it to the Duration field.
-func (o *ZoneProtectionProfilesScanInnerAction) SetDuration(v int32) {
-	o.Duration = &v
-}
-
-// GetTrackBy returns the TrackBy field value if set, zero value otherwise.
-func (o *ZoneProtectionProfilesScanInnerAction) GetTrackBy() string {
-	if o == nil || IsNil(o.TrackBy) {
-		var ret string
-		return ret
-	}
-	return *o.TrackBy
-}
-
-// GetTrackByOk returns a tuple with the TrackBy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ZoneProtectionProfilesScanInnerAction) GetTrackByOk() (*string, bool) {
-	if o == nil || IsNil(o.TrackBy) {
-		return nil, false
-	}
-	return o.TrackBy, true
-}
-
-// HasTrackBy returns a boolean if a field has been set.
-func (o *ZoneProtectionProfilesScanInnerAction) HasTrackBy() bool {
-	if o != nil && !IsNil(o.TrackBy) {
-		return true
-	}
-
-	return false
-}
-
-// SetTrackBy gets a reference to the given string and assigns it to the TrackBy field.
-func (o *ZoneProtectionProfilesScanInnerAction) SetTrackBy(v string) {
-	o.TrackBy = &v
+// SetBlockIp gets a reference to the given ZoneProtectionProfilesScanInnerActionBlockIp and assigns it to the BlockIp field.
+func (o *ZoneProtectionProfilesScanInnerAction) SetBlockIp(v ZoneProtectionProfilesScanInnerActionBlockIp) {
+	o.BlockIp = &v
 }
 
 func (o ZoneProtectionProfilesScanInnerAction) MarshalJSON() ([]byte, error) {
@@ -226,11 +193,8 @@ func (o ZoneProtectionProfilesScanInnerAction) ToMap() (map[string]interface{}, 
 	if !IsNil(o.Block) {
 		toSerialize["block"] = o.Block
 	}
-	if !IsNil(o.Duration) {
-		toSerialize["duration"] = o.Duration
-	}
-	if !IsNil(o.TrackBy) {
-		toSerialize["track_by"] = o.TrackBy
+	if !IsNil(o.BlockIp) {
+		toSerialize["block_ip"] = o.BlockIp
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -257,8 +221,7 @@ func (o *ZoneProtectionProfilesScanInnerAction) UnmarshalJSON(data []byte) (err 
 		delete(additionalProperties, "alert")
 		delete(additionalProperties, "allow")
 		delete(additionalProperties, "block")
-		delete(additionalProperties, "duration")
-		delete(additionalProperties, "track_by")
+		delete(additionalProperties, "block_ip")
 		o.AdditionalProperties = additionalProperties
 	}
 
