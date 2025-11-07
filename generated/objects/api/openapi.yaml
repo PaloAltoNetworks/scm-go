@@ -12083,7 +12083,7 @@ components:
           type:
             tagging:
               action: add-tag
-              timeout: 0.8008281904610115
+              timeout: 0
               tags:
               - tags
               - tags
@@ -12095,7 +12095,7 @@ components:
           type:
             tagging:
               action: add-tag
-              timeout: 0.8008281904610115
+              timeout: 0
               tags:
               - tags
               - tags
@@ -14202,7 +14202,7 @@ components:
     auto_tag_actions_actions_inner_type_tagging:
       example:
         action: add-tag
-        timeout: 0.8008281904610115
+        timeout: 0
         tags:
         - tags
         - tags
@@ -14228,7 +14228,7 @@ components:
           description: "Source or Destination Address, User, X-Forwarded-For Address"
           type: string
         timeout:
-          type: number
+          type: integer
       required:
       - action
       - target
@@ -14237,7 +14237,7 @@ components:
       example:
         tagging:
           action: add-tag
-          timeout: 0.8008281904610115
+          timeout: 0
           tags:
           - tags
           - tags
@@ -14257,7 +14257,7 @@ components:
         type:
           tagging:
             action: add-tag
-            timeout: 0.8008281904610115
+            timeout: 0
             tags:
             - tags
             - tags

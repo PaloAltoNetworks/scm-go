@@ -22,7 +22,7 @@ var _ MappedNullable = &BandwidthAllocations{}
 // BandwidthAllocations struct for BandwidthAllocations
 type BandwidthAllocations struct {
 	// bandwidth to allocate in Mbps
-	AllocatedBandwidth float32 `json:"allocated_bandwidth"`
+	AllocatedBandwidth int32 `json:"allocated_bandwidth"`
 	// name of the aggregated bandwidth region
 	Name                 string                   `json:"name"`
 	Qos                  *BandwidthAllocationsQos `json:"qos,omitempty"`
@@ -36,7 +36,7 @@ type _BandwidthAllocations BandwidthAllocations
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBandwidthAllocations(allocatedBandwidth float32, name string) *BandwidthAllocations {
+func NewBandwidthAllocations(allocatedBandwidth int32, name string) *BandwidthAllocations {
 	this := BandwidthAllocations{}
 	this.AllocatedBandwidth = allocatedBandwidth
 	this.Name = name
@@ -52,9 +52,9 @@ func NewBandwidthAllocationsWithDefaults() *BandwidthAllocations {
 }
 
 // GetAllocatedBandwidth returns the AllocatedBandwidth field value
-func (o *BandwidthAllocations) GetAllocatedBandwidth() float32 {
+func (o *BandwidthAllocations) GetAllocatedBandwidth() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -63,7 +63,7 @@ func (o *BandwidthAllocations) GetAllocatedBandwidth() float32 {
 
 // GetAllocatedBandwidthOk returns a tuple with the AllocatedBandwidth field value
 // and a boolean to check if the value has been set.
-func (o *BandwidthAllocations) GetAllocatedBandwidthOk() (*float32, bool) {
+func (o *BandwidthAllocations) GetAllocatedBandwidthOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,7 +71,7 @@ func (o *BandwidthAllocations) GetAllocatedBandwidthOk() (*float32, bool) {
 }
 
 // SetAllocatedBandwidth sets field value
-func (o *BandwidthAllocations) SetAllocatedBandwidth(v float32) {
+func (o *BandwidthAllocations) SetAllocatedBandwidth(v int32) {
 	o.AllocatedBandwidth = v
 }
 
