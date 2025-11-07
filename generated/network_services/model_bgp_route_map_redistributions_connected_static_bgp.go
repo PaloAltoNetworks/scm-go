@@ -18,9 +18,9 @@ import (
 // checks if the BgpRouteMapRedistributionsConnectedStaticBgp type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpRouteMapRedistributionsConnectedStaticBgp{}
 
-// BgpRouteMapRedistributionsConnectedStaticBgp struct for BgpRouteMapRedistributionsConnectedStaticBgp
+// BgpRouteMapRedistributionsConnectedStaticBgp Connected Static Root BGP
 type BgpRouteMapRedistributionsConnectedStaticBgp struct {
-	// Route maps
+	// Connected Static BGP Route maps
 	RouteMap             []BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInner `json:"route_map,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

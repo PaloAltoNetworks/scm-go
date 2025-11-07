@@ -20,9 +20,9 @@ var _ MappedNullable = &BgpRouteMapsRouteMapInnerMatchIpv4{}
 
 // BgpRouteMapsRouteMapInnerMatchIpv4 bgp-route-maps ipv4 object
 type BgpRouteMapsRouteMapInnerMatchIpv4 struct {
-	Address              *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource `json:"address,omitempty"`
-	NextHop              *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource `json:"next_hop,omitempty"`
-	RouteSource          *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource `json:"route_source,omitempty"`
+	Address              *BgpRouteMapsRouteMapInnerMatchIpv4Address `json:"address,omitempty"`
+	NextHop              *BgpRouteMapsRouteMapInnerMatchIpv4Address `json:"next_hop,omitempty"`
+	RouteSource          *BgpRouteMapsRouteMapInnerMatchIpv4Address `json:"route_source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,9 +46,9 @@ func NewBgpRouteMapsRouteMapInnerMatchIpv4WithDefaults() *BgpRouteMapsRouteMapIn
 }
 
 // GetAddress returns the Address field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetAddress() BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource {
+func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetAddress() BgpRouteMapsRouteMapInnerMatchIpv4Address {
 	if o == nil || IsNil(o.Address) {
-		var ret BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource
+		var ret BgpRouteMapsRouteMapInnerMatchIpv4Address
 		return ret
 	}
 	return *o.Address
@@ -56,7 +56,7 @@ func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetAddress() BgpRouteMapRedistribut
 
 // GetAddressOk returns a tuple with the Address field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetAddressOk() (*BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource, bool) {
+func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetAddressOk() (*BgpRouteMapsRouteMapInnerMatchIpv4Address, bool) {
 	if o == nil || IsNil(o.Address) {
 		return nil, false
 	}
@@ -72,15 +72,15 @@ func (o *BgpRouteMapsRouteMapInnerMatchIpv4) HasAddress() bool {
 	return false
 }
 
-// SetAddress gets a reference to the given BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource and assigns it to the Address field.
-func (o *BgpRouteMapsRouteMapInnerMatchIpv4) SetAddress(v BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource) {
+// SetAddress gets a reference to the given BgpRouteMapsRouteMapInnerMatchIpv4Address and assigns it to the Address field.
+func (o *BgpRouteMapsRouteMapInnerMatchIpv4) SetAddress(v BgpRouteMapsRouteMapInnerMatchIpv4Address) {
 	o.Address = &v
 }
 
 // GetNextHop returns the NextHop field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetNextHop() BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource {
+func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetNextHop() BgpRouteMapsRouteMapInnerMatchIpv4Address {
 	if o == nil || IsNil(o.NextHop) {
-		var ret BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource
+		var ret BgpRouteMapsRouteMapInnerMatchIpv4Address
 		return ret
 	}
 	return *o.NextHop
@@ -88,7 +88,7 @@ func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetNextHop() BgpRouteMapRedistribut
 
 // GetNextHopOk returns a tuple with the NextHop field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetNextHopOk() (*BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource, bool) {
+func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetNextHopOk() (*BgpRouteMapsRouteMapInnerMatchIpv4Address, bool) {
 	if o == nil || IsNil(o.NextHop) {
 		return nil, false
 	}
@@ -104,15 +104,15 @@ func (o *BgpRouteMapsRouteMapInnerMatchIpv4) HasNextHop() bool {
 	return false
 }
 
-// SetNextHop gets a reference to the given BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource and assigns it to the NextHop field.
-func (o *BgpRouteMapsRouteMapInnerMatchIpv4) SetNextHop(v BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource) {
+// SetNextHop gets a reference to the given BgpRouteMapsRouteMapInnerMatchIpv4Address and assigns it to the NextHop field.
+func (o *BgpRouteMapsRouteMapInnerMatchIpv4) SetNextHop(v BgpRouteMapsRouteMapInnerMatchIpv4Address) {
 	o.NextHop = &v
 }
 
 // GetRouteSource returns the RouteSource field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetRouteSource() BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource {
+func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetRouteSource() BgpRouteMapsRouteMapInnerMatchIpv4Address {
 	if o == nil || IsNil(o.RouteSource) {
-		var ret BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource
+		var ret BgpRouteMapsRouteMapInnerMatchIpv4Address
 		return ret
 	}
 	return *o.RouteSource
@@ -120,7 +120,7 @@ func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetRouteSource() BgpRouteMapRedistr
 
 // GetRouteSourceOk returns a tuple with the RouteSource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetRouteSourceOk() (*BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource, bool) {
+func (o *BgpRouteMapsRouteMapInnerMatchIpv4) GetRouteSourceOk() (*BgpRouteMapsRouteMapInnerMatchIpv4Address, bool) {
 	if o == nil || IsNil(o.RouteSource) {
 		return nil, false
 	}
@@ -136,8 +136,8 @@ func (o *BgpRouteMapsRouteMapInnerMatchIpv4) HasRouteSource() bool {
 	return false
 }
 
-// SetRouteSource gets a reference to the given BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource and assigns it to the RouteSource field.
-func (o *BgpRouteMapsRouteMapInnerMatchIpv4) SetRouteSource(v BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4RouteSource) {
+// SetRouteSource gets a reference to the given BgpRouteMapsRouteMapInnerMatchIpv4Address and assigns it to the RouteSource field.
+func (o *BgpRouteMapsRouteMapInnerMatchIpv4) SetRouteSource(v BgpRouteMapsRouteMapInnerMatchIpv4Address) {
 	o.RouteSource = &v
 }
 

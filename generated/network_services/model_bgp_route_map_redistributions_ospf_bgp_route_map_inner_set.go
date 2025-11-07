@@ -18,28 +18,28 @@ import (
 // checks if the BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet{}
 
-// BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet struct for BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet
+// BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet OSPF Root Set
 type BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet struct {
 	Aggregator *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetAggregator `json:"aggregator,omitempty"`
-	// AS numbers
+	// OSPF BGP Route maps set AS numbers
 	AspathPrepend []int32 `json:"aspath_prepend,omitempty"`
-	// Enable BGP atomic aggregate?
-	AtomicAggregate *bool                                                             `json:"atomic_aggregate,omitempty"`
-	Ipv4            *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 `json:"ipv4,omitempty"`
-	// Large communities
+	// OSPF BGP Route maps set Enable BGP atomic aggregate?
+	AtomicAggregate *bool                                                  `json:"atomic_aggregate,omitempty"`
+	Ipv4            *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetIpv4 `json:"ipv4,omitempty"`
+	// OSPF BGP Route maps set Large communities
 	LargeCommunity []string `json:"large_community,omitempty"`
-	// Local preference
-	LocalPreference *int32                                                              `json:"local_preference,omitempty"`
-	Metric          *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric `json:"metric,omitempty"`
-	// Origin
+	// OSPF BGP Route maps set Local preference
+	LocalPreference *int32                                                   `json:"local_preference,omitempty"`
+	Metric          *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetMetric `json:"metric,omitempty"`
+	// OSPF BGP Route maps set Origin
 	Origin *string `json:"origin,omitempty"`
-	// Originator ID
+	// OSPF BGP Route maps set Originator ID
 	OriginatorId *string `json:"originator_id,omitempty"`
-	// Regular communities
+	// OSPF BGP Route maps set Regular communities
 	RegularCommunity []string `json:"regular_community,omitempty"`
-	// Tag
+	// OSPF BGP Route maps set Tag
 	Tag *int32 `json:"tag,omitempty"`
-	// Weight
+	// OSPF BGP Route maps set Weight
 	Weight               *int32 `json:"weight,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -160,9 +160,9 @@ func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) SetAtomicAggregate(v
 }
 
 // GetIpv4 returns the Ipv4 field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetIpv4() BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 {
+func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetIpv4() BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetIpv4 {
 	if o == nil || IsNil(o.Ipv4) {
-		var ret BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4
+		var ret BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetIpv4
 		return ret
 	}
 	return *o.Ipv4
@@ -170,7 +170,7 @@ func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetIpv4() BgpRouteMa
 
 // GetIpv4Ok returns a tuple with the Ipv4 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetIpv4Ok() (*BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4, bool) {
+func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetIpv4Ok() (*BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetIpv4, bool) {
 	if o == nil || IsNil(o.Ipv4) {
 		return nil, false
 	}
@@ -186,8 +186,8 @@ func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) HasIpv4() bool {
 	return false
 }
 
-// SetIpv4 gets a reference to the given BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 and assigns it to the Ipv4 field.
-func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) SetIpv4(v BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4) {
+// SetIpv4 gets a reference to the given BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetIpv4 and assigns it to the Ipv4 field.
+func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) SetIpv4(v BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetIpv4) {
 	o.Ipv4 = &v
 }
 
@@ -256,9 +256,9 @@ func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) SetLocalPreference(v
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetMetric() BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric {
+func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetMetric() BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetMetric {
 	if o == nil || IsNil(o.Metric) {
-		var ret BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric
+		var ret BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetMetric
 		return ret
 	}
 	return *o.Metric
@@ -266,7 +266,7 @@ func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetMetric() BgpRoute
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetMetricOk() (*BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric, bool) {
+func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) GetMetricOk() (*BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetMetric, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -282,8 +282,8 @@ func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) HasMetric() bool {
 	return false
 }
 
-// SetMetric gets a reference to the given BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric and assigns it to the Metric field.
-func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) SetMetric(v BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric) {
+// SetMetric gets a reference to the given BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetMetric and assigns it to the Metric field.
+func (o *BgpRouteMapRedistributionsOspfBgpRouteMapInnerSet) SetMetric(v BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetMetric) {
 	o.Metric = &v
 }
 

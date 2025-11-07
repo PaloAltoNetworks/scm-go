@@ -20,10 +20,10 @@ var _ MappedNullable = &BgpRouteMapRedistributionsConnectedStaticRibRouteMapInne
 
 // BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch struct for BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch
 type BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch struct {
-	// Interface
+	// Connected Static BGP Rib Route maps Interface
 	Interface *string                                                             `json:"interface,omitempty"`
 	Ipv4      *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatchIpv4 `json:"ipv4,omitempty"`
-	// Metric
+	// Connected Static BGP Rib Route maps Metric
 	Metric               *int32 `json:"metric,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -18,11 +18,11 @@ import (
 // checks if the BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4RouteSource type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4RouteSource{}
 
-// BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4RouteSource bgp-route-map-redistributions ipv4 object route_source
+// BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4RouteSource BGP Root OSPF Route maps ipv4 bgp-route-map-redistributions ipv4 object route_source
 type BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4RouteSource struct {
-	// Access list
+	// BGP Root OSPF Route maps ipv4 route source Access list
 	AccessList *string `json:"access_list,omitempty"`
-	// Prefix list
+	// BGP Root OSPF Route maps ipv4 route source Prefix list
 	PrefixList           *string `json:"prefix_list,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

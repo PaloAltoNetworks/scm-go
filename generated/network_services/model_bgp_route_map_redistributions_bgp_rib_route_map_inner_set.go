@@ -18,9 +18,9 @@ import (
 // checks if the BgpRouteMapRedistributionsBgpRibRouteMapInnerSet type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpRouteMapRedistributionsBgpRibRouteMapInnerSet{}
 
-// BgpRouteMapRedistributionsBgpRibRouteMapInnerSet struct for BgpRouteMapRedistributionsBgpRibRouteMapInnerSet
+// BgpRouteMapRedistributionsBgpRibRouteMapInnerSet Set attributes for BGP route map
 type BgpRouteMapRedistributionsBgpRibRouteMapInnerSet struct {
-	// Source address
+	// BGP Root RIB Route maps set Source address
 	SourceAddress        *string `json:"source_address,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

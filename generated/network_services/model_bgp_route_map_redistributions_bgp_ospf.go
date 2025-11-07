@@ -20,7 +20,7 @@ var _ MappedNullable = &BgpRouteMapRedistributionsBgpOspf{}
 
 // BgpRouteMapRedistributionsBgpOspf struct for BgpRouteMapRedistributionsBgpOspf
 type BgpRouteMapRedistributionsBgpOspf struct {
-	// Route maps
+	// BGP Root OSPF Route maps
 	RouteMap             []BgpRouteMapRedistributionsBgpOspfRouteMapInner `json:"route_map,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

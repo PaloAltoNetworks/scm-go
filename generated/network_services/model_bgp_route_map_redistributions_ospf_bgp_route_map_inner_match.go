@@ -21,12 +21,12 @@ var _ MappedNullable = &BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatch{}
 // BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatch struct for BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatch
 type BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatch struct {
 	Address *BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatchAddress `json:"address,omitempty"`
-	// Interface
+	// OSPF BGP Route maps Interface
 	Interface *string `json:"interface,omitempty"`
-	// Metric
+	// OSPF BGP Route maps Metric
 	Metric  *int32                                                      `json:"metric,omitempty"`
 	NextHop *BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatchNextHop `json:"next_hop,omitempty"`
-	// Tag
+	// OSPF BGP Route maps Tag
 	Tag                  *int32 `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -18,28 +18,28 @@ import (
 // checks if the BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch{}
 
-// BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch struct for BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch
+// BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch match attribute for BG Rib route map
 type BgpRouteMapRedistributionsBgpRibRouteMapInnerMatch struct {
-	// AS path access list
+	// BGP Root RIB Route maps match AS path access list
 	AsPathAccessList *string `json:"as_path_access_list,omitempty"`
-	// Extended community
+	// BGP Root RIB Route maps match Extended community
 	ExtendedCommunity *string `json:"extended_community,omitempty"`
-	// Interface
+	// BGP Root RIB Route maps match Interface
 	Interface *string                                                 `json:"interface,omitempty"`
 	Ipv4      *BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4 `json:"ipv4,omitempty"`
-	// Large community
+	// BGP Root RIB Route maps match Large community
 	LargeCommunity *string `json:"large_community,omitempty"`
-	// Local preference
+	// BGP Root RIB Route maps match Local preference
 	LocalPreference *int32 `json:"local_preference,omitempty"`
-	// Metric
+	// BGP Root RIB Route maps match Metric
 	Metric *int32 `json:"metric,omitempty"`
-	// Origin
+	// BGP Root RIB Route maps match Origin
 	Origin *string `json:"origin,omitempty"`
-	// Peer
+	// BGP Root RIB Route maps match Peer
 	Peer *string `json:"peer,omitempty"`
-	// Regular community
+	// BGP Root RIB Route maps match Regular community
 	RegularCommunity *string `json:"regular_community,omitempty"`
-	// Tag
+	// BGP Root RIB Route maps match Tag
 	Tag                  *int32 `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
