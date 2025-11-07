@@ -36,10 +36,11 @@ type InterfaceManagementProfiles struct {
 	// Name
 	Name string `json:"name"`
 	// Allowed IP address(es)
-	PermittedIp []string `json:"permitted_ip,omitempty"`
+	PermittedIp []InterfaceManagementProfilesPermittedIpInner `json:"permitted_ip,omitempty"`
 	// Allow ping?
-	Ping          *bool       `json:"ping,omitempty"`
-	ResponsePages interface{} `json:"response_pages,omitempty"`
+	Ping *bool `json:"ping,omitempty"`
+	// Allow response pages?
+	ResponsePages *bool `json:"response_pages,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Allow SSH?
@@ -292,9 +293,9 @@ func (o *InterfaceManagementProfiles) SetName(v string) {
 }
 
 // GetPermittedIp returns the PermittedIp field value if set, zero value otherwise.
-func (o *InterfaceManagementProfiles) GetPermittedIp() []string {
+func (o *InterfaceManagementProfiles) GetPermittedIp() []InterfaceManagementProfilesPermittedIpInner {
 	if o == nil || IsNil(o.PermittedIp) {
-		var ret []string
+		var ret []InterfaceManagementProfilesPermittedIpInner
 		return ret
 	}
 	return o.PermittedIp
@@ -302,7 +303,7 @@ func (o *InterfaceManagementProfiles) GetPermittedIp() []string {
 
 // GetPermittedIpOk returns a tuple with the PermittedIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InterfaceManagementProfiles) GetPermittedIpOk() ([]string, bool) {
+func (o *InterfaceManagementProfiles) GetPermittedIpOk() ([]InterfaceManagementProfilesPermittedIpInner, bool) {
 	if o == nil || IsNil(o.PermittedIp) {
 		return nil, false
 	}
@@ -318,8 +319,8 @@ func (o *InterfaceManagementProfiles) HasPermittedIp() bool {
 	return false
 }
 
-// SetPermittedIp gets a reference to the given []string and assigns it to the PermittedIp field.
-func (o *InterfaceManagementProfiles) SetPermittedIp(v []string) {
+// SetPermittedIp gets a reference to the given []InterfaceManagementProfilesPermittedIpInner and assigns it to the PermittedIp field.
+func (o *InterfaceManagementProfiles) SetPermittedIp(v []InterfaceManagementProfilesPermittedIpInner) {
 	o.PermittedIp = v
 }
 
@@ -355,23 +356,22 @@ func (o *InterfaceManagementProfiles) SetPing(v bool) {
 	o.Ping = &v
 }
 
-// GetResponsePages returns the ResponsePages field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *InterfaceManagementProfiles) GetResponsePages() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetResponsePages returns the ResponsePages field value if set, zero value otherwise.
+func (o *InterfaceManagementProfiles) GetResponsePages() bool {
+	if o == nil || IsNil(o.ResponsePages) {
+		var ret bool
 		return ret
 	}
-	return o.ResponsePages
+	return *o.ResponsePages
 }
 
 // GetResponsePagesOk returns a tuple with the ResponsePages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *InterfaceManagementProfiles) GetResponsePagesOk() (*interface{}, bool) {
+func (o *InterfaceManagementProfiles) GetResponsePagesOk() (*bool, bool) {
 	if o == nil || IsNil(o.ResponsePages) {
 		return nil, false
 	}
-	return &o.ResponsePages, true
+	return o.ResponsePages, true
 }
 
 // HasResponsePages returns a boolean if a field has been set.
@@ -383,9 +383,9 @@ func (o *InterfaceManagementProfiles) HasResponsePages() bool {
 	return false
 }
 
-// SetResponsePages gets a reference to the given interface{} and assigns it to the ResponsePages field.
-func (o *InterfaceManagementProfiles) SetResponsePages(v interface{}) {
-	o.ResponsePages = v
+// SetResponsePages gets a reference to the given bool and assigns it to the ResponsePages field.
+func (o *InterfaceManagementProfiles) SetResponsePages(v bool) {
+	o.ResponsePages = &v
 }
 
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
@@ -615,7 +615,7 @@ func (o InterfaceManagementProfiles) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Ping) {
 		toSerialize["ping"] = o.Ping
 	}
-	if o.ResponsePages != nil {
+	if !IsNil(o.ResponsePages) {
 		toSerialize["response_pages"] = o.ResponsePages
 	}
 	if !IsNil(o.Snippet) {

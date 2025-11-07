@@ -20,8 +20,8 @@ servers:
 security:
 - scmToken: []
 tags:
-- description: Aggregate Ethernet Interfaces
-  name: Aggregate Ethernet Interfaces
+- description: Aggregate Interfaces
+  name: Aggregate Interfaces
 - description: Auto VPN Clusters
   name: Auto VPN Clusters
 - description: Auto VPN Config Push
@@ -109,11 +109,11 @@ tags:
 - description: Remote Networks License Info
   name: Remote Networks License
 paths:
-  /aggregate-ethernet-interfaces:
+  /aggregate-interfaces:
     get:
       description: |
-        Retrieve a list of aggregate ethernet interfaces.
-      operationId: ListAggregateEthernetInterfaces
+        Retrieve a list of Aggregate Interfaces.
+      operationId: ListAggregateInterfaces
       parameters:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/offset'
@@ -126,7 +126,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AggregateEthernetInterfacesListResponse'
+                $ref: '#/components/schemas/AggregateInterfacesListResponse'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic'
@@ -138,25 +138,25 @@ paths:
           $ref: '#/components/responses/not_found'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: List aggregate ethernet interfaces
+      summary: List Aggregate Interfaces
       tags:
-      - Aggregate Ethernet Interfaces
+      - Aggregate Interfaces
     post:
       description: |
-        Create a new aggregate ethernet interface.
-      operationId: CreateAggregateEthernetInterfaces
+        Create a new Aggregate Interface.
+      operationId: CreateAggregateInterfaces
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+              $ref: '#/components/schemas/aggregate-interfaces'
         description: Created
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+                $ref: '#/components/schemas/aggregate-interfaces'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic_with_body'
@@ -168,14 +168,14 @@ paths:
           $ref: '#/components/responses/conflict_errors'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: Create an aggregate ethernet interface
+      summary: Create an Aggregate Interface
       tags:
-      - Aggregate Ethernet Interfaces
-  /aggregate-ethernet-interfaces/{id}:
+      - Aggregate Interfaces
+  /aggregate-interfaces/{id}:
     delete:
       description: |
-        Delete an aggregate ethernet interface.
-      operationId: DeleteAggregateEthernetInterfacesByID
+        Delete an Aggregate Interface.
+      operationId: DeleteAggregateInterfacesByID
       parameters:
       - $ref: '#/components/parameters/uuid'
       responses:
@@ -193,13 +193,13 @@ paths:
           $ref: '#/components/responses/conflict_errors'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: Delete an aggregate ethernet interface
+      summary: Delete an Aggregate Interface
       tags:
-      - Aggregate Ethernet Interfaces
+      - Aggregate Interfaces
     get:
       description: |
-        Get an existing aggregate ethernet interface.
-      operationId: GetAggregateEthernetInterfacesByID
+        Get an existing Aggregate Interface.
+      operationId: GetAggregateInterfacesByID
       parameters:
       - $ref: '#/components/parameters/uuid'
       responses:
@@ -207,7 +207,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+                $ref: '#/components/schemas/aggregate-interfaces'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic'
@@ -219,27 +219,27 @@ paths:
           $ref: '#/components/responses/not_found'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: Get an aggregate ethernet interface
+      summary: Get an Aggregate Interface
       tags:
-      - Aggregate Ethernet Interfaces
+      - Aggregate Interfaces
     put:
       description: |
-        Update an existing aggregate ethernet interface.
-      operationId: UpdateAggregateEthernetInterfacesByID
+        Update an existing Aggregate Interface.
+      operationId: UpdateAggregateInterfacesByID
       parameters:
       - $ref: '#/components/parameters/uuid'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+              $ref: '#/components/schemas/aggregate-interfaces'
         description: OK
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+                $ref: '#/components/schemas/aggregate-interfaces'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic_with_body'
@@ -253,9 +253,9 @@ paths:
           $ref: '#/components/responses/conflict_errors'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: Update an aggregate ethernet interface
+      summary: Update an Aggregate Interface
       tags:
-      - Aggregate Ethernet Interfaces
+      - Aggregate Interfaces
   /auto-vpn-clusters:
     get:
       description: |
@@ -6522,7 +6522,7 @@ components:
             $ref: '#/components/schemas/generic_error'
       description: Not Found
   schemas:
-    AggregateEthernetInterfacesListResponse:
+    AggregateInterfacesListResponse:
       example:
         total: 1
         data:
@@ -6533,7 +6533,7 @@ components:
       properties:
         data:
           items:
-            $ref: '#/components/schemas/AggregateEthernetInterfaces'
+            $ref: '#/components/schemas/AggregateInterfaces'
           type: array
         limit:
           default: 200
@@ -7711,7 +7711,7 @@ components:
       properties:
         dhcp_client:
           $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
-    aggregate-ethernet-interfaces:
+    aggregate-interfaces:
       example:
         snippet: My Snippet
         folder: My Folder
@@ -7722,7 +7722,7 @@ components:
             send_hostname:
               hostname: system-hostname
               enable: true
-            default_route_metric: 36944
+            default_route_metric: 39073
           lacp:
             mode: passive
             fast_failover: false
@@ -7731,13 +7731,13 @@ components:
             system_priority: 39501
             max_ports: 1
           ip:
-          - ip
-          - ip
+          - name: name
+          - name: name
           ddns_config:
             ddns_enabled: false
             ddns_hostname: ddns_hostname
             ddns_vendor: ddns_vendor
-            ddns_update_interval: 18
+            ddns_update_interval: 5
             ddns_ip: ddns_ip
             ddns_cert_profile: ddns_cert_profile
             ddns_vendor_config: ddns_vendor_config
@@ -7747,7 +7747,7 @@ components:
             name: name
           - hw_address: hw_address
             name: name
-          mtu: 2565
+          mtu: 5446
         name: name
         comment: comment
         default_value: default_value
@@ -7760,7 +7760,7 @@ components:
             enable: false
             system_priority: 39501
             max_ports: 1
-          vlan_tag: 601
+          vlan_tag: "123"
         device: My Device
       properties:
         comment:
@@ -7788,9 +7788,9 @@ components:
           readOnly: true
           type: string
         layer2:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer2'
+          $ref: '#/components/schemas/aggregate_interfaces_layer2'
         layer3:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3'
+          $ref: '#/components/schemas/aggregate_interfaces_layer3'
         name:
           description: Aggregate interface name
           type: string
@@ -9791,9 +9791,9 @@ components:
         userid_syslog_listener_udp: true
         ping: true
         permitted_ip:
-        - permitted_ip
-        - permitted_ip
-        response_pages: ""
+        - name: name
+        - name: name
+        response_pages: true
         ssh: true
         userid_service: true
         folder: My Folder
@@ -9838,12 +9838,14 @@ components:
         permitted_ip:
           description: Allowed IP address(es)
           items:
-            type: string
+            $ref: '#/components/schemas/interface_management_profiles_permitted_ip_inner'
           type: array
         ping:
           description: Allow ping?
           type: boolean
-        response_pages: {}
+        response_pages:
+          description: Allow response pages?
+          type: boolean
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
@@ -11368,8 +11370,8 @@ components:
                       - nexthop
                     name: name
                   used_by:
-                  - "{}"
-                  - "{}"
+                  - used_by
+                  - used_by
                 - enable: true
                   non_exist_filters:
                   - enable: true
@@ -11471,8 +11473,8 @@ components:
                       - nexthop
                     name: name
                   used_by:
-                  - "{}"
-                  - "{}"
+                  - used_by
+                  - used_by
               aggregation:
                 address:
                 - summary: true
@@ -12682,6 +12684,7 @@ components:
                   fqdn: fqdn
                   ipv6_address: ipv6_address
                   next_lr: next_lr
+                  ip_address: ip_address
                   tunnel: tunnel
               - bfd:
                   profile: profile
@@ -12721,6 +12724,7 @@ components:
                   fqdn: fqdn
                   ipv6_address: ipv6_address
                   next_lr: next_lr
+                  ip_address: ip_address
                   tunnel: tunnel
           rib_filter:
             ipv4:
@@ -13745,8 +13749,8 @@ components:
                       - nexthop
                     name: name
                   used_by:
-                  - "{}"
-                  - "{}"
+                  - used_by
+                  - used_by
                 - enable: true
                   non_exist_filters:
                   - enable: true
@@ -13848,8 +13852,8 @@ components:
                       - nexthop
                     name: name
                   used_by:
-                  - "{}"
-                  - "{}"
+                  - used_by
+                  - used_by
               aggregation:
                 address:
                 - summary: true
@@ -15059,6 +15063,7 @@ components:
                   fqdn: fqdn
                   ipv6_address: ipv6_address
                   next_lr: next_lr
+                  ip_address: ip_address
                   tunnel: tunnel
               - bfd:
                   profile: profile
@@ -15098,6 +15103,7 @@ components:
                   fqdn: fqdn
                   ipv6_address: ipv6_address
                   next_lr: next_lr
+                  ip_address: ip_address
                   tunnel: tunnel
           rib_filter:
             ipv4:
@@ -17068,7 +17074,7 @@ components:
         send_hostname:
           hostname: system-hostname
           enable: true
-        default_route_metric: 36944
+        default_route_metric: 39073
       properties:
         create_default_route:
           default: true
@@ -17087,7 +17093,7 @@ components:
           type: boolean
         send_hostname:
           $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
-    aggregate_ethernet_interfaces_layer2:
+    aggregate_interfaces_layer2:
       example:
         lacp:
           mode: passive
@@ -17096,22 +17102,22 @@ components:
           enable: false
           system_priority: 39501
           max_ports: 1
-        vlan_tag: 601
+        vlan_tag: "123"
       properties:
         lacp:
           $ref: '#/components/schemas/lacp'
         vlan_tag:
-          description: Assign interface to VLAN tag
-          maximum: 4096
-          minimum: 1
-          type: integer
-    aggregate_ethernet_interfaces_layer3_ddns_config:
-      description: Dynamic DNS configuration specific to the Aggregate Ethernet Interface.
+          description: VLAN tag
+          example: "123"
+          pattern: "^([1-9]\\d{0,2}|[1-3]\\d{3}|40[0-8]\\d|409[0-6])$"
+          type: string
+    aggregate_interfaces_layer3_ddns_config:
+      description: Dynamic DNS configuration specific to the Aggregate Interface.
       example:
         ddns_enabled: false
         ddns_hostname: ddns_hostname
         ddns_vendor: ddns_vendor
-        ddns_update_interval: 18
+        ddns_update_interval: 5
         ddns_ip: ddns_ip
         ddns_cert_profile: ddns_cert_profile
         ddns_vendor_config: ddns_vendor_config
@@ -17150,7 +17156,17 @@ components:
       - ddns_hostname
       - ddns_vendor
       - ddns_vendor_config
-    aggregate_ethernet_interfaces_layer3:
+    aggregate_interfaces_layer3_ip_inner:
+      example:
+        name: name
+      properties:
+        name:
+          description: Aggregate Interface IP addresses name
+          type: string
+      required:
+      - name
+    aggregate_interfaces_layer3:
+      description: Aggregate Interface Layer 3 configuration
       example:
         dhcp_client:
           enable: true
@@ -17158,7 +17174,7 @@ components:
           send_hostname:
             hostname: system-hostname
             enable: true
-          default_route_metric: 36944
+          default_route_metric: 39073
         lacp:
           mode: passive
           fast_failover: false
@@ -17167,13 +17183,13 @@ components:
           system_priority: 39501
           max_ports: 1
         ip:
-        - ip
-        - ip
+        - name: name
+        - name: name
         ddns_config:
           ddns_enabled: false
           ddns_hostname: ddns_hostname
           ddns_vendor: ddns_vendor
-          ddns_update_interval: 18
+          ddns_update_interval: 5
           ddns_ip: ddns_ip
           ddns_cert_profile: ddns_cert_profile
           ddns_vendor_config: ddns_vendor_config
@@ -17183,7 +17199,7 @@ components:
           name: name
         - hw_address: hw_address
           name: name
-        mtu: 2565
+        mtu: 5446
       properties:
         arp:
           description: Aggregate Ethernet ARP configuration
@@ -17191,7 +17207,7 @@ components:
             $ref: '#/components/schemas/agg_ethernet_arp_inner'
           type: array
         ddns_config:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_ddns_config'
+          $ref: '#/components/schemas/aggregate_interfaces_layer3_ddns_config'
         dhcp_client:
           $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
         interface_management_profile:
@@ -17199,9 +17215,9 @@ components:
           maxLength: 31
           type: string
         ip:
-          description: Interface IP addresses
+          description: Aggregate Interface IP addresses
           items:
-            type: string
+            $ref: '#/components/schemas/aggregate_interfaces_layer3_ip_inner'
           type: array
         lacp:
           $ref: '#/components/schemas/lacp'
@@ -20892,6 +20908,7 @@ components:
         name: name
       properties:
         name:
+          description: Ethernet Interface IP addresses name
           type: string
       required:
       - name
@@ -20973,6 +20990,7 @@ components:
       - password
       - username
     ethernet_interfaces_layer3:
+      description: Ethernet Interface Layer 3 configuration
       example:
         dhcp_client:
           enable: true
@@ -21026,7 +21044,7 @@ components:
           maxLength: 31
           type: string
         ip:
-          description: Interface IP addresses
+          description: Ethernet Interface IP addresses
           items:
             $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
           type: array
@@ -21258,6 +21276,15 @@ components:
         passive_mode:
           default: false
           type: boolean
+    interface_management_profiles_permitted_ip_inner:
+      example:
+        name: name
+      properties:
+        name:
+          description: The allowed IP address or CIDR block.
+          type: string
+      required:
+      - name
     ipsec_crypto_profiles_ah:
       example:
         authentication:
@@ -23097,8 +23124,8 @@ components:
             - nexthop
           name: name
         used_by:
-        - "{}"
-        - "{}"
+        - used_by
+        - used_by
       properties:
         advertise_filters:
           items:
@@ -23114,7 +23141,7 @@ components:
           type: array
         used_by:
           items:
-            type: object
+            type: string
           type: array
       required:
       - name
@@ -23222,8 +23249,8 @@ components:
               - nexthop
             name: name
           used_by:
-          - "{}"
-          - "{}"
+          - used_by
+          - used_by
         - enable: true
           non_exist_filters:
           - enable: true
@@ -23325,8 +23352,8 @@ components:
               - nexthop
             name: name
           used_by:
-          - "{}"
-          - "{}"
+          - used_by
+          - used_by
       properties:
         policy:
           items:
@@ -24267,8 +24294,8 @@ components:
                 - nexthop
               name: name
             used_by:
-            - "{}"
-            - "{}"
+            - used_by
+            - used_by
           - enable: true
             non_exist_filters:
             - enable: true
@@ -24370,8 +24397,8 @@ components:
                 - nexthop
               name: name
             used_by:
-            - "{}"
-            - "{}"
+            - used_by
+            - used_by
         aggregation:
           address:
           - summary: true
@@ -25438,8 +25465,8 @@ components:
                   - nexthop
                 name: name
               used_by:
-              - "{}"
-              - "{}"
+              - used_by
+              - used_by
             - enable: true
               non_exist_filters:
               - enable: true
@@ -25541,8 +25568,8 @@ components:
                   - nexthop
                 name: name
               used_by:
-              - "{}"
-              - "{}"
+              - used_by
+              - used_by
           aggregation:
             address:
             - summary: true
@@ -26311,6 +26338,14 @@ components:
           - "2"
           - "3"
           type: string
+    logical_routers_vrf_inner_multicast_interface_group_inner_pim_allowed_neighbors_inner:
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      required:
+      - name
     logical_routers_vrf_inner_multicast_interface_group_inner_pim:
       example:
         dr_priority: 7
@@ -26325,7 +26360,7 @@ components:
       properties:
         allowed_neighbors:
           items:
-            $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
+            $ref: '#/components/schemas/logical_routers_vrf_inner_multicast_interface_group_inner_pim_allowed_neighbors_inner'
           type: array
         assert_interval:
           type: integer
@@ -28295,7 +28330,7 @@ components:
           type: string
         neighbor:
           items:
-            $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
+            $ref: '#/components/schemas/logical_routers_vrf_inner_multicast_interface_group_inner_pim_allowed_neighbors_inner'
           type: array
         passive:
           type: boolean
@@ -29430,11 +29465,14 @@ components:
         fqdn: fqdn
         ipv6_address: ipv6_address
         next_lr: next_lr
+        ip_address: ip_address
         tunnel: tunnel
       properties:
         discard:
           type: object
         fqdn:
+          type: string
+        ip_address:
           type: string
         ipv6_address:
           type: string
@@ -29561,6 +29599,7 @@ components:
           fqdn: fqdn
           ipv6_address: ipv6_address
           next_lr: next_lr
+          ip_address: ip_address
           tunnel: tunnel
       properties:
         admin_dist:
@@ -29624,6 +29663,7 @@ components:
             fqdn: fqdn
             ipv6_address: ipv6_address
             next_lr: next_lr
+            ip_address: ip_address
             tunnel: tunnel
         - bfd:
             profile: profile
@@ -29663,12 +29703,37 @@ components:
             fqdn: fqdn
             ipv6_address: ipv6_address
             next_lr: next_lr
+            ip_address: ip_address
             tunnel: tunnel
       properties:
         static_route:
           items:
             $ref: '#/components/schemas/logical_routers_vrf_inner_routing_table_ip_static_route_inner'
           type: array
+    logical_routers_vrf_inner_routing_table_ipv6_static_route_inner_nexthop:
+      example:
+        next_vr: next_vr
+        discard: "{}"
+        receive: "{}"
+        fqdn: fqdn
+        ipv6_address: ipv6_address
+        next_lr: next_lr
+        tunnel: tunnel
+      properties:
+        discard:
+          type: object
+        fqdn:
+          type: string
+        ipv6_address:
+          type: string
+        next_lr:
+          type: string
+        next_vr:
+          type: string
+        receive:
+          type: object
+        tunnel:
+          type: string
     logical_routers_vrf_inner_routing_table_ipv6_static_route_inner_option:
       example:
         passive: "{}"
@@ -29732,7 +29797,7 @@ components:
         name:
           type: string
         nexthop:
-          $ref: '#/components/schemas/logical_routers_vrf_inner_routing_table_ip_static_route_inner_nexthop'
+          $ref: '#/components/schemas/logical_routers_vrf_inner_routing_table_ipv6_static_route_inner_nexthop'
         option:
           $ref: '#/components/schemas/logical_routers_vrf_inner_routing_table_ipv6_static_route_inner_option'
         path_monitor:
@@ -29957,6 +30022,7 @@ components:
               fqdn: fqdn
               ipv6_address: ipv6_address
               next_lr: next_lr
+              ip_address: ip_address
               tunnel: tunnel
           - bfd:
               profile: profile
@@ -29996,6 +30062,7 @@ components:
               fqdn: fqdn
               ipv6_address: ipv6_address
               next_lr: next_lr
+              ip_address: ip_address
               tunnel: tunnel
       properties:
         ip:
@@ -31040,8 +31107,8 @@ components:
                     - nexthop
                   name: name
                 used_by:
-                - "{}"
-                - "{}"
+                - used_by
+                - used_by
               - enable: true
                 non_exist_filters:
                 - enable: true
@@ -31143,8 +31210,8 @@ components:
                     - nexthop
                   name: name
                 used_by:
-                - "{}"
-                - "{}"
+                - used_by
+                - used_by
             aggregation:
               address:
               - summary: true
@@ -32354,6 +32421,7 @@ components:
                 fqdn: fqdn
                 ipv6_address: ipv6_address
                 next_lr: next_lr
+                ip_address: ip_address
                 tunnel: tunnel
             - bfd:
                 profile: profile
@@ -32393,6 +32461,7 @@ components:
                 fqdn: fqdn
                 ipv6_address: ipv6_address
                 next_lr: next_lr
+                ip_address: ip_address
                 tunnel: tunnel
         rib_filter:
           ipv4:

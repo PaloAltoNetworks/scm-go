@@ -20,35 +20,35 @@ import (
 	"strings"
 )
 
-// AggregateEthernetInterfacesAPIService AggregateEthernetInterfacesAPI service
-type AggregateEthernetInterfacesAPIService service
+// AggregateInterfacesAPIService AggregateInterfacesAPI service
+type AggregateInterfacesAPIService service
 
-type ApiCreateAggregateEthernetInterfacesRequest struct {
-	ctx                         context.Context
-	ApiService                  *AggregateEthernetInterfacesAPIService
-	aggregateEthernetInterfaces *AggregateEthernetInterfaces
+type ApiCreateAggregateInterfacesRequest struct {
+	ctx                 context.Context
+	ApiService          *AggregateInterfacesAPIService
+	aggregateInterfaces *AggregateInterfaces
 }
 
 // Created
-func (r ApiCreateAggregateEthernetInterfacesRequest) AggregateEthernetInterfaces(aggregateEthernetInterfaces AggregateEthernetInterfaces) ApiCreateAggregateEthernetInterfacesRequest {
-	r.aggregateEthernetInterfaces = &aggregateEthernetInterfaces
+func (r ApiCreateAggregateInterfacesRequest) AggregateInterfaces(aggregateInterfaces AggregateInterfaces) ApiCreateAggregateInterfacesRequest {
+	r.aggregateInterfaces = &aggregateInterfaces
 	return r
 }
 
-func (r ApiCreateAggregateEthernetInterfacesRequest) Execute() (*AggregateEthernetInterfaces, *http.Response, error) {
-	return r.ApiService.CreateAggregateEthernetInterfacesExecute(r)
+func (r ApiCreateAggregateInterfacesRequest) Execute() (*AggregateInterfaces, *http.Response, error) {
+	return r.ApiService.CreateAggregateInterfacesExecute(r)
 }
 
 /*
-CreateAggregateEthernetInterfaces Create an aggregate ethernet interface
+CreateAggregateInterfaces Create an Aggregate Interface
 
-Create a new aggregate ethernet interface.
+Create a new Aggregate Interface.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateAggregateEthernetInterfacesRequest
+	@return ApiCreateAggregateInterfacesRequest
 */
-func (a *AggregateEthernetInterfacesAPIService) CreateAggregateEthernetInterfaces(ctx context.Context) ApiCreateAggregateEthernetInterfacesRequest {
-	return ApiCreateAggregateEthernetInterfacesRequest{
+func (a *AggregateInterfacesAPIService) CreateAggregateInterfaces(ctx context.Context) ApiCreateAggregateInterfacesRequest {
+	return ApiCreateAggregateInterfacesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -56,21 +56,21 @@ func (a *AggregateEthernetInterfacesAPIService) CreateAggregateEthernetInterface
 
 // Execute executes the request
 //
-//	@return AggregateEthernetInterfaces
-func (a *AggregateEthernetInterfacesAPIService) CreateAggregateEthernetInterfacesExecute(r ApiCreateAggregateEthernetInterfacesRequest) (*AggregateEthernetInterfaces, *http.Response, error) {
+//	@return AggregateInterfaces
+func (a *AggregateInterfacesAPIService) CreateAggregateInterfacesExecute(r ApiCreateAggregateInterfacesRequest) (*AggregateInterfaces, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AggregateEthernetInterfaces
+		localVarReturnValue *AggregateInterfaces
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateEthernetInterfacesAPIService.CreateAggregateEthernetInterfaces")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateInterfacesAPIService.CreateAggregateInterfaces")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/aggregate-ethernet-interfaces"
+	localVarPath := localBasePath + "/aggregate-interfaces"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -94,7 +94,7 @@ func (a *AggregateEthernetInterfacesAPIService) CreateAggregateEthernetInterface
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.aggregateEthernetInterfaces
+	localVarPostBody = r.aggregateInterfaces
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -184,27 +184,27 @@ func (a *AggregateEthernetInterfacesAPIService) CreateAggregateEthernetInterface
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteAggregateEthernetInterfacesByIDRequest struct {
+type ApiDeleteAggregateInterfacesByIDRequest struct {
 	ctx        context.Context
-	ApiService *AggregateEthernetInterfacesAPIService
+	ApiService *AggregateInterfacesAPIService
 	id         string
 }
 
-func (r ApiDeleteAggregateEthernetInterfacesByIDRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteAggregateEthernetInterfacesByIDExecute(r)
+func (r ApiDeleteAggregateInterfacesByIDRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAggregateInterfacesByIDExecute(r)
 }
 
 /*
-DeleteAggregateEthernetInterfacesByID Delete an aggregate ethernet interface
+DeleteAggregateInterfacesByID Delete an Aggregate Interface
 
-Delete an aggregate ethernet interface.
+Delete an Aggregate Interface.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The UUID of the configuration resource
-	@return ApiDeleteAggregateEthernetInterfacesByIDRequest
+	@return ApiDeleteAggregateInterfacesByIDRequest
 */
-func (a *AggregateEthernetInterfacesAPIService) DeleteAggregateEthernetInterfacesByID(ctx context.Context, id string) ApiDeleteAggregateEthernetInterfacesByIDRequest {
-	return ApiDeleteAggregateEthernetInterfacesByIDRequest{
+func (a *AggregateInterfacesAPIService) DeleteAggregateInterfacesByID(ctx context.Context, id string) ApiDeleteAggregateInterfacesByIDRequest {
+	return ApiDeleteAggregateInterfacesByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -212,19 +212,19 @@ func (a *AggregateEthernetInterfacesAPIService) DeleteAggregateEthernetInterface
 }
 
 // Execute executes the request
-func (a *AggregateEthernetInterfacesAPIService) DeleteAggregateEthernetInterfacesByIDExecute(r ApiDeleteAggregateEthernetInterfacesByIDRequest) (*http.Response, error) {
+func (a *AggregateInterfacesAPIService) DeleteAggregateInterfacesByIDExecute(r ApiDeleteAggregateInterfacesByIDRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateEthernetInterfacesAPIService.DeleteAggregateEthernetInterfacesByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateInterfacesAPIService.DeleteAggregateInterfacesByID")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/aggregate-ethernet-interfaces/{id}"
+	localVarPath := localBasePath + "/aggregate-interfaces/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -339,27 +339,27 @@ func (a *AggregateEthernetInterfacesAPIService) DeleteAggregateEthernetInterface
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetAggregateEthernetInterfacesByIDRequest struct {
+type ApiGetAggregateInterfacesByIDRequest struct {
 	ctx        context.Context
-	ApiService *AggregateEthernetInterfacesAPIService
+	ApiService *AggregateInterfacesAPIService
 	id         string
 }
 
-func (r ApiGetAggregateEthernetInterfacesByIDRequest) Execute() (*AggregateEthernetInterfaces, *http.Response, error) {
-	return r.ApiService.GetAggregateEthernetInterfacesByIDExecute(r)
+func (r ApiGetAggregateInterfacesByIDRequest) Execute() (*AggregateInterfaces, *http.Response, error) {
+	return r.ApiService.GetAggregateInterfacesByIDExecute(r)
 }
 
 /*
-GetAggregateEthernetInterfacesByID Get an aggregate ethernet interface
+GetAggregateInterfacesByID Get an Aggregate Interface
 
-Get an existing aggregate ethernet interface.
+Get an existing Aggregate Interface.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The UUID of the configuration resource
-	@return ApiGetAggregateEthernetInterfacesByIDRequest
+	@return ApiGetAggregateInterfacesByIDRequest
 */
-func (a *AggregateEthernetInterfacesAPIService) GetAggregateEthernetInterfacesByID(ctx context.Context, id string) ApiGetAggregateEthernetInterfacesByIDRequest {
-	return ApiGetAggregateEthernetInterfacesByIDRequest{
+func (a *AggregateInterfacesAPIService) GetAggregateInterfacesByID(ctx context.Context, id string) ApiGetAggregateInterfacesByIDRequest {
+	return ApiGetAggregateInterfacesByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -368,21 +368,21 @@ func (a *AggregateEthernetInterfacesAPIService) GetAggregateEthernetInterfacesBy
 
 // Execute executes the request
 //
-//	@return AggregateEthernetInterfaces
-func (a *AggregateEthernetInterfacesAPIService) GetAggregateEthernetInterfacesByIDExecute(r ApiGetAggregateEthernetInterfacesByIDRequest) (*AggregateEthernetInterfaces, *http.Response, error) {
+//	@return AggregateInterfaces
+func (a *AggregateInterfacesAPIService) GetAggregateInterfacesByIDExecute(r ApiGetAggregateInterfacesByIDRequest) (*AggregateInterfaces, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AggregateEthernetInterfaces
+		localVarReturnValue *AggregateInterfaces
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateEthernetInterfacesAPIService.GetAggregateEthernetInterfacesByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateInterfacesAPIService.GetAggregateInterfacesByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/aggregate-ethernet-interfaces/{id}"
+	localVarPath := localBasePath + "/aggregate-interfaces/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -495,9 +495,9 @@ func (a *AggregateEthernetInterfacesAPIService) GetAggregateEthernetInterfacesBy
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListAggregateEthernetInterfacesRequest struct {
+type ApiListAggregateInterfacesRequest struct {
 	ctx        context.Context
-	ApiService *AggregateEthernetInterfacesAPIService
+	ApiService *AggregateInterfacesAPIService
 	limit      *int32
 	offset     *int32
 	name       *string
@@ -507,55 +507,55 @@ type ApiListAggregateEthernetInterfacesRequest struct {
 }
 
 // The maximum number of results per page
-func (r ApiListAggregateEthernetInterfacesRequest) Limit(limit int32) ApiListAggregateEthernetInterfacesRequest {
+func (r ApiListAggregateInterfacesRequest) Limit(limit int32) ApiListAggregateInterfacesRequest {
 	r.limit = &limit
 	return r
 }
 
 // The offset into the list of results returned
-func (r ApiListAggregateEthernetInterfacesRequest) Offset(offset int32) ApiListAggregateEthernetInterfacesRequest {
+func (r ApiListAggregateInterfacesRequest) Offset(offset int32) ApiListAggregateInterfacesRequest {
 	r.offset = &offset
 	return r
 }
 
 // The name of the configuration resource
-func (r ApiListAggregateEthernetInterfacesRequest) Name(name string) ApiListAggregateEthernetInterfacesRequest {
+func (r ApiListAggregateInterfacesRequest) Name(name string) ApiListAggregateInterfacesRequest {
 	r.name = &name
 	return r
 }
 
 // The folder in which the resource is defined
-func (r ApiListAggregateEthernetInterfacesRequest) Folder(folder string) ApiListAggregateEthernetInterfacesRequest {
+func (r ApiListAggregateInterfacesRequest) Folder(folder string) ApiListAggregateInterfacesRequest {
 	r.folder = &folder
 	return r
 }
 
 // The snippet in which the resource is defined
-func (r ApiListAggregateEthernetInterfacesRequest) Snippet(snippet string) ApiListAggregateEthernetInterfacesRequest {
+func (r ApiListAggregateInterfacesRequest) Snippet(snippet string) ApiListAggregateInterfacesRequest {
 	r.snippet = &snippet
 	return r
 }
 
 // The device in which the resource is defined
-func (r ApiListAggregateEthernetInterfacesRequest) Device(device string) ApiListAggregateEthernetInterfacesRequest {
+func (r ApiListAggregateInterfacesRequest) Device(device string) ApiListAggregateInterfacesRequest {
 	r.device = &device
 	return r
 }
 
-func (r ApiListAggregateEthernetInterfacesRequest) Execute() (*AggregateEthernetInterfacesListResponse, *http.Response, error) {
-	return r.ApiService.ListAggregateEthernetInterfacesExecute(r)
+func (r ApiListAggregateInterfacesRequest) Execute() (*AggregateInterfacesListResponse, *http.Response, error) {
+	return r.ApiService.ListAggregateInterfacesExecute(r)
 }
 
 /*
-ListAggregateEthernetInterfaces List aggregate ethernet interfaces
+ListAggregateInterfaces List Aggregate Interfaces
 
-Retrieve a list of aggregate ethernet interfaces.
+Retrieve a list of Aggregate Interfaces.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAggregateEthernetInterfacesRequest
+	@return ApiListAggregateInterfacesRequest
 */
-func (a *AggregateEthernetInterfacesAPIService) ListAggregateEthernetInterfaces(ctx context.Context) ApiListAggregateEthernetInterfacesRequest {
-	return ApiListAggregateEthernetInterfacesRequest{
+func (a *AggregateInterfacesAPIService) ListAggregateInterfaces(ctx context.Context) ApiListAggregateInterfacesRequest {
+	return ApiListAggregateInterfacesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -563,21 +563,21 @@ func (a *AggregateEthernetInterfacesAPIService) ListAggregateEthernetInterfaces(
 
 // Execute executes the request
 //
-//	@return AggregateEthernetInterfacesListResponse
-func (a *AggregateEthernetInterfacesAPIService) ListAggregateEthernetInterfacesExecute(r ApiListAggregateEthernetInterfacesRequest) (*AggregateEthernetInterfacesListResponse, *http.Response, error) {
+//	@return AggregateInterfacesListResponse
+func (a *AggregateInterfacesAPIService) ListAggregateInterfacesExecute(r ApiListAggregateInterfacesRequest) (*AggregateInterfacesListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AggregateEthernetInterfacesListResponse
+		localVarReturnValue *AggregateInterfacesListResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateEthernetInterfacesAPIService.ListAggregateEthernetInterfaces")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateInterfacesAPIService.ListAggregateInterfaces")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/aggregate-ethernet-interfaces"
+	localVarPath := localBasePath + "/aggregate-interfaces"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -713,34 +713,34 @@ func (a *AggregateEthernetInterfacesAPIService) ListAggregateEthernetInterfacesE
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateAggregateEthernetInterfacesByIDRequest struct {
-	ctx                         context.Context
-	ApiService                  *AggregateEthernetInterfacesAPIService
-	id                          string
-	aggregateEthernetInterfaces *AggregateEthernetInterfaces
+type ApiUpdateAggregateInterfacesByIDRequest struct {
+	ctx                 context.Context
+	ApiService          *AggregateInterfacesAPIService
+	id                  string
+	aggregateInterfaces *AggregateInterfaces
 }
 
 // OK
-func (r ApiUpdateAggregateEthernetInterfacesByIDRequest) AggregateEthernetInterfaces(aggregateEthernetInterfaces AggregateEthernetInterfaces) ApiUpdateAggregateEthernetInterfacesByIDRequest {
-	r.aggregateEthernetInterfaces = &aggregateEthernetInterfaces
+func (r ApiUpdateAggregateInterfacesByIDRequest) AggregateInterfaces(aggregateInterfaces AggregateInterfaces) ApiUpdateAggregateInterfacesByIDRequest {
+	r.aggregateInterfaces = &aggregateInterfaces
 	return r
 }
 
-func (r ApiUpdateAggregateEthernetInterfacesByIDRequest) Execute() (*AggregateEthernetInterfaces, *http.Response, error) {
-	return r.ApiService.UpdateAggregateEthernetInterfacesByIDExecute(r)
+func (r ApiUpdateAggregateInterfacesByIDRequest) Execute() (*AggregateInterfaces, *http.Response, error) {
+	return r.ApiService.UpdateAggregateInterfacesByIDExecute(r)
 }
 
 /*
-UpdateAggregateEthernetInterfacesByID Update an aggregate ethernet interface
+UpdateAggregateInterfacesByID Update an Aggregate Interface
 
-Update an existing aggregate ethernet interface.
+Update an existing Aggregate Interface.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The UUID of the configuration resource
-	@return ApiUpdateAggregateEthernetInterfacesByIDRequest
+	@return ApiUpdateAggregateInterfacesByIDRequest
 */
-func (a *AggregateEthernetInterfacesAPIService) UpdateAggregateEthernetInterfacesByID(ctx context.Context, id string) ApiUpdateAggregateEthernetInterfacesByIDRequest {
-	return ApiUpdateAggregateEthernetInterfacesByIDRequest{
+func (a *AggregateInterfacesAPIService) UpdateAggregateInterfacesByID(ctx context.Context, id string) ApiUpdateAggregateInterfacesByIDRequest {
+	return ApiUpdateAggregateInterfacesByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -749,21 +749,21 @@ func (a *AggregateEthernetInterfacesAPIService) UpdateAggregateEthernetInterface
 
 // Execute executes the request
 //
-//	@return AggregateEthernetInterfaces
-func (a *AggregateEthernetInterfacesAPIService) UpdateAggregateEthernetInterfacesByIDExecute(r ApiUpdateAggregateEthernetInterfacesByIDRequest) (*AggregateEthernetInterfaces, *http.Response, error) {
+//	@return AggregateInterfaces
+func (a *AggregateInterfacesAPIService) UpdateAggregateInterfacesByIDExecute(r ApiUpdateAggregateInterfacesByIDRequest) (*AggregateInterfaces, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AggregateEthernetInterfaces
+		localVarReturnValue *AggregateInterfaces
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateEthernetInterfacesAPIService.UpdateAggregateEthernetInterfacesByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AggregateInterfacesAPIService.UpdateAggregateInterfacesByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/aggregate-ethernet-interfaces/{id}"
+	localVarPath := localBasePath + "/aggregate-interfaces/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -788,7 +788,7 @@ func (a *AggregateEthernetInterfacesAPIService) UpdateAggregateEthernetInterface
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.aggregateEthernetInterfaces
+	localVarPostBody = r.aggregateInterfaces
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

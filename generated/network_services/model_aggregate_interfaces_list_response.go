@@ -16,12 +16,12 @@ import (
 	"fmt"
 )
 
-// checks if the AggregateEthernetInterfacesListResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AggregateEthernetInterfacesListResponse{}
+// checks if the AggregateInterfacesListResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AggregateInterfacesListResponse{}
 
-// AggregateEthernetInterfacesListResponse struct for AggregateEthernetInterfacesListResponse
-type AggregateEthernetInterfacesListResponse struct {
-	Data []AggregateEthernetInterfaces `json:"data"`
+// AggregateInterfacesListResponse struct for AggregateInterfacesListResponse
+type AggregateInterfacesListResponse struct {
+	Data []AggregateInterfaces `json:"data"`
 	// The maximum number of results per page
 	Limit int32 `json:"limit"`
 	// The offset into the list of results returned
@@ -31,14 +31,14 @@ type AggregateEthernetInterfacesListResponse struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _AggregateEthernetInterfacesListResponse AggregateEthernetInterfacesListResponse
+type _AggregateInterfacesListResponse AggregateInterfacesListResponse
 
-// NewAggregateEthernetInterfacesListResponse instantiates a new AggregateEthernetInterfacesListResponse object
+// NewAggregateInterfacesListResponse instantiates a new AggregateInterfacesListResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAggregateEthernetInterfacesListResponse(data []AggregateEthernetInterfaces, limit int32, offset int32, total int32) *AggregateEthernetInterfacesListResponse {
-	this := AggregateEthernetInterfacesListResponse{}
+func NewAggregateInterfacesListResponse(data []AggregateInterfaces, limit int32, offset int32, total int32) *AggregateInterfacesListResponse {
+	this := AggregateInterfacesListResponse{}
 	this.Data = data
 	this.Limit = limit
 	this.Offset = offset
@@ -46,11 +46,11 @@ func NewAggregateEthernetInterfacesListResponse(data []AggregateEthernetInterfac
 	return &this
 }
 
-// NewAggregateEthernetInterfacesListResponseWithDefaults instantiates a new AggregateEthernetInterfacesListResponse object
+// NewAggregateInterfacesListResponseWithDefaults instantiates a new AggregateInterfacesListResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAggregateEthernetInterfacesListResponseWithDefaults() *AggregateEthernetInterfacesListResponse {
-	this := AggregateEthernetInterfacesListResponse{}
+func NewAggregateInterfacesListResponseWithDefaults() *AggregateInterfacesListResponse {
+	this := AggregateInterfacesListResponse{}
 	var limit int32 = 200
 	this.Limit = limit
 	var offset int32 = 0
@@ -59,9 +59,9 @@ func NewAggregateEthernetInterfacesListResponseWithDefaults() *AggregateEthernet
 }
 
 // GetData returns the Data field value
-func (o *AggregateEthernetInterfacesListResponse) GetData() []AggregateEthernetInterfaces {
+func (o *AggregateInterfacesListResponse) GetData() []AggregateInterfaces {
 	if o == nil {
-		var ret []AggregateEthernetInterfaces
+		var ret []AggregateInterfaces
 		return ret
 	}
 
@@ -70,7 +70,7 @@ func (o *AggregateEthernetInterfacesListResponse) GetData() []AggregateEthernetI
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesListResponse) GetDataOk() ([]AggregateEthernetInterfaces, bool) {
+func (o *AggregateInterfacesListResponse) GetDataOk() ([]AggregateInterfaces, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -78,12 +78,12 @@ func (o *AggregateEthernetInterfacesListResponse) GetDataOk() ([]AggregateEthern
 }
 
 // SetData sets field value
-func (o *AggregateEthernetInterfacesListResponse) SetData(v []AggregateEthernetInterfaces) {
+func (o *AggregateInterfacesListResponse) SetData(v []AggregateInterfaces) {
 	o.Data = v
 }
 
 // GetLimit returns the Limit field value
-func (o *AggregateEthernetInterfacesListResponse) GetLimit() int32 {
+func (o *AggregateInterfacesListResponse) GetLimit() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -94,7 +94,7 @@ func (o *AggregateEthernetInterfacesListResponse) GetLimit() int32 {
 
 // GetLimitOk returns a tuple with the Limit field value
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesListResponse) GetLimitOk() (*int32, bool) {
+func (o *AggregateInterfacesListResponse) GetLimitOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -102,12 +102,12 @@ func (o *AggregateEthernetInterfacesListResponse) GetLimitOk() (*int32, bool) {
 }
 
 // SetLimit sets field value
-func (o *AggregateEthernetInterfacesListResponse) SetLimit(v int32) {
+func (o *AggregateInterfacesListResponse) SetLimit(v int32) {
 	o.Limit = v
 }
 
 // GetOffset returns the Offset field value
-func (o *AggregateEthernetInterfacesListResponse) GetOffset() int32 {
+func (o *AggregateInterfacesListResponse) GetOffset() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -118,7 +118,7 @@ func (o *AggregateEthernetInterfacesListResponse) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesListResponse) GetOffsetOk() (*int32, bool) {
+func (o *AggregateInterfacesListResponse) GetOffsetOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -126,12 +126,12 @@ func (o *AggregateEthernetInterfacesListResponse) GetOffsetOk() (*int32, bool) {
 }
 
 // SetOffset sets field value
-func (o *AggregateEthernetInterfacesListResponse) SetOffset(v int32) {
+func (o *AggregateInterfacesListResponse) SetOffset(v int32) {
 	o.Offset = v
 }
 
 // GetTotal returns the Total field value
-func (o *AggregateEthernetInterfacesListResponse) GetTotal() int32 {
+func (o *AggregateInterfacesListResponse) GetTotal() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -142,7 +142,7 @@ func (o *AggregateEthernetInterfacesListResponse) GetTotal() int32 {
 
 // GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesListResponse) GetTotalOk() (*int32, bool) {
+func (o *AggregateInterfacesListResponse) GetTotalOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -150,11 +150,11 @@ func (o *AggregateEthernetInterfacesListResponse) GetTotalOk() (*int32, bool) {
 }
 
 // SetTotal sets field value
-func (o *AggregateEthernetInterfacesListResponse) SetTotal(v int32) {
+func (o *AggregateInterfacesListResponse) SetTotal(v int32) {
 	o.Total = v
 }
 
-func (o AggregateEthernetInterfacesListResponse) MarshalJSON() ([]byte, error) {
+func (o AggregateInterfacesListResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -162,7 +162,7 @@ func (o AggregateEthernetInterfacesListResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AggregateEthernetInterfacesListResponse) ToMap() (map[string]interface{}, error) {
+func (o AggregateInterfacesListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
 	toSerialize["limit"] = o.Limit
@@ -176,7 +176,7 @@ func (o AggregateEthernetInterfacesListResponse) ToMap() (map[string]interface{}
 	return toSerialize, nil
 }
 
-func (o *AggregateEthernetInterfacesListResponse) UnmarshalJSON(data []byte) (err error) {
+func (o *AggregateInterfacesListResponse) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -201,15 +201,15 @@ func (o *AggregateEthernetInterfacesListResponse) UnmarshalJSON(data []byte) (er
 		}
 	}
 
-	varAggregateEthernetInterfacesListResponse := _AggregateEthernetInterfacesListResponse{}
+	varAggregateInterfacesListResponse := _AggregateInterfacesListResponse{}
 
-	err = json.Unmarshal(data, &varAggregateEthernetInterfacesListResponse)
+	err = json.Unmarshal(data, &varAggregateInterfacesListResponse)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AggregateEthernetInterfacesListResponse(varAggregateEthernetInterfacesListResponse)
+	*o = AggregateInterfacesListResponse(varAggregateInterfacesListResponse)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -224,38 +224,38 @@ func (o *AggregateEthernetInterfacesListResponse) UnmarshalJSON(data []byte) (er
 	return err
 }
 
-type NullableAggregateEthernetInterfacesListResponse struct {
-	value *AggregateEthernetInterfacesListResponse
+type NullableAggregateInterfacesListResponse struct {
+	value *AggregateInterfacesListResponse
 	isSet bool
 }
 
-func (v NullableAggregateEthernetInterfacesListResponse) Get() *AggregateEthernetInterfacesListResponse {
+func (v NullableAggregateInterfacesListResponse) Get() *AggregateInterfacesListResponse {
 	return v.value
 }
 
-func (v *NullableAggregateEthernetInterfacesListResponse) Set(val *AggregateEthernetInterfacesListResponse) {
+func (v *NullableAggregateInterfacesListResponse) Set(val *AggregateInterfacesListResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAggregateEthernetInterfacesListResponse) IsSet() bool {
+func (v NullableAggregateInterfacesListResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAggregateEthernetInterfacesListResponse) Unset() {
+func (v *NullableAggregateInterfacesListResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAggregateEthernetInterfacesListResponse(val *AggregateEthernetInterfacesListResponse) *NullableAggregateEthernetInterfacesListResponse {
-	return &NullableAggregateEthernetInterfacesListResponse{value: val, isSet: true}
+func NewNullableAggregateInterfacesListResponse(val *AggregateInterfacesListResponse) *NullableAggregateInterfacesListResponse {
+	return &NullableAggregateInterfacesListResponse{value: val, isSet: true}
 }
 
-func (v NullableAggregateEthernetInterfacesListResponse) MarshalJSON() ([]byte, error) {
+func (v NullableAggregateInterfacesListResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAggregateEthernetInterfacesListResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableAggregateInterfacesListResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -16,38 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the EthernetInterfacesLayer3IpInner type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EthernetInterfacesLayer3IpInner{}
+// checks if the AggregateInterfacesLayer3IpInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AggregateInterfacesLayer3IpInner{}
 
-// EthernetInterfacesLayer3IpInner struct for EthernetInterfacesLayer3IpInner
-type EthernetInterfacesLayer3IpInner struct {
-	// Ethernet Interface IP addresses name
+// AggregateInterfacesLayer3IpInner struct for AggregateInterfacesLayer3IpInner
+type AggregateInterfacesLayer3IpInner struct {
+	// Aggregate Interface IP addresses name
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _EthernetInterfacesLayer3IpInner EthernetInterfacesLayer3IpInner
+type _AggregateInterfacesLayer3IpInner AggregateInterfacesLayer3IpInner
 
-// NewEthernetInterfacesLayer3IpInner instantiates a new EthernetInterfacesLayer3IpInner object
+// NewAggregateInterfacesLayer3IpInner instantiates a new AggregateInterfacesLayer3IpInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEthernetInterfacesLayer3IpInner(name string) *EthernetInterfacesLayer3IpInner {
-	this := EthernetInterfacesLayer3IpInner{}
+func NewAggregateInterfacesLayer3IpInner(name string) *AggregateInterfacesLayer3IpInner {
+	this := AggregateInterfacesLayer3IpInner{}
 	this.Name = name
 	return &this
 }
 
-// NewEthernetInterfacesLayer3IpInnerWithDefaults instantiates a new EthernetInterfacesLayer3IpInner object
+// NewAggregateInterfacesLayer3IpInnerWithDefaults instantiates a new AggregateInterfacesLayer3IpInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEthernetInterfacesLayer3IpInnerWithDefaults() *EthernetInterfacesLayer3IpInner {
-	this := EthernetInterfacesLayer3IpInner{}
+func NewAggregateInterfacesLayer3IpInnerWithDefaults() *AggregateInterfacesLayer3IpInner {
+	this := AggregateInterfacesLayer3IpInner{}
 	return &this
 }
 
 // GetName returns the Name field value
-func (o *EthernetInterfacesLayer3IpInner) GetName() string {
+func (o *AggregateInterfacesLayer3IpInner) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -58,7 +58,7 @@ func (o *EthernetInterfacesLayer3IpInner) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3IpInner) GetNameOk() (*string, bool) {
+func (o *AggregateInterfacesLayer3IpInner) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,11 +66,11 @@ func (o *EthernetInterfacesLayer3IpInner) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *EthernetInterfacesLayer3IpInner) SetName(v string) {
+func (o *AggregateInterfacesLayer3IpInner) SetName(v string) {
 	o.Name = v
 }
 
-func (o EthernetInterfacesLayer3IpInner) MarshalJSON() ([]byte, error) {
+func (o AggregateInterfacesLayer3IpInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -78,7 +78,7 @@ func (o EthernetInterfacesLayer3IpInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EthernetInterfacesLayer3IpInner) ToMap() (map[string]interface{}, error) {
+func (o AggregateInterfacesLayer3IpInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
 
@@ -89,7 +89,7 @@ func (o EthernetInterfacesLayer3IpInner) ToMap() (map[string]interface{}, error)
 	return toSerialize, nil
 }
 
-func (o *EthernetInterfacesLayer3IpInner) UnmarshalJSON(data []byte) (err error) {
+func (o *AggregateInterfacesLayer3IpInner) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -111,15 +111,15 @@ func (o *EthernetInterfacesLayer3IpInner) UnmarshalJSON(data []byte) (err error)
 		}
 	}
 
-	varEthernetInterfacesLayer3IpInner := _EthernetInterfacesLayer3IpInner{}
+	varAggregateInterfacesLayer3IpInner := _AggregateInterfacesLayer3IpInner{}
 
-	err = json.Unmarshal(data, &varEthernetInterfacesLayer3IpInner)
+	err = json.Unmarshal(data, &varAggregateInterfacesLayer3IpInner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = EthernetInterfacesLayer3IpInner(varEthernetInterfacesLayer3IpInner)
+	*o = AggregateInterfacesLayer3IpInner(varAggregateInterfacesLayer3IpInner)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -131,38 +131,38 @@ func (o *EthernetInterfacesLayer3IpInner) UnmarshalJSON(data []byte) (err error)
 	return err
 }
 
-type NullableEthernetInterfacesLayer3IpInner struct {
-	value *EthernetInterfacesLayer3IpInner
+type NullableAggregateInterfacesLayer3IpInner struct {
+	value *AggregateInterfacesLayer3IpInner
 	isSet bool
 }
 
-func (v NullableEthernetInterfacesLayer3IpInner) Get() *EthernetInterfacesLayer3IpInner {
+func (v NullableAggregateInterfacesLayer3IpInner) Get() *AggregateInterfacesLayer3IpInner {
 	return v.value
 }
 
-func (v *NullableEthernetInterfacesLayer3IpInner) Set(val *EthernetInterfacesLayer3IpInner) {
+func (v *NullableAggregateInterfacesLayer3IpInner) Set(val *AggregateInterfacesLayer3IpInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEthernetInterfacesLayer3IpInner) IsSet() bool {
+func (v NullableAggregateInterfacesLayer3IpInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEthernetInterfacesLayer3IpInner) Unset() {
+func (v *NullableAggregateInterfacesLayer3IpInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEthernetInterfacesLayer3IpInner(val *EthernetInterfacesLayer3IpInner) *NullableEthernetInterfacesLayer3IpInner {
-	return &NullableEthernetInterfacesLayer3IpInner{value: val, isSet: true}
+func NewNullableAggregateInterfacesLayer3IpInner(val *AggregateInterfacesLayer3IpInner) *NullableAggregateInterfacesLayer3IpInner {
+	return &NullableAggregateInterfacesLayer3IpInner{value: val, isSet: true}
 }
 
-func (v NullableEthernetInterfacesLayer3IpInner) MarshalJSON() ([]byte, error) {
+func (v NullableAggregateInterfacesLayer3IpInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEthernetInterfacesLayer3IpInner) UnmarshalJSON(src []byte) error {
+func (v *NullableAggregateInterfacesLayer3IpInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

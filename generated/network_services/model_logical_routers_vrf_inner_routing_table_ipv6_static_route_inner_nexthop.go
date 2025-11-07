@@ -15,14 +15,13 @@ import (
 	"encoding/json"
 )
 
-// checks if the LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop{}
+// checks if the LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop{}
 
-// LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop struct for LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop
-type LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop struct {
+// LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop struct for LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop
+type LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop struct {
 	Discard              map[string]interface{} `json:"discard,omitempty"`
 	Fqdn                 *string                `json:"fqdn,omitempty"`
-	IpAddress            *string                `json:"ip_address,omitempty"`
 	Ipv6Address          *string                `json:"ipv6_address,omitempty"`
 	NextLr               *string                `json:"next_lr,omitempty"`
 	NextVr               *string                `json:"next_vr,omitempty"`
@@ -31,27 +30,27 @@ type LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop
+type _LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop
 
-// NewLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop instantiates a new LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop object
+// NewLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop instantiates a new LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop() *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop {
-	this := LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop{}
+func NewLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop() *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop {
+	this := LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop{}
 	return &this
 }
 
-// NewLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthopWithDefaults instantiates a new LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop object
+// NewLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthopWithDefaults instantiates a new LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthopWithDefaults() *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop {
-	this := LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop{}
+func NewLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthopWithDefaults() *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop {
+	this := LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop{}
 	return &this
 }
 
 // GetDiscard returns the Discard field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetDiscard() map[string]interface{} {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetDiscard() map[string]interface{} {
 	if o == nil || IsNil(o.Discard) {
 		var ret map[string]interface{}
 		return ret
@@ -61,7 +60,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetDiscard
 
 // GetDiscardOk returns a tuple with the Discard field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetDiscardOk() (map[string]interface{}, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetDiscardOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Discard) {
 		return map[string]interface{}{}, false
 	}
@@ -69,7 +68,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetDiscard
 }
 
 // HasDiscard returns a boolean if a field has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasDiscard() bool {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) HasDiscard() bool {
 	if o != nil && !IsNil(o.Discard) {
 		return true
 	}
@@ -78,12 +77,12 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasDiscard
 }
 
 // SetDiscard gets a reference to the given map[string]interface{} and assigns it to the Discard field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetDiscard(v map[string]interface{}) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) SetDiscard(v map[string]interface{}) {
 	o.Discard = v
 }
 
 // GetFqdn returns the Fqdn field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetFqdn() string {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetFqdn() string {
 	if o == nil || IsNil(o.Fqdn) {
 		var ret string
 		return ret
@@ -93,7 +92,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetFqdn() 
 
 // GetFqdnOk returns a tuple with the Fqdn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetFqdnOk() (*string, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetFqdnOk() (*string, bool) {
 	if o == nil || IsNil(o.Fqdn) {
 		return nil, false
 	}
@@ -101,7 +100,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetFqdnOk(
 }
 
 // HasFqdn returns a boolean if a field has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasFqdn() bool {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) HasFqdn() bool {
 	if o != nil && !IsNil(o.Fqdn) {
 		return true
 	}
@@ -110,44 +109,12 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasFqdn() 
 }
 
 // SetFqdn gets a reference to the given string and assigns it to the Fqdn field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetFqdn(v string) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) SetFqdn(v string) {
 	o.Fqdn = &v
 }
 
-// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetIpAddress() string {
-	if o == nil || IsNil(o.IpAddress) {
-		var ret string
-		return ret
-	}
-	return *o.IpAddress
-}
-
-// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetIpAddressOk() (*string, bool) {
-	if o == nil || IsNil(o.IpAddress) {
-		return nil, false
-	}
-	return o.IpAddress, true
-}
-
-// HasIpAddress returns a boolean if a field has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasIpAddress() bool {
-	if o != nil && !IsNil(o.IpAddress) {
-		return true
-	}
-
-	return false
-}
-
-// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetIpAddress(v string) {
-	o.IpAddress = &v
-}
-
 // GetIpv6Address returns the Ipv6Address field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetIpv6Address() string {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetIpv6Address() string {
 	if o == nil || IsNil(o.Ipv6Address) {
 		var ret string
 		return ret
@@ -157,7 +124,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetIpv6Add
 
 // GetIpv6AddressOk returns a tuple with the Ipv6Address field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetIpv6AddressOk() (*string, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetIpv6AddressOk() (*string, bool) {
 	if o == nil || IsNil(o.Ipv6Address) {
 		return nil, false
 	}
@@ -165,7 +132,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetIpv6Add
 }
 
 // HasIpv6Address returns a boolean if a field has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasIpv6Address() bool {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) HasIpv6Address() bool {
 	if o != nil && !IsNil(o.Ipv6Address) {
 		return true
 	}
@@ -174,12 +141,12 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasIpv6Add
 }
 
 // SetIpv6Address gets a reference to the given string and assigns it to the Ipv6Address field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetIpv6Address(v string) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) SetIpv6Address(v string) {
 	o.Ipv6Address = &v
 }
 
 // GetNextLr returns the NextLr field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetNextLr() string {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetNextLr() string {
 	if o == nil || IsNil(o.NextLr) {
 		var ret string
 		return ret
@@ -189,7 +156,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetNextLr(
 
 // GetNextLrOk returns a tuple with the NextLr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetNextLrOk() (*string, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetNextLrOk() (*string, bool) {
 	if o == nil || IsNil(o.NextLr) {
 		return nil, false
 	}
@@ -197,7 +164,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetNextLrO
 }
 
 // HasNextLr returns a boolean if a field has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasNextLr() bool {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) HasNextLr() bool {
 	if o != nil && !IsNil(o.NextLr) {
 		return true
 	}
@@ -206,12 +173,12 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasNextLr(
 }
 
 // SetNextLr gets a reference to the given string and assigns it to the NextLr field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetNextLr(v string) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) SetNextLr(v string) {
 	o.NextLr = &v
 }
 
 // GetNextVr returns the NextVr field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetNextVr() string {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetNextVr() string {
 	if o == nil || IsNil(o.NextVr) {
 		var ret string
 		return ret
@@ -221,7 +188,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetNextVr(
 
 // GetNextVrOk returns a tuple with the NextVr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetNextVrOk() (*string, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetNextVrOk() (*string, bool) {
 	if o == nil || IsNil(o.NextVr) {
 		return nil, false
 	}
@@ -229,7 +196,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetNextVrO
 }
 
 // HasNextVr returns a boolean if a field has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasNextVr() bool {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) HasNextVr() bool {
 	if o != nil && !IsNil(o.NextVr) {
 		return true
 	}
@@ -238,12 +205,12 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasNextVr(
 }
 
 // SetNextVr gets a reference to the given string and assigns it to the NextVr field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetNextVr(v string) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) SetNextVr(v string) {
 	o.NextVr = &v
 }
 
 // GetReceive returns the Receive field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetReceive() map[string]interface{} {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetReceive() map[string]interface{} {
 	if o == nil || IsNil(o.Receive) {
 		var ret map[string]interface{}
 		return ret
@@ -253,7 +220,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetReceive
 
 // GetReceiveOk returns a tuple with the Receive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetReceiveOk() (map[string]interface{}, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetReceiveOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Receive) {
 		return map[string]interface{}{}, false
 	}
@@ -261,7 +228,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetReceive
 }
 
 // HasReceive returns a boolean if a field has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasReceive() bool {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) HasReceive() bool {
 	if o != nil && !IsNil(o.Receive) {
 		return true
 	}
@@ -270,12 +237,12 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasReceive
 }
 
 // SetReceive gets a reference to the given map[string]interface{} and assigns it to the Receive field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetReceive(v map[string]interface{}) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) SetReceive(v map[string]interface{}) {
 	o.Receive = v
 }
 
 // GetTunnel returns the Tunnel field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetTunnel() string {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetTunnel() string {
 	if o == nil || IsNil(o.Tunnel) {
 		var ret string
 		return ret
@@ -285,7 +252,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetTunnel(
 
 // GetTunnelOk returns a tuple with the Tunnel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetTunnelOk() (*string, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) GetTunnelOk() (*string, bool) {
 	if o == nil || IsNil(o.Tunnel) {
 		return nil, false
 	}
@@ -293,7 +260,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetTunnelO
 }
 
 // HasTunnel returns a boolean if a field has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasTunnel() bool {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) HasTunnel() bool {
 	if o != nil && !IsNil(o.Tunnel) {
 		return true
 	}
@@ -302,11 +269,11 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasTunnel(
 }
 
 // SetTunnel gets a reference to the given string and assigns it to the Tunnel field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetTunnel(v string) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) SetTunnel(v string) {
 	o.Tunnel = &v
 }
 
-func (o LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) MarshalJSON() ([]byte, error) {
+func (o LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -314,16 +281,13 @@ func (o LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) MarshalJSON
 	return json.Marshal(toSerialize)
 }
 
-func (o LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) ToMap() (map[string]interface{}, error) {
+func (o LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Discard) {
 		toSerialize["discard"] = o.Discard
 	}
 	if !IsNil(o.Fqdn) {
 		toSerialize["fqdn"] = o.Fqdn
-	}
-	if !IsNil(o.IpAddress) {
-		toSerialize["ip_address"] = o.IpAddress
 	}
 	if !IsNil(o.Ipv6Address) {
 		toSerialize["ipv6_address"] = o.Ipv6Address
@@ -348,23 +312,22 @@ func (o LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) ToMap() (ma
 	return toSerialize, nil
 }
 
-func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) UnmarshalJSON(data []byte) (err error) {
-	varLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop := _LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop{}
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) UnmarshalJSON(data []byte) (err error) {
+	varLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop := _LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop{}
 
-	err = json.Unmarshal(data, &varLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop)
+	err = json.Unmarshal(data, &varLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop)
 
 	if err != nil {
 		return err
 	}
 
-	*o = LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop(varLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop)
+	*o = LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop(varLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "discard")
 		delete(additionalProperties, "fqdn")
-		delete(additionalProperties, "ip_address")
 		delete(additionalProperties, "ipv6_address")
 		delete(additionalProperties, "next_lr")
 		delete(additionalProperties, "next_vr")
@@ -376,38 +339,38 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) UnmarshalJ
 	return err
 }
 
-type NullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop struct {
-	value *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop
+type NullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop struct {
+	value *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop
 	isSet bool
 }
 
-func (v NullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) Get() *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop {
+func (v NullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) Get() *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop {
 	return v.value
 }
 
-func (v *NullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) Set(val *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) {
+func (v *NullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) Set(val *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) IsSet() bool {
+func (v NullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) Unset() {
+func (v *NullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop(val *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) *NullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop {
-	return &NullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop{value: val, isSet: true}
+func NewNullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop(val *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) *NullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop {
+	return &NullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop{value: val, isSet: true}
 }
 
-func (v NullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) MarshalJSON() ([]byte, error) {
+func (v NullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableLogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) UnmarshalJSON(src []byte) error {
+func (v *NullableLogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

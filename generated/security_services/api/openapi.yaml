@@ -15117,6 +15117,10 @@ components:
             type: string
           type: array
       required:
+      - affected_host
+      - direction
+      - severity
+      - signature
       - threat_id
       - threatname
       type: object
@@ -17527,6 +17531,7 @@ components:
         category:
           enum:
           - any
+          - app-id-change
           - brute-force
           - code-execution
           - code-obfuscation
@@ -17534,6 +17539,7 @@ components:
           - dos
           - exploit-kit
           - info-leak
+          - inline-cloud-exploit
           - insecure-credentials
           - overflow
           - phishing

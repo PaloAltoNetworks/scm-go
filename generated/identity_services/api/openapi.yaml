@@ -11981,7 +11981,6 @@ components:
           minimum: 1
           type: integer
       required:
-      - id
       - name
       - protocol
       - server

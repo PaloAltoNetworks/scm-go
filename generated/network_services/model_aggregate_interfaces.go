@@ -16,11 +16,11 @@ import (
 	"fmt"
 )
 
-// checks if the AggregateEthernetInterfaces type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AggregateEthernetInterfaces{}
+// checks if the AggregateInterfaces type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AggregateInterfaces{}
 
-// AggregateEthernetInterfaces struct for AggregateEthernetInterfaces
-type AggregateEthernetInterfaces struct {
+// AggregateInterfaces struct for AggregateInterfaces
+type AggregateInterfaces struct {
 	// Aggregate interface description
 	Comment *string `json:"comment,omitempty"`
 	// Default interface assignment
@@ -30,9 +30,9 @@ type AggregateEthernetInterfaces struct {
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
-	Id     *string                            `json:"id,omitempty"`
-	Layer2 *AggregateEthernetInterfacesLayer2 `json:"layer2,omitempty"`
-	Layer3 *AggregateEthernetInterfacesLayer3 `json:"layer3,omitempty"`
+	Id     *string                    `json:"id,omitempty"`
+	Layer2 *AggregateInterfacesLayer2 `json:"layer2,omitempty"`
+	Layer3 *AggregateInterfacesLayer3 `json:"layer3,omitempty"`
 	// Aggregate interface name
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
@@ -40,28 +40,28 @@ type AggregateEthernetInterfaces struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _AggregateEthernetInterfaces AggregateEthernetInterfaces
+type _AggregateInterfaces AggregateInterfaces
 
-// NewAggregateEthernetInterfaces instantiates a new AggregateEthernetInterfaces object
+// NewAggregateInterfaces instantiates a new AggregateInterfaces object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAggregateEthernetInterfaces(name string) *AggregateEthernetInterfaces {
-	this := AggregateEthernetInterfaces{}
+func NewAggregateInterfaces(name string) *AggregateInterfaces {
+	this := AggregateInterfaces{}
 	this.Name = name
 	return &this
 }
 
-// NewAggregateEthernetInterfacesWithDefaults instantiates a new AggregateEthernetInterfaces object
+// NewAggregateInterfacesWithDefaults instantiates a new AggregateInterfaces object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAggregateEthernetInterfacesWithDefaults() *AggregateEthernetInterfaces {
-	this := AggregateEthernetInterfaces{}
+func NewAggregateInterfacesWithDefaults() *AggregateInterfaces {
+	this := AggregateInterfaces{}
 	return &this
 }
 
 // GetComment returns the Comment field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfaces) GetComment() string {
+func (o *AggregateInterfaces) GetComment() string {
 	if o == nil || IsNil(o.Comment) {
 		var ret string
 		return ret
@@ -71,7 +71,7 @@ func (o *AggregateEthernetInterfaces) GetComment() string {
 
 // GetCommentOk returns a tuple with the Comment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfaces) GetCommentOk() (*string, bool) {
+func (o *AggregateInterfaces) GetCommentOk() (*string, bool) {
 	if o == nil || IsNil(o.Comment) {
 		return nil, false
 	}
@@ -79,7 +79,7 @@ func (o *AggregateEthernetInterfaces) GetCommentOk() (*string, bool) {
 }
 
 // HasComment returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfaces) HasComment() bool {
+func (o *AggregateInterfaces) HasComment() bool {
 	if o != nil && !IsNil(o.Comment) {
 		return true
 	}
@@ -88,12 +88,12 @@ func (o *AggregateEthernetInterfaces) HasComment() bool {
 }
 
 // SetComment gets a reference to the given string and assigns it to the Comment field.
-func (o *AggregateEthernetInterfaces) SetComment(v string) {
+func (o *AggregateInterfaces) SetComment(v string) {
 	o.Comment = &v
 }
 
 // GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfaces) GetDefaultValue() string {
+func (o *AggregateInterfaces) GetDefaultValue() string {
 	if o == nil || IsNil(o.DefaultValue) {
 		var ret string
 		return ret
@@ -103,7 +103,7 @@ func (o *AggregateEthernetInterfaces) GetDefaultValue() string {
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfaces) GetDefaultValueOk() (*string, bool) {
+func (o *AggregateInterfaces) GetDefaultValueOk() (*string, bool) {
 	if o == nil || IsNil(o.DefaultValue) {
 		return nil, false
 	}
@@ -111,7 +111,7 @@ func (o *AggregateEthernetInterfaces) GetDefaultValueOk() (*string, bool) {
 }
 
 // HasDefaultValue returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfaces) HasDefaultValue() bool {
+func (o *AggregateInterfaces) HasDefaultValue() bool {
 	if o != nil && !IsNil(o.DefaultValue) {
 		return true
 	}
@@ -120,12 +120,12 @@ func (o *AggregateEthernetInterfaces) HasDefaultValue() bool {
 }
 
 // SetDefaultValue gets a reference to the given string and assigns it to the DefaultValue field.
-func (o *AggregateEthernetInterfaces) SetDefaultValue(v string) {
+func (o *AggregateInterfaces) SetDefaultValue(v string) {
 	o.DefaultValue = &v
 }
 
 // GetDevice returns the Device field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfaces) GetDevice() string {
+func (o *AggregateInterfaces) GetDevice() string {
 	if o == nil || IsNil(o.Device) {
 		var ret string
 		return ret
@@ -135,7 +135,7 @@ func (o *AggregateEthernetInterfaces) GetDevice() string {
 
 // GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfaces) GetDeviceOk() (*string, bool) {
+func (o *AggregateInterfaces) GetDeviceOk() (*string, bool) {
 	if o == nil || IsNil(o.Device) {
 		return nil, false
 	}
@@ -143,7 +143,7 @@ func (o *AggregateEthernetInterfaces) GetDeviceOk() (*string, bool) {
 }
 
 // HasDevice returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfaces) HasDevice() bool {
+func (o *AggregateInterfaces) HasDevice() bool {
 	if o != nil && !IsNil(o.Device) {
 		return true
 	}
@@ -152,12 +152,12 @@ func (o *AggregateEthernetInterfaces) HasDevice() bool {
 }
 
 // SetDevice gets a reference to the given string and assigns it to the Device field.
-func (o *AggregateEthernetInterfaces) SetDevice(v string) {
+func (o *AggregateInterfaces) SetDevice(v string) {
 	o.Device = &v
 }
 
 // GetFolder returns the Folder field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfaces) GetFolder() string {
+func (o *AggregateInterfaces) GetFolder() string {
 	if o == nil || IsNil(o.Folder) {
 		var ret string
 		return ret
@@ -167,7 +167,7 @@ func (o *AggregateEthernetInterfaces) GetFolder() string {
 
 // GetFolderOk returns a tuple with the Folder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfaces) GetFolderOk() (*string, bool) {
+func (o *AggregateInterfaces) GetFolderOk() (*string, bool) {
 	if o == nil || IsNil(o.Folder) {
 		return nil, false
 	}
@@ -175,7 +175,7 @@ func (o *AggregateEthernetInterfaces) GetFolderOk() (*string, bool) {
 }
 
 // HasFolder returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfaces) HasFolder() bool {
+func (o *AggregateInterfaces) HasFolder() bool {
 	if o != nil && !IsNil(o.Folder) {
 		return true
 	}
@@ -184,12 +184,12 @@ func (o *AggregateEthernetInterfaces) HasFolder() bool {
 }
 
 // SetFolder gets a reference to the given string and assigns it to the Folder field.
-func (o *AggregateEthernetInterfaces) SetFolder(v string) {
+func (o *AggregateInterfaces) SetFolder(v string) {
 	o.Folder = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfaces) GetId() string {
+func (o *AggregateInterfaces) GetId() string {
 	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
@@ -199,7 +199,7 @@ func (o *AggregateEthernetInterfaces) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfaces) GetIdOk() (*string, bool) {
+func (o *AggregateInterfaces) GetIdOk() (*string, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -207,7 +207,7 @@ func (o *AggregateEthernetInterfaces) GetIdOk() (*string, bool) {
 }
 
 // HasId returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfaces) HasId() bool {
+func (o *AggregateInterfaces) HasId() bool {
 	if o != nil && !IsNil(o.Id) {
 		return true
 	}
@@ -216,14 +216,14 @@ func (o *AggregateEthernetInterfaces) HasId() bool {
 }
 
 // SetId gets a reference to the given string and assigns it to the Id field.
-func (o *AggregateEthernetInterfaces) SetId(v string) {
+func (o *AggregateInterfaces) SetId(v string) {
 	o.Id = &v
 }
 
 // GetLayer2 returns the Layer2 field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfaces) GetLayer2() AggregateEthernetInterfacesLayer2 {
+func (o *AggregateInterfaces) GetLayer2() AggregateInterfacesLayer2 {
 	if o == nil || IsNil(o.Layer2) {
-		var ret AggregateEthernetInterfacesLayer2
+		var ret AggregateInterfacesLayer2
 		return ret
 	}
 	return *o.Layer2
@@ -231,7 +231,7 @@ func (o *AggregateEthernetInterfaces) GetLayer2() AggregateEthernetInterfacesLay
 
 // GetLayer2Ok returns a tuple with the Layer2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfaces) GetLayer2Ok() (*AggregateEthernetInterfacesLayer2, bool) {
+func (o *AggregateInterfaces) GetLayer2Ok() (*AggregateInterfacesLayer2, bool) {
 	if o == nil || IsNil(o.Layer2) {
 		return nil, false
 	}
@@ -239,7 +239,7 @@ func (o *AggregateEthernetInterfaces) GetLayer2Ok() (*AggregateEthernetInterface
 }
 
 // HasLayer2 returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfaces) HasLayer2() bool {
+func (o *AggregateInterfaces) HasLayer2() bool {
 	if o != nil && !IsNil(o.Layer2) {
 		return true
 	}
@@ -247,15 +247,15 @@ func (o *AggregateEthernetInterfaces) HasLayer2() bool {
 	return false
 }
 
-// SetLayer2 gets a reference to the given AggregateEthernetInterfacesLayer2 and assigns it to the Layer2 field.
-func (o *AggregateEthernetInterfaces) SetLayer2(v AggregateEthernetInterfacesLayer2) {
+// SetLayer2 gets a reference to the given AggregateInterfacesLayer2 and assigns it to the Layer2 field.
+func (o *AggregateInterfaces) SetLayer2(v AggregateInterfacesLayer2) {
 	o.Layer2 = &v
 }
 
 // GetLayer3 returns the Layer3 field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfaces) GetLayer3() AggregateEthernetInterfacesLayer3 {
+func (o *AggregateInterfaces) GetLayer3() AggregateInterfacesLayer3 {
 	if o == nil || IsNil(o.Layer3) {
-		var ret AggregateEthernetInterfacesLayer3
+		var ret AggregateInterfacesLayer3
 		return ret
 	}
 	return *o.Layer3
@@ -263,7 +263,7 @@ func (o *AggregateEthernetInterfaces) GetLayer3() AggregateEthernetInterfacesLay
 
 // GetLayer3Ok returns a tuple with the Layer3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfaces) GetLayer3Ok() (*AggregateEthernetInterfacesLayer3, bool) {
+func (o *AggregateInterfaces) GetLayer3Ok() (*AggregateInterfacesLayer3, bool) {
 	if o == nil || IsNil(o.Layer3) {
 		return nil, false
 	}
@@ -271,7 +271,7 @@ func (o *AggregateEthernetInterfaces) GetLayer3Ok() (*AggregateEthernetInterface
 }
 
 // HasLayer3 returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfaces) HasLayer3() bool {
+func (o *AggregateInterfaces) HasLayer3() bool {
 	if o != nil && !IsNil(o.Layer3) {
 		return true
 	}
@@ -279,13 +279,13 @@ func (o *AggregateEthernetInterfaces) HasLayer3() bool {
 	return false
 }
 
-// SetLayer3 gets a reference to the given AggregateEthernetInterfacesLayer3 and assigns it to the Layer3 field.
-func (o *AggregateEthernetInterfaces) SetLayer3(v AggregateEthernetInterfacesLayer3) {
+// SetLayer3 gets a reference to the given AggregateInterfacesLayer3 and assigns it to the Layer3 field.
+func (o *AggregateInterfaces) SetLayer3(v AggregateInterfacesLayer3) {
 	o.Layer3 = &v
 }
 
 // GetName returns the Name field value
-func (o *AggregateEthernetInterfaces) GetName() string {
+func (o *AggregateInterfaces) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -296,7 +296,7 @@ func (o *AggregateEthernetInterfaces) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfaces) GetNameOk() (*string, bool) {
+func (o *AggregateInterfaces) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -304,12 +304,12 @@ func (o *AggregateEthernetInterfaces) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *AggregateEthernetInterfaces) SetName(v string) {
+func (o *AggregateInterfaces) SetName(v string) {
 	o.Name = v
 }
 
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfaces) GetSnippet() string {
+func (o *AggregateInterfaces) GetSnippet() string {
 	if o == nil || IsNil(o.Snippet) {
 		var ret string
 		return ret
@@ -319,7 +319,7 @@ func (o *AggregateEthernetInterfaces) GetSnippet() string {
 
 // GetSnippetOk returns a tuple with the Snippet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfaces) GetSnippetOk() (*string, bool) {
+func (o *AggregateInterfaces) GetSnippetOk() (*string, bool) {
 	if o == nil || IsNil(o.Snippet) {
 		return nil, false
 	}
@@ -327,7 +327,7 @@ func (o *AggregateEthernetInterfaces) GetSnippetOk() (*string, bool) {
 }
 
 // HasSnippet returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfaces) HasSnippet() bool {
+func (o *AggregateInterfaces) HasSnippet() bool {
 	if o != nil && !IsNil(o.Snippet) {
 		return true
 	}
@@ -336,11 +336,11 @@ func (o *AggregateEthernetInterfaces) HasSnippet() bool {
 }
 
 // SetSnippet gets a reference to the given string and assigns it to the Snippet field.
-func (o *AggregateEthernetInterfaces) SetSnippet(v string) {
+func (o *AggregateInterfaces) SetSnippet(v string) {
 	o.Snippet = &v
 }
 
-func (o AggregateEthernetInterfaces) MarshalJSON() ([]byte, error) {
+func (o AggregateInterfaces) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -348,7 +348,7 @@ func (o AggregateEthernetInterfaces) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AggregateEthernetInterfaces) ToMap() (map[string]interface{}, error) {
+func (o AggregateInterfaces) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Comment) {
 		toSerialize["comment"] = o.Comment
@@ -383,7 +383,7 @@ func (o AggregateEthernetInterfaces) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *AggregateEthernetInterfaces) UnmarshalJSON(data []byte) (err error) {
+func (o *AggregateInterfaces) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -405,15 +405,15 @@ func (o *AggregateEthernetInterfaces) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varAggregateEthernetInterfaces := _AggregateEthernetInterfaces{}
+	varAggregateInterfaces := _AggregateInterfaces{}
 
-	err = json.Unmarshal(data, &varAggregateEthernetInterfaces)
+	err = json.Unmarshal(data, &varAggregateInterfaces)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AggregateEthernetInterfaces(varAggregateEthernetInterfaces)
+	*o = AggregateInterfaces(varAggregateInterfaces)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -433,38 +433,38 @@ func (o *AggregateEthernetInterfaces) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableAggregateEthernetInterfaces struct {
-	value *AggregateEthernetInterfaces
+type NullableAggregateInterfaces struct {
+	value *AggregateInterfaces
 	isSet bool
 }
 
-func (v NullableAggregateEthernetInterfaces) Get() *AggregateEthernetInterfaces {
+func (v NullableAggregateInterfaces) Get() *AggregateInterfaces {
 	return v.value
 }
 
-func (v *NullableAggregateEthernetInterfaces) Set(val *AggregateEthernetInterfaces) {
+func (v *NullableAggregateInterfaces) Set(val *AggregateInterfaces) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAggregateEthernetInterfaces) IsSet() bool {
+func (v NullableAggregateInterfaces) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAggregateEthernetInterfaces) Unset() {
+func (v *NullableAggregateInterfaces) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAggregateEthernetInterfaces(val *AggregateEthernetInterfaces) *NullableAggregateEthernetInterfaces {
-	return &NullableAggregateEthernetInterfaces{value: val, isSet: true}
+func NewNullableAggregateInterfaces(val *AggregateInterfaces) *NullableAggregateInterfaces {
+	return &NullableAggregateInterfaces{value: val, isSet: true}
 }
 
-func (v NullableAggregateEthernetInterfaces) MarshalJSON() ([]byte, error) {
+func (v NullableAggregateInterfaces) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAggregateEthernetInterfaces) UnmarshalJSON(src []byte) error {
+func (v *NullableAggregateInterfaces) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

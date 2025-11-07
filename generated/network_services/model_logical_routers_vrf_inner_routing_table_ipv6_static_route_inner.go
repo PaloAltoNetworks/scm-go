@@ -27,7 +27,7 @@ type LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner struct {
 	Interface            *string                                                          `json:"interface,omitempty"`
 	Metric               *int32                                                           `json:"metric,omitempty"`
 	Name                 string                                                           `json:"name"`
-	Nexthop              *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop     `json:"nexthop,omitempty"`
+	Nexthop              *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop   `json:"nexthop,omitempty"`
 	Option               *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerOption    `json:"option,omitempty"`
 	PathMonitor          *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerPathMonitor `json:"path_monitor,omitempty"`
 	RouteTable           *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerRouteTable  `json:"route_table,omitempty"`
@@ -239,9 +239,9 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) SetName(v strin
 }
 
 // GetNexthop returns the Nexthop field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetNexthop() LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetNexthop() LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop {
 	if o == nil || IsNil(o.Nexthop) {
-		var ret LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop
+		var ret LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop
 		return ret
 	}
 	return *o.Nexthop
@@ -249,7 +249,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetNexthop() Lo
 
 // GetNexthopOk returns a tuple with the Nexthop field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetNexthopOk() (*LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop, bool) {
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) GetNexthopOk() (*LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop, bool) {
 	if o == nil || IsNil(o.Nexthop) {
 		return nil, false
 	}
@@ -265,8 +265,8 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) HasNexthop() bo
 	return false
 }
 
-// SetNexthop gets a reference to the given LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop and assigns it to the Nexthop field.
-func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) SetNexthop(v LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) {
+// SetNexthop gets a reference to the given LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop and assigns it to the Nexthop field.
+func (o *LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInner) SetNexthop(v LogicalRoutersVrfInnerRoutingTableIpv6StaticRouteInnerNexthop) {
 	o.Nexthop = &v
 }
 

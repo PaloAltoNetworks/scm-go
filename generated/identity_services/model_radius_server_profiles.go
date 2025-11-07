@@ -26,7 +26,7 @@ type RadiusServerProfiles struct {
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the RADIUS server profile
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// The name of the RADIUS server profile
 	Name     string                       `json:"name"`
 	Protocol RadiusServerProfilesProtocol `json:"protocol"`
@@ -46,9 +46,8 @@ type _RadiusServerProfiles RadiusServerProfiles
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRadiusServerProfiles(id string, name string, protocol RadiusServerProfilesProtocol, server []RadiusServerProfilesServerInner) *RadiusServerProfiles {
+func NewRadiusServerProfiles(name string, protocol RadiusServerProfilesProtocol, server []RadiusServerProfilesServerInner) *RadiusServerProfiles {
 	this := RadiusServerProfiles{}
-	this.Id = id
 	this.Name = name
 	this.Protocol = protocol
 	this.Server = server
@@ -127,28 +126,36 @@ func (o *RadiusServerProfiles) SetFolder(v string) {
 	o.Folder = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *RadiusServerProfiles) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RadiusServerProfiles) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *RadiusServerProfiles) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *RadiusServerProfiles) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetName returns the Name field value
@@ -335,7 +342,9 @@ func (o RadiusServerProfiles) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
 	}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["name"] = o.Name
 	toSerialize["protocol"] = o.Protocol
 	if !IsNil(o.Retries) {
@@ -361,7 +370,6 @@ func (o *RadiusServerProfiles) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"name",
 		"protocol",
 		"server",
