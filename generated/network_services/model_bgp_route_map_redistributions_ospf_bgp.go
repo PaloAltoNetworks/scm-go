@@ -18,9 +18,9 @@ import (
 // checks if the BgpRouteMapRedistributionsOspfBgp type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpRouteMapRedistributionsOspfBgp{}
 
-// BgpRouteMapRedistributionsOspfBgp struct for BgpRouteMapRedistributionsOspfBgp
+// BgpRouteMapRedistributionsOspfBgp OSPF Root BGP
 type BgpRouteMapRedistributionsOspfBgp struct {
-	// Route maps
+	// OSPF BGP Route maps
 	RouteMap             []BgpRouteMapRedistributionsOspfBgpRouteMapInner `json:"route_map,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -20,12 +20,12 @@ var _ MappedNullable = &BgpRouteMapRedistributionsBgpOspfRouteMapInner{}
 
 // BgpRouteMapRedistributionsBgpOspfRouteMapInner struct for BgpRouteMapRedistributionsBgpOspfRouteMapInner
 type BgpRouteMapRedistributionsBgpOspfRouteMapInner struct {
-	// Action
+	// BGP Root OSPF Route maps Action
 	Action *string `json:"action,omitempty"`
-	// Description
+	// BGP Root OSPF Route maps Description
 	Description *string                                              `json:"description,omitempty"`
 	Match       *BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatch `json:"match,omitempty"`
-	// Sequence number
+	// BGP Root OSPF Route maps Sequence number
 	Name                 *int32                                             `json:"name,omitempty"`
 	Set                  *BgpRouteMapRedistributionsBgpOspfRouteMapInnerSet `json:"set,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -20,9 +20,9 @@ var _ MappedNullable = &BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatchNextH
 
 // BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatchNextHop bgp-route-map-redistributions ospf next_hop
 type BgpRouteMapRedistributionsOspfBgpRouteMapInnerMatchNextHop struct {
-	// Access list
+	// OSPF BGP Route maps next_hop Access list
 	AccessList *string `json:"access_list,omitempty"`
-	// Prefix list
+	// OSPF BGP Route maps next_hop Prefix list
 	PrefixList           *string `json:"prefix_list,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -16,11 +16,11 @@ import (
 	"fmt"
 )
 
-// checks if the AggregateEthernetInterfacesLayer3DdnsConfig type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AggregateEthernetInterfacesLayer3DdnsConfig{}
+// checks if the AggregateInterfacesLayer3DdnsConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AggregateInterfacesLayer3DdnsConfig{}
 
-// AggregateEthernetInterfacesLayer3DdnsConfig Dynamic DNS configuration specific to the Aggregate Ethernet Interface.
-type AggregateEthernetInterfacesLayer3DdnsConfig struct {
+// AggregateInterfacesLayer3DdnsConfig Dynamic DNS configuration specific to the Aggregate Interface.
+type AggregateInterfacesLayer3DdnsConfig struct {
 	// Certificate profile
 	DdnsCertProfile string `json:"ddns_cert_profile"`
 	// Enable DDNS?
@@ -37,14 +37,14 @@ type AggregateEthernetInterfacesLayer3DdnsConfig struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _AggregateEthernetInterfacesLayer3DdnsConfig AggregateEthernetInterfacesLayer3DdnsConfig
+type _AggregateInterfacesLayer3DdnsConfig AggregateInterfacesLayer3DdnsConfig
 
-// NewAggregateEthernetInterfacesLayer3DdnsConfig instantiates a new AggregateEthernetInterfacesLayer3DdnsConfig object
+// NewAggregateInterfacesLayer3DdnsConfig instantiates a new AggregateInterfacesLayer3DdnsConfig object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAggregateEthernetInterfacesLayer3DdnsConfig(ddnsCertProfile string, ddnsHostname string, ddnsVendor string, ddnsVendorConfig string) *AggregateEthernetInterfacesLayer3DdnsConfig {
-	this := AggregateEthernetInterfacesLayer3DdnsConfig{}
+func NewAggregateInterfacesLayer3DdnsConfig(ddnsCertProfile string, ddnsHostname string, ddnsVendor string, ddnsVendorConfig string) *AggregateInterfacesLayer3DdnsConfig {
+	this := AggregateInterfacesLayer3DdnsConfig{}
 	this.DdnsCertProfile = ddnsCertProfile
 	var ddnsEnabled bool = false
 	this.DdnsEnabled = &ddnsEnabled
@@ -56,11 +56,11 @@ func NewAggregateEthernetInterfacesLayer3DdnsConfig(ddnsCertProfile string, ddns
 	return &this
 }
 
-// NewAggregateEthernetInterfacesLayer3DdnsConfigWithDefaults instantiates a new AggregateEthernetInterfacesLayer3DdnsConfig object
+// NewAggregateInterfacesLayer3DdnsConfigWithDefaults instantiates a new AggregateInterfacesLayer3DdnsConfig object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAggregateEthernetInterfacesLayer3DdnsConfigWithDefaults() *AggregateEthernetInterfacesLayer3DdnsConfig {
-	this := AggregateEthernetInterfacesLayer3DdnsConfig{}
+func NewAggregateInterfacesLayer3DdnsConfigWithDefaults() *AggregateInterfacesLayer3DdnsConfig {
+	this := AggregateInterfacesLayer3DdnsConfig{}
 	var ddnsEnabled bool = false
 	this.DdnsEnabled = &ddnsEnabled
 	var ddnsUpdateInterval int32 = 1
@@ -69,7 +69,7 @@ func NewAggregateEthernetInterfacesLayer3DdnsConfigWithDefaults() *AggregateEthe
 }
 
 // GetDdnsCertProfile returns the DdnsCertProfile field value
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsCertProfile() string {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsCertProfile() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -80,7 +80,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsCertProfile() strin
 
 // GetDdnsCertProfileOk returns a tuple with the DdnsCertProfile field value
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsCertProfileOk() (*string, bool) {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsCertProfileOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -88,12 +88,12 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsCertProfileOk() (*s
 }
 
 // SetDdnsCertProfile sets field value
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) SetDdnsCertProfile(v string) {
+func (o *AggregateInterfacesLayer3DdnsConfig) SetDdnsCertProfile(v string) {
 	o.DdnsCertProfile = v
 }
 
 // GetDdnsEnabled returns the DdnsEnabled field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsEnabled() bool {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsEnabled() bool {
 	if o == nil || IsNil(o.DdnsEnabled) {
 		var ret bool
 		return ret
@@ -103,7 +103,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsEnabled() bool {
 
 // GetDdnsEnabledOk returns a tuple with the DdnsEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsEnabledOk() (*bool, bool) {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsEnabledOk() (*bool, bool) {
 	if o == nil || IsNil(o.DdnsEnabled) {
 		return nil, false
 	}
@@ -111,7 +111,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsEnabledOk() (*bool,
 }
 
 // HasDdnsEnabled returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) HasDdnsEnabled() bool {
+func (o *AggregateInterfacesLayer3DdnsConfig) HasDdnsEnabled() bool {
 	if o != nil && !IsNil(o.DdnsEnabled) {
 		return true
 	}
@@ -120,12 +120,12 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) HasDdnsEnabled() bool {
 }
 
 // SetDdnsEnabled gets a reference to the given bool and assigns it to the DdnsEnabled field.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) SetDdnsEnabled(v bool) {
+func (o *AggregateInterfacesLayer3DdnsConfig) SetDdnsEnabled(v bool) {
 	o.DdnsEnabled = &v
 }
 
 // GetDdnsHostname returns the DdnsHostname field value
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsHostname() string {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsHostname() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -136,7 +136,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsHostname() string {
 
 // GetDdnsHostnameOk returns a tuple with the DdnsHostname field value
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsHostnameOk() (*string, bool) {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsHostnameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -144,12 +144,12 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsHostnameOk() (*stri
 }
 
 // SetDdnsHostname sets field value
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) SetDdnsHostname(v string) {
+func (o *AggregateInterfacesLayer3DdnsConfig) SetDdnsHostname(v string) {
 	o.DdnsHostname = v
 }
 
 // GetDdnsIp returns the DdnsIp field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsIp() string {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsIp() string {
 	if o == nil || IsNil(o.DdnsIp) {
 		var ret string
 		return ret
@@ -159,7 +159,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsIp() string {
 
 // GetDdnsIpOk returns a tuple with the DdnsIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsIpOk() (*string, bool) {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsIpOk() (*string, bool) {
 	if o == nil || IsNil(o.DdnsIp) {
 		return nil, false
 	}
@@ -167,7 +167,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsIpOk() (*string, bo
 }
 
 // HasDdnsIp returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) HasDdnsIp() bool {
+func (o *AggregateInterfacesLayer3DdnsConfig) HasDdnsIp() bool {
 	if o != nil && !IsNil(o.DdnsIp) {
 		return true
 	}
@@ -176,12 +176,12 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) HasDdnsIp() bool {
 }
 
 // SetDdnsIp gets a reference to the given string and assigns it to the DdnsIp field.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) SetDdnsIp(v string) {
+func (o *AggregateInterfacesLayer3DdnsConfig) SetDdnsIp(v string) {
 	o.DdnsIp = &v
 }
 
 // GetDdnsUpdateInterval returns the DdnsUpdateInterval field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsUpdateInterval() int32 {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsUpdateInterval() int32 {
 	if o == nil || IsNil(o.DdnsUpdateInterval) {
 		var ret int32
 		return ret
@@ -191,7 +191,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsUpdateInterval() in
 
 // GetDdnsUpdateIntervalOk returns a tuple with the DdnsUpdateInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsUpdateIntervalOk() (*int32, bool) {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsUpdateIntervalOk() (*int32, bool) {
 	if o == nil || IsNil(o.DdnsUpdateInterval) {
 		return nil, false
 	}
@@ -199,7 +199,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsUpdateIntervalOk() 
 }
 
 // HasDdnsUpdateInterval returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) HasDdnsUpdateInterval() bool {
+func (o *AggregateInterfacesLayer3DdnsConfig) HasDdnsUpdateInterval() bool {
 	if o != nil && !IsNil(o.DdnsUpdateInterval) {
 		return true
 	}
@@ -208,12 +208,12 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) HasDdnsUpdateInterval() bo
 }
 
 // SetDdnsUpdateInterval gets a reference to the given int32 and assigns it to the DdnsUpdateInterval field.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) SetDdnsUpdateInterval(v int32) {
+func (o *AggregateInterfacesLayer3DdnsConfig) SetDdnsUpdateInterval(v int32) {
 	o.DdnsUpdateInterval = &v
 }
 
 // GetDdnsVendor returns the DdnsVendor field value
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsVendor() string {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsVendor() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -224,7 +224,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsVendor() string {
 
 // GetDdnsVendorOk returns a tuple with the DdnsVendor field value
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsVendorOk() (*string, bool) {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsVendorOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -232,12 +232,12 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsVendorOk() (*string
 }
 
 // SetDdnsVendor sets field value
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) SetDdnsVendor(v string) {
+func (o *AggregateInterfacesLayer3DdnsConfig) SetDdnsVendor(v string) {
 	o.DdnsVendor = v
 }
 
 // GetDdnsVendorConfig returns the DdnsVendorConfig field value
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsVendorConfig() string {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsVendorConfig() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -248,7 +248,7 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsVendorConfig() stri
 
 // GetDdnsVendorConfigOk returns a tuple with the DdnsVendorConfig field value
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsVendorConfigOk() (*string, bool) {
+func (o *AggregateInterfacesLayer3DdnsConfig) GetDdnsVendorConfigOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -256,11 +256,11 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) GetDdnsVendorConfigOk() (*
 }
 
 // SetDdnsVendorConfig sets field value
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) SetDdnsVendorConfig(v string) {
+func (o *AggregateInterfacesLayer3DdnsConfig) SetDdnsVendorConfig(v string) {
 	o.DdnsVendorConfig = v
 }
 
-func (o AggregateEthernetInterfacesLayer3DdnsConfig) MarshalJSON() ([]byte, error) {
+func (o AggregateInterfacesLayer3DdnsConfig) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -268,7 +268,7 @@ func (o AggregateEthernetInterfacesLayer3DdnsConfig) MarshalJSON() ([]byte, erro
 	return json.Marshal(toSerialize)
 }
 
-func (o AggregateEthernetInterfacesLayer3DdnsConfig) ToMap() (map[string]interface{}, error) {
+func (o AggregateInterfacesLayer3DdnsConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["ddns_cert_profile"] = o.DdnsCertProfile
 	if !IsNil(o.DdnsEnabled) {
@@ -291,7 +291,7 @@ func (o AggregateEthernetInterfacesLayer3DdnsConfig) ToMap() (map[string]interfa
 	return toSerialize, nil
 }
 
-func (o *AggregateEthernetInterfacesLayer3DdnsConfig) UnmarshalJSON(data []byte) (err error) {
+func (o *AggregateInterfacesLayer3DdnsConfig) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -316,15 +316,15 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) UnmarshalJSON(data []byte)
 		}
 	}
 
-	varAggregateEthernetInterfacesLayer3DdnsConfig := _AggregateEthernetInterfacesLayer3DdnsConfig{}
+	varAggregateInterfacesLayer3DdnsConfig := _AggregateInterfacesLayer3DdnsConfig{}
 
-	err = json.Unmarshal(data, &varAggregateEthernetInterfacesLayer3DdnsConfig)
+	err = json.Unmarshal(data, &varAggregateInterfacesLayer3DdnsConfig)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AggregateEthernetInterfacesLayer3DdnsConfig(varAggregateEthernetInterfacesLayer3DdnsConfig)
+	*o = AggregateInterfacesLayer3DdnsConfig(varAggregateInterfacesLayer3DdnsConfig)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -342,38 +342,38 @@ func (o *AggregateEthernetInterfacesLayer3DdnsConfig) UnmarshalJSON(data []byte)
 	return err
 }
 
-type NullableAggregateEthernetInterfacesLayer3DdnsConfig struct {
-	value *AggregateEthernetInterfacesLayer3DdnsConfig
+type NullableAggregateInterfacesLayer3DdnsConfig struct {
+	value *AggregateInterfacesLayer3DdnsConfig
 	isSet bool
 }
 
-func (v NullableAggregateEthernetInterfacesLayer3DdnsConfig) Get() *AggregateEthernetInterfacesLayer3DdnsConfig {
+func (v NullableAggregateInterfacesLayer3DdnsConfig) Get() *AggregateInterfacesLayer3DdnsConfig {
 	return v.value
 }
 
-func (v *NullableAggregateEthernetInterfacesLayer3DdnsConfig) Set(val *AggregateEthernetInterfacesLayer3DdnsConfig) {
+func (v *NullableAggregateInterfacesLayer3DdnsConfig) Set(val *AggregateInterfacesLayer3DdnsConfig) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAggregateEthernetInterfacesLayer3DdnsConfig) IsSet() bool {
+func (v NullableAggregateInterfacesLayer3DdnsConfig) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAggregateEthernetInterfacesLayer3DdnsConfig) Unset() {
+func (v *NullableAggregateInterfacesLayer3DdnsConfig) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAggregateEthernetInterfacesLayer3DdnsConfig(val *AggregateEthernetInterfacesLayer3DdnsConfig) *NullableAggregateEthernetInterfacesLayer3DdnsConfig {
-	return &NullableAggregateEthernetInterfacesLayer3DdnsConfig{value: val, isSet: true}
+func NewNullableAggregateInterfacesLayer3DdnsConfig(val *AggregateInterfacesLayer3DdnsConfig) *NullableAggregateInterfacesLayer3DdnsConfig {
+	return &NullableAggregateInterfacesLayer3DdnsConfig{value: val, isSet: true}
 }
 
-func (v NullableAggregateEthernetInterfacesLayer3DdnsConfig) MarshalJSON() ([]byte, error) {
+func (v NullableAggregateInterfacesLayer3DdnsConfig) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAggregateEthernetInterfacesLayer3DdnsConfig) UnmarshalJSON(src []byte) error {
+func (v *NullableAggregateInterfacesLayer3DdnsConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

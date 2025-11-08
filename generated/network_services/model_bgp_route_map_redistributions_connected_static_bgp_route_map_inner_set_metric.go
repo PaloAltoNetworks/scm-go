@@ -20,9 +20,9 @@ var _ MappedNullable = &BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInne
 
 // BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric struct for BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric
 type BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric struct {
-	// Metric action
+	// Connected Static BGP Route maps set Metric action
 	Action *string `json:"action,omitempty"`
-	// Metric value
+	// Connected Static BGP Route maps set Metric value
 	Value                *int32 `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

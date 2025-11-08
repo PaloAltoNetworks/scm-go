@@ -26,8 +26,8 @@ type AutoTagActionsActionsInnerTypeTagging struct {
 	// Tags for address object
 	Tags []string `json:"tags,omitempty"`
 	// Source or Destination Address, User, X-Forwarded-For Address
-	Target               string   `json:"target"`
-	Timeout              *float32 `json:"timeout,omitempty"`
+	Target               string `json:"target"`
+	Timeout              *int32 `json:"timeout,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -133,9 +133,9 @@ func (o *AutoTagActionsActionsInnerTypeTagging) SetTarget(v string) {
 }
 
 // GetTimeout returns the Timeout field value if set, zero value otherwise.
-func (o *AutoTagActionsActionsInnerTypeTagging) GetTimeout() float32 {
+func (o *AutoTagActionsActionsInnerTypeTagging) GetTimeout() int32 {
 	if o == nil || IsNil(o.Timeout) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Timeout
@@ -143,7 +143,7 @@ func (o *AutoTagActionsActionsInnerTypeTagging) GetTimeout() float32 {
 
 // GetTimeoutOk returns a tuple with the Timeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AutoTagActionsActionsInnerTypeTagging) GetTimeoutOk() (*float32, bool) {
+func (o *AutoTagActionsActionsInnerTypeTagging) GetTimeoutOk() (*int32, bool) {
 	if o == nil || IsNil(o.Timeout) {
 		return nil, false
 	}
@@ -159,8 +159,8 @@ func (o *AutoTagActionsActionsInnerTypeTagging) HasTimeout() bool {
 	return false
 }
 
-// SetTimeout gets a reference to the given float32 and assigns it to the Timeout field.
-func (o *AutoTagActionsActionsInnerTypeTagging) SetTimeout(v float32) {
+// SetTimeout gets a reference to the given int32 and assigns it to the Timeout field.
+func (o *AutoTagActionsActionsInnerTypeTagging) SetTimeout(v int32) {
 	o.Timeout = &v
 }
 

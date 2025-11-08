@@ -24,12 +24,12 @@ type BgpRouteMapsRouteMapInnerSet struct {
 	AspathExclude []int32                                 `json:"aspath_exclude,omitempty"`
 	AspathPrepend []int32                                 `json:"aspath_prepend,omitempty"`
 	// Enable BGP atomic aggregate?
-	AtomicAggregate *bool                                                             `json:"atomic_aggregate,omitempty"`
-	Ipv4            *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 `json:"ipv4,omitempty"`
-	LargeCommunity  []string                                                          `json:"large_community,omitempty"`
+	AtomicAggregate *bool                             `json:"atomic_aggregate,omitempty"`
+	Ipv4            *BgpRouteMapsRouteMapInnerSetIpv4 `json:"ipv4,omitempty"`
+	LargeCommunity  []string                          `json:"large_community,omitempty"`
 	// Local preference
-	LocalPreference *int32                                                              `json:"local_preference,omitempty"`
-	Metric          *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric `json:"metric,omitempty"`
+	LocalPreference *int32                              `json:"local_preference,omitempty"`
+	Metric          *BgpRouteMapsRouteMapInnerSetMetric `json:"metric,omitempty"`
 	// Origin
 	Origin *string `json:"origin,omitempty"`
 	// Originator ID
@@ -198,9 +198,9 @@ func (o *BgpRouteMapsRouteMapInnerSet) SetAtomicAggregate(v bool) {
 }
 
 // GetIpv4 returns the Ipv4 field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerSet) GetIpv4() BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 {
+func (o *BgpRouteMapsRouteMapInnerSet) GetIpv4() BgpRouteMapsRouteMapInnerSetIpv4 {
 	if o == nil || IsNil(o.Ipv4) {
-		var ret BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4
+		var ret BgpRouteMapsRouteMapInnerSetIpv4
 		return ret
 	}
 	return *o.Ipv4
@@ -208,7 +208,7 @@ func (o *BgpRouteMapsRouteMapInnerSet) GetIpv4() BgpRouteMapRedistributionsConne
 
 // GetIpv4Ok returns a tuple with the Ipv4 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerSet) GetIpv4Ok() (*BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4, bool) {
+func (o *BgpRouteMapsRouteMapInnerSet) GetIpv4Ok() (*BgpRouteMapsRouteMapInnerSetIpv4, bool) {
 	if o == nil || IsNil(o.Ipv4) {
 		return nil, false
 	}
@@ -224,8 +224,8 @@ func (o *BgpRouteMapsRouteMapInnerSet) HasIpv4() bool {
 	return false
 }
 
-// SetIpv4 gets a reference to the given BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 and assigns it to the Ipv4 field.
-func (o *BgpRouteMapsRouteMapInnerSet) SetIpv4(v BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4) {
+// SetIpv4 gets a reference to the given BgpRouteMapsRouteMapInnerSetIpv4 and assigns it to the Ipv4 field.
+func (o *BgpRouteMapsRouteMapInnerSet) SetIpv4(v BgpRouteMapsRouteMapInnerSetIpv4) {
 	o.Ipv4 = &v
 }
 
@@ -294,9 +294,9 @@ func (o *BgpRouteMapsRouteMapInnerSet) SetLocalPreference(v int32) {
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerSet) GetMetric() BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric {
+func (o *BgpRouteMapsRouteMapInnerSet) GetMetric() BgpRouteMapsRouteMapInnerSetMetric {
 	if o == nil || IsNil(o.Metric) {
-		var ret BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric
+		var ret BgpRouteMapsRouteMapInnerSetMetric
 		return ret
 	}
 	return *o.Metric
@@ -304,7 +304,7 @@ func (o *BgpRouteMapsRouteMapInnerSet) GetMetric() BgpRouteMapRedistributionsCon
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerSet) GetMetricOk() (*BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric, bool) {
+func (o *BgpRouteMapsRouteMapInnerSet) GetMetricOk() (*BgpRouteMapsRouteMapInnerSetMetric, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -320,8 +320,8 @@ func (o *BgpRouteMapsRouteMapInnerSet) HasMetric() bool {
 	return false
 }
 
-// SetMetric gets a reference to the given BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric and assigns it to the Metric field.
-func (o *BgpRouteMapsRouteMapInnerSet) SetMetric(v BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric) {
+// SetMetric gets a reference to the given BgpRouteMapsRouteMapInnerSetMetric and assigns it to the Metric field.
+func (o *BgpRouteMapsRouteMapInnerSet) SetMetric(v BgpRouteMapsRouteMapInnerSetMetric) {
 	o.Metric = &v
 }
 

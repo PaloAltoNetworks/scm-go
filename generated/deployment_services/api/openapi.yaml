@@ -4880,11 +4880,11 @@ components:
         - spn_name_list
         - spn_name_list
         name: name
-        allocated_bandwidth: 0.8008281904610115
+        allocated_bandwidth: 0
       properties:
         allocated_bandwidth:
           description: bandwidth to allocate in Mbps
-          type: number
+          type: integer
         name:
           description: name of the aggregated bandwidth region
           type: string
@@ -5491,8 +5491,9 @@ components:
         name: name
         action:
           forward:
-            target: target
-          no-pbf: "{}"
+            forward:
+              target: target
+            no-pbf: "{}"
         source_user:
         - source_user
         - source_user
@@ -5828,23 +5829,33 @@ components:
           example: VoIP
           type: string
       type: object
-    traffic_steering_rules_action_forward:
+    traffic_steering_rules_action_forward_forward:
       example:
         target: target
       properties:
         target:
           type: string
       type: object
-    traffic_steering_rules_action:
+    traffic_steering_rules_action_forward:
       example:
         forward:
           target: target
         no-pbf: "{}"
       properties:
         forward:
-          $ref: '#/components/schemas/traffic_steering_rules_action_forward'
+          $ref: '#/components/schemas/traffic_steering_rules_action_forward_forward'
         no-pbf:
           type: object
+      type: object
+    traffic_steering_rules_action:
+      example:
+        forward:
+          forward:
+            target: target
+          no-pbf: "{}"
+      properties:
+        forward:
+          $ref: '#/components/schemas/traffic_steering_rules_action_forward'
       type: object
   securitySchemes:
     scmOAuth:

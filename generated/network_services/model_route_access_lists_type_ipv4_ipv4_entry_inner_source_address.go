@@ -21,9 +21,8 @@ var _ MappedNullable = &RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress{}
 // RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress struct for RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress
 type RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress struct {
 	// Source IP address
-	Address *string `json:"address,omitempty"`
-	// Source IP wildcard
-	Wildcard             *string `json:"wildcard,omitempty"`
+	Address              *string                                                   `json:"address,omitempty"`
+	Entry                *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddressEntry `json:"entry,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -78,36 +77,36 @@ func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) SetAddress(v strin
 	o.Address = &v
 }
 
-// GetWildcard returns the Wildcard field value if set, zero value otherwise.
-func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) GetWildcard() string {
-	if o == nil || IsNil(o.Wildcard) {
-		var ret string
+// GetEntry returns the Entry field value if set, zero value otherwise.
+func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) GetEntry() RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddressEntry {
+	if o == nil || IsNil(o.Entry) {
+		var ret RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddressEntry
 		return ret
 	}
-	return *o.Wildcard
+	return *o.Entry
 }
 
-// GetWildcardOk returns a tuple with the Wildcard field value if set, nil otherwise
+// GetEntryOk returns a tuple with the Entry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) GetWildcardOk() (*string, bool) {
-	if o == nil || IsNil(o.Wildcard) {
+func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) GetEntryOk() (*RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddressEntry, bool) {
+	if o == nil || IsNil(o.Entry) {
 		return nil, false
 	}
-	return o.Wildcard, true
+	return o.Entry, true
 }
 
-// HasWildcard returns a boolean if a field has been set.
-func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) HasWildcard() bool {
-	if o != nil && !IsNil(o.Wildcard) {
+// HasEntry returns a boolean if a field has been set.
+func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) HasEntry() bool {
+	if o != nil && !IsNil(o.Entry) {
 		return true
 	}
 
 	return false
 }
 
-// SetWildcard gets a reference to the given string and assigns it to the Wildcard field.
-func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) SetWildcard(v string) {
-	o.Wildcard = &v
+// SetEntry gets a reference to the given RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddressEntry and assigns it to the Entry field.
+func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) SetEntry(v RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddressEntry) {
+	o.Entry = &v
 }
 
 func (o RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) MarshalJSON() ([]byte, error) {
@@ -123,8 +122,8 @@ func (o RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) ToMap() (map[string
 	if !IsNil(o.Address) {
 		toSerialize["address"] = o.Address
 	}
-	if !IsNil(o.Wildcard) {
-		toSerialize["wildcard"] = o.Wildcard
+	if !IsNil(o.Entry) {
+		toSerialize["entry"] = o.Entry
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -149,7 +148,7 @@ func (o *RouteAccessListsTypeIpv4Ipv4EntryInnerSourceAddress) UnmarshalJSON(data
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "address")
-		delete(additionalProperties, "wildcard")
+		delete(additionalProperties, "entry")
 		o.AdditionalProperties = additionalProperties
 	}
 

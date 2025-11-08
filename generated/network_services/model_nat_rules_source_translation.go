@@ -18,7 +18,7 @@ import (
 // checks if the NatRulesSourceTranslation type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NatRulesSourceTranslation{}
 
-// NatRulesSourceTranslation Source translation configuration (Static/P-D-N-T).
+// NatRulesSourceTranslation struct for NatRulesSourceTranslation
 type NatRulesSourceTranslation struct {
 	DynamicIp            *NatRulesSourceTranslationDynamicIp        `json:"dynamic_ip,omitempty"`
 	DynamicIpAndPort     *NatRulesSourceTranslationDynamicIpAndPort `json:"dynamic_ip_and_port,omitempty"`

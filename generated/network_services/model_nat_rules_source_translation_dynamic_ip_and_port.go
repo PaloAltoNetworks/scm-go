@@ -20,12 +20,7 @@ var _ MappedNullable = &NatRulesSourceTranslationDynamicIpAndPort{}
 
 // NatRulesSourceTranslationDynamicIpAndPort Dynamic IP and port
 type NatRulesSourceTranslationDynamicIpAndPort struct {
-	// Floating IP address
-	FloatingIp *string `json:"floating_ip,omitempty"`
-	// Interface name
-	Interface *string `json:"interface,omitempty"`
-	// Translated source IP address
-	Ip *string `json:"ip,omitempty"`
+	InterfaceAddress *NatRulesSourceTranslationDynamicIpAndPortInterfaceAddress `json:"interface_address,omitempty"`
 	// Translated source IP addresses
 	TranslatedAddress    []string `json:"translated_address,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -50,100 +45,36 @@ func NewNatRulesSourceTranslationDynamicIpAndPortWithDefaults() *NatRulesSourceT
 	return &this
 }
 
-// GetFloatingIp returns the FloatingIp field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) GetFloatingIp() string {
-	if o == nil || IsNil(o.FloatingIp) {
-		var ret string
+// GetInterfaceAddress returns the InterfaceAddress field value if set, zero value otherwise.
+func (o *NatRulesSourceTranslationDynamicIpAndPort) GetInterfaceAddress() NatRulesSourceTranslationDynamicIpAndPortInterfaceAddress {
+	if o == nil || IsNil(o.InterfaceAddress) {
+		var ret NatRulesSourceTranslationDynamicIpAndPortInterfaceAddress
 		return ret
 	}
-	return *o.FloatingIp
+	return *o.InterfaceAddress
 }
 
-// GetFloatingIpOk returns a tuple with the FloatingIp field value if set, nil otherwise
+// GetInterfaceAddressOk returns a tuple with the InterfaceAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) GetFloatingIpOk() (*string, bool) {
-	if o == nil || IsNil(o.FloatingIp) {
+func (o *NatRulesSourceTranslationDynamicIpAndPort) GetInterfaceAddressOk() (*NatRulesSourceTranslationDynamicIpAndPortInterfaceAddress, bool) {
+	if o == nil || IsNil(o.InterfaceAddress) {
 		return nil, false
 	}
-	return o.FloatingIp, true
+	return o.InterfaceAddress, true
 }
 
-// HasFloatingIp returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) HasFloatingIp() bool {
-	if o != nil && !IsNil(o.FloatingIp) {
+// HasInterfaceAddress returns a boolean if a field has been set.
+func (o *NatRulesSourceTranslationDynamicIpAndPort) HasInterfaceAddress() bool {
+	if o != nil && !IsNil(o.InterfaceAddress) {
 		return true
 	}
 
 	return false
 }
 
-// SetFloatingIp gets a reference to the given string and assigns it to the FloatingIp field.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) SetFloatingIp(v string) {
-	o.FloatingIp = &v
-}
-
-// GetInterface returns the Interface field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) GetInterface() string {
-	if o == nil || IsNil(o.Interface) {
-		var ret string
-		return ret
-	}
-	return *o.Interface
-}
-
-// GetInterfaceOk returns a tuple with the Interface field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) GetInterfaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Interface) {
-		return nil, false
-	}
-	return o.Interface, true
-}
-
-// HasInterface returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) HasInterface() bool {
-	if o != nil && !IsNil(o.Interface) {
-		return true
-	}
-
-	return false
-}
-
-// SetInterface gets a reference to the given string and assigns it to the Interface field.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) SetInterface(v string) {
-	o.Interface = &v
-}
-
-// GetIp returns the Ip field value if set, zero value otherwise.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) GetIp() string {
-	if o == nil || IsNil(o.Ip) {
-		var ret string
-		return ret
-	}
-	return *o.Ip
-}
-
-// GetIpOk returns a tuple with the Ip field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) GetIpOk() (*string, bool) {
-	if o == nil || IsNil(o.Ip) {
-		return nil, false
-	}
-	return o.Ip, true
-}
-
-// HasIp returns a boolean if a field has been set.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) HasIp() bool {
-	if o != nil && !IsNil(o.Ip) {
-		return true
-	}
-
-	return false
-}
-
-// SetIp gets a reference to the given string and assigns it to the Ip field.
-func (o *NatRulesSourceTranslationDynamicIpAndPort) SetIp(v string) {
-	o.Ip = &v
+// SetInterfaceAddress gets a reference to the given NatRulesSourceTranslationDynamicIpAndPortInterfaceAddress and assigns it to the InterfaceAddress field.
+func (o *NatRulesSourceTranslationDynamicIpAndPort) SetInterfaceAddress(v NatRulesSourceTranslationDynamicIpAndPortInterfaceAddress) {
+	o.InterfaceAddress = &v
 }
 
 // GetTranslatedAddress returns the TranslatedAddress field value if set, zero value otherwise.
@@ -188,14 +119,8 @@ func (o NatRulesSourceTranslationDynamicIpAndPort) MarshalJSON() ([]byte, error)
 
 func (o NatRulesSourceTranslationDynamicIpAndPort) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.FloatingIp) {
-		toSerialize["floating_ip"] = o.FloatingIp
-	}
-	if !IsNil(o.Interface) {
-		toSerialize["interface"] = o.Interface
-	}
-	if !IsNil(o.Ip) {
-		toSerialize["ip"] = o.Ip
+	if !IsNil(o.InterfaceAddress) {
+		toSerialize["interface_address"] = o.InterfaceAddress
 	}
 	if !IsNil(o.TranslatedAddress) {
 		toSerialize["translated_address"] = o.TranslatedAddress
@@ -222,9 +147,7 @@ func (o *NatRulesSourceTranslationDynamicIpAndPort) UnmarshalJSON(data []byte) (
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "floating_ip")
-		delete(additionalProperties, "interface")
-		delete(additionalProperties, "ip")
+		delete(additionalProperties, "interface_address")
 		delete(additionalProperties, "translated_address")
 		o.AdditionalProperties = additionalProperties
 	}

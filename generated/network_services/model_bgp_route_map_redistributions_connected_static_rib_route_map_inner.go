@@ -20,14 +20,14 @@ var _ MappedNullable = &BgpRouteMapRedistributionsConnectedStaticRibRouteMapInne
 
 // BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner struct for BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner
 type BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner struct {
-	// Action
+	// Connected Static BGP Rib Route maps Action
 	Action *string `json:"action,omitempty"`
-	// Description
+	// Connected Static BGP Rib Route maps Description
 	Description *string                                                         `json:"description,omitempty"`
 	Match       *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerMatch `json:"match,omitempty"`
-	// Sequence number
-	Name                 *int32                                            `json:"name,omitempty"`
-	Set                  *BgpRouteMapRedistributionsBgpRibRouteMapInnerSet `json:"set,omitempty"`
+	// Connected Static BGP Rib Route maps Sequence number
+	Name                 *int32                                                        `json:"name,omitempty"`
+	Set                  *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerSet `json:"set,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -179,9 +179,9 @@ func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) SetName(v in
 }
 
 // GetSet returns the Set field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetSet() BgpRouteMapRedistributionsBgpRibRouteMapInnerSet {
+func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetSet() BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerSet {
 	if o == nil || IsNil(o.Set) {
-		var ret BgpRouteMapRedistributionsBgpRibRouteMapInnerSet
+		var ret BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerSet
 		return ret
 	}
 	return *o.Set
@@ -189,7 +189,7 @@ func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetSet() Bgp
 
 // GetSetOk returns a tuple with the Set field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetSetOk() (*BgpRouteMapRedistributionsBgpRibRouteMapInnerSet, bool) {
+func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) GetSetOk() (*BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerSet, bool) {
 	if o == nil || IsNil(o.Set) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) HasSet() boo
 	return false
 }
 
-// SetSet gets a reference to the given BgpRouteMapRedistributionsBgpRibRouteMapInnerSet and assigns it to the Set field.
-func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) SetSet(v BgpRouteMapRedistributionsBgpRibRouteMapInnerSet) {
+// SetSet gets a reference to the given BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerSet and assigns it to the Set field.
+func (o *BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner) SetSet(v BgpRouteMapRedistributionsConnectedStaticRibRouteMapInnerSet) {
 	o.Set = &v
 }
 

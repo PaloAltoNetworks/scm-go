@@ -21,7 +21,6 @@ var _ MappedNullable = &TrafficSteeringRulesAction{}
 // TrafficSteeringRulesAction struct for TrafficSteeringRulesAction
 type TrafficSteeringRulesAction struct {
 	Forward              *TrafficSteeringRulesActionForward `json:"forward,omitempty"`
-	NoPbf                map[string]interface{}             `json:"no-pbf,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,38 +75,6 @@ func (o *TrafficSteeringRulesAction) SetForward(v TrafficSteeringRulesActionForw
 	o.Forward = &v
 }
 
-// GetNoPbf returns the NoPbf field value if set, zero value otherwise.
-func (o *TrafficSteeringRulesAction) GetNoPbf() map[string]interface{} {
-	if o == nil || IsNil(o.NoPbf) {
-		var ret map[string]interface{}
-		return ret
-	}
-	return o.NoPbf
-}
-
-// GetNoPbfOk returns a tuple with the NoPbf field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TrafficSteeringRulesAction) GetNoPbfOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.NoPbf) {
-		return map[string]interface{}{}, false
-	}
-	return o.NoPbf, true
-}
-
-// HasNoPbf returns a boolean if a field has been set.
-func (o *TrafficSteeringRulesAction) HasNoPbf() bool {
-	if o != nil && !IsNil(o.NoPbf) {
-		return true
-	}
-
-	return false
-}
-
-// SetNoPbf gets a reference to the given map[string]interface{} and assigns it to the NoPbf field.
-func (o *TrafficSteeringRulesAction) SetNoPbf(v map[string]interface{}) {
-	o.NoPbf = v
-}
-
 func (o TrafficSteeringRulesAction) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -120,9 +87,6 @@ func (o TrafficSteeringRulesAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Forward) {
 		toSerialize["forward"] = o.Forward
-	}
-	if !IsNil(o.NoPbf) {
-		toSerialize["no-pbf"] = o.NoPbf
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -147,7 +111,6 @@ func (o *TrafficSteeringRulesAction) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "forward")
-		delete(additionalProperties, "no-pbf")
 		o.AdditionalProperties = additionalProperties
 	}
 

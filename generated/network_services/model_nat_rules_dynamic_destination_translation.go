@@ -18,11 +18,14 @@ import (
 // checks if the NatRulesDynamicDestinationTranslation type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NatRulesDynamicDestinationTranslation{}
 
-// NatRulesDynamicDestinationTranslation Dynamic destination translation configuration.
+// NatRulesDynamicDestinationTranslation Dynamic destination translation
 type NatRulesDynamicDestinationTranslation struct {
-	Distribution         *string `json:"distribution,omitempty"`
-	TranslatedAddress    *string `json:"translated_address,omitempty"`
-	TranslatedPort       *int32  `json:"translated_port,omitempty"`
+	// Distribution method
+	Distribution *string `json:"distribution,omitempty"`
+	// Translated destination IP address
+	TranslatedAddress *string `json:"translated_address,omitempty"`
+	// Translated destination port
+	TranslatedPort       *int32 `json:"translated_port,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

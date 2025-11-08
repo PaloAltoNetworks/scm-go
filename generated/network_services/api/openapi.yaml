@@ -20,8 +20,8 @@ servers:
 security:
 - scmToken: []
 tags:
-- description: Aggregate Ethernet Interfaces
-  name: Aggregate Ethernet Interfaces
+- description: Aggregate Interfaces
+  name: Aggregate Interfaces
 - description: Auto VPN Clusters
   name: Auto VPN Clusters
 - description: Auto VPN Config Push
@@ -109,11 +109,11 @@ tags:
 - description: Remote Networks License Info
   name: Remote Networks License
 paths:
-  /aggregate-ethernet-interfaces:
+  /aggregate-interfaces:
     get:
       description: |
-        Retrieve a list of aggregate ethernet interfaces.
-      operationId: ListAggregateEthernetInterfaces
+        Retrieve a list of Aggregate Interfaces.
+      operationId: ListAggregateInterfaces
       parameters:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/offset'
@@ -126,7 +126,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AggregateEthernetInterfacesListResponse'
+                $ref: '#/components/schemas/AggregateInterfacesListResponse'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic'
@@ -138,25 +138,25 @@ paths:
           $ref: '#/components/responses/not_found'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: List aggregate ethernet interfaces
+      summary: List Aggregate Interfaces
       tags:
-      - Aggregate Ethernet Interfaces
+      - Aggregate Interfaces
     post:
       description: |
-        Create a new aggregate ethernet interface.
-      operationId: CreateAggregateEthernetInterfaces
+        Create a new Aggregate Interface.
+      operationId: CreateAggregateInterfaces
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+              $ref: '#/components/schemas/aggregate-interfaces'
         description: Created
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+                $ref: '#/components/schemas/aggregate-interfaces'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic_with_body'
@@ -168,14 +168,14 @@ paths:
           $ref: '#/components/responses/conflict_errors'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: Create an aggregate ethernet interface
+      summary: Create an Aggregate Interface
       tags:
-      - Aggregate Ethernet Interfaces
-  /aggregate-ethernet-interfaces/{id}:
+      - Aggregate Interfaces
+  /aggregate-interfaces/{id}:
     delete:
       description: |
-        Delete an aggregate ethernet interface.
-      operationId: DeleteAggregateEthernetInterfacesByID
+        Delete an Aggregate Interface.
+      operationId: DeleteAggregateInterfacesByID
       parameters:
       - $ref: '#/components/parameters/uuid'
       responses:
@@ -193,13 +193,13 @@ paths:
           $ref: '#/components/responses/conflict_errors'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: Delete an aggregate ethernet interface
+      summary: Delete an Aggregate Interface
       tags:
-      - Aggregate Ethernet Interfaces
+      - Aggregate Interfaces
     get:
       description: |
-        Get an existing aggregate ethernet interface.
-      operationId: GetAggregateEthernetInterfacesByID
+        Get an existing Aggregate Interface.
+      operationId: GetAggregateInterfacesByID
       parameters:
       - $ref: '#/components/parameters/uuid'
       responses:
@@ -207,7 +207,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+                $ref: '#/components/schemas/aggregate-interfaces'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic'
@@ -219,27 +219,27 @@ paths:
           $ref: '#/components/responses/not_found'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: Get an aggregate ethernet interface
+      summary: Get an Aggregate Interface
       tags:
-      - Aggregate Ethernet Interfaces
+      - Aggregate Interfaces
     put:
       description: |
-        Update an existing aggregate ethernet interface.
-      operationId: UpdateAggregateEthernetInterfacesByID
+        Update an existing Aggregate Interface.
+      operationId: UpdateAggregateInterfacesByID
       parameters:
       - $ref: '#/components/parameters/uuid'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+              $ref: '#/components/schemas/aggregate-interfaces'
         description: OK
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aggregate-ethernet-interfaces'
+                $ref: '#/components/schemas/aggregate-interfaces'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic_with_body'
@@ -253,9 +253,9 @@ paths:
           $ref: '#/components/responses/conflict_errors'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: Update an aggregate ethernet interface
+      summary: Update an Aggregate Interface
       tags:
-      - Aggregate Ethernet Interfaces
+      - Aggregate Interfaces
   /auto-vpn-clusters:
     get:
       description: |
@@ -6522,7 +6522,7 @@ components:
             $ref: '#/components/schemas/generic_error'
       description: Not Found
   schemas:
-    AggregateEthernetInterfacesListResponse:
+    AggregateInterfacesListResponse:
       example:
         total: 1
         data:
@@ -6533,7 +6533,7 @@ components:
       properties:
         data:
           items:
-            $ref: '#/components/schemas/AggregateEthernetInterfaces'
+            $ref: '#/components/schemas/AggregateInterfaces'
           type: array
         limit:
           default: 200
@@ -7711,7 +7711,7 @@ components:
       properties:
         dhcp_client:
           $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
-    aggregate-ethernet-interfaces:
+    aggregate-interfaces:
       example:
         snippet: My Snippet
         folder: My Folder
@@ -7722,7 +7722,7 @@ components:
             send_hostname:
               hostname: system-hostname
               enable: true
-            default_route_metric: 36944
+            default_route_metric: 39073
           lacp:
             mode: passive
             fast_failover: false
@@ -7731,13 +7731,13 @@ components:
             system_priority: 39501
             max_ports: 1
           ip:
-          - ip
-          - ip
+          - name: name
+          - name: name
           ddns_config:
             ddns_enabled: false
             ddns_hostname: ddns_hostname
             ddns_vendor: ddns_vendor
-            ddns_update_interval: 18
+            ddns_update_interval: 5
             ddns_ip: ddns_ip
             ddns_cert_profile: ddns_cert_profile
             ddns_vendor_config: ddns_vendor_config
@@ -7747,7 +7747,7 @@ components:
             name: name
           - hw_address: hw_address
             name: name
-          mtu: 2565
+          mtu: 5446
         name: name
         comment: comment
         default_value: default_value
@@ -7760,7 +7760,7 @@ components:
             enable: false
             system_priority: 39501
             max_ports: 1
-          vlan_tag: 601
+          vlan_tag: "123"
         device: My Device
       properties:
         comment:
@@ -7788,9 +7788,9 @@ components:
           readOnly: true
           type: string
         layer2:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer2'
+          $ref: '#/components/schemas/aggregate_interfaces_layer2'
         layer3:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3'
+          $ref: '#/components/schemas/aggregate_interfaces_layer3'
         name:
           description: Aggregate interface name
           type: string
@@ -8684,7 +8684,7 @@ components:
                     access_list: access_list
                 metric: 2147483647
                 interface: interface
-              name: 43801
+              name: 57422
               action: permit
               description: description
             - set:
@@ -8699,7 +8699,7 @@ components:
                     access_list: access_list
                 metric: 2147483647
                 interface: interface
-              name: 43801
+              name: 57422
               action: permit
               description: description
           ospf:
@@ -8876,18 +8876,18 @@ components:
                   value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 1527803716
+                  as: 2147483647
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 45646
-                - 45646
+                - 8419
+                - 8419
                 weight: 2147483647
-                tag: 1238738201
-                local_preference: 551756841
+                tag: 2147483647
+                local_preference: 1238738200
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8902,7 +8902,7 @@ components:
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 42194
+              name: 23312
               action: permit
               description: description
             - set:
@@ -8914,18 +8914,18 @@ components:
                   value: 2147483647
                 originator_id: originator_id
                 aggregator:
-                  as: 1527803716
+                  as: 2147483647
                   router_id: router_id
                 origin: none
                 large_community:
                 - large_community
                 - large_community
                 aspath_prepend:
-                - 45646
-                - 45646
+                - 8419
+                - 8419
                 weight: 2147483647
-                tag: 1238738201
-                local_preference: 551756841
+                tag: 2147483647
+                local_preference: 1238738200
                 regular_community:
                 - regular_community
                 - regular_community
@@ -8940,7 +8940,7 @@ components:
                   access_list: access_list
                 tag: 2147483647
                 interface: interface
-              name: 42194
+              name: 23312
               action: permit
               description: description
           rib:
@@ -8955,9 +8955,9 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-                tag: 2147483647
+                tag: 1440185576
                 interface: interface
-              name: 43935
+              name: 20275
               action: permit
               description: description
             - set:
@@ -8970,9 +8970,9 @@ components:
                 next_hop:
                   prefix_list: prefix_list
                   access_list: access_list
-                tag: 2147483647
+                tag: 1440185576
                 interface: interface
-              name: 43935
+              name: 20275
               action: permit
               description: description
       properties:
@@ -8981,7 +8981,7 @@ components:
         connected_static:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static'
         description:
-          description: Description
+          description: BGP Route Map Redistributions Description
           type: string
         device:
           description: The device in which the resource is defined
@@ -8996,12 +8996,12 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
-          description: UUID of the resource
+          description: BGP Route Map Redistributions UUID of the resource
           example: 123e4567-e89b-12d3-a456-426655440000
           readOnly: true
           type: string
         name:
-          description: Name
+          description: BGP Route Map Redistributions Name
           type: string
         ospf:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf'
@@ -9030,7 +9030,7 @@ components:
             aspath_prepend:
             - 7
             - 7
-            weight: 870642708
+            weight: 1780525090
             remove_large_community: remove_large_community
             local_preference: 2147483647
             regular_community:
@@ -9044,12 +9044,12 @@ components:
               source_address: source_address
             metric:
               action: set
-              value: 2147483647
+              value: 1553093137
             overwrite_regular_community: true
             aspath_exclude:
             - 2
             - 2
-            tag: 1553093137
+            tag: 870642708
           match:
             as_path_access_list: as_path_access_list
             ipv4:
@@ -9086,7 +9086,7 @@ components:
             aspath_prepend:
             - 7
             - 7
-            weight: 870642708
+            weight: 1780525090
             remove_large_community: remove_large_community
             local_preference: 2147483647
             regular_community:
@@ -9100,12 +9100,12 @@ components:
               source_address: source_address
             metric:
               action: set
-              value: 2147483647
+              value: 1553093137
             overwrite_regular_community: true
             aspath_exclude:
             - 2
             - 2
-            tag: 1553093137
+            tag: 870642708
           match:
             as_path_access_list: as_path_access_list
             ipv4:
@@ -9791,9 +9791,9 @@ components:
         userid_syslog_listener_udp: true
         ping: true
         permitted_ip:
-        - permitted_ip
-        - permitted_ip
-        response_pages: ""
+        - name: name
+        - name: name
+        response_pages: true
         ssh: true
         userid_service: true
         folder: My Folder
@@ -9838,12 +9838,14 @@ components:
         permitted_ip:
           description: Allowed IP address(es)
           items:
-            type: string
+            $ref: '#/components/schemas/interface_management_profiles_permitted_ip_inner'
           type: array
         ping:
           description: Allow ping?
           type: boolean
-        response_pages: {}
+        response_pages:
+          description: Allow response pages?
+          type: boolean
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
@@ -11368,8 +11370,8 @@ components:
                       - nexthop
                     name: name
                   used_by:
-                  - "{}"
-                  - "{}"
+                  - used_by
+                  - used_by
                 - enable: true
                   non_exist_filters:
                   - enable: true
@@ -11471,8 +11473,8 @@ components:
                       - nexthop
                     name: name
                   used_by:
-                  - "{}"
-                  - "{}"
+                  - used_by
+                  - used_by
               aggregation:
                 address:
                 - summary: true
@@ -12682,6 +12684,7 @@ components:
                   fqdn: fqdn
                   ipv6_address: ipv6_address
                   next_lr: next_lr
+                  ip_address: ip_address
                   tunnel: tunnel
               - bfd:
                   profile: profile
@@ -12721,6 +12724,7 @@ components:
                   fqdn: fqdn
                   ipv6_address: ipv6_address
                   next_lr: next_lr
+                  ip_address: ip_address
                   tunnel: tunnel
           rib_filter:
             ipv4:
@@ -13745,8 +13749,8 @@ components:
                       - nexthop
                     name: name
                   used_by:
-                  - "{}"
-                  - "{}"
+                  - used_by
+                  - used_by
                 - enable: true
                   non_exist_filters:
                   - enable: true
@@ -13848,8 +13852,8 @@ components:
                       - nexthop
                     name: name
                   used_by:
-                  - "{}"
-                  - "{}"
+                  - used_by
+                  - used_by
               aggregation:
                 address:
                 - summary: true
@@ -15059,6 +15063,7 @@ components:
                   fqdn: fqdn
                   ipv6_address: ipv6_address
                   next_lr: next_lr
+                  ip_address: ip_address
                   tunnel: tunnel
               - bfd:
                   profile: profile
@@ -15098,6 +15103,7 @@ components:
                   fqdn: fqdn
                   ipv6_address: ipv6_address
                   next_lr: next_lr
+                  ip_address: ip_address
                   tunnel: tunnel
           rib_filter:
             ipv4:
@@ -15250,23 +15256,25 @@ components:
             translated_address: translated_address
             bi_directional: bi_directional
           dynamic_ip_and_port:
-            floating_ip: floating_ip
-            ip: ip
+            interface_address:
+              floating_ip: floating_ip
+              ip: ip
+              interface: interface
             translated_address:
             - translated_address
             - translated_address
-            interface: interface
           dynamic_ip:
             translated_address:
             - translated_address
             - translated_address
             fallback:
-              floating_ip: floating_ip
-              ip: ip
+              interface_address:
+                floating_ip: floating_ip
+                ip: ip
+                interface: interface
               translated_address:
               - translated_address
               - translated_address
-              interface: interface
         folder: My Folder
         service: any
         name: name
@@ -15737,19 +15745,27 @@ components:
           ipv4:
             ipv4_entry:
             - destination_address:
+                entry:
+                  address: address
+                  wildcard: wildcard
                 address: address
-                wildcard: wildcard
               source_address:
+                entry:
+                  address: address
+                  wildcard: wildcard
                 address: address
-                wildcard: wildcard
               name: 5249
               action: deny
             - destination_address:
+                entry:
+                  address: address
+                  wildcard: wildcard
                 address: address
-                wildcard: wildcard
               source_address:
+                entry:
+                  address: address
+                  wildcard: wildcard
                 address: address
-                wildcard: wildcard
               name: 5249
               action: deny
         device: My Device
@@ -16610,19 +16626,21 @@ components:
         - name: "8001"
           action:
             allow: "{}"
-            duration: 289
-            track_by: source-and-destination
             alert: "{}"
             block: "{}"
+            block_ip:
+              duration: 289
+              track_by: source-and-destination
           interval: 2
           threshold: 100
         - name: "8001"
           action:
             allow: "{}"
-            duration: 289
-            track_by: source-and-destination
             alert: "{}"
             block: "{}"
+            block_ip:
+              duration: 289
+              track_by: source-and-destination
           interval: 2
           threshold: 100
         description: description
@@ -16692,10 +16710,15 @@ components:
               activate_rate: 10000
             enable: true
           tcp_syn:
-            alarm_rate: 10000
+            red:
+              alarm_rate: 10000
+              maximal_rate: 40000
+              activate_rate: 10000
+            syn_cookies:
+              alarm_rate: 10000
+              maximal_rate: 1000000
+              activate_rate: 0
             enable: true
-            maximal_rate: 40000
-            activate_rate: 10000
           other_ip:
             red:
               alarm_rate: 10000
@@ -17051,7 +17074,7 @@ components:
         send_hostname:
           hostname: system-hostname
           enable: true
-        default_route_metric: 36944
+        default_route_metric: 39073
       properties:
         create_default_route:
           default: true
@@ -17070,7 +17093,7 @@ components:
           type: boolean
         send_hostname:
           $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client_send_hostname'
-    aggregate_ethernet_interfaces_layer2:
+    aggregate_interfaces_layer2:
       example:
         lacp:
           mode: passive
@@ -17079,22 +17102,22 @@ components:
           enable: false
           system_priority: 39501
           max_ports: 1
-        vlan_tag: 601
+        vlan_tag: "123"
       properties:
         lacp:
           $ref: '#/components/schemas/lacp'
         vlan_tag:
-          description: Assign interface to VLAN tag
-          maximum: 4096
-          minimum: 1
-          type: integer
-    aggregate_ethernet_interfaces_layer3_ddns_config:
-      description: Dynamic DNS configuration specific to the Aggregate Ethernet Interface.
+          description: VLAN tag
+          example: "123"
+          pattern: "^([1-9]\\d{0,2}|[1-3]\\d{3}|40[0-8]\\d|409[0-6])$"
+          type: string
+    aggregate_interfaces_layer3_ddns_config:
+      description: Dynamic DNS configuration specific to the Aggregate Interface.
       example:
         ddns_enabled: false
         ddns_hostname: ddns_hostname
         ddns_vendor: ddns_vendor
-        ddns_update_interval: 18
+        ddns_update_interval: 5
         ddns_ip: ddns_ip
         ddns_cert_profile: ddns_cert_profile
         ddns_vendor_config: ddns_vendor_config
@@ -17133,7 +17156,17 @@ components:
       - ddns_hostname
       - ddns_vendor
       - ddns_vendor_config
-    aggregate_ethernet_interfaces_layer3:
+    aggregate_interfaces_layer3_ip_inner:
+      example:
+        name: name
+      properties:
+        name:
+          description: Aggregate Interface IP addresses name
+          type: string
+      required:
+      - name
+    aggregate_interfaces_layer3:
+      description: Aggregate Interface Layer 3 configuration
       example:
         dhcp_client:
           enable: true
@@ -17141,7 +17174,7 @@ components:
           send_hostname:
             hostname: system-hostname
             enable: true
-          default_route_metric: 36944
+          default_route_metric: 39073
         lacp:
           mode: passive
           fast_failover: false
@@ -17150,13 +17183,13 @@ components:
           system_priority: 39501
           max_ports: 1
         ip:
-        - ip
-        - ip
+        - name: name
+        - name: name
         ddns_config:
           ddns_enabled: false
           ddns_hostname: ddns_hostname
           ddns_vendor: ddns_vendor
-          ddns_update_interval: 18
+          ddns_update_interval: 5
           ddns_ip: ddns_ip
           ddns_cert_profile: ddns_cert_profile
           ddns_vendor_config: ddns_vendor_config
@@ -17166,7 +17199,7 @@ components:
           name: name
         - hw_address: hw_address
           name: name
-        mtu: 2565
+        mtu: 5446
       properties:
         arp:
           description: Aggregate Ethernet ARP configuration
@@ -17174,7 +17207,7 @@ components:
             $ref: '#/components/schemas/agg_ethernet_arp_inner'
           type: array
         ddns_config:
-          $ref: '#/components/schemas/aggregate_ethernet_interfaces_layer3_ddns_config'
+          $ref: '#/components/schemas/aggregate_interfaces_layer3_ddns_config'
         dhcp_client:
           $ref: '#/components/schemas/agg_ethernet_dhcp_client_dhcp_client'
         interface_management_profile:
@@ -17182,9 +17215,9 @@ components:
           maxLength: 31
           type: string
         ip:
-          description: Interface IP addresses
+          description: Aggregate Interface IP addresses
           items:
-            type: string
+            $ref: '#/components/schemas/aggregate_interfaces_layer3_ip_inner'
           type: array
         lacp:
           $ref: '#/components/schemas/lacp'
@@ -18101,43 +18134,47 @@ components:
         unicast:
           $ref: '#/components/schemas/bgp_redistribution_profiles_ipv4_unicast'
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_address:
-      description: bgp-route-map-redistributions ipv4 object address
+      description: BGP Root OSPF Route maps match bgp-route-map-redistributions ipv4
+        object address
       example:
         prefix_list: prefix_list
         access_list: access_list
       properties:
         access_list:
-          description: Access list
+          description: BGP Root OSPF Route maps match ipv4 Access list
           type: string
         prefix_list:
-          description: Prefix list
+          description: BGP Root OSPF Route maps match ipv4 Prefix list
           type: string
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_next_hop:
-      description: bgp-route-map-redistributions ipv4 object next_hop
+      description: BGP Root OSPF Route maps match  bgp-route-map-redistributions ipv4
+        object next_hop
       example:
         prefix_list: prefix_list
         access_list: access_list
       properties:
         access_list:
-          description: Access list
+          description: BGP Root OSPF Route maps ipv4 next_vr hop Access list
           type: string
         prefix_list:
-          description: Prefix list
+          description: BGP Root OSPF Route maps ipv4 next hop Prefix list
           type: string
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4_route_source:
-      description: bgp-route-map-redistributions ipv4 object route_source
+      description: BGP Root OSPF Route maps ipv4 bgp-route-map-redistributions ipv4
+        object route_source
       example:
         prefix_list: prefix_list
         access_list: access_list
       properties:
         access_list:
-          description: Access list
+          description: BGP Root OSPF Route maps ipv4 route source Access list
           type: string
         prefix_list:
-          description: Prefix list
+          description: BGP Root OSPF Route maps ipv4 route source Prefix list
           type: string
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4:
-      description: bgp-route-map-redistributions ipv4 object
+      description: BGP Root OSPF Route maps match bgp-route-map-redistributions ipv4
+        object
       example:
         address:
           prefix_list: prefix_list
@@ -18179,43 +18216,43 @@ components:
         regular_community: regular_community
       properties:
         as_path_access_list:
-          description: AS path access list
+          description: BGP Root OSPF Route maps match AS path access list
           type: string
         extended_community:
-          description: Extended community
+          description: EBGP Root OSPF Route maps match xtended community
           type: string
         interface:
-          description: Interface
+          description: BGP Root OSPF Route maps match Interface
           type: string
         ipv4:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match_ipv4'
         large_community:
-          description: Large community
+          description: BGP Root OSPF Route maps match Large community
           type: string
         local_preference:
-          description: Local preference
+          description: BGP Root OSPF Route maps match Local preference
           maximum: 4294967295
           minimum: 1
           type: integer
         metric:
-          description: Metric
+          description: BGP Root OSPF Route maps match Metric
           maximum: 4294967295
           minimum: 0
           type: integer
         origin:
-          description: Origin
+          description: BGP Root OSPF Route maps match Origin
           type: string
         peer:
-          description: Peer
+          description: BGP Root OSPF Route maps match Peer
           enum:
           - local
           - none
           type: string
         regular_community:
-          description: Regular community
+          description: BGP Root OSPF Route maps match Regular community
           type: string
         tag:
-          description: Tag
+          description: BGP Root OSPF Route maps match Tag
           maximum: 4294967295
           minimum: 1
           type: integer
@@ -18225,18 +18262,19 @@ components:
         value: 2147483647
       properties:
         action:
-          description: Metric action
+          description: BGP Root OSPF Route maps set Metric action
           enum:
           - set
           - add
           - subtract
           type: string
         value:
-          description: Metric value
+          description: BGP Root OSPF Route maps set Metric value
           maximum: 4294967295
           minimum: 0
           type: integer
     bgp_route_map_redistributions_bgp_ospf_route_map_inner_set:
+      description: BGP Root OSPF Set
       example:
         metric:
           action: set
@@ -18247,13 +18285,13 @@ components:
         metric:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_set_metric'
         metric_type:
-          description: Metric type
+          description: BGP Root OSPF Route maps set Metric type
           enum:
           - type-1
           - type-2
           type: string
         tag:
-          description: Tag
+          description: BGP Root OSPF Route maps set Tag
           maximum: 4294967295
           minimum: 1
           type: integer
@@ -18291,18 +18329,18 @@ components:
         description: description
       properties:
         action:
-          description: Action
+          description: BGP Root OSPF Route maps Action
           enum:
           - permit
           - deny
           type: string
         description:
-          description: Description
+          description: BGP Root OSPF Route maps Description
           type: string
         match:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner_match'
         name:
-          description: Sequence number
+          description: BGP Root OSPF Route maps Sequence number
           maximum: 65535
           minimum: 1
           type: integer
@@ -18373,7 +18411,7 @@ components:
           description: description
       properties:
         route_map:
-          description: Route maps
+          description: BGP Root OSPF Route maps
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf_route_map_inner'
           type: array
@@ -18384,10 +18422,10 @@ components:
         access_list: access_list
       properties:
         access_list:
-          description: Access list
+          description: BGP Root RIB Route maps match ipv Access list
           type: string
         prefix_list:
-          description: Prefix list
+          description: BGP Root RIB Route maps match ipv Prefix list
           type: string
     bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_next_hop:
       description: bgp-route-map-redistributions ipv4 rib object next_hop
@@ -18396,10 +18434,10 @@ components:
         access_list: access_list
       properties:
         access_list:
-          description: Access list
+          description: BGP Root RIB Route maps match ipv next hop Access list
           type: string
         prefix_list:
-          description: Prefix list
+          description: BGP Root RIB Route maps match ipv next hop Prefix list
           type: string
     bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source:
       example:
@@ -18407,12 +18445,13 @@ components:
         access_list: access_list
       properties:
         access_list:
-          description: Access list
+          description: BGP Root RIB Route maps match ipv route source Access list
           type: string
         prefix_list:
-          description: Prefix list
+          description: BGP Root RIB Route maps match ipv route source Prefix list
           type: string
     bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4:
+      description: BGP Route Map Redistributions Root BGP rib Route Map IPv4
       example:
         address:
           prefix_list: prefix_list
@@ -18431,6 +18470,7 @@ components:
         route_source:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
     bgp_route_map_redistributions_bgp_rib_route_map_inner_match:
+      description: match attribute for BG Rib route map
       example:
         as_path_access_list: as_path_access_list
         ipv4:
@@ -18454,52 +18494,53 @@ components:
         regular_community: regular_community
       properties:
         as_path_access_list:
-          description: AS path access list
+          description: BGP Root RIB Route maps match AS path access list
           type: string
         extended_community:
-          description: Extended community
+          description: BGP Root RIB Route maps match Extended community
           type: string
         interface:
-          description: Interface
+          description: BGP Root RIB Route maps match Interface
           type: string
         ipv4:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4'
         large_community:
-          description: Large community
+          description: BGP Root RIB Route maps match Large community
           type: string
         local_preference:
-          description: Local preference
+          description: BGP Root RIB Route maps match Local preference
           maximum: 4294967295
           minimum: 1
           type: integer
         metric:
-          description: Metric
+          description: BGP Root RIB Route maps match Metric
           maximum: 4294967295
           minimum: 0
           type: integer
         origin:
-          description: Origin
+          description: BGP Root RIB Route maps match Origin
           type: string
         peer:
-          description: Peer
+          description: BGP Root RIB Route maps match Peer
           enum:
           - local
           - none
           type: string
         regular_community:
-          description: Regular community
+          description: BGP Root RIB Route maps match Regular community
           type: string
         tag:
-          description: Tag
+          description: BGP Root RIB Route maps match Tag
           maximum: 4294967295
           minimum: 1
           type: integer
     bgp_route_map_redistributions_bgp_rib_route_map_inner_set:
+      description: Set attributes for BGP route map
       example:
         source_address: source_address
       properties:
         source_address:
-          description: Source address
+          description: BGP Root RIB Route maps set Source address
           type: string
     bgp_route_map_redistributions_bgp_rib_route_map_inner:
       example:
@@ -18531,24 +18572,25 @@ components:
         description: description
       properties:
         action:
-          description: Action
+          description: BGP Root RIB Route maps Action
           enum:
           - permit
           - deny
           type: string
         description:
-          description: Description
+          description: BGP Root RIB Route maps Description
           type: string
         match:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match'
         name:
-          description: Sequence number
+          description: BGP Root RIB Route maps Sequence number
           maximum: 65535
           minimum: 1
           type: integer
         set:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_set'
     bgp_route_map_redistributions_bgp_rib:
+      description: BGP Root RIB
       example:
         route_map:
         - set:
@@ -18605,7 +18647,7 @@ components:
           description: description
       properties:
         route_map:
-          description: Route maps
+          description: BGP Root RIB Route maps
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner'
           type: array
@@ -18732,6 +18774,28 @@ components:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_ospf'
         rib:
           $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib'
+    bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match_ipv4_address:
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Connected Static BGP Route maps match ip4 Access list
+          type: string
+        prefix_list:
+          description: Connected Static BGP Route maps match ip4  Prefix list
+          type: string
+    bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match_ipv4_next_hop:
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Connected Static BGP Route maps match ip4 next hop Access list
+          type: string
+        prefix_list:
+          description: Connected Static BGP Route maps match ip4 next hop Prefix list
+          type: string
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match_ipv4:
       description: bgp-route-map-redistributions connected-static ipv4
       example:
@@ -18743,9 +18807,9 @@ components:
           access_list: access_list
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match_ipv4_address'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match_ipv4_next_hop'
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match:
       example:
         ipv4:
@@ -18759,12 +18823,12 @@ components:
         interface: interface
       properties:
         interface:
-          description: Interface
+          description: Connected Static BGP Route maps match Interface
           type: string
         ipv4:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match_ipv4'
         metric:
-          description: Metric
+          description: Connected Static BGP Route maps match Metric
           maximum: 4294967295
           minimum: 0
           type: integer
@@ -18775,12 +18839,12 @@ components:
         router_id: router_id
       properties:
         as:
-          description: Aggregator AS
+          description: Connected Static BGP Route maps set Aggregator AS
           maximum: 4294967295
           minimum: 1
           type: integer
         router_id:
-          description: Router ID
+          description: Connected Static BGP Route maps set Router ID
           type: string
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_ipv4:
       example:
@@ -18788,10 +18852,10 @@ components:
         source_address: source_address
       properties:
         next_hop:
-          description: Next hop
+          description: Connected Static BGP Route maps set Next ipv4 hop
           type: string
         source_address:
-          description: Source address
+          description: Connected Static BGP Route maps set ipv4 Source address
           type: string
     bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_metric:
       example:
@@ -18799,14 +18863,14 @@ components:
         value: 2147483647
       properties:
         action:
-          description: Metric action
+          description: Connected Static BGP Route maps set Metric action
           enum:
           - set
           - add
           - substract
           type: string
         value:
-          description: Metric value
+          description: Connected Static BGP Route maps set Metric value
           maximum: 4294967295
           minimum: 0
           type: integer
@@ -18840,33 +18904,33 @@ components:
         aggregator:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_aggregator'
         aspath_prepend:
-          description: AS numbers
+          description: Connected Static BGP Route maps set AS numbers
           items:
-            description: AS number
+            description: Connected Static  BGP Route maps set AS number
             maximum: 65535
             minimum: 1
             type: integer
           type: array
         atomic_aggregate:
-          description: Enable BGP atomic aggregate?
+          description: Connected Static BGP Route maps set Enable BGP atomic aggregate?
           type: boolean
         ipv4:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_ipv4'
         large_community:
-          description: Large communities
+          description: Connected Static  BGP Route maps set Large communities
           items:
-            description: Large community
+            description: Connected Static  BGP Route maps set Large community
             type: string
           type: array
         local_preference:
-          description: Local preference
+          description: Connected Static BGP Route maps set Local preference
           maximum: 4294967295
           minimum: 0
           type: integer
         metric:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_metric'
         origin:
-          description: Origin
+          description: Connected Static BGP Route maps set Origin
           enum:
           - none
           - egp
@@ -18874,21 +18938,21 @@ components:
           - incomplete
           type: string
         originator_id:
-          description: Originator ID
+          description: Connected Static BGP Route maps set Originator ID
           type: string
         regular_community:
-          description: Regular communities
+          description: Connected Static  BGP Route maps set Regular communities
           items:
-            description: Regular community
+            description: Connected Static  BGP Route maps set Regular community
             type: string
           type: array
         tag:
-          description: Tag
+          description: Connected Static BGP Route maps set Tag
           maximum: 4294967295
           minimum: 1
           type: integer
         weight:
-          description: Weight
+          description: Connected Static BGP Route maps set Weight
           maximum: 4294967295
           minimum: 0
           type: integer
@@ -18934,24 +18998,25 @@ components:
         description: description
       properties:
         action:
-          description: Action
+          description: Connected Static BGP Route maps Action
           enum:
           - permit
           - deny
           type: string
         description:
-          description: Description
+          description: Connected Static BGP Route maps Description
           type: string
         match:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_match'
         name:
-          description: Sequence number
+          description: Connected Static BGP Route maps Sequence number
           maximum: 65535
           minimum: 1
           type: integer
         set:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set'
     bgp_route_map_redistributions_connected_static_bgp:
+      description: Connected Static Root BGP
       example:
         route_map:
         - set:
@@ -19032,10 +19097,33 @@ components:
           description: description
       properties:
         route_map:
-          description: Route maps
+          description: Connected Static BGP Route maps
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner'
           type: array
+    bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4_address:
+      description: Connected Static Root OSPF Address
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Connected Static BGP OSPF Route map ipv4 Access list
+          type: string
+        prefix_list:
+          description: Connected Static BGP OSPF Route map ipv4 Prefix list
+          type: string
+    bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4_next_hop:
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Connected Static BGP OSPF Route map ipv4 next hop Access list
+          type: string
+        prefix_list:
+          description: Connected Static BGP OSPF Route map ipv4 next hop Prefix list
+          type: string
     bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4:
       description: bgp-route-map-redistributions connected-static match ipv4
       example:
@@ -19047,9 +19135,9 @@ components:
           access_list: access_list
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4_address'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4_next_hop'
     bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match:
       example:
         ipv4:
@@ -19063,16 +19151,34 @@ components:
         interface: interface
       properties:
         interface:
-          description: Interface
+          description: Connected Static BGP OSPF Route map Interface
           type: string
         ipv4:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match_ipv4'
         metric:
-          description: Metric
+          description: Connected Static BGP OSPF Route map Metric
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+    bgp_route_map_redistributions_connected_static_ospf_route_map_inner_set_metric:
+      example:
+        action: set
+        value: 2147483647
+      properties:
+        action:
+          description: Connected Static BGP OSPF Route map set Metric action
+          enum:
+          - set
+          - add
+          - substract
+          type: string
+        value:
+          description: Connected Static BGP OSPF Route map set Metric value
           maximum: 4294967295
           minimum: 0
           type: integer
     bgp_route_map_redistributions_connected_static_ospf_route_map_inner_set:
+      description: Connected Static Root OSPF Set
       example:
         metric:
           action: set
@@ -19081,15 +19187,15 @@ components:
         tag: 2147483647
       properties:
         metric:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_metric'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner_set_metric'
         metric_type:
-          description: Metric type
+          description: Connected Static BGP OSPF Route map set Metric type
           enum:
           - type-1
           - type-2
           type: string
         tag:
-          description: Tag
+          description: Connected Static BGP OSPF Route map set Tag
           maximum: 4294967295
           minimum: 1
           type: integer
@@ -19116,18 +19222,18 @@ components:
         description: description
       properties:
         action:
-          description: Action
+          description: Connected Static BGP OSPF Route map Action
           enum:
           - permit
           - deny
           type: string
         description:
-          description: Description
+          description: Connected Static BGP OSPF Route map Description
           type: string
         match:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner_match'
         name:
-          description: Sequence number
+          description: Connected Static BGP OSPF Route map Sequence number
           maximum: 65535
           minimum: 1
           type: integer
@@ -19176,10 +19282,33 @@ components:
           description: description
       properties:
         route_map:
-          description: Route maps
+          description: Connected Static  BGP OSPF Route maps
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_ospf_route_map_inner'
           type: array
+    bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4_address:
+      description: Connected Static BGP Rib Route maps ipv4 address
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Connected Static BGP Rib Route maps ipv4 Access list
+          type: string
+        prefix_list:
+          description: Connected Static BGP Rib Route maps ipv4 Prefix list
+          type: string
+    bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4_next_hop:
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Connected Static BGP Rib Route maps ipv4 nect hop Access list
+          type: string
+        prefix_list:
+          description: Connected Static BGP Rib Route maps ipv4 next hop Prefix list
+          type: string
     bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4:
       example:
         address:
@@ -19190,9 +19319,9 @@ components:
           access_list: access_list
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4_address'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4_next_hop'
     bgp_route_map_redistributions_connected_static_rib_route_map_inner_match:
       example:
         ipv4:
@@ -19206,15 +19335,23 @@ components:
         interface: interface
       properties:
         interface:
-          description: Interface
+          description: Connected Static BGP Rib Route maps Interface
           type: string
         ipv4:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner_match_ipv4'
         metric:
-          description: Metric
+          description: Connected Static BGP Rib Route maps Metric
           maximum: 4294967295
           minimum: 0
           type: integer
+    bgp_route_map_redistributions_connected_static_rib_route_map_inner_set:
+      description: Connected Static Root RIB set
+      example:
+        source_address: source_address
+      properties:
+        source_address:
+          description: Connected Static BGP Rib Route Map Distribution Source address
+          type: string
     bgp_route_map_redistributions_connected_static_rib_route_map_inner:
       example:
         set:
@@ -19229,28 +19366,28 @@ components:
               access_list: access_list
           metric: 2147483647
           interface: interface
-        name: 43801
+        name: 57422
         action: permit
         description: description
       properties:
         action:
-          description: Action
+          description: Connected Static BGP Rib Route maps Action
           enum:
           - permit
           - deny
           type: string
         description:
-          description: Description
+          description: Connected Static BGP Rib Route maps Description
           type: string
         match:
           $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner_match'
         name:
-          description: Sequence number
+          description: Connected Static BGP Rib Route maps Sequence number
           maximum: 65535
           minimum: 1
           type: integer
         set:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_set'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner_set'
     bgp_route_map_redistributions_connected_static_rib:
       example:
         route_map:
@@ -19266,7 +19403,7 @@ components:
                 access_list: access_list
             metric: 2147483647
             interface: interface
-          name: 43801
+          name: 57422
           action: permit
           description: description
         - set:
@@ -19281,12 +19418,12 @@ components:
                 access_list: access_list
             metric: 2147483647
             interface: interface
-          name: 43801
+          name: 57422
           action: permit
           description: description
       properties:
         route_map:
-          description: Route maps
+          description: Connected Static BGP Rib Route maps
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_rib_route_map_inner'
           type: array
@@ -19384,7 +19521,7 @@ components:
                   access_list: access_list
               metric: 2147483647
               interface: interface
-            name: 43801
+            name: 57422
             action: permit
             description: description
           - set:
@@ -19399,7 +19536,7 @@ components:
                   access_list: access_list
               metric: 2147483647
               interface: interface
-            name: 43801
+            name: 57422
             action: permit
             description: description
         ospf:
@@ -19456,10 +19593,10 @@ components:
         access_list: access_list
       properties:
         access_list:
-          description: Access list
+          description: OSPF BGP Route maps match Access list
           type: string
         prefix_list:
-          description: Prefix list
+          description: OSPF BGP Route maps match Prefix list
           type: string
     bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_next_hop:
       description: bgp-route-map-redistributions ospf next_hop
@@ -19468,10 +19605,10 @@ components:
         access_list: access_list
       properties:
         access_list:
-          description: Access list
+          description: OSPF BGP Route maps next_hop Access list
           type: string
         prefix_list:
-          description: Prefix list
+          description: OSPF BGP Route maps next_hop Prefix list
           type: string
     bgp_route_map_redistributions_ospf_bgp_route_map_inner_match:
       example:
@@ -19488,35 +19625,64 @@ components:
         address:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_address'
         interface:
-          description: Interface
+          description: OSPF BGP Route maps Interface
           type: string
         metric:
-          description: Metric
+          description: OSPF BGP Route maps Metric
           maximum: 4294967295
           minimum: 0
           type: integer
         next_hop:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_match_next_hop'
         tag:
-          description: Tag
+          description: OSPF BGP Route maps Tag
           maximum: 4294967295
           minimum: 1
           type: integer
     bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_aggregator:
       description: bgp-route-map-redistributions set aggregator
       example:
-        as: 1527803716
+        as: 2147483647
         router_id: router_id
       properties:
         as:
-          description: Aggregator AS
+          description: OSPF BGP Route maps set Aggregator AS
           maximum: 4294967295
           minimum: 1
           type: integer
         router_id:
-          description: Router ID
+          description: OSPF BGP Route maps set Router ID
           type: string
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_ipv4:
+      example:
+        next_hop: next_hop
+        source_address: source_address
+      properties:
+        next_hop:
+          description: OSPF BGP Route maps set ipv4 Next hop
+          type: string
+        source_address:
+          description: OSPF BGP Route maps set ipv4 Source address
+          type: string
+    bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_metric:
+      example:
+        action: set
+        value: 2147483647
+      properties:
+        action:
+          description: OSPF BGP Route maps set Metric action
+          enum:
+          - set
+          - add
+          - substract
+          type: string
+        value:
+          description: OSPF BGP Route maps set Metric value
+          maximum: 4294967295
+          minimum: 0
+          type: integer
     bgp_route_map_redistributions_ospf_bgp_route_map_inner_set:
+      description: OSPF Root Set
       example:
         ipv4:
           next_hop: next_hop
@@ -19526,18 +19692,18 @@ components:
           value: 2147483647
         originator_id: originator_id
         aggregator:
-          as: 1527803716
+          as: 2147483647
           router_id: router_id
         origin: none
         large_community:
         - large_community
         - large_community
         aspath_prepend:
-        - 45646
-        - 45646
+        - 8419
+        - 8419
         weight: 2147483647
-        tag: 1238738201
-        local_preference: 551756841
+        tag: 2147483647
+        local_preference: 1238738200
         regular_community:
         - regular_community
         - regular_community
@@ -19546,33 +19712,33 @@ components:
         aggregator:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_aggregator'
         aspath_prepend:
-          description: AS numbers
+          description: OSPF BGP Route maps set AS numbers
           items:
-            description: AS number
+            description: OSPF BGP Route maps set AS number
             maximum: 65535
             minimum: 1
             type: integer
           type: array
         atomic_aggregate:
-          description: Enable BGP atomic aggregate?
+          description: OSPF BGP Route maps set Enable BGP atomic aggregate?
           type: boolean
         ipv4:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_ipv4'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_ipv4'
         large_community:
-          description: Large communities
+          description: OSPF BGP Route maps set Large communities
           items:
-            description: Large community
+            description: OSPF BGP Route maps set Large community
             type: string
           type: array
         local_preference:
-          description: Local preference
+          description: OSPF BGP Route maps set Local preference
           maximum: 4294967295
           minimum: 0
           type: integer
         metric:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_metric'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_set_metric'
         origin:
-          description: Origin
+          description: OSPF BGP Route maps set Origin
           enum:
           - none
           - egp
@@ -19580,21 +19746,21 @@ components:
           - incomplete
           type: string
         originator_id:
-          description: Originator ID
+          description: OSPF BGP Route maps set Originator ID
           type: string
         regular_community:
-          description: Regular communities
+          description: OSPF BGP Route maps set Regular communities
           items:
-            description: Regular community
+            description: OSPF BGP Route maps set Regular community
             type: string
           type: array
         tag:
-          description: Tag
+          description: OSPF BGP Route maps set Tag
           maximum: 4294967295
           minimum: 1
           type: integer
         weight:
-          description: Weight
+          description: OSPF BGP Route maps set Weight
           maximum: 4294967295
           minimum: 0
           type: integer
@@ -19609,18 +19775,18 @@ components:
             value: 2147483647
           originator_id: originator_id
           aggregator:
-            as: 1527803716
+            as: 2147483647
             router_id: router_id
           origin: none
           large_community:
           - large_community
           - large_community
           aspath_prepend:
-          - 45646
-          - 45646
+          - 8419
+          - 8419
           weight: 2147483647
-          tag: 1238738201
-          local_preference: 551756841
+          tag: 2147483647
+          local_preference: 1238738200
           regular_community:
           - regular_community
           - regular_community
@@ -19635,29 +19801,30 @@ components:
             access_list: access_list
           tag: 2147483647
           interface: interface
-        name: 42194
+        name: 23312
         action: permit
         description: description
       properties:
         action:
-          description: Action
+          description: OSPF BGP Route maps Action
           enum:
           - permit
           - deny
           type: string
         description:
-          description: Description
+          description: OSPF BGP Route maps Description
           type: string
         match:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_match'
         name:
-          description: Sequence number
+          description: OSPF BGP Route maps Sequence number
           maximum: 65535
           minimum: 1
           type: integer
         set:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner_set'
     bgp_route_map_redistributions_ospf_bgp:
+      description: OSPF Root BGP
       example:
         route_map:
         - set:
@@ -19669,18 +19836,18 @@ components:
               value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 1527803716
+              as: 2147483647
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 45646
-            - 45646
+            - 8419
+            - 8419
             weight: 2147483647
-            tag: 1238738201
-            local_preference: 551756841
+            tag: 2147483647
+            local_preference: 1238738200
             regular_community:
             - regular_community
             - regular_community
@@ -19695,7 +19862,7 @@ components:
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 42194
+          name: 23312
           action: permit
           description: description
         - set:
@@ -19707,18 +19874,18 @@ components:
               value: 2147483647
             originator_id: originator_id
             aggregator:
-              as: 1527803716
+              as: 2147483647
               router_id: router_id
             origin: none
             large_community:
             - large_community
             - large_community
             aspath_prepend:
-            - 45646
-            - 45646
+            - 8419
+            - 8419
             weight: 2147483647
-            tag: 1238738201
-            local_preference: 551756841
+            tag: 2147483647
+            local_preference: 1238738200
             regular_community:
             - regular_community
             - regular_community
@@ -19733,15 +19900,39 @@ components:
               access_list: access_list
             tag: 2147483647
             interface: interface
-          name: 42194
+          name: 23312
           action: permit
           description: description
       properties:
         route_map:
-          description: Route maps
+          description: OSPF BGP Route maps
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp_route_map_inner'
           type: array
+    bgp_route_map_redistributions_ospf_rib_route_map_inner_match_address:
+      description: OSPF RIB Route maps address
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: OSPF RIB Route maps address Access list
+          type: string
+        prefix_list:
+          description: OSPF RIB Route maps address Prefix list
+          type: string
+    bgp_route_map_redistributions_ospf_rib_route_map_inner_match_next_hop:
+      description: OSPF RIB Route maps next_hop
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: OSPF RIB Route maps next_hop Access list
+          type: string
+        prefix_list:
+          description: OSPF RIB Route maps next_hop Prefix list
+          type: string
     bgp_route_map_redistributions_ospf_rib_route_map_inner_match:
       example:
         address:
@@ -19751,25 +19942,34 @@ components:
         next_hop:
           prefix_list: prefix_list
           access_list: access_list
-        tag: 2147483647
+        tag: 1440185576
         interface: interface
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_rib_route_map_inner_match_address'
         interface:
-          description: Interface
+          description: OSPF RIB Route maps Interface
           type: string
         metric:
-          description: Metric
+          description: OSPF RIB Route maps Metric
           maximum: 4294967295
           minimum: 0
           type: integer
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_rib_route_map_inner_match_next_hop'
         tag:
+          description: OSPF RIB Route maps tag
           maximum: 4294967295
           minimum: 1
           type: integer
+    bgp_route_map_redistributions_ospf_rib_route_map_inner_set:
+      description: OSPF RIB Route maps set
+      example:
+        source_address: source_address
+      properties:
+        source_address:
+          description: OSPF RIB Route maps set Source address
+          type: string
     bgp_route_map_redistributions_ospf_rib_route_map_inner:
       example:
         set:
@@ -19782,30 +19982,30 @@ components:
           next_hop:
             prefix_list: prefix_list
             access_list: access_list
-          tag: 2147483647
+          tag: 1440185576
           interface: interface
-        name: 43935
+        name: 20275
         action: permit
         description: description
       properties:
         action:
-          description: Action
+          description: OSPF RIB Route maps Action
           enum:
           - permit
           - deny
           type: string
         description:
-          description: Description
+          description: OSPF RIB Route maps Description
           type: string
         match:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_rib_route_map_inner_match'
         name:
-          description: Sequence number
+          description: OSPF RIB Route mapsSequence number
           maximum: 65535
           minimum: 1
           type: integer
         set:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_set'
+          $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_rib_route_map_inner_set'
     bgp_route_map_redistributions_ospf_rib:
       example:
         route_map:
@@ -19819,9 +20019,9 @@ components:
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
-            tag: 2147483647
+            tag: 1440185576
             interface: interface
-          name: 43935
+          name: 20275
           action: permit
           description: description
         - set:
@@ -19834,14 +20034,14 @@ components:
             next_hop:
               prefix_list: prefix_list
               access_list: access_list
-            tag: 2147483647
+            tag: 1440185576
             interface: interface
-          name: 43935
+          name: 20275
           action: permit
           description: description
       properties:
         route_map:
-          description: Route maps
+          description: OSPF RIB Route maps set Route maps
           items:
             $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_rib_route_map_inner'
           type: array
@@ -19858,18 +20058,18 @@ components:
                 value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 1527803716
+                as: 2147483647
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 45646
-              - 45646
+              - 8419
+              - 8419
               weight: 2147483647
-              tag: 1238738201
-              local_preference: 551756841
+              tag: 2147483647
+              local_preference: 1238738200
               regular_community:
               - regular_community
               - regular_community
@@ -19884,7 +20084,7 @@ components:
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 42194
+            name: 23312
             action: permit
             description: description
           - set:
@@ -19896,18 +20096,18 @@ components:
                 value: 2147483647
               originator_id: originator_id
               aggregator:
-                as: 1527803716
+                as: 2147483647
                 router_id: router_id
               origin: none
               large_community:
               - large_community
               - large_community
               aspath_prepend:
-              - 45646
-              - 45646
+              - 8419
+              - 8419
               weight: 2147483647
-              tag: 1238738201
-              local_preference: 551756841
+              tag: 2147483647
+              local_preference: 1238738200
               regular_community:
               - regular_community
               - regular_community
@@ -19922,7 +20122,7 @@ components:
                 access_list: access_list
               tag: 2147483647
               interface: interface
-            name: 42194
+            name: 23312
             action: permit
             description: description
         rib:
@@ -19937,9 +20137,9 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-              tag: 2147483647
+              tag: 1440185576
               interface: interface
-            name: 43935
+            name: 20275
             action: permit
             description: description
           - set:
@@ -19952,9 +20152,9 @@ components:
               next_hop:
                 prefix_list: prefix_list
                 access_list: access_list
-              tag: 2147483647
+              tag: 1440185576
               interface: interface
-            name: 43935
+            name: 20275
             action: permit
             description: description
       properties:
@@ -19962,6 +20162,17 @@ components:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_bgp'
         rib:
           $ref: '#/components/schemas/bgp_route_map_redistributions_ospf_rib'
+    bgp_route_maps_route_map_inner_match_ipv4_address:
+      example:
+        prefix_list: prefix_list
+        access_list: access_list
+      properties:
+        access_list:
+          description: Access list
+          type: string
+        prefix_list:
+          description: Prefix list
+          type: string
     bgp_route_maps_route_map_inner_match_ipv4:
       description: bgp-route-maps ipv4 object
       example:
@@ -19976,11 +20187,11 @@ components:
           access_list: access_list
       properties:
         address:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_maps_route_map_inner_match_ipv4_address'
         next_hop:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_maps_route_map_inner_match_ipv4_address'
         route_source:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_bgp_rib_route_map_inner_match_ipv4_route_source'
+          $ref: '#/components/schemas/bgp_route_maps_route_map_inner_match_ipv4_address'
     bgp_route_maps_route_map_inner_match:
       example:
         as_path_access_list: as_path_access_list
@@ -20058,6 +20269,34 @@ components:
         router_id:
           description: Router ID
           type: string
+    bgp_route_maps_route_map_inner_set_ipv4:
+      example:
+        next_hop: next_hop
+        source_address: source_address
+      properties:
+        next_hop:
+          description: Next hop
+          type: string
+        source_address:
+          description: Source address
+          type: string
+    bgp_route_maps_route_map_inner_set_metric:
+      example:
+        action: set
+        value: 1553093137
+      properties:
+        action:
+          description: Metric action
+          enum:
+          - set
+          - add
+          - substract
+          type: string
+        value:
+          description: Metric value
+          maximum: 4294967295
+          minimum: 0
+          type: integer
     bgp_route_maps_route_map_inner_set:
       example:
         originator_id: originator_id
@@ -20071,7 +20310,7 @@ components:
         aspath_prepend:
         - 7
         - 7
-        weight: 870642708
+        weight: 1780525090
         remove_large_community: remove_large_community
         local_preference: 2147483647
         regular_community:
@@ -20085,12 +20324,12 @@ components:
           source_address: source_address
         metric:
           action: set
-          value: 2147483647
+          value: 1553093137
         overwrite_regular_community: true
         aspath_exclude:
         - 2
         - 2
-        tag: 1553093137
+        tag: 870642708
       properties:
         aggregator:
           $ref: '#/components/schemas/bgp_route_maps_route_map_inner_set_aggregator'
@@ -20108,7 +20347,7 @@ components:
           description: Enable BGP atomic aggregate?
           type: boolean
         ipv4:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_ipv4'
+          $ref: '#/components/schemas/bgp_route_maps_route_map_inner_set_ipv4'
         large_community:
           items:
             description: Large community
@@ -20120,7 +20359,7 @@ components:
           minimum: 0
           type: integer
         metric:
-          $ref: '#/components/schemas/bgp_route_map_redistributions_connected_static_bgp_route_map_inner_set_metric'
+          $ref: '#/components/schemas/bgp_route_maps_route_map_inner_set_metric'
         origin:
           description: Origin
           enum:
@@ -20185,7 +20424,7 @@ components:
           aspath_prepend:
           - 7
           - 7
-          weight: 870642708
+          weight: 1780525090
           remove_large_community: remove_large_community
           local_preference: 2147483647
           regular_community:
@@ -20199,12 +20438,12 @@ components:
             source_address: source_address
           metric:
             action: set
-            value: 2147483647
+            value: 1553093137
           overwrite_regular_community: true
           aspath_exclude:
           - 2
           - 2
-          tag: 1553093137
+          tag: 870642708
         match:
           as_path_access_list: as_path_access_list
           ipv4:
@@ -20875,6 +21114,7 @@ components:
         name: name
       properties:
         name:
+          description: Ethernet Interface IP addresses name
           type: string
       required:
       - name
@@ -20956,6 +21196,7 @@ components:
       - password
       - username
     ethernet_interfaces_layer3:
+      description: Ethernet Interface Layer 3 configuration
       example:
         dhcp_client:
           enable: true
@@ -21009,7 +21250,7 @@ components:
           maxLength: 31
           type: string
         ip:
-          description: Interface IP addresses
+          description: Ethernet Interface IP addresses
           items:
             $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
           type: array
@@ -21241,6 +21482,15 @@ components:
         passive_mode:
           default: false
           type: boolean
+    interface_management_profiles_permitted_ip_inner:
+      example:
+        name: name
+      properties:
+        name:
+          description: The allowed IP address or CIDR block.
+          type: string
+      required:
+      - name
     ipsec_crypto_profiles_ah:
       example:
         authentication:
@@ -23080,8 +23330,8 @@ components:
             - nexthop
           name: name
         used_by:
-        - "{}"
-        - "{}"
+        - used_by
+        - used_by
       properties:
         advertise_filters:
           items:
@@ -23097,7 +23347,7 @@ components:
           type: array
         used_by:
           items:
-            type: object
+            type: string
           type: array
       required:
       - name
@@ -23205,8 +23455,8 @@ components:
               - nexthop
             name: name
           used_by:
-          - "{}"
-          - "{}"
+          - used_by
+          - used_by
         - enable: true
           non_exist_filters:
           - enable: true
@@ -23308,8 +23558,8 @@ components:
               - nexthop
             name: name
           used_by:
-          - "{}"
-          - "{}"
+          - used_by
+          - used_by
       properties:
         policy:
           items:
@@ -24250,8 +24500,8 @@ components:
                 - nexthop
               name: name
             used_by:
-            - "{}"
-            - "{}"
+            - used_by
+            - used_by
           - enable: true
             non_exist_filters:
             - enable: true
@@ -24353,8 +24603,8 @@ components:
                 - nexthop
               name: name
             used_by:
-            - "{}"
-            - "{}"
+            - used_by
+            - used_by
         aggregation:
           address:
           - summary: true
@@ -25421,8 +25671,8 @@ components:
                   - nexthop
                 name: name
               used_by:
-              - "{}"
-              - "{}"
+              - used_by
+              - used_by
             - enable: true
               non_exist_filters:
               - enable: true
@@ -25524,8 +25774,8 @@ components:
                   - nexthop
                 name: name
               used_by:
-              - "{}"
-              - "{}"
+              - used_by
+              - used_by
           aggregation:
             address:
             - summary: true
@@ -26294,6 +26544,14 @@ components:
           - "2"
           - "3"
           type: string
+    logical_routers_vrf_inner_multicast_interface_group_inner_pim_allowed_neighbors_inner:
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      required:
+      - name
     logical_routers_vrf_inner_multicast_interface_group_inner_pim:
       example:
         dr_priority: 7
@@ -26308,7 +26566,7 @@ components:
       properties:
         allowed_neighbors:
           items:
-            $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
+            $ref: '#/components/schemas/logical_routers_vrf_inner_multicast_interface_group_inner_pim_allowed_neighbors_inner'
           type: array
         assert_interval:
           type: integer
@@ -28278,7 +28536,7 @@ components:
           type: string
         neighbor:
           items:
-            $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
+            $ref: '#/components/schemas/logical_routers_vrf_inner_multicast_interface_group_inner_pim_allowed_neighbors_inner'
           type: array
         passive:
           type: boolean
@@ -29413,11 +29671,14 @@ components:
         fqdn: fqdn
         ipv6_address: ipv6_address
         next_lr: next_lr
+        ip_address: ip_address
         tunnel: tunnel
       properties:
         discard:
           type: object
         fqdn:
+          type: string
+        ip_address:
           type: string
         ipv6_address:
           type: string
@@ -29544,6 +29805,7 @@ components:
           fqdn: fqdn
           ipv6_address: ipv6_address
           next_lr: next_lr
+          ip_address: ip_address
           tunnel: tunnel
       properties:
         admin_dist:
@@ -29607,6 +29869,7 @@ components:
             fqdn: fqdn
             ipv6_address: ipv6_address
             next_lr: next_lr
+            ip_address: ip_address
             tunnel: tunnel
         - bfd:
             profile: profile
@@ -29646,12 +29909,37 @@ components:
             fqdn: fqdn
             ipv6_address: ipv6_address
             next_lr: next_lr
+            ip_address: ip_address
             tunnel: tunnel
       properties:
         static_route:
           items:
             $ref: '#/components/schemas/logical_routers_vrf_inner_routing_table_ip_static_route_inner'
           type: array
+    logical_routers_vrf_inner_routing_table_ipv6_static_route_inner_nexthop:
+      example:
+        next_vr: next_vr
+        discard: "{}"
+        receive: "{}"
+        fqdn: fqdn
+        ipv6_address: ipv6_address
+        next_lr: next_lr
+        tunnel: tunnel
+      properties:
+        discard:
+          type: object
+        fqdn:
+          type: string
+        ipv6_address:
+          type: string
+        next_lr:
+          type: string
+        next_vr:
+          type: string
+        receive:
+          type: object
+        tunnel:
+          type: string
     logical_routers_vrf_inner_routing_table_ipv6_static_route_inner_option:
       example:
         passive: "{}"
@@ -29715,7 +30003,7 @@ components:
         name:
           type: string
         nexthop:
-          $ref: '#/components/schemas/logical_routers_vrf_inner_routing_table_ip_static_route_inner_nexthop'
+          $ref: '#/components/schemas/logical_routers_vrf_inner_routing_table_ipv6_static_route_inner_nexthop'
         option:
           $ref: '#/components/schemas/logical_routers_vrf_inner_routing_table_ipv6_static_route_inner_option'
         path_monitor:
@@ -29940,6 +30228,7 @@ components:
               fqdn: fqdn
               ipv6_address: ipv6_address
               next_lr: next_lr
+              ip_address: ip_address
               tunnel: tunnel
           - bfd:
               profile: profile
@@ -29979,6 +30268,7 @@ components:
               fqdn: fqdn
               ipv6_address: ipv6_address
               next_lr: next_lr
+              ip_address: ip_address
               tunnel: tunnel
       properties:
         ip:
@@ -31023,8 +31313,8 @@ components:
                     - nexthop
                   name: name
                 used_by:
-                - "{}"
-                - "{}"
+                - used_by
+                - used_by
               - enable: true
                 non_exist_filters:
                 - enable: true
@@ -31126,8 +31416,8 @@ components:
                     - nexthop
                   name: name
                 used_by:
-                - "{}"
-                - "{}"
+                - used_by
+                - used_by
             aggregation:
               address:
               - summary: true
@@ -32337,6 +32627,7 @@ components:
                 fqdn: fqdn
                 ipv6_address: ipv6_address
                 next_lr: next_lr
+                ip_address: ip_address
                 tunnel: tunnel
             - bfd:
                 profile: profile
@@ -32376,6 +32667,7 @@ components:
                 fqdn: fqdn
                 ipv6_address: ipv6_address
                 next_lr: next_lr
+                ip_address: ip_address
                 tunnel: tunnel
         rib_filter:
           ipv4:
@@ -32478,6 +32770,7 @@ components:
           description: Enable IPv6
           type: boolean
     nat_rules_destination_translation_dns_rewrite:
+      description: DNS rewrite
       example:
         direction: reverse
       properties:
@@ -32487,7 +32780,7 @@ components:
           - forward
           type: string
     nat_rules_destination_translation:
-      description: Destination translation configuration (Static/P-D-N-T).
+      description: Destination translation
       example:
         dns_rewrite:
           direction: reverse
@@ -32497,20 +32790,22 @@ components:
         dns_rewrite:
           $ref: '#/components/schemas/nat_rules_destination_translation_dns_rewrite'
         translated_address:
+          description: Translated destination IP address
           type: string
         translated_port:
-          format: int32
+          description: Translated destination port
           maximum: 65535
           minimum: 1
           type: integer
     nat_rules_dynamic_destination_translation:
-      description: Dynamic destination translation configuration.
+      description: Dynamic destination translation
       example:
         translated_port: 39501
         translated_address: translated_address
         distribution: round-robin
       properties:
         distribution:
+          description: Distribution method
           enum:
           - round-robin
           - source-ip-hash
@@ -32519,19 +32814,18 @@ components:
           - least-sessions
           type: string
         translated_address:
+          description: Translated destination IP address
           type: string
         translated_port:
-          format: int32
+          description: Translated destination port
           maximum: 65535
           minimum: 1
           type: integer
-    nat_rules_source_translation_dynamic_ip_fallback:
+    nat_rules_source_translation_dynamic_ip_fallback_interface_address:
+      description: Fallback interface
       example:
         floating_ip: floating_ip
         ip: ip
-        translated_address:
-        - translated_address
-        - translated_address
         interface: interface
       properties:
         floating_ip:
@@ -32543,6 +32837,18 @@ components:
         ip:
           description: IP address
           type: string
+    nat_rules_source_translation_dynamic_ip_fallback:
+      example:
+        interface_address:
+          floating_ip: floating_ip
+          ip: ip
+          interface: interface
+        translated_address:
+        - translated_address
+        - translated_address
+      properties:
+        interface_address:
+          $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip_fallback_interface_address'
         translated_address:
           description: Fallback IP addresses
           items:
@@ -32555,12 +32861,13 @@ components:
         - translated_address
         - translated_address
         fallback:
-          floating_ip: floating_ip
-          ip: ip
+          interface_address:
+            floating_ip: floating_ip
+            ip: ip
+            interface: interface
           translated_address:
           - translated_address
           - translated_address
-          interface: interface
       properties:
         fallback:
           $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip_fallback'
@@ -32570,14 +32877,11 @@ components:
             description: IP address
             type: string
           type: array
-    nat_rules_source_translation_dynamic_ip_and_port:
-      description: Dynamic IP and port
+    nat_rules_source_translation_dynamic_ip_and_port_interface_address:
+      description: Translated source interface
       example:
         floating_ip: floating_ip
         ip: ip
-        translated_address:
-        - translated_address
-        - translated_address
         interface: interface
       properties:
         floating_ip:
@@ -32589,6 +32893,19 @@ components:
         ip:
           description: Translated source IP address
           type: string
+    nat_rules_source_translation_dynamic_ip_and_port:
+      description: Dynamic IP and port
+      example:
+        interface_address:
+          floating_ip: floating_ip
+          ip: ip
+          interface: interface
+        translated_address:
+        - translated_address
+        - translated_address
+      properties:
+        interface_address:
+          $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip_and_port_interface_address'
         translated_address:
           description: Translated source IP addresses
           items:
@@ -32607,29 +32924,30 @@ components:
           description: Translated IP address
           type: string
     nat_rules_source_translation:
-      description: Source translation configuration (Static/P-D-N-T).
       example:
         static_ip:
           translated_address: translated_address
           bi_directional: bi_directional
         dynamic_ip_and_port:
-          floating_ip: floating_ip
-          ip: ip
+          interface_address:
+            floating_ip: floating_ip
+            ip: ip
+            interface: interface
           translated_address:
           - translated_address
           - translated_address
-          interface: interface
         dynamic_ip:
           translated_address:
           - translated_address
           - translated_address
           fallback:
-            floating_ip: floating_ip
-            ip: ip
+            interface_address:
+              floating_ip: floating_ip
+              ip: ip
+              interface: interface
             translated_address:
             - translated_address
             - translated_address
-            interface: interface
       properties:
         dynamic_ip:
           $ref: '#/components/schemas/nat_rules_source_translation_dynamic_ip'
@@ -33032,7 +33350,7 @@ components:
           $ref: '#/components/schemas/qos_profiles_class_bandwidth_type_mbps'
         percentage:
           $ref: '#/components/schemas/qos_profiles_class_bandwidth_type_percentage'
-    route_access_lists_type_ipv4_ipv4_entry_inner_destination_address:
+    route_access_lists_type_ipv4_ipv4_entry_inner_destination_address_entry:
       example:
         address: address
         wildcard: wildcard
@@ -33043,7 +33361,19 @@ components:
         wildcard:
           description: Destination IP wildcard
           type: string
-    route_access_lists_type_ipv4_ipv4_entry_inner_source_address:
+    route_access_lists_type_ipv4_ipv4_entry_inner_destination_address:
+      example:
+        entry:
+          address: address
+          wildcard: wildcard
+        address: address
+      properties:
+        address:
+          description: Destination IP address
+          type: string
+        entry:
+          $ref: '#/components/schemas/route_access_lists_type_ipv4_ipv4_entry_inner_destination_address_entry'
+    route_access_lists_type_ipv4_ipv4_entry_inner_source_address_entry:
       example:
         address: address
         wildcard: wildcard
@@ -33054,14 +33384,30 @@ components:
         wildcard:
           description: Source IP wildcard
           type: string
+    route_access_lists_type_ipv4_ipv4_entry_inner_source_address:
+      example:
+        entry:
+          address: address
+          wildcard: wildcard
+        address: address
+      properties:
+        address:
+          description: Source IP address
+          type: string
+        entry:
+          $ref: '#/components/schemas/route_access_lists_type_ipv4_ipv4_entry_inner_source_address_entry'
     route_access_lists_type_ipv4_ipv4_entry_inner:
       example:
         destination_address:
+          entry:
+            address: address
+            wildcard: wildcard
           address: address
-          wildcard: wildcard
         source_address:
+          entry:
+            address: address
+            wildcard: wildcard
           address: address
-          wildcard: wildcard
         name: 5249
         action: deny
       properties:
@@ -33084,19 +33430,27 @@ components:
       example:
         ipv4_entry:
         - destination_address:
+            entry:
+              address: address
+              wildcard: wildcard
             address: address
-            wildcard: wildcard
           source_address:
+            entry:
+              address: address
+              wildcard: wildcard
             address: address
-            wildcard: wildcard
           name: 5249
           action: deny
         - destination_address:
+            entry:
+              address: address
+              wildcard: wildcard
             address: address
-            wildcard: wildcard
           source_address:
+            entry:
+              address: address
+              wildcard: wildcard
             address: address
-            wildcard: wildcard
           name: 5249
           action: deny
       properties:
@@ -33110,19 +33464,27 @@ components:
         ipv4:
           ipv4_entry:
           - destination_address:
+              entry:
+                address: address
+                wildcard: wildcard
               address: address
-              wildcard: wildcard
             source_address:
+              entry:
+                address: address
+                wildcard: wildcard
               address: address
-              wildcard: wildcard
             name: 5249
             action: deny
           - destination_address:
+              entry:
+                address: address
+                wildcard: wildcard
               address: address
-              wildcard: wildcard
             source_address:
+              entry:
+                address: address
+                wildcard: wildcard
               address: address
-              wildcard: wildcard
             name: 5249
             action: deny
       properties:
@@ -34018,10 +34380,9 @@ components:
           type: boolean
         red:
           $ref: '#/components/schemas/zone_protection_profiles_flood_sctp_init_red'
-    zone_protection_profiles_flood_tcp_syn:
+    zone_protection_profiles_flood_tcp_syn_red:
       example:
         alarm_rate: 10000
-        enable: true
         maximal_rate: 40000
         activate_rate: 10000
       properties:
@@ -34041,9 +34402,6 @@ components:
           maximum: 2000000
           minimum: 0
           type: integer
-        enable:
-          description: Enable protection against SYN floods?
-          type: boolean
         maximal_rate:
           description: "When the flow exceeds the `maximal_rate` threshold, 100% of\
             \ incoming SYN packets are dropped."
@@ -34052,6 +34410,63 @@ components:
           maximum: 2000000
           minimum: 0
           type: integer
+      required:
+      - activate_rate
+      - alarm_rate
+      - maximal_rate
+    zone_protection_profiles_flood_tcp_syn_syn_cookies:
+      example:
+        alarm_rate: 10000
+        maximal_rate: 1000000
+        activate_rate: 0
+      properties:
+        activate_rate:
+          description: "When the flow exceeds the `activate_rate`` threshold, the\
+            \ firewall drops individual SYN packets randomly to restrict the flow."
+          example: 0
+          format: int32
+          maximum: 2000000
+          minimum: 0
+          type: integer
+        alarm_rate:
+          description: "When the flow exceeds the `alert_rate`` threshold, an alarm\
+            \ is generated."
+          example: 10000
+          format: int32
+          maximum: 2000000
+          minimum: 0
+          type: integer
+        maximal_rate:
+          description: "When the flow exceeds the `maximal_rate` threshold, 100% of\
+            \ incoming SYN packets are dropped."
+          example: 1000000
+          format: int32
+          maximum: 2000000
+          minimum: 0
+          type: integer
+      required:
+      - activate_rate
+      - alarm_rate
+      - maximal_rate
+    zone_protection_profiles_flood_tcp_syn:
+      example:
+        red:
+          alarm_rate: 10000
+          maximal_rate: 40000
+          activate_rate: 10000
+        syn_cookies:
+          alarm_rate: 10000
+          maximal_rate: 1000000
+          activate_rate: 0
+        enable: true
+      properties:
+        enable:
+          description: Enable protection against SYN floods?
+          type: boolean
+        red:
+          $ref: '#/components/schemas/zone_protection_profiles_flood_tcp_syn_red'
+        syn_cookies:
+          $ref: '#/components/schemas/zone_protection_profiles_flood_tcp_syn_syn_cookies'
     zone_protection_profiles_flood_udp_red:
       example:
         alarm_rate: 10000
@@ -34110,10 +34525,15 @@ components:
             activate_rate: 10000
           enable: true
         tcp_syn:
-          alarm_rate: 10000
+          red:
+            alarm_rate: 10000
+            maximal_rate: 40000
+            activate_rate: 10000
+          syn_cookies:
+            alarm_rate: 10000
+            maximal_rate: 1000000
+            activate_rate: 0
           enable: true
-          maximal_rate: 40000
-          activate_rate: 10000
         other_ip:
           red:
             alarm_rate: 10000
@@ -34360,20 +34780,11 @@ components:
           items:
             $ref: '#/components/schemas/zone_protection_profiles_non_ip_protocol_protocol_inner'
           type: array
-    zone_protection_profiles_scan_inner_action:
+    zone_protection_profiles_scan_inner_action_block_ip:
       example:
-        allow: "{}"
         duration: 289
         track_by: source-and-destination
-        alert: "{}"
-        block: "{}"
       properties:
-        alert:
-          type: object
-        allow:
-          type: object
-        block:
-          type: object
         duration:
           format: int32
           maximum: 3600
@@ -34384,15 +34795,36 @@ components:
           - source-and-destination
           - source
           type: string
+      required:
+      - duration
+      - track_by
+    zone_protection_profiles_scan_inner_action:
+      example:
+        allow: "{}"
+        alert: "{}"
+        block: "{}"
+        block_ip:
+          duration: 289
+          track_by: source-and-destination
+      properties:
+        alert:
+          type: object
+        allow:
+          type: object
+        block:
+          type: object
+        block_ip:
+          $ref: '#/components/schemas/zone_protection_profiles_scan_inner_action_block_ip'
     zone_protection_profiles_scan_inner:
       example:
         name: "8001"
         action:
           allow: "{}"
-          duration: 289
-          track_by: source-and-destination
           alert: "{}"
           block: "{}"
+          block_ip:
+            duration: 289
+            track_by: source-and-destination
         interval: 2
         threshold: 100
       properties:

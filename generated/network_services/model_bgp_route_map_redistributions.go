@@ -23,15 +23,15 @@ var _ MappedNullable = &BgpRouteMapRedistributions{}
 type BgpRouteMapRedistributions struct {
 	Bgp             *BgpRouteMapRedistributionsBgp             `json:"bgp,omitempty"`
 	ConnectedStatic *BgpRouteMapRedistributionsConnectedStatic `json:"connected_static,omitempty"`
-	// Description
+	// BGP Route Map Redistributions Description
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	// UUID of the resource
+	// BGP Route Map Redistributions UUID of the resource
 	Id *string `json:"id,omitempty"`
-	// Name
+	// BGP Route Map Redistributions Name
 	Name string                          `json:"name"`
 	Ospf *BgpRouteMapRedistributionsOspf `json:"ospf,omitempty"`
 	// The snippet in which the resource is defined

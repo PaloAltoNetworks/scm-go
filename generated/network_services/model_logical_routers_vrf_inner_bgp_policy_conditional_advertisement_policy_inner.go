@@ -25,7 +25,7 @@ type LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner struct {
 	Enable               *bool                                                                         `json:"enable,omitempty"`
 	Name                 string                                                                        `json:"name"`
 	NonExistFilters      []LogicalRoutersVrfInnerBgpPolicyAggregationAddressInnerAdvertiseFiltersInner `json:"non_exist_filters,omitempty"`
-	UsedBy               []map[string]interface{}                                                      `json:"used_by,omitempty"`
+	UsedBy               []string                                                                      `json:"used_by,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -170,9 +170,9 @@ func (o *LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner) Set
 }
 
 // GetUsedBy returns the UsedBy field value if set, zero value otherwise.
-func (o *LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner) GetUsedBy() []map[string]interface{} {
+func (o *LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner) GetUsedBy() []string {
 	if o == nil || IsNil(o.UsedBy) {
-		var ret []map[string]interface{}
+		var ret []string
 		return ret
 	}
 	return o.UsedBy
@@ -180,7 +180,7 @@ func (o *LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner) Get
 
 // GetUsedByOk returns a tuple with the UsedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner) GetUsedByOk() ([]map[string]interface{}, bool) {
+func (o *LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner) GetUsedByOk() ([]string, bool) {
 	if o == nil || IsNil(o.UsedBy) {
 		return nil, false
 	}
@@ -196,8 +196,8 @@ func (o *LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner) Has
 	return false
 }
 
-// SetUsedBy gets a reference to the given []map[string]interface{} and assigns it to the UsedBy field.
-func (o *LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner) SetUsedBy(v []map[string]interface{}) {
+// SetUsedBy gets a reference to the given []string and assigns it to the UsedBy field.
+func (o *LogicalRoutersVrfInnerBgpPolicyConditionalAdvertisementPolicyInner) SetUsedBy(v []string) {
 	o.UsedBy = v
 }
 

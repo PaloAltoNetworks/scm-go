@@ -51,7 +51,7 @@ type APIClient struct {
 
 	// API Services
 
-	AggregateEthernetInterfacesAPI *AggregateEthernetInterfacesAPIService
+	AggregateInterfacesAPI *AggregateInterfacesAPIService
 
 	AutoVPNClustersAPI *AutoVPNClustersAPIService
 
@@ -156,7 +156,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.AggregateEthernetInterfacesAPI = (*AggregateEthernetInterfacesAPIService)(&c.common)
+	c.AggregateInterfacesAPI = (*AggregateInterfacesAPIService)(&c.common)
 	c.AutoVPNClustersAPI = (*AutoVPNClustersAPIService)(&c.common)
 	c.AutoVPNConfigPushAPI = (*AutoVPNConfigPushAPIService)(&c.common)
 	c.AutoVPNMonitorAPI = (*AutoVPNMonitorAPIService)(&c.common)

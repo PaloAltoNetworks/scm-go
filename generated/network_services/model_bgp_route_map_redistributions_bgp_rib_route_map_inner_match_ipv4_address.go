@@ -20,9 +20,9 @@ var _ MappedNullable = &BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4Ad
 
 // BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4Address bgp-route-map-redistributions ipv4 rib object address
 type BgpRouteMapRedistributionsBgpRibRouteMapInnerMatchIpv4Address struct {
-	// Access list
+	// BGP Root RIB Route maps match ipv Access list
 	AccessList *string `json:"access_list,omitempty"`
-	// Prefix list
+	// BGP Root RIB Route maps match ipv Prefix list
 	PrefixList           *string `json:"prefix_list,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -20,9 +20,9 @@ var _ MappedNullable = &BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInne
 
 // BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 struct for BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4
 type BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 struct {
-	// Next hop
+	// Connected Static BGP Route maps set Next ipv4 hop
 	NextHop *string `json:"next_hop,omitempty"`
-	// Source address
+	// Connected Static BGP Route maps set ipv4 Source address
 	SourceAddress        *string `json:"source_address,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

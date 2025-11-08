@@ -18,11 +18,13 @@ import (
 // checks if the NatRulesDestinationTranslation type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NatRulesDestinationTranslation{}
 
-// NatRulesDestinationTranslation Destination translation configuration (Static/P-D-N-T).
+// NatRulesDestinationTranslation Destination translation
 type NatRulesDestinationTranslation struct {
-	DnsRewrite           *NatRulesDestinationTranslationDnsRewrite `json:"dns_rewrite,omitempty"`
-	TranslatedAddress    *string                                   `json:"translated_address,omitempty"`
-	TranslatedPort       *int32                                    `json:"translated_port,omitempty"`
+	DnsRewrite *NatRulesDestinationTranslationDnsRewrite `json:"dns_rewrite,omitempty"`
+	// Translated destination IP address
+	TranslatedAddress *string `json:"translated_address,omitempty"`
+	// Translated destination port
+	TranslatedPort       *int32 `json:"translated_port,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

@@ -15,50 +15,50 @@ import (
 	"encoding/json"
 )
 
-// checks if the AggregateEthernetInterfacesLayer3 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AggregateEthernetInterfacesLayer3{}
+// checks if the AggregateInterfacesLayer3 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AggregateInterfacesLayer3{}
 
-// AggregateEthernetInterfacesLayer3 struct for AggregateEthernetInterfacesLayer3
-type AggregateEthernetInterfacesLayer3 struct {
+// AggregateInterfacesLayer3 Aggregate Interface Layer 3 configuration
+type AggregateInterfacesLayer3 struct {
 	// Aggregate Ethernet ARP configuration
-	Arp        []AggEthernetArpInner                        `json:"arp,omitempty"`
-	DdnsConfig *AggregateEthernetInterfacesLayer3DdnsConfig `json:"ddns_config,omitempty"`
-	DhcpClient *AggEthernetDhcpClientDhcpClient             `json:"dhcp_client,omitempty"`
+	Arp        []AggEthernetArpInner                `json:"arp,omitempty"`
+	DdnsConfig *AggregateInterfacesLayer3DdnsConfig `json:"ddns_config,omitempty"`
+	DhcpClient *AggEthernetDhcpClientDhcpClient     `json:"dhcp_client,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
-	// Interface IP addresses
-	Ip   []string `json:"ip,omitempty"`
-	Lacp *Lacp    `json:"lacp,omitempty"`
+	// Aggregate Interface IP addresses
+	Ip   []AggregateInterfacesLayer3IpInner `json:"ip,omitempty"`
+	Lacp *Lacp                              `json:"lacp,omitempty"`
 	// MTU
 	Mtu                  *int32 `json:"mtu,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _AggregateEthernetInterfacesLayer3 AggregateEthernetInterfacesLayer3
+type _AggregateInterfacesLayer3 AggregateInterfacesLayer3
 
-// NewAggregateEthernetInterfacesLayer3 instantiates a new AggregateEthernetInterfacesLayer3 object
+// NewAggregateInterfacesLayer3 instantiates a new AggregateInterfacesLayer3 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAggregateEthernetInterfacesLayer3() *AggregateEthernetInterfacesLayer3 {
-	this := AggregateEthernetInterfacesLayer3{}
+func NewAggregateInterfacesLayer3() *AggregateInterfacesLayer3 {
+	this := AggregateInterfacesLayer3{}
 	var mtu int32 = 1500
 	this.Mtu = &mtu
 	return &this
 }
 
-// NewAggregateEthernetInterfacesLayer3WithDefaults instantiates a new AggregateEthernetInterfacesLayer3 object
+// NewAggregateInterfacesLayer3WithDefaults instantiates a new AggregateInterfacesLayer3 object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAggregateEthernetInterfacesLayer3WithDefaults() *AggregateEthernetInterfacesLayer3 {
-	this := AggregateEthernetInterfacesLayer3{}
+func NewAggregateInterfacesLayer3WithDefaults() *AggregateInterfacesLayer3 {
+	this := AggregateInterfacesLayer3{}
 	var mtu int32 = 1500
 	this.Mtu = &mtu
 	return &this
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetArp() []AggEthernetArpInner {
+func (o *AggregateInterfacesLayer3) GetArp() []AggEthernetArpInner {
 	if o == nil || IsNil(o.Arp) {
 		var ret []AggEthernetArpInner
 		return ret
@@ -68,7 +68,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetArp() []AggEthernetArpInner {
 
 // GetArpOk returns a tuple with the Arp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetArpOk() ([]AggEthernetArpInner, bool) {
+func (o *AggregateInterfacesLayer3) GetArpOk() ([]AggEthernetArpInner, bool) {
 	if o == nil || IsNil(o.Arp) {
 		return nil, false
 	}
@@ -76,7 +76,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetArpOk() ([]AggEthernetArpInner, b
 }
 
 // HasArp returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3) HasArp() bool {
+func (o *AggregateInterfacesLayer3) HasArp() bool {
 	if o != nil && !IsNil(o.Arp) {
 		return true
 	}
@@ -85,14 +85,14 @@ func (o *AggregateEthernetInterfacesLayer3) HasArp() bool {
 }
 
 // SetArp gets a reference to the given []AggEthernetArpInner and assigns it to the Arp field.
-func (o *AggregateEthernetInterfacesLayer3) SetArp(v []AggEthernetArpInner) {
+func (o *AggregateInterfacesLayer3) SetArp(v []AggEthernetArpInner) {
 	o.Arp = v
 }
 
 // GetDdnsConfig returns the DdnsConfig field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfig() AggregateEthernetInterfacesLayer3DdnsConfig {
+func (o *AggregateInterfacesLayer3) GetDdnsConfig() AggregateInterfacesLayer3DdnsConfig {
 	if o == nil || IsNil(o.DdnsConfig) {
-		var ret AggregateEthernetInterfacesLayer3DdnsConfig
+		var ret AggregateInterfacesLayer3DdnsConfig
 		return ret
 	}
 	return *o.DdnsConfig
@@ -100,7 +100,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfig() AggregateEthernetInt
 
 // GetDdnsConfigOk returns a tuple with the DdnsConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfigOk() (*AggregateEthernetInterfacesLayer3DdnsConfig, bool) {
+func (o *AggregateInterfacesLayer3) GetDdnsConfigOk() (*AggregateInterfacesLayer3DdnsConfig, bool) {
 	if o == nil || IsNil(o.DdnsConfig) {
 		return nil, false
 	}
@@ -108,7 +108,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetDdnsConfigOk() (*AggregateEtherne
 }
 
 // HasDdnsConfig returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3) HasDdnsConfig() bool {
+func (o *AggregateInterfacesLayer3) HasDdnsConfig() bool {
 	if o != nil && !IsNil(o.DdnsConfig) {
 		return true
 	}
@@ -116,13 +116,13 @@ func (o *AggregateEthernetInterfacesLayer3) HasDdnsConfig() bool {
 	return false
 }
 
-// SetDdnsConfig gets a reference to the given AggregateEthernetInterfacesLayer3DdnsConfig and assigns it to the DdnsConfig field.
-func (o *AggregateEthernetInterfacesLayer3) SetDdnsConfig(v AggregateEthernetInterfacesLayer3DdnsConfig) {
+// SetDdnsConfig gets a reference to the given AggregateInterfacesLayer3DdnsConfig and assigns it to the DdnsConfig field.
+func (o *AggregateInterfacesLayer3) SetDdnsConfig(v AggregateInterfacesLayer3DdnsConfig) {
 	o.DdnsConfig = &v
 }
 
 // GetDhcpClient returns the DhcpClient field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetDhcpClient() AggEthernetDhcpClientDhcpClient {
+func (o *AggregateInterfacesLayer3) GetDhcpClient() AggEthernetDhcpClientDhcpClient {
 	if o == nil || IsNil(o.DhcpClient) {
 		var ret AggEthernetDhcpClientDhcpClient
 		return ret
@@ -132,7 +132,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetDhcpClient() AggEthernetDhcpClien
 
 // GetDhcpClientOk returns a tuple with the DhcpClient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetDhcpClientOk() (*AggEthernetDhcpClientDhcpClient, bool) {
+func (o *AggregateInterfacesLayer3) GetDhcpClientOk() (*AggEthernetDhcpClientDhcpClient, bool) {
 	if o == nil || IsNil(o.DhcpClient) {
 		return nil, false
 	}
@@ -140,7 +140,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetDhcpClientOk() (*AggEthernetDhcpC
 }
 
 // HasDhcpClient returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3) HasDhcpClient() bool {
+func (o *AggregateInterfacesLayer3) HasDhcpClient() bool {
 	if o != nil && !IsNil(o.DhcpClient) {
 		return true
 	}
@@ -149,12 +149,12 @@ func (o *AggregateEthernetInterfacesLayer3) HasDhcpClient() bool {
 }
 
 // SetDhcpClient gets a reference to the given AggEthernetDhcpClientDhcpClient and assigns it to the DhcpClient field.
-func (o *AggregateEthernetInterfacesLayer3) SetDhcpClient(v AggEthernetDhcpClientDhcpClient) {
+func (o *AggregateInterfacesLayer3) SetDhcpClient(v AggEthernetDhcpClientDhcpClient) {
 	o.DhcpClient = &v
 }
 
 // GetInterfaceManagementProfile returns the InterfaceManagementProfile field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetInterfaceManagementProfile() string {
+func (o *AggregateInterfacesLayer3) GetInterfaceManagementProfile() string {
 	if o == nil || IsNil(o.InterfaceManagementProfile) {
 		var ret string
 		return ret
@@ -164,7 +164,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetInterfaceManagementProfile() stri
 
 // GetInterfaceManagementProfileOk returns a tuple with the InterfaceManagementProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetInterfaceManagementProfileOk() (*string, bool) {
+func (o *AggregateInterfacesLayer3) GetInterfaceManagementProfileOk() (*string, bool) {
 	if o == nil || IsNil(o.InterfaceManagementProfile) {
 		return nil, false
 	}
@@ -172,7 +172,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetInterfaceManagementProfileOk() (*
 }
 
 // HasInterfaceManagementProfile returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3) HasInterfaceManagementProfile() bool {
+func (o *AggregateInterfacesLayer3) HasInterfaceManagementProfile() bool {
 	if o != nil && !IsNil(o.InterfaceManagementProfile) {
 		return true
 	}
@@ -181,14 +181,14 @@ func (o *AggregateEthernetInterfacesLayer3) HasInterfaceManagementProfile() bool
 }
 
 // SetInterfaceManagementProfile gets a reference to the given string and assigns it to the InterfaceManagementProfile field.
-func (o *AggregateEthernetInterfacesLayer3) SetInterfaceManagementProfile(v string) {
+func (o *AggregateInterfacesLayer3) SetInterfaceManagementProfile(v string) {
 	o.InterfaceManagementProfile = &v
 }
 
 // GetIp returns the Ip field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetIp() []string {
+func (o *AggregateInterfacesLayer3) GetIp() []AggregateInterfacesLayer3IpInner {
 	if o == nil || IsNil(o.Ip) {
-		var ret []string
+		var ret []AggregateInterfacesLayer3IpInner
 		return ret
 	}
 	return o.Ip
@@ -196,7 +196,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetIp() []string {
 
 // GetIpOk returns a tuple with the Ip field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetIpOk() ([]string, bool) {
+func (o *AggregateInterfacesLayer3) GetIpOk() ([]AggregateInterfacesLayer3IpInner, bool) {
 	if o == nil || IsNil(o.Ip) {
 		return nil, false
 	}
@@ -204,7 +204,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetIpOk() ([]string, bool) {
 }
 
 // HasIp returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3) HasIp() bool {
+func (o *AggregateInterfacesLayer3) HasIp() bool {
 	if o != nil && !IsNil(o.Ip) {
 		return true
 	}
@@ -212,13 +212,13 @@ func (o *AggregateEthernetInterfacesLayer3) HasIp() bool {
 	return false
 }
 
-// SetIp gets a reference to the given []string and assigns it to the Ip field.
-func (o *AggregateEthernetInterfacesLayer3) SetIp(v []string) {
+// SetIp gets a reference to the given []AggregateInterfacesLayer3IpInner and assigns it to the Ip field.
+func (o *AggregateInterfacesLayer3) SetIp(v []AggregateInterfacesLayer3IpInner) {
 	o.Ip = v
 }
 
 // GetLacp returns the Lacp field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetLacp() Lacp {
+func (o *AggregateInterfacesLayer3) GetLacp() Lacp {
 	if o == nil || IsNil(o.Lacp) {
 		var ret Lacp
 		return ret
@@ -228,7 +228,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetLacp() Lacp {
 
 // GetLacpOk returns a tuple with the Lacp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetLacpOk() (*Lacp, bool) {
+func (o *AggregateInterfacesLayer3) GetLacpOk() (*Lacp, bool) {
 	if o == nil || IsNil(o.Lacp) {
 		return nil, false
 	}
@@ -236,7 +236,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetLacpOk() (*Lacp, bool) {
 }
 
 // HasLacp returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3) HasLacp() bool {
+func (o *AggregateInterfacesLayer3) HasLacp() bool {
 	if o != nil && !IsNil(o.Lacp) {
 		return true
 	}
@@ -245,12 +245,12 @@ func (o *AggregateEthernetInterfacesLayer3) HasLacp() bool {
 }
 
 // SetLacp gets a reference to the given Lacp and assigns it to the Lacp field.
-func (o *AggregateEthernetInterfacesLayer3) SetLacp(v Lacp) {
+func (o *AggregateInterfacesLayer3) SetLacp(v Lacp) {
 	o.Lacp = &v
 }
 
 // GetMtu returns the Mtu field value if set, zero value otherwise.
-func (o *AggregateEthernetInterfacesLayer3) GetMtu() int32 {
+func (o *AggregateInterfacesLayer3) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
 		var ret int32
 		return ret
@@ -260,7 +260,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetMtu() int32 {
 
 // GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AggregateEthernetInterfacesLayer3) GetMtuOk() (*int32, bool) {
+func (o *AggregateInterfacesLayer3) GetMtuOk() (*int32, bool) {
 	if o == nil || IsNil(o.Mtu) {
 		return nil, false
 	}
@@ -268,7 +268,7 @@ func (o *AggregateEthernetInterfacesLayer3) GetMtuOk() (*int32, bool) {
 }
 
 // HasMtu returns a boolean if a field has been set.
-func (o *AggregateEthernetInterfacesLayer3) HasMtu() bool {
+func (o *AggregateInterfacesLayer3) HasMtu() bool {
 	if o != nil && !IsNil(o.Mtu) {
 		return true
 	}
@@ -277,11 +277,11 @@ func (o *AggregateEthernetInterfacesLayer3) HasMtu() bool {
 }
 
 // SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
-func (o *AggregateEthernetInterfacesLayer3) SetMtu(v int32) {
+func (o *AggregateInterfacesLayer3) SetMtu(v int32) {
 	o.Mtu = &v
 }
 
-func (o AggregateEthernetInterfacesLayer3) MarshalJSON() ([]byte, error) {
+func (o AggregateInterfacesLayer3) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -289,7 +289,7 @@ func (o AggregateEthernetInterfacesLayer3) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AggregateEthernetInterfacesLayer3) ToMap() (map[string]interface{}, error) {
+func (o AggregateInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Arp) {
 		toSerialize["arp"] = o.Arp
@@ -320,16 +320,16 @@ func (o AggregateEthernetInterfacesLayer3) ToMap() (map[string]interface{}, erro
 	return toSerialize, nil
 }
 
-func (o *AggregateEthernetInterfacesLayer3) UnmarshalJSON(data []byte) (err error) {
-	varAggregateEthernetInterfacesLayer3 := _AggregateEthernetInterfacesLayer3{}
+func (o *AggregateInterfacesLayer3) UnmarshalJSON(data []byte) (err error) {
+	varAggregateInterfacesLayer3 := _AggregateInterfacesLayer3{}
 
-	err = json.Unmarshal(data, &varAggregateEthernetInterfacesLayer3)
+	err = json.Unmarshal(data, &varAggregateInterfacesLayer3)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AggregateEthernetInterfacesLayer3(varAggregateEthernetInterfacesLayer3)
+	*o = AggregateInterfacesLayer3(varAggregateInterfacesLayer3)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -347,38 +347,38 @@ func (o *AggregateEthernetInterfacesLayer3) UnmarshalJSON(data []byte) (err erro
 	return err
 }
 
-type NullableAggregateEthernetInterfacesLayer3 struct {
-	value *AggregateEthernetInterfacesLayer3
+type NullableAggregateInterfacesLayer3 struct {
+	value *AggregateInterfacesLayer3
 	isSet bool
 }
 
-func (v NullableAggregateEthernetInterfacesLayer3) Get() *AggregateEthernetInterfacesLayer3 {
+func (v NullableAggregateInterfacesLayer3) Get() *AggregateInterfacesLayer3 {
 	return v.value
 }
 
-func (v *NullableAggregateEthernetInterfacesLayer3) Set(val *AggregateEthernetInterfacesLayer3) {
+func (v *NullableAggregateInterfacesLayer3) Set(val *AggregateInterfacesLayer3) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAggregateEthernetInterfacesLayer3) IsSet() bool {
+func (v NullableAggregateInterfacesLayer3) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAggregateEthernetInterfacesLayer3) Unset() {
+func (v *NullableAggregateInterfacesLayer3) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAggregateEthernetInterfacesLayer3(val *AggregateEthernetInterfacesLayer3) *NullableAggregateEthernetInterfacesLayer3 {
-	return &NullableAggregateEthernetInterfacesLayer3{value: val, isSet: true}
+func NewNullableAggregateInterfacesLayer3(val *AggregateInterfacesLayer3) *NullableAggregateInterfacesLayer3 {
+	return &NullableAggregateInterfacesLayer3{value: val, isSet: true}
 }
 
-func (v NullableAggregateEthernetInterfacesLayer3) MarshalJSON() ([]byte, error) {
+func (v NullableAggregateInterfacesLayer3) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAggregateEthernetInterfacesLayer3) UnmarshalJSON(src []byte) error {
+func (v *NullableAggregateInterfacesLayer3) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

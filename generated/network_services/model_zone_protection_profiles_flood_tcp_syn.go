@@ -20,14 +20,10 @@ var _ MappedNullable = &ZoneProtectionProfilesFloodTcpSyn{}
 
 // ZoneProtectionProfilesFloodTcpSyn struct for ZoneProtectionProfilesFloodTcpSyn
 type ZoneProtectionProfilesFloodTcpSyn struct {
-	// When the flow exceeds the `activate_rate`` threshold, the firewall drops individual SYN packets randomly to restrict the flow.
-	ActivateRate *int32 `json:"activate_rate,omitempty"`
-	// When the flow exceeds the `alert_rate`` threshold, an alarm is generated.
-	AlarmRate *int32 `json:"alarm_rate,omitempty"`
 	// Enable protection against SYN floods?
-	Enable *bool `json:"enable,omitempty"`
-	// When the flow exceeds the `maximal_rate` threshold, 100% of incoming SYN packets are dropped.
-	MaximalRate          *int32 `json:"maximal_rate,omitempty"`
+	Enable               *bool                                        `json:"enable,omitempty"`
+	Red                  *ZoneProtectionProfilesFloodTcpSynRed        `json:"red,omitempty"`
+	SynCookies           *ZoneProtectionProfilesFloodTcpSynSynCookies `json:"syn_cookies,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -48,70 +44,6 @@ func NewZoneProtectionProfilesFloodTcpSyn() *ZoneProtectionProfilesFloodTcpSyn {
 func NewZoneProtectionProfilesFloodTcpSynWithDefaults() *ZoneProtectionProfilesFloodTcpSyn {
 	this := ZoneProtectionProfilesFloodTcpSyn{}
 	return &this
-}
-
-// GetActivateRate returns the ActivateRate field value if set, zero value otherwise.
-func (o *ZoneProtectionProfilesFloodTcpSyn) GetActivateRate() int32 {
-	if o == nil || IsNil(o.ActivateRate) {
-		var ret int32
-		return ret
-	}
-	return *o.ActivateRate
-}
-
-// GetActivateRateOk returns a tuple with the ActivateRate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ZoneProtectionProfilesFloodTcpSyn) GetActivateRateOk() (*int32, bool) {
-	if o == nil || IsNil(o.ActivateRate) {
-		return nil, false
-	}
-	return o.ActivateRate, true
-}
-
-// HasActivateRate returns a boolean if a field has been set.
-func (o *ZoneProtectionProfilesFloodTcpSyn) HasActivateRate() bool {
-	if o != nil && !IsNil(o.ActivateRate) {
-		return true
-	}
-
-	return false
-}
-
-// SetActivateRate gets a reference to the given int32 and assigns it to the ActivateRate field.
-func (o *ZoneProtectionProfilesFloodTcpSyn) SetActivateRate(v int32) {
-	o.ActivateRate = &v
-}
-
-// GetAlarmRate returns the AlarmRate field value if set, zero value otherwise.
-func (o *ZoneProtectionProfilesFloodTcpSyn) GetAlarmRate() int32 {
-	if o == nil || IsNil(o.AlarmRate) {
-		var ret int32
-		return ret
-	}
-	return *o.AlarmRate
-}
-
-// GetAlarmRateOk returns a tuple with the AlarmRate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ZoneProtectionProfilesFloodTcpSyn) GetAlarmRateOk() (*int32, bool) {
-	if o == nil || IsNil(o.AlarmRate) {
-		return nil, false
-	}
-	return o.AlarmRate, true
-}
-
-// HasAlarmRate returns a boolean if a field has been set.
-func (o *ZoneProtectionProfilesFloodTcpSyn) HasAlarmRate() bool {
-	if o != nil && !IsNil(o.AlarmRate) {
-		return true
-	}
-
-	return false
-}
-
-// SetAlarmRate gets a reference to the given int32 and assigns it to the AlarmRate field.
-func (o *ZoneProtectionProfilesFloodTcpSyn) SetAlarmRate(v int32) {
-	o.AlarmRate = &v
 }
 
 // GetEnable returns the Enable field value if set, zero value otherwise.
@@ -146,36 +78,68 @@ func (o *ZoneProtectionProfilesFloodTcpSyn) SetEnable(v bool) {
 	o.Enable = &v
 }
 
-// GetMaximalRate returns the MaximalRate field value if set, zero value otherwise.
-func (o *ZoneProtectionProfilesFloodTcpSyn) GetMaximalRate() int32 {
-	if o == nil || IsNil(o.MaximalRate) {
-		var ret int32
+// GetRed returns the Red field value if set, zero value otherwise.
+func (o *ZoneProtectionProfilesFloodTcpSyn) GetRed() ZoneProtectionProfilesFloodTcpSynRed {
+	if o == nil || IsNil(o.Red) {
+		var ret ZoneProtectionProfilesFloodTcpSynRed
 		return ret
 	}
-	return *o.MaximalRate
+	return *o.Red
 }
 
-// GetMaximalRateOk returns a tuple with the MaximalRate field value if set, nil otherwise
+// GetRedOk returns a tuple with the Red field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ZoneProtectionProfilesFloodTcpSyn) GetMaximalRateOk() (*int32, bool) {
-	if o == nil || IsNil(o.MaximalRate) {
+func (o *ZoneProtectionProfilesFloodTcpSyn) GetRedOk() (*ZoneProtectionProfilesFloodTcpSynRed, bool) {
+	if o == nil || IsNil(o.Red) {
 		return nil, false
 	}
-	return o.MaximalRate, true
+	return o.Red, true
 }
 
-// HasMaximalRate returns a boolean if a field has been set.
-func (o *ZoneProtectionProfilesFloodTcpSyn) HasMaximalRate() bool {
-	if o != nil && !IsNil(o.MaximalRate) {
+// HasRed returns a boolean if a field has been set.
+func (o *ZoneProtectionProfilesFloodTcpSyn) HasRed() bool {
+	if o != nil && !IsNil(o.Red) {
 		return true
 	}
 
 	return false
 }
 
-// SetMaximalRate gets a reference to the given int32 and assigns it to the MaximalRate field.
-func (o *ZoneProtectionProfilesFloodTcpSyn) SetMaximalRate(v int32) {
-	o.MaximalRate = &v
+// SetRed gets a reference to the given ZoneProtectionProfilesFloodTcpSynRed and assigns it to the Red field.
+func (o *ZoneProtectionProfilesFloodTcpSyn) SetRed(v ZoneProtectionProfilesFloodTcpSynRed) {
+	o.Red = &v
+}
+
+// GetSynCookies returns the SynCookies field value if set, zero value otherwise.
+func (o *ZoneProtectionProfilesFloodTcpSyn) GetSynCookies() ZoneProtectionProfilesFloodTcpSynSynCookies {
+	if o == nil || IsNil(o.SynCookies) {
+		var ret ZoneProtectionProfilesFloodTcpSynSynCookies
+		return ret
+	}
+	return *o.SynCookies
+}
+
+// GetSynCookiesOk returns a tuple with the SynCookies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ZoneProtectionProfilesFloodTcpSyn) GetSynCookiesOk() (*ZoneProtectionProfilesFloodTcpSynSynCookies, bool) {
+	if o == nil || IsNil(o.SynCookies) {
+		return nil, false
+	}
+	return o.SynCookies, true
+}
+
+// HasSynCookies returns a boolean if a field has been set.
+func (o *ZoneProtectionProfilesFloodTcpSyn) HasSynCookies() bool {
+	if o != nil && !IsNil(o.SynCookies) {
+		return true
+	}
+
+	return false
+}
+
+// SetSynCookies gets a reference to the given ZoneProtectionProfilesFloodTcpSynSynCookies and assigns it to the SynCookies field.
+func (o *ZoneProtectionProfilesFloodTcpSyn) SetSynCookies(v ZoneProtectionProfilesFloodTcpSynSynCookies) {
+	o.SynCookies = &v
 }
 
 func (o ZoneProtectionProfilesFloodTcpSyn) MarshalJSON() ([]byte, error) {
@@ -188,17 +152,14 @@ func (o ZoneProtectionProfilesFloodTcpSyn) MarshalJSON() ([]byte, error) {
 
 func (o ZoneProtectionProfilesFloodTcpSyn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ActivateRate) {
-		toSerialize["activate_rate"] = o.ActivateRate
-	}
-	if !IsNil(o.AlarmRate) {
-		toSerialize["alarm_rate"] = o.AlarmRate
-	}
 	if !IsNil(o.Enable) {
 		toSerialize["enable"] = o.Enable
 	}
-	if !IsNil(o.MaximalRate) {
-		toSerialize["maximal_rate"] = o.MaximalRate
+	if !IsNil(o.Red) {
+		toSerialize["red"] = o.Red
+	}
+	if !IsNil(o.SynCookies) {
+		toSerialize["syn_cookies"] = o.SynCookies
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -222,10 +183,9 @@ func (o *ZoneProtectionProfilesFloodTcpSyn) UnmarshalJSON(data []byte) (err erro
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "activate_rate")
-		delete(additionalProperties, "alarm_rate")
 		delete(additionalProperties, "enable")
-		delete(additionalProperties, "maximal_rate")
+		delete(additionalProperties, "red")
+		delete(additionalProperties, "syn_cookies")
 		o.AdditionalProperties = additionalProperties
 	}
 

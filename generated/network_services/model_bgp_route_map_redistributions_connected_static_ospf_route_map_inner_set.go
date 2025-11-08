@@ -18,12 +18,12 @@ import (
 // checks if the BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet{}
 
-// BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet struct for BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet
+// BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet Connected Static Root OSPF Set
 type BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet struct {
-	Metric *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric `json:"metric,omitempty"`
-	// Metric type
+	Metric *BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSetMetric `json:"metric,omitempty"`
+	// Connected Static BGP OSPF Route map set Metric type
 	MetricType *string `json:"metric_type,omitempty"`
-	// Tag
+	// Connected Static BGP OSPF Route map set Tag
 	Tag                  *int32 `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -48,9 +48,9 @@ func NewBgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSetWithDefault
 }
 
 // GetMetric returns the Metric field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet) GetMetric() BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric {
+func (o *BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet) GetMetric() BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSetMetric {
 	if o == nil || IsNil(o.Metric) {
-		var ret BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric
+		var ret BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSetMetric
 		return ret
 	}
 	return *o.Metric
@@ -58,7 +58,7 @@ func (o *BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet) GetMetri
 
 // GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet) GetMetricOk() (*BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric, bool) {
+func (o *BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet) GetMetricOk() (*BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSetMetric, bool) {
 	if o == nil || IsNil(o.Metric) {
 		return nil, false
 	}
@@ -74,8 +74,8 @@ func (o *BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet) HasMetri
 	return false
 }
 
-// SetMetric gets a reference to the given BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric and assigns it to the Metric field.
-func (o *BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet) SetMetric(v BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric) {
+// SetMetric gets a reference to the given BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSetMetric and assigns it to the Metric field.
+func (o *BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSet) SetMetric(v BgpRouteMapRedistributionsConnectedStaticOspfRouteMapInnerSetMetric) {
 	o.Metric = &v
 }
 

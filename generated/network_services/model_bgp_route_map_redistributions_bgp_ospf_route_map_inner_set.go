@@ -18,12 +18,12 @@ import (
 // checks if the BgpRouteMapRedistributionsBgpOspfRouteMapInnerSet type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &BgpRouteMapRedistributionsBgpOspfRouteMapInnerSet{}
 
-// BgpRouteMapRedistributionsBgpOspfRouteMapInnerSet struct for BgpRouteMapRedistributionsBgpOspfRouteMapInnerSet
+// BgpRouteMapRedistributionsBgpOspfRouteMapInnerSet BGP Root OSPF Set
 type BgpRouteMapRedistributionsBgpOspfRouteMapInnerSet struct {
 	Metric *BgpRouteMapRedistributionsBgpOspfRouteMapInnerSetMetric `json:"metric,omitempty"`
-	// Metric type
+	// BGP Root OSPF Route maps set Metric type
 	MetricType *string `json:"metric_type,omitempty"`
-	// Tag
+	// BGP Root OSPF Route maps set Tag
 	Tag                  *int32 `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

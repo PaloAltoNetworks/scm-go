@@ -20,26 +20,26 @@ var _ MappedNullable = &BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatch{}
 
 // BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatch struct for BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatch
 type BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatch struct {
-	// AS path access list
+	// BGP Root OSPF Route maps match AS path access list
 	AsPathAccessList *string `json:"as_path_access_list,omitempty"`
-	// Extended community
+	// EBGP Root OSPF Route maps match xtended community
 	ExtendedCommunity *string `json:"extended_community,omitempty"`
-	// Interface
+	// BGP Root OSPF Route maps match Interface
 	Interface *string                                                  `json:"interface,omitempty"`
 	Ipv4      *BgpRouteMapRedistributionsBgpOspfRouteMapInnerMatchIpv4 `json:"ipv4,omitempty"`
-	// Large community
+	// BGP Root OSPF Route maps match Large community
 	LargeCommunity *string `json:"large_community,omitempty"`
-	// Local preference
+	// BGP Root OSPF Route maps match Local preference
 	LocalPreference *int32 `json:"local_preference,omitempty"`
-	// Metric
+	// BGP Root OSPF Route maps match Metric
 	Metric *int32 `json:"metric,omitempty"`
-	// Origin
+	// BGP Root OSPF Route maps match Origin
 	Origin *string `json:"origin,omitempty"`
-	// Peer
+	// BGP Root OSPF Route maps match Peer
 	Peer *string `json:"peer,omitempty"`
-	// Regular community
+	// BGP Root OSPF Route maps match Regular community
 	RegularCommunity *string `json:"regular_community,omitempty"`
-	// Tag
+	// BGP Root OSPF Route maps match Tag
 	Tag                  *int32 `json:"tag,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

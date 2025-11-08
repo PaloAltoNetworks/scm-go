@@ -20,7 +20,7 @@ var _ MappedNullable = &BgpRouteMapRedistributionsConnectedStaticRib{}
 
 // BgpRouteMapRedistributionsConnectedStaticRib struct for BgpRouteMapRedistributionsConnectedStaticRib
 type BgpRouteMapRedistributionsConnectedStaticRib struct {
-	// Route maps
+	// Connected Static BGP Rib Route maps
 	RouteMap             []BgpRouteMapRedistributionsConnectedStaticRibRouteMapInner `json:"route_map,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

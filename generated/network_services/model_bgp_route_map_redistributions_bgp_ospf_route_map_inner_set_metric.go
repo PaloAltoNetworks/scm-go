@@ -20,9 +20,9 @@ var _ MappedNullable = &BgpRouteMapRedistributionsBgpOspfRouteMapInnerSetMetric{
 
 // BgpRouteMapRedistributionsBgpOspfRouteMapInnerSetMetric struct for BgpRouteMapRedistributionsBgpOspfRouteMapInnerSetMetric
 type BgpRouteMapRedistributionsBgpOspfRouteMapInnerSetMetric struct {
-	// Metric action
+	// BGP Root OSPF Route maps set Metric action
 	Action *string `json:"action,omitempty"`
-	// Metric value
+	// BGP Root OSPF Route maps set Metric value
 	Value                *int32 `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

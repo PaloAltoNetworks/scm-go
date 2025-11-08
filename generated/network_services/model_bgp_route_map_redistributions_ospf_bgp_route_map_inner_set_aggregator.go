@@ -20,9 +20,9 @@ var _ MappedNullable = &BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetAggrega
 
 // BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetAggregator bgp-route-map-redistributions set aggregator
 type BgpRouteMapRedistributionsOspfBgpRouteMapInnerSetAggregator struct {
-	// Aggregator AS
+	// OSPF BGP Route maps set Aggregator AS
 	As *int32 `json:"as,omitempty"`
-	// Router ID
+	// OSPF BGP Route maps set Router ID
 	RouterId             *string `json:"router_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -18,7 +18,7 @@ import (
 // checks if the EthernetInterfacesLayer3 type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EthernetInterfacesLayer3{}
 
-// EthernetInterfacesLayer3 struct for EthernetInterfacesLayer3
+// EthernetInterfacesLayer3 Ethernet Interface Layer 3 configuration
 type EthernetInterfacesLayer3 struct {
 	// Ethernet Interfaces ARP configuration
 	Arp        []EthernetInterfacesArpInner        `json:"arp,omitempty"`
@@ -26,7 +26,7 @@ type EthernetInterfacesLayer3 struct {
 	DhcpClient *EthernetInterfacesLayer3DhcpClient `json:"dhcp_client,omitempty"`
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
-	// Interface IP addresses
+	// Ethernet Interface IP addresses
 	Ip []EthernetInterfacesLayer3IpInner `json:"ip,omitempty"`
 	// MTU
 	Mtu                  *int32                         `json:"mtu,omitempty"`

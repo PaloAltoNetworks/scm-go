@@ -21,6 +21,7 @@ var _ MappedNullable = &EthernetInterfacesLayer3IpInner{}
 
 // EthernetInterfacesLayer3IpInner struct for EthernetInterfacesLayer3IpInner
 type EthernetInterfacesLayer3IpInner struct {
+	// Ethernet Interface IP addresses name
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }

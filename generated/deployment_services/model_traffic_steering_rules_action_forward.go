@@ -20,7 +20,8 @@ var _ MappedNullable = &TrafficSteeringRulesActionForward{}
 
 // TrafficSteeringRulesActionForward struct for TrafficSteeringRulesActionForward
 type TrafficSteeringRulesActionForward struct {
-	Target               *string `json:"target,omitempty"`
+	Forward              *TrafficSteeringRulesActionForwardForward `json:"forward,omitempty"`
+	NoPbf                map[string]interface{}                    `json:"no-pbf,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,36 +44,68 @@ func NewTrafficSteeringRulesActionForwardWithDefaults() *TrafficSteeringRulesAct
 	return &this
 }
 
-// GetTarget returns the Target field value if set, zero value otherwise.
-func (o *TrafficSteeringRulesActionForward) GetTarget() string {
-	if o == nil || IsNil(o.Target) {
-		var ret string
+// GetForward returns the Forward field value if set, zero value otherwise.
+func (o *TrafficSteeringRulesActionForward) GetForward() TrafficSteeringRulesActionForwardForward {
+	if o == nil || IsNil(o.Forward) {
+		var ret TrafficSteeringRulesActionForwardForward
 		return ret
 	}
-	return *o.Target
+	return *o.Forward
 }
 
-// GetTargetOk returns a tuple with the Target field value if set, nil otherwise
+// GetForwardOk returns a tuple with the Forward field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrafficSteeringRulesActionForward) GetTargetOk() (*string, bool) {
-	if o == nil || IsNil(o.Target) {
+func (o *TrafficSteeringRulesActionForward) GetForwardOk() (*TrafficSteeringRulesActionForwardForward, bool) {
+	if o == nil || IsNil(o.Forward) {
 		return nil, false
 	}
-	return o.Target, true
+	return o.Forward, true
 }
 
-// HasTarget returns a boolean if a field has been set.
-func (o *TrafficSteeringRulesActionForward) HasTarget() bool {
-	if o != nil && !IsNil(o.Target) {
+// HasForward returns a boolean if a field has been set.
+func (o *TrafficSteeringRulesActionForward) HasForward() bool {
+	if o != nil && !IsNil(o.Forward) {
 		return true
 	}
 
 	return false
 }
 
-// SetTarget gets a reference to the given string and assigns it to the Target field.
-func (o *TrafficSteeringRulesActionForward) SetTarget(v string) {
-	o.Target = &v
+// SetForward gets a reference to the given TrafficSteeringRulesActionForwardForward and assigns it to the Forward field.
+func (o *TrafficSteeringRulesActionForward) SetForward(v TrafficSteeringRulesActionForwardForward) {
+	o.Forward = &v
+}
+
+// GetNoPbf returns the NoPbf field value if set, zero value otherwise.
+func (o *TrafficSteeringRulesActionForward) GetNoPbf() map[string]interface{} {
+	if o == nil || IsNil(o.NoPbf) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.NoPbf
+}
+
+// GetNoPbfOk returns a tuple with the NoPbf field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TrafficSteeringRulesActionForward) GetNoPbfOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.NoPbf) {
+		return map[string]interface{}{}, false
+	}
+	return o.NoPbf, true
+}
+
+// HasNoPbf returns a boolean if a field has been set.
+func (o *TrafficSteeringRulesActionForward) HasNoPbf() bool {
+	if o != nil && !IsNil(o.NoPbf) {
+		return true
+	}
+
+	return false
+}
+
+// SetNoPbf gets a reference to the given map[string]interface{} and assigns it to the NoPbf field.
+func (o *TrafficSteeringRulesActionForward) SetNoPbf(v map[string]interface{}) {
+	o.NoPbf = v
 }
 
 func (o TrafficSteeringRulesActionForward) MarshalJSON() ([]byte, error) {
@@ -85,8 +118,11 @@ func (o TrafficSteeringRulesActionForward) MarshalJSON() ([]byte, error) {
 
 func (o TrafficSteeringRulesActionForward) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Target) {
-		toSerialize["target"] = o.Target
+	if !IsNil(o.Forward) {
+		toSerialize["forward"] = o.Forward
+	}
+	if !IsNil(o.NoPbf) {
+		toSerialize["no-pbf"] = o.NoPbf
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -110,7 +146,8 @@ func (o *TrafficSteeringRulesActionForward) UnmarshalJSON(data []byte) (err erro
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "target")
+		delete(additionalProperties, "forward")
+		delete(additionalProperties, "no-pbf")
 		o.AdditionalProperties = additionalProperties
 	}
 

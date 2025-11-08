@@ -22,6 +22,7 @@ var _ MappedNullable = &LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNext
 type LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop struct {
 	Discard              map[string]interface{} `json:"discard,omitempty"`
 	Fqdn                 *string                `json:"fqdn,omitempty"`
+	IpAddress            *string                `json:"ip_address,omitempty"`
 	Ipv6Address          *string                `json:"ipv6_address,omitempty"`
 	NextLr               *string                `json:"next_lr,omitempty"`
 	NextVr               *string                `json:"next_vr,omitempty"`
@@ -111,6 +112,38 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasFqdn() 
 // SetFqdn gets a reference to the given string and assigns it to the Fqdn field.
 func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetFqdn(v string) {
 	o.Fqdn = &v
+}
+
+// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetIpAddress() string {
+	if o == nil || IsNil(o.IpAddress) {
+		var ret string
+		return ret
+	}
+	return *o.IpAddress
+}
+
+// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) GetIpAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.IpAddress) {
+		return nil, false
+	}
+	return o.IpAddress, true
+}
+
+// HasIpAddress returns a boolean if a field has been set.
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) HasIpAddress() bool {
+	if o != nil && !IsNil(o.IpAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
+func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) SetIpAddress(v string) {
+	o.IpAddress = &v
 }
 
 // GetIpv6Address returns the Ipv6Address field value if set, zero value otherwise.
@@ -289,6 +322,9 @@ func (o LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) ToMap() (ma
 	if !IsNil(o.Fqdn) {
 		toSerialize["fqdn"] = o.Fqdn
 	}
+	if !IsNil(o.IpAddress) {
+		toSerialize["ip_address"] = o.IpAddress
+	}
 	if !IsNil(o.Ipv6Address) {
 		toSerialize["ipv6_address"] = o.Ipv6Address
 	}
@@ -328,6 +364,7 @@ func (o *LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop) UnmarshalJ
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "discard")
 		delete(additionalProperties, "fqdn")
+		delete(additionalProperties, "ip_address")
 		delete(additionalProperties, "ipv6_address")
 		delete(additionalProperties, "next_lr")
 		delete(additionalProperties, "next_vr")

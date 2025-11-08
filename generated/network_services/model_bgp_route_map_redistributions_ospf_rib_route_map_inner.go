@@ -20,14 +20,14 @@ var _ MappedNullable = &BgpRouteMapRedistributionsOspfRibRouteMapInner{}
 
 // BgpRouteMapRedistributionsOspfRibRouteMapInner struct for BgpRouteMapRedistributionsOspfRibRouteMapInner
 type BgpRouteMapRedistributionsOspfRibRouteMapInner struct {
-	// Action
+	// OSPF RIB Route maps Action
 	Action *string `json:"action,omitempty"`
-	// Description
+	// OSPF RIB Route maps Description
 	Description *string                                              `json:"description,omitempty"`
 	Match       *BgpRouteMapRedistributionsOspfRibRouteMapInnerMatch `json:"match,omitempty"`
-	// Sequence number
-	Name                 *int32                                            `json:"name,omitempty"`
-	Set                  *BgpRouteMapRedistributionsBgpRibRouteMapInnerSet `json:"set,omitempty"`
+	// OSPF RIB Route mapsSequence number
+	Name                 *int32                                             `json:"name,omitempty"`
+	Set                  *BgpRouteMapRedistributionsOspfRibRouteMapInnerSet `json:"set,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -179,9 +179,9 @@ func (o *BgpRouteMapRedistributionsOspfRibRouteMapInner) SetName(v int32) {
 }
 
 // GetSet returns the Set field value if set, zero value otherwise.
-func (o *BgpRouteMapRedistributionsOspfRibRouteMapInner) GetSet() BgpRouteMapRedistributionsBgpRibRouteMapInnerSet {
+func (o *BgpRouteMapRedistributionsOspfRibRouteMapInner) GetSet() BgpRouteMapRedistributionsOspfRibRouteMapInnerSet {
 	if o == nil || IsNil(o.Set) {
-		var ret BgpRouteMapRedistributionsBgpRibRouteMapInnerSet
+		var ret BgpRouteMapRedistributionsOspfRibRouteMapInnerSet
 		return ret
 	}
 	return *o.Set
@@ -189,7 +189,7 @@ func (o *BgpRouteMapRedistributionsOspfRibRouteMapInner) GetSet() BgpRouteMapRed
 
 // GetSetOk returns a tuple with the Set field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapRedistributionsOspfRibRouteMapInner) GetSetOk() (*BgpRouteMapRedistributionsBgpRibRouteMapInnerSet, bool) {
+func (o *BgpRouteMapRedistributionsOspfRibRouteMapInner) GetSetOk() (*BgpRouteMapRedistributionsOspfRibRouteMapInnerSet, bool) {
 	if o == nil || IsNil(o.Set) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *BgpRouteMapRedistributionsOspfRibRouteMapInner) HasSet() bool {
 	return false
 }
 
-// SetSet gets a reference to the given BgpRouteMapRedistributionsBgpRibRouteMapInnerSet and assigns it to the Set field.
-func (o *BgpRouteMapRedistributionsOspfRibRouteMapInner) SetSet(v BgpRouteMapRedistributionsBgpRibRouteMapInnerSet) {
+// SetSet gets a reference to the given BgpRouteMapRedistributionsOspfRibRouteMapInnerSet and assigns it to the Set field.
+func (o *BgpRouteMapRedistributionsOspfRibRouteMapInner) SetSet(v BgpRouteMapRedistributionsOspfRibRouteMapInnerSet) {
 	o.Set = &v
 }
 

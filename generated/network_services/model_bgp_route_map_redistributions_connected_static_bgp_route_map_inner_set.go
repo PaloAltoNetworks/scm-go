@@ -21,25 +21,25 @@ var _ MappedNullable = &BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInne
 // BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSet struct for BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSet
 type BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSet struct {
 	Aggregator *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetAggregator `json:"aggregator,omitempty"`
-	// AS numbers
+	// Connected Static BGP Route maps set AS numbers
 	AspathPrepend []int32 `json:"aspath_prepend,omitempty"`
-	// Enable BGP atomic aggregate?
+	// Connected Static BGP Route maps set Enable BGP atomic aggregate?
 	AtomicAggregate *bool                                                             `json:"atomic_aggregate,omitempty"`
 	Ipv4            *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetIpv4 `json:"ipv4,omitempty"`
-	// Large communities
+	// Connected Static  BGP Route maps set Large communities
 	LargeCommunity []string `json:"large_community,omitempty"`
-	// Local preference
+	// Connected Static BGP Route maps set Local preference
 	LocalPreference *int32                                                              `json:"local_preference,omitempty"`
 	Metric          *BgpRouteMapRedistributionsConnectedStaticBgpRouteMapInnerSetMetric `json:"metric,omitempty"`
-	// Origin
+	// Connected Static BGP Route maps set Origin
 	Origin *string `json:"origin,omitempty"`
-	// Originator ID
+	// Connected Static BGP Route maps set Originator ID
 	OriginatorId *string `json:"originator_id,omitempty"`
-	// Regular communities
+	// Connected Static  BGP Route maps set Regular communities
 	RegularCommunity []string `json:"regular_community,omitempty"`
-	// Tag
+	// Connected Static BGP Route maps set Tag
 	Tag *int32 `json:"tag,omitempty"`
-	// Weight
+	// Connected Static BGP Route maps set Weight
 	Weight               *int32 `json:"weight,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
