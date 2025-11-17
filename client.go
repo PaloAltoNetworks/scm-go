@@ -288,7 +288,7 @@ func (c *Client) RefreshJwt(ctx context.Context) error {
 	} else {
 		authClient := &http.Client{
 			Transport: c.Transport,
-			Timeout:   time.Duration(10 * time.Second),
+			Timeout:   time.Duration(30 * time.Second),
 		}
 
 		uv := url.Values{}
