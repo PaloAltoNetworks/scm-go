@@ -32,7 +32,7 @@ type AuthenticationPortals struct {
 	// The UDP port for inbound authentication prompts
 	GpUdpPort *int32 `json:"gp_udp_port,omitempty"`
 	// The UUID of the authentication portal
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// The idle timeout value (minutes)
 	IdleTimer *int32 `json:"idle_timer,omitempty"`
 	// The authentication portal IP address or hostname
@@ -51,9 +51,8 @@ type _AuthenticationPortals AuthenticationPortals
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthenticationPortals(id string, redirectHost string) *AuthenticationPortals {
+func NewAuthenticationPortals(redirectHost string) *AuthenticationPortals {
 	this := AuthenticationPortals{}
-	this.Id = id
 	this.RedirectHost = redirectHost
 	return &this
 }
@@ -226,28 +225,36 @@ func (o *AuthenticationPortals) SetGpUdpPort(v int32) {
 	o.GpUdpPort = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *AuthenticationPortals) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationPortals) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *AuthenticationPortals) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *AuthenticationPortals) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetIdleTimer returns the IdleTimer field value if set, zero value otherwise.
@@ -427,7 +434,9 @@ func (o AuthenticationPortals) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GpUdpPort) {
 		toSerialize["gp_udp_port"] = o.GpUdpPort
 	}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.IdleTimer) {
 		toSerialize["idle_timer"] = o.IdleTimer
 	}
@@ -454,7 +463,6 @@ func (o *AuthenticationPortals) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"redirect_host",
 	}
 

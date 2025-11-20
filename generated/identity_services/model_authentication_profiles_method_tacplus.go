@@ -15,39 +15,39 @@ import (
 	"encoding/json"
 )
 
-// checks if the AuthenticationProfilesMethodRadius type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AuthenticationProfilesMethodRadius{}
+// checks if the AuthenticationProfilesMethodTacplus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticationProfilesMethodTacplus{}
 
-// AuthenticationProfilesMethodRadius struct for AuthenticationProfilesMethodRadius
-type AuthenticationProfilesMethodRadius struct {
-	// method radius object check group of authentication profile
+// AuthenticationProfilesMethodTacplus struct for AuthenticationProfilesMethodTacplus
+type AuthenticationProfilesMethodTacplus struct {
+	// method tacplus object check group of authentication profile
 	Checkgroup *bool `json:"checkgroup,omitempty"`
-	// method radius object server profile of authentication profile
+	// method tacplus object check group of authentication profile
 	ServerProfile        *string `json:"server_profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _AuthenticationProfilesMethodRadius AuthenticationProfilesMethodRadius
+type _AuthenticationProfilesMethodTacplus AuthenticationProfilesMethodTacplus
 
-// NewAuthenticationProfilesMethodRadius instantiates a new AuthenticationProfilesMethodRadius object
+// NewAuthenticationProfilesMethodTacplus instantiates a new AuthenticationProfilesMethodTacplus object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthenticationProfilesMethodRadius() *AuthenticationProfilesMethodRadius {
-	this := AuthenticationProfilesMethodRadius{}
+func NewAuthenticationProfilesMethodTacplus() *AuthenticationProfilesMethodTacplus {
+	this := AuthenticationProfilesMethodTacplus{}
 	return &this
 }
 
-// NewAuthenticationProfilesMethodRadiusWithDefaults instantiates a new AuthenticationProfilesMethodRadius object
+// NewAuthenticationProfilesMethodTacplusWithDefaults instantiates a new AuthenticationProfilesMethodTacplus object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAuthenticationProfilesMethodRadiusWithDefaults() *AuthenticationProfilesMethodRadius {
-	this := AuthenticationProfilesMethodRadius{}
+func NewAuthenticationProfilesMethodTacplusWithDefaults() *AuthenticationProfilesMethodTacplus {
+	this := AuthenticationProfilesMethodTacplus{}
 	return &this
 }
 
 // GetCheckgroup returns the Checkgroup field value if set, zero value otherwise.
-func (o *AuthenticationProfilesMethodRadius) GetCheckgroup() bool {
+func (o *AuthenticationProfilesMethodTacplus) GetCheckgroup() bool {
 	if o == nil || IsNil(o.Checkgroup) {
 		var ret bool
 		return ret
@@ -57,7 +57,7 @@ func (o *AuthenticationProfilesMethodRadius) GetCheckgroup() bool {
 
 // GetCheckgroupOk returns a tuple with the Checkgroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthenticationProfilesMethodRadius) GetCheckgroupOk() (*bool, bool) {
+func (o *AuthenticationProfilesMethodTacplus) GetCheckgroupOk() (*bool, bool) {
 	if o == nil || IsNil(o.Checkgroup) {
 		return nil, false
 	}
@@ -65,7 +65,7 @@ func (o *AuthenticationProfilesMethodRadius) GetCheckgroupOk() (*bool, bool) {
 }
 
 // HasCheckgroup returns a boolean if a field has been set.
-func (o *AuthenticationProfilesMethodRadius) HasCheckgroup() bool {
+func (o *AuthenticationProfilesMethodTacplus) HasCheckgroup() bool {
 	if o != nil && !IsNil(o.Checkgroup) {
 		return true
 	}
@@ -74,12 +74,12 @@ func (o *AuthenticationProfilesMethodRadius) HasCheckgroup() bool {
 }
 
 // SetCheckgroup gets a reference to the given bool and assigns it to the Checkgroup field.
-func (o *AuthenticationProfilesMethodRadius) SetCheckgroup(v bool) {
+func (o *AuthenticationProfilesMethodTacplus) SetCheckgroup(v bool) {
 	o.Checkgroup = &v
 }
 
 // GetServerProfile returns the ServerProfile field value if set, zero value otherwise.
-func (o *AuthenticationProfilesMethodRadius) GetServerProfile() string {
+func (o *AuthenticationProfilesMethodTacplus) GetServerProfile() string {
 	if o == nil || IsNil(o.ServerProfile) {
 		var ret string
 		return ret
@@ -89,7 +89,7 @@ func (o *AuthenticationProfilesMethodRadius) GetServerProfile() string {
 
 // GetServerProfileOk returns a tuple with the ServerProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthenticationProfilesMethodRadius) GetServerProfileOk() (*string, bool) {
+func (o *AuthenticationProfilesMethodTacplus) GetServerProfileOk() (*string, bool) {
 	if o == nil || IsNil(o.ServerProfile) {
 		return nil, false
 	}
@@ -97,7 +97,7 @@ func (o *AuthenticationProfilesMethodRadius) GetServerProfileOk() (*string, bool
 }
 
 // HasServerProfile returns a boolean if a field has been set.
-func (o *AuthenticationProfilesMethodRadius) HasServerProfile() bool {
+func (o *AuthenticationProfilesMethodTacplus) HasServerProfile() bool {
 	if o != nil && !IsNil(o.ServerProfile) {
 		return true
 	}
@@ -106,11 +106,11 @@ func (o *AuthenticationProfilesMethodRadius) HasServerProfile() bool {
 }
 
 // SetServerProfile gets a reference to the given string and assigns it to the ServerProfile field.
-func (o *AuthenticationProfilesMethodRadius) SetServerProfile(v string) {
+func (o *AuthenticationProfilesMethodTacplus) SetServerProfile(v string) {
 	o.ServerProfile = &v
 }
 
-func (o AuthenticationProfilesMethodRadius) MarshalJSON() ([]byte, error) {
+func (o AuthenticationProfilesMethodTacplus) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -118,7 +118,7 @@ func (o AuthenticationProfilesMethodRadius) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AuthenticationProfilesMethodRadius) ToMap() (map[string]interface{}, error) {
+func (o AuthenticationProfilesMethodTacplus) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Checkgroup) {
 		toSerialize["checkgroup"] = o.Checkgroup
@@ -134,16 +134,16 @@ func (o AuthenticationProfilesMethodRadius) ToMap() (map[string]interface{}, err
 	return toSerialize, nil
 }
 
-func (o *AuthenticationProfilesMethodRadius) UnmarshalJSON(data []byte) (err error) {
-	varAuthenticationProfilesMethodRadius := _AuthenticationProfilesMethodRadius{}
+func (o *AuthenticationProfilesMethodTacplus) UnmarshalJSON(data []byte) (err error) {
+	varAuthenticationProfilesMethodTacplus := _AuthenticationProfilesMethodTacplus{}
 
-	err = json.Unmarshal(data, &varAuthenticationProfilesMethodRadius)
+	err = json.Unmarshal(data, &varAuthenticationProfilesMethodTacplus)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AuthenticationProfilesMethodRadius(varAuthenticationProfilesMethodRadius)
+	*o = AuthenticationProfilesMethodTacplus(varAuthenticationProfilesMethodTacplus)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -156,38 +156,38 @@ func (o *AuthenticationProfilesMethodRadius) UnmarshalJSON(data []byte) (err err
 	return err
 }
 
-type NullableAuthenticationProfilesMethodRadius struct {
-	value *AuthenticationProfilesMethodRadius
+type NullableAuthenticationProfilesMethodTacplus struct {
+	value *AuthenticationProfilesMethodTacplus
 	isSet bool
 }
 
-func (v NullableAuthenticationProfilesMethodRadius) Get() *AuthenticationProfilesMethodRadius {
+func (v NullableAuthenticationProfilesMethodTacplus) Get() *AuthenticationProfilesMethodTacplus {
 	return v.value
 }
 
-func (v *NullableAuthenticationProfilesMethodRadius) Set(val *AuthenticationProfilesMethodRadius) {
+func (v *NullableAuthenticationProfilesMethodTacplus) Set(val *AuthenticationProfilesMethodTacplus) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAuthenticationProfilesMethodRadius) IsSet() bool {
+func (v NullableAuthenticationProfilesMethodTacplus) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAuthenticationProfilesMethodRadius) Unset() {
+func (v *NullableAuthenticationProfilesMethodTacplus) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAuthenticationProfilesMethodRadius(val *AuthenticationProfilesMethodRadius) *NullableAuthenticationProfilesMethodRadius {
-	return &NullableAuthenticationProfilesMethodRadius{value: val, isSet: true}
+func NewNullableAuthenticationProfilesMethodTacplus(val *AuthenticationProfilesMethodTacplus) *NullableAuthenticationProfilesMethodTacplus {
+	return &NullableAuthenticationProfilesMethodTacplus{value: val, isSet: true}
 }
 
-func (v NullableAuthenticationProfilesMethodRadius) MarshalJSON() ([]byte, error) {
+func (v NullableAuthenticationProfilesMethodTacplus) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAuthenticationProfilesMethodRadius) UnmarshalJSON(src []byte) error {
+func (v *NullableAuthenticationProfilesMethodTacplus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

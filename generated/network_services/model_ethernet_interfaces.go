@@ -21,6 +21,7 @@ var _ MappedNullable = &EthernetInterfaces{}
 
 // EthernetInterfaces struct for EthernetInterfaces
 type EthernetInterfaces struct {
+	AggregateGroup *string `json:"aggregate_group,omitempty"`
 	// Interface description
 	Comment *string `json:"comment,omitempty"`
 	// Default interface assignment
@@ -79,6 +80,38 @@ func NewEthernetInterfacesWithDefaults() *EthernetInterfaces {
 	var linkState string = "auto"
 	this.LinkState = &linkState
 	return &this
+}
+
+// GetAggregateGroup returns the AggregateGroup field value if set, zero value otherwise.
+func (o *EthernetInterfaces) GetAggregateGroup() string {
+	if o == nil || IsNil(o.AggregateGroup) {
+		var ret string
+		return ret
+	}
+	return *o.AggregateGroup
+}
+
+// GetAggregateGroupOk returns a tuple with the AggregateGroup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EthernetInterfaces) GetAggregateGroupOk() (*string, bool) {
+	if o == nil || IsNil(o.AggregateGroup) {
+		return nil, false
+	}
+	return o.AggregateGroup, true
+}
+
+// HasAggregateGroup returns a boolean if a field has been set.
+func (o *EthernetInterfaces) HasAggregateGroup() bool {
+	if o != nil && !IsNil(o.AggregateGroup) {
+		return true
+	}
+
+	return false
+}
+
+// SetAggregateGroup gets a reference to the given string and assigns it to the AggregateGroup field.
+func (o *EthernetInterfaces) SetAggregateGroup(v string) {
+	o.AggregateGroup = &v
 }
 
 // GetComment returns the Comment field value if set, zero value otherwise.
@@ -523,6 +556,9 @@ func (o EthernetInterfaces) MarshalJSON() ([]byte, error) {
 
 func (o EthernetInterfaces) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AggregateGroup) {
+		toSerialize["aggregate_group"] = o.AggregateGroup
+	}
 	if !IsNil(o.Comment) {
 		toSerialize["comment"] = o.Comment
 	}
@@ -605,6 +641,7 @@ func (o *EthernetInterfaces) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregate_group")
 		delete(additionalProperties, "comment")
 		delete(additionalProperties, "default_value")
 		delete(additionalProperties, "device")

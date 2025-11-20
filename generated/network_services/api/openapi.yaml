@@ -9494,9 +9494,13 @@ components:
           lldp:
             enable: false
         link_state: auto
+        aggregate_group: $aggregate-interface-example
         device: My Device
         link_duplex: auto
       properties:
+        aggregate_group:
+          example: $aggregate-interface-example
+          type: string
         comment:
           description: Interface description
           maxLength: 1023
