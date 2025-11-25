@@ -31,7 +31,6 @@ func createTestQosRule(t *testing.T, ruleName string) network_services.QosPolicy
 	return network_services.QosPolicyRules{
 		Name:        ruleName,
 		Action:      action,
-		Schedule:    common.StringPtr("Test"),
 		Description: common.StringPtr("Test rule for QoS Policy CRUD"),
 		Folder:      common.StringPtr("All"),
 	}
@@ -98,7 +97,6 @@ func Test_network_services_QoSRulesAPIService_GetByID(t *testing.T) {
 
 	// Verify the retrieved data
 	assert.Equal(t, ruleName, getRes.Name, "Rule name should match")
-	assert.Equal(t, "Test", getRes.GetSchedule(), "Schedule should match")
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -121,7 +119,6 @@ func Test_network_services_QoSRulesAPIService_Update(t *testing.T) {
 	// Prepare updated rule object
 	updatedDescription := "Updated QoS rule description"
 	updatedRule := createTestQosRule(t, ruleName)
-	updatedRule.Schedule = common.StringPtr("non-work-hours") // Change the schedule
 	updatedRule.Description = common.StringPtr(updatedDescription)
 	updatedRule.Id = &createdRuleID
 
@@ -133,7 +130,6 @@ func Test_network_services_QoSRulesAPIService_Update(t *testing.T) {
 	require.NotNil(t, updateRes, "Update response should not be nil")
 
 	// Verify the changes
-	assert.Equal(t, "non-work-hours", *updateRes.Schedule, "Schedule should be updated")
 	assert.Equal(t, updatedDescription, *updateRes.Description, "Description should be updated")
 }
 

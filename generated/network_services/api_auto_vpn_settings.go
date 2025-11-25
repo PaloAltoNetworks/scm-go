@@ -27,7 +27,7 @@ type ApiGetAutoVPNSettingsRequest struct {
 	ApiService *AutoVPNSettingsAPIService
 }
 
-func (r ApiGetAutoVPNSettingsRequest) Execute() (*GetAutoVPNMonitor200Response, *http.Response, error) {
+func (r ApiGetAutoVPNSettingsRequest) Execute() (*AutoVpnSettings, *http.Response, error) {
 	return r.ApiService.GetAutoVPNSettingsExecute(r)
 }
 
@@ -48,13 +48,13 @@ func (a *AutoVPNSettingsAPIService) GetAutoVPNSettings(ctx context.Context) ApiG
 
 // Execute executes the request
 //
-//	@return GetAutoVPNMonitor200Response
-func (a *AutoVPNSettingsAPIService) GetAutoVPNSettingsExecute(r ApiGetAutoVPNSettingsRequest) (*GetAutoVPNMonitor200Response, *http.Response, error) {
+//	@return AutoVpnSettings
+func (a *AutoVPNSettingsAPIService) GetAutoVPNSettingsExecute(r ApiGetAutoVPNSettingsRequest) (*AutoVpnSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetAutoVPNMonitor200Response
+		localVarReturnValue *AutoVpnSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoVPNSettingsAPIService.GetAutoVPNSettings")

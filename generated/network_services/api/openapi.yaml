@@ -273,7 +273,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AutoVPNClustersListResponse'
+                items:
+                  $ref: '#/components/schemas/auto-vpn-clusters'
+                type: array
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic'
@@ -469,7 +471,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetAutoVPNMonitor_200_response'
+                $ref: '#/components/schemas/auto-vpn-settings'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic'
@@ -6551,35 +6553,6 @@ components:
       - limit
       - offset
       - total
-    AutoVPNClustersListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AutoVpnClusters'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
     BGPAddressFamilyProfilesListResponse:
       example:
         total: 1
@@ -8271,75 +8244,74 @@ components:
         snippet: My Snippet
         folder: My Folder
         ipv4:
-          ipv4:
-            unicast:
-              default_originate_map: default_originate_map
-              orf:
-                orf_prefix_list: none
-              maximum_prefix:
-                action:
-                  restart:
-                    interval: 39501
-                  warning_only: "{}"
-                threshold: 60
-                num_prefixes: 629561882
-              remove_private_AS:
-                all: "{}"
-                replace_AS: "{}"
-              allowas_in:
-                origin: "{}"
-                occurrence: 1
-              soft_reconfig_with_stored_info: true
-              route_reflector_client: true
-              enable: true
-              next_hop:
-                self: "{}"
-                self_force: "{}"
-              send_community:
-                all: "{}"
-                standard: "{}"
-                large: "{}"
-                extended: "{}"
-                both: "{}"
-              add_path:
-                tx_all_paths: true
-                tx_bestpath_per_AS: true
-              as_override: true
-              default_originate: true
-            multicast:
-              default_originate_map: default_originate_map
-              orf:
-                orf_prefix_list: none
-              maximum_prefix:
-                action:
-                  restart:
-                    interval: 39501
-                  warning_only: "{}"
-                threshold: 60
-                num_prefixes: 629561882
-              remove_private_AS:
-                all: "{}"
-                replace_AS: "{}"
-              allowas_in:
-                origin: "{}"
-                occurrence: 1
-              soft_reconfig_with_stored_info: true
-              route_reflector_client: true
-              enable: true
-              next_hop:
-                self: "{}"
-                self_force: "{}"
-              send_community:
-                all: "{}"
-                standard: "{}"
-                large: "{}"
-                extended: "{}"
-                both: "{}"
-              add_path:
-                tx_all_paths: true
-                tx_bestpath_per_AS: true
-              as_override: true
-              default_originate: true
+          unicast:
+            default_originate_map: default_originate_map
+            orf:
+              orf_prefix_list: none
+            maximum_prefix:
+              action:
+                restart:
+                  interval: 39501
+                warning_only: "{}"
+              threshold: 60
+              num_prefixes: 629561882
+            remove_private_AS:
+              all: "{}"
+              replace_AS: "{}"
+            allowas_in:
+              origin: "{}"
+              occurrence: 1
+            soft_reconfig_with_stored_info: true
+            route_reflector_client: true
+            enable: true
+            next_hop:
+              self: "{}"
+              self_force: "{}"
+            send_community:
+              all: "{}"
+              standard: "{}"
+              large: "{}"
+              extended: "{}"
+              both: "{}"
+            add_path:
+              tx_all_paths: true
+              tx_bestpath_per_AS: true
+            as_override: true
+            default_originate: true
+          multicast:
+            default_originate_map: default_originate_map
+            orf:
+              orf_prefix_list: none
+            maximum_prefix:
+              action:
+                restart:
+                  interval: 39501
+                warning_only: "{}"
+              threshold: 60
+              num_prefixes: 629561882
+            remove_private_AS:
+              all: "{}"
+              replace_AS: "{}"
+            allowas_in:
+              origin: "{}"
+              occurrence: 1
+            soft_reconfig_with_stored_info: true
+            route_reflector_client: true
+            enable: true
+            next_hop:
+              self: "{}"
+              self_force: "{}"
+            send_community:
+              all: "{}"
+              standard: "{}"
+              large: "{}"
+              extended: "{}"
+              both: "{}"
+            add_path:
+              tx_all_paths: true
+              tx_bestpath_per_AS: true
+            as_override: true
+            default_originate: true
         name: name
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
@@ -8455,50 +8427,49 @@ components:
         snippet: My Snippet
         folder: My Folder
         ipv4:
-          ipv4:
-            unicast:
-              inbound_network_filters:
-                prefix_list: prefix_list
-                distribute_list: distribute_list
-              unsuppress_map: unsuppress_map
-              filter_list:
-                inbound: inbound
-                outbound: outbound
-              conditional_advertisement:
-                exist:
-                  advertise_map: advertise_map
-                  exist_map: exist_map
-                non_exist:
-                  advertise_map: advertise_map
-                  non_exist_map: non_exist_map
-              route_maps:
-                inbound: inbound
-                outbound: outbound
-              outbound_network_filters:
-                prefix_list: prefix_list
-                distribute_list: distribute_list
-            multicast:
-              inbound_network_filters:
-                prefix_list: prefix_list
-                distribute_list: distribute_list
-              unsuppress_map: unsuppress_map
-              filter_list:
-                inbound: inbound
-                outbound: outbound
-              conditional_advertisement:
-                exist:
-                  advertise_map: advertise_map
-                  exist_map: exist_map
-                non_exist:
-                  advertise_map: advertise_map
-                  non_exist_map: non_exist_map
-              inherit: true
-              route_maps:
-                inbound: inbound
-                outbound: outbound
-              outbound_network_filters:
-                prefix_list: prefix_list
-                distribute_list: distribute_list
+          unicast:
+            inbound_network_filters:
+              prefix_list: prefix_list
+              distribute_list: distribute_list
+            unsuppress_map: unsuppress_map
+            filter_list:
+              inbound: inbound
+              outbound: outbound
+            conditional_advertisement:
+              exist:
+                advertise_map: advertise_map
+                exist_map: exist_map
+              non_exist:
+                advertise_map: advertise_map
+                non_exist_map: non_exist_map
+            route_maps:
+              inbound: inbound
+              outbound: outbound
+            outbound_network_filters:
+              prefix_list: prefix_list
+              distribute_list: distribute_list
+          multicast:
+            inbound_network_filters:
+              prefix_list: prefix_list
+              distribute_list: distribute_list
+            unsuppress_map: unsuppress_map
+            filter_list:
+              inbound: inbound
+              outbound: outbound
+            conditional_advertisement:
+              exist:
+                advertise_map: advertise_map
+                exist_map: exist_map
+              non_exist:
+                advertise_map: advertise_map
+                non_exist_map: non_exist_map
+            inherit: true
+            route_maps:
+              inbound: inbound
+              outbound: outbound
+            outbound_network_filters:
+              prefix_list: prefix_list
+              distribute_list: distribute_list
         name: name
         description: description
         id: 123e4567-e89b-12d3-a456-426655440000
@@ -9494,9 +9465,13 @@ components:
           lldp:
             enable: false
         link_state: auto
+        aggregate_group: $aggregate-interface-example
         device: My Device
         link_duplex: auto
       properties:
+        aggregate_group:
+          example: $aggregate-interface-example
+          type: string
         comment:
           description: Interface description
           maxLength: 1023
@@ -15950,27 +15925,28 @@ components:
       example:
         snippet: My Snippet
         folder: My Folder
-        ipv4:
-          ipv4_entry:
-          - prefix:
-              entry:
-                greater_than_or_equal: 19
-                less_than_or_equal: 4
-                network: network
-              network: any
-            name: 5249
-            action: deny
-          - prefix:
-              entry:
-                greater_than_or_equal: 19
-                less_than_or_equal: 4
-                network: network
-              network: any
-            name: 5249
-            action: deny
         name: name
         description: description
         id: 123e4567-e89b-12d3-a456-426655440000
+        type:
+          ipv4:
+            ipv4_entry:
+            - prefix:
+                entry:
+                  greater_than_or_equal: 19
+                  less_than_or_equal: 4
+                  network: network
+                network: any
+              name: 5249
+              action: deny
+            - prefix:
+                entry:
+                  greater_than_or_equal: 19
+                  less_than_or_equal: 4
+                  network: network
+                network: any
+              name: 5249
+              action: deny
         device: My Device
       properties:
         description:
@@ -15993,8 +15969,6 @@ components:
           example: 123e4567-e89b-12d3-a456-426655440000
           readOnly: true
           type: string
-        ipv4:
-          $ref: '#/components/schemas/route_prefix_lists_ipv4'
         name:
           description: Filter prefix list name
           type: string
@@ -16004,6 +15978,8 @@ components:
           maxLength: 64
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
+        type:
+          $ref: '#/components/schemas/route_prefix_lists_type'
       required:
       - name
     rule-based-move:
@@ -17703,157 +17679,82 @@ components:
           type: object
         standard:
           type: object
-    bgp_address_family_profiles_ipv4_ipv4:
-      example:
-        unicast:
-          default_originate_map: default_originate_map
-          orf:
-            orf_prefix_list: none
-          maximum_prefix:
-            action:
-              restart:
-                interval: 39501
-              warning_only: "{}"
-            threshold: 60
-            num_prefixes: 629561882
-          remove_private_AS:
-            all: "{}"
-            replace_AS: "{}"
-          allowas_in:
-            origin: "{}"
-            occurrence: 1
-          soft_reconfig_with_stored_info: true
-          route_reflector_client: true
-          enable: true
-          next_hop:
-            self: "{}"
-            self_force: "{}"
-          send_community:
-            all: "{}"
-            standard: "{}"
-            large: "{}"
-            extended: "{}"
-            both: "{}"
-          add_path:
-            tx_all_paths: true
-            tx_bestpath_per_AS: true
-          as_override: true
-          default_originate: true
-        multicast:
-          default_originate_map: default_originate_map
-          orf:
-            orf_prefix_list: none
-          maximum_prefix:
-            action:
-              restart:
-                interval: 39501
-              warning_only: "{}"
-            threshold: 60
-            num_prefixes: 629561882
-          remove_private_AS:
-            all: "{}"
-            replace_AS: "{}"
-          allowas_in:
-            origin: "{}"
-            occurrence: 1
-          soft_reconfig_with_stored_info: true
-          route_reflector_client: true
-          enable: true
-          next_hop:
-            self: "{}"
-            self_force: "{}"
-          send_community:
-            all: "{}"
-            standard: "{}"
-            large: "{}"
-            extended: "{}"
-            both: "{}"
-          add_path:
-            tx_all_paths: true
-            tx_bestpath_per_AS: true
-          as_override: true
-          default_originate: true
-      properties:
-        multicast:
-          $ref: '#/components/schemas/bgp-address-family'
-        unicast:
-          $ref: '#/components/schemas/bgp-address-family'
     bgp_address_family_profiles_ipv4:
+      description: IPv4 Address Family
       example:
-        ipv4:
-          unicast:
-            default_originate_map: default_originate_map
-            orf:
-              orf_prefix_list: none
-            maximum_prefix:
-              action:
-                restart:
-                  interval: 39501
-                warning_only: "{}"
-              threshold: 60
-              num_prefixes: 629561882
-            remove_private_AS:
-              all: "{}"
-              replace_AS: "{}"
-            allowas_in:
-              origin: "{}"
-              occurrence: 1
-            soft_reconfig_with_stored_info: true
-            route_reflector_client: true
-            enable: true
-            next_hop:
-              self: "{}"
-              self_force: "{}"
-            send_community:
-              all: "{}"
-              standard: "{}"
-              large: "{}"
-              extended: "{}"
-              both: "{}"
-            add_path:
-              tx_all_paths: true
-              tx_bestpath_per_AS: true
-            as_override: true
-            default_originate: true
-          multicast:
-            default_originate_map: default_originate_map
-            orf:
-              orf_prefix_list: none
-            maximum_prefix:
-              action:
-                restart:
-                  interval: 39501
-                warning_only: "{}"
-              threshold: 60
-              num_prefixes: 629561882
-            remove_private_AS:
-              all: "{}"
-              replace_AS: "{}"
-            allowas_in:
-              origin: "{}"
-              occurrence: 1
-            soft_reconfig_with_stored_info: true
-            route_reflector_client: true
-            enable: true
-            next_hop:
-              self: "{}"
-              self_force: "{}"
-            send_community:
-              all: "{}"
-              standard: "{}"
-              large: "{}"
-              extended: "{}"
-              both: "{}"
-            add_path:
-              tx_all_paths: true
-              tx_bestpath_per_AS: true
-            as_override: true
-            default_originate: true
+        unicast:
+          default_originate_map: default_originate_map
+          orf:
+            orf_prefix_list: none
+          maximum_prefix:
+            action:
+              restart:
+                interval: 39501
+              warning_only: "{}"
+            threshold: 60
+            num_prefixes: 629561882
+          remove_private_AS:
+            all: "{}"
+            replace_AS: "{}"
+          allowas_in:
+            origin: "{}"
+            occurrence: 1
+          soft_reconfig_with_stored_info: true
+          route_reflector_client: true
+          enable: true
+          next_hop:
+            self: "{}"
+            self_force: "{}"
+          send_community:
+            all: "{}"
+            standard: "{}"
+            large: "{}"
+            extended: "{}"
+            both: "{}"
+          add_path:
+            tx_all_paths: true
+            tx_bestpath_per_AS: true
+          as_override: true
+          default_originate: true
+        multicast:
+          default_originate_map: default_originate_map
+          orf:
+            orf_prefix_list: none
+          maximum_prefix:
+            action:
+              restart:
+                interval: 39501
+              warning_only: "{}"
+            threshold: 60
+            num_prefixes: 629561882
+          remove_private_AS:
+            all: "{}"
+            replace_AS: "{}"
+          allowas_in:
+            origin: "{}"
+            occurrence: 1
+          soft_reconfig_with_stored_info: true
+          route_reflector_client: true
+          enable: true
+          next_hop:
+            self: "{}"
+            self_force: "{}"
+          send_community:
+            all: "{}"
+            standard: "{}"
+            large: "{}"
+            extended: "{}"
+            both: "{}"
+          add_path:
+            tx_all_paths: true
+            tx_bestpath_per_AS: true
+          as_override: true
+          default_originate: true
       properties:
-        ipv4:
-          $ref: '#/components/schemas/bgp_address_family_profiles_ipv4_ipv4'
-      required:
-      - ipv4
+        multicast:
+          $ref: '#/components/schemas/bgp-address-family'
+        unicast:
+          $ref: '#/components/schemas/bgp-address-family'
     bgp_filter_conditional_advertisement_exist:
       example:
         advertise_map: advertise_map
@@ -17903,7 +17804,7 @@ components:
           type: string
         prefix_list:
           type: string
-    bgp_filtering_profiles_ipv4_ipv4_multicast:
+    bgp_filtering_profiles_ipv4_multicast:
       example:
         inbound_network_filters:
           prefix_list: prefix_list
@@ -17942,7 +17843,7 @@ components:
           $ref: '#/components/schemas/bgp_filter_filter_list'
         unsuppress_map:
           type: string
-    bgp_filtering_profiles_ipv4_ipv4:
+    bgp_filtering_profiles_ipv4:
       example:
         unicast:
           inbound_network_filters:
@@ -17989,60 +17890,9 @@ components:
             distribute_list: distribute_list
       properties:
         multicast:
-          $ref: '#/components/schemas/bgp_filtering_profiles_ipv4_ipv4_multicast'
+          $ref: '#/components/schemas/bgp_filtering_profiles_ipv4_multicast'
         unicast:
           $ref: '#/components/schemas/bgp-filter'
-    bgp_filtering_profiles_ipv4:
-      example:
-        ipv4:
-          unicast:
-            inbound_network_filters:
-              prefix_list: prefix_list
-              distribute_list: distribute_list
-            unsuppress_map: unsuppress_map
-            filter_list:
-              inbound: inbound
-              outbound: outbound
-            conditional_advertisement:
-              exist:
-                advertise_map: advertise_map
-                exist_map: exist_map
-              non_exist:
-                advertise_map: advertise_map
-                non_exist_map: non_exist_map
-            route_maps:
-              inbound: inbound
-              outbound: outbound
-            outbound_network_filters:
-              prefix_list: prefix_list
-              distribute_list: distribute_list
-          multicast:
-            inbound_network_filters:
-              prefix_list: prefix_list
-              distribute_list: distribute_list
-            unsuppress_map: unsuppress_map
-            filter_list:
-              inbound: inbound
-              outbound: outbound
-            conditional_advertisement:
-              exist:
-                advertise_map: advertise_map
-                exist_map: exist_map
-              non_exist:
-                advertise_map: advertise_map
-                non_exist_map: non_exist_map
-            inherit: true
-            route_maps:
-              inbound: inbound
-              outbound: outbound
-            outbound_network_filters:
-              prefix_list: prefix_list
-              distribute_list: distribute_list
-      properties:
-        ipv4:
-          $ref: '#/components/schemas/bgp_filtering_profiles_ipv4_ipv4'
-      required:
-      - ipv4
     bgp_redistribution_profiles_ipv4_unicast_connected:
       example:
         metric: 5249
@@ -33728,7 +33578,7 @@ components:
           maximum: 65535
           minimum: 1
           type: integer
-    route_prefix_lists_ipv4_ipv4_entry_inner_prefix_entry:
+    route_prefix_lists_type_ipv4_ipv4_entry_inner_prefix_entry:
       example:
         greater_than_or_equal: 19
         less_than_or_equal: 4
@@ -33747,7 +33597,7 @@ components:
         network:
           description: Network
           type: string
-    route_prefix_lists_ipv4_ipv4_entry_inner_prefix:
+    route_prefix_lists_type_ipv4_ipv4_entry_inner_prefix:
       example:
         entry:
           greater_than_or_equal: 19
@@ -33756,13 +33606,13 @@ components:
         network: any
       properties:
         entry:
-          $ref: '#/components/schemas/route_prefix_lists_ipv4_ipv4_entry_inner_prefix_entry'
+          $ref: '#/components/schemas/route_prefix_lists_type_ipv4_ipv4_entry_inner_prefix_entry'
         network:
           description: Network
           enum:
           - any
           type: string
-    route_prefix_lists_ipv4_ipv4_entry_inner:
+    route_prefix_lists_type_ipv4_ipv4_entry_inner:
       example:
         prefix:
           entry:
@@ -33785,8 +33635,8 @@ components:
           minimum: 1
           type: integer
         prefix:
-          $ref: '#/components/schemas/route_prefix_lists_ipv4_ipv4_entry_inner_prefix'
-    route_prefix_lists_ipv4:
+          $ref: '#/components/schemas/route_prefix_lists_type_ipv4_ipv4_entry_inner_prefix'
+    route_prefix_lists_type_ipv4:
       example:
         ipv4_entry:
         - prefix:
@@ -33809,8 +33659,34 @@ components:
         ipv4_entry:
           description: IPv4 prefix lists
           items:
-            $ref: '#/components/schemas/route_prefix_lists_ipv4_ipv4_entry_inner'
+            $ref: '#/components/schemas/route_prefix_lists_type_ipv4_ipv4_entry_inner'
           type: array
+    route_prefix_lists_type:
+      description: Address Family Type
+      example:
+        ipv4:
+          ipv4_entry:
+          - prefix:
+              entry:
+                greater_than_or_equal: 19
+                less_than_or_equal: 4
+                network: network
+              network: any
+            name: 5249
+            action: deny
+          - prefix:
+              entry:
+                greater_than_or_equal: 19
+                less_than_or_equal: 4
+                network: network
+              network: any
+            name: 5249
+            action: deny
+      properties:
+        ipv4:
+          $ref: '#/components/schemas/route_prefix_lists_type_ipv4'
+      required:
+      - ipv4
     sdwan_error_correction_profiles_mode_forward_error_correction:
       example:
         recovery_duration: 0

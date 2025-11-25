@@ -32,9 +32,11 @@ type Sites struct {
 	// The UUID of the site
 	Id string `json:"id"`
 	// The latitude coordinate for the site
-	Latitude *float32 `json:"latitude,omitempty"`
+	Latitude *string `json:"latitude,omitempty"`
+	// The license type of the site
+	LicenseType *string `json:"license_type,omitempty"`
 	// The longitude coordinate for the site
-	Longitude *float32            `json:"longitude,omitempty"`
+	Longitude *string             `json:"longitude,omitempty"`
 	Members   []SitesMembersInner `json:"members,omitempty"`
 	// The name of the site
 	Name string    `json:"name"`
@@ -42,7 +44,7 @@ type Sites struct {
 	// The state in which the site exists
 	State *string `json:"state,omitempty"`
 	// The site type
-	Type string `json:"type"`
+	Type *string `json:"type,omitempty"`
 	// The postal code in which the site exists
 	ZipCode              *string `json:"zip_code,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -54,11 +56,10 @@ type _Sites Sites
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSites(id string, name string, type_ string) *Sites {
+func NewSites(id string, name string) *Sites {
 	this := Sites{}
 	this.Id = id
 	this.Name = name
-	this.Type = type_
 	return &this
 }
 
@@ -223,9 +224,9 @@ func (o *Sites) SetId(v string) {
 }
 
 // GetLatitude returns the Latitude field value if set, zero value otherwise.
-func (o *Sites) GetLatitude() float32 {
+func (o *Sites) GetLatitude() string {
 	if o == nil || IsNil(o.Latitude) {
-		var ret float32
+		var ret string
 		return ret
 	}
 	return *o.Latitude
@@ -233,7 +234,7 @@ func (o *Sites) GetLatitude() float32 {
 
 // GetLatitudeOk returns a tuple with the Latitude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Sites) GetLatitudeOk() (*float32, bool) {
+func (o *Sites) GetLatitudeOk() (*string, bool) {
 	if o == nil || IsNil(o.Latitude) {
 		return nil, false
 	}
@@ -249,15 +250,47 @@ func (o *Sites) HasLatitude() bool {
 	return false
 }
 
-// SetLatitude gets a reference to the given float32 and assigns it to the Latitude field.
-func (o *Sites) SetLatitude(v float32) {
+// SetLatitude gets a reference to the given string and assigns it to the Latitude field.
+func (o *Sites) SetLatitude(v string) {
 	o.Latitude = &v
 }
 
+// GetLicenseType returns the LicenseType field value if set, zero value otherwise.
+func (o *Sites) GetLicenseType() string {
+	if o == nil || IsNil(o.LicenseType) {
+		var ret string
+		return ret
+	}
+	return *o.LicenseType
+}
+
+// GetLicenseTypeOk returns a tuple with the LicenseType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Sites) GetLicenseTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.LicenseType) {
+		return nil, false
+	}
+	return o.LicenseType, true
+}
+
+// HasLicenseType returns a boolean if a field has been set.
+func (o *Sites) HasLicenseType() bool {
+	if o != nil && !IsNil(o.LicenseType) {
+		return true
+	}
+
+	return false
+}
+
+// SetLicenseType gets a reference to the given string and assigns it to the LicenseType field.
+func (o *Sites) SetLicenseType(v string) {
+	o.LicenseType = &v
+}
+
 // GetLongitude returns the Longitude field value if set, zero value otherwise.
-func (o *Sites) GetLongitude() float32 {
+func (o *Sites) GetLongitude() string {
 	if o == nil || IsNil(o.Longitude) {
-		var ret float32
+		var ret string
 		return ret
 	}
 	return *o.Longitude
@@ -265,7 +298,7 @@ func (o *Sites) GetLongitude() float32 {
 
 // GetLongitudeOk returns a tuple with the Longitude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Sites) GetLongitudeOk() (*float32, bool) {
+func (o *Sites) GetLongitudeOk() (*string, bool) {
 	if o == nil || IsNil(o.Longitude) {
 		return nil, false
 	}
@@ -281,8 +314,8 @@ func (o *Sites) HasLongitude() bool {
 	return false
 }
 
-// SetLongitude gets a reference to the given float32 and assigns it to the Longitude field.
-func (o *Sites) SetLongitude(v float32) {
+// SetLongitude gets a reference to the given string and assigns it to the Longitude field.
+func (o *Sites) SetLongitude(v string) {
 	o.Longitude = &v
 }
 
@@ -406,28 +439,36 @@ func (o *Sites) SetState(v string) {
 	o.State = &v
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *Sites) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Sites) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *Sites) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
 func (o *Sites) SetType(v string) {
-	o.Type = v
+	o.Type = &v
 }
 
 // GetZipCode returns the ZipCode field value if set, zero value otherwise.
@@ -488,6 +529,9 @@ func (o Sites) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Latitude) {
 		toSerialize["latitude"] = o.Latitude
 	}
+	if !IsNil(o.LicenseType) {
+		toSerialize["license_type"] = o.LicenseType
+	}
 	if !IsNil(o.Longitude) {
 		toSerialize["longitude"] = o.Longitude
 	}
@@ -501,7 +545,9 @@ func (o Sites) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
-	toSerialize["type"] = o.Type
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
 	if !IsNil(o.ZipCode) {
 		toSerialize["zip_code"] = o.ZipCode
 	}
@@ -520,7 +566,6 @@ func (o *Sites) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"name",
-		"type",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -556,6 +601,7 @@ func (o *Sites) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "country")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "latitude")
+		delete(additionalProperties, "license_type")
 		delete(additionalProperties, "longitude")
 		delete(additionalProperties, "members")
 		delete(additionalProperties, "name")

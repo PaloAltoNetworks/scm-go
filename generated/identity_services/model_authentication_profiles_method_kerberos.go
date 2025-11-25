@@ -20,7 +20,9 @@ var _ MappedNullable = &AuthenticationProfilesMethodKerberos{}
 
 // AuthenticationProfilesMethodKerberos struct for AuthenticationProfilesMethodKerberos
 type AuthenticationProfilesMethodKerberos struct {
-	Realm                *string `json:"realm,omitempty"`
+	// method kerberos object realm of authentication profile
+	Realm *string `json:"realm,omitempty"`
+	// method kerberos object server profile of authentication profile
 	ServerProfile        *string `json:"server_profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

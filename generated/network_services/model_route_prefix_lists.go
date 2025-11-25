@@ -28,12 +28,12 @@ type RoutePrefixLists struct {
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
-	Id   *string               `json:"id,omitempty"`
-	Ipv4 *RoutePrefixListsIpv4 `json:"ipv4,omitempty"`
+	Id *string `json:"id,omitempty"`
 	// Filter prefix list name
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
+	Snippet              *string               `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
+	Type                 *RoutePrefixListsType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -185,38 +185,6 @@ func (o *RoutePrefixLists) SetId(v string) {
 	o.Id = &v
 }
 
-// GetIpv4 returns the Ipv4 field value if set, zero value otherwise.
-func (o *RoutePrefixLists) GetIpv4() RoutePrefixListsIpv4 {
-	if o == nil || IsNil(o.Ipv4) {
-		var ret RoutePrefixListsIpv4
-		return ret
-	}
-	return *o.Ipv4
-}
-
-// GetIpv4Ok returns a tuple with the Ipv4 field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RoutePrefixLists) GetIpv4Ok() (*RoutePrefixListsIpv4, bool) {
-	if o == nil || IsNil(o.Ipv4) {
-		return nil, false
-	}
-	return o.Ipv4, true
-}
-
-// HasIpv4 returns a boolean if a field has been set.
-func (o *RoutePrefixLists) HasIpv4() bool {
-	if o != nil && !IsNil(o.Ipv4) {
-		return true
-	}
-
-	return false
-}
-
-// SetIpv4 gets a reference to the given RoutePrefixListsIpv4 and assigns it to the Ipv4 field.
-func (o *RoutePrefixLists) SetIpv4(v RoutePrefixListsIpv4) {
-	o.Ipv4 = &v
-}
-
 // GetName returns the Name field value
 func (o *RoutePrefixLists) GetName() string {
 	if o == nil {
@@ -273,6 +241,38 @@ func (o *RoutePrefixLists) SetSnippet(v string) {
 	o.Snippet = &v
 }
 
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *RoutePrefixLists) GetType() RoutePrefixListsType {
+	if o == nil || IsNil(o.Type) {
+		var ret RoutePrefixListsType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RoutePrefixLists) GetTypeOk() (*RoutePrefixListsType, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *RoutePrefixLists) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given RoutePrefixListsType and assigns it to the Type field.
+func (o *RoutePrefixLists) SetType(v RoutePrefixListsType) {
+	o.Type = &v
+}
+
 func (o RoutePrefixLists) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -295,12 +295,12 @@ func (o RoutePrefixLists) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !IsNil(o.Ipv4) {
-		toSerialize["ipv4"] = o.Ipv4
-	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -349,9 +349,9 @@ func (o *RoutePrefixLists) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
-		delete(additionalProperties, "ipv4")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "snippet")
+		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}
 

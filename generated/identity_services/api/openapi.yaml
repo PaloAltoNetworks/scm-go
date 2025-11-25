@@ -10823,7 +10823,6 @@ components:
           description: The SSL/TLS service profile
           type: string
       required:
-      - id
       - redirect_host
       type: object
     authentication-profiles:
@@ -10877,6 +10876,7 @@ components:
         allow_list:
           default:
           - all
+          description: The allow_list of the authentication profile
           items:
             type: string
           type: array
@@ -10924,7 +10924,6 @@ components:
           - '%USERDOMAIN%\\%USERINPUT%'
           type: string
       required:
-      - id
       - name
       type: object
     authentication-rules:
@@ -11134,7 +11133,6 @@ components:
           description: Use domain to determine authentication profile?
           type: boolean
       required:
-      - id
       - name
       type: object
     certificate-profiles:
@@ -12378,15 +12376,18 @@ components:
           type: string
       type: object
     authentication_profiles_lockout:
+      description: Lockout object of the authentication profile
       example:
         lockout_time: 36
         failed_attempts: 0
       properties:
         failed_attempts:
+          description: Lockout object - failed_attempts of authentication profile
           maximum: 10
           minimum: 0
           type: integer
         lockout_time:
+          description: Lockout object - lockout-time of authentication profile
           maximum: 60
           minimum: 0
           type: integer
@@ -12405,8 +12406,10 @@ components:
         realm: realm
       properties:
         realm:
+          description: method kerberos object realm of authentication profile
           type: string
         server_profile:
+          description: method kerberos object server profile of authentication profile
           type: string
       type: object
     authentication_profiles_method_ldap:
@@ -12428,8 +12431,10 @@ components:
         checkgroup: true
       properties:
         checkgroup:
+          description: method radius object check group of authentication profile
           type: boolean
         server_profile:
+          description: method radius object server profile of authentication profile
           type: string
       type: object
     authentication_profiles_method_saml_idp:
@@ -12450,6 +12455,8 @@ components:
           minLength: 1
           type: string
         certificate_profile:
+          description: method object saml idp certificate profile of authentication
+            profile
           maxLength: 31
           type: string
         enable_single_logout:
@@ -12458,10 +12465,24 @@ components:
           maxLength: 64
           type: string
         server_profile:
+          description: method object saml idp server profile of authentication profile
           maxLength: 63
           type: string
       type: object
+    authentication_profiles_method_tacplus:
+      example:
+        server_profile: server_profile
+        checkgroup: true
+      properties:
+        checkgroup:
+          description: method tacplus object check group of authentication profile
+          type: boolean
+        server_profile:
+          description: method tacplus object check group of authentication profile
+          type: string
+      type: object
     authentication_profiles_method:
+      description: method object of authentication profile
       example:
         cloud:
           profile_name: profile_name
@@ -12500,7 +12521,7 @@ components:
         saml_idp:
           $ref: '#/components/schemas/authentication_profiles_method_saml_idp'
         tacplus:
-          $ref: '#/components/schemas/authentication_profiles_method_radius'
+          $ref: '#/components/schemas/authentication_profiles_method_tacplus'
       type: object
     authentication_profiles_multi_factor_auth:
       example:

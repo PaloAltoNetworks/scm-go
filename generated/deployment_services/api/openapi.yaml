@@ -3426,11 +3426,7 @@ paths:
         style: simple
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/sites'
-          description: Successful response
+          description: OK
         "400":
           content:
             application/json:
@@ -5396,7 +5392,8 @@ components:
       example:
         country: India
         city: Bengaluru
-        latitude: 12.97815
+        license_type: FWAAS-SITE-25Mbps
+        latitude: "12.978150"
         type: prisma-sdwan
         zip_code: "560093"
         qos:
@@ -5417,7 +5414,7 @@ components:
         address_line_2: C V Raman Nagar
         id: 123e4567-e89b-12d3-a456-426655440000
         state: Karnataka
-        longitude: 77.66534
+        longitude: "77.665340"
       properties:
         address_line_1:
           description: The address in which the site exists
@@ -5442,12 +5439,22 @@ components:
           type: string
         latitude:
           description: The latitude coordinate for the site
-          example: 12.97815
-          type: number
+          example: "12.978150"
+          type: string
+        license_type:
+          description: The license type of the site
+          enum:
+          - FWAAS-SITE-25Mbps
+          - FWAAS-SITE-50Mbps
+          - FWAAS-SITE-250Mbps
+          - FWAAS-SITE-1000Mbps
+          - FWAAS-SITE-2500Mbps
+          maxLength: 63
+          type: string
         longitude:
           description: The longitude coordinate for the site
-          example: 77.66534
-          type: number
+          example: "77.665340"
+          type: string
         members:
           items:
             $ref: '#/components/schemas/sites_members_inner'
@@ -5477,7 +5484,6 @@ components:
       required:
       - id
       - name
-      - type
       type: object
     traffic-steering-rules:
       example:
@@ -5789,6 +5795,7 @@ components:
         id:
           description: UUID of the remote network
           example: e51fa715-3da5-4f98-bb78-eb56757e7719
+          readOnly: true
           type: string
         mode:
           description: The mode of the remote network

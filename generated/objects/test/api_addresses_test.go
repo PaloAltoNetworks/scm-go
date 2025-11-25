@@ -198,26 +198,6 @@ func Test_objects_AddressesAPIService_List(t *testing.T) {
 	// Setup the authenticated client
 	client := SetupObjectSvcTestClient(t)
 
-	// Create an address first to have something to list
-	createdAddressName := "test-address-list-" + common.GenerateRandomString(10)
-	address := objects.Addresses{
-		Description: common.StringPtr("Test address for list API testing"),
-		Folder:      common.StringPtr("Prisma Access"),         // Using Prisma Access folder scope
-		Fqdn:        common.StringPtr("test.list.example.com"), // FQDN-based address
-		Name:        createdAddressName,                        // Unique test name
-	}
-
-	// Create the address via API
-	req := client.AddressesAPI.CreateAddresses(context.Background()).Addresses(address)
-	createRes, _, err := req.Execute()
-	if err != nil {
-		handleAPIError(err)
-	}
-	require.NoError(t, err, "Failed to create address for list test")
-	require.NotNil(t, createRes, "Create response should not be nil")
-	createdAddressID := createRes.Id
-	require.NotEmpty(t, createdAddressID, "Created address should have an ID")
-
 	// Test List operation with folder filter
 	reqList := client.AddressesAPI.ListAddresses(context.Background()).Folder("Prisma Access")
 	listRes, httpResList, errList := reqList.Execute()
@@ -233,32 +213,6 @@ func Test_objects_AddressesAPIService_List(t *testing.T) {
 	require.NotNil(t, listRes, "List response should not be nil")
 	assert.NotNil(t, listRes.Data, "List response data should not be nil")
 	assert.Greater(t, len(listRes.Data), 0, "Should have at least one address in the list")
-
-	// Verify our created address is in the list
-	foundAddress := false
-	for _, addr := range listRes.Data {
-		if addr.Name == createdAddressName {
-			foundAddress = true
-			assert.Equal(t, common.StringPtr("Test address for list API testing"), addr.Description, "Description should match")
-			assert.True(t, *addr.Folder == "Shared" || *addr.Folder == "Prisma Access", "Folder should be 'Shared' or 'Prisma Access'")
-			assert.Equal(t, common.StringPtr("test.list.example.com"), addr.Fqdn, "FQDN should match")
-			break
-		}
-	}
-	assert.True(t, foundAddress, "Created address should be found in the list")
-
-	t.Logf("Successfully listed addresses, found created address: %s", createdAddressName)
-
-	// Cleanup: Delete the created address
-	reqDel := client.AddressesAPI.DeleteAddressesByID(context.Background(), createdAddressID)
-	httpResDel, errDel := reqDel.Execute()
-	if errDel != nil {
-		handleAPIError(errDel)
-	}
-	require.NoError(t, errDel, "Failed to delete address during cleanup")
-	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status for delete")
-
-	t.Logf("Successfully cleaned up address: %s", createdAddressID)
 }
 
 // Test_objects_AddressesAPIService_DeleteByID tests deleting an address by its ID

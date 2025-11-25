@@ -15,11 +15,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry{}
+// checks if the RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry{}
 
-// RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry struct for RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry
-type RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry struct {
+// RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry struct for RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry
+type RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry struct {
 	// Greater than or equal to
 	GreaterThanOrEqual *int32 `json:"greater_than_or_equal,omitempty"`
 	// Less than or equal to
@@ -29,27 +29,27 @@ type RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry
+type _RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry
 
-// NewRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry instantiates a new RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry object
+// NewRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry instantiates a new RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry() *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry {
-	this := RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry{}
+func NewRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry() *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry {
+	this := RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry{}
 	return &this
 }
 
-// NewRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntryWithDefaults instantiates a new RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry object
+// NewRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntryWithDefaults instantiates a new RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntryWithDefaults() *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry {
-	this := RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry{}
+func NewRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntryWithDefaults() *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry {
+	this := RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry{}
 	return &this
 }
 
 // GetGreaterThanOrEqual returns the GreaterThanOrEqual field value if set, zero value otherwise.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetGreaterThanOrEqual() int32 {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) GetGreaterThanOrEqual() int32 {
 	if o == nil || IsNil(o.GreaterThanOrEqual) {
 		var ret int32
 		return ret
@@ -59,7 +59,7 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetGreaterThanOrEqual() 
 
 // GetGreaterThanOrEqualOk returns a tuple with the GreaterThanOrEqual field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetGreaterThanOrEqualOk() (*int32, bool) {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) GetGreaterThanOrEqualOk() (*int32, bool) {
 	if o == nil || IsNil(o.GreaterThanOrEqual) {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetGreaterThanOrEqualOk(
 }
 
 // HasGreaterThanOrEqual returns a boolean if a field has been set.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) HasGreaterThanOrEqual() bool {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) HasGreaterThanOrEqual() bool {
 	if o != nil && !IsNil(o.GreaterThanOrEqual) {
 		return true
 	}
@@ -76,12 +76,12 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) HasGreaterThanOrEqual() 
 }
 
 // SetGreaterThanOrEqual gets a reference to the given int32 and assigns it to the GreaterThanOrEqual field.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) SetGreaterThanOrEqual(v int32) {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) SetGreaterThanOrEqual(v int32) {
 	o.GreaterThanOrEqual = &v
 }
 
 // GetLessThanOrEqual returns the LessThanOrEqual field value if set, zero value otherwise.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetLessThanOrEqual() int32 {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) GetLessThanOrEqual() int32 {
 	if o == nil || IsNil(o.LessThanOrEqual) {
 		var ret int32
 		return ret
@@ -91,7 +91,7 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetLessThanOrEqual() int
 
 // GetLessThanOrEqualOk returns a tuple with the LessThanOrEqual field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetLessThanOrEqualOk() (*int32, bool) {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) GetLessThanOrEqualOk() (*int32, bool) {
 	if o == nil || IsNil(o.LessThanOrEqual) {
 		return nil, false
 	}
@@ -99,7 +99,7 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetLessThanOrEqualOk() (
 }
 
 // HasLessThanOrEqual returns a boolean if a field has been set.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) HasLessThanOrEqual() bool {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) HasLessThanOrEqual() bool {
 	if o != nil && !IsNil(o.LessThanOrEqual) {
 		return true
 	}
@@ -108,12 +108,12 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) HasLessThanOrEqual() boo
 }
 
 // SetLessThanOrEqual gets a reference to the given int32 and assigns it to the LessThanOrEqual field.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) SetLessThanOrEqual(v int32) {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) SetLessThanOrEqual(v int32) {
 	o.LessThanOrEqual = &v
 }
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetNetwork() string {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) GetNetwork() string {
 	if o == nil || IsNil(o.Network) {
 		var ret string
 		return ret
@@ -123,7 +123,7 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetNetwork() string {
 
 // GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetNetworkOk() (*string, bool) {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) GetNetworkOk() (*string, bool) {
 	if o == nil || IsNil(o.Network) {
 		return nil, false
 	}
@@ -131,7 +131,7 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) GetNetworkOk() (*string,
 }
 
 // HasNetwork returns a boolean if a field has been set.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) HasNetwork() bool {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) HasNetwork() bool {
 	if o != nil && !IsNil(o.Network) {
 		return true
 	}
@@ -140,11 +140,11 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) HasNetwork() bool {
 }
 
 // SetNetwork gets a reference to the given string and assigns it to the Network field.
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) SetNetwork(v string) {
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) SetNetwork(v string) {
 	o.Network = &v
 }
 
-func (o RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) MarshalJSON() ([]byte, error) {
+func (o RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -152,7 +152,7 @@ func (o RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) MarshalJSON() ([]byte, er
 	return json.Marshal(toSerialize)
 }
 
-func (o RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) ToMap() (map[string]interface{}, error) {
+func (o RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.GreaterThanOrEqual) {
 		toSerialize["greater_than_or_equal"] = o.GreaterThanOrEqual
@@ -171,16 +171,16 @@ func (o RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) ToMap() (map[string]inter
 	return toSerialize, nil
 }
 
-func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) UnmarshalJSON(data []byte) (err error) {
-	varRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry := _RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry{}
+func (o *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) UnmarshalJSON(data []byte) (err error) {
+	varRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry := _RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry{}
 
-	err = json.Unmarshal(data, &varRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry)
+	err = json.Unmarshal(data, &varRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry)
 
 	if err != nil {
 		return err
 	}
 
-	*o = RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry(varRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry)
+	*o = RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry(varRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -194,38 +194,38 @@ func (o *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) UnmarshalJSON(data []byt
 	return err
 }
 
-type NullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry struct {
-	value *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry
+type NullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry struct {
+	value *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry
 	isSet bool
 }
 
-func (v NullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) Get() *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry {
+func (v NullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) Get() *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry {
 	return v.value
 }
 
-func (v *NullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) Set(val *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) {
+func (v *NullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) Set(val *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) IsSet() bool {
+func (v NullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) Unset() {
+func (v *NullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry(val *RoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) *NullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry {
-	return &NullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry{value: val, isSet: true}
+func NewNullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry(val *RoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) *NullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry {
+	return &NullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry{value: val, isSet: true}
 }
 
-func (v NullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) MarshalJSON() ([]byte, error) {
+func (v NullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableRoutePrefixListsIpv4Ipv4EntryInnerPrefixEntry) UnmarshalJSON(src []byte) error {
+func (v *NullableRoutePrefixListsTypeIpv4Ipv4EntryInnerPrefixEntry) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -16,6 +16,14 @@ import (
 	"time"
 
 	"github.com/paloaltonetworks/scm-go/api"
+	"github.com/paloaltonetworks/scm-go/common"
+	"github.com/paloaltonetworks/scm-go/generated/config_setup"
+	"github.com/paloaltonetworks/scm-go/generated/deployment_services"
+	"github.com/paloaltonetworks/scm-go/generated/identity_services"
+	"github.com/paloaltonetworks/scm-go/generated/network_services"
+	"github.com/paloaltonetworks/scm-go/generated/objects"
+	"github.com/paloaltonetworks/scm-go/generated/security_services"
+	retry "github.com/sethvargo/go-retry"
 )
 
 /*
@@ -70,6 +78,9 @@ type Client struct {
 
 	Jwt       string `json:"-"`
 	jwtAtomic int32  `json:"-"`
+
+	JwtExpiresAt time.Time `json:"-"` // The actual time the JWT will expire
+	JwtLifetime  int64     `json:"-"` // The TTL received from the auth server (in seconds)
 
 	apiPrefix string
 
@@ -263,15 +274,21 @@ func (c *Client) Setup() error {
 //
 // This function is atomic (only one may be running at any given time).
 func (c *Client) RefreshJwt(ctx context.Context) error {
+	c.Log(ctx, "", "=== RefreshJwt() CALLED ===")
+
 	// Ensure that this is atomic.
 	nv := atomic.AddInt32(&c.jwtAtomic, 1)
 	defer atomic.AddInt32(&c.jwtAtomic, -1)
+	c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Atomic counter value: %d", nv))
+
 	if nv != 1 {
+		c.Log(ctx, "", "RefreshJwt: Another refresh in progress, waiting...")
 		for {
 			if atomic.LoadInt32(&c.jwtAtomic) == nv-1 {
 				break
 			}
 		}
+		c.Log(ctx, "", "RefreshJwt: Wait completed, returning")
 		return nil
 	}
 
@@ -279,59 +296,144 @@ func (c *Client) RefreshJwt(ctx context.Context) error {
 	var err error
 	var body []byte
 
-	c.Log(ctx, "", "refreshing jwt")
+	c.Log(ctx, "", "RefreshJwt: Starting JWT refresh process")
 
 	if len(c.testData) != 0 {
 		// Testing.
+		c.Log(ctx, "", "RefreshJwt: Using test data")
 		resp = c.testData[c.testIndex%len(c.testData)]
 		c.testIndex++
 	} else {
+		c.Log(ctx, "", "RefreshJwt: Creating auth client")
 		authClient := &http.Client{
 			Transport: c.Transport,
-			Timeout:   time.Duration(10 * time.Second),
+			Timeout:   time.Duration(30 * time.Second),
 		}
 
 		uv := url.Values{}
 		uv.Set("scope", c.Scope)
 		uv.Set("grant_type", "client_credentials")
 
-		req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.AuthUrl, strings.NewReader(uv.Encode()))
+		// Define backoff strategy
+		backoff := retry.NewExponential(1 * time.Second)
+		backoff = retry.WithCappedDuration(10*time.Second, backoff)
+		backoff = retry.WithJitter(500*time.Millisecond, backoff)
+		backoff = retry.WithMaxRetries(5, backoff)
+		c.Log(ctx, "", "RefreshJwt: Configured exponential backoff strategy")
+
+		var aa authResponse
+
+		// Use retry.Do to wrap the request logic
+		c.Log(ctx, "", "RefreshJwt: Starting retry.Do loop")
+		err = retry.Do(ctx, backoff, func(ctx context.Context) error {
+			c.Log(ctx, "", "RefreshJwt: Making auth request attempt")
+			req, reqErr := http.NewRequestWithContext(ctx, http.MethodPost, c.AuthUrl, strings.NewReader(uv.Encode()))
+			if reqErr != nil {
+				c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Failed to create request: %v", reqErr))
+				// This is a permanent error (e.g., bad URL), so just return it.
+				return reqErr
+			}
+
+			// Add in headers.
+			req.SetBasicAuth(c.ClientId, c.ClientSecret)
+			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+			for k, v := range c.Headers {
+				req.Header.Set(k, v)
+			}
+			c.Log(ctx, "", "RefreshJwt: Headers set, making HTTP request")
+
+			resp, doErr := authClient.Do(req)
+			if doErr != nil {
+				// Network error, timeout, etc. This is retryable.
+				c.Log(ctx, api.LogBasic, fmt.Sprintf("RefreshJwt: Auth request failed, will retry: %s", doErr))
+				return retry.RetryableError(doErr)
+			}
+
+			c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Got response with status code: %d", resp.StatusCode))
+
+			// Check for 5xx server errors, which are retryable
+			if resp.StatusCode >= 500 {
+				resp.Body.Close() // Must close body to avoid leaks
+				c.Log(ctx, api.LogBasic, fmt.Sprintf("RefreshJwt: Auth request failed with status %d, will retry", resp.StatusCode))
+				return retry.RetryableError(fmt.Errorf("auth server returned %d", resp.StatusCode))
+			}
+
+			// --- At this point, any error is considered permanent ---
+			defer resp.Body.Close()
+			body, readErr := io.ReadAll(resp.Body)
+			if readErr != nil {
+				c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Failed to read response body: %v", readErr))
+				// Failed to read body, permanent error
+				return readErr
+			}
+
+			c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Response body: %s", string(body)))
+
+			if err := json.Unmarshal(body, &aa); err != nil {
+				c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Failed to unmarshal response: %v", err))
+				// Failed to parse response, permanent error
+				return err
+			}
+
+			if err := aa.Failed(resp.StatusCode, body); err != nil {
+				c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Auth response indicates failure: %v", err))
+				// Auth failure (e.g., 401, 403) is a permanent error
+				return err
+			}
+
+			// Success!
+			c.Log(ctx, "", "RefreshJwt: Auth request successful!")
+			return nil
+		})
 
 		if err != nil {
-			return err
+			c.Log(ctx, "", fmt.Sprintf("RefreshJwt: retry.Do failed after all attempts: %v", err))
+			return err // Will be the last error (if retries failed) or the permanent error
 		}
 
-		// Add in headers.
-		req.SetBasicAuth(c.ClientId, c.ClientSecret)
-		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-		for k, v := range c.Headers {
-			req.Header.Set(k, v)
-		}
+		c.Log(ctx, "", "RefreshJwt: Setting new JWT token")
+		c.Jwt = aa.Jwt
+		// Set the lifetime and calculated expiry time (new lines)
+		c.JwtLifetime = int64(aa.ExpiresIn)
+		c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Expires In: %d", c.JwtLifetime))
+		// Set expiry to the current time plus the token lifetime, minus a 60 second buffer
+		c.JwtExpiresAt = time.Now().Add(time.Duration(c.JwtLifetime)*time.Second - 60*time.Second)
+		c.Log(ctx, "", "JWT Expiry Set - ExpiresAt: "+c.JwtExpiresAt.Format("15:04:05"))
 
-		resp, err = authClient.Do(req)
+		c.Log(ctx, "", "=== RefreshJwt() COMPLETED SUCCESSFULLY ===")
+		return nil
 	}
 
+	// This part is for the testData block
+	c.Log(ctx, "", "RefreshJwt: Processing test data response")
 	if resp == nil {
+		c.Log(ctx, "", "RefreshJwt: No response received")
 		return fmt.Errorf("no response")
 	} else if err != nil {
+		c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Error in test data: %v", err))
 		return err
 	}
 
 	defer resp.Body.Close()
 	body, err = io.ReadAll(resp.Body)
 	if err != nil {
+		c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Failed to read test response body: %v", err))
 		return err
 	}
 
 	var aa authResponse
 	if err = json.Unmarshal(body, &aa); err != nil {
+		c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Failed to unmarshal test response: %v", err))
 		return err
 	} else if err = aa.Failed(resp.StatusCode, body); err != nil {
+		c.Log(ctx, "", fmt.Sprintf("RefreshJwt: Test auth response failed: %v", err))
 		return err
 	}
 
 	c.Jwt = aa.Jwt
-
+	// Set the lifetime and calculated expiry time (new lines)
+	c.JwtLifetime = int64(aa.ExpiresIn)
+	c.JwtExpiresAt = time.Now().Add(time.Duration(c.JwtLifetime)*time.Second - 60*time.Second)
 	return nil
 }
 
@@ -380,6 +482,15 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 		return nil, fmt.Errorf("Setup() has not been invoked yet")
 	} else if len(retry) > 5 {
 		return nil, retry[len(retry)-1]
+	}
+
+	// Refresh token if it expires or empty
+	if c.Jwt != "" && time.Now().After(c.JwtExpiresAt) {
+		c.Log(ctx, api.LogBasic, "JWT expired or near expiry, attempting proactive refresh.")
+		// The Jwt check is atomic, so it's safe to call here.
+		if err := c.RefreshJwt(ctx); err != nil {
+			return nil, fmt.Errorf("failed to proactively refresh JWT: %w", err)
+		}
 	}
 
 	var err error
@@ -531,4 +642,216 @@ func (a *authResponse) Failed(statusCode int, body []byte) error {
 	}
 
 	return fmt.Errorf("auth failed with status %d: %s", statusCode, string(body))
+}
+
+// JWTRefreshTransport is a RoundTripper that automatically handles JWT token refresh
+type JWTRefreshTransport struct {
+	Wrapped     http.RoundTripper
+	SetupClient *Client // This refers to the Client struct from client.go in this same repo
+}
+
+// RoundTrip implements http.RoundTripper interface
+func (j *JWTRefreshTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	// Ensure we have a wrapped transport
+	if j.Wrapped == nil {
+		j.Wrapped = http.DefaultTransport
+	}
+
+	// Check if JWT needs refresh (similar logic to client.go Do method)
+	if j.SetupClient.Jwt != "" && time.Now().After(j.SetupClient.JwtExpiresAt) {
+		fmt.Printf("Refreshing tokens\n")
+		// JWT expired or near expiry, attempt proactive refresh
+		if err := j.SetupClient.RefreshJwt(req.Context()); err != nil {
+			// If refresh fails, continue with existing token and let the request handle the auth failure
+			return nil, err
+		}
+	}
+
+	req.Header.Set("Authorization", "Bearer "+j.SetupClient.Jwt)
+	req.Header.Set("x-auth-jwt", j.SetupClient.Jwt)
+
+	// Execute the request
+	resp, err := j.Wrapped.RoundTrip(req)
+
+	return resp, err
+}
+
+func GetConfig_setupAPIClient(setupClient *Client) *config_setup.APIClient {
+	// Create the config API client
+
+	config := config_setup.NewConfiguration()
+	config.Host = setupClient.GetHost()
+	config.Scheme = "https"
+
+	// Create a custom transport that handles JWT refresh
+	jwtTransport := &JWTRefreshTransport{
+		Wrapped:     setupClient.HttpClient.Transport,
+		SetupClient: setupClient,
+	}
+
+	// Wrap with logging transport
+	loggingTransport := &common.LoggingRoundTripper{
+		Wrapped: jwtTransport,
+	}
+
+	// Create a new HTTP client with the transports
+	httpClientWithJWT := &http.Client{
+		Transport: loggingTransport,
+		Timeout:   setupClient.HttpClient.Timeout,
+	}
+
+	config.HTTPClient = httpClientWithJWT
+
+	apiClient := config_setup.NewAPIClient(config)
+	return apiClient
+}
+
+func GetNetwork_servicesAPIClient(setupClient *Client) *network_services.APIClient {
+	// Create the network services API client
+
+	config := network_services.NewConfiguration()
+	config.Host = setupClient.GetHost()
+	config.Scheme = "https"
+
+	// Create a custom transport that handles JWT refresh
+	jwtTransport := &JWTRefreshTransport{
+		Wrapped:     setupClient.HttpClient.Transport,
+		SetupClient: setupClient,
+	}
+
+	// Wrap with logging transport
+	loggingTransport := &common.LoggingRoundTripper{
+		Wrapped: jwtTransport,
+	}
+
+	// Create a new HTTP client with the transports
+	httpClientWithJWT := &http.Client{
+		Transport: loggingTransport,
+		Timeout:   setupClient.HttpClient.Timeout,
+	}
+
+	config.HTTPClient = httpClientWithJWT
+
+	apiClient := network_services.NewAPIClient(config)
+	return apiClient
+}
+
+func GetIdentity_servicesAPIClient(setupClient *Client) *identity_services.APIClient {
+	// Create the identity services API client
+
+	config := identity_services.NewConfiguration()
+	config.Host = setupClient.GetHost()
+	config.Scheme = "https"
+
+	// Create a custom transport that handles JWT refresh
+	jwtTransport := &JWTRefreshTransport{
+		Wrapped:     setupClient.HttpClient.Transport,
+		SetupClient: setupClient,
+	}
+
+	// Wrap with logging transport
+	loggingTransport := &common.LoggingRoundTripper{
+		Wrapped: jwtTransport,
+	}
+
+	// Create a new HTTP client with the transports
+	httpClientWithJWT := &http.Client{
+		Transport: loggingTransport,
+		Timeout:   setupClient.HttpClient.Timeout,
+	}
+
+	config.HTTPClient = httpClientWithJWT
+
+	apiClient := identity_services.NewAPIClient(config)
+	return apiClient
+}
+
+func GetObjectsAPIClient(setupClient *Client) *objects.APIClient {
+	// Create the object API client
+
+	config := objects.NewConfiguration()
+	config.Host = setupClient.GetHost()
+	config.Scheme = "https"
+
+	// Create a custom transport that handles JWT refresh
+	jwtTransport := &JWTRefreshTransport{
+		Wrapped:     setupClient.HttpClient.Transport,
+		SetupClient: setupClient,
+	}
+
+	// Wrap with logging transport
+	loggingTransport := &common.LoggingRoundTripper{
+		Wrapped: jwtTransport,
+	}
+
+	// Create a new HTTP client with the transports
+	httpClientWithJWT := &http.Client{
+		Transport: loggingTransport,
+		Timeout:   setupClient.HttpClient.Timeout,
+	}
+
+	config.HTTPClient = httpClientWithJWT
+
+	apiClient := objects.NewAPIClient(config)
+	return apiClient
+}
+
+func GetSecurity_servicesAPIClient(setupClient *Client) *security_services.APIClient {
+	// Create the security services API client
+
+	config := security_services.NewConfiguration()
+	config.Host = setupClient.GetHost()
+	config.Scheme = "https"
+
+	// Create a custom transport that handles JWT refresh
+	jwtTransport := &JWTRefreshTransport{
+		Wrapped:     setupClient.HttpClient.Transport,
+		SetupClient: setupClient,
+	}
+
+	// Wrap with logging transport
+	loggingTransport := &common.LoggingRoundTripper{
+		Wrapped: jwtTransport,
+	}
+
+	// Create a new HTTP client with the transports
+	httpClientWithJWT := &http.Client{
+		Transport: loggingTransport,
+		Timeout:   setupClient.HttpClient.Timeout,
+	}
+
+	config.HTTPClient = httpClientWithJWT
+
+	apiClient := security_services.NewAPIClient(config)
+	return apiClient
+}
+
+func GetDeployment_servicesAPIClient(setupClient *Client) *deployment_services.APIClient {
+	// Create the deployment services API client
+
+	config := deployment_services.NewConfiguration()
+	config.Host = setupClient.GetHost()
+	config.Scheme = "https"
+
+	// Create a custom transport that handles JWT refresh
+	jwtTransport := &JWTRefreshTransport{
+		Wrapped:     setupClient.HttpClient.Transport,
+		SetupClient: setupClient,
+	}
+
+	// Wrap with logging transport
+	loggingTransport := &common.LoggingRoundTripper{
+		Wrapped: jwtTransport,
+	}
+
+	// Create a new HTTP client with the transports
+	httpClientWithJWT := &http.Client{
+		Transport: loggingTransport,
+		Timeout:   setupClient.HttpClient.Timeout,
+	}
+
+	config.HTTPClient = httpClientWithJWT
+
+	apiClient := deployment_services.NewAPIClient(config)
+	return apiClient
 }

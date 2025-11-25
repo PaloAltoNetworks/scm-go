@@ -13367,20 +13367,20 @@ components:
         description: description
         rules:
         - application:
-          - application
-          - application
+          - any
+          - any
           file_type:
-          - file_type
-          - file_type
+          - any
+          - any
           name: name
           action: alert
           direction: both
         - application:
-          - application
-          - application
+          - any
+          - any
           file_type:
-          - file_type
-          - file_type
+          - any
+          - any
           name: name
           action: alert
           direction: both
@@ -13421,11 +13421,6 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
-      - action
-      - application
-      - direction
-      - file_type
-      - id
       - name
       type: object
     generic_error:
@@ -16961,11 +16956,11 @@ components:
     file_blocking_profiles_rules_inner:
       example:
         application:
-        - application
-        - application
+        - any
+        - any
         file_type:
-        - file_type
-        - file_type
+        - any
+        - any
         name: name
         action: alert
         direction: both
@@ -16983,6 +16978,18 @@ components:
           - any
           description: The application transferring the files (App-ID naming)
           items:
+            enum:
+            - any
+            - axifile
+            - dl-free
+            - facebook-mail
+            - file.io
+            - giphy-base
+            - glassdoor-uploading
+            - http-proxy
+            - redbooth
+            - send-anywhere
+            - zoho-mail
             type: string
           minItems: 1
           type: array
@@ -16999,6 +17006,19 @@ components:
           - any
           description: The file type
           items:
+            enum:
+            - any
+            - 7z
+            - chm
+            - hlp
+            - bat
+            - class
+            - dll
+            - hta
+            - jar
+            - pif
+            - vbe
+            - wsf
             type: string
           minItems: 1
           type: array

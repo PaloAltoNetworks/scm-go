@@ -20,13 +20,15 @@ var _ MappedNullable = &AuthenticationProfilesMethodSamlIdp{}
 
 // AuthenticationProfilesMethodSamlIdp struct for AuthenticationProfilesMethodSamlIdp
 type AuthenticationProfilesMethodSamlIdp struct {
-	AttributeNameUsergroup    *string `json:"attribute_name_usergroup,omitempty"`
-	AttributeNameUsername     *string `json:"attribute_name_username,omitempty"`
+	AttributeNameUsergroup *string `json:"attribute_name_usergroup,omitempty"`
+	AttributeNameUsername  *string `json:"attribute_name_username,omitempty"`
+	// method object saml idp certificate profile of authentication profile
 	CertificateProfile        *string `json:"certificate_profile,omitempty"`
 	EnableSingleLogout        *bool   `json:"enable_single_logout,omitempty"`
 	RequestSigningCertificate *string `json:"request_signing_certificate,omitempty"`
-	ServerProfile             *string `json:"server_profile,omitempty"`
-	AdditionalProperties      map[string]interface{}
+	// method object saml idp server profile of authentication profile
+	ServerProfile        *string `json:"server_profile,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AuthenticationProfilesMethodSamlIdp AuthenticationProfilesMethodSamlIdp

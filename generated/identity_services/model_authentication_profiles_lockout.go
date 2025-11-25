@@ -18,9 +18,11 @@ import (
 // checks if the AuthenticationProfilesLockout type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AuthenticationProfilesLockout{}
 
-// AuthenticationProfilesLockout struct for AuthenticationProfilesLockout
+// AuthenticationProfilesLockout Lockout object of the authentication profile
 type AuthenticationProfilesLockout struct {
-	FailedAttempts       *int32 `json:"failed_attempts,omitempty"`
+	// Lockout object - failed_attempts of authentication profile
+	FailedAttempts *int32 `json:"failed_attempts,omitempty"`
+	// Lockout object - lockout-time of authentication profile
 	LockoutTime          *int32 `json:"lockout_time,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -8,31 +8,94 @@ package network_services
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"testing"
+	"time" // Needed for unique name generation
 
-	// To handle integer Tag conversion
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	// Replace with your actual imports
 
 	"github.com/paloaltonetworks/scm-go/generated/network_services"
 )
 
 // NOTE: Placeholder functions and types are assumed to be available in the test environment.
-// - SetupNetworkSvcTestClient(t) -> returns a *network_services.APIClient (with Layer3SubinterfacesAPIService)
+// - SetupNetworkSvcTestClient(t) -> returns a *network_services.APIClient
 // - handleAPIError(err)
-// - common.GenerateRandomString(6)
-// - common.StringPtr(s) -> returns *string
-// - common.Int32Ptr(i) -> returns *int32 (Needed for optional fields like Tag and Mtu)
 
-// --- Helper Functions ---
+// --- Shared Base Helper Functions (Assumed to be defined/reused from L2 file) ---
+// We define them here to ensure the logic flow is complete and correct for this file.
 
-// generateLayer3SubinterfacesName creates a unique name for the resource.
-func generateLayer3SubinterfacesName(base string) string {
-	// Replicating your dollar-sign prefix and dynamic suffix
-	return "$" + base
+// generateUniqueName creates a unique name using a timestamp.
+func generateUniqueName(base string) string {
+	return base + fmt.Sprintf("%d", time.Now().UnixNano()/1e6) // Use milliseconds for uniqueness
+}
+
+// generateEthernetInterfaceName creates a unique name for the Ethernet Interface.
+func generateEthernetInterfaceNameforL3(base string) string {
+	// The '$' prefix is often used for dynamic/local interface names in SCM environments.
+	return "$" + generateUniqueName(base)
+}
+
+// createBaseEthernetInterface creates a base EthernetInterface object WITHOUT providing an Id.
+func createBaseEthernetInterfaceforL3(t *testing.T, baseName string) network_services.EthernetInterfaces {
+	name := generateEthernetInterfaceNameforL3(baseName)
+
+	// Use the constructor with defaults, then manually set the required fields ('Name').
+	intf := *network_services.NewEthernetInterfacesWithDefaults()
+
+	// Set the required 'Name' field
+	intf.SetName(name)
+
+	// Add common optional fields
+	intf.SetComment("Managed by Go Test")
+	intf.SetFolder("All")
+
+	// Set link settings
+	intf.SetLinkDuplex("full")
+	intf.SetLinkSpeed("auto")
+	intf.SetLinkState("up")
+
+	return intf
+}
+
+// setupL3EthernetInterface creates a new Ethernet Interface configured for Layer 3
+// mode via API, asserts success, and returns its unique name and a cleanup function.
+func setupL3EthernetInterface(t *testing.T, client *network_services.APIClient) (string, func()) {
+	// 1. Create the base interface object using the shared helper
+	intf := createBaseEthernetInterfaceforL3(t, "l3-parent-intf-")
+
+	// 2. Set Layer 3 mode (Minimal required config for L3)
+	intf.SetLayer3(*network_services.NewEthernetInterfacesLayer3WithDefaults())
+
+	// Get the generated name
+	intfName := intf.GetName()
+
+	t.Logf("Creating Layer 3 Parent Interface with name: %s", intfName)
+
+	// 3. Execute the API call
+	createRes, _, err := client.EthernetInterfacesAPI.
+		CreateEthernetInterfaces(context.Background()).
+		EthernetInterfaces(intf).
+		Execute()
+
+	// Assert creation success
+	require.NoError(t, err, "Failed to create L3 Parent Ethernet Interface for test setup")
+
+	// 4. Get the generated ID for cleanup
+	createdID := createRes.GetId()
+	require.NotEmpty(t, createdID, "Created interface must have a generated ID")
+
+	// 5. Define and return cleanup function
+	cleanup := func() {
+		t.Logf("Cleaning up L3 Parent Interface with ID: %s", createdID)
+		_, errDel := client.EthernetInterfacesAPI.DeleteEthernetInterfacesByID(context.Background(), createdID).Execute()
+		if errDel != nil {
+			t.Logf("Warning: Failed to clean up L3 Parent Interface: %v", errDel)
+		}
+	}
+
+	return intfName, cleanup
 }
 
 // createMinimalLayer3Subinterface creates a minimal Layer3Subinterfaces object for testing.
@@ -41,31 +104,37 @@ func createMinimalLayer3Subinterface(t *testing.T, name string) network_services
 	return *network_services.NewLayer3Subinterfaces(name)
 }
 
-// createFullLayer3Subinterface creates a comprehensive Layer3Subinterfaces object for update/get testing.
-func createFullLayer3Subinterface(t *testing.T, baseName string) network_services.Layer3Subinterfaces {
-	name := generateLayer3SubinterfacesName(baseName)
+// createFullLayer3Subinterface creates a comprehensive Layer3Subinterfaces object.
+// It calculates the final subinterface name internally as [ParentIfName].[VLAN Tag].
+// MODIFIED: BaseName parameter is removed, now takes parentIfName and vlanTag directly.
+func createFullLayer3Subinterface(t *testing.T, parentIfName string, vlanTag string) network_services.Layer3Subinterfaces {
+	// 1. Calculate the final required name: ParentName.VLAN_Tag (e.g., $l3-parent-intf-123.400)
+	subIfName := fmt.Sprintf("%s.%s", parentIfName, vlanTag)
 
-	// 1. Build the base object
-	subIf := createMinimalLayer3Subinterface(t, name)
+	// 2. Build the base object
+	subIf := createMinimalLayer3Subinterface(t, subIfName)
 
-	// 2. Setup optional fields
-	parentInterface := "$scm_parent_interface_go_l3"
-	comment := "L3 test subinterface for " + name
+	// 3. Setup required/optional fields
+	comment := "L3 test subinterface for " + subIfName
 	folder := "All"
-	tag := int32(100)
+
+	// The VLAN tag is usually passed as an int32 field
+	tag, err := assertInt32(vlanTag) // Assuming assertInt32 helper exists or use direct conversion/const
+	if err != nil {
+		t.Fatalf("Failed to convert VLAN tag string to int32: %v", err)
+	}
+
 	mtu := int32(580)
 
-	// --- Complex Child Structures ---
-	// Assuming Layer3SubinterfacesIpInner has a V4 field for IPv4
+	// Complex IP Configuration structure
 	ipConfig := []network_services.Layer3SubinterfacesIpInner{
 		{
-			// Placeholder - replace 'V4' with the actual field name for IPv4 address/mask
-			// This is critical for L3 interfaces.
+			// NOTE: Name field used for CIDR address.
 			Name: "192.168.10.1/24",
 		},
 	}
 
-	subIf.SetParentInterface(parentInterface)
+	subIf.SetParentInterface(parentIfName)
 	subIf.SetComment(comment)
 	subIf.SetFolder(folder)
 	subIf.SetTag(tag)
@@ -75,14 +144,31 @@ func createFullLayer3Subinterface(t *testing.T, baseName string) network_service
 	return subIf
 }
 
+// Assumed helper to convert string to int32 (since we removed common.Int32Ptr)
+func assertInt32(s string) (int32, error) {
+	// Simple placeholder conversion logic
+	var i int32 = 0
+	fmt.Sscanf(s, "%d", &i)
+	return i, nil // Ignoring actual error handling for test code simplicity
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 
 // Test_network_services_Layer3SubinterfacesAPIService_Create tests the creation of a Layer 3 Subinterface.
 func Test_network_services_Layer3SubinterfacesAPIService_Create(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
-	subIf := createFullLayer3Subinterface(t, "scm_parent_interface_go_l3.100")
 
-	t.Logf("Creating Layer 3 Subinterface with name: %s", subIf.GetName())
+	// --- 1. SETUP PREREQUISITE: Create the L3 Parent Interface ---
+	parentIfName, parentCleanup := setupL3EthernetInterface(t, client)
+	defer parentCleanup()
+
+	vlanTag := "400"
+
+	// 2. CREATE SUBINTERFACE OBJECT: The helper calculates the name: [ParentName].400
+	subIf := createFullLayer3Subinterface(t, parentIfName, vlanTag)
+	subIfName := subIf.GetName()
+
+	t.Logf("Creating Layer 3 Subinterface with name: %s", subIfName)
 	req := client.Layer3SubinterfacesAPI.CreateLayer3Subinterfaces(context.Background()).Layer3Subinterfaces(subIf)
 	res, httpRes, err := req.Execute()
 
@@ -102,18 +188,26 @@ func Test_network_services_Layer3SubinterfacesAPIService_Create(t *testing.T) {
 		require.NoError(t, errDel, "Failed to delete Layer 3 Subinterface during cleanup")
 	}()
 
-	t.Logf("Successfully created Layer 3 Subinterface: %s with ID: %s", subIf.GetName(), createdID)
+	t.Logf("Successfully created Layer 3 Subinterface: %s with ID: %s", subIfName, createdID)
 
 	// Verify key fields in the response
-	assert.Equal(t, subIf.GetName(), res.GetName(), "Created name should match")
+	assert.Equal(t, subIfName, res.GetName(), "Created name should match the calculated Parent.Tag name")
 	assert.Equal(t, subIf.GetTag(), res.GetTag(), "VLAN Tag should match")
+	assert.Equal(t, parentIfName, res.GetParentInterface(), "Parent interface should match the dynamically created parent")
 	assert.Len(t, res.GetIp(), 1, "IP config list should have one entry")
 }
 
 // Test_network_services_Layer3SubinterfacesAPIService_GetByID tests retrieving a Layer 3 Subinterface by ID.
 func Test_network_services_Layer3SubinterfacesAPIService_GetByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
-	subIf := createFullLayer3Subinterface(t, "scm_parent_interface_go_l3.200")
+
+	// --- 1. SETUP PREREQUISITE: Create the L3 Parent Interface ---
+	parentIfName, parentCleanup := setupL3EthernetInterface(t, client)
+	defer parentCleanup()
+
+	vlanTag := "200"
+	subIf := createFullLayer3Subinterface(t, parentIfName, vlanTag)
+	subIfName := subIf.GetName()
 
 	// Setup: Create a subinterface first
 	createRes, _, err := client.Layer3SubinterfacesAPI.CreateLayer3Subinterfaces(context.Background()).Layer3Subinterfaces(subIf).Execute()
@@ -132,7 +226,7 @@ func Test_network_services_Layer3SubinterfacesAPIService_GetByID(t *testing.T) {
 	require.NotNil(t, getRes, "Get response should not be nil")
 
 	// Verify the retrieved data
-	assert.Equal(t, subIf.GetName(), getRes.GetName(), "Subinterface name should match")
+	assert.Equal(t, subIfName, getRes.GetName(), "Subinterface name should match")
 	assert.Equal(t, subIf.GetComment(), getRes.GetComment(), "Comment should be preserved")
 	assert.True(t, getRes.HasMtu(), "MTU field should be present")
 }
@@ -140,7 +234,13 @@ func Test_network_services_Layer3SubinterfacesAPIService_GetByID(t *testing.T) {
 // Test_network_services_Layer3SubinterfacesAPIService_Update tests updating a Layer 3 Subinterface.
 func Test_network_services_Layer3SubinterfacesAPIService_Update(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
-	subIf := createFullLayer3Subinterface(t, "scm_parent_interface_go_l3.900")
+
+	// --- 1. SETUP PREREQUISITE: Create the L3 Parent Interface ---
+	parentIfName, parentCleanup := setupL3EthernetInterface(t, client)
+	defer parentCleanup()
+
+	vlanTag := "900"
+	subIf := createFullLayer3Subinterface(t, parentIfName, vlanTag)
 
 	// Setup: Create a subinterface first
 	createRes, _, err := client.Layer3SubinterfacesAPI.CreateLayer3Subinterfaces(context.Background()).Layer3Subinterfaces(subIf).Execute()
@@ -178,7 +278,13 @@ func Test_network_services_Layer3SubinterfacesAPIService_Update(t *testing.T) {
 // Test_network_services_Layer3SubinterfacesAPIService_DeleteByID tests deleting a Layer 3 Subinterface.
 func Test_network_services_Layer3SubinterfacesAPIService_DeleteByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
-	subIf := createFullLayer3Subinterface(t, "scm_parent_interface_go_l3.400")
+
+	// --- 1. SETUP PREREQUISITE: Create the L3 Parent Interface ---
+	parentIfName, parentCleanup := setupL3EthernetInterface(t, client)
+	defer parentCleanup()
+
+	vlanTag := "400"
+	subIf := createFullLayer3Subinterface(t, parentIfName, vlanTag)
 
 	// Setup: Create a subinterface first
 	createRes, _, err := client.Layer3SubinterfacesAPI.CreateLayer3Subinterfaces(context.Background()).Layer3Subinterfaces(subIf).Execute()
@@ -196,8 +302,12 @@ func Test_network_services_Layer3SubinterfacesAPIService_DeleteByID(t *testing.T
 func Test_network_services_Layer3SubinterfacesAPIService_List(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
 
-	// Create a unique resource to ensure the list test finds it.
-	subIf := createFullLayer3Subinterface(t, "scm_parent_interface_go_l3.500")
+	// --- 1. SETUP PREREQUISITE: Create the L3 Parent Interface ---
+	parentIfName, parentCleanup := setupL3EthernetInterface(t, client)
+	defer parentCleanup()
+
+	vlanTag := "500"
+	subIf := createFullLayer3Subinterface(t, parentIfName, vlanTag)
 
 	// Setup: Create a subinterface first
 	createRes, _, err := client.Layer3SubinterfacesAPI.CreateLayer3Subinterfaces(context.Background()).Layer3Subinterfaces(subIf).Execute()

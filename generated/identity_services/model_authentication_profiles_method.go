@@ -18,7 +18,7 @@ import (
 // checks if the AuthenticationProfilesMethod type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AuthenticationProfilesMethod{}
 
-// AuthenticationProfilesMethod struct for AuthenticationProfilesMethod
+// AuthenticationProfilesMethod method object of authentication profile
 type AuthenticationProfilesMethod struct {
 	Cloud                *AuthenticationProfilesMethodCloud    `json:"cloud,omitempty"`
 	Kerberos             *AuthenticationProfilesMethodKerberos `json:"kerberos,omitempty"`
@@ -26,7 +26,7 @@ type AuthenticationProfilesMethod struct {
 	LocalDatabase        map[string]interface{}                `json:"local_database,omitempty"`
 	Radius               *AuthenticationProfilesMethodRadius   `json:"radius,omitempty"`
 	SamlIdp              *AuthenticationProfilesMethodSamlIdp  `json:"saml_idp,omitempty"`
-	Tacplus              *AuthenticationProfilesMethodRadius   `json:"tacplus,omitempty"`
+	Tacplus              *AuthenticationProfilesMethodTacplus  `json:"tacplus,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -242,9 +242,9 @@ func (o *AuthenticationProfilesMethod) SetSamlIdp(v AuthenticationProfilesMethod
 }
 
 // GetTacplus returns the Tacplus field value if set, zero value otherwise.
-func (o *AuthenticationProfilesMethod) GetTacplus() AuthenticationProfilesMethodRadius {
+func (o *AuthenticationProfilesMethod) GetTacplus() AuthenticationProfilesMethodTacplus {
 	if o == nil || IsNil(o.Tacplus) {
-		var ret AuthenticationProfilesMethodRadius
+		var ret AuthenticationProfilesMethodTacplus
 		return ret
 	}
 	return *o.Tacplus
@@ -252,7 +252,7 @@ func (o *AuthenticationProfilesMethod) GetTacplus() AuthenticationProfilesMethod
 
 // GetTacplusOk returns a tuple with the Tacplus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthenticationProfilesMethod) GetTacplusOk() (*AuthenticationProfilesMethodRadius, bool) {
+func (o *AuthenticationProfilesMethod) GetTacplusOk() (*AuthenticationProfilesMethodTacplus, bool) {
 	if o == nil || IsNil(o.Tacplus) {
 		return nil, false
 	}
@@ -268,8 +268,8 @@ func (o *AuthenticationProfilesMethod) HasTacplus() bool {
 	return false
 }
 
-// SetTacplus gets a reference to the given AuthenticationProfilesMethodRadius and assigns it to the Tacplus field.
-func (o *AuthenticationProfilesMethod) SetTacplus(v AuthenticationProfilesMethodRadius) {
+// SetTacplus gets a reference to the given AuthenticationProfilesMethodTacplus and assigns it to the Tacplus field.
+func (o *AuthenticationProfilesMethod) SetTacplus(v AuthenticationProfilesMethodTacplus) {
 	o.Tacplus = &v
 }
 
