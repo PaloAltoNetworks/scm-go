@@ -542,7 +542,7 @@ func (r ApiListAutoVPNClustersRequest) Device(device string) ApiListAutoVPNClust
 	return r
 }
 
-func (r ApiListAutoVPNClustersRequest) Execute() (*AutoVPNClustersListResponse, *http.Response, error) {
+func (r ApiListAutoVPNClustersRequest) Execute() ([]AutoVpnClusters, *http.Response, error) {
 	return r.ApiService.ListAutoVPNClustersExecute(r)
 }
 
@@ -563,13 +563,13 @@ func (a *AutoVPNClustersAPIService) ListAutoVPNClusters(ctx context.Context) Api
 
 // Execute executes the request
 //
-//	@return AutoVPNClustersListResponse
-func (a *AutoVPNClustersAPIService) ListAutoVPNClustersExecute(r ApiListAutoVPNClustersRequest) (*AutoVPNClustersListResponse, *http.Response, error) {
+//	@return []AutoVpnClusters
+func (a *AutoVPNClustersAPIService) ListAutoVPNClustersExecute(r ApiListAutoVPNClustersRequest) ([]AutoVpnClusters, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AutoVPNClustersListResponse
+		localVarReturnValue []AutoVpnClusters
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoVPNClustersAPIService.ListAutoVPNClusters")

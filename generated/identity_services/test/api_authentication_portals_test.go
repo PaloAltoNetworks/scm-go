@@ -35,9 +35,7 @@ func createTestAuthPortal(t *testing.T) identity_services.AuthenticationPortals 
 	var timer int32 = 12
 
 	p.SetFolder("All")
-	p.SetAuthenticationProfile("test_auth_profile")
 	p.SetCertificateProfile("EDL-Hosting-Service-Profile")
-	p.SetTlsServiceProfile("test_svc_profile")
 	p.SetGpUdpPort(gpPort)
 	p.SetIdleTimer(idleT)
 	p.SetTimer(timer)
@@ -69,7 +67,16 @@ func cleanupPortal(t *testing.T, client *identity_services.APIClient, id string)
 func Test_identityservices_AuthenticationPortalsAPIService__Create(t *testing.T) {
 
 	client := SetupIdentitySvcTestClient(t)
+	// SETUP PREREQUISITE: Create the Authentication Profile ---
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+
+	// Ensure the profile is deleted after this test runs.
+	defer profileCleanup()
+
 	authPortal := createTestAuthPortal(t)
+
+	authPortal.SetAuthenticationProfile(profileName)
+
 	var createdID string
 
 	// Cleanup will run regardless of test outcome
@@ -103,7 +110,15 @@ func Test_identityservices_AuthenticationPortalsAPIService__Create(t *testing.T)
 func Test_identityservices_AuthenticationPortalsAPIService__GetByID(t *testing.T) {
 
 	client := SetupIdentitySvcTestClient(t)
+	// SETUP PREREQUISITE: Create the Authentication Profile ---
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+
+	// Ensure the profile is deleted after this test runs.
+	defer profileCleanup()
+
 	authPortal := createTestAuthPortal(t)
+
+	authPortal.SetAuthenticationProfile(profileName)
 	var createdID string
 
 	// Setup: Create a portal first and capture the generated ID
@@ -134,7 +149,15 @@ func Test_identityservices_AuthenticationPortalsAPIService__GetByID(t *testing.T
 func Test_identityservices_AuthenticationPortalsAPIService__Update(t *testing.T) {
 
 	client := SetupIdentitySvcTestClient(t)
+	// SETUP PREREQUISITE: Create the Authentication Profile ---
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+
+	// Ensure the profile is deleted after this test runs.
+	defer profileCleanup()
+
 	authPortal := createTestAuthPortal(t)
+
+	authPortal.SetAuthenticationProfile(profileName)
 	var createdID string
 
 	// 1. Setup: Create a portal first
@@ -180,7 +203,15 @@ func Test_identityservices_AuthenticationPortalsAPIService__Update(t *testing.T)
 func Test_identityservices_AuthenticationPortalsAPIService__DeleteByID(t *testing.T) {
 
 	client := SetupIdentitySvcTestClient(t)
+	// SETUP PREREQUISITE: Create the Authentication Profile ---
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+
+	// Ensure the profile is deleted after this test runs.
+	defer profileCleanup()
+
 	authPortal := createTestAuthPortal(t)
+
+	authPortal.SetAuthenticationProfile(profileName)
 	var createdID string
 
 	// Setup: Create a portal first and capture the generated ID
@@ -204,7 +235,15 @@ func Test_identityservices_AuthenticationPortalsAPIService__List(t *testing.T) {
 	client := SetupIdentitySvcTestClient(t)
 
 	testFolderName := "All"
+	// SETUP PREREQUISITE: Create the Authentication Profile ---
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+
+	// Ensure the profile is deleted after this test runs.
+	defer profileCleanup()
+
 	authPortal := createTestAuthPortal(t)
+
+	authPortal.SetAuthenticationProfile(profileName)
 	var createdID string
 
 	// 1. Setup: Create a portal

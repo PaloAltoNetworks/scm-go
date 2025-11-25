@@ -15,11 +15,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the BgpFilteringProfilesIpv4Ipv4Multicast type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &BgpFilteringProfilesIpv4Ipv4Multicast{}
+// checks if the BgpFilteringProfilesIpv4Multicast type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BgpFilteringProfilesIpv4Multicast{}
 
-// BgpFilteringProfilesIpv4Ipv4Multicast struct for BgpFilteringProfilesIpv4Ipv4Multicast
-type BgpFilteringProfilesIpv4Ipv4Multicast struct {
+// BgpFilteringProfilesIpv4Multicast struct for BgpFilteringProfilesIpv4Multicast
+type BgpFilteringProfilesIpv4Multicast struct {
 	ConditionalAdvertisement *BgpFilterConditionalAdvertisement `json:"conditional_advertisement,omitempty"`
 	FilterList               *BgpFilterFilterList               `json:"filter_list,omitempty"`
 	InboundNetworkFilters    *BgpFilterInboundNetworkFilters    `json:"inbound_network_filters,omitempty"`
@@ -31,27 +31,27 @@ type BgpFilteringProfilesIpv4Ipv4Multicast struct {
 	AdditionalProperties   map[string]interface{}
 }
 
-type _BgpFilteringProfilesIpv4Ipv4Multicast BgpFilteringProfilesIpv4Ipv4Multicast
+type _BgpFilteringProfilesIpv4Multicast BgpFilteringProfilesIpv4Multicast
 
-// NewBgpFilteringProfilesIpv4Ipv4Multicast instantiates a new BgpFilteringProfilesIpv4Ipv4Multicast object
+// NewBgpFilteringProfilesIpv4Multicast instantiates a new BgpFilteringProfilesIpv4Multicast object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBgpFilteringProfilesIpv4Ipv4Multicast() *BgpFilteringProfilesIpv4Ipv4Multicast {
-	this := BgpFilteringProfilesIpv4Ipv4Multicast{}
+func NewBgpFilteringProfilesIpv4Multicast() *BgpFilteringProfilesIpv4Multicast {
+	this := BgpFilteringProfilesIpv4Multicast{}
 	return &this
 }
 
-// NewBgpFilteringProfilesIpv4Ipv4MulticastWithDefaults instantiates a new BgpFilteringProfilesIpv4Ipv4Multicast object
+// NewBgpFilteringProfilesIpv4MulticastWithDefaults instantiates a new BgpFilteringProfilesIpv4Multicast object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewBgpFilteringProfilesIpv4Ipv4MulticastWithDefaults() *BgpFilteringProfilesIpv4Ipv4Multicast {
-	this := BgpFilteringProfilesIpv4Ipv4Multicast{}
+func NewBgpFilteringProfilesIpv4MulticastWithDefaults() *BgpFilteringProfilesIpv4Multicast {
+	this := BgpFilteringProfilesIpv4Multicast{}
 	return &this
 }
 
 // GetConditionalAdvertisement returns the ConditionalAdvertisement field value if set, zero value otherwise.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetConditionalAdvertisement() BgpFilterConditionalAdvertisement {
+func (o *BgpFilteringProfilesIpv4Multicast) GetConditionalAdvertisement() BgpFilterConditionalAdvertisement {
 	if o == nil || IsNil(o.ConditionalAdvertisement) {
 		var ret BgpFilterConditionalAdvertisement
 		return ret
@@ -61,7 +61,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetConditionalAdvertisement() Bg
 
 // GetConditionalAdvertisementOk returns a tuple with the ConditionalAdvertisement field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetConditionalAdvertisementOk() (*BgpFilterConditionalAdvertisement, bool) {
+func (o *BgpFilteringProfilesIpv4Multicast) GetConditionalAdvertisementOk() (*BgpFilterConditionalAdvertisement, bool) {
 	if o == nil || IsNil(o.ConditionalAdvertisement) {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetConditionalAdvertisementOk() 
 }
 
 // HasConditionalAdvertisement returns a boolean if a field has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasConditionalAdvertisement() bool {
+func (o *BgpFilteringProfilesIpv4Multicast) HasConditionalAdvertisement() bool {
 	if o != nil && !IsNil(o.ConditionalAdvertisement) {
 		return true
 	}
@@ -78,12 +78,12 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasConditionalAdvertisement() bo
 }
 
 // SetConditionalAdvertisement gets a reference to the given BgpFilterConditionalAdvertisement and assigns it to the ConditionalAdvertisement field.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) SetConditionalAdvertisement(v BgpFilterConditionalAdvertisement) {
+func (o *BgpFilteringProfilesIpv4Multicast) SetConditionalAdvertisement(v BgpFilterConditionalAdvertisement) {
 	o.ConditionalAdvertisement = &v
 }
 
 // GetFilterList returns the FilterList field value if set, zero value otherwise.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetFilterList() BgpFilterFilterList {
+func (o *BgpFilteringProfilesIpv4Multicast) GetFilterList() BgpFilterFilterList {
 	if o == nil || IsNil(o.FilterList) {
 		var ret BgpFilterFilterList
 		return ret
@@ -93,7 +93,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetFilterList() BgpFilterFilterL
 
 // GetFilterListOk returns a tuple with the FilterList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetFilterListOk() (*BgpFilterFilterList, bool) {
+func (o *BgpFilteringProfilesIpv4Multicast) GetFilterListOk() (*BgpFilterFilterList, bool) {
 	if o == nil || IsNil(o.FilterList) {
 		return nil, false
 	}
@@ -101,7 +101,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetFilterListOk() (*BgpFilterFil
 }
 
 // HasFilterList returns a boolean if a field has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasFilterList() bool {
+func (o *BgpFilteringProfilesIpv4Multicast) HasFilterList() bool {
 	if o != nil && !IsNil(o.FilterList) {
 		return true
 	}
@@ -110,12 +110,12 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasFilterList() bool {
 }
 
 // SetFilterList gets a reference to the given BgpFilterFilterList and assigns it to the FilterList field.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) SetFilterList(v BgpFilterFilterList) {
+func (o *BgpFilteringProfilesIpv4Multicast) SetFilterList(v BgpFilterFilterList) {
 	o.FilterList = &v
 }
 
 // GetInboundNetworkFilters returns the InboundNetworkFilters field value if set, zero value otherwise.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetInboundNetworkFilters() BgpFilterInboundNetworkFilters {
+func (o *BgpFilteringProfilesIpv4Multicast) GetInboundNetworkFilters() BgpFilterInboundNetworkFilters {
 	if o == nil || IsNil(o.InboundNetworkFilters) {
 		var ret BgpFilterInboundNetworkFilters
 		return ret
@@ -125,7 +125,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetInboundNetworkFilters() BgpFi
 
 // GetInboundNetworkFiltersOk returns a tuple with the InboundNetworkFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetInboundNetworkFiltersOk() (*BgpFilterInboundNetworkFilters, bool) {
+func (o *BgpFilteringProfilesIpv4Multicast) GetInboundNetworkFiltersOk() (*BgpFilterInboundNetworkFilters, bool) {
 	if o == nil || IsNil(o.InboundNetworkFilters) {
 		return nil, false
 	}
@@ -133,7 +133,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetInboundNetworkFiltersOk() (*B
 }
 
 // HasInboundNetworkFilters returns a boolean if a field has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasInboundNetworkFilters() bool {
+func (o *BgpFilteringProfilesIpv4Multicast) HasInboundNetworkFilters() bool {
 	if o != nil && !IsNil(o.InboundNetworkFilters) {
 		return true
 	}
@@ -142,12 +142,12 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasInboundNetworkFilters() bool 
 }
 
 // SetInboundNetworkFilters gets a reference to the given BgpFilterInboundNetworkFilters and assigns it to the InboundNetworkFilters field.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) SetInboundNetworkFilters(v BgpFilterInboundNetworkFilters) {
+func (o *BgpFilteringProfilesIpv4Multicast) SetInboundNetworkFilters(v BgpFilterInboundNetworkFilters) {
 	o.InboundNetworkFilters = &v
 }
 
 // GetInherit returns the Inherit field value if set, zero value otherwise.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetInherit() bool {
+func (o *BgpFilteringProfilesIpv4Multicast) GetInherit() bool {
 	if o == nil || IsNil(o.Inherit) {
 		var ret bool
 		return ret
@@ -157,7 +157,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetInherit() bool {
 
 // GetInheritOk returns a tuple with the Inherit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetInheritOk() (*bool, bool) {
+func (o *BgpFilteringProfilesIpv4Multicast) GetInheritOk() (*bool, bool) {
 	if o == nil || IsNil(o.Inherit) {
 		return nil, false
 	}
@@ -165,7 +165,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetInheritOk() (*bool, bool) {
 }
 
 // HasInherit returns a boolean if a field has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasInherit() bool {
+func (o *BgpFilteringProfilesIpv4Multicast) HasInherit() bool {
 	if o != nil && !IsNil(o.Inherit) {
 		return true
 	}
@@ -174,12 +174,12 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasInherit() bool {
 }
 
 // SetInherit gets a reference to the given bool and assigns it to the Inherit field.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) SetInherit(v bool) {
+func (o *BgpFilteringProfilesIpv4Multicast) SetInherit(v bool) {
 	o.Inherit = &v
 }
 
 // GetOutboundNetworkFilters returns the OutboundNetworkFilters field value if set, zero value otherwise.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetOutboundNetworkFilters() BgpFilterInboundNetworkFilters {
+func (o *BgpFilteringProfilesIpv4Multicast) GetOutboundNetworkFilters() BgpFilterInboundNetworkFilters {
 	if o == nil || IsNil(o.OutboundNetworkFilters) {
 		var ret BgpFilterInboundNetworkFilters
 		return ret
@@ -189,7 +189,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetOutboundNetworkFilters() BgpF
 
 // GetOutboundNetworkFiltersOk returns a tuple with the OutboundNetworkFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetOutboundNetworkFiltersOk() (*BgpFilterInboundNetworkFilters, bool) {
+func (o *BgpFilteringProfilesIpv4Multicast) GetOutboundNetworkFiltersOk() (*BgpFilterInboundNetworkFilters, bool) {
 	if o == nil || IsNil(o.OutboundNetworkFilters) {
 		return nil, false
 	}
@@ -197,7 +197,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetOutboundNetworkFiltersOk() (*
 }
 
 // HasOutboundNetworkFilters returns a boolean if a field has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasOutboundNetworkFilters() bool {
+func (o *BgpFilteringProfilesIpv4Multicast) HasOutboundNetworkFilters() bool {
 	if o != nil && !IsNil(o.OutboundNetworkFilters) {
 		return true
 	}
@@ -206,12 +206,12 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasOutboundNetworkFilters() bool
 }
 
 // SetOutboundNetworkFilters gets a reference to the given BgpFilterInboundNetworkFilters and assigns it to the OutboundNetworkFilters field.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) SetOutboundNetworkFilters(v BgpFilterInboundNetworkFilters) {
+func (o *BgpFilteringProfilesIpv4Multicast) SetOutboundNetworkFilters(v BgpFilterInboundNetworkFilters) {
 	o.OutboundNetworkFilters = &v
 }
 
 // GetRouteMaps returns the RouteMaps field value if set, zero value otherwise.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetRouteMaps() BgpFilterFilterList {
+func (o *BgpFilteringProfilesIpv4Multicast) GetRouteMaps() BgpFilterFilterList {
 	if o == nil || IsNil(o.RouteMaps) {
 		var ret BgpFilterFilterList
 		return ret
@@ -221,7 +221,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetRouteMaps() BgpFilterFilterLi
 
 // GetRouteMapsOk returns a tuple with the RouteMaps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetRouteMapsOk() (*BgpFilterFilterList, bool) {
+func (o *BgpFilteringProfilesIpv4Multicast) GetRouteMapsOk() (*BgpFilterFilterList, bool) {
 	if o == nil || IsNil(o.RouteMaps) {
 		return nil, false
 	}
@@ -229,7 +229,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetRouteMapsOk() (*BgpFilterFilt
 }
 
 // HasRouteMaps returns a boolean if a field has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasRouteMaps() bool {
+func (o *BgpFilteringProfilesIpv4Multicast) HasRouteMaps() bool {
 	if o != nil && !IsNil(o.RouteMaps) {
 		return true
 	}
@@ -238,12 +238,12 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasRouteMaps() bool {
 }
 
 // SetRouteMaps gets a reference to the given BgpFilterFilterList and assigns it to the RouteMaps field.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) SetRouteMaps(v BgpFilterFilterList) {
+func (o *BgpFilteringProfilesIpv4Multicast) SetRouteMaps(v BgpFilterFilterList) {
 	o.RouteMaps = &v
 }
 
 // GetUnsuppressMap returns the UnsuppressMap field value if set, zero value otherwise.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetUnsuppressMap() string {
+func (o *BgpFilteringProfilesIpv4Multicast) GetUnsuppressMap() string {
 	if o == nil || IsNil(o.UnsuppressMap) {
 		var ret string
 		return ret
@@ -253,7 +253,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetUnsuppressMap() string {
 
 // GetUnsuppressMapOk returns a tuple with the UnsuppressMap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetUnsuppressMapOk() (*string, bool) {
+func (o *BgpFilteringProfilesIpv4Multicast) GetUnsuppressMapOk() (*string, bool) {
 	if o == nil || IsNil(o.UnsuppressMap) {
 		return nil, false
 	}
@@ -261,7 +261,7 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) GetUnsuppressMapOk() (*string, b
 }
 
 // HasUnsuppressMap returns a boolean if a field has been set.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasUnsuppressMap() bool {
+func (o *BgpFilteringProfilesIpv4Multicast) HasUnsuppressMap() bool {
 	if o != nil && !IsNil(o.UnsuppressMap) {
 		return true
 	}
@@ -270,11 +270,11 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) HasUnsuppressMap() bool {
 }
 
 // SetUnsuppressMap gets a reference to the given string and assigns it to the UnsuppressMap field.
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) SetUnsuppressMap(v string) {
+func (o *BgpFilteringProfilesIpv4Multicast) SetUnsuppressMap(v string) {
 	o.UnsuppressMap = &v
 }
 
-func (o BgpFilteringProfilesIpv4Ipv4Multicast) MarshalJSON() ([]byte, error) {
+func (o BgpFilteringProfilesIpv4Multicast) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -282,7 +282,7 @@ func (o BgpFilteringProfilesIpv4Ipv4Multicast) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o BgpFilteringProfilesIpv4Ipv4Multicast) ToMap() (map[string]interface{}, error) {
+func (o BgpFilteringProfilesIpv4Multicast) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.ConditionalAdvertisement) {
 		toSerialize["conditional_advertisement"] = o.ConditionalAdvertisement
@@ -313,16 +313,16 @@ func (o BgpFilteringProfilesIpv4Ipv4Multicast) ToMap() (map[string]interface{}, 
 	return toSerialize, nil
 }
 
-func (o *BgpFilteringProfilesIpv4Ipv4Multicast) UnmarshalJSON(data []byte) (err error) {
-	varBgpFilteringProfilesIpv4Ipv4Multicast := _BgpFilteringProfilesIpv4Ipv4Multicast{}
+func (o *BgpFilteringProfilesIpv4Multicast) UnmarshalJSON(data []byte) (err error) {
+	varBgpFilteringProfilesIpv4Multicast := _BgpFilteringProfilesIpv4Multicast{}
 
-	err = json.Unmarshal(data, &varBgpFilteringProfilesIpv4Ipv4Multicast)
+	err = json.Unmarshal(data, &varBgpFilteringProfilesIpv4Multicast)
 
 	if err != nil {
 		return err
 	}
 
-	*o = BgpFilteringProfilesIpv4Ipv4Multicast(varBgpFilteringProfilesIpv4Ipv4Multicast)
+	*o = BgpFilteringProfilesIpv4Multicast(varBgpFilteringProfilesIpv4Multicast)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -340,38 +340,38 @@ func (o *BgpFilteringProfilesIpv4Ipv4Multicast) UnmarshalJSON(data []byte) (err 
 	return err
 }
 
-type NullableBgpFilteringProfilesIpv4Ipv4Multicast struct {
-	value *BgpFilteringProfilesIpv4Ipv4Multicast
+type NullableBgpFilteringProfilesIpv4Multicast struct {
+	value *BgpFilteringProfilesIpv4Multicast
 	isSet bool
 }
 
-func (v NullableBgpFilteringProfilesIpv4Ipv4Multicast) Get() *BgpFilteringProfilesIpv4Ipv4Multicast {
+func (v NullableBgpFilteringProfilesIpv4Multicast) Get() *BgpFilteringProfilesIpv4Multicast {
 	return v.value
 }
 
-func (v *NullableBgpFilteringProfilesIpv4Ipv4Multicast) Set(val *BgpFilteringProfilesIpv4Ipv4Multicast) {
+func (v *NullableBgpFilteringProfilesIpv4Multicast) Set(val *BgpFilteringProfilesIpv4Multicast) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableBgpFilteringProfilesIpv4Ipv4Multicast) IsSet() bool {
+func (v NullableBgpFilteringProfilesIpv4Multicast) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableBgpFilteringProfilesIpv4Ipv4Multicast) Unset() {
+func (v *NullableBgpFilteringProfilesIpv4Multicast) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableBgpFilteringProfilesIpv4Ipv4Multicast(val *BgpFilteringProfilesIpv4Ipv4Multicast) *NullableBgpFilteringProfilesIpv4Ipv4Multicast {
-	return &NullableBgpFilteringProfilesIpv4Ipv4Multicast{value: val, isSet: true}
+func NewNullableBgpFilteringProfilesIpv4Multicast(val *BgpFilteringProfilesIpv4Multicast) *NullableBgpFilteringProfilesIpv4Multicast {
+	return &NullableBgpFilteringProfilesIpv4Multicast{value: val, isSet: true}
 }
 
-func (v NullableBgpFilteringProfilesIpv4Ipv4Multicast) MarshalJSON() ([]byte, error) {
+func (v NullableBgpFilteringProfilesIpv4Multicast) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableBgpFilteringProfilesIpv4Ipv4Multicast) UnmarshalJSON(src []byte) error {
+func (v *NullableBgpFilteringProfilesIpv4Multicast) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

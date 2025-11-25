@@ -13,7 +13,6 @@ package network_services
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the BgpFilteringProfilesIpv4 type satisfies the MappedNullable interface at compile time
@@ -21,7 +20,8 @@ var _ MappedNullable = &BgpFilteringProfilesIpv4{}
 
 // BgpFilteringProfilesIpv4 struct for BgpFilteringProfilesIpv4
 type BgpFilteringProfilesIpv4 struct {
-	Ipv4                 BgpFilteringProfilesIpv4Ipv4 `json:"ipv4"`
+	Multicast            *BgpFilteringProfilesIpv4Multicast `json:"multicast,omitempty"`
+	Unicast              *BgpFilter                         `json:"unicast,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,9 +31,8 @@ type _BgpFilteringProfilesIpv4 BgpFilteringProfilesIpv4
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBgpFilteringProfilesIpv4(ipv4 BgpFilteringProfilesIpv4Ipv4) *BgpFilteringProfilesIpv4 {
+func NewBgpFilteringProfilesIpv4() *BgpFilteringProfilesIpv4 {
 	this := BgpFilteringProfilesIpv4{}
-	this.Ipv4 = ipv4
 	return &this
 }
 
@@ -45,28 +44,68 @@ func NewBgpFilteringProfilesIpv4WithDefaults() *BgpFilteringProfilesIpv4 {
 	return &this
 }
 
-// GetIpv4 returns the Ipv4 field value
-func (o *BgpFilteringProfilesIpv4) GetIpv4() BgpFilteringProfilesIpv4Ipv4 {
-	if o == nil {
-		var ret BgpFilteringProfilesIpv4Ipv4
+// GetMulticast returns the Multicast field value if set, zero value otherwise.
+func (o *BgpFilteringProfilesIpv4) GetMulticast() BgpFilteringProfilesIpv4Multicast {
+	if o == nil || IsNil(o.Multicast) {
+		var ret BgpFilteringProfilesIpv4Multicast
 		return ret
 	}
-
-	return o.Ipv4
+	return *o.Multicast
 }
 
-// GetIpv4Ok returns a tuple with the Ipv4 field value
+// GetMulticastOk returns a tuple with the Multicast field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpFilteringProfilesIpv4) GetIpv4Ok() (*BgpFilteringProfilesIpv4Ipv4, bool) {
-	if o == nil {
+func (o *BgpFilteringProfilesIpv4) GetMulticastOk() (*BgpFilteringProfilesIpv4Multicast, bool) {
+	if o == nil || IsNil(o.Multicast) {
 		return nil, false
 	}
-	return &o.Ipv4, true
+	return o.Multicast, true
 }
 
-// SetIpv4 sets field value
-func (o *BgpFilteringProfilesIpv4) SetIpv4(v BgpFilteringProfilesIpv4Ipv4) {
-	o.Ipv4 = v
+// HasMulticast returns a boolean if a field has been set.
+func (o *BgpFilteringProfilesIpv4) HasMulticast() bool {
+	if o != nil && !IsNil(o.Multicast) {
+		return true
+	}
+
+	return false
+}
+
+// SetMulticast gets a reference to the given BgpFilteringProfilesIpv4Multicast and assigns it to the Multicast field.
+func (o *BgpFilteringProfilesIpv4) SetMulticast(v BgpFilteringProfilesIpv4Multicast) {
+	o.Multicast = &v
+}
+
+// GetUnicast returns the Unicast field value if set, zero value otherwise.
+func (o *BgpFilteringProfilesIpv4) GetUnicast() BgpFilter {
+	if o == nil || IsNil(o.Unicast) {
+		var ret BgpFilter
+		return ret
+	}
+	return *o.Unicast
+}
+
+// GetUnicastOk returns a tuple with the Unicast field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BgpFilteringProfilesIpv4) GetUnicastOk() (*BgpFilter, bool) {
+	if o == nil || IsNil(o.Unicast) {
+		return nil, false
+	}
+	return o.Unicast, true
+}
+
+// HasUnicast returns a boolean if a field has been set.
+func (o *BgpFilteringProfilesIpv4) HasUnicast() bool {
+	if o != nil && !IsNil(o.Unicast) {
+		return true
+	}
+
+	return false
+}
+
+// SetUnicast gets a reference to the given BgpFilter and assigns it to the Unicast field.
+func (o *BgpFilteringProfilesIpv4) SetUnicast(v BgpFilter) {
+	o.Unicast = &v
 }
 
 func (o BgpFilteringProfilesIpv4) MarshalJSON() ([]byte, error) {
@@ -79,7 +118,12 @@ func (o BgpFilteringProfilesIpv4) MarshalJSON() ([]byte, error) {
 
 func (o BgpFilteringProfilesIpv4) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["ipv4"] = o.Ipv4
+	if !IsNil(o.Multicast) {
+		toSerialize["multicast"] = o.Multicast
+	}
+	if !IsNil(o.Unicast) {
+		toSerialize["unicast"] = o.Unicast
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -89,27 +133,6 @@ func (o BgpFilteringProfilesIpv4) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *BgpFilteringProfilesIpv4) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"ipv4",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varBgpFilteringProfilesIpv4 := _BgpFilteringProfilesIpv4{}
 
 	err = json.Unmarshal(data, &varBgpFilteringProfilesIpv4)
@@ -123,7 +146,8 @@ func (o *BgpFilteringProfilesIpv4) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "ipv4")
+		delete(additionalProperties, "multicast")
+		delete(additionalProperties, "unicast")
 		o.AdditionalProperties = additionalProperties
 	}
 

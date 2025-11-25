@@ -28,8 +28,37 @@ func generateSequenceName(base string) string {
 	return base + common.GenerateRandomString(4)
 }
 
-// createTestAuthSequence creates an AuthenticationSequences object
-// using the configuration provided in the user request.
+// generateProfileName creates a unique name for the profile.
+func generateProfileName(base string) string {
+	return base + common.GenerateRandomString(4)
+}
+
+// setupTestAuthProfile creates an authentication profile and returns its name and a cleanup function
+func setupTestAuthProfile(t *testing.T, client *identity_services.APIClient) (string, func()) {
+	profileName := generateProfileName("scm-authprofile-")
+	authProfile := createTestLocalDBFullConfigProfile(t, profileName)
+
+	t.Logf("Creating Authentication Profile with name: %s", profileName)
+	createRes, _, err := client.AuthenticationProfilesAPI.CreateAuthenticationProfiles(context.Background()).
+		AuthenticationProfiles(authProfile).
+		Execute()
+	require.NoError(t, err, "Failed to create Authentication Profile for test setup")
+
+	profileID := createRes.GetId()
+	require.NotEmpty(t, profileID, "Created profile should have a generated ID")
+
+	// Return cleanup function
+	cleanup := func() {
+		t.Logf("Cleaning up Authentication Profile with ID: %s", profileID)
+		_, errDel := client.AuthenticationProfilesAPI.DeleteAuthenticationProfilesByID(context.Background(), profileID).Execute()
+		require.NoError(t, errDel, "Failed to delete Authentication Profile during cleanup")
+	}
+
+	return profileName, cleanup
+}
+
+// createTestAuthSequence creates an AuthenticationSequences object.
+// IMPORTANT: It no longer sets the AuthenticationProfiles field, allowing the caller to set it dynamically.
 func createTestAuthSequence(t *testing.T, sequenceName string) identity_services.AuthenticationSequences {
 	// Use NewAuthenticationSequencesWithDefaults for a clean starting point.
 	p := identity_services.NewAuthenticationSequencesWithDefaults()
@@ -38,11 +67,9 @@ func createTestAuthSequence(t *testing.T, sequenceName string) identity_services
 	p.SetName(sequenceName)
 	p.SetFolder("All")
 	p.SetUseDomainFindProfile(false)
-	p.SetAuthenticationProfiles([]string{"Test_UI"})
+	// p.SetAuthenticationProfiles([]string{"Test_UI"}) <-- REMOVED THIS HARDCODED VALUE
 
-	// NOTE: For a POST request, the 'Id' field is typically omitted, even if
-	// the model constructor requires it. We trust the client to handle the
-	// serialization correctly based on the Go type properties.
+	// NOTE: For a POST request, the 'Id' field is typically omitted.
 
 	return *p
 }
@@ -54,8 +81,19 @@ func Test_identityservices_AuthenticationSequencesAPIService__Create(t *testing.
 	client := SetupIdentitySvcTestClient(t)
 	sequenceName := generateSequenceName("scm-authseq-create-")
 
+	// --- 1. SETUP PREREQUISITE: Create the Authentication Profile ---
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+
+	// Ensure the profile is deleted after this test runs.
+	defer profileCleanup()
+
+	// --- 2. CREATE SEQUENCE OBJECT: Use the temporary profile name ---
 	authSequence := createTestAuthSequence(t, sequenceName)
 
+	// ASSIGN: Override the default list with the dynamically created profile name.
+	authSequence.SetAuthenticationProfiles([]string{profileName})
+
+	// --- 3. TEST EXECUTION ---
 	t.Logf("Creating Authentication Sequence with name: %s", sequenceName)
 	req := client.AuthenticationSequencesAPI.CreateAuthenticationSequences(context.Background()).AuthenticationSequences(authSequence)
 	res, httpRes, err := req.Execute()
@@ -71,7 +109,7 @@ func Test_identityservices_AuthenticationSequencesAPIService__Create(t *testing.
 	createdID := res.GetId()
 	require.NotEmpty(t, createdID, "Created sequence should have a generated ID")
 
-	// Cleanup the created sequence
+	// --- 4. CLEANUP THE SEQUENCE ---
 	defer func() {
 		t.Logf("Cleaning up Authentication Sequence with ID: %s", createdID)
 		_, errDel := client.AuthenticationSequencesAPI.DeleteAuthenticationSequencesByID(context.Background(), createdID).Execute()
@@ -80,10 +118,12 @@ func Test_identityservices_AuthenticationSequencesAPIService__Create(t *testing.
 
 	t.Logf("Successfully created Authentication Sequence ID: %s", createdID)
 
-	// Verify the response matches key input fields
+	// --- 5. VERIFY RESPONSE ---
 	assert.Equal(t, sequenceName, res.Name, "Created sequence name should match")
 	assert.Equal(t, false, res.GetUseDomainFindProfile(), "use_domain_find_profile should be false")
-	assert.Equal(t, []string{"Test_UI"}, res.GetAuthenticationProfiles(), "Authentication profiles list should match")
+
+	// VERIFY: The returned profile list contains the dynamic profile name
+	assert.Equal(t, []string{profileName}, res.GetAuthenticationProfiles(), "Authentication profiles list should match the created profile name")
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -92,7 +132,14 @@ func Test_identityservices_AuthenticationSequencesAPIService__Create(t *testing.
 func Test_identityservices_AuthenticationSequencesAPIService__GetByID(t *testing.T) {
 	client := SetupIdentitySvcTestClient(t)
 	sequenceName := generateSequenceName("scm-authseq-get-")
+
+	// Setup prerequisite profile
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+	defer profileCleanup()
+
+	// Create sequence with the profile
 	authSequence := createTestAuthSequence(t, sequenceName)
+	authSequence.SetAuthenticationProfiles([]string{profileName})
 
 	// Setup: Create a sequence first and capture the generated ID
 	createRes, _, err := client.AuthenticationSequencesAPI.CreateAuthenticationSequences(context.Background()).AuthenticationSequences(authSequence).Execute()
@@ -113,7 +160,7 @@ func Test_identityservices_AuthenticationSequencesAPIService__GetByID(t *testing
 	// Verify the retrieved data
 	assert.Equal(t, createdID, getRes.GetId(), "Retrieved ID should match the created ID")
 	assert.Equal(t, sequenceName, getRes.Name, "Retrieved name should match")
-	assert.Equal(t, []string{"Test_UI"}, getRes.GetAuthenticationProfiles(), "Authentication profiles list should be preserved")
+	assert.Equal(t, []string{profileName}, getRes.GetAuthenticationProfiles(), "Authentication profiles list should be preserved")
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -124,8 +171,15 @@ func Test_identityservices_AuthenticationSequencesAPIService__Update(t *testing.
 	sequenceName := generateSequenceName("scm-authseq-update-")
 	targetFolder := "All"
 
+	// Setup prerequisite profiles
+	profileName1, profileCleanup1 := setupTestAuthProfile(t, client)
+	defer profileCleanup1()
+	profileName2, profileCleanup2 := setupTestAuthProfile(t, client)
+	defer profileCleanup2()
+
 	// 1. Setup: Create a sequence first
 	authSequence := createTestAuthSequence(t, sequenceName)
+	authSequence.SetAuthenticationProfiles([]string{profileName1}) // Start with first profile
 	authSequence.SetFolder(targetFolder)
 
 	createRes, _, err := client.AuthenticationSequencesAPI.CreateAuthenticationSequences(context.Background()).AuthenticationSequences(authSequence).Execute()
@@ -137,7 +191,7 @@ func Test_identityservices_AuthenticationSequencesAPIService__Update(t *testing.
 	}()
 
 	// 2. Prepare updated sequence object
-	updatedAuthProfiles := []string{"Test_UI"}
+	updatedAuthProfiles := []string{profileName2} // Use the second profile for update
 	updatedUseDomain := true
 
 	// Use the original helper structure
@@ -169,7 +223,13 @@ func Test_identityservices_AuthenticationSequencesAPIService__Update(t *testing.
 func Test_identityservices_AuthenticationSequencesAPIService__List(t *testing.T) {
 	client := SetupIdentitySvcTestClient(t)
 	sequenceName := generateSequenceName("scm-authseq-list-")
+
+	// Setup prerequisite profile
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+	defer profileCleanup()
+
 	authSequence := createTestAuthSequence(t, sequenceName)
+	authSequence.SetAuthenticationProfiles([]string{profileName})
 
 	// Setup: Create a unique sequence to ensure the list filter works
 	createRes, _, err := client.AuthenticationSequencesAPI.CreateAuthenticationSequences(context.Background()).AuthenticationSequences(authSequence).Execute()
@@ -196,7 +256,13 @@ func Test_identityservices_AuthenticationSequencesAPIService__List(t *testing.T)
 func Test_identityservices_AuthenticationSequencesAPIService__DeleteByID(t *testing.T) {
 	client := SetupIdentitySvcTestClient(t)
 	sequenceName := generateSequenceName("scm-authseq-delete-")
+
+	// Setup prerequisite profile
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+	defer profileCleanup()
+
 	authSequence := createTestAuthSequence(t, sequenceName)
+	authSequence.SetAuthenticationProfiles([]string{profileName})
 
 	// Setup: Create a sequence first and capture the generated ID
 	createRes, _, err := client.AuthenticationSequencesAPI.CreateAuthenticationSequences(context.Background()).AuthenticationSequences(authSequence).Execute()

@@ -130,7 +130,7 @@ func Test_network_services_PBFRulesAPIService_UpdateByID(t *testing.T) {
 
 	// Prepare updated rule object
 	updatedDescription := "Updated PBF rule description"
-	updatedRuleName := ruleName + "-v2"
+	updatedRuleName := ruleName
 
 	// Use the retrieved object to ensure all required fields are present
 	updatedRule := *createRes

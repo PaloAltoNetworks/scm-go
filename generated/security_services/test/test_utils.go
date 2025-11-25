@@ -4,9 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"net/http"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/require"
 
@@ -32,47 +30,21 @@ func SetupSecuritySvcTestClient(t *testing.T) *security_services.APIClient {
 	// Refresh JWT token
 	ctx := context.Background()
 	if setupClient.Jwt == "" {
-		maxRetries := 3
-		retryDelay := 2 * time.Second
-		for i := 0; i < maxRetries; i++ {
-			err = setupClient.RefreshJwt(ctx)
-			if err == nil {
-				break // Success, exit the loop
-			}
-			t.Logf("Failed to refresh JWT (attempt %d/%d), retrying in %v... Error: %v", i+1, maxRetries, retryDelay, err)
-			time.Sleep(retryDelay)
+		fmt.Printf("\n****************\nGetting tokens\n***********************\n")
+		err = setupClient.RefreshJwt(ctx)
+		if err != nil {
+			// Print detailed error information
+			fmt.Printf("=== JWT REFRESH ERROR ===\n")
+			fmt.Printf("Error: %v\n", err)
+			fmt.Printf("Error Type: %T\n", err)
+			fmt.Printf("Error String: %s\n", err.Error())
+			fmt.Printf("=========================\n")
 		}
 		// Fail the test only after all retries have been exhausted.
 		require.NoError(t, err, "Failed to refresh JWT after multiple retries")
 	}
 
-	// Create the security_services API client
-	config := security_services.NewConfiguration()
-	config.Host = setupClient.GetHost()
-	config.Scheme = "https"
-
-	// Create a custom HTTP client that includes the JWT token and logging
-	if setupClient.HttpClient == nil {
-		setupClient.HttpClient = &http.Client{}
-	}
-
-	// Wrap the transport with our logging transport
-	if setupClient.HttpClient.Transport == nil {
-		setupClient.HttpClient.Transport = http.DefaultTransport
-	}
-	setupClient.HttpClient.Transport = &common.LoggingRoundTripper{
-		Wrapped: setupClient.HttpClient.Transport,
-	}
-
-	config.HTTPClient = setupClient.HttpClient
-
-	// Set up the default header with JWT
-	config.DefaultHeader = make(map[string]string)
-	config.DefaultHeader["Authorization"] = "Bearer " + setupClient.Jwt
-	config.DefaultHeader["x-auth-jwt"] = setupClient.Jwt
-
-	apiClient := security_services.NewAPIClient(config)
-	return apiClient
+	return setup.GetSecurity_servicesAPIClient(setupClient)
 }
 
 // printAPIError prints formatted API error response from error object's body
