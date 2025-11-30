@@ -265,9 +265,6 @@ paths:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/offset'
       - $ref: '#/components/parameters/name'
-      - $ref: '#/components/parameters/folder'
-      - $ref: '#/components/parameters/snippet'
-      - $ref: '#/components/parameters/device'
       responses:
         "200":
           content:

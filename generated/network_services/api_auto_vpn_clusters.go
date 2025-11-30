@@ -501,9 +501,6 @@ type ApiListAutoVPNClustersRequest struct {
 	limit      *int32
 	offset     *int32
 	name       *string
-	folder     *string
-	snippet    *string
-	device     *string
 }
 
 // The maximum number of results per page
@@ -521,24 +518,6 @@ func (r ApiListAutoVPNClustersRequest) Offset(offset int32) ApiListAutoVPNCluste
 // The name of the configuration resource
 func (r ApiListAutoVPNClustersRequest) Name(name string) ApiListAutoVPNClustersRequest {
 	r.name = &name
-	return r
-}
-
-// The folder in which the resource is defined
-func (r ApiListAutoVPNClustersRequest) Folder(folder string) ApiListAutoVPNClustersRequest {
-	r.folder = &folder
-	return r
-}
-
-// The snippet in which the resource is defined
-func (r ApiListAutoVPNClustersRequest) Snippet(snippet string) ApiListAutoVPNClustersRequest {
-	r.snippet = &snippet
-	return r
-}
-
-// The device in which the resource is defined
-func (r ApiListAutoVPNClustersRequest) Device(device string) ApiListAutoVPNClustersRequest {
-	r.device = &device
 	return r
 }
 
@@ -597,15 +576,6 @@ func (a *AutoVPNClustersAPIService) ListAutoVPNClustersExecute(r ApiListAutoVPNC
 	}
 	if r.name != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
-	}
-	if r.folder != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "folder", r.folder, "form", "")
-	}
-	if r.snippet != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "snippet", r.snippet, "form", "")
-	}
-	if r.device != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "device", r.device, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
