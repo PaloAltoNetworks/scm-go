@@ -270,9 +270,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/auto-vpn-clusters'
-                type: array
+                $ref: '#/components/schemas/AutoVPNClustersListResponse'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic'
@@ -6533,6 +6531,35 @@ components:
         data:
           items:
             $ref: '#/components/schemas/AggregateInterfaces'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+    AutoVPNClustersListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AutoVpnClusters'
           type: array
         limit:
           default: 200

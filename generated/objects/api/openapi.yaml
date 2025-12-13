@@ -13542,14 +13542,20 @@ components:
     syslog-server-profiles:
       example:
         snippet: My Snippet
-        folder: My Folder
-        servers:
-          server: server
+        server:
+        - server: server
           port: 5249
           format: BSD
           name: name
           transport: UDP
           facility: LOG_USER
+        - server: server
+          port: 5249
+          format: BSD
+          name: name
+          transport: UDP
+          facility: LOG_USER
+        folder: My Folder
         format:
           escaping:
             escaped_characters: escaped_characters
@@ -13598,8 +13604,13 @@ components:
           description: The name of the syslog server profile
           maxLength: 31
           type: string
-        servers:
-          $ref: '#/components/schemas/syslog_server_profiles_servers'
+        server:
+          description: A list of syslog server configurations. At least one server
+            is required.
+          items:
+            $ref: '#/components/schemas/syslog_server_profiles_server_inner'
+          minItems: 1
+          type: array
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
@@ -13609,6 +13620,7 @@ components:
       required:
       - id
       - name
+      - server
       type: object
     tags:
       example:
@@ -16957,7 +16969,7 @@ components:
         wildfire:
           type: string
       type: object
-    syslog_server_profiles_servers:
+    syslog_server_profiles_server_inner:
       example:
         server: server
         port: 5249

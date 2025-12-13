@@ -3169,7 +3169,7 @@ paths:
               $ref: '#/components/schemas/decryption-rules'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
@@ -7488,7 +7488,7 @@ paths:
               $ref: '#/components/schemas/security-rules'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
