@@ -24,7 +24,7 @@ type HttpHeaderProfilesHttpHeaderInsertionInnerTypeInner struct {
 	// A list of DNS domains
 	Domains []string                                                          `json:"domains"`
 	Headers []HttpHeaderProfilesHttpHeaderInsertionInnerTypeInnerHeadersInner `json:"headers"`
-	// The HTTP header insertion type (_This is a predefined list in the UI_)
+	// The HTTP header insertion type
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }

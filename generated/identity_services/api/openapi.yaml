@@ -12281,16 +12281,14 @@ components:
           enc_algo_aes_128_cbc: true
           enc_algo_aes_256_gcm: true
           min_version: tls1-2
-          enc_algo_3des: true
-          auth_algo_sha1: true
-          auth_algo_sha256: true
-          auth_algo_sha384: true
-          enc_algo_aes_256_cbc: true
           max_version: tls1-3
           enc_algo_aes_128_gcm: true
+          auth_algo_sha1: true
           keyxchg_algo_ecdhe: true
-          enc_algo_rc4: true
+          auth_algo_sha256: true
+          auth_algo_sha384: true
           keyxchg_algo_rsa: true
+          enc_algo_aes_256_cbc: true
           keyxchg_algo_dhe: true
         folder: My Folder
         certificate: certificate
@@ -13038,16 +13036,14 @@ components:
         enc_algo_aes_128_cbc: true
         enc_algo_aes_256_gcm: true
         min_version: tls1-2
-        enc_algo_3des: true
-        auth_algo_sha1: true
-        auth_algo_sha256: true
-        auth_algo_sha384: true
-        enc_algo_aes_256_cbc: true
         max_version: tls1-3
         enc_algo_aes_128_gcm: true
+        auth_algo_sha1: true
         keyxchg_algo_ecdhe: true
-        enc_algo_rc4: true
+        auth_algo_sha256: true
+        auth_algo_sha384: true
         keyxchg_algo_rsa: true
+        enc_algo_aes_256_cbc: true
         keyxchg_algo_dhe: true
       properties:
         auth_algo_sha1:
@@ -13058,9 +13054,6 @@ components:
           type: boolean
         auth_algo_sha384:
           description: Allow SHA384 authentication?
-          type: boolean
-        enc_algo_3des:
-          description: Allow 3DES algorithm?
           type: boolean
         enc_algo_aes_128_cbc:
           description: Allow AES-128-CBC algorithm?
@@ -13073,9 +13066,6 @@ components:
           type: boolean
         enc_algo_aes_256_gcm:
           description: Allow algorithm AES-256-GCM
-          type: boolean
-        enc_algo_rc4:
-          description: Allow RC4 algorithm?
           type: boolean
         keyxchg_algo_dhe:
           description: Allow DHE algorithm?
@@ -13102,6 +13092,7 @@ components:
           - tls1-0
           - tls1-1
           - tls1-2
+          - tls1-3
           type: string
       type: object
   securitySchemes:

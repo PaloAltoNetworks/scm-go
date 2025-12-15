@@ -13464,7 +13464,7 @@ components:
               name: name
               header: X-MyCustomHeader
               value: somevalue
-            name: name
+            name: Custom
             domains:
             - '*.google.com'
             - gmail.com
@@ -13477,7 +13477,7 @@ components:
               name: name
               header: X-MyCustomHeader
               value: somevalue
-            name: name
+            name: Custom
             domains:
             - '*.google.com'
             - gmail.com
@@ -13492,7 +13492,7 @@ components:
               name: name
               header: X-MyCustomHeader
               value: somevalue
-            name: name
+            name: Custom
             domains:
             - '*.google.com'
             - gmail.com
@@ -13505,7 +13505,7 @@ components:
               name: name
               header: X-MyCustomHeader
               value: somevalue
-            name: name
+            name: Custom
             domains:
             - '*.google.com'
             - gmail.com
@@ -17048,8 +17048,7 @@ components:
           description: Log the use of this HTTP header insertion?
           type: boolean
         name:
-          description: An auto-generated name (_This should be removed_)
-          readOnly: true
+          description: The name of the HTTP header
           type: string
         value:
           description: The value associated with the HTTP header
@@ -17071,7 +17070,7 @@ components:
           name: name
           header: X-MyCustomHeader
           value: somevalue
-        name: name
+        name: Custom
         domains:
         - '*.google.com'
         - gmail.com
@@ -17089,8 +17088,14 @@ components:
             $ref: '#/components/schemas/http_header_profiles_http_header_insertion_inner_type_inner_headers_inner'
           type: array
         name:
-          description: The HTTP header insertion type (_This is a predefined list
-            in the UI_)
+          description: The HTTP header insertion type
+          enum:
+          - Custom
+          - Dropbox Network Control
+          - Dynamic Fields
+          - Google Apps Access Control
+          - Microsoft Office365 Tenant Restrictions
+          - Youtube Safe Search
           type: string
       required:
       - domains
@@ -17110,7 +17115,7 @@ components:
             name: name
             header: X-MyCustomHeader
             value: somevalue
-          name: name
+          name: Custom
           domains:
           - '*.google.com'
           - gmail.com
@@ -17123,7 +17128,7 @@ components:
             name: name
             header: X-MyCustomHeader
             value: somevalue
-          name: name
+          name: Custom
           domains:
           - '*.google.com'
           - gmail.com
@@ -17132,8 +17137,7 @@ components:
           description: The name of the HTTP header insertion rule
           type: string
         type:
-          description: A list of HTTP header insertion definitions (_This should be
-            an object rather than an array_)
+          description: A list of HTTP header insertion definitions
           items:
             $ref: '#/components/schemas/http_header_profiles_http_header_insertion_inner_type_inner'
           type: array
