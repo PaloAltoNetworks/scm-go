@@ -12238,6 +12238,7 @@ components:
       type: array
       x-examples: {}
     external-dynamic-lists:
+      description: External Dynamic Lists
       example:
         snippet: My Snippet
         folder: My Folder
@@ -12284,7 +12285,7 @@ components:
                 at: "00"
               monthly:
                 at: "00"
-                day_of_month: 3
+                day_of_month: 18
               hourly: "{}"
               five_minute: "{}"
               weekly:
@@ -12305,7 +12306,7 @@ components:
                 at: "00"
               monthly:
                 at: "00"
-                day_of_month: 3
+                day_of_month: 19
               hourly: "{}"
               five_minute: "{}"
               weekly:
@@ -12326,7 +12327,7 @@ components:
                 at: "00"
               monthly:
                 at: "00"
-                day_of_month: 3
+                day_of_month: 5
               hourly: "{}"
               five_minute: "{}"
               weekly:
@@ -12353,7 +12354,7 @@ components:
                 at: "00"
               monthly:
                 at: "00"
-                day_of_month: 3
+                day_of_month: 17
               hourly: "{}"
               five_minute: "{}"
               weekly:
@@ -14287,14 +14288,18 @@ components:
       - type
       type: object
     external_dynamic_lists_type_domain_auth:
+      description: Authentication settings for Custom Domain type
       example:
         password: password
         username: username
       properties:
         password:
+          description: Password for Custom Domain authentication
+          format: password
           maxLength: 255
           type: string
         username:
+          description: Username for Custom Domain authentication
           maxLength: 255
           minLength: 1
           type: string
@@ -14303,12 +14308,13 @@ components:
       - username
       type: object
     external_dynamic_lists_type_domain_recurring_daily:
+      description: Daily settings for Domain recurring
       example:
         at: "00"
       properties:
         at:
           default: "00"
-          description: Time specification hh (e.g. 20)
+          description: Daily Time specification hh (e.g. 20) for Domain
           maxLength: 2
           minLength: 2
           pattern: "([01][0-9]|[2][0-3])"
@@ -14317,18 +14323,20 @@ components:
       - at
       type: object
     external_dynamic_lists_type_domain_recurring_monthly:
+      description: Monthly settings for Domain recurring
       example:
         at: "00"
         day_of_month: 3
       properties:
         at:
           default: "00"
-          description: Time specification hh (e.g. 20)
+          description: Monthly Time specification hh (e.g. 20) for domain
           maxLength: 2
           minLength: 2
           pattern: "([01][0-9]|[2][0-3])"
           type: string
         day_of_month:
+          description: Day setting for monthly Domain updates
           maximum: 31
           minimum: 1
           type: integer
@@ -14337,13 +14345,14 @@ components:
       - day_of_month
       type: object
     external_dynamic_lists_type_domain_recurring_weekly:
+      description: Weekly settings for Domain recurring
       example:
         at: "00"
         day_of_week: sunday
       properties:
         at:
           default: "00"
-          description: Time specification hh (e.g. 20)
+          description: Weekly Time specification hh (e.g. 20) for Domain
           maxLength: 2
           minLength: 2
           pattern: "([01][0-9]|[2][0-3])"
@@ -14363,6 +14372,7 @@ components:
       - day_of_week
       type: object
     external_dynamic_lists_type_domain_recurring:
+      description: Update Schedule for Custom Domain type
       example:
         daily:
           at: "00"
@@ -14378,8 +14388,10 @@ components:
         daily:
           $ref: '#/components/schemas/external_dynamic_lists_type_domain_recurring_daily'
         five_minute:
+          description: Five minute settings for Domain recurring
           type: object
         hourly:
+          description: Hourly settings for Domain recurring
           type: object
         monthly:
           $ref: '#/components/schemas/external_dynamic_lists_type_domain_recurring_monthly'
@@ -14387,6 +14399,7 @@ components:
           $ref: '#/components/schemas/external_dynamic_lists_type_domain_recurring_weekly'
       type: object
     external_dynamic_lists_type_domain:
+      description: Domain settings for Custom Domain type
       example:
         exception_list:
         - exception_list
@@ -14425,6 +14438,7 @@ components:
           maxLength: 255
           type: string
         exception_list:
+          description: Domain Exception List for Custom Domain type
           items:
             maxLength: 255
             type: string
@@ -14437,126 +14451,26 @@ components:
           $ref: '#/components/schemas/external_dynamic_lists_type_domain_recurring'
         url:
           default: http://
+          description: External URL for Custom Domain type
           maxLength: 255
           type: string
       required:
       - recurring
       - url
       type: object
-    external_dynamic_lists_type_imei:
-      example:
-        exception_list:
-        - exception_list
-        - exception_list
-        auth:
-          password: password
-          username: username
-        recurring:
-          daily:
-            at: "00"
-          monthly:
-            at: "00"
-            day_of_month: 3
-          hourly: "{}"
-          five_minute: "{}"
-          weekly:
-            at: "00"
-            day_of_week: sunday
-        certificate_profile: None
-        description: description
-        url: http://
-      properties:
-        auth:
-          $ref: '#/components/schemas/external_dynamic_lists_type_domain_auth'
-        certificate_profile:
-          default: None
-          description: Profile for authenticating client certificates
-          type: string
-          x-panMultiple:
-          - type: string
-          - enum:
-            - None
-            type: string
-        description:
-          maxLength: 255
-          type: string
-        exception_list:
-          items:
-            maxLength: 32
-            type: string
-          type: array
-        recurring:
-          $ref: '#/components/schemas/external_dynamic_lists_type_domain_recurring'
-        url:
-          default: http://
-          maxLength: 255
-          type: string
-      required:
-      - recurring
-      - url
-      type: object
-    external_dynamic_lists_type_imsi:
-      example:
-        exception_list:
-        - exception_list
-        - exception_list
-        auth:
-          password: password
-          username: username
-        recurring:
-          daily:
-            at: "00"
-          monthly:
-            at: "00"
-            day_of_month: 3
-          hourly: "{}"
-          five_minute: "{}"
-          weekly:
-            at: "00"
-            day_of_week: sunday
-        certificate_profile: None
-        description: description
-        url: http://
-      properties:
-        auth:
-          $ref: '#/components/schemas/external_dynamic_lists_type_domain_auth'
-        certificate_profile:
-          default: None
-          description: Profile for authenticating client certificates
-          type: string
-          x-panMultiple:
-          - type: string
-          - enum:
-            - None
-            type: string
-        description:
-          maxLength: 255
-          type: string
-        exception_list:
-          items:
-            maxLength: 34
-            type: string
-          type: array
-        recurring:
-          $ref: '#/components/schemas/external_dynamic_lists_type_domain_recurring'
-        url:
-          default: http://
-          maxLength: 255
-          type: string
-      required:
-      - recurring
-      - url
-      type: object
-    external_dynamic_lists_type_ip_auth:
+    external_dynamic_lists_type_imei_auth:
+      description: IMEI Auth Cnfig for Custom IMEI type
       example:
         password: password
         username: username
       properties:
         password:
+          description: IMEI Auth Password for Custom IMEI type
           format: password
           maxLength: 255
           type: string
         username:
+          description: IMEI Auth username for Custom IMEI type
           maxLength: 255
           minLength: 1
           type: string
@@ -14564,7 +14478,99 @@ components:
       - password
       - username
       type: object
-    external_dynamic_lists_type_ip:
+    external_dynamic_lists_type_imei_recurring_daily:
+      description: Daily interval settings for IMEI updates
+      example:
+        at: "00"
+      properties:
+        at:
+          default: "00"
+          description: Daily Time specification hh (e.g. 20) for IMEI
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+      required:
+      - at
+      type: object
+    external_dynamic_lists_type_imei_recurring_monthly:
+      description: Monthly interval settings for IMEI updates
+      example:
+        at: "00"
+        day_of_month: 19
+      properties:
+        at:
+          default: "00"
+          description: Monthly Time specification hh (e.g. 20) for IMEI
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+        day_of_month:
+          description: Day of month for IMEI updates
+          maximum: 31
+          minimum: 1
+          type: integer
+      required:
+      - at
+      - day_of_month
+      type: object
+    external_dynamic_lists_type_imei_recurring_weekly:
+      description: Weekly interval settings for IMEI updates
+      example:
+        at: "00"
+        day_of_week: sunday
+      properties:
+        at:
+          default: "00"
+          description: Weekly Time specification hh (e.g. 20) for IMEI
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+        day_of_week:
+          enum:
+          - sunday
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+          type: string
+      required:
+      - at
+      - day_of_week
+      type: object
+    external_dynamic_lists_type_imei_recurring:
+      description: Recurring interval for IMEI updates
+      example:
+        daily:
+          at: "00"
+        monthly:
+          at: "00"
+          day_of_month: 19
+        hourly: "{}"
+        five_minute: "{}"
+        weekly:
+          at: "00"
+          day_of_week: sunday
+      properties:
+        daily:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imei_recurring_daily'
+        five_minute:
+          description: Five-minute interval settings for IMEI updates
+          type: object
+        hourly:
+          description: Hourly interval settings for IMEI updates
+          type: object
+        monthly:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imei_recurring_monthly'
+        weekly:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imei_recurring_weekly'
+      type: object
+    external_dynamic_lists_type_imei:
+      description: IMEI Configuration settings
       example:
         exception_list:
         - exception_list
@@ -14577,7 +14583,341 @@ components:
             at: "00"
           monthly:
             at: "00"
-            day_of_month: 3
+            day_of_month: 19
+          hourly: "{}"
+          five_minute: "{}"
+          weekly:
+            at: "00"
+            day_of_week: sunday
+        certificate_profile: None
+        description: description
+        url: http://
+      properties:
+        auth:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imei_auth'
+        certificate_profile:
+          default: None
+          description: IMEI Certificate Profile for Custom IMEI type
+          type: string
+          x-panMultiple:
+          - type: string
+          - enum:
+            - None
+            type: string
+        description:
+          description: IMEI Description for Custom IMEI type
+          maxLength: 255
+          type: string
+        exception_list:
+          description: IMEI Exception List for Custom IMEI type
+          items:
+            maxLength: 32
+            type: string
+          type: array
+        recurring:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imei_recurring'
+        url:
+          default: http://
+          description: IMEI URL for Custom IMEI type
+          maxLength: 255
+          type: string
+      required:
+      - recurring
+      - url
+      type: object
+    external_dynamic_lists_type_imsi_auth:
+      description: IMSI Auth Config for Custom IMSI type
+      example:
+        password: password
+        username: username
+      properties:
+        password:
+          description: IMSI Auth Password for Custom IMSI type
+          format: password
+          maxLength: 255
+          type: string
+        username:
+          description: IMSI Auth Username for Custom IMSI type
+          maxLength: 255
+          minLength: 1
+          type: string
+      required:
+      - password
+      - username
+      type: object
+    external_dynamic_lists_type_imsi_recurring_daily:
+      description: Daily interval settings for IMSI updates
+      example:
+        at: "00"
+      properties:
+        at:
+          default: "00"
+          description: Daily Time specification hh (e.g. 20) for IMSI
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+      required:
+      - at
+      type: object
+    external_dynamic_lists_type_imsi_recurring_monthly:
+      description: Monthly interval settings for IMSI updates
+      example:
+        at: "00"
+        day_of_month: 5
+      properties:
+        at:
+          default: "00"
+          description: Monthly Time specification hh (e.g. 20) for IMSI
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+        day_of_month:
+          description: Day of the month for monthly IMSI updates
+          maximum: 31
+          minimum: 1
+          type: integer
+      required:
+      - at
+      - day_of_month
+      type: object
+    external_dynamic_lists_type_imsi_recurring_weekly:
+      description: Weekly interval settings for IMSI updates
+      example:
+        at: "00"
+        day_of_week: sunday
+      properties:
+        at:
+          default: "00"
+          description: Weekly Time specification hh (e.g. 20) for IMSI
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+        day_of_week:
+          enum:
+          - sunday
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+          type: string
+      required:
+      - at
+      - day_of_week
+      type: object
+    external_dynamic_lists_type_imsi_recurring:
+      description: IMSI Recuring Config for Custom IMSI type
+      example:
+        daily:
+          at: "00"
+        monthly:
+          at: "00"
+          day_of_month: 5
+        hourly: "{}"
+        five_minute: "{}"
+        weekly:
+          at: "00"
+          day_of_week: sunday
+      properties:
+        daily:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imsi_recurring_daily'
+        five_minute:
+          description: Five-minute interval settings for IMSI updates
+          type: object
+        hourly:
+          description: Hourly interval settings for IMSI updates
+          type: object
+        monthly:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imsi_recurring_monthly'
+        weekly:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imsi_recurring_weekly'
+      type: object
+    external_dynamic_lists_type_imsi:
+      description: IMSI Config for Custom IMSI type
+      example:
+        exception_list:
+        - exception_list
+        - exception_list
+        auth:
+          password: password
+          username: username
+        recurring:
+          daily:
+            at: "00"
+          monthly:
+            at: "00"
+            day_of_month: 5
+          hourly: "{}"
+          five_minute: "{}"
+          weekly:
+            at: "00"
+            day_of_week: sunday
+        certificate_profile: None
+        description: description
+        url: http://
+      properties:
+        auth:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imsi_auth'
+        certificate_profile:
+          default: None
+          description: IMSI Certificate Profile for Custom IMSI type
+          type: string
+          x-panMultiple:
+          - type: string
+          - enum:
+            - None
+            type: string
+        description:
+          description: IMSI Description for Custom IMSI type
+          maxLength: 255
+          type: string
+        exception_list:
+          description: IMSI Exception List for Custom IMSI type
+          items:
+            maxLength: 34
+            type: string
+          type: array
+        recurring:
+          $ref: '#/components/schemas/external_dynamic_lists_type_imsi_recurring'
+        url:
+          default: http://
+          description: IMSI URL for Custom IMSI type
+          maxLength: 255
+          type: string
+      required:
+      - recurring
+      - url
+      type: object
+    external_dynamic_lists_type_ip_auth:
+      description: Authentication settings for Custom IP type
+      example:
+        password: password
+        username: username
+      properties:
+        password:
+          description: Password for Custom IP authentication
+          format: password
+          maxLength: 255
+          type: string
+        username:
+          description: Username for Custom IP authentication
+          maxLength: 255
+          minLength: 1
+          type: string
+      required:
+      - password
+      - username
+      type: object
+    external_dynamic_lists_type_ip_recurring_daily:
+      description: Daily settings for IP recurring
+      example:
+        at: "00"
+      properties:
+        at:
+          default: "00"
+          description: Daily Time specification hh (e.g. 20) for IP
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+      required:
+      - at
+      type: object
+    external_dynamic_lists_type_ip_recurring_monthly:
+      description: Monthly settings for IP recurring
+      example:
+        at: "00"
+        day_of_month: 18
+      properties:
+        at:
+          default: "00"
+          description: Monthly Time specification hh (e.g. 20) for IP
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+        day_of_month:
+          description: Day setting for monthly IP updates
+          maximum: 31
+          minimum: 1
+          type: integer
+      required:
+      - at
+      - day_of_month
+      type: object
+    external_dynamic_lists_type_ip_recurring_weekly:
+      description: Weekly settings for IP recurring
+      example:
+        at: "00"
+        day_of_week: sunday
+      properties:
+        at:
+          default: "00"
+          description: Weekly Time specification hh (e.g. 20) for IP
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+        day_of_week:
+          enum:
+          - sunday
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+          type: string
+      required:
+      - at
+      - day_of_week
+      type: object
+    external_dynamic_lists_type_ip_recurring:
+      description: Update Schedule for Custom IP type
+      example:
+        daily:
+          at: "00"
+        monthly:
+          at: "00"
+          day_of_month: 18
+        hourly: "{}"
+        five_minute: "{}"
+        weekly:
+          at: "00"
+          day_of_week: sunday
+      properties:
+        daily:
+          $ref: '#/components/schemas/external_dynamic_lists_type_ip_recurring_daily'
+        five_minute:
+          description: Five minute settings for IP recurring
+          type: object
+        hourly:
+          description: Hourly settings for IP recurring
+          type: object
+        monthly:
+          $ref: '#/components/schemas/external_dynamic_lists_type_ip_recurring_monthly'
+        weekly:
+          $ref: '#/components/schemas/external_dynamic_lists_type_ip_recurring_weekly'
+      type: object
+    external_dynamic_lists_type_ip:
+      description: IP settings for Custom IP type
+      example:
+        exception_list:
+        - exception_list
+        - exception_list
+        auth:
+          password: password
+          username: username
+        recurring:
+          daily:
+            at: "00"
+          monthly:
+            at: "00"
+            day_of_month: 18
           hourly: "{}"
           five_minute: "{}"
           weekly:
@@ -14602,14 +14942,16 @@ components:
           maxLength: 255
           type: string
         exception_list:
+          description: IP Exception List for Custom IP type
           items:
             maxLength: 255
             type: string
           type: array
         recurring:
-          $ref: '#/components/schemas/external_dynamic_lists_type_domain_recurring'
+          $ref: '#/components/schemas/external_dynamic_lists_type_ip_recurring'
         url:
           default: http://
+          description: External URL for Custom IP type
           maxLength: 255
           type: string
       required:
@@ -14617,6 +14959,7 @@ components:
       - url
       type: object
     external_dynamic_lists_type_predefined_ip:
+      description: Predefined IP settings for EDL type
       example:
         exception_list:
         - exception_list
@@ -14628,16 +14971,154 @@ components:
           maxLength: 255
           type: string
         exception_list:
+          description: IP Exception List for Predefined IP type
           items:
             maxLength: 255
             type: string
           type: array
         url:
+          description: URL source for Predefined IP type
           type: string
       required:
       - url
       type: object
+    external_dynamic_lists_type_predefined_url:
+      description: Predefined URL settings for EDL type
+      example:
+        exception_list:
+        - exception_list
+        - exception_list
+        description: description
+        url: url
+      properties:
+        description:
+          maxLength: 255
+          type: string
+        exception_list:
+          description: URL Exception List for Predefined URL type
+          items:
+            maxLength: 255
+            type: string
+          type: array
+        url:
+          description: URL source for Predefined URL type
+          type: string
+      required:
+      - url
+      type: object
+    external_dynamic_lists_type_url_auth:
+      description: Authentication settings for Custom URL type
+      example:
+        password: password
+        username: username
+      properties:
+        password:
+          description: Password for Custom URL authentication
+          format: password
+          maxLength: 255
+          type: string
+        username:
+          description: Username for Custom URL authentication
+          maxLength: 255
+          minLength: 1
+          type: string
+      required:
+      - password
+      - username
+      type: object
+    external_dynamic_lists_type_url_recurring_daily:
+      description: Daily settings for URL recurring
+      example:
+        at: "00"
+      properties:
+        at:
+          default: "00"
+          description: Daily Time specification hh (e.g. 20) for URL
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+      required:
+      - at
+      type: object
+    external_dynamic_lists_type_url_recurring_monthly:
+      description: Monthly settings for URL recurring
+      example:
+        at: "00"
+        day_of_month: 17
+      properties:
+        at:
+          default: "00"
+          description: Monthly Time specification hh (e.g. 20) for URL
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+        day_of_month:
+          description: Day setting for monthly URL updates
+          maximum: 31
+          minimum: 1
+          type: integer
+      required:
+      - at
+      - day_of_month
+      type: object
+    external_dynamic_lists_type_url_recurring_weekly:
+      description: Weekly settings for URL recurring
+      example:
+        at: "00"
+        day_of_week: sunday
+      properties:
+        at:
+          default: "00"
+          description: Weekly Time specification hh (e.g. 20) for URL
+          maxLength: 2
+          minLength: 2
+          pattern: "([01][0-9]|[2][0-3])"
+          type: string
+        day_of_week:
+          enum:
+          - sunday
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+          type: string
+      required:
+      - at
+      - day_of_week
+      type: object
+    external_dynamic_lists_type_url_recurring:
+      description: Update Schedule for Custom URL type
+      example:
+        daily:
+          at: "00"
+        monthly:
+          at: "00"
+          day_of_month: 17
+        hourly: "{}"
+        five_minute: "{}"
+        weekly:
+          at: "00"
+          day_of_week: sunday
+      properties:
+        daily:
+          $ref: '#/components/schemas/external_dynamic_lists_type_url_recurring_daily'
+        five_minute:
+          description: Five minute settings for URL recurring
+          type: object
+        hourly:
+          description: Hourly settings for URL recurring
+          type: object
+        monthly:
+          $ref: '#/components/schemas/external_dynamic_lists_type_url_recurring_monthly'
+        weekly:
+          $ref: '#/components/schemas/external_dynamic_lists_type_url_recurring_weekly'
+      type: object
     external_dynamic_lists_type_url:
+      description: URL settings for Custom URL type
       example:
         exception_list:
         - exception_list
@@ -14650,7 +15131,7 @@ components:
             at: "00"
           monthly:
             at: "00"
-            day_of_month: 3
+            day_of_month: 17
           hourly: "{}"
           five_minute: "{}"
           weekly:
@@ -14661,7 +15142,7 @@ components:
         url: http://
       properties:
         auth:
-          $ref: '#/components/schemas/external_dynamic_lists_type_domain_auth'
+          $ref: '#/components/schemas/external_dynamic_lists_type_url_auth'
         certificate_profile:
           default: None
           description: Profile for authenticating client certificates
@@ -14675,14 +15156,16 @@ components:
           maxLength: 255
           type: string
         exception_list:
+          description: URL Exception List for Custom URL type
           items:
             maxLength: 255
             type: string
           type: array
         recurring:
-          $ref: '#/components/schemas/external_dynamic_lists_type_domain_recurring'
+          $ref: '#/components/schemas/external_dynamic_lists_type_url_recurring'
         url:
           default: http://
+          description: External URL for Custom URL type
           maxLength: 255
           type: string
       required:
@@ -14690,6 +15173,7 @@ components:
       - url
       type: object
     external_dynamic_lists_type:
+      description: Type configuration for External Dynamic List
       example:
         predefined_ip:
           exception_list:
@@ -14731,7 +15215,7 @@ components:
               at: "00"
             monthly:
               at: "00"
-              day_of_month: 3
+              day_of_month: 18
             hourly: "{}"
             five_minute: "{}"
             weekly:
@@ -14752,7 +15236,7 @@ components:
               at: "00"
             monthly:
               at: "00"
-              day_of_month: 3
+              day_of_month: 19
             hourly: "{}"
             five_minute: "{}"
             weekly:
@@ -14773,7 +15257,7 @@ components:
               at: "00"
             monthly:
               at: "00"
-              day_of_month: 3
+              day_of_month: 5
             hourly: "{}"
             five_minute: "{}"
             weekly:
@@ -14800,7 +15284,7 @@ components:
               at: "00"
             monthly:
               at: "00"
-              day_of_month: 3
+              day_of_month: 17
             hourly: "{}"
             five_minute: "{}"
             weekly:
@@ -14821,7 +15305,7 @@ components:
         predefined_ip:
           $ref: '#/components/schemas/external_dynamic_lists_type_predefined_ip'
         predefined_url:
-          $ref: '#/components/schemas/external_dynamic_lists_type_predefined_ip'
+          $ref: '#/components/schemas/external_dynamic_lists_type_predefined_url'
         url:
           $ref: '#/components/schemas/external_dynamic_lists_type_url'
       type: object

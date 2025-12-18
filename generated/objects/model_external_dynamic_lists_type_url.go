@@ -19,15 +19,17 @@ import (
 // checks if the ExternalDynamicListsTypeUrl type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeUrl{}
 
-// ExternalDynamicListsTypeUrl struct for ExternalDynamicListsTypeUrl
+// ExternalDynamicListsTypeUrl URL settings for Custom URL type
 type ExternalDynamicListsTypeUrl struct {
-	Auth *ExternalDynamicListsTypeDomainAuth `json:"auth,omitempty"`
+	Auth *ExternalDynamicListsTypeUrlAuth `json:"auth,omitempty"`
 	// Profile for authenticating client certificates
-	CertificateProfile   *string                                 `json:"certificate_profile,omitempty"`
-	Description          *string                                 `json:"description,omitempty"`
-	ExceptionList        []string                                `json:"exception_list,omitempty"`
-	Recurring            ExternalDynamicListsTypeDomainRecurring `json:"recurring"`
-	Url                  string                                  `json:"url"`
+	CertificateProfile *string `json:"certificate_profile,omitempty"`
+	Description        *string `json:"description,omitempty"`
+	// URL Exception List for Custom URL type
+	ExceptionList []string                             `json:"exception_list,omitempty"`
+	Recurring     ExternalDynamicListsTypeUrlRecurring `json:"recurring"`
+	// External URL for Custom URL type
+	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,7 +39,7 @@ type _ExternalDynamicListsTypeUrl ExternalDynamicListsTypeUrl
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalDynamicListsTypeUrl(recurring ExternalDynamicListsTypeDomainRecurring, url string) *ExternalDynamicListsTypeUrl {
+func NewExternalDynamicListsTypeUrl(recurring ExternalDynamicListsTypeUrlRecurring, url string) *ExternalDynamicListsTypeUrl {
 	this := ExternalDynamicListsTypeUrl{}
 	var certificateProfile string = "None"
 	this.CertificateProfile = &certificateProfile
@@ -59,9 +61,9 @@ func NewExternalDynamicListsTypeUrlWithDefaults() *ExternalDynamicListsTypeUrl {
 }
 
 // GetAuth returns the Auth field value if set, zero value otherwise.
-func (o *ExternalDynamicListsTypeUrl) GetAuth() ExternalDynamicListsTypeDomainAuth {
+func (o *ExternalDynamicListsTypeUrl) GetAuth() ExternalDynamicListsTypeUrlAuth {
 	if o == nil || IsNil(o.Auth) {
-		var ret ExternalDynamicListsTypeDomainAuth
+		var ret ExternalDynamicListsTypeUrlAuth
 		return ret
 	}
 	return *o.Auth
@@ -69,7 +71,7 @@ func (o *ExternalDynamicListsTypeUrl) GetAuth() ExternalDynamicListsTypeDomainAu
 
 // GetAuthOk returns a tuple with the Auth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypeUrl) GetAuthOk() (*ExternalDynamicListsTypeDomainAuth, bool) {
+func (o *ExternalDynamicListsTypeUrl) GetAuthOk() (*ExternalDynamicListsTypeUrlAuth, bool) {
 	if o == nil || IsNil(o.Auth) {
 		return nil, false
 	}
@@ -85,8 +87,8 @@ func (o *ExternalDynamicListsTypeUrl) HasAuth() bool {
 	return false
 }
 
-// SetAuth gets a reference to the given ExternalDynamicListsTypeDomainAuth and assigns it to the Auth field.
-func (o *ExternalDynamicListsTypeUrl) SetAuth(v ExternalDynamicListsTypeDomainAuth) {
+// SetAuth gets a reference to the given ExternalDynamicListsTypeUrlAuth and assigns it to the Auth field.
+func (o *ExternalDynamicListsTypeUrl) SetAuth(v ExternalDynamicListsTypeUrlAuth) {
 	o.Auth = &v
 }
 
@@ -187,9 +189,9 @@ func (o *ExternalDynamicListsTypeUrl) SetExceptionList(v []string) {
 }
 
 // GetRecurring returns the Recurring field value
-func (o *ExternalDynamicListsTypeUrl) GetRecurring() ExternalDynamicListsTypeDomainRecurring {
+func (o *ExternalDynamicListsTypeUrl) GetRecurring() ExternalDynamicListsTypeUrlRecurring {
 	if o == nil {
-		var ret ExternalDynamicListsTypeDomainRecurring
+		var ret ExternalDynamicListsTypeUrlRecurring
 		return ret
 	}
 
@@ -198,7 +200,7 @@ func (o *ExternalDynamicListsTypeUrl) GetRecurring() ExternalDynamicListsTypeDom
 
 // GetRecurringOk returns a tuple with the Recurring field value
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypeUrl) GetRecurringOk() (*ExternalDynamicListsTypeDomainRecurring, bool) {
+func (o *ExternalDynamicListsTypeUrl) GetRecurringOk() (*ExternalDynamicListsTypeUrlRecurring, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -206,7 +208,7 @@ func (o *ExternalDynamicListsTypeUrl) GetRecurringOk() (*ExternalDynamicListsTyp
 }
 
 // SetRecurring sets field value
-func (o *ExternalDynamicListsTypeUrl) SetRecurring(v ExternalDynamicListsTypeDomainRecurring) {
+func (o *ExternalDynamicListsTypeUrl) SetRecurring(v ExternalDynamicListsTypeUrlRecurring) {
 	o.Recurring = v
 }
 

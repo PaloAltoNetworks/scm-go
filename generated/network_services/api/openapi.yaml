@@ -21236,6 +21236,7 @@ components:
           description: Interface variable or hardcoded vlan/loopback. vlan will be
             passed as default value
           type: string
+      x-computed-field: true
     ike_gateways_local_id:
       example:
         id: id
@@ -21333,6 +21334,7 @@ components:
           enum:
           - false
           type: boolean
+      x-computed-field: true
     ike_gateways_protocol_common_nat_traversal:
       description: Enables NAT traversal for the IKE gateway.
       example:
@@ -21341,6 +21343,7 @@ components:
         enable:
           default: true
           type: boolean
+      x-computed-field: true
     ike_gateways_protocol_common:
       example:
         nat_traversal:
@@ -21356,6 +21359,7 @@ components:
         passive_mode:
           default: false
           type: boolean
+      x-computed-field: true
     interface_management_profiles_permitted_ip_inner:
       example:
         name: name

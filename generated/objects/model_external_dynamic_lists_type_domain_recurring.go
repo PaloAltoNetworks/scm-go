@@ -18,10 +18,12 @@ import (
 // checks if the ExternalDynamicListsTypeDomainRecurring type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeDomainRecurring{}
 
-// ExternalDynamicListsTypeDomainRecurring struct for ExternalDynamicListsTypeDomainRecurring
+// ExternalDynamicListsTypeDomainRecurring Update Schedule for Custom Domain type
 type ExternalDynamicListsTypeDomainRecurring struct {
-	Daily                *ExternalDynamicListsTypeDomainRecurringDaily   `json:"daily,omitempty"`
-	FiveMinute           map[string]interface{}                          `json:"five_minute,omitempty"`
+	Daily *ExternalDynamicListsTypeDomainRecurringDaily `json:"daily,omitempty"`
+	// Five minute settings for Domain recurring
+	FiveMinute map[string]interface{} `json:"five_minute,omitempty"`
+	// Hourly settings for Domain recurring
 	Hourly               map[string]interface{}                          `json:"hourly,omitempty"`
 	Monthly              *ExternalDynamicListsTypeDomainRecurringMonthly `json:"monthly,omitempty"`
 	Weekly               *ExternalDynamicListsTypeDomainRecurringWeekly  `json:"weekly,omitempty"`

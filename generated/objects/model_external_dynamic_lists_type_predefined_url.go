@@ -16,41 +16,41 @@ import (
 	"fmt"
 )
 
-// checks if the ExternalDynamicListsTypePredefinedIp type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ExternalDynamicListsTypePredefinedIp{}
+// checks if the ExternalDynamicListsTypePredefinedUrl type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExternalDynamicListsTypePredefinedUrl{}
 
-// ExternalDynamicListsTypePredefinedIp Predefined IP settings for EDL type
-type ExternalDynamicListsTypePredefinedIp struct {
+// ExternalDynamicListsTypePredefinedUrl Predefined URL settings for EDL type
+type ExternalDynamicListsTypePredefinedUrl struct {
 	Description *string `json:"description,omitempty"`
-	// IP Exception List for Predefined IP type
+	// URL Exception List for Predefined URL type
 	ExceptionList []string `json:"exception_list,omitempty"`
-	// URL source for Predefined IP type
+	// URL source for Predefined URL type
 	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _ExternalDynamicListsTypePredefinedIp ExternalDynamicListsTypePredefinedIp
+type _ExternalDynamicListsTypePredefinedUrl ExternalDynamicListsTypePredefinedUrl
 
-// NewExternalDynamicListsTypePredefinedIp instantiates a new ExternalDynamicListsTypePredefinedIp object
+// NewExternalDynamicListsTypePredefinedUrl instantiates a new ExternalDynamicListsTypePredefinedUrl object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalDynamicListsTypePredefinedIp(url string) *ExternalDynamicListsTypePredefinedIp {
-	this := ExternalDynamicListsTypePredefinedIp{}
+func NewExternalDynamicListsTypePredefinedUrl(url string) *ExternalDynamicListsTypePredefinedUrl {
+	this := ExternalDynamicListsTypePredefinedUrl{}
 	this.Url = url
 	return &this
 }
 
-// NewExternalDynamicListsTypePredefinedIpWithDefaults instantiates a new ExternalDynamicListsTypePredefinedIp object
+// NewExternalDynamicListsTypePredefinedUrlWithDefaults instantiates a new ExternalDynamicListsTypePredefinedUrl object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewExternalDynamicListsTypePredefinedIpWithDefaults() *ExternalDynamicListsTypePredefinedIp {
-	this := ExternalDynamicListsTypePredefinedIp{}
+func NewExternalDynamicListsTypePredefinedUrlWithDefaults() *ExternalDynamicListsTypePredefinedUrl {
+	this := ExternalDynamicListsTypePredefinedUrl{}
 	return &this
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *ExternalDynamicListsTypePredefinedIp) GetDescription() string {
+func (o *ExternalDynamicListsTypePredefinedUrl) GetDescription() string {
 	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
@@ -60,7 +60,7 @@ func (o *ExternalDynamicListsTypePredefinedIp) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypePredefinedIp) GetDescriptionOk() (*string, bool) {
+func (o *ExternalDynamicListsTypePredefinedUrl) GetDescriptionOk() (*string, bool) {
 	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *ExternalDynamicListsTypePredefinedIp) GetDescriptionOk() (*string, bool
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *ExternalDynamicListsTypePredefinedIp) HasDescription() bool {
+func (o *ExternalDynamicListsTypePredefinedUrl) HasDescription() bool {
 	if o != nil && !IsNil(o.Description) {
 		return true
 	}
@@ -77,12 +77,12 @@ func (o *ExternalDynamicListsTypePredefinedIp) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ExternalDynamicListsTypePredefinedIp) SetDescription(v string) {
+func (o *ExternalDynamicListsTypePredefinedUrl) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetExceptionList returns the ExceptionList field value if set, zero value otherwise.
-func (o *ExternalDynamicListsTypePredefinedIp) GetExceptionList() []string {
+func (o *ExternalDynamicListsTypePredefinedUrl) GetExceptionList() []string {
 	if o == nil || IsNil(o.ExceptionList) {
 		var ret []string
 		return ret
@@ -92,7 +92,7 @@ func (o *ExternalDynamicListsTypePredefinedIp) GetExceptionList() []string {
 
 // GetExceptionListOk returns a tuple with the ExceptionList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypePredefinedIp) GetExceptionListOk() ([]string, bool) {
+func (o *ExternalDynamicListsTypePredefinedUrl) GetExceptionListOk() ([]string, bool) {
 	if o == nil || IsNil(o.ExceptionList) {
 		return nil, false
 	}
@@ -100,7 +100,7 @@ func (o *ExternalDynamicListsTypePredefinedIp) GetExceptionListOk() ([]string, b
 }
 
 // HasExceptionList returns a boolean if a field has been set.
-func (o *ExternalDynamicListsTypePredefinedIp) HasExceptionList() bool {
+func (o *ExternalDynamicListsTypePredefinedUrl) HasExceptionList() bool {
 	if o != nil && !IsNil(o.ExceptionList) {
 		return true
 	}
@@ -109,12 +109,12 @@ func (o *ExternalDynamicListsTypePredefinedIp) HasExceptionList() bool {
 }
 
 // SetExceptionList gets a reference to the given []string and assigns it to the ExceptionList field.
-func (o *ExternalDynamicListsTypePredefinedIp) SetExceptionList(v []string) {
+func (o *ExternalDynamicListsTypePredefinedUrl) SetExceptionList(v []string) {
 	o.ExceptionList = v
 }
 
 // GetUrl returns the Url field value
-func (o *ExternalDynamicListsTypePredefinedIp) GetUrl() string {
+func (o *ExternalDynamicListsTypePredefinedUrl) GetUrl() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -125,7 +125,7 @@ func (o *ExternalDynamicListsTypePredefinedIp) GetUrl() string {
 
 // GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypePredefinedIp) GetUrlOk() (*string, bool) {
+func (o *ExternalDynamicListsTypePredefinedUrl) GetUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -133,11 +133,11 @@ func (o *ExternalDynamicListsTypePredefinedIp) GetUrlOk() (*string, bool) {
 }
 
 // SetUrl sets field value
-func (o *ExternalDynamicListsTypePredefinedIp) SetUrl(v string) {
+func (o *ExternalDynamicListsTypePredefinedUrl) SetUrl(v string) {
 	o.Url = v
 }
 
-func (o ExternalDynamicListsTypePredefinedIp) MarshalJSON() ([]byte, error) {
+func (o ExternalDynamicListsTypePredefinedUrl) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -145,7 +145,7 @@ func (o ExternalDynamicListsTypePredefinedIp) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ExternalDynamicListsTypePredefinedIp) ToMap() (map[string]interface{}, error) {
+func (o ExternalDynamicListsTypePredefinedUrl) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
@@ -162,7 +162,7 @@ func (o ExternalDynamicListsTypePredefinedIp) ToMap() (map[string]interface{}, e
 	return toSerialize, nil
 }
 
-func (o *ExternalDynamicListsTypePredefinedIp) UnmarshalJSON(data []byte) (err error) {
+func (o *ExternalDynamicListsTypePredefinedUrl) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -184,15 +184,15 @@ func (o *ExternalDynamicListsTypePredefinedIp) UnmarshalJSON(data []byte) (err e
 		}
 	}
 
-	varExternalDynamicListsTypePredefinedIp := _ExternalDynamicListsTypePredefinedIp{}
+	varExternalDynamicListsTypePredefinedUrl := _ExternalDynamicListsTypePredefinedUrl{}
 
-	err = json.Unmarshal(data, &varExternalDynamicListsTypePredefinedIp)
+	err = json.Unmarshal(data, &varExternalDynamicListsTypePredefinedUrl)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ExternalDynamicListsTypePredefinedIp(varExternalDynamicListsTypePredefinedIp)
+	*o = ExternalDynamicListsTypePredefinedUrl(varExternalDynamicListsTypePredefinedUrl)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -206,38 +206,38 @@ func (o *ExternalDynamicListsTypePredefinedIp) UnmarshalJSON(data []byte) (err e
 	return err
 }
 
-type NullableExternalDynamicListsTypePredefinedIp struct {
-	value *ExternalDynamicListsTypePredefinedIp
+type NullableExternalDynamicListsTypePredefinedUrl struct {
+	value *ExternalDynamicListsTypePredefinedUrl
 	isSet bool
 }
 
-func (v NullableExternalDynamicListsTypePredefinedIp) Get() *ExternalDynamicListsTypePredefinedIp {
+func (v NullableExternalDynamicListsTypePredefinedUrl) Get() *ExternalDynamicListsTypePredefinedUrl {
 	return v.value
 }
 
-func (v *NullableExternalDynamicListsTypePredefinedIp) Set(val *ExternalDynamicListsTypePredefinedIp) {
+func (v *NullableExternalDynamicListsTypePredefinedUrl) Set(val *ExternalDynamicListsTypePredefinedUrl) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableExternalDynamicListsTypePredefinedIp) IsSet() bool {
+func (v NullableExternalDynamicListsTypePredefinedUrl) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableExternalDynamicListsTypePredefinedIp) Unset() {
+func (v *NullableExternalDynamicListsTypePredefinedUrl) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableExternalDynamicListsTypePredefinedIp(val *ExternalDynamicListsTypePredefinedIp) *NullableExternalDynamicListsTypePredefinedIp {
-	return &NullableExternalDynamicListsTypePredefinedIp{value: val, isSet: true}
+func NewNullableExternalDynamicListsTypePredefinedUrl(val *ExternalDynamicListsTypePredefinedUrl) *NullableExternalDynamicListsTypePredefinedUrl {
+	return &NullableExternalDynamicListsTypePredefinedUrl{value: val, isSet: true}
 }
 
-func (v NullableExternalDynamicListsTypePredefinedIp) MarshalJSON() ([]byte, error) {
+func (v NullableExternalDynamicListsTypePredefinedUrl) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableExternalDynamicListsTypePredefinedIp) UnmarshalJSON(src []byte) error {
+func (v *NullableExternalDynamicListsTypePredefinedUrl) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

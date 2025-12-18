@@ -16,42 +16,42 @@ import (
 	"fmt"
 )
 
-// checks if the ExternalDynamicListsTypeDomainRecurringWeekly type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ExternalDynamicListsTypeDomainRecurringWeekly{}
+// checks if the ExternalDynamicListsTypeUrlRecurringWeekly type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExternalDynamicListsTypeUrlRecurringWeekly{}
 
-// ExternalDynamicListsTypeDomainRecurringWeekly Weekly settings for Domain recurring
-type ExternalDynamicListsTypeDomainRecurringWeekly struct {
-	// Weekly Time specification hh (e.g. 20) for Domain
+// ExternalDynamicListsTypeUrlRecurringWeekly Weekly settings for URL recurring
+type ExternalDynamicListsTypeUrlRecurringWeekly struct {
+	// Weekly Time specification hh (e.g. 20) for URL
 	At                   string `json:"at" validate:"regexp=([01][0-9]|[2][0-3])"`
 	DayOfWeek            string `json:"day_of_week"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _ExternalDynamicListsTypeDomainRecurringWeekly ExternalDynamicListsTypeDomainRecurringWeekly
+type _ExternalDynamicListsTypeUrlRecurringWeekly ExternalDynamicListsTypeUrlRecurringWeekly
 
-// NewExternalDynamicListsTypeDomainRecurringWeekly instantiates a new ExternalDynamicListsTypeDomainRecurringWeekly object
+// NewExternalDynamicListsTypeUrlRecurringWeekly instantiates a new ExternalDynamicListsTypeUrlRecurringWeekly object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalDynamicListsTypeDomainRecurringWeekly(at string, dayOfWeek string) *ExternalDynamicListsTypeDomainRecurringWeekly {
-	this := ExternalDynamicListsTypeDomainRecurringWeekly{}
+func NewExternalDynamicListsTypeUrlRecurringWeekly(at string, dayOfWeek string) *ExternalDynamicListsTypeUrlRecurringWeekly {
+	this := ExternalDynamicListsTypeUrlRecurringWeekly{}
 	this.At = at
 	this.DayOfWeek = dayOfWeek
 	return &this
 }
 
-// NewExternalDynamicListsTypeDomainRecurringWeeklyWithDefaults instantiates a new ExternalDynamicListsTypeDomainRecurringWeekly object
+// NewExternalDynamicListsTypeUrlRecurringWeeklyWithDefaults instantiates a new ExternalDynamicListsTypeUrlRecurringWeekly object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewExternalDynamicListsTypeDomainRecurringWeeklyWithDefaults() *ExternalDynamicListsTypeDomainRecurringWeekly {
-	this := ExternalDynamicListsTypeDomainRecurringWeekly{}
+func NewExternalDynamicListsTypeUrlRecurringWeeklyWithDefaults() *ExternalDynamicListsTypeUrlRecurringWeekly {
+	this := ExternalDynamicListsTypeUrlRecurringWeekly{}
 	var at string = "00"
 	this.At = at
 	return &this
 }
 
 // GetAt returns the At field value
-func (o *ExternalDynamicListsTypeDomainRecurringWeekly) GetAt() string {
+func (o *ExternalDynamicListsTypeUrlRecurringWeekly) GetAt() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -62,7 +62,7 @@ func (o *ExternalDynamicListsTypeDomainRecurringWeekly) GetAt() string {
 
 // GetAtOk returns a tuple with the At field value
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypeDomainRecurringWeekly) GetAtOk() (*string, bool) {
+func (o *ExternalDynamicListsTypeUrlRecurringWeekly) GetAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -70,12 +70,12 @@ func (o *ExternalDynamicListsTypeDomainRecurringWeekly) GetAtOk() (*string, bool
 }
 
 // SetAt sets field value
-func (o *ExternalDynamicListsTypeDomainRecurringWeekly) SetAt(v string) {
+func (o *ExternalDynamicListsTypeUrlRecurringWeekly) SetAt(v string) {
 	o.At = v
 }
 
 // GetDayOfWeek returns the DayOfWeek field value
-func (o *ExternalDynamicListsTypeDomainRecurringWeekly) GetDayOfWeek() string {
+func (o *ExternalDynamicListsTypeUrlRecurringWeekly) GetDayOfWeek() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -86,7 +86,7 @@ func (o *ExternalDynamicListsTypeDomainRecurringWeekly) GetDayOfWeek() string {
 
 // GetDayOfWeekOk returns a tuple with the DayOfWeek field value
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypeDomainRecurringWeekly) GetDayOfWeekOk() (*string, bool) {
+func (o *ExternalDynamicListsTypeUrlRecurringWeekly) GetDayOfWeekOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -94,11 +94,11 @@ func (o *ExternalDynamicListsTypeDomainRecurringWeekly) GetDayOfWeekOk() (*strin
 }
 
 // SetDayOfWeek sets field value
-func (o *ExternalDynamicListsTypeDomainRecurringWeekly) SetDayOfWeek(v string) {
+func (o *ExternalDynamicListsTypeUrlRecurringWeekly) SetDayOfWeek(v string) {
 	o.DayOfWeek = v
 }
 
-func (o ExternalDynamicListsTypeDomainRecurringWeekly) MarshalJSON() ([]byte, error) {
+func (o ExternalDynamicListsTypeUrlRecurringWeekly) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -106,7 +106,7 @@ func (o ExternalDynamicListsTypeDomainRecurringWeekly) MarshalJSON() ([]byte, er
 	return json.Marshal(toSerialize)
 }
 
-func (o ExternalDynamicListsTypeDomainRecurringWeekly) ToMap() (map[string]interface{}, error) {
+func (o ExternalDynamicListsTypeUrlRecurringWeekly) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["at"] = o.At
 	toSerialize["day_of_week"] = o.DayOfWeek
@@ -118,7 +118,7 @@ func (o ExternalDynamicListsTypeDomainRecurringWeekly) ToMap() (map[string]inter
 	return toSerialize, nil
 }
 
-func (o *ExternalDynamicListsTypeDomainRecurringWeekly) UnmarshalJSON(data []byte) (err error) {
+func (o *ExternalDynamicListsTypeUrlRecurringWeekly) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -141,15 +141,15 @@ func (o *ExternalDynamicListsTypeDomainRecurringWeekly) UnmarshalJSON(data []byt
 		}
 	}
 
-	varExternalDynamicListsTypeDomainRecurringWeekly := _ExternalDynamicListsTypeDomainRecurringWeekly{}
+	varExternalDynamicListsTypeUrlRecurringWeekly := _ExternalDynamicListsTypeUrlRecurringWeekly{}
 
-	err = json.Unmarshal(data, &varExternalDynamicListsTypeDomainRecurringWeekly)
+	err = json.Unmarshal(data, &varExternalDynamicListsTypeUrlRecurringWeekly)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ExternalDynamicListsTypeDomainRecurringWeekly(varExternalDynamicListsTypeDomainRecurringWeekly)
+	*o = ExternalDynamicListsTypeUrlRecurringWeekly(varExternalDynamicListsTypeUrlRecurringWeekly)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -162,38 +162,38 @@ func (o *ExternalDynamicListsTypeDomainRecurringWeekly) UnmarshalJSON(data []byt
 	return err
 }
 
-type NullableExternalDynamicListsTypeDomainRecurringWeekly struct {
-	value *ExternalDynamicListsTypeDomainRecurringWeekly
+type NullableExternalDynamicListsTypeUrlRecurringWeekly struct {
+	value *ExternalDynamicListsTypeUrlRecurringWeekly
 	isSet bool
 }
 
-func (v NullableExternalDynamicListsTypeDomainRecurringWeekly) Get() *ExternalDynamicListsTypeDomainRecurringWeekly {
+func (v NullableExternalDynamicListsTypeUrlRecurringWeekly) Get() *ExternalDynamicListsTypeUrlRecurringWeekly {
 	return v.value
 }
 
-func (v *NullableExternalDynamicListsTypeDomainRecurringWeekly) Set(val *ExternalDynamicListsTypeDomainRecurringWeekly) {
+func (v *NullableExternalDynamicListsTypeUrlRecurringWeekly) Set(val *ExternalDynamicListsTypeUrlRecurringWeekly) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableExternalDynamicListsTypeDomainRecurringWeekly) IsSet() bool {
+func (v NullableExternalDynamicListsTypeUrlRecurringWeekly) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableExternalDynamicListsTypeDomainRecurringWeekly) Unset() {
+func (v *NullableExternalDynamicListsTypeUrlRecurringWeekly) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableExternalDynamicListsTypeDomainRecurringWeekly(val *ExternalDynamicListsTypeDomainRecurringWeekly) *NullableExternalDynamicListsTypeDomainRecurringWeekly {
-	return &NullableExternalDynamicListsTypeDomainRecurringWeekly{value: val, isSet: true}
+func NewNullableExternalDynamicListsTypeUrlRecurringWeekly(val *ExternalDynamicListsTypeUrlRecurringWeekly) *NullableExternalDynamicListsTypeUrlRecurringWeekly {
+	return &NullableExternalDynamicListsTypeUrlRecurringWeekly{value: val, isSet: true}
 }
 
-func (v NullableExternalDynamicListsTypeDomainRecurringWeekly) MarshalJSON() ([]byte, error) {
+func (v NullableExternalDynamicListsTypeUrlRecurringWeekly) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableExternalDynamicListsTypeDomainRecurringWeekly) UnmarshalJSON(src []byte) error {
+func (v *NullableExternalDynamicListsTypeUrlRecurringWeekly) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

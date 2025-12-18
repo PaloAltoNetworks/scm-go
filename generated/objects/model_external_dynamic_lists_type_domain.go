@@ -19,17 +19,19 @@ import (
 // checks if the ExternalDynamicListsTypeDomain type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeDomain{}
 
-// ExternalDynamicListsTypeDomain struct for ExternalDynamicListsTypeDomain
+// ExternalDynamicListsTypeDomain Domain settings for Custom Domain type
 type ExternalDynamicListsTypeDomain struct {
 	Auth *ExternalDynamicListsTypeDomainAuth `json:"auth,omitempty"`
 	// Profile for authenticating client certificates
-	CertificateProfile *string  `json:"certificate_profile,omitempty"`
-	Description        *string  `json:"description,omitempty"`
-	ExceptionList      []string `json:"exception_list,omitempty"`
+	CertificateProfile *string `json:"certificate_profile,omitempty"`
+	Description        *string `json:"description,omitempty"`
+	// Domain Exception List for Custom Domain type
+	ExceptionList []string `json:"exception_list,omitempty"`
 	// Enable/Disable expand domain
-	ExpandDomain         *bool                                   `json:"expand_domain,omitempty"`
-	Recurring            ExternalDynamicListsTypeDomainRecurring `json:"recurring"`
-	Url                  string                                  `json:"url"`
+	ExpandDomain *bool                                   `json:"expand_domain,omitempty"`
+	Recurring    ExternalDynamicListsTypeDomainRecurring `json:"recurring"`
+	// External URL for Custom Domain type
+	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 

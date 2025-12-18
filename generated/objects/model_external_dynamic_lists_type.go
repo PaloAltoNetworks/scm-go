@@ -18,15 +18,15 @@ import (
 // checks if the ExternalDynamicListsType type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsType{}
 
-// ExternalDynamicListsType struct for ExternalDynamicListsType
+// ExternalDynamicListsType Type configuration for External Dynamic List
 type ExternalDynamicListsType struct {
-	Domain               *ExternalDynamicListsTypeDomain       `json:"domain,omitempty"`
-	Imei                 *ExternalDynamicListsTypeImei         `json:"imei,omitempty"`
-	Imsi                 *ExternalDynamicListsTypeImsi         `json:"imsi,omitempty"`
-	Ip                   *ExternalDynamicListsTypeIp           `json:"ip,omitempty"`
-	PredefinedIp         *ExternalDynamicListsTypePredefinedIp `json:"predefined_ip,omitempty"`
-	PredefinedUrl        *ExternalDynamicListsTypePredefinedIp `json:"predefined_url,omitempty"`
-	Url                  *ExternalDynamicListsTypeUrl          `json:"url,omitempty"`
+	Domain               *ExternalDynamicListsTypeDomain        `json:"domain,omitempty"`
+	Imei                 *ExternalDynamicListsTypeImei          `json:"imei,omitempty"`
+	Imsi                 *ExternalDynamicListsTypeImsi          `json:"imsi,omitempty"`
+	Ip                   *ExternalDynamicListsTypeIp            `json:"ip,omitempty"`
+	PredefinedIp         *ExternalDynamicListsTypePredefinedIp  `json:"predefined_ip,omitempty"`
+	PredefinedUrl        *ExternalDynamicListsTypePredefinedUrl `json:"predefined_url,omitempty"`
+	Url                  *ExternalDynamicListsTypeUrl           `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -210,9 +210,9 @@ func (o *ExternalDynamicListsType) SetPredefinedIp(v ExternalDynamicListsTypePre
 }
 
 // GetPredefinedUrl returns the PredefinedUrl field value if set, zero value otherwise.
-func (o *ExternalDynamicListsType) GetPredefinedUrl() ExternalDynamicListsTypePredefinedIp {
+func (o *ExternalDynamicListsType) GetPredefinedUrl() ExternalDynamicListsTypePredefinedUrl {
 	if o == nil || IsNil(o.PredefinedUrl) {
-		var ret ExternalDynamicListsTypePredefinedIp
+		var ret ExternalDynamicListsTypePredefinedUrl
 		return ret
 	}
 	return *o.PredefinedUrl
@@ -220,7 +220,7 @@ func (o *ExternalDynamicListsType) GetPredefinedUrl() ExternalDynamicListsTypePr
 
 // GetPredefinedUrlOk returns a tuple with the PredefinedUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsType) GetPredefinedUrlOk() (*ExternalDynamicListsTypePredefinedIp, bool) {
+func (o *ExternalDynamicListsType) GetPredefinedUrlOk() (*ExternalDynamicListsTypePredefinedUrl, bool) {
 	if o == nil || IsNil(o.PredefinedUrl) {
 		return nil, false
 	}
@@ -236,8 +236,8 @@ func (o *ExternalDynamicListsType) HasPredefinedUrl() bool {
 	return false
 }
 
-// SetPredefinedUrl gets a reference to the given ExternalDynamicListsTypePredefinedIp and assigns it to the PredefinedUrl field.
-func (o *ExternalDynamicListsType) SetPredefinedUrl(v ExternalDynamicListsTypePredefinedIp) {
+// SetPredefinedUrl gets a reference to the given ExternalDynamicListsTypePredefinedUrl and assigns it to the PredefinedUrl field.
+func (o *ExternalDynamicListsType) SetPredefinedUrl(v ExternalDynamicListsTypePredefinedUrl) {
 	o.PredefinedUrl = &v
 }
 

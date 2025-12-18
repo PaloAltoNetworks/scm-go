@@ -16,41 +16,41 @@ import (
 	"fmt"
 )
 
-// checks if the ExternalDynamicListsTypeDomainAuth type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ExternalDynamicListsTypeDomainAuth{}
+// checks if the ExternalDynamicListsTypeImeiAuth type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExternalDynamicListsTypeImeiAuth{}
 
-// ExternalDynamicListsTypeDomainAuth Authentication settings for Custom Domain type
-type ExternalDynamicListsTypeDomainAuth struct {
-	// Password for Custom Domain authentication
+// ExternalDynamicListsTypeImeiAuth IMEI Auth Cnfig for Custom IMEI type
+type ExternalDynamicListsTypeImeiAuth struct {
+	// IMEI Auth Password for Custom IMEI type
 	Password string `json:"password"`
-	// Username for Custom Domain authentication
+	// IMEI Auth username for Custom IMEI type
 	Username             string `json:"username"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _ExternalDynamicListsTypeDomainAuth ExternalDynamicListsTypeDomainAuth
+type _ExternalDynamicListsTypeImeiAuth ExternalDynamicListsTypeImeiAuth
 
-// NewExternalDynamicListsTypeDomainAuth instantiates a new ExternalDynamicListsTypeDomainAuth object
+// NewExternalDynamicListsTypeImeiAuth instantiates a new ExternalDynamicListsTypeImeiAuth object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalDynamicListsTypeDomainAuth(password string, username string) *ExternalDynamicListsTypeDomainAuth {
-	this := ExternalDynamicListsTypeDomainAuth{}
+func NewExternalDynamicListsTypeImeiAuth(password string, username string) *ExternalDynamicListsTypeImeiAuth {
+	this := ExternalDynamicListsTypeImeiAuth{}
 	this.Password = password
 	this.Username = username
 	return &this
 }
 
-// NewExternalDynamicListsTypeDomainAuthWithDefaults instantiates a new ExternalDynamicListsTypeDomainAuth object
+// NewExternalDynamicListsTypeImeiAuthWithDefaults instantiates a new ExternalDynamicListsTypeImeiAuth object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewExternalDynamicListsTypeDomainAuthWithDefaults() *ExternalDynamicListsTypeDomainAuth {
-	this := ExternalDynamicListsTypeDomainAuth{}
+func NewExternalDynamicListsTypeImeiAuthWithDefaults() *ExternalDynamicListsTypeImeiAuth {
+	this := ExternalDynamicListsTypeImeiAuth{}
 	return &this
 }
 
 // GetPassword returns the Password field value
-func (o *ExternalDynamicListsTypeDomainAuth) GetPassword() string {
+func (o *ExternalDynamicListsTypeImeiAuth) GetPassword() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -61,7 +61,7 @@ func (o *ExternalDynamicListsTypeDomainAuth) GetPassword() string {
 
 // GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypeDomainAuth) GetPasswordOk() (*string, bool) {
+func (o *ExternalDynamicListsTypeImeiAuth) GetPasswordOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,12 +69,12 @@ func (o *ExternalDynamicListsTypeDomainAuth) GetPasswordOk() (*string, bool) {
 }
 
 // SetPassword sets field value
-func (o *ExternalDynamicListsTypeDomainAuth) SetPassword(v string) {
+func (o *ExternalDynamicListsTypeImeiAuth) SetPassword(v string) {
 	o.Password = v
 }
 
 // GetUsername returns the Username field value
-func (o *ExternalDynamicListsTypeDomainAuth) GetUsername() string {
+func (o *ExternalDynamicListsTypeImeiAuth) GetUsername() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -85,7 +85,7 @@ func (o *ExternalDynamicListsTypeDomainAuth) GetUsername() string {
 
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypeDomainAuth) GetUsernameOk() (*string, bool) {
+func (o *ExternalDynamicListsTypeImeiAuth) GetUsernameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -93,11 +93,11 @@ func (o *ExternalDynamicListsTypeDomainAuth) GetUsernameOk() (*string, bool) {
 }
 
 // SetUsername sets field value
-func (o *ExternalDynamicListsTypeDomainAuth) SetUsername(v string) {
+func (o *ExternalDynamicListsTypeImeiAuth) SetUsername(v string) {
 	o.Username = v
 }
 
-func (o ExternalDynamicListsTypeDomainAuth) MarshalJSON() ([]byte, error) {
+func (o ExternalDynamicListsTypeImeiAuth) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -105,7 +105,7 @@ func (o ExternalDynamicListsTypeDomainAuth) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ExternalDynamicListsTypeDomainAuth) ToMap() (map[string]interface{}, error) {
+func (o ExternalDynamicListsTypeImeiAuth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["password"] = o.Password
 	toSerialize["username"] = o.Username
@@ -117,7 +117,7 @@ func (o ExternalDynamicListsTypeDomainAuth) ToMap() (map[string]interface{}, err
 	return toSerialize, nil
 }
 
-func (o *ExternalDynamicListsTypeDomainAuth) UnmarshalJSON(data []byte) (err error) {
+func (o *ExternalDynamicListsTypeImeiAuth) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,15 +140,15 @@ func (o *ExternalDynamicListsTypeDomainAuth) UnmarshalJSON(data []byte) (err err
 		}
 	}
 
-	varExternalDynamicListsTypeDomainAuth := _ExternalDynamicListsTypeDomainAuth{}
+	varExternalDynamicListsTypeImeiAuth := _ExternalDynamicListsTypeImeiAuth{}
 
-	err = json.Unmarshal(data, &varExternalDynamicListsTypeDomainAuth)
+	err = json.Unmarshal(data, &varExternalDynamicListsTypeImeiAuth)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ExternalDynamicListsTypeDomainAuth(varExternalDynamicListsTypeDomainAuth)
+	*o = ExternalDynamicListsTypeImeiAuth(varExternalDynamicListsTypeImeiAuth)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -161,38 +161,38 @@ func (o *ExternalDynamicListsTypeDomainAuth) UnmarshalJSON(data []byte) (err err
 	return err
 }
 
-type NullableExternalDynamicListsTypeDomainAuth struct {
-	value *ExternalDynamicListsTypeDomainAuth
+type NullableExternalDynamicListsTypeImeiAuth struct {
+	value *ExternalDynamicListsTypeImeiAuth
 	isSet bool
 }
 
-func (v NullableExternalDynamicListsTypeDomainAuth) Get() *ExternalDynamicListsTypeDomainAuth {
+func (v NullableExternalDynamicListsTypeImeiAuth) Get() *ExternalDynamicListsTypeImeiAuth {
 	return v.value
 }
 
-func (v *NullableExternalDynamicListsTypeDomainAuth) Set(val *ExternalDynamicListsTypeDomainAuth) {
+func (v *NullableExternalDynamicListsTypeImeiAuth) Set(val *ExternalDynamicListsTypeImeiAuth) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableExternalDynamicListsTypeDomainAuth) IsSet() bool {
+func (v NullableExternalDynamicListsTypeImeiAuth) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableExternalDynamicListsTypeDomainAuth) Unset() {
+func (v *NullableExternalDynamicListsTypeImeiAuth) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableExternalDynamicListsTypeDomainAuth(val *ExternalDynamicListsTypeDomainAuth) *NullableExternalDynamicListsTypeDomainAuth {
-	return &NullableExternalDynamicListsTypeDomainAuth{value: val, isSet: true}
+func NewNullableExternalDynamicListsTypeImeiAuth(val *ExternalDynamicListsTypeImeiAuth) *NullableExternalDynamicListsTypeImeiAuth {
+	return &NullableExternalDynamicListsTypeImeiAuth{value: val, isSet: true}
 }
 
-func (v NullableExternalDynamicListsTypeDomainAuth) MarshalJSON() ([]byte, error) {
+func (v NullableExternalDynamicListsTypeImeiAuth) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableExternalDynamicListsTypeDomainAuth) UnmarshalJSON(src []byte) error {
+func (v *NullableExternalDynamicListsTypeImeiAuth) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

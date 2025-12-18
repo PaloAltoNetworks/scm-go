@@ -19,15 +19,18 @@ import (
 // checks if the ExternalDynamicListsTypeImsi type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeImsi{}
 
-// ExternalDynamicListsTypeImsi struct for ExternalDynamicListsTypeImsi
+// ExternalDynamicListsTypeImsi IMSI Config for Custom IMSI type
 type ExternalDynamicListsTypeImsi struct {
-	Auth *ExternalDynamicListsTypeDomainAuth `json:"auth,omitempty"`
-	// Profile for authenticating client certificates
-	CertificateProfile   *string                                 `json:"certificate_profile,omitempty"`
-	Description          *string                                 `json:"description,omitempty"`
-	ExceptionList        []string                                `json:"exception_list,omitempty"`
-	Recurring            ExternalDynamicListsTypeDomainRecurring `json:"recurring"`
-	Url                  string                                  `json:"url"`
+	Auth *ExternalDynamicListsTypeImsiAuth `json:"auth,omitempty"`
+	// IMSI Certificate Profile for Custom IMSI type
+	CertificateProfile *string `json:"certificate_profile,omitempty"`
+	// IMSI Description for Custom IMSI type
+	Description *string `json:"description,omitempty"`
+	// IMSI Exception List for Custom IMSI type
+	ExceptionList []string                              `json:"exception_list,omitempty"`
+	Recurring     ExternalDynamicListsTypeImsiRecurring `json:"recurring"`
+	// IMSI URL for Custom IMSI type
+	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,7 +40,7 @@ type _ExternalDynamicListsTypeImsi ExternalDynamicListsTypeImsi
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalDynamicListsTypeImsi(recurring ExternalDynamicListsTypeDomainRecurring, url string) *ExternalDynamicListsTypeImsi {
+func NewExternalDynamicListsTypeImsi(recurring ExternalDynamicListsTypeImsiRecurring, url string) *ExternalDynamicListsTypeImsi {
 	this := ExternalDynamicListsTypeImsi{}
 	var certificateProfile string = "None"
 	this.CertificateProfile = &certificateProfile
@@ -59,9 +62,9 @@ func NewExternalDynamicListsTypeImsiWithDefaults() *ExternalDynamicListsTypeImsi
 }
 
 // GetAuth returns the Auth field value if set, zero value otherwise.
-func (o *ExternalDynamicListsTypeImsi) GetAuth() ExternalDynamicListsTypeDomainAuth {
+func (o *ExternalDynamicListsTypeImsi) GetAuth() ExternalDynamicListsTypeImsiAuth {
 	if o == nil || IsNil(o.Auth) {
-		var ret ExternalDynamicListsTypeDomainAuth
+		var ret ExternalDynamicListsTypeImsiAuth
 		return ret
 	}
 	return *o.Auth
@@ -69,7 +72,7 @@ func (o *ExternalDynamicListsTypeImsi) GetAuth() ExternalDynamicListsTypeDomainA
 
 // GetAuthOk returns a tuple with the Auth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypeImsi) GetAuthOk() (*ExternalDynamicListsTypeDomainAuth, bool) {
+func (o *ExternalDynamicListsTypeImsi) GetAuthOk() (*ExternalDynamicListsTypeImsiAuth, bool) {
 	if o == nil || IsNil(o.Auth) {
 		return nil, false
 	}
@@ -85,8 +88,8 @@ func (o *ExternalDynamicListsTypeImsi) HasAuth() bool {
 	return false
 }
 
-// SetAuth gets a reference to the given ExternalDynamicListsTypeDomainAuth and assigns it to the Auth field.
-func (o *ExternalDynamicListsTypeImsi) SetAuth(v ExternalDynamicListsTypeDomainAuth) {
+// SetAuth gets a reference to the given ExternalDynamicListsTypeImsiAuth and assigns it to the Auth field.
+func (o *ExternalDynamicListsTypeImsi) SetAuth(v ExternalDynamicListsTypeImsiAuth) {
 	o.Auth = &v
 }
 
@@ -187,9 +190,9 @@ func (o *ExternalDynamicListsTypeImsi) SetExceptionList(v []string) {
 }
 
 // GetRecurring returns the Recurring field value
-func (o *ExternalDynamicListsTypeImsi) GetRecurring() ExternalDynamicListsTypeDomainRecurring {
+func (o *ExternalDynamicListsTypeImsi) GetRecurring() ExternalDynamicListsTypeImsiRecurring {
 	if o == nil {
-		var ret ExternalDynamicListsTypeDomainRecurring
+		var ret ExternalDynamicListsTypeImsiRecurring
 		return ret
 	}
 
@@ -198,7 +201,7 @@ func (o *ExternalDynamicListsTypeImsi) GetRecurring() ExternalDynamicListsTypeDo
 
 // GetRecurringOk returns a tuple with the Recurring field value
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypeImsi) GetRecurringOk() (*ExternalDynamicListsTypeDomainRecurring, bool) {
+func (o *ExternalDynamicListsTypeImsi) GetRecurringOk() (*ExternalDynamicListsTypeImsiRecurring, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -206,7 +209,7 @@ func (o *ExternalDynamicListsTypeImsi) GetRecurringOk() (*ExternalDynamicListsTy
 }
 
 // SetRecurring sets field value
-func (o *ExternalDynamicListsTypeImsi) SetRecurring(v ExternalDynamicListsTypeDomainRecurring) {
+func (o *ExternalDynamicListsTypeImsi) SetRecurring(v ExternalDynamicListsTypeImsiRecurring) {
 	o.Recurring = v
 }
 

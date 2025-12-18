@@ -19,11 +19,12 @@ import (
 // checks if the ExternalDynamicListsTypeDomainRecurringMonthly type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeDomainRecurringMonthly{}
 
-// ExternalDynamicListsTypeDomainRecurringMonthly struct for ExternalDynamicListsTypeDomainRecurringMonthly
+// ExternalDynamicListsTypeDomainRecurringMonthly Monthly settings for Domain recurring
 type ExternalDynamicListsTypeDomainRecurringMonthly struct {
-	// Time specification hh (e.g. 20)
-	At                   string `json:"at" validate:"regexp=([01][0-9]|[2][0-3])"`
-	DayOfMonth           int32  `json:"day_of_month"`
+	// Monthly Time specification hh (e.g. 20) for domain
+	At string `json:"at" validate:"regexp=([01][0-9]|[2][0-3])"`
+	// Day setting for monthly Domain updates
+	DayOfMonth           int32 `json:"day_of_month"`
 	AdditionalProperties map[string]interface{}
 }
 
