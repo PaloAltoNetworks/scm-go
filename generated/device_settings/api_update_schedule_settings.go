@@ -531,7 +531,7 @@ func (r ApiListUpdateScheduleSettingsRequest) Device(device string) ApiListUpdat
 	return r
 }
 
-func (r ApiListUpdateScheduleSettingsRequest) Execute() (*UpdateScheduleSettingsListResponse, *http.Response, error) {
+func (r ApiListUpdateScheduleSettingsRequest) Execute() ([]UpdateSchedule, *http.Response, error) {
 	return r.ApiService.ListUpdateScheduleSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *UpdateScheduleSettingsAPIService) ListUpdateScheduleSettings(ctx contex
 
 // Execute executes the request
 //
-//	@return UpdateScheduleSettingsListResponse
-func (a *UpdateScheduleSettingsAPIService) ListUpdateScheduleSettingsExecute(r ApiListUpdateScheduleSettingsRequest) (*UpdateScheduleSettingsListResponse, *http.Response, error) {
+//	@return []UpdateSchedule
+func (a *UpdateScheduleSettingsAPIService) ListUpdateScheduleSettingsExecute(r ApiListUpdateScheduleSettingsRequest) ([]UpdateSchedule, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UpdateScheduleSettingsListResponse
+		localVarReturnValue []UpdateSchedule
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UpdateScheduleSettingsAPIService.ListUpdateScheduleSettings")

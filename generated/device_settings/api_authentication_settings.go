@@ -531,7 +531,7 @@ func (r ApiListAuthenticationSettingsRequest) Device(device string) ApiListAuthe
 	return r
 }
 
-func (r ApiListAuthenticationSettingsRequest) Execute() (*AuthenticationSettingsListResponse, *http.Response, error) {
+func (r ApiListAuthenticationSettingsRequest) Execute() ([]AuthenticationSettings, *http.Response, error) {
 	return r.ApiService.ListAuthenticationSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *AuthenticationSettingsAPIService) ListAuthenticationSettings(ctx contex
 
 // Execute executes the request
 //
-//	@return AuthenticationSettingsListResponse
-func (a *AuthenticationSettingsAPIService) ListAuthenticationSettingsExecute(r ApiListAuthenticationSettingsRequest) (*AuthenticationSettingsListResponse, *http.Response, error) {
+//	@return []AuthenticationSettings
+func (a *AuthenticationSettingsAPIService) ListAuthenticationSettingsExecute(r ApiListAuthenticationSettingsRequest) ([]AuthenticationSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AuthenticationSettingsListResponse
+		localVarReturnValue []AuthenticationSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticationSettingsAPIService.ListAuthenticationSettings")

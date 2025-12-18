@@ -531,7 +531,7 @@ func (r ApiListDeviceRedistributionCollectorSettingsRequest) Device(device strin
 	return r
 }
 
-func (r ApiListDeviceRedistributionCollectorSettingsRequest) Execute() (*DeviceRedistributionCollectorSettingsListResponse, *http.Response, error) {
+func (r ApiListDeviceRedistributionCollectorSettingsRequest) Execute() ([]DeviceRedistributionCollector, *http.Response, error) {
 	return r.ApiService.ListDeviceRedistributionCollectorSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *DeviceRedistributionCollectorSettingsAPIService) ListDeviceRedistributi
 
 // Execute executes the request
 //
-//	@return DeviceRedistributionCollectorSettingsListResponse
-func (a *DeviceRedistributionCollectorSettingsAPIService) ListDeviceRedistributionCollectorSettingsExecute(r ApiListDeviceRedistributionCollectorSettingsRequest) (*DeviceRedistributionCollectorSettingsListResponse, *http.Response, error) {
+//	@return []DeviceRedistributionCollector
+func (a *DeviceRedistributionCollectorSettingsAPIService) ListDeviceRedistributionCollectorSettingsExecute(r ApiListDeviceRedistributionCollectorSettingsRequest) ([]DeviceRedistributionCollector, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *DeviceRedistributionCollectorSettingsListResponse
+		localVarReturnValue []DeviceRedistributionCollector
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceRedistributionCollectorSettingsAPIService.ListDeviceRedistributionCollectorSettings")

@@ -531,7 +531,7 @@ func (r ApiListGeneralSettingsRequest) Device(device string) ApiListGeneralSetti
 	return r
 }
 
-func (r ApiListGeneralSettingsRequest) Execute() (*GeneralSettingsListResponse, *http.Response, error) {
+func (r ApiListGeneralSettingsRequest) Execute() ([]GeneralSettings, *http.Response, error) {
 	return r.ApiService.ListGeneralSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *GeneralSettingsAPIService) ListGeneralSettings(ctx context.Context) Api
 
 // Execute executes the request
 //
-//	@return GeneralSettingsListResponse
-func (a *GeneralSettingsAPIService) ListGeneralSettingsExecute(r ApiListGeneralSettingsRequest) (*GeneralSettingsListResponse, *http.Response, error) {
+//	@return []GeneralSettings
+func (a *GeneralSettingsAPIService) ListGeneralSettingsExecute(r ApiListGeneralSettingsRequest) ([]GeneralSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GeneralSettingsListResponse
+		localVarReturnValue []GeneralSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GeneralSettingsAPIService.ListGeneralSettings")

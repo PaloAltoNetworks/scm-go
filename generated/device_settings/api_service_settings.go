@@ -531,7 +531,7 @@ func (r ApiListServiceSettingsRequest) Device(device string) ApiListServiceSetti
 	return r
 }
 
-func (r ApiListServiceSettingsRequest) Execute() (*ServiceSettingsListResponse, *http.Response, error) {
+func (r ApiListServiceSettingsRequest) Execute() ([]ServiceSettings, *http.Response, error) {
 	return r.ApiService.ListServiceSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *ServiceSettingsAPIService) ListServiceSettings(ctx context.Context) Api
 
 // Execute executes the request
 //
-//	@return ServiceSettingsListResponse
-func (a *ServiceSettingsAPIService) ListServiceSettingsExecute(r ApiListServiceSettingsRequest) (*ServiceSettingsListResponse, *http.Response, error) {
+//	@return []ServiceSettings
+func (a *ServiceSettingsAPIService) ListServiceSettingsExecute(r ApiListServiceSettingsRequest) ([]ServiceSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ServiceSettingsListResponse
+		localVarReturnValue []ServiceSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceSettingsAPIService.ListServiceSettings")

@@ -87,7 +87,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthenticationSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/authentication-settings'
+                type: array
           description: OK
         "400":
           content:
@@ -632,7 +634,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentIDSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/content-id-settings'
+                type: array
           description: OK
         "400":
           content:
@@ -1178,7 +1182,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceRedistributionCollectorSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/device-redistribution-collector'
+                type: array
           description: OK
         "400":
           content:
@@ -1723,7 +1729,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GeneralSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/general-settings'
+                type: array
           description: OK
         "400":
           content:
@@ -2383,7 +2391,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManagementInterfaceSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/management-interface'
+                type: array
           description: OK
         "400":
           content:
@@ -2929,7 +2939,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoginBannerSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/motd-banner-settings'
+                type: array
           description: OK
         "400":
           content:
@@ -3475,7 +3487,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServiceRouteSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/service-route'
+                type: array
           description: OK
         "400":
           content:
@@ -4021,7 +4035,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServiceSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/service-settings'
+                type: array
           description: OK
         "400":
           content:
@@ -4567,7 +4583,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SessionSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/session-settings'
+                type: array
           description: OK
         "400":
           content:
@@ -5113,7 +5131,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SessionTimeoutsSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/session-timeouts'
+                type: array
           description: OK
         "400":
           content:
@@ -5659,7 +5679,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TCPSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/tcp-settings'
+                type: array
           description: OK
         "400":
           content:
@@ -6205,7 +6227,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateScheduleSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/update-schedule'
+                type: array
           description: OK
         "400":
           content:
@@ -6751,7 +6775,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VPNSettingsListResponse'
+                items:
+                  $ref: '#/components/schemas/vpn-settings'
+                type: array
           description: OK
         "400":
           content:
@@ -7596,396 +7622,6 @@ components:
             $ref: '#/components/schemas/generic_error'
       description: Not Found
   schemas:
-    AuthenticationSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AuthenticationSettings'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    ContentIDSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ContentIdSettings'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    DeviceRedistributionCollectorSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/DeviceRedistributionCollector'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    GeneralSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/GeneralSettings'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    LoginBannerSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/MotdBannerSettings'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    ManagementInterfaceSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ManagementInterface'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    ServiceRouteSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ServiceRoute'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    ServiceSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ServiceSettings'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    SessionSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/SessionSettings'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    SessionTimeoutsSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/SessionTimeouts'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    TCPSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/TcpSettings'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    UpdateScheduleSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/UpdateSchedule'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
-    VPNSettingsListResponse:
-      example:
-        total: 1
-        data:
-        - "{}"
-        - "{}"
-        offset: 6
-        limit: 0
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/VpnSettings'
-          type: array
-        limit:
-          default: 200
-          description: The maximum number of results per page
-          type: integer
-        offset:
-          default: 0
-          description: The offset into the list of results returned
-          type: integer
-        total:
-          description: The total count of results
-          type: integer
-      required:
-      - data
-      - limit
-      - offset
-      - total
-      type: object
     authentication-settings:
       example:
         snippet: My Snippet

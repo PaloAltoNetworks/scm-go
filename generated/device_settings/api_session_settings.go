@@ -531,7 +531,7 @@ func (r ApiListSessionSettingsRequest) Device(device string) ApiListSessionSetti
 	return r
 }
 
-func (r ApiListSessionSettingsRequest) Execute() (*SessionSettingsListResponse, *http.Response, error) {
+func (r ApiListSessionSettingsRequest) Execute() ([]SessionSettings, *http.Response, error) {
 	return r.ApiService.ListSessionSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *SessionSettingsAPIService) ListSessionSettings(ctx context.Context) Api
 
 // Execute executes the request
 //
-//	@return SessionSettingsListResponse
-func (a *SessionSettingsAPIService) ListSessionSettingsExecute(r ApiListSessionSettingsRequest) (*SessionSettingsListResponse, *http.Response, error) {
+//	@return []SessionSettings
+func (a *SessionSettingsAPIService) ListSessionSettingsExecute(r ApiListSessionSettingsRequest) ([]SessionSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionSettingsListResponse
+		localVarReturnValue []SessionSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionSettingsAPIService.ListSessionSettings")

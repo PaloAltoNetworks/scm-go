@@ -531,7 +531,7 @@ func (r ApiListManagementInterfaceSettingsRequest) Device(device string) ApiList
 	return r
 }
 
-func (r ApiListManagementInterfaceSettingsRequest) Execute() (*ManagementInterfaceSettingsListResponse, *http.Response, error) {
+func (r ApiListManagementInterfaceSettingsRequest) Execute() ([]ManagementInterface, *http.Response, error) {
 	return r.ApiService.ListManagementInterfaceSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *ManagementInterfaceSettingsAPIService) ListManagementInterfaceSettings(
 
 // Execute executes the request
 //
-//	@return ManagementInterfaceSettingsListResponse
-func (a *ManagementInterfaceSettingsAPIService) ListManagementInterfaceSettingsExecute(r ApiListManagementInterfaceSettingsRequest) (*ManagementInterfaceSettingsListResponse, *http.Response, error) {
+//	@return []ManagementInterface
+func (a *ManagementInterfaceSettingsAPIService) ListManagementInterfaceSettingsExecute(r ApiListManagementInterfaceSettingsRequest) ([]ManagementInterface, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ManagementInterfaceSettingsListResponse
+		localVarReturnValue []ManagementInterface
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagementInterfaceSettingsAPIService.ListManagementInterfaceSettings")

@@ -531,7 +531,7 @@ func (r ApiListServiceRouteSettingsRequest) Device(device string) ApiListService
 	return r
 }
 
-func (r ApiListServiceRouteSettingsRequest) Execute() (*ServiceRouteSettingsListResponse, *http.Response, error) {
+func (r ApiListServiceRouteSettingsRequest) Execute() ([]ServiceRoute, *http.Response, error) {
 	return r.ApiService.ListServiceRouteSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *ServiceRouteSettingsAPIService) ListServiceRouteSettings(ctx context.Co
 
 // Execute executes the request
 //
-//	@return ServiceRouteSettingsListResponse
-func (a *ServiceRouteSettingsAPIService) ListServiceRouteSettingsExecute(r ApiListServiceRouteSettingsRequest) (*ServiceRouteSettingsListResponse, *http.Response, error) {
+//	@return []ServiceRoute
+func (a *ServiceRouteSettingsAPIService) ListServiceRouteSettingsExecute(r ApiListServiceRouteSettingsRequest) ([]ServiceRoute, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ServiceRouteSettingsListResponse
+		localVarReturnValue []ServiceRoute
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceRouteSettingsAPIService.ListServiceRouteSettings")

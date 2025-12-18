@@ -531,7 +531,7 @@ func (r ApiListSessionTimeoutsSettingsRequest) Device(device string) ApiListSess
 	return r
 }
 
-func (r ApiListSessionTimeoutsSettingsRequest) Execute() (*SessionTimeoutsSettingsListResponse, *http.Response, error) {
+func (r ApiListSessionTimeoutsSettingsRequest) Execute() ([]SessionTimeouts, *http.Response, error) {
 	return r.ApiService.ListSessionTimeoutsSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *SessionTimeoutsSettingsAPIService) ListSessionTimeoutsSettings(ctx cont
 
 // Execute executes the request
 //
-//	@return SessionTimeoutsSettingsListResponse
-func (a *SessionTimeoutsSettingsAPIService) ListSessionTimeoutsSettingsExecute(r ApiListSessionTimeoutsSettingsRequest) (*SessionTimeoutsSettingsListResponse, *http.Response, error) {
+//	@return []SessionTimeouts
+func (a *SessionTimeoutsSettingsAPIService) ListSessionTimeoutsSettingsExecute(r ApiListSessionTimeoutsSettingsRequest) ([]SessionTimeouts, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SessionTimeoutsSettingsListResponse
+		localVarReturnValue []SessionTimeouts
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionTimeoutsSettingsAPIService.ListSessionTimeoutsSettings")

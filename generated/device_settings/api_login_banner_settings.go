@@ -531,7 +531,7 @@ func (r ApiListLoginBannerSettingsRequest) Device(device string) ApiListLoginBan
 	return r
 }
 
-func (r ApiListLoginBannerSettingsRequest) Execute() (*LoginBannerSettingsListResponse, *http.Response, error) {
+func (r ApiListLoginBannerSettingsRequest) Execute() ([]MotdBannerSettings, *http.Response, error) {
 	return r.ApiService.ListLoginBannerSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *LoginBannerSettingsAPIService) ListLoginBannerSettings(ctx context.Cont
 
 // Execute executes the request
 //
-//	@return LoginBannerSettingsListResponse
-func (a *LoginBannerSettingsAPIService) ListLoginBannerSettingsExecute(r ApiListLoginBannerSettingsRequest) (*LoginBannerSettingsListResponse, *http.Response, error) {
+//	@return []MotdBannerSettings
+func (a *LoginBannerSettingsAPIService) ListLoginBannerSettingsExecute(r ApiListLoginBannerSettingsRequest) ([]MotdBannerSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LoginBannerSettingsListResponse
+		localVarReturnValue []MotdBannerSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginBannerSettingsAPIService.ListLoginBannerSettings")

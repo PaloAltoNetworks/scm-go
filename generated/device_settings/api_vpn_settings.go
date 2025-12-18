@@ -531,7 +531,7 @@ func (r ApiListVPNSettingsRequest) Device(device string) ApiListVPNSettingsReque
 	return r
 }
 
-func (r ApiListVPNSettingsRequest) Execute() (*VPNSettingsListResponse, *http.Response, error) {
+func (r ApiListVPNSettingsRequest) Execute() ([]VpnSettings, *http.Response, error) {
 	return r.ApiService.ListVPNSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *VPNSettingsAPIService) ListVPNSettings(ctx context.Context) ApiListVPNS
 
 // Execute executes the request
 //
-//	@return VPNSettingsListResponse
-func (a *VPNSettingsAPIService) ListVPNSettingsExecute(r ApiListVPNSettingsRequest) (*VPNSettingsListResponse, *http.Response, error) {
+//	@return []VpnSettings
+func (a *VPNSettingsAPIService) ListVPNSettingsExecute(r ApiListVPNSettingsRequest) ([]VpnSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *VPNSettingsListResponse
+		localVarReturnValue []VpnSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VPNSettingsAPIService.ListVPNSettings")

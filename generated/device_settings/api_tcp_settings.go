@@ -531,7 +531,7 @@ func (r ApiListTCPSettingsRequest) Device(device string) ApiListTCPSettingsReque
 	return r
 }
 
-func (r ApiListTCPSettingsRequest) Execute() (*TCPSettingsListResponse, *http.Response, error) {
+func (r ApiListTCPSettingsRequest) Execute() ([]TcpSettings, *http.Response, error) {
 	return r.ApiService.ListTCPSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *TCPSettingsAPIService) ListTCPSettings(ctx context.Context) ApiListTCPS
 
 // Execute executes the request
 //
-//	@return TCPSettingsListResponse
-func (a *TCPSettingsAPIService) ListTCPSettingsExecute(r ApiListTCPSettingsRequest) (*TCPSettingsListResponse, *http.Response, error) {
+//	@return []TcpSettings
+func (a *TCPSettingsAPIService) ListTCPSettingsExecute(r ApiListTCPSettingsRequest) ([]TcpSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *TCPSettingsListResponse
+		localVarReturnValue []TcpSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TCPSettingsAPIService.ListTCPSettings")

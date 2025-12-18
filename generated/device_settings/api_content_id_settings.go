@@ -531,7 +531,7 @@ func (r ApiListContentIDSettingsRequest) Device(device string) ApiListContentIDS
 	return r
 }
 
-func (r ApiListContentIDSettingsRequest) Execute() (*ContentIDSettingsListResponse, *http.Response, error) {
+func (r ApiListContentIDSettingsRequest) Execute() ([]ContentIdSettings, *http.Response, error) {
 	return r.ApiService.ListContentIDSettingsExecute(r)
 }
 
@@ -552,13 +552,13 @@ func (a *ContentIDSettingsAPIService) ListContentIDSettings(ctx context.Context)
 
 // Execute executes the request
 //
-//	@return ContentIDSettingsListResponse
-func (a *ContentIDSettingsAPIService) ListContentIDSettingsExecute(r ApiListContentIDSettingsRequest) (*ContentIDSettingsListResponse, *http.Response, error) {
+//	@return []ContentIdSettings
+func (a *ContentIDSettingsAPIService) ListContentIDSettingsExecute(r ApiListContentIDSettingsRequest) ([]ContentIdSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ContentIDSettingsListResponse
+		localVarReturnValue []ContentIdSettings
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentIDSettingsAPIService.ListContentIDSettings")
