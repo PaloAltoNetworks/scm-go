@@ -15,11 +15,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the SyslogServerProfilesServers type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &SyslogServerProfilesServers{}
+// checks if the SyslogServerProfilesServerInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SyslogServerProfilesServerInner{}
 
-// SyslogServerProfilesServers struct for SyslogServerProfilesServers
-type SyslogServerProfilesServers struct {
+// SyslogServerProfilesServerInner struct for SyslogServerProfilesServerInner
+type SyslogServerProfilesServerInner struct {
 	// Syslog facility
 	Facility *string `json:"facility,omitempty"`
 	// Syslog format
@@ -35,27 +35,27 @@ type SyslogServerProfilesServers struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _SyslogServerProfilesServers SyslogServerProfilesServers
+type _SyslogServerProfilesServerInner SyslogServerProfilesServerInner
 
-// NewSyslogServerProfilesServers instantiates a new SyslogServerProfilesServers object
+// NewSyslogServerProfilesServerInner instantiates a new SyslogServerProfilesServerInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSyslogServerProfilesServers() *SyslogServerProfilesServers {
-	this := SyslogServerProfilesServers{}
+func NewSyslogServerProfilesServerInner() *SyslogServerProfilesServerInner {
+	this := SyslogServerProfilesServerInner{}
 	return &this
 }
 
-// NewSyslogServerProfilesServersWithDefaults instantiates a new SyslogServerProfilesServers object
+// NewSyslogServerProfilesServerInnerWithDefaults instantiates a new SyslogServerProfilesServerInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewSyslogServerProfilesServersWithDefaults() *SyslogServerProfilesServers {
-	this := SyslogServerProfilesServers{}
+func NewSyslogServerProfilesServerInnerWithDefaults() *SyslogServerProfilesServerInner {
+	this := SyslogServerProfilesServerInner{}
 	return &this
 }
 
 // GetFacility returns the Facility field value if set, zero value otherwise.
-func (o *SyslogServerProfilesServers) GetFacility() string {
+func (o *SyslogServerProfilesServerInner) GetFacility() string {
 	if o == nil || IsNil(o.Facility) {
 		var ret string
 		return ret
@@ -65,7 +65,7 @@ func (o *SyslogServerProfilesServers) GetFacility() string {
 
 // GetFacilityOk returns a tuple with the Facility field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyslogServerProfilesServers) GetFacilityOk() (*string, bool) {
+func (o *SyslogServerProfilesServerInner) GetFacilityOk() (*string, bool) {
 	if o == nil || IsNil(o.Facility) {
 		return nil, false
 	}
@@ -73,7 +73,7 @@ func (o *SyslogServerProfilesServers) GetFacilityOk() (*string, bool) {
 }
 
 // HasFacility returns a boolean if a field has been set.
-func (o *SyslogServerProfilesServers) HasFacility() bool {
+func (o *SyslogServerProfilesServerInner) HasFacility() bool {
 	if o != nil && !IsNil(o.Facility) {
 		return true
 	}
@@ -82,12 +82,12 @@ func (o *SyslogServerProfilesServers) HasFacility() bool {
 }
 
 // SetFacility gets a reference to the given string and assigns it to the Facility field.
-func (o *SyslogServerProfilesServers) SetFacility(v string) {
+func (o *SyslogServerProfilesServerInner) SetFacility(v string) {
 	o.Facility = &v
 }
 
 // GetFormat returns the Format field value if set, zero value otherwise.
-func (o *SyslogServerProfilesServers) GetFormat() string {
+func (o *SyslogServerProfilesServerInner) GetFormat() string {
 	if o == nil || IsNil(o.Format) {
 		var ret string
 		return ret
@@ -97,7 +97,7 @@ func (o *SyslogServerProfilesServers) GetFormat() string {
 
 // GetFormatOk returns a tuple with the Format field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyslogServerProfilesServers) GetFormatOk() (*string, bool) {
+func (o *SyslogServerProfilesServerInner) GetFormatOk() (*string, bool) {
 	if o == nil || IsNil(o.Format) {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *SyslogServerProfilesServers) GetFormatOk() (*string, bool) {
 }
 
 // HasFormat returns a boolean if a field has been set.
-func (o *SyslogServerProfilesServers) HasFormat() bool {
+func (o *SyslogServerProfilesServerInner) HasFormat() bool {
 	if o != nil && !IsNil(o.Format) {
 		return true
 	}
@@ -114,12 +114,12 @@ func (o *SyslogServerProfilesServers) HasFormat() bool {
 }
 
 // SetFormat gets a reference to the given string and assigns it to the Format field.
-func (o *SyslogServerProfilesServers) SetFormat(v string) {
+func (o *SyslogServerProfilesServerInner) SetFormat(v string) {
 	o.Format = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *SyslogServerProfilesServers) GetName() string {
+func (o *SyslogServerProfilesServerInner) GetName() string {
 	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
@@ -129,7 +129,7 @@ func (o *SyslogServerProfilesServers) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyslogServerProfilesServers) GetNameOk() (*string, bool) {
+func (o *SyslogServerProfilesServerInner) GetNameOk() (*string, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -137,7 +137,7 @@ func (o *SyslogServerProfilesServers) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *SyslogServerProfilesServers) HasName() bool {
+func (o *SyslogServerProfilesServerInner) HasName() bool {
 	if o != nil && !IsNil(o.Name) {
 		return true
 	}
@@ -146,12 +146,12 @@ func (o *SyslogServerProfilesServers) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *SyslogServerProfilesServers) SetName(v string) {
+func (o *SyslogServerProfilesServerInner) SetName(v string) {
 	o.Name = &v
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
-func (o *SyslogServerProfilesServers) GetPort() int32 {
+func (o *SyslogServerProfilesServerInner) GetPort() int32 {
 	if o == nil || IsNil(o.Port) {
 		var ret int32
 		return ret
@@ -161,7 +161,7 @@ func (o *SyslogServerProfilesServers) GetPort() int32 {
 
 // GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyslogServerProfilesServers) GetPortOk() (*int32, bool) {
+func (o *SyslogServerProfilesServerInner) GetPortOk() (*int32, bool) {
 	if o == nil || IsNil(o.Port) {
 		return nil, false
 	}
@@ -169,7 +169,7 @@ func (o *SyslogServerProfilesServers) GetPortOk() (*int32, bool) {
 }
 
 // HasPort returns a boolean if a field has been set.
-func (o *SyslogServerProfilesServers) HasPort() bool {
+func (o *SyslogServerProfilesServerInner) HasPort() bool {
 	if o != nil && !IsNil(o.Port) {
 		return true
 	}
@@ -178,12 +178,12 @@ func (o *SyslogServerProfilesServers) HasPort() bool {
 }
 
 // SetPort gets a reference to the given int32 and assigns it to the Port field.
-func (o *SyslogServerProfilesServers) SetPort(v int32) {
+func (o *SyslogServerProfilesServerInner) SetPort(v int32) {
 	o.Port = &v
 }
 
 // GetServer returns the Server field value if set, zero value otherwise.
-func (o *SyslogServerProfilesServers) GetServer() string {
+func (o *SyslogServerProfilesServerInner) GetServer() string {
 	if o == nil || IsNil(o.Server) {
 		var ret string
 		return ret
@@ -193,7 +193,7 @@ func (o *SyslogServerProfilesServers) GetServer() string {
 
 // GetServerOk returns a tuple with the Server field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyslogServerProfilesServers) GetServerOk() (*string, bool) {
+func (o *SyslogServerProfilesServerInner) GetServerOk() (*string, bool) {
 	if o == nil || IsNil(o.Server) {
 		return nil, false
 	}
@@ -201,7 +201,7 @@ func (o *SyslogServerProfilesServers) GetServerOk() (*string, bool) {
 }
 
 // HasServer returns a boolean if a field has been set.
-func (o *SyslogServerProfilesServers) HasServer() bool {
+func (o *SyslogServerProfilesServerInner) HasServer() bool {
 	if o != nil && !IsNil(o.Server) {
 		return true
 	}
@@ -210,12 +210,12 @@ func (o *SyslogServerProfilesServers) HasServer() bool {
 }
 
 // SetServer gets a reference to the given string and assigns it to the Server field.
-func (o *SyslogServerProfilesServers) SetServer(v string) {
+func (o *SyslogServerProfilesServerInner) SetServer(v string) {
 	o.Server = &v
 }
 
 // GetTransport returns the Transport field value if set, zero value otherwise.
-func (o *SyslogServerProfilesServers) GetTransport() string {
+func (o *SyslogServerProfilesServerInner) GetTransport() string {
 	if o == nil || IsNil(o.Transport) {
 		var ret string
 		return ret
@@ -225,7 +225,7 @@ func (o *SyslogServerProfilesServers) GetTransport() string {
 
 // GetTransportOk returns a tuple with the Transport field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyslogServerProfilesServers) GetTransportOk() (*string, bool) {
+func (o *SyslogServerProfilesServerInner) GetTransportOk() (*string, bool) {
 	if o == nil || IsNil(o.Transport) {
 		return nil, false
 	}
@@ -233,7 +233,7 @@ func (o *SyslogServerProfilesServers) GetTransportOk() (*string, bool) {
 }
 
 // HasTransport returns a boolean if a field has been set.
-func (o *SyslogServerProfilesServers) HasTransport() bool {
+func (o *SyslogServerProfilesServerInner) HasTransport() bool {
 	if o != nil && !IsNil(o.Transport) {
 		return true
 	}
@@ -242,11 +242,11 @@ func (o *SyslogServerProfilesServers) HasTransport() bool {
 }
 
 // SetTransport gets a reference to the given string and assigns it to the Transport field.
-func (o *SyslogServerProfilesServers) SetTransport(v string) {
+func (o *SyslogServerProfilesServerInner) SetTransport(v string) {
 	o.Transport = &v
 }
 
-func (o SyslogServerProfilesServers) MarshalJSON() ([]byte, error) {
+func (o SyslogServerProfilesServerInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -254,7 +254,7 @@ func (o SyslogServerProfilesServers) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o SyslogServerProfilesServers) ToMap() (map[string]interface{}, error) {
+func (o SyslogServerProfilesServerInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Facility) {
 		toSerialize["facility"] = o.Facility
@@ -282,16 +282,16 @@ func (o SyslogServerProfilesServers) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *SyslogServerProfilesServers) UnmarshalJSON(data []byte) (err error) {
-	varSyslogServerProfilesServers := _SyslogServerProfilesServers{}
+func (o *SyslogServerProfilesServerInner) UnmarshalJSON(data []byte) (err error) {
+	varSyslogServerProfilesServerInner := _SyslogServerProfilesServerInner{}
 
-	err = json.Unmarshal(data, &varSyslogServerProfilesServers)
+	err = json.Unmarshal(data, &varSyslogServerProfilesServerInner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = SyslogServerProfilesServers(varSyslogServerProfilesServers)
+	*o = SyslogServerProfilesServerInner(varSyslogServerProfilesServerInner)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -308,38 +308,38 @@ func (o *SyslogServerProfilesServers) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableSyslogServerProfilesServers struct {
-	value *SyslogServerProfilesServers
+type NullableSyslogServerProfilesServerInner struct {
+	value *SyslogServerProfilesServerInner
 	isSet bool
 }
 
-func (v NullableSyslogServerProfilesServers) Get() *SyslogServerProfilesServers {
+func (v NullableSyslogServerProfilesServerInner) Get() *SyslogServerProfilesServerInner {
 	return v.value
 }
 
-func (v *NullableSyslogServerProfilesServers) Set(val *SyslogServerProfilesServers) {
+func (v *NullableSyslogServerProfilesServerInner) Set(val *SyslogServerProfilesServerInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSyslogServerProfilesServers) IsSet() bool {
+func (v NullableSyslogServerProfilesServerInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSyslogServerProfilesServers) Unset() {
+func (v *NullableSyslogServerProfilesServerInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSyslogServerProfilesServers(val *SyslogServerProfilesServers) *NullableSyslogServerProfilesServers {
-	return &NullableSyslogServerProfilesServers{value: val, isSet: true}
+func NewNullableSyslogServerProfilesServerInner(val *SyslogServerProfilesServerInner) *NullableSyslogServerProfilesServerInner {
+	return &NullableSyslogServerProfilesServerInner{value: val, isSet: true}
 }
 
-func (v NullableSyslogServerProfilesServers) MarshalJSON() ([]byte, error) {
+func (v NullableSyslogServerProfilesServerInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSyslogServerProfilesServers) UnmarshalJSON(src []byte) error {
+func (v *NullableSyslogServerProfilesServerInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

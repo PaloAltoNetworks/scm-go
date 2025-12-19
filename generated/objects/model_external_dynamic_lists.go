@@ -19,7 +19,7 @@ import (
 // checks if the ExternalDynamicLists type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicLists{}
 
-// ExternalDynamicLists struct for ExternalDynamicLists
+// ExternalDynamicLists External Dynamic Lists
 type ExternalDynamicLists struct {
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`

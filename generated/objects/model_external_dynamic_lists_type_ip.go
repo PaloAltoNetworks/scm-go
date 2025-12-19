@@ -19,15 +19,17 @@ import (
 // checks if the ExternalDynamicListsTypeIp type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeIp{}
 
-// ExternalDynamicListsTypeIp struct for ExternalDynamicListsTypeIp
+// ExternalDynamicListsTypeIp IP settings for Custom IP type
 type ExternalDynamicListsTypeIp struct {
 	Auth *ExternalDynamicListsTypeIpAuth `json:"auth,omitempty"`
 	// Profile for authenticating client certificates
-	CertificateProfile   *string                                 `json:"certificate_profile,omitempty"`
-	Description          *string                                 `json:"description,omitempty"`
-	ExceptionList        []string                                `json:"exception_list,omitempty"`
-	Recurring            ExternalDynamicListsTypeDomainRecurring `json:"recurring"`
-	Url                  string                                  `json:"url"`
+	CertificateProfile *string `json:"certificate_profile,omitempty"`
+	Description        *string `json:"description,omitempty"`
+	// IP Exception List for Custom IP type
+	ExceptionList []string                            `json:"exception_list,omitempty"`
+	Recurring     ExternalDynamicListsTypeIpRecurring `json:"recurring"`
+	// External URL for Custom IP type
+	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,7 +39,7 @@ type _ExternalDynamicListsTypeIp ExternalDynamicListsTypeIp
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExternalDynamicListsTypeIp(recurring ExternalDynamicListsTypeDomainRecurring, url string) *ExternalDynamicListsTypeIp {
+func NewExternalDynamicListsTypeIp(recurring ExternalDynamicListsTypeIpRecurring, url string) *ExternalDynamicListsTypeIp {
 	this := ExternalDynamicListsTypeIp{}
 	var certificateProfile string = "None"
 	this.CertificateProfile = &certificateProfile
@@ -187,9 +189,9 @@ func (o *ExternalDynamicListsTypeIp) SetExceptionList(v []string) {
 }
 
 // GetRecurring returns the Recurring field value
-func (o *ExternalDynamicListsTypeIp) GetRecurring() ExternalDynamicListsTypeDomainRecurring {
+func (o *ExternalDynamicListsTypeIp) GetRecurring() ExternalDynamicListsTypeIpRecurring {
 	if o == nil {
-		var ret ExternalDynamicListsTypeDomainRecurring
+		var ret ExternalDynamicListsTypeIpRecurring
 		return ret
 	}
 
@@ -198,7 +200,7 @@ func (o *ExternalDynamicListsTypeIp) GetRecurring() ExternalDynamicListsTypeDoma
 
 // GetRecurringOk returns a tuple with the Recurring field value
 // and a boolean to check if the value has been set.
-func (o *ExternalDynamicListsTypeIp) GetRecurringOk() (*ExternalDynamicListsTypeDomainRecurring, bool) {
+func (o *ExternalDynamicListsTypeIp) GetRecurringOk() (*ExternalDynamicListsTypeIpRecurring, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -206,7 +208,7 @@ func (o *ExternalDynamicListsTypeIp) GetRecurringOk() (*ExternalDynamicListsType
 }
 
 // SetRecurring sets field value
-func (o *ExternalDynamicListsTypeIp) SetRecurring(v ExternalDynamicListsTypeDomainRecurring) {
+func (o *ExternalDynamicListsTypeIp) SetRecurring(v ExternalDynamicListsTypeIpRecurring) {
 	o.Recurring = v
 }
 

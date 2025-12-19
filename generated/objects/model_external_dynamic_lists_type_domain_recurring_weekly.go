@@ -19,9 +19,9 @@ import (
 // checks if the ExternalDynamicListsTypeDomainRecurringWeekly type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeDomainRecurringWeekly{}
 
-// ExternalDynamicListsTypeDomainRecurringWeekly struct for ExternalDynamicListsTypeDomainRecurringWeekly
+// ExternalDynamicListsTypeDomainRecurringWeekly Weekly settings for Domain recurring
 type ExternalDynamicListsTypeDomainRecurringWeekly struct {
-	// Time specification hh (e.g. 20)
+	// Weekly Time specification hh (e.g. 20) for Domain
 	At                   string `json:"at" validate:"regexp=([01][0-9]|[2][0-3])"`
 	DayOfWeek            string `json:"day_of_week"`
 	AdditionalProperties map[string]interface{}

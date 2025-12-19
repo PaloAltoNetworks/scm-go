@@ -26,8 +26,6 @@ type TlsServiceProfilesProtocolSettings struct {
 	AuthAlgoSha256 *bool `json:"auth_algo_sha256,omitempty"`
 	// Allow SHA384 authentication?
 	AuthAlgoSha384 *bool `json:"auth_algo_sha384,omitempty"`
-	// Allow 3DES algorithm?
-	EncAlgo3des *bool `json:"enc_algo_3des,omitempty"`
 	// Allow AES-128-CBC algorithm?
 	EncAlgoAes128Cbc *bool `json:"enc_algo_aes_128_cbc,omitempty"`
 	// Allow AES-128-GCM algorithm?
@@ -36,8 +34,6 @@ type TlsServiceProfilesProtocolSettings struct {
 	EncAlgoAes256Cbc *bool `json:"enc_algo_aes_256_cbc,omitempty"`
 	// Allow algorithm AES-256-GCM
 	EncAlgoAes256Gcm *bool `json:"enc_algo_aes_256_gcm,omitempty"`
-	// Allow RC4 algorithm?
-	EncAlgoRc4 *bool `json:"enc_algo_rc4,omitempty"`
 	// Allow DHE algorithm?
 	KeyxchgAlgoDhe *bool `json:"keyxchg_algo_dhe,omitempty"`
 	// Allow ECDHE algorithm?
@@ -174,38 +170,6 @@ func (o *TlsServiceProfilesProtocolSettings) SetAuthAlgoSha384(v bool) {
 	o.AuthAlgoSha384 = &v
 }
 
-// GetEncAlgo3des returns the EncAlgo3des field value if set, zero value otherwise.
-func (o *TlsServiceProfilesProtocolSettings) GetEncAlgo3des() bool {
-	if o == nil || IsNil(o.EncAlgo3des) {
-		var ret bool
-		return ret
-	}
-	return *o.EncAlgo3des
-}
-
-// GetEncAlgo3desOk returns a tuple with the EncAlgo3des field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TlsServiceProfilesProtocolSettings) GetEncAlgo3desOk() (*bool, bool) {
-	if o == nil || IsNil(o.EncAlgo3des) {
-		return nil, false
-	}
-	return o.EncAlgo3des, true
-}
-
-// HasEncAlgo3des returns a boolean if a field has been set.
-func (o *TlsServiceProfilesProtocolSettings) HasEncAlgo3des() bool {
-	if o != nil && !IsNil(o.EncAlgo3des) {
-		return true
-	}
-
-	return false
-}
-
-// SetEncAlgo3des gets a reference to the given bool and assigns it to the EncAlgo3des field.
-func (o *TlsServiceProfilesProtocolSettings) SetEncAlgo3des(v bool) {
-	o.EncAlgo3des = &v
-}
-
 // GetEncAlgoAes128Cbc returns the EncAlgoAes128Cbc field value if set, zero value otherwise.
 func (o *TlsServiceProfilesProtocolSettings) GetEncAlgoAes128Cbc() bool {
 	if o == nil || IsNil(o.EncAlgoAes128Cbc) {
@@ -332,38 +296,6 @@ func (o *TlsServiceProfilesProtocolSettings) HasEncAlgoAes256Gcm() bool {
 // SetEncAlgoAes256Gcm gets a reference to the given bool and assigns it to the EncAlgoAes256Gcm field.
 func (o *TlsServiceProfilesProtocolSettings) SetEncAlgoAes256Gcm(v bool) {
 	o.EncAlgoAes256Gcm = &v
-}
-
-// GetEncAlgoRc4 returns the EncAlgoRc4 field value if set, zero value otherwise.
-func (o *TlsServiceProfilesProtocolSettings) GetEncAlgoRc4() bool {
-	if o == nil || IsNil(o.EncAlgoRc4) {
-		var ret bool
-		return ret
-	}
-	return *o.EncAlgoRc4
-}
-
-// GetEncAlgoRc4Ok returns a tuple with the EncAlgoRc4 field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TlsServiceProfilesProtocolSettings) GetEncAlgoRc4Ok() (*bool, bool) {
-	if o == nil || IsNil(o.EncAlgoRc4) {
-		return nil, false
-	}
-	return o.EncAlgoRc4, true
-}
-
-// HasEncAlgoRc4 returns a boolean if a field has been set.
-func (o *TlsServiceProfilesProtocolSettings) HasEncAlgoRc4() bool {
-	if o != nil && !IsNil(o.EncAlgoRc4) {
-		return true
-	}
-
-	return false
-}
-
-// SetEncAlgoRc4 gets a reference to the given bool and assigns it to the EncAlgoRc4 field.
-func (o *TlsServiceProfilesProtocolSettings) SetEncAlgoRc4(v bool) {
-	o.EncAlgoRc4 = &v
 }
 
 // GetKeyxchgAlgoDhe returns the KeyxchgAlgoDhe field value if set, zero value otherwise.
@@ -545,9 +477,6 @@ func (o TlsServiceProfilesProtocolSettings) ToMap() (map[string]interface{}, err
 	if !IsNil(o.AuthAlgoSha384) {
 		toSerialize["auth_algo_sha384"] = o.AuthAlgoSha384
 	}
-	if !IsNil(o.EncAlgo3des) {
-		toSerialize["enc_algo_3des"] = o.EncAlgo3des
-	}
 	if !IsNil(o.EncAlgoAes128Cbc) {
 		toSerialize["enc_algo_aes_128_cbc"] = o.EncAlgoAes128Cbc
 	}
@@ -559,9 +488,6 @@ func (o TlsServiceProfilesProtocolSettings) ToMap() (map[string]interface{}, err
 	}
 	if !IsNil(o.EncAlgoAes256Gcm) {
 		toSerialize["enc_algo_aes_256_gcm"] = o.EncAlgoAes256Gcm
-	}
-	if !IsNil(o.EncAlgoRc4) {
-		toSerialize["enc_algo_rc4"] = o.EncAlgoRc4
 	}
 	if !IsNil(o.KeyxchgAlgoDhe) {
 		toSerialize["keyxchg_algo_dhe"] = o.KeyxchgAlgoDhe
@@ -603,12 +529,10 @@ func (o *TlsServiceProfilesProtocolSettings) UnmarshalJSON(data []byte) (err err
 		delete(additionalProperties, "auth_algo_sha1")
 		delete(additionalProperties, "auth_algo_sha256")
 		delete(additionalProperties, "auth_algo_sha384")
-		delete(additionalProperties, "enc_algo_3des")
 		delete(additionalProperties, "enc_algo_aes_128_cbc")
 		delete(additionalProperties, "enc_algo_aes_128_gcm")
 		delete(additionalProperties, "enc_algo_aes_256_cbc")
 		delete(additionalProperties, "enc_algo_aes_256_gcm")
-		delete(additionalProperties, "enc_algo_rc4")
 		delete(additionalProperties, "keyxchg_algo_dhe")
 		delete(additionalProperties, "keyxchg_algo_ecdhe")
 		delete(additionalProperties, "keyxchg_algo_rsa")

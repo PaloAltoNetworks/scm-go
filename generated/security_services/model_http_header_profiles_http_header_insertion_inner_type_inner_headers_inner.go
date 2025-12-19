@@ -25,7 +25,7 @@ type HttpHeaderProfilesHttpHeaderInsertionInnerTypeInnerHeadersInner struct {
 	Header string `json:"header"`
 	// Log the use of this HTTP header insertion?
 	Log *bool `json:"log,omitempty"`
-	// An auto-generated name (_This should be removed_)
+	// The name of the HTTP header
 	Name string `json:"name"`
 	// The value associated with the HTTP header
 	Value                string `json:"value"`

@@ -19,9 +19,9 @@ import (
 // checks if the ExternalDynamicListsTypeDomainRecurringDaily type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeDomainRecurringDaily{}
 
-// ExternalDynamicListsTypeDomainRecurringDaily struct for ExternalDynamicListsTypeDomainRecurringDaily
+// ExternalDynamicListsTypeDomainRecurringDaily Daily settings for Domain recurring
 type ExternalDynamicListsTypeDomainRecurringDaily struct {
-	// Time specification hh (e.g. 20)
+	// Daily Time specification hh (e.g. 20) for Domain
 	At                   string `json:"at" validate:"regexp=([01][0-9]|[2][0-3])"`
 	AdditionalProperties map[string]interface{}
 }

@@ -19,9 +19,11 @@ import (
 // checks if the ExternalDynamicListsTypeIpAuth type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeIpAuth{}
 
-// ExternalDynamicListsTypeIpAuth struct for ExternalDynamicListsTypeIpAuth
+// ExternalDynamicListsTypeIpAuth Authentication settings for Custom IP type
 type ExternalDynamicListsTypeIpAuth struct {
-	Password             string `json:"password"`
+	// Password for Custom IP authentication
+	Password string `json:"password"`
+	// Username for Custom IP authentication
 	Username             string `json:"username"`
 	AdditionalProperties map[string]interface{}
 }

@@ -501,9 +501,6 @@ type ApiListAutoVPNClustersRequest struct {
 	limit      *int32
 	offset     *int32
 	name       *string
-	folder     *string
-	snippet    *string
-	device     *string
 }
 
 // The maximum number of results per page
@@ -524,25 +521,7 @@ func (r ApiListAutoVPNClustersRequest) Name(name string) ApiListAutoVPNClustersR
 	return r
 }
 
-// The folder in which the resource is defined
-func (r ApiListAutoVPNClustersRequest) Folder(folder string) ApiListAutoVPNClustersRequest {
-	r.folder = &folder
-	return r
-}
-
-// The snippet in which the resource is defined
-func (r ApiListAutoVPNClustersRequest) Snippet(snippet string) ApiListAutoVPNClustersRequest {
-	r.snippet = &snippet
-	return r
-}
-
-// The device in which the resource is defined
-func (r ApiListAutoVPNClustersRequest) Device(device string) ApiListAutoVPNClustersRequest {
-	r.device = &device
-	return r
-}
-
-func (r ApiListAutoVPNClustersRequest) Execute() ([]AutoVpnClusters, *http.Response, error) {
+func (r ApiListAutoVPNClustersRequest) Execute() (*AutoVPNClustersListResponse, *http.Response, error) {
 	return r.ApiService.ListAutoVPNClustersExecute(r)
 }
 
@@ -563,13 +542,13 @@ func (a *AutoVPNClustersAPIService) ListAutoVPNClusters(ctx context.Context) Api
 
 // Execute executes the request
 //
-//	@return []AutoVpnClusters
-func (a *AutoVPNClustersAPIService) ListAutoVPNClustersExecute(r ApiListAutoVPNClustersRequest) ([]AutoVpnClusters, *http.Response, error) {
+//	@return AutoVPNClustersListResponse
+func (a *AutoVPNClustersAPIService) ListAutoVPNClustersExecute(r ApiListAutoVPNClustersRequest) (*AutoVPNClustersListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []AutoVpnClusters
+		localVarReturnValue *AutoVPNClustersListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AutoVPNClustersAPIService.ListAutoVPNClusters")
@@ -597,15 +576,6 @@ func (a *AutoVPNClustersAPIService) ListAutoVPNClustersExecute(r ApiListAutoVPNC
 	}
 	if r.name != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
-	}
-	if r.folder != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "folder", r.folder, "form", "")
-	}
-	if r.snippet != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "snippet", r.snippet, "form", "")
-	}
-	if r.device != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "device", r.device, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

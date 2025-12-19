@@ -48,7 +48,7 @@ func SetupConfigSvcTestClient(t *testing.T) *config_setup.APIClient {
 		require.NoError(t, err, "Failed to refresh JWT after multiple retries")
 	}
 
-	return setup.GetConfig_setupAPIClient(setupClient)
+	return setup.GetConfigSetupAPIClient(setupClient)
 }
 
 // printAPIError prints formatted API error response from error object's body

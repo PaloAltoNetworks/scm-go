@@ -19,9 +19,11 @@ import (
 // checks if the ExternalDynamicListsTypeDomainAuth type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypeDomainAuth{}
 
-// ExternalDynamicListsTypeDomainAuth struct for ExternalDynamicListsTypeDomainAuth
+// ExternalDynamicListsTypeDomainAuth Authentication settings for Custom Domain type
 type ExternalDynamicListsTypeDomainAuth struct {
-	Password             string `json:"password"`
+	// Password for Custom Domain authentication
+	Password string `json:"password"`
+	// Username for Custom Domain authentication
 	Username             string `json:"username"`
 	AdditionalProperties map[string]interface{}
 }

@@ -19,11 +19,13 @@ import (
 // checks if the ExternalDynamicListsTypePredefinedIp type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalDynamicListsTypePredefinedIp{}
 
-// ExternalDynamicListsTypePredefinedIp struct for ExternalDynamicListsTypePredefinedIp
+// ExternalDynamicListsTypePredefinedIp Predefined IP settings for EDL type
 type ExternalDynamicListsTypePredefinedIp struct {
-	Description          *string  `json:"description,omitempty"`
-	ExceptionList        []string `json:"exception_list,omitempty"`
-	Url                  string   `json:"url"`
+	Description *string `json:"description,omitempty"`
+	// IP Exception List for Predefined IP type
+	ExceptionList []string `json:"exception_list,omitempty"`
+	// URL source for Predefined IP type
+	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 

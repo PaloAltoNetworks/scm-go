@@ -108,6 +108,8 @@ tags:
   name: Ssl Decryption Settings
 - description: Remote Networks License Info
   name: Remote Networks License
+- description: LLDP Profiles
+  name: LLDP Profiles
 paths:
   /aggregate-interfaces:
     get:
@@ -265,17 +267,12 @@ paths:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/offset'
       - $ref: '#/components/parameters/name'
-      - $ref: '#/components/parameters/folder'
-      - $ref: '#/components/parameters/snippet'
-      - $ref: '#/components/parameters/device'
       responses:
         "200":
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/auto-vpn-clusters'
-                type: array
+                $ref: '#/components/schemas/AutoVPNClustersListResponse'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic'
@@ -3017,6 +3014,153 @@ paths:
       summary: Update a link tag
       tags:
       - Link Tags
+  /lldp-profiles:
+    get:
+      description: |
+        Retrieve a list of LLDP profiles.
+      operationId: ListLLDPProfiles
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/name'
+      - $ref: '#/components/parameters/folder'
+      - $ref: '#/components/parameters/snippet'
+      - $ref: '#/components/parameters/device'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LLDPProfilesListResponse'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: List LLDP profiles
+      tags:
+      - LLDP Profiles
+    post:
+      description: |
+        Create a new LLDP profile.
+      operationId: CreateLLDPProfiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/lldp-profiles'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/lldp-profiles'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Create an LLDP profile
+      tags:
+      - LLDP Profiles
+  /lldp-profiles/{id}:
+    delete:
+      description: |
+        Delete an LLDP profile.
+      operationId: DeleteLLDPProfilesByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          $ref: '#/components/responses/http_ok'
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Delete an LLDP profile
+      tags:
+      - LLDP Profiles
+    get:
+      description: |
+        Get an existing LLDP profile.
+      operationId: GetLLDPProfilesByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/lldp-profiles'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Get an LLDP profile
+      tags:
+      - LLDP Profiles
+    put:
+      description: |
+        Update an existing LLDP profile.
+      operationId: UpdateLLDPProfilesByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/lldp-profiles'
+        description: OK
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/lldp-profiles'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Update an LLDP profile
+      tags:
+      - LLDP Profiles
   /logical-routers:
     get:
       description: |
@@ -6553,6 +6697,35 @@ components:
       - limit
       - offset
       - total
+    AutoVPNClustersListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AutoVpnClusters'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
     BGPAddressFamilyProfilesListResponse:
       example:
         total: 1
@@ -6942,6 +7115,35 @@ components:
         data:
           items:
             $ref: '#/components/schemas/InterfaceManagementProfiles'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+    LLDPProfilesListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/LldpProfiles'
           type: array
         limit:
           default: 200
@@ -10329,6 +10531,68 @@ components:
           maxLength: 64
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
+      required:
+      - name
+    lldp-profiles:
+      example:
+        mode: mode
+        snippet: My Snippet
+        folder: My Folder
+        name: name
+        id: 123e4567-e89b-12d3-a456-426655440000
+        device: My Device
+        option_tlvs:
+          management_address:
+            iplist:
+            - ipv4: ipv4
+              ipv6: ipv6
+              name: name
+              interface: interface
+            - ipv4: ipv4
+              ipv6: ipv6
+              name: name
+              interface: interface
+            enabled: true
+          port_description: true
+          system_name: true
+          system_description: true
+          system_capabilities: true
+        snmp_syslog_notification: true
+      properties:
+        device:
+          description: The device in which the resource is defined
+          example: My Device
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        folder:
+          description: The folder in which the resource is defined
+          example: My Folder
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        id:
+          description: UUID of the resource
+          example: 123e4567-e89b-12d3-a456-426655440000
+          readOnly: true
+          type: string
+        mode:
+          description: LLDP mode
+          type: string
+        name:
+          description: LLDP profile name
+          type: string
+        option_tlvs:
+          $ref: '#/components/schemas/lldp_profiles_option_tlvs'
+        snippet:
+          description: The snippet in which the resource is defined
+          example: My Snippet
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        snmp_syslog_notification:
+          description: SNMP syslog notification
+          type: boolean
       required:
       - name
     logical-routers:
@@ -21212,6 +21476,7 @@ components:
           description: Interface variable or hardcoded vlan/loopback. vlan will be
             passed as default value
           type: string
+      x-computed-field: true
     ike_gateways_local_id:
       example:
         id: id
@@ -21309,6 +21574,7 @@ components:
           enum:
           - false
           type: boolean
+      x-computed-field: true
     ike_gateways_protocol_common_nat_traversal:
       description: Enables NAT traversal for the IKE gateway.
       example:
@@ -21317,6 +21583,7 @@ components:
         enable:
           default: true
           type: boolean
+      x-computed-field: true
     ike_gateways_protocol_common:
       example:
         nat_traversal:
@@ -21332,6 +21599,7 @@ components:
         passive_mode:
           default: false
           type: boolean
+      x-computed-field: true
     interface_management_profiles_permitted_ip_inner:
       example:
         name: name
@@ -21794,6 +22062,77 @@ components:
           description: IP address
           format: ip-address
           type: string
+    lldp_profiles_option_tlvs_management_address_iplist_inner:
+      example:
+        ipv4: ipv4
+        ipv6: ipv6
+        name: name
+        interface: interface
+      properties:
+        interface:
+          description: Interface
+          type: string
+        ipv4:
+          description: IPv4 Address
+          type: string
+        ipv6:
+          description: IPv6 Address
+          type: string
+        name:
+          description: Name
+          type: string
+    lldp_profiles_option_tlvs_management_address:
+      example:
+        iplist:
+        - ipv4: ipv4
+          ipv6: ipv6
+          name: name
+          interface: interface
+        - ipv4: ipv4
+          ipv6: ipv6
+          name: name
+          interface: interface
+        enabled: true
+      properties:
+        enabled:
+          description: Management address enabled
+          type: boolean
+        iplist:
+          items:
+            $ref: '#/components/schemas/lldp_profiles_option_tlvs_management_address_iplist_inner'
+          type: array
+    lldp_profiles_option_tlvs:
+      example:
+        management_address:
+          iplist:
+          - ipv4: ipv4
+            ipv6: ipv6
+            name: name
+            interface: interface
+          - ipv4: ipv4
+            ipv6: ipv6
+            name: name
+            interface: interface
+          enabled: true
+        port_description: true
+        system_name: true
+        system_description: true
+        system_capabilities: true
+      properties:
+        management_address:
+          $ref: '#/components/schemas/lldp_profiles_option_tlvs_management_address'
+        port_description:
+          description: Option TLV Port Description
+          type: boolean
+        system_capabilities:
+          description: Option TLV System Capabilities
+          type: boolean
+        system_description:
+          description: Option TLV System Description
+          type: boolean
+        system_name:
+          description: Option TLV System Name
+          type: boolean
     logical_routers_vrf_inner_admin_dists:
       example:
         bgp_local: 1

@@ -23,7 +23,7 @@ var _ MappedNullable = &HttpHeaderProfilesHttpHeaderInsertionInner{}
 type HttpHeaderProfilesHttpHeaderInsertionInner struct {
 	// The name of the HTTP header insertion rule
 	Name string `json:"name"`
-	// A list of HTTP header insertion definitions (_This should be an object rather than an array_)
+	// A list of HTTP header insertion definitions
 	Type                 []HttpHeaderProfilesHttpHeaderInsertionInnerTypeInner `json:"type"`
 	AdditionalProperties map[string]interface{}
 }

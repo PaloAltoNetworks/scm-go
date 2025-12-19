@@ -29,8 +29,9 @@ type SyslogServerProfiles struct {
 	// The UUID of the syslog server profile
 	Id string `json:"id"`
 	// The name of the syslog server profile
-	Name    string                       `json:"name"`
-	Servers *SyslogServerProfilesServers `json:"servers,omitempty"`
+	Name string `json:"name"`
+	// A list of syslog server configurations. At least one server is required.
+	Server []SyslogServerProfilesServerInner `json:"server"`
 	// The snippet in which the resource is defined
 	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
@@ -42,10 +43,11 @@ type _SyslogServerProfiles SyslogServerProfiles
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSyslogServerProfiles(id string, name string) *SyslogServerProfiles {
+func NewSyslogServerProfiles(id string, name string, server []SyslogServerProfilesServerInner) *SyslogServerProfiles {
 	this := SyslogServerProfiles{}
 	this.Id = id
 	this.Name = name
+	this.Server = server
 	return &this
 }
 
@@ -201,36 +203,28 @@ func (o *SyslogServerProfiles) SetName(v string) {
 	o.Name = v
 }
 
-// GetServers returns the Servers field value if set, zero value otherwise.
-func (o *SyslogServerProfiles) GetServers() SyslogServerProfilesServers {
-	if o == nil || IsNil(o.Servers) {
-		var ret SyslogServerProfilesServers
+// GetServer returns the Server field value
+func (o *SyslogServerProfiles) GetServer() []SyslogServerProfilesServerInner {
+	if o == nil {
+		var ret []SyslogServerProfilesServerInner
 		return ret
 	}
-	return *o.Servers
+
+	return o.Server
 }
 
-// GetServersOk returns a tuple with the Servers field value if set, nil otherwise
+// GetServerOk returns a tuple with the Server field value
 // and a boolean to check if the value has been set.
-func (o *SyslogServerProfiles) GetServersOk() (*SyslogServerProfilesServers, bool) {
-	if o == nil || IsNil(o.Servers) {
+func (o *SyslogServerProfiles) GetServerOk() ([]SyslogServerProfilesServerInner, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Servers, true
+	return o.Server, true
 }
 
-// HasServers returns a boolean if a field has been set.
-func (o *SyslogServerProfiles) HasServers() bool {
-	if o != nil && !IsNil(o.Servers) {
-		return true
-	}
-
-	return false
-}
-
-// SetServers gets a reference to the given SyslogServerProfilesServers and assigns it to the Servers field.
-func (o *SyslogServerProfiles) SetServers(v SyslogServerProfilesServers) {
-	o.Servers = &v
+// SetServer sets field value
+func (o *SyslogServerProfiles) SetServer(v []SyslogServerProfilesServerInner) {
+	o.Server = v
 }
 
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
@@ -286,9 +280,7 @@ func (o SyslogServerProfiles) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Servers) {
-		toSerialize["servers"] = o.Servers
-	}
+	toSerialize["server"] = o.Server
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
@@ -307,6 +299,7 @@ func (o *SyslogServerProfiles) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"name",
+		"server",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -341,7 +334,7 @@ func (o *SyslogServerProfiles) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "format")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
-		delete(additionalProperties, "servers")
+		delete(additionalProperties, "server")
 		delete(additionalProperties, "snippet")
 		o.AdditionalProperties = additionalProperties
 	}

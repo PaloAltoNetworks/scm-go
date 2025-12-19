@@ -35,6 +35,14 @@ type _BandwidthAllocationsQos BandwidthAllocationsQos
 // will change when the set of required properties is changed
 func NewBandwidthAllocationsQos() *BandwidthAllocationsQos {
 	this := BandwidthAllocationsQos{}
+	var customized bool = false
+	this.Customized = &customized
+	var enabled bool = false
+	this.Enabled = &enabled
+	var guaranteedRatio float32 = 0
+	this.GuaranteedRatio = &guaranteedRatio
+	var profile string = ""
+	this.Profile = &profile
 	return &this
 }
 
@@ -43,6 +51,14 @@ func NewBandwidthAllocationsQos() *BandwidthAllocationsQos {
 // but it doesn't guarantee that properties required by API are set
 func NewBandwidthAllocationsQosWithDefaults() *BandwidthAllocationsQos {
 	this := BandwidthAllocationsQos{}
+	var customized bool = false
+	this.Customized = &customized
+	var enabled bool = false
+	this.Enabled = &enabled
+	var guaranteedRatio float32 = 0
+	this.GuaranteedRatio = &guaranteedRatio
+	var profile string = ""
+	this.Profile = &profile
 	return &this
 }
 

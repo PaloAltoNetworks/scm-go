@@ -4868,10 +4868,10 @@ components:
     bandwidth-allocations:
       example:
         qos:
-          customized: true
+          customized: false
           guaranteed_ratio: 6.027456183070403
-          profile: profile
-          enabled: true
+          profile: ""
+          enabled: false
         spn_name_list:
         - spn_name_list
         - spn_name_list
@@ -4887,6 +4887,7 @@ components:
         qos:
           $ref: '#/components/schemas/bandwidth_allocations_qos'
         spn_name_list:
+          default: []
           items:
             type: string
           type: array
@@ -5562,18 +5563,22 @@ components:
       type: object
     bandwidth_allocations_qos:
       example:
-        customized: true
+        customized: false
         guaranteed_ratio: 6.027456183070403
-        profile: profile
-        enabled: true
+        profile: ""
+        enabled: false
       properties:
         customized:
+          default: false
           type: boolean
         enabled:
+          default: false
           type: boolean
         guaranteed_ratio:
+          default: 0
           type: number
         profile:
+          default: ""
           type: string
       type: object
     bgp_routing_routing_preference:
