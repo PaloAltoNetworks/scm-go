@@ -69,7 +69,7 @@ type Client struct {
 	Logging              string     `json:"logging"`
 	Logger               api.Logger `json:"-"`
 
-	Jwt       string `json:"-"`
+	Jwt       string `json:"jwt"`
 	jwtAtomic int32  `json:"-"`
 
 	JwtExpiresAt time.Time `json:"-"` // The actual time the JWT will expire
@@ -233,6 +233,11 @@ func (c *Client) Setup() error {
 		} else {
 			c.Logging = api.LogQuiet
 		}
+	}
+
+	// JWT token from auth file (if present).
+	if c.Jwt == "" && json_client.Jwt != "" {
+		c.Jwt = json_client.Jwt
 	}
 
 	// Setup the https client.
@@ -443,7 +448,7 @@ func (c *Client) Log(ctx context.Context, level, msg string) {
 
 	if level == "" || c.Logging == level {
 		if c.Logger == nil {
-			log.Printf(msg)
+			log.Print(msg)
 		} else {
 			c.Logger(ctx, msg)
 		}
