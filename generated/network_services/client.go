@@ -89,6 +89,8 @@ type APIClient struct {
 
 	InterfaceManagementProfilesAPI *InterfaceManagementProfilesAPIService
 
+	LLDPProfilesAPI *LLDPProfilesAPIService
+
 	Layer2SubinterfacesAPI *Layer2SubinterfacesAPIService
 
 	Layer3SubinterfacesAPI *Layer3SubinterfacesAPIService
@@ -175,6 +177,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.IPsecCryptoProfilesAPI = (*IPsecCryptoProfilesAPIService)(&c.common)
 	c.IPsecTunnelsAPI = (*IPsecTunnelsAPIService)(&c.common)
 	c.InterfaceManagementProfilesAPI = (*InterfaceManagementProfilesAPIService)(&c.common)
+	c.LLDPProfilesAPI = (*LLDPProfilesAPIService)(&c.common)
 	c.Layer2SubinterfacesAPI = (*Layer2SubinterfacesAPIService)(&c.common)
 	c.Layer3SubinterfacesAPI = (*Layer3SubinterfacesAPIService)(&c.common)
 	c.LinkTagsAPI = (*LinkTagsAPIService)(&c.common)
