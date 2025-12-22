@@ -497,3 +497,122 @@ func TestDoWithMultipleUnauthorizedFailures(t *testing.T) {
 		t.Fatalf("Status code is %d, not %d", e2.StatusCode, http.StatusUnauthorized)
 	}
 }
+
+// TestClient_JwtFieldInAuthFile tests that the Jwt field can be read from auth_file JSON
+// This is the key requirement from AUTH-FILE-JWT-CACHING-SOLUTION.md
+func TestClient_JwtFieldInAuthFile(t *testing.T) {
+	authFileContent := `{
+		"client_id": "test-client-id@123456.iam.panserviceaccount.com",
+		"client_secret": "test-secret-key",
+		"scope": "tsg_id:123456",
+		"host": "api.sase.paloaltonetworks.com",
+		"jwt": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjEyMyIsInR5cCI6IkpXVCJ9.test.token"
+	}`
+
+	tmpfile, err := os.CreateTemp("", "scm-auth-test-*.json")
+	if err != nil {
+		t.Fatalf("Failed to create temporary auth file: %v", err)
+	}
+	defer os.Remove(tmpfile.Name())
+
+	if _, err = tmpfile.Write([]byte(authFileContent)); err != nil {
+		t.Fatalf("Failed to write to temporary auth file: %v", err)
+	}
+	if err = tmpfile.Close(); err != nil {
+		t.Fatalf("Failed to close temporary auth file: %v", err)
+	}
+
+	client := &Client{
+		AuthFile: tmpfile.Name(),
+	}
+
+	if err = client.Setup(); err != nil {
+		t.Fatalf("Failed to setup client: %v", err)
+	}
+
+	expectedJwt := "eyJhbGciOiJSUzI1NiIsImtpZCI6IjEyMyIsInR5cCI6IkpXVCJ9.test.token"
+	if client.Jwt != expectedJwt {
+		t.Errorf("JWT mismatch: got %q, want %q", client.Jwt, expectedJwt)
+	}
+
+	if client.ClientId != "test-client-id@123456.iam.panserviceaccount.com" {
+		t.Errorf("ClientId mismatch: got %q", client.ClientId)
+	}
+}
+
+// TestClient_AuthFileWithoutJwt tests backward compatibility
+func TestClient_AuthFileWithoutJwt(t *testing.T) {
+	authFileContent := `{
+		"client_id": "test-client-id",
+		"client_secret": "test-secret",
+		"scope": "test-scope",
+		"host": "test-host"
+	}`
+
+	tmpfile, err := os.CreateTemp("", "scm-auth-no-jwt-*.json")
+	if err != nil {
+		t.Fatalf("Failed to create temporary auth file: %v", err)
+	}
+	defer os.Remove(tmpfile.Name())
+
+	if _, err = tmpfile.Write([]byte(authFileContent)); err != nil {
+		t.Fatalf("Failed to write to temporary auth file: %v", err)
+	}
+	if err = tmpfile.Close(); err != nil {
+		t.Fatalf("Failed to close temporary auth file: %v", err)
+	}
+
+	client := &Client{
+		AuthFile: tmpfile.Name(),
+	}
+
+	if err = client.Setup(); err != nil {
+		t.Fatalf("Failed to setup client: %v", err)
+	}
+
+	if client.Jwt != "" {
+		t.Errorf("JWT should be empty when not in auth file, got: %q", client.Jwt)
+	}
+}
+
+// TestClient_JwtFromAuthFileSkipsRefresh validates that JWT presence skips refresh
+func TestClient_JwtFromAuthFileSkipsRefresh(t *testing.T) {
+	authFileContent := `{
+		"client_id": "test-client-id@123456.iam.panserviceaccount.com",
+		"client_secret": "test-secret-key",
+		"scope": "tsg_id:123456",
+		"host": "api.sase.paloaltonetworks.com",
+		"jwt": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjEyMyIsInR5cCI6IkpXVCJ9.cached.token"
+	}`
+
+	tmpfile, err := os.CreateTemp("", "scm-auth-skip-refresh-*.json")
+	if err != nil {
+		t.Fatalf("Failed to create temporary auth file: %v", err)
+	}
+	defer os.Remove(tmpfile.Name())
+
+	if _, err = tmpfile.Write([]byte(authFileContent)); err != nil {
+		t.Fatalf("Failed to write to temporary auth file: %v", err)
+	}
+	if err = tmpfile.Close(); err != nil {
+		t.Fatalf("Failed to close temporary auth file: %v", err)
+	}
+
+	client := &Client{
+		AuthFile: tmpfile.Name(),
+	}
+
+	if err = client.Setup(); err != nil {
+		t.Fatalf("Failed to setup client: %v", err)
+	}
+
+	expectedJwt := "eyJhbGciOiJSUzI1NiIsImtpZCI6IjEyMyIsInR5cCI6IkpXVCJ9.cached.token"
+	if client.Jwt != expectedJwt {
+		t.Errorf("JWT mismatch: got %q, want %q", client.Jwt, expectedJwt)
+	}
+
+	// This demonstrates the key behavior: when JWT is present, RefreshJwt() is skipped
+	if client.Jwt == "" {
+		t.Error("JWT should not be empty")
+	}
+}

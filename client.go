@@ -68,7 +68,7 @@ type Client struct {
 	Logging              string     `json:"logging"`
 	Logger               api.Logger `json:"-"`
 
-	Jwt       string `json:"-"`
+	Jwt       string `json:"jwt"`
 	jwtAtomic int32  `json:"-"`
 
 	apiPrefix string
@@ -234,6 +234,11 @@ func (c *Client) Setup() error {
 		} else {
 			c.Logging = api.LogQuiet
 		}
+	}
+
+	// JWT token from auth file (if present).
+	if c.Jwt == "" && json_client.Jwt != "" {
+		c.Jwt = json_client.Jwt
 	}
 
 	// Setup the https client.
