@@ -51,13 +51,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
-	"time"
 
-	setup "github.com/paloaltonetworks/scm-go-v2"
-	"github.com/paloaltonetworks/scm-go-v2/common"
-	"github.com/paloaltonetworks/scm-go-v2/generated/network_services"
+	setup "github.com/paloaltonetworks/scm-go"
+	"github.com/paloaltonetworks/scm-go/common"
+	"github.com/paloaltonetworks/scm-go/generated/objects"
 )
 
 func main() {
@@ -71,24 +69,23 @@ func main() {
 
 	// Setup the client configuration
 	err := setupClient.Setup()
+	if err != nil {
+		fmt.Printf("Error setting up client: %v\n", err)
+		return
+	}
 
 	// Refresh JWT token
 	ctx := context.Background()
-	if setupClient.Jwt == "" {
-		maxRetries := 3
-		retryDelay := 2 * time.Second
-		for i := 0; i < maxRetries; i++ {
-			err = setupClient.RefreshJwt(ctx)
-			if err == nil {
-				break // Success, exit the loop
-			}
-			time.Sleep(retryDelay)
-		}
-		// Fail the test only after all retries have been exhausted.
+	err = setupClient.RefreshJwt(ctx)
+
+	if setupClient.Jwt != "" {
+		fmt.Printf("JWT token obtained (first 20 chars): %s...\n", setupClient.Jwt[:min(20, len(setupClient.Jwt))])
+	} else {
+		fmt.Println("WARNING: JWT token is empty!")
 	}
 
 	// Create the network_services API client
-	config := network_services.NewConfiguration()
+	config := objects.NewConfiguration()
 	config.Host = setupClient.GetHost()
 	config.Scheme = "https"
 
@@ -112,20 +109,44 @@ func main() {
 	config.DefaultHeader["Authorization"] = "Bearer " + setupClient.Jwt
 	config.DefaultHeader["x-auth-jwt"] = setupClient.Jwt
 
-	apiClient := network_services.NewAPIClient(config)
+	fmt.Printf("Authorization header: Bearer %s...\n", setupClient.Jwt[:min(10, len(setupClient.Jwt))])
+	fmt.Printf("Host: %s\n", config.Host)
 
-	// Create a profile to retrieve.
-	profileName := "test-ike-get-" + common.GenerateRandomString(6)
-	profile := network_services.IkeCryptoProfiles{
-		Folder:     common.StringPtr("Shared"),
-		Name:       profileName,
-		Hash:       []string{"sha512"},
-		DhGroup:    []string{"group20"},
-		Encryption: []string{"aes-128-gcm"},
+	apiClient := objects.NewAPIClient(config)
+
+	reqCreate := apiClient.AddressesAPI.ListAddresses(context.Background()).Folder("All")
+	createRes, httpResp, err := reqCreate.Execute()
+	if err != nil {
+		fmt.Printf("Error Listing Addresses: %v\n", err)
+		if httpResp != nil {
+			fmt.Printf("HTTP Status: %d\n", httpResp.StatusCode)
+		}
+		return
 	}
 
-	reqCreate := apiClient.IKECryptoProfilesAPI.CreateIKECryptoProfiles(context.Background()).IkeCryptoProfiles(profile)
-	createRes, _, err := reqCreate.Execute()
-	log.Print(*createRes.Id)
+	if httpResp != nil {
+		fmt.Printf("HTTP Status: %d\n", httpResp.StatusCode)
+	}
+
+	// Print the first address from the response
+	if createRes != nil && createRes.Data != nil && len(createRes.Data) > 0 {
+		firstAddress := createRes.Data[0]
+		fmt.Printf("First address found:\n")
+		fmt.Printf("  Name: %s\n", firstAddress.Name)
+		if firstAddress.Fqdn != nil {
+			fmt.Printf("  FQDN: %s\n", *firstAddress.Fqdn)
+		}
+		if firstAddress.IpNetmask != nil {
+			fmt.Printf("  IP/Netmask: %s\n", *firstAddress.IpNetmask)
+		}
+		if firstAddress.IpRange != nil {
+			fmt.Printf("  IP Range: %s\n", *firstAddress.IpRange)
+		}
+	} else {
+		fmt.Println("No addresses found in the response")
+		if createRes != nil {
+			fmt.Printf("Total addresses returned: %d\n", len(createRes.Data))
+		}
+	}
 }
 ```

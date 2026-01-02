@@ -11966,7 +11966,7 @@ components:
         default:
           $ref: '#/components/schemas/applications_default'
         description:
-          maxLength: 1023
+          maxLength: 8192
           type: string
         device:
           description: The device in which the resource is defined

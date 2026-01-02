@@ -37,6 +37,8 @@ type SamlServerProfiles struct {
 	Name string `json:"name"`
 	// SAML HTTP binding for SLO requests to the identity provider
 	SloBindings *string `json:"slo_bindings,omitempty"`
+	// Identity provider SLO URL
+	SloUrl *string `json:"slo_url,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// SAML HTTP binding for SSO requests to the identity provider
@@ -299,6 +301,38 @@ func (o *SamlServerProfiles) SetSloBindings(v string) {
 	o.SloBindings = &v
 }
 
+// GetSloUrl returns the SloUrl field value if set, zero value otherwise.
+func (o *SamlServerProfiles) GetSloUrl() string {
+	if o == nil || IsNil(o.SloUrl) {
+		var ret string
+		return ret
+	}
+	return *o.SloUrl
+}
+
+// GetSloUrlOk returns a tuple with the SloUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SamlServerProfiles) GetSloUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.SloUrl) {
+		return nil, false
+	}
+	return o.SloUrl, true
+}
+
+// HasSloUrl returns a boolean if a field has been set.
+func (o *SamlServerProfiles) HasSloUrl() bool {
+	if o != nil && !IsNil(o.SloUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetSloUrl gets a reference to the given string and assigns it to the SloUrl field.
+func (o *SamlServerProfiles) SetSloUrl(v string) {
+	o.SloUrl = &v
+}
+
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
 func (o *SamlServerProfiles) GetSnippet() string {
 	if o == nil || IsNil(o.Snippet) {
@@ -469,6 +503,9 @@ func (o SamlServerProfiles) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SloBindings) {
 		toSerialize["slo_bindings"] = o.SloBindings
 	}
+	if !IsNil(o.SloUrl) {
+		toSerialize["slo_url"] = o.SloUrl
+	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
@@ -536,6 +573,7 @@ func (o *SamlServerProfiles) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "max_clock_skew")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "slo_bindings")
+		delete(additionalProperties, "slo_url")
 		delete(additionalProperties, "snippet")
 		delete(additionalProperties, "sso_bindings")
 		delete(additionalProperties, "sso_url")

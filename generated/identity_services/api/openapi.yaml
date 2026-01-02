@@ -12012,6 +12012,7 @@ components:
       example:
         snippet: My Snippet
         max_clock_skew: 72
+        slo_url: slo_url
         want_auth_requests_signed: true
         certificate: certificate
         entity_id: entity_id
@@ -12063,6 +12064,11 @@ components:
           enum:
           - post
           - redirect
+          type: string
+        slo_url:
+          description: Identity provider SLO URL
+          maxLength: 255
+          minLength: 1
           type: string
         snippet:
           description: The snippet in which the resource is defined
@@ -12624,6 +12630,9 @@ components:
           maximum: 65535
           minimum: 1
           type: integer
+      required:
+      - host
+      - name
       type: object
     ldap_server_profiles_server_inner:
       example:

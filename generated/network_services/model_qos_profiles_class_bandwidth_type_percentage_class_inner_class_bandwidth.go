@@ -35,6 +35,10 @@ type _QosProfilesClassBandwidthTypePercentageClassInnerClassBandwidth QosProfile
 // will change when the set of required properties is changed
 func NewQosProfilesClassBandwidthTypePercentageClassInnerClassBandwidth() *QosProfilesClassBandwidthTypePercentageClassInnerClassBandwidth {
 	this := QosProfilesClassBandwidthTypePercentageClassInnerClassBandwidth{}
+	var egressGuaranteed int32 = 0
+	this.EgressGuaranteed = &egressGuaranteed
+	var egressMax int32 = 0
+	this.EgressMax = &egressMax
 	return &this
 }
 
@@ -43,6 +47,10 @@ func NewQosProfilesClassBandwidthTypePercentageClassInnerClassBandwidth() *QosPr
 // but it doesn't guarantee that properties required by API are set
 func NewQosProfilesClassBandwidthTypePercentageClassInnerClassBandwidthWithDefaults() *QosProfilesClassBandwidthTypePercentageClassInnerClassBandwidth {
 	this := QosProfilesClassBandwidthTypePercentageClassInnerClassBandwidth{}
+	var egressGuaranteed int32 = 0
+	this.EgressGuaranteed = &egressGuaranteed
+	var egressMax int32 = 0
+	this.EgressMax = &egressMax
 	return &this
 }
 
