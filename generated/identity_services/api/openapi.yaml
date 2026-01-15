@@ -12077,6 +12077,7 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         sso_bindings:
+          default: post
           description: SAML HTTP binding for SSO requests to the identity provider
           enum:
           - post
@@ -13036,7 +13037,6 @@ components:
         secret:
           description: The TACACS+ secret
           format: password
-          maxLength: 64
           type: string
       type: object
     tls_service_profiles_protocol_settings:

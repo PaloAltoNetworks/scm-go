@@ -15937,8 +15937,8 @@ components:
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
         aggregate_bandwidth:
-          egress_max: 6027
-          egress_guaranteed: 800
+          egress_max: 36164
+          egress_guaranteed: 1281
       properties:
         aggregate_bandwidth:
           $ref: '#/components/schemas/qos_profiles_aggregate_bandwidth'
@@ -33381,17 +33381,17 @@ components:
           type: array
     qos_profiles_aggregate_bandwidth:
       example:
-        egress_max: 6027
-        egress_guaranteed: 800
+        egress_max: 36164
+        egress_guaranteed: 1281
       properties:
         egress_guaranteed:
           description: guaranteed sending bandwidth in mbps
-          maximum: 10000
+          maximum: 16000
           minimum: 0
           type: integer
         egress_max:
           description: max sending bandwidth in mbps
-          maximum: 10000
+          maximum: 60000
           minimum: 0
           type: integer
     qos_profiles_class_bandwidth_type_mbps_class_inner_class_bandwidth:

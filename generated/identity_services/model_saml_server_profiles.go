@@ -74,6 +74,8 @@ func NewSamlServerProfiles(certificate string, entityId string, id string, name 
 // but it doesn't guarantee that properties required by API are set
 func NewSamlServerProfilesWithDefaults() *SamlServerProfiles {
 	this := SamlServerProfiles{}
+	var ssoBindings string = "post"
+	this.SsoBindings = ssoBindings
 	return &this
 }
 

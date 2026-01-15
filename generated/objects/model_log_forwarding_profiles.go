@@ -28,8 +28,8 @@ type LogForwardingProfiles struct {
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The UUID of the log server profile
-	Id        string                                `json:"id"`
-	MatchList []LogForwardingProfilesMatchListInner `json:"match_list,omitempty"`
+	Id        *string                               `json:"id,omitempty"`
+	MatchList []LogForwardingProfilesMatchListInner `json:"match_list"`
 	// The name of the log forwarding profile
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
@@ -43,9 +43,9 @@ type _LogForwardingProfiles LogForwardingProfiles
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLogForwardingProfiles(id string, name string) *LogForwardingProfiles {
+func NewLogForwardingProfiles(matchList []LogForwardingProfilesMatchListInner, name string) *LogForwardingProfiles {
 	this := LogForwardingProfiles{}
-	this.Id = id
+	this.MatchList = matchList
 	this.Name = name
 	return &this
 }
@@ -154,58 +154,58 @@ func (o *LogForwardingProfiles) SetFolder(v string) {
 	o.Folder = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *LogForwardingProfiles) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogForwardingProfiles) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
-func (o *LogForwardingProfiles) SetId(v string) {
-	o.Id = v
-}
-
-// GetMatchList returns the MatchList field value if set, zero value otherwise.
-func (o *LogForwardingProfiles) GetMatchList() []LogForwardingProfilesMatchListInner {
-	if o == nil || IsNil(o.MatchList) {
-		var ret []LogForwardingProfilesMatchListInner
-		return ret
-	}
-	return o.MatchList
-}
-
-// GetMatchListOk returns a tuple with the MatchList field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *LogForwardingProfiles) GetMatchListOk() ([]LogForwardingProfilesMatchListInner, bool) {
-	if o == nil || IsNil(o.MatchList) {
-		return nil, false
-	}
-	return o.MatchList, true
-}
-
-// HasMatchList returns a boolean if a field has been set.
-func (o *LogForwardingProfiles) HasMatchList() bool {
-	if o != nil && !IsNil(o.MatchList) {
+// HasId returns a boolean if a field has been set.
+func (o *LogForwardingProfiles) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
 	return false
 }
 
-// SetMatchList gets a reference to the given []LogForwardingProfilesMatchListInner and assigns it to the MatchList field.
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *LogForwardingProfiles) SetId(v string) {
+	o.Id = &v
+}
+
+// GetMatchList returns the MatchList field value
+func (o *LogForwardingProfiles) GetMatchList() []LogForwardingProfilesMatchListInner {
+	if o == nil {
+		var ret []LogForwardingProfilesMatchListInner
+		return ret
+	}
+
+	return o.MatchList
+}
+
+// GetMatchListOk returns a tuple with the MatchList field value
+// and a boolean to check if the value has been set.
+func (o *LogForwardingProfiles) GetMatchListOk() ([]LogForwardingProfilesMatchListInner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MatchList, true
+}
+
+// SetMatchList sets field value
 func (o *LogForwardingProfiles) SetMatchList(v []LogForwardingProfilesMatchListInner) {
 	o.MatchList = v
 }
@@ -285,10 +285,10 @@ func (o LogForwardingProfiles) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
 	}
-	toSerialize["id"] = o.Id
-	if !IsNil(o.MatchList) {
-		toSerialize["match_list"] = o.MatchList
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
 	}
+	toSerialize["match_list"] = o.MatchList
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
@@ -306,7 +306,7 @@ func (o *LogForwardingProfiles) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
+		"match_list",
 		"name",
 	}
 

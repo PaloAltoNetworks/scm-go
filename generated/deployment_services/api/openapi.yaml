@@ -5763,6 +5763,8 @@ components:
           type: string
         summarize_mobile_user_routes:
           type: boolean
+      required:
+      - peer_as
       type: object
     service_connections_protocol:
       example:

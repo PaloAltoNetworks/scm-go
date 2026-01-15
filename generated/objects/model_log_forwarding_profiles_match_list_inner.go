@@ -13,6 +13,7 @@ package objects
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the LogForwardingProfilesMatchListInner type satisfies the MappedNullable interface at compile time
@@ -23,13 +24,17 @@ type LogForwardingProfilesMatchListInner struct {
 	// Match profile description
 	ActionDesc *string `json:"action_desc,omitempty"`
 	// Filter match criteria
-	Filter *string `json:"filter,omitempty"`
+	Filter string `json:"filter"`
 	// Log type
-	LogType *string `json:"log_type,omitempty"`
+	LogType string `json:"log_type"`
 	// Name of the match profile
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name"`
+	// A list of email server profiles
+	SendEmail []string `json:"send_email,omitempty"`
 	// A list of HTTP server profiles
 	SendHttp []string `json:"send_http,omitempty"`
+	// A list of SNMP server profiles
+	SendSnmptrap []string `json:"send_snmptrap,omitempty"`
 	// A list of syslog server profiles
 	SendSyslog           []string `json:"send_syslog,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -41,8 +46,11 @@ type _LogForwardingProfilesMatchListInner LogForwardingProfilesMatchListInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLogForwardingProfilesMatchListInner() *LogForwardingProfilesMatchListInner {
+func NewLogForwardingProfilesMatchListInner(filter string, logType string, name string) *LogForwardingProfilesMatchListInner {
 	this := LogForwardingProfilesMatchListInner{}
+	this.Filter = filter
+	this.LogType = logType
+	this.Name = name
 	return &this
 }
 
@@ -86,100 +94,108 @@ func (o *LogForwardingProfilesMatchListInner) SetActionDesc(v string) {
 	o.ActionDesc = &v
 }
 
-// GetFilter returns the Filter field value if set, zero value otherwise.
+// GetFilter returns the Filter field value
 func (o *LogForwardingProfilesMatchListInner) GetFilter() string {
-	if o == nil || IsNil(o.Filter) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Filter
+
+	return o.Filter
 }
 
-// GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
+// GetFilterOk returns a tuple with the Filter field value
 // and a boolean to check if the value has been set.
 func (o *LogForwardingProfilesMatchListInner) GetFilterOk() (*string, bool) {
-	if o == nil || IsNil(o.Filter) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Filter, true
+	return &o.Filter, true
 }
 
-// HasFilter returns a boolean if a field has been set.
-func (o *LogForwardingProfilesMatchListInner) HasFilter() bool {
-	if o != nil && !IsNil(o.Filter) {
-		return true
-	}
-
-	return false
-}
-
-// SetFilter gets a reference to the given string and assigns it to the Filter field.
+// SetFilter sets field value
 func (o *LogForwardingProfilesMatchListInner) SetFilter(v string) {
-	o.Filter = &v
+	o.Filter = v
 }
 
-// GetLogType returns the LogType field value if set, zero value otherwise.
+// GetLogType returns the LogType field value
 func (o *LogForwardingProfilesMatchListInner) GetLogType() string {
-	if o == nil || IsNil(o.LogType) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.LogType
+
+	return o.LogType
 }
 
-// GetLogTypeOk returns a tuple with the LogType field value if set, nil otherwise
+// GetLogTypeOk returns a tuple with the LogType field value
 // and a boolean to check if the value has been set.
 func (o *LogForwardingProfilesMatchListInner) GetLogTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.LogType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LogType, true
+	return &o.LogType, true
 }
 
-// HasLogType returns a boolean if a field has been set.
-func (o *LogForwardingProfilesMatchListInner) HasLogType() bool {
-	if o != nil && !IsNil(o.LogType) {
-		return true
-	}
-
-	return false
-}
-
-// SetLogType gets a reference to the given string and assigns it to the LogType field.
+// SetLogType sets field value
 func (o *LogForwardingProfilesMatchListInner) SetLogType(v string) {
-	o.LogType = &v
+	o.LogType = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *LogForwardingProfilesMatchListInner) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *LogForwardingProfilesMatchListInner) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *LogForwardingProfilesMatchListInner) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
+// SetName sets field value
+func (o *LogForwardingProfilesMatchListInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetSendEmail returns the SendEmail field value if set, zero value otherwise.
+func (o *LogForwardingProfilesMatchListInner) GetSendEmail() []string {
+	if o == nil || IsNil(o.SendEmail) {
+		var ret []string
+		return ret
+	}
+	return o.SendEmail
+}
+
+// GetSendEmailOk returns a tuple with the SendEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogForwardingProfilesMatchListInner) GetSendEmailOk() ([]string, bool) {
+	if o == nil || IsNil(o.SendEmail) {
+		return nil, false
+	}
+	return o.SendEmail, true
+}
+
+// HasSendEmail returns a boolean if a field has been set.
+func (o *LogForwardingProfilesMatchListInner) HasSendEmail() bool {
+	if o != nil && !IsNil(o.SendEmail) {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *LogForwardingProfilesMatchListInner) SetName(v string) {
-	o.Name = &v
+// SetSendEmail gets a reference to the given []string and assigns it to the SendEmail field.
+func (o *LogForwardingProfilesMatchListInner) SetSendEmail(v []string) {
+	o.SendEmail = v
 }
 
 // GetSendHttp returns the SendHttp field value if set, zero value otherwise.
@@ -212,6 +228,38 @@ func (o *LogForwardingProfilesMatchListInner) HasSendHttp() bool {
 // SetSendHttp gets a reference to the given []string and assigns it to the SendHttp field.
 func (o *LogForwardingProfilesMatchListInner) SetSendHttp(v []string) {
 	o.SendHttp = v
+}
+
+// GetSendSnmptrap returns the SendSnmptrap field value if set, zero value otherwise.
+func (o *LogForwardingProfilesMatchListInner) GetSendSnmptrap() []string {
+	if o == nil || IsNil(o.SendSnmptrap) {
+		var ret []string
+		return ret
+	}
+	return o.SendSnmptrap
+}
+
+// GetSendSnmptrapOk returns a tuple with the SendSnmptrap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogForwardingProfilesMatchListInner) GetSendSnmptrapOk() ([]string, bool) {
+	if o == nil || IsNil(o.SendSnmptrap) {
+		return nil, false
+	}
+	return o.SendSnmptrap, true
+}
+
+// HasSendSnmptrap returns a boolean if a field has been set.
+func (o *LogForwardingProfilesMatchListInner) HasSendSnmptrap() bool {
+	if o != nil && !IsNil(o.SendSnmptrap) {
+		return true
+	}
+
+	return false
+}
+
+// SetSendSnmptrap gets a reference to the given []string and assigns it to the SendSnmptrap field.
+func (o *LogForwardingProfilesMatchListInner) SetSendSnmptrap(v []string) {
+	o.SendSnmptrap = v
 }
 
 // GetSendSyslog returns the SendSyslog field value if set, zero value otherwise.
@@ -259,17 +307,17 @@ func (o LogForwardingProfilesMatchListInner) ToMap() (map[string]interface{}, er
 	if !IsNil(o.ActionDesc) {
 		toSerialize["action_desc"] = o.ActionDesc
 	}
-	if !IsNil(o.Filter) {
-		toSerialize["filter"] = o.Filter
-	}
-	if !IsNil(o.LogType) {
-		toSerialize["log_type"] = o.LogType
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	toSerialize["filter"] = o.Filter
+	toSerialize["log_type"] = o.LogType
+	toSerialize["name"] = o.Name
+	if !IsNil(o.SendEmail) {
+		toSerialize["send_email"] = o.SendEmail
 	}
 	if !IsNil(o.SendHttp) {
 		toSerialize["send_http"] = o.SendHttp
+	}
+	if !IsNil(o.SendSnmptrap) {
+		toSerialize["send_snmptrap"] = o.SendSnmptrap
 	}
 	if !IsNil(o.SendSyslog) {
 		toSerialize["send_syslog"] = o.SendSyslog
@@ -283,6 +331,29 @@ func (o LogForwardingProfilesMatchListInner) ToMap() (map[string]interface{}, er
 }
 
 func (o *LogForwardingProfilesMatchListInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"filter",
+		"log_type",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varLogForwardingProfilesMatchListInner := _LogForwardingProfilesMatchListInner{}
 
 	err = json.Unmarshal(data, &varLogForwardingProfilesMatchListInner)
@@ -300,7 +371,9 @@ func (o *LogForwardingProfilesMatchListInner) UnmarshalJSON(data []byte) (err er
 		delete(additionalProperties, "filter")
 		delete(additionalProperties, "log_type")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "send_email")
 		delete(additionalProperties, "send_http")
+		delete(additionalProperties, "send_snmptrap")
 		delete(additionalProperties, "send_syslog")
 		o.AdditionalProperties = additionalProperties
 	}
