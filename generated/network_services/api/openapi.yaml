@@ -15405,12 +15405,15 @@ components:
         folder: My Folder
         ipv6:
           address:
-          - interface_id: EUI-64
+          - anycast: "{}"
+            prefix: "{}"
             name: 2001:DB8::1/128
             enable_on_interface: true
-          - interface_id: EUI-64
+          - anycast: "{}"
+            prefix: "{}"
             name: 2001:DB8::1/128
             enable_on_interface: true
+          interface_id: EUI-64
           enabled: false
         ip:
         - name: name
@@ -16688,6 +16691,18 @@ components:
       example:
         snippet: My Snippet
         folder: My Folder
+        ipv6:
+          address:
+          - anycast: "{}"
+            prefix: "{}"
+            name: 2001:DB8::1/128
+            enable_on_interface: true
+          - anycast: "{}"
+            prefix: "{}"
+            name: 2001:DB8::1/128
+            enable_on_interface: true
+          interface_id: EUI-64
+          enabled: false
         ip:
         - name: name
         - name: name
@@ -16733,6 +16748,8 @@ components:
           items:
             $ref: '#/components/schemas/tunnel_interfaces_ip_inner'
           type: array
+        ipv6:
+          $ref: '#/components/schemas/tunnel_interfaces_ipv6'
         mtu:
           description: MTU
           maximum: 9216
@@ -32921,32 +32938,38 @@ components:
       - name
     loopback_interfaces_ipv6_address_inner:
       example:
-        interface_id: EUI-64
+        anycast: "{}"
+        prefix: "{}"
         name: 2001:DB8::1/128
         enable_on_interface: true
       properties:
+        anycast:
+          description: Anycast
+          type: object
         enable_on_interface:
           default: true
           description: Enable Address on Interface
           type: boolean
-        interface_id:
-          default: EUI-64
-          description: Interface ID
-          type: string
         name:
           description: IPv6 Address
           example: 2001:DB8::1/128
           type: string
+        prefix:
+          description: Use interface ID as host portion
+          type: object
     loopback_interfaces_ipv6:
       description: Loopback IPv6 Configuration
       example:
         address:
-        - interface_id: EUI-64
+        - anycast: "{}"
+          prefix: "{}"
           name: 2001:DB8::1/128
           enable_on_interface: true
-        - interface_id: EUI-64
+        - anycast: "{}"
+          prefix: "{}"
           name: 2001:DB8::1/128
           enable_on_interface: true
+        interface_id: EUI-64
         enabled: false
       properties:
         address:
@@ -32958,6 +32981,10 @@ components:
           default: false
           description: Enable IPv6
           type: boolean
+        interface_id:
+          default: EUI-64
+          description: Interface ID
+          type: string
     nat_rules_destination_translation_dns_rewrite:
       description: DNS rewrite
       example:
@@ -34312,6 +34339,34 @@ components:
           type: string
       required:
       - name
+    tunnel_interfaces_ipv6:
+      description: Tunnel Interface IPv6 Configuration
+      example:
+        address:
+        - anycast: "{}"
+          prefix: "{}"
+          name: 2001:DB8::1/128
+          enable_on_interface: true
+        - anycast: "{}"
+          prefix: "{}"
+          name: 2001:DB8::1/128
+          enable_on_interface: true
+        interface_id: EUI-64
+        enabled: false
+      properties:
+        address:
+          description: IPv6 Address Parent
+          items:
+            $ref: '#/components/schemas/loopback_interfaces_ipv6_address_inner'
+          type: array
+        enabled:
+          default: false
+          description: Enable IPv6
+          type: boolean
+        interface_id:
+          default: EUI-64
+          description: Interface ID
+          type: string
     vlan_interfaces_arp_inner:
       example:
         hw_address: hw_address

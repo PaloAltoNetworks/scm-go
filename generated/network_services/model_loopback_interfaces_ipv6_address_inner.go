@@ -20,12 +20,14 @@ var _ MappedNullable = &LoopbackInterfacesIpv6AddressInner{}
 
 // LoopbackInterfacesIpv6AddressInner struct for LoopbackInterfacesIpv6AddressInner
 type LoopbackInterfacesIpv6AddressInner struct {
+	// Anycast
+	Anycast map[string]interface{} `json:"anycast,omitempty"`
 	// Enable Address on Interface
 	EnableOnInterface *bool `json:"enable_on_interface,omitempty"`
-	// Interface ID
-	InterfaceId *string `json:"interface_id,omitempty"`
 	// IPv6 Address
-	Name                 *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// Use interface ID as host portion
+	Prefix               map[string]interface{} `json:"prefix,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -39,8 +41,6 @@ func NewLoopbackInterfacesIpv6AddressInner() *LoopbackInterfacesIpv6AddressInner
 	this := LoopbackInterfacesIpv6AddressInner{}
 	var enableOnInterface bool = true
 	this.EnableOnInterface = &enableOnInterface
-	var interfaceId string = "EUI-64"
-	this.InterfaceId = &interfaceId
 	return &this
 }
 
@@ -51,9 +51,39 @@ func NewLoopbackInterfacesIpv6AddressInnerWithDefaults() *LoopbackInterfacesIpv6
 	this := LoopbackInterfacesIpv6AddressInner{}
 	var enableOnInterface bool = true
 	this.EnableOnInterface = &enableOnInterface
-	var interfaceId string = "EUI-64"
-	this.InterfaceId = &interfaceId
 	return &this
+}
+
+// GetAnycast returns the Anycast field value if set, zero value otherwise.
+func (o *LoopbackInterfacesIpv6AddressInner) GetAnycast() map[string]interface{} {
+	if o == nil || IsNil(o.Anycast) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Anycast
+}
+
+// GetAnycastOk returns a tuple with the Anycast field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoopbackInterfacesIpv6AddressInner) GetAnycastOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Anycast) {
+		return map[string]interface{}{}, false
+	}
+	return o.Anycast, true
+}
+
+// HasAnycast returns a boolean if a field has been set.
+func (o *LoopbackInterfacesIpv6AddressInner) HasAnycast() bool {
+	if o != nil && !IsNil(o.Anycast) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnycast gets a reference to the given map[string]interface{} and assigns it to the Anycast field.
+func (o *LoopbackInterfacesIpv6AddressInner) SetAnycast(v map[string]interface{}) {
+	o.Anycast = v
 }
 
 // GetEnableOnInterface returns the EnableOnInterface field value if set, zero value otherwise.
@@ -88,38 +118,6 @@ func (o *LoopbackInterfacesIpv6AddressInner) SetEnableOnInterface(v bool) {
 	o.EnableOnInterface = &v
 }
 
-// GetInterfaceId returns the InterfaceId field value if set, zero value otherwise.
-func (o *LoopbackInterfacesIpv6AddressInner) GetInterfaceId() string {
-	if o == nil || IsNil(o.InterfaceId) {
-		var ret string
-		return ret
-	}
-	return *o.InterfaceId
-}
-
-// GetInterfaceIdOk returns a tuple with the InterfaceId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) GetInterfaceIdOk() (*string, bool) {
-	if o == nil || IsNil(o.InterfaceId) {
-		return nil, false
-	}
-	return o.InterfaceId, true
-}
-
-// HasInterfaceId returns a boolean if a field has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) HasInterfaceId() bool {
-	if o != nil && !IsNil(o.InterfaceId) {
-		return true
-	}
-
-	return false
-}
-
-// SetInterfaceId gets a reference to the given string and assigns it to the InterfaceId field.
-func (o *LoopbackInterfacesIpv6AddressInner) SetInterfaceId(v string) {
-	o.InterfaceId = &v
-}
-
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *LoopbackInterfacesIpv6AddressInner) GetName() string {
 	if o == nil || IsNil(o.Name) {
@@ -152,6 +150,38 @@ func (o *LoopbackInterfacesIpv6AddressInner) SetName(v string) {
 	o.Name = &v
 }
 
+// GetPrefix returns the Prefix field value if set, zero value otherwise.
+func (o *LoopbackInterfacesIpv6AddressInner) GetPrefix() map[string]interface{} {
+	if o == nil || IsNil(o.Prefix) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Prefix
+}
+
+// GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoopbackInterfacesIpv6AddressInner) GetPrefixOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Prefix) {
+		return map[string]interface{}{}, false
+	}
+	return o.Prefix, true
+}
+
+// HasPrefix returns a boolean if a field has been set.
+func (o *LoopbackInterfacesIpv6AddressInner) HasPrefix() bool {
+	if o != nil && !IsNil(o.Prefix) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrefix gets a reference to the given map[string]interface{} and assigns it to the Prefix field.
+func (o *LoopbackInterfacesIpv6AddressInner) SetPrefix(v map[string]interface{}) {
+	o.Prefix = v
+}
+
 func (o LoopbackInterfacesIpv6AddressInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -162,14 +192,17 @@ func (o LoopbackInterfacesIpv6AddressInner) MarshalJSON() ([]byte, error) {
 
 func (o LoopbackInterfacesIpv6AddressInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Anycast) {
+		toSerialize["anycast"] = o.Anycast
+	}
 	if !IsNil(o.EnableOnInterface) {
 		toSerialize["enable_on_interface"] = o.EnableOnInterface
 	}
-	if !IsNil(o.InterfaceId) {
-		toSerialize["interface_id"] = o.InterfaceId
-	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Prefix) {
+		toSerialize["prefix"] = o.Prefix
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -193,9 +226,10 @@ func (o *LoopbackInterfacesIpv6AddressInner) UnmarshalJSON(data []byte) (err err
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "anycast")
 		delete(additionalProperties, "enable_on_interface")
-		delete(additionalProperties, "interface_id")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "prefix")
 		o.AdditionalProperties = additionalProperties
 	}
 
