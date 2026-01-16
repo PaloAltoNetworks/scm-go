@@ -22,14 +22,14 @@ var _ MappedNullable = &ScepProfiles{}
 // ScepProfiles struct for ScepProfiles
 type ScepProfiles struct {
 	Algorithm ScepProfilesAlgorithm `json:"algorithm"`
-	// Certificate Authority identity
+	// Certificate Authority Identity
 	CaIdentityName        string                             `json:"ca_identity_name"`
 	CertificateAttributes *ScepProfilesCertificateAttributes `json:"certificate_attributes,omitempty"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// Digest for CSR
 	Digest string `json:"digest"`
-	// CA certificate fingerprint
+	// CA Certificate Fingerprint
 	Fingerprint *string `json:"fingerprint,omitempty"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
@@ -37,10 +37,10 @@ type ScepProfiles struct {
 	Id string `json:"id"`
 	// The name of the SCEP profile
 	Name string `json:"name"`
-	// SCEP server CA certificate
+	// SCEP Server CA Certificate
 	ScepCaCert    *string                   `json:"scep_ca_cert,omitempty"`
 	ScepChallenge ScepProfilesScepChallenge `json:"scep_challenge"`
-	// SCEP client ceertificate
+	// SCEP Client Certificate
 	ScepClientCert *string `json:"scep_client_cert,omitempty"`
 	// SCEP server URL
 	ScepUrl string `json:"scep_url"`

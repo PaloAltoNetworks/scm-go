@@ -18,13 +18,13 @@ import (
 // checks if the ScepProfilesScepChallenge type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ScepProfilesScepChallenge{}
 
-// ScepProfilesScepChallenge One Time Password challenge
+// ScepProfilesScepChallenge One Time Password Challenge
 type ScepProfilesScepChallenge struct {
 	Dynamic *ScepProfilesScepChallengeDynamic `json:"dynamic,omitempty"`
 	// Challenge to use for SCEP server on mobile clients
 	Fixed *string `json:"fixed,omitempty"`
 	// No OTP
-	None                 *string `json:"none,omitempty"`
+	None                 map[string]interface{} `json:"none,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -112,19 +112,19 @@ func (o *ScepProfilesScepChallenge) SetFixed(v string) {
 }
 
 // GetNone returns the None field value if set, zero value otherwise.
-func (o *ScepProfilesScepChallenge) GetNone() string {
+func (o *ScepProfilesScepChallenge) GetNone() map[string]interface{} {
 	if o == nil || IsNil(o.None) {
-		var ret string
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.None
+	return o.None
 }
 
 // GetNoneOk returns a tuple with the None field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScepProfilesScepChallenge) GetNoneOk() (*string, bool) {
+func (o *ScepProfilesScepChallenge) GetNoneOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.None) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.None, true
 }
@@ -138,9 +138,9 @@ func (o *ScepProfilesScepChallenge) HasNone() bool {
 	return false
 }
 
-// SetNone gets a reference to the given string and assigns it to the None field.
-func (o *ScepProfilesScepChallenge) SetNone(v string) {
-	o.None = &v
+// SetNone gets a reference to the given map[string]interface{} and assigns it to the None field.
+func (o *ScepProfilesScepChallenge) SetNone(v map[string]interface{}) {
+	o.None = v
 }
 
 func (o ScepProfilesScepChallenge) MarshalJSON() ([]byte, error) {

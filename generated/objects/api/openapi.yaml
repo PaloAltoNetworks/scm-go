@@ -1890,12 +1890,12 @@ paths:
               $ref: '#/components/schemas/application-groups'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/application-groups'
-          description: OK
+          description: Created
         "400":
           content:
             application/json:
