@@ -9451,6 +9451,7 @@ components:
         authentication_key: authentication_key
       properties:
         authentication_key:
+          format: password
           type: string
       type: object
     service_settings_services_ntp_servers_primary_ntp_server_authentication_type_symmetric_key_algorithm:

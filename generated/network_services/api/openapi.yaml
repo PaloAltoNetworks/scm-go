@@ -17257,7 +17257,6 @@ components:
         enable_user_identification:
           type: boolean
         folder:
-          readOnly: true
           type: string
         id:
           description: UUID of the resource
@@ -21588,8 +21587,6 @@ components:
       properties:
         enable:
           default: false
-          enum:
-          - false
           type: boolean
       x-computed-field: true
     ike_gateways_protocol_common_nat_traversal:

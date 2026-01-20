@@ -55,10 +55,6 @@ type _TlsServiceProfilesProtocolSettings TlsServiceProfilesProtocolSettings
 // will change when the set of required properties is changed
 func NewTlsServiceProfilesProtocolSettings() *TlsServiceProfilesProtocolSettings {
 	this := TlsServiceProfilesProtocolSettings{}
-	var maxVersion string = "tls1-3"
-	this.MaxVersion = &maxVersion
-	var minVersion string = "tls1-2"
-	this.MinVersion = &minVersion
 	return &this
 }
 
@@ -67,10 +63,6 @@ func NewTlsServiceProfilesProtocolSettings() *TlsServiceProfilesProtocolSettings
 // but it doesn't guarantee that properties required by API are set
 func NewTlsServiceProfilesProtocolSettingsWithDefaults() *TlsServiceProfilesProtocolSettings {
 	this := TlsServiceProfilesProtocolSettings{}
-	var maxVersion string = "tls1-3"
-	this.MaxVersion = &maxVersion
-	var minVersion string = "tls1-2"
-	this.MinVersion = &minVersion
 	return &this
 }
 
