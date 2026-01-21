@@ -94,7 +94,7 @@ func Test_objects_ExternalDynamicListsAPIService_GetByID(t *testing.T) {
 		Type: &objects.ExternalDynamicListsType{
 			Ip: &objects.ExternalDynamicListsTypeIp{
 				Url: "http://example.com/ips.txt",
-				Recurring: objects.ExternalDynamicListsTypeDomainRecurring{
+				Recurring: objects.ExternalDynamicListsTypeIpRecurring{
 					FiveMinute: make(map[string]interface{}),
 				},
 			},
@@ -159,7 +159,7 @@ func Test_objects_ExternalDynamicListsAPIService_Update(t *testing.T) {
 		Type: &objects.ExternalDynamicListsType{
 			Url: &objects.ExternalDynamicListsTypeUrl{
 				Url: "http://example.com/initial-urls.txt",
-				Recurring: objects.ExternalDynamicListsTypeDomainRecurring{
+				Recurring: objects.ExternalDynamicListsTypeUrlRecurring{
 					Hourly: make(map[string]interface{}),
 				},
 			},
@@ -184,8 +184,8 @@ func Test_objects_ExternalDynamicListsAPIService_Update(t *testing.T) {
 			Url: &objects.ExternalDynamicListsTypeUrl{
 				Description: common.StringPtr("Updated URL description"),
 				Url:         "http://example.com/updated-urls.txt",
-				Recurring: objects.ExternalDynamicListsTypeDomainRecurring{
-					Weekly: &objects.ExternalDynamicListsTypeDomainRecurringWeekly{
+				Recurring: objects.ExternalDynamicListsTypeUrlRecurring{
+					Weekly: &objects.ExternalDynamicListsTypeUrlRecurringWeekly{
 						DayOfWeek: "sunday",
 						At:        "14",
 					},

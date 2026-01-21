@@ -15405,12 +15405,15 @@ components:
         folder: My Folder
         ipv6:
           address:
-          - interface_id: EUI-64
+          - anycast: "{}"
+            prefix: "{}"
             name: 2001:DB8::1/128
             enable_on_interface: true
-          - interface_id: EUI-64
+          - anycast: "{}"
+            prefix: "{}"
             name: 2001:DB8::1/128
             enable_on_interface: true
+          interface_id: EUI-64
           enabled: false
         ip:
         - name: name
@@ -15913,24 +15916,24 @@ components:
             - class_bandwidth:
                 egress_max: 23
                 egress_guaranteed: 56
-              name: name
+              name: class1
               priority: medium
             - class_bandwidth:
                 egress_max: 23
                 egress_guaranteed: 56
-              name: name
+              name: class1
               priority: medium
           mbps:
             class:
             - class_bandwidth:
                 egress_max: 35772
                 egress_guaranteed: 8794
-              name: name
+              name: class1
               priority: medium
             - class_bandwidth:
                 egress_max: 35772
                 egress_guaranteed: 8794
-              name: name
+              name: class1
               priority: medium
         folder: My Folder
         name: name
@@ -16688,6 +16691,18 @@ components:
       example:
         snippet: My Snippet
         folder: My Folder
+        ipv6:
+          address:
+          - anycast: "{}"
+            prefix: "{}"
+            name: 2001:DB8::1/128
+            enable_on_interface: true
+          - anycast: "{}"
+            prefix: "{}"
+            name: 2001:DB8::1/128
+            enable_on_interface: true
+          interface_id: EUI-64
+          enabled: false
         ip:
         - name: name
         - name: name
@@ -16733,6 +16748,8 @@ components:
           items:
             $ref: '#/components/schemas/tunnel_interfaces_ip_inner'
           type: array
+        ipv6:
+          $ref: '#/components/schemas/tunnel_interfaces_ipv6'
         mtu:
           description: MTU
           maximum: 9216
@@ -17240,7 +17257,6 @@ components:
         enable_user_identification:
           type: boolean
         folder:
-          readOnly: true
           type: string
         id:
           description: UUID of the resource
@@ -21571,8 +21587,6 @@ components:
       properties:
         enable:
           default: false
-          enum:
-          - false
           type: boolean
       x-computed-field: true
     ike_gateways_protocol_common_nat_traversal:
@@ -32921,32 +32935,38 @@ components:
       - name
     loopback_interfaces_ipv6_address_inner:
       example:
-        interface_id: EUI-64
+        anycast: "{}"
+        prefix: "{}"
         name: 2001:DB8::1/128
         enable_on_interface: true
       properties:
+        anycast:
+          description: Anycast
+          type: object
         enable_on_interface:
           default: true
           description: Enable Address on Interface
           type: boolean
-        interface_id:
-          default: EUI-64
-          description: Interface ID
-          type: string
         name:
           description: IPv6 Address
           example: 2001:DB8::1/128
           type: string
+        prefix:
+          description: Use interface ID as host portion
+          type: object
     loopback_interfaces_ipv6:
       description: Loopback IPv6 Configuration
       example:
         address:
-        - interface_id: EUI-64
+        - anycast: "{}"
+          prefix: "{}"
           name: 2001:DB8::1/128
           enable_on_interface: true
-        - interface_id: EUI-64
+        - anycast: "{}"
+          prefix: "{}"
           name: 2001:DB8::1/128
           enable_on_interface: true
+        interface_id: EUI-64
         enabled: false
       properties:
         address:
@@ -32958,6 +32978,10 @@ components:
           default: false
           description: Enable IPv6
           type: boolean
+        interface_id:
+          default: EUI-64
+          description: Interface ID
+          type: string
     nat_rules_destination_translation_dns_rewrite:
       description: DNS rewrite
       example:
@@ -33400,11 +33424,13 @@ components:
         egress_guaranteed: 8794
       properties:
         egress_guaranteed:
+          default: 0
           description: guaranteed sending bandwidth in mbps
           maximum: 60000
           minimum: 0
           type: integer
         egress_max:
+          default: 0
           description: max sending bandwidth in mbps
           maximum: 60000
           minimum: 0
@@ -33414,14 +33440,22 @@ components:
         class_bandwidth:
           egress_max: 35772
           egress_guaranteed: 8794
-        name: name
+        name: class1
         priority: medium
       properties:
         class_bandwidth:
           $ref: '#/components/schemas/qos_profiles_class_bandwidth_type_mbps_class_inner_class_bandwidth'
         name:
           description: Traffic class
-          maxLength: 31
+          enum:
+          - class1
+          - class2
+          - class3
+          - class4
+          - class5
+          - class6
+          - class7
+          - class8
           type: string
         priority:
           default: medium
@@ -33438,12 +33472,12 @@ components:
         - class_bandwidth:
             egress_max: 35772
             egress_guaranteed: 8794
-          name: name
+          name: class1
           priority: medium
         - class_bandwidth:
             egress_max: 35772
             egress_guaranteed: 8794
-          name: name
+          name: class1
           priority: medium
       properties:
         class:
@@ -33457,11 +33491,13 @@ components:
         egress_guaranteed: 56
       properties:
         egress_guaranteed:
+          default: 0
           description: guaranteed sending bandwidth in percentage
           maximum: 100
           minimum: 0
           type: integer
         egress_max:
+          default: 0
           description: max sending bandwidth in percentage
           maximum: 100
           minimum: 0
@@ -33471,14 +33507,22 @@ components:
         class_bandwidth:
           egress_max: 23
           egress_guaranteed: 56
-        name: name
+        name: class1
         priority: medium
       properties:
         class_bandwidth:
           $ref: '#/components/schemas/qos_profiles_class_bandwidth_type_percentage_class_inner_class_bandwidth'
         name:
           description: Traffic class
-          maxLength: 31
+          enum:
+          - class1
+          - class2
+          - class3
+          - class4
+          - class5
+          - class6
+          - class7
+          - class8
           type: string
         priority:
           default: medium
@@ -33495,12 +33539,12 @@ components:
         - class_bandwidth:
             egress_max: 23
             egress_guaranteed: 56
-          name: name
+          name: class1
           priority: medium
         - class_bandwidth:
             egress_max: 23
             egress_guaranteed: 56
-          name: name
+          name: class1
           priority: medium
       properties:
         class:
@@ -33515,24 +33559,24 @@ components:
           - class_bandwidth:
               egress_max: 23
               egress_guaranteed: 56
-            name: name
+            name: class1
             priority: medium
           - class_bandwidth:
               egress_max: 23
               egress_guaranteed: 56
-            name: name
+            name: class1
             priority: medium
         mbps:
           class:
           - class_bandwidth:
               egress_max: 35772
               egress_guaranteed: 8794
-            name: name
+            name: class1
             priority: medium
           - class_bandwidth:
               egress_max: 35772
               egress_guaranteed: 8794
-            name: name
+            name: class1
             priority: medium
       properties:
         mbps:
@@ -34292,6 +34336,34 @@ components:
           type: string
       required:
       - name
+    tunnel_interfaces_ipv6:
+      description: Tunnel Interface IPv6 Configuration
+      example:
+        address:
+        - anycast: "{}"
+          prefix: "{}"
+          name: 2001:DB8::1/128
+          enable_on_interface: true
+        - anycast: "{}"
+          prefix: "{}"
+          name: 2001:DB8::1/128
+          enable_on_interface: true
+        interface_id: EUI-64
+        enabled: false
+      properties:
+        address:
+          description: IPv6 Address Parent
+          items:
+            $ref: '#/components/schemas/loopback_interfaces_ipv6_address_inner'
+          type: array
+        enabled:
+          default: false
+          description: Enable IPv6
+          type: boolean
+        interface_id:
+          default: EUI-64
+          description: Interface ID
+          type: string
     vlan_interfaces_arp_inner:
       example:
         hw_address: hw_address

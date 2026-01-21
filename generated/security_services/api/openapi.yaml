@@ -12855,7 +12855,10 @@ components:
         - source
         - source
         type:
-          ssl_inbound_inspection: ssl_inbound_inspection
+          ssl_inbound_inspection:
+            certificates:
+            - Authentication Cookie CA
+            - Forward-Trust-CA
           ssl_forward_proxy: "{}"
         action: decrypt
         disabled: true
@@ -16501,17 +16504,35 @@ components:
           - tls1-3
           type: string
       type: object
+    decryption_rules_type_ssl_inbound_inspection:
+      description: add the certificate name for SSL inbound inspection
+      example:
+        certificates:
+        - Authentication Cookie CA
+        - Forward-Trust-CA
+      properties:
+        certificates:
+          description: List of certificate names for SSL inbound inspection
+          example:
+          - Authentication Cookie CA
+          - Forward-Trust-CA
+          items:
+            type: string
+          type: array
+      type: object
     decryption_rules_type:
       description: The type of decryption
       example:
-        ssl_inbound_inspection: ssl_inbound_inspection
+        ssl_inbound_inspection:
+          certificates:
+          - Authentication Cookie CA
+          - Forward-Trust-CA
         ssl_forward_proxy: "{}"
       properties:
         ssl_forward_proxy:
           type: object
         ssl_inbound_inspection:
-          description: add the certificate name for SSL inbound inspection
-          type: string
+          $ref: '#/components/schemas/decryption_rules_type_ssl_inbound_inspection'
       type: object
     dns_security_profiles_botnet_domains_dns_security_categories_inner:
       example:

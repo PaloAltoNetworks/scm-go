@@ -13,6 +13,7 @@ package identity_services
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ScepProfilesAlgorithmRsa type satisfies the MappedNullable interface at compile time
@@ -20,7 +21,7 @@ var _ MappedNullable = &ScepProfilesAlgorithmRsa{}
 
 // ScepProfilesAlgorithmRsa Key length (bits)
 type ScepProfilesAlgorithmRsa struct {
-	RsaNbits             *int32 `json:"rsa_nbits,omitempty"`
+	RsaNbits             string `json:"rsa_nbits"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,9 @@ type _ScepProfilesAlgorithmRsa ScepProfilesAlgorithmRsa
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewScepProfilesAlgorithmRsa() *ScepProfilesAlgorithmRsa {
+func NewScepProfilesAlgorithmRsa(rsaNbits string) *ScepProfilesAlgorithmRsa {
 	this := ScepProfilesAlgorithmRsa{}
+	this.RsaNbits = rsaNbits
 	return &this
 }
 
@@ -43,36 +45,28 @@ func NewScepProfilesAlgorithmRsaWithDefaults() *ScepProfilesAlgorithmRsa {
 	return &this
 }
 
-// GetRsaNbits returns the RsaNbits field value if set, zero value otherwise.
-func (o *ScepProfilesAlgorithmRsa) GetRsaNbits() int32 {
-	if o == nil || IsNil(o.RsaNbits) {
-		var ret int32
+// GetRsaNbits returns the RsaNbits field value
+func (o *ScepProfilesAlgorithmRsa) GetRsaNbits() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.RsaNbits
+
+	return o.RsaNbits
 }
 
-// GetRsaNbitsOk returns a tuple with the RsaNbits field value if set, nil otherwise
+// GetRsaNbitsOk returns a tuple with the RsaNbits field value
 // and a boolean to check if the value has been set.
-func (o *ScepProfilesAlgorithmRsa) GetRsaNbitsOk() (*int32, bool) {
-	if o == nil || IsNil(o.RsaNbits) {
+func (o *ScepProfilesAlgorithmRsa) GetRsaNbitsOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RsaNbits, true
+	return &o.RsaNbits, true
 }
 
-// HasRsaNbits returns a boolean if a field has been set.
-func (o *ScepProfilesAlgorithmRsa) HasRsaNbits() bool {
-	if o != nil && !IsNil(o.RsaNbits) {
-		return true
-	}
-
-	return false
-}
-
-// SetRsaNbits gets a reference to the given int32 and assigns it to the RsaNbits field.
-func (o *ScepProfilesAlgorithmRsa) SetRsaNbits(v int32) {
-	o.RsaNbits = &v
+// SetRsaNbits sets field value
+func (o *ScepProfilesAlgorithmRsa) SetRsaNbits(v string) {
+	o.RsaNbits = v
 }
 
 func (o ScepProfilesAlgorithmRsa) MarshalJSON() ([]byte, error) {
@@ -85,9 +79,7 @@ func (o ScepProfilesAlgorithmRsa) MarshalJSON() ([]byte, error) {
 
 func (o ScepProfilesAlgorithmRsa) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.RsaNbits) {
-		toSerialize["rsa_nbits"] = o.RsaNbits
-	}
+	toSerialize["rsa_nbits"] = o.RsaNbits
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -97,6 +89,27 @@ func (o ScepProfilesAlgorithmRsa) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ScepProfilesAlgorithmRsa) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"rsa_nbits",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varScepProfilesAlgorithmRsa := _ScepProfilesAlgorithmRsa{}
 
 	err = json.Unmarshal(data, &varScepProfilesAlgorithmRsa)

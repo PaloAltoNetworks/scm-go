@@ -208,12 +208,12 @@ paths:
               $ref: '#/components/schemas/authentication-portals'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/authentication-portals'
-          description: OK
+          description: Created
         "400":
           content:
             application/json:
@@ -768,12 +768,12 @@ paths:
               $ref: '#/components/schemas/authentication-profiles'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/authentication-profiles'
-          description: OK
+          description: Created
         "400":
           content:
             application/json:
@@ -1355,12 +1355,12 @@ paths:
               $ref: '#/components/schemas/authentication-rules'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/authentication-rules'
-          description: OK
+          description: Created
         "400":
           content:
             application/json:
@@ -1787,7 +1787,7 @@ paths:
               $ref: '#/components/schemas/rule-based-move'
         description: OK
       responses:
-        "200":
+        "201":
           description: OK
         "400":
           content:
@@ -2022,12 +2022,12 @@ paths:
               $ref: '#/components/schemas/authentication-sequences'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/authentication-sequences'
-          description: OK
+          description: Created
         "400":
           content:
             application/json:
@@ -7074,12 +7074,12 @@ paths:
               $ref: '#/components/schemas/radius-server-profiles'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/radius-server-profiles'
-          description: OK
+          description: Created
         "400":
           content:
             application/json:
@@ -7634,12 +7634,12 @@ paths:
               $ref: '#/components/schemas/saml-server-profiles'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/saml-server-profiles'
-          description: OK
+          description: Created
         "400":
           content:
             application/json:
@@ -12012,6 +12012,7 @@ components:
       example:
         snippet: My Snippet
         max_clock_skew: 72
+        slo_url: slo_url
         want_auth_requests_signed: true
         certificate: certificate
         entity_id: entity_id
@@ -12064,6 +12065,11 @@ components:
           - post
           - redirect
           type: string
+        slo_url:
+          description: Identity provider SLO URL
+          maxLength: 255
+          minLength: 1
+          type: string
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
@@ -12071,6 +12077,7 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         sso_bindings:
+          default: post
           description: SAML HTTP binding for SSO requests to the identity provider
           enum:
           - post
@@ -12100,21 +12107,21 @@ components:
         snippet: My Snippet
         use_as_digital_signature: true
         subject: CN=$USERNAME
-        scep_client_cert: scep_client_cert
+        scep_client_cert: Authentication Cookie CA
         scep_url: https://openapi-generator.tech
         certificate_attributes:
           rfc822name: rfc822name
           uniform_resource_identifier: https://openapi-generator.tech
           dnsname: dnsname
         use_for_key_encipherment: true
-        scep_ca_cert: scep_ca_cert
+        scep_ca_cert: Authentication Cookie CA
         scep_challenge:
           dynamic:
             password: password
             otp_server_url: https://openapi-generator.tech
             username: username
           fixed: fixed
-          none: ""
+          none: "{}"
         folder: My Folder
         ca_identity_name: ca_identity_name
         digest: sha1
@@ -12124,12 +12131,12 @@ components:
         device: My Device
         algorithm:
           rsa:
-            rsa_nbits: 0
+            rsa_nbits: "1024"
       properties:
         algorithm:
           $ref: '#/components/schemas/scep_profiles_algorithm'
         ca_identity_name:
-          description: Certificate Authority identity
+          description: Certificate Authority Identity
           type: string
         certificate_attributes:
           $ref: '#/components/schemas/scep_profiles_certificate_attributes'
@@ -12144,11 +12151,11 @@ components:
           enum:
           - sha1
           - sha256
-          - sha348
+          - sha384
           - sha512
           type: string
         fingerprint:
-          description: CA certificate fingerprint
+          description: CA Certificate Fingerprint
           type: string
         folder:
           description: The folder in which the resource is defined
@@ -12166,12 +12173,30 @@ components:
           maxLength: 31
           type: string
         scep_ca_cert:
-          description: SCEP server CA certificate
+          description: SCEP Server CA Certificate
+          enum:
+          - Authentication Cookie CA
+          - Forward-Trust-CA
+          - Forward-Trust-CA-ECDSA
+          - Forward-UnTrust-CA
+          - Forward-UnTrust-CA-ECDSA
+          - Global Authentication Cookie CA
+          - GlobalSign-Root-CA
+          - Root CA
           type: string
         scep_challenge:
           $ref: '#/components/schemas/scep_profiles_scep_challenge'
         scep_client_cert:
-          description: SCEP client ceertificate
+          description: SCEP Client Certificate
+          enum:
+          - Authentication Cookie CA
+          - Forward-Trust-CA
+          - Forward-Trust-CA-ECDSA
+          - Forward-UnTrust-CA
+          - Forward-UnTrust-CA-ECDSA
+          - Global Authentication Cookie CA
+          - GlobalSign-Root-CA
+          - Root CA
           type: string
         scep_url:
           description: SCEP server URL
@@ -12280,8 +12305,8 @@ components:
         protocol_settings:
           enc_algo_aes_128_cbc: true
           enc_algo_aes_256_gcm: true
-          min_version: tls1-2
-          max_version: tls1-3
+          min_version: tls1-0
+          max_version: tls1-0
           enc_algo_aes_128_gcm: true
           auth_algo_sha1: true
           keyxchg_algo_ecdhe: true
@@ -12624,6 +12649,9 @@ components:
           maximum: 65535
           minimum: 1
           type: integer
+      required:
+      - host
+      - name
       type: object
     ldap_server_profiles_server_inner:
       example:
@@ -12923,28 +12951,32 @@ components:
         secret:
           description: The RADIUS secret
           format: password
-          maxLength: 64
+          maxLength: 128
           type: string
       type: object
     scep_profiles_algorithm_rsa:
       description: Key length (bits)
       example:
-        rsa_nbits: 0
+        rsa_nbits: "1024"
       properties:
         rsa_nbits:
           enum:
-          - 1024
-          - 2048
-          - 3072
-          type: integer
+          - "1024"
+          - "2048"
+          - "3072"
+          type: string
+      required:
+      - rsa_nbits
       type: object
     scep_profiles_algorithm:
       example:
         rsa:
-          rsa_nbits: 0
+          rsa_nbits: "1024"
       properties:
         rsa:
           $ref: '#/components/schemas/scep_profiles_algorithm_rsa'
+      required:
+      - rsa
       type: object
     scep_profiles_certificate_attributes:
       description: Subject Alternative name type
@@ -12985,14 +13017,14 @@ components:
           type: string
       type: object
     scep_profiles_scep_challenge:
-      description: One Time Password challenge
+      description: One Time Password Challenge
       example:
         dynamic:
           password: password
           otp_server_url: https://openapi-generator.tech
           username: username
         fixed: fixed
-        none: ""
+        none: "{}"
       properties:
         dynamic:
           $ref: '#/components/schemas/scep_profiles_scep_challenge_dynamic'
@@ -13001,10 +13033,9 @@ components:
           maxLength: 1024
           type: string
         none:
+          default: {}
           description: No OTP
-          enum:
-          - ""
-          type: string
+          type: object
       type: object
     tacacs_server_profiles_server_inner:
       example:
@@ -13027,7 +13058,6 @@ components:
         secret:
           description: The TACACS+ secret
           format: password
-          maxLength: 64
           type: string
       type: object
     tls_service_profiles_protocol_settings:
@@ -13035,8 +13065,8 @@ components:
       example:
         enc_algo_aes_128_cbc: true
         enc_algo_aes_256_gcm: true
-        min_version: tls1-2
-        max_version: tls1-3
+        min_version: tls1-0
+        max_version: tls1-0
         enc_algo_aes_128_gcm: true
         auth_algo_sha1: true
         keyxchg_algo_ecdhe: true
@@ -13077,7 +13107,6 @@ components:
           description: Allow RSA algorithm?
           type: boolean
         max_version:
-          default: tls1-3
           description: Maximum TLS version
           enum:
           - tls1-0
@@ -13086,7 +13115,6 @@ components:
           - tls1-3
           type: string
         min_version:
-          default: tls1-2
           description: Minimum TLS version
           enum:
           - tls1-0

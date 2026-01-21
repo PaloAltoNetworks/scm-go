@@ -13,6 +13,7 @@ package deployment_services
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ServiceConnectionsProtocolBgp type satisfies the MappedNullable interface at compile time
@@ -25,7 +26,7 @@ type ServiceConnectionsProtocolBgp struct {
 	FastFailover              *bool   `json:"fast_failover,omitempty"`
 	LocalIpAddress            *string `json:"local_ip_address,omitempty"`
 	OriginateDefaultRoute     *bool   `json:"originate_default_route,omitempty"`
-	PeerAs                    *string `json:"peer_as,omitempty"`
+	PeerAs                    string  `json:"peer_as"`
 	PeerIpAddress             *string `json:"peer_ip_address,omitempty"`
 	Secret                    *string `json:"secret,omitempty"`
 	SummarizeMobileUserRoutes *bool   `json:"summarize_mobile_user_routes,omitempty"`
@@ -38,8 +39,9 @@ type _ServiceConnectionsProtocolBgp ServiceConnectionsProtocolBgp
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceConnectionsProtocolBgp() *ServiceConnectionsProtocolBgp {
+func NewServiceConnectionsProtocolBgp(peerAs string) *ServiceConnectionsProtocolBgp {
 	this := ServiceConnectionsProtocolBgp{}
+	this.PeerAs = peerAs
 	return &this
 }
 
@@ -211,36 +213,28 @@ func (o *ServiceConnectionsProtocolBgp) SetOriginateDefaultRoute(v bool) {
 	o.OriginateDefaultRoute = &v
 }
 
-// GetPeerAs returns the PeerAs field value if set, zero value otherwise.
+// GetPeerAs returns the PeerAs field value
 func (o *ServiceConnectionsProtocolBgp) GetPeerAs() string {
-	if o == nil || IsNil(o.PeerAs) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PeerAs
+
+	return o.PeerAs
 }
 
-// GetPeerAsOk returns a tuple with the PeerAs field value if set, nil otherwise
+// GetPeerAsOk returns a tuple with the PeerAs field value
 // and a boolean to check if the value has been set.
 func (o *ServiceConnectionsProtocolBgp) GetPeerAsOk() (*string, bool) {
-	if o == nil || IsNil(o.PeerAs) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PeerAs, true
+	return &o.PeerAs, true
 }
 
-// HasPeerAs returns a boolean if a field has been set.
-func (o *ServiceConnectionsProtocolBgp) HasPeerAs() bool {
-	if o != nil && !IsNil(o.PeerAs) {
-		return true
-	}
-
-	return false
-}
-
-// SetPeerAs gets a reference to the given string and assigns it to the PeerAs field.
+// SetPeerAs sets field value
 func (o *ServiceConnectionsProtocolBgp) SetPeerAs(v string) {
-	o.PeerAs = &v
+	o.PeerAs = v
 }
 
 // GetPeerIpAddress returns the PeerIpAddress field value if set, zero value otherwise.
@@ -364,9 +358,7 @@ func (o ServiceConnectionsProtocolBgp) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OriginateDefaultRoute) {
 		toSerialize["originate_default_route"] = o.OriginateDefaultRoute
 	}
-	if !IsNil(o.PeerAs) {
-		toSerialize["peer_as"] = o.PeerAs
-	}
+	toSerialize["peer_as"] = o.PeerAs
 	if !IsNil(o.PeerIpAddress) {
 		toSerialize["peer_ip_address"] = o.PeerIpAddress
 	}
@@ -385,6 +377,27 @@ func (o ServiceConnectionsProtocolBgp) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ServiceConnectionsProtocolBgp) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"peer_as",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varServiceConnectionsProtocolBgp := _ServiceConnectionsProtocolBgp{}
 
 	err = json.Unmarshal(data, &varServiceConnectionsProtocolBgp)

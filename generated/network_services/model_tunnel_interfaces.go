@@ -34,7 +34,8 @@ type TunnelInterfaces struct {
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
 	// Tunnel Interface IP Parent
-	Ip []TunnelInterfacesIpInner `json:"ip,omitempty"`
+	Ip   []TunnelInterfacesIpInner `json:"ip,omitempty"`
+	Ipv6 *TunnelInterfacesIpv6     `json:"ipv6,omitempty"`
 	// MTU
 	Mtu *int32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
@@ -288,6 +289,38 @@ func (o *TunnelInterfaces) SetIp(v []TunnelInterfacesIpInner) {
 	o.Ip = v
 }
 
+// GetIpv6 returns the Ipv6 field value if set, zero value otherwise.
+func (o *TunnelInterfaces) GetIpv6() TunnelInterfacesIpv6 {
+	if o == nil || IsNil(o.Ipv6) {
+		var ret TunnelInterfacesIpv6
+		return ret
+	}
+	return *o.Ipv6
+}
+
+// GetIpv6Ok returns a tuple with the Ipv6 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TunnelInterfaces) GetIpv6Ok() (*TunnelInterfacesIpv6, bool) {
+	if o == nil || IsNil(o.Ipv6) {
+		return nil, false
+	}
+	return o.Ipv6, true
+}
+
+// HasIpv6 returns a boolean if a field has been set.
+func (o *TunnelInterfaces) HasIpv6() bool {
+	if o != nil && !IsNil(o.Ipv6) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpv6 gets a reference to the given TunnelInterfacesIpv6 and assigns it to the Ipv6 field.
+func (o *TunnelInterfaces) SetIpv6(v TunnelInterfacesIpv6) {
+	o.Ipv6 = &v
+}
+
 // GetMtu returns the Mtu field value if set, zero value otherwise.
 func (o *TunnelInterfaces) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
@@ -407,6 +440,9 @@ func (o TunnelInterfaces) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
 	}
+	if !IsNil(o.Ipv6) {
+		toSerialize["ipv6"] = o.Ipv6
+	}
 	if !IsNil(o.Mtu) {
 		toSerialize["mtu"] = o.Mtu
 	}
@@ -464,6 +500,7 @@ func (o *TunnelInterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
+		delete(additionalProperties, "ipv6")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "snippet")

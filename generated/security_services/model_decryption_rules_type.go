@@ -20,9 +20,8 @@ var _ MappedNullable = &DecryptionRulesType{}
 
 // DecryptionRulesType The type of decryption
 type DecryptionRulesType struct {
-	SslForwardProxy map[string]interface{} `json:"ssl_forward_proxy,omitempty"`
-	// add the certificate name for SSL inbound inspection
-	SslInboundInspection *string `json:"ssl_inbound_inspection,omitempty"`
+	SslForwardProxy      map[string]interface{}                   `json:"ssl_forward_proxy,omitempty"`
+	SslInboundInspection *DecryptionRulesTypeSslInboundInspection `json:"ssl_inbound_inspection,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -78,9 +77,9 @@ func (o *DecryptionRulesType) SetSslForwardProxy(v map[string]interface{}) {
 }
 
 // GetSslInboundInspection returns the SslInboundInspection field value if set, zero value otherwise.
-func (o *DecryptionRulesType) GetSslInboundInspection() string {
+func (o *DecryptionRulesType) GetSslInboundInspection() DecryptionRulesTypeSslInboundInspection {
 	if o == nil || IsNil(o.SslInboundInspection) {
-		var ret string
+		var ret DecryptionRulesTypeSslInboundInspection
 		return ret
 	}
 	return *o.SslInboundInspection
@@ -88,7 +87,7 @@ func (o *DecryptionRulesType) GetSslInboundInspection() string {
 
 // GetSslInboundInspectionOk returns a tuple with the SslInboundInspection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DecryptionRulesType) GetSslInboundInspectionOk() (*string, bool) {
+func (o *DecryptionRulesType) GetSslInboundInspectionOk() (*DecryptionRulesTypeSslInboundInspection, bool) {
 	if o == nil || IsNil(o.SslInboundInspection) {
 		return nil, false
 	}
@@ -104,8 +103,8 @@ func (o *DecryptionRulesType) HasSslInboundInspection() bool {
 	return false
 }
 
-// SetSslInboundInspection gets a reference to the given string and assigns it to the SslInboundInspection field.
-func (o *DecryptionRulesType) SetSslInboundInspection(v string) {
+// SetSslInboundInspection gets a reference to the given DecryptionRulesTypeSslInboundInspection and assigns it to the SslInboundInspection field.
+func (o *DecryptionRulesType) SetSslInboundInspection(v DecryptionRulesTypeSslInboundInspection) {
 	o.SslInboundInspection = &v
 }
 

@@ -13,6 +13,7 @@ package identity_services
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the KerberosServerProfilesServerInner type satisfies the MappedNullable interface at compile time
@@ -21,9 +22,9 @@ var _ MappedNullable = &KerberosServerProfilesServerInner{}
 // KerberosServerProfilesServerInner struct for KerberosServerProfilesServerInner
 type KerberosServerProfilesServerInner struct {
 	// The Kerberos server IP address
-	Host *string `json:"host,omitempty"`
+	Host string `json:"host"`
 	// The Kerberos server name
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// The Kerberos server port
 	Port                 *int32 `json:"port,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -35,8 +36,10 @@ type _KerberosServerProfilesServerInner KerberosServerProfilesServerInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKerberosServerProfilesServerInner() *KerberosServerProfilesServerInner {
+func NewKerberosServerProfilesServerInner(host string, name string) *KerberosServerProfilesServerInner {
 	this := KerberosServerProfilesServerInner{}
+	this.Host = host
+	this.Name = name
 	return &this
 }
 
@@ -48,68 +51,52 @@ func NewKerberosServerProfilesServerInnerWithDefaults() *KerberosServerProfilesS
 	return &this
 }
 
-// GetHost returns the Host field value if set, zero value otherwise.
+// GetHost returns the Host field value
 func (o *KerberosServerProfilesServerInner) GetHost() string {
-	if o == nil || IsNil(o.Host) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Host
+
+	return o.Host
 }
 
-// GetHostOk returns a tuple with the Host field value if set, nil otherwise
+// GetHostOk returns a tuple with the Host field value
 // and a boolean to check if the value has been set.
 func (o *KerberosServerProfilesServerInner) GetHostOk() (*string, bool) {
-	if o == nil || IsNil(o.Host) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Host, true
+	return &o.Host, true
 }
 
-// HasHost returns a boolean if a field has been set.
-func (o *KerberosServerProfilesServerInner) HasHost() bool {
-	if o != nil && !IsNil(o.Host) {
-		return true
-	}
-
-	return false
-}
-
-// SetHost gets a reference to the given string and assigns it to the Host field.
+// SetHost sets field value
 func (o *KerberosServerProfilesServerInner) SetHost(v string) {
-	o.Host = &v
+	o.Host = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *KerberosServerProfilesServerInner) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *KerberosServerProfilesServerInner) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *KerberosServerProfilesServerInner) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *KerberosServerProfilesServerInner) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 // GetPort returns the Port field value if set, zero value otherwise.
@@ -154,12 +141,8 @@ func (o KerberosServerProfilesServerInner) MarshalJSON() ([]byte, error) {
 
 func (o KerberosServerProfilesServerInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Host) {
-		toSerialize["host"] = o.Host
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["host"] = o.Host
+	toSerialize["name"] = o.Name
 	if !IsNil(o.Port) {
 		toSerialize["port"] = o.Port
 	}
@@ -172,6 +155,28 @@ func (o KerberosServerProfilesServerInner) ToMap() (map[string]interface{}, erro
 }
 
 func (o *KerberosServerProfilesServerInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"host",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varKerberosServerProfilesServerInner := _KerberosServerProfilesServerInner{}
 
 	err = json.Unmarshal(data, &varKerberosServerProfilesServerInner)

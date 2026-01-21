@@ -1890,12 +1890,12 @@ paths:
               $ref: '#/components/schemas/application-groups'
         description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/application-groups'
-          description: OK
+          description: Created
         "400":
           content:
             application/json:
@@ -11966,7 +11966,7 @@ components:
         default:
           $ref: '#/components/schemas/applications_default'
         description:
-          maxLength: 1023
+          maxLength: 8192
           type: string
         device:
           description: The device in which the resource is defined
@@ -13132,8 +13132,14 @@ components:
           - send_syslog
           - send_syslog
           log_type: traffic
+          send_snmptrap:
+          - send_snmptrap
+          - send_snmptrap
           action_desc: action_desc
           name: name
+          send_email:
+          - send_email
+          - send_email
           send_http:
           - send_http
           - send_http
@@ -13142,8 +13148,14 @@ components:
           - send_syslog
           - send_syslog
           log_type: traffic
+          send_snmptrap:
+          - send_snmptrap
+          - send_snmptrap
           action_desc: action_desc
           name: name
+          send_email:
+          - send_email
+          - send_email
           send_http:
           - send_http
           - send_http
@@ -13178,6 +13190,7 @@ components:
         match_list:
           items:
             $ref: '#/components/schemas/log_forwarding_profiles_match_list_inner'
+          minItems: 1
           type: array
         name:
           description: The name of the log forwarding profile
@@ -13190,7 +13203,7 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
-      - id
+      - match_list
       - name
       type: object
     payload-format:
@@ -17030,8 +17043,14 @@ components:
         - send_syslog
         - send_syslog
         log_type: traffic
+        send_snmptrap:
+        - send_snmptrap
+        - send_snmptrap
         action_desc: action_desc
         name: name
+        send_email:
+        - send_email
+        - send_email
         send_http:
         - send_http
         - send_http
@@ -17055,13 +17074,24 @@ components:
           - tunnel
           - auth
           - decryption
+          - dns-security
           type: string
         name:
           description: Name of the match profile
           maxLength: 63
           type: string
+        send_email:
+          description: A list of email server profiles
+          items:
+            type: string
+          type: array
         send_http:
           description: A list of HTTP server profiles
+          items:
+            type: string
+          type: array
+        send_snmptrap:
+          description: A list of SNMP server profiles
           items:
             type: string
           type: array
@@ -17070,6 +17100,10 @@ components:
           items:
             type: string
           type: array
+      required:
+      - filter
+      - log_type
+      - name
       type: object
     payload_format_headers_inner:
       example:

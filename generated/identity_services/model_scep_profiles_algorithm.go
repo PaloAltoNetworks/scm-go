@@ -13,6 +13,7 @@ package identity_services
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ScepProfilesAlgorithm type satisfies the MappedNullable interface at compile time
@@ -20,7 +21,7 @@ var _ MappedNullable = &ScepProfilesAlgorithm{}
 
 // ScepProfilesAlgorithm struct for ScepProfilesAlgorithm
 type ScepProfilesAlgorithm struct {
-	Rsa                  *ScepProfilesAlgorithmRsa `json:"rsa,omitempty"`
+	Rsa                  ScepProfilesAlgorithmRsa `json:"rsa"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,9 @@ type _ScepProfilesAlgorithm ScepProfilesAlgorithm
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewScepProfilesAlgorithm() *ScepProfilesAlgorithm {
+func NewScepProfilesAlgorithm(rsa ScepProfilesAlgorithmRsa) *ScepProfilesAlgorithm {
 	this := ScepProfilesAlgorithm{}
+	this.Rsa = rsa
 	return &this
 }
 
@@ -43,36 +45,28 @@ func NewScepProfilesAlgorithmWithDefaults() *ScepProfilesAlgorithm {
 	return &this
 }
 
-// GetRsa returns the Rsa field value if set, zero value otherwise.
+// GetRsa returns the Rsa field value
 func (o *ScepProfilesAlgorithm) GetRsa() ScepProfilesAlgorithmRsa {
-	if o == nil || IsNil(o.Rsa) {
+	if o == nil {
 		var ret ScepProfilesAlgorithmRsa
 		return ret
 	}
-	return *o.Rsa
+
+	return o.Rsa
 }
 
-// GetRsaOk returns a tuple with the Rsa field value if set, nil otherwise
+// GetRsaOk returns a tuple with the Rsa field value
 // and a boolean to check if the value has been set.
 func (o *ScepProfilesAlgorithm) GetRsaOk() (*ScepProfilesAlgorithmRsa, bool) {
-	if o == nil || IsNil(o.Rsa) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Rsa, true
+	return &o.Rsa, true
 }
 
-// HasRsa returns a boolean if a field has been set.
-func (o *ScepProfilesAlgorithm) HasRsa() bool {
-	if o != nil && !IsNil(o.Rsa) {
-		return true
-	}
-
-	return false
-}
-
-// SetRsa gets a reference to the given ScepProfilesAlgorithmRsa and assigns it to the Rsa field.
+// SetRsa sets field value
 func (o *ScepProfilesAlgorithm) SetRsa(v ScepProfilesAlgorithmRsa) {
-	o.Rsa = &v
+	o.Rsa = v
 }
 
 func (o ScepProfilesAlgorithm) MarshalJSON() ([]byte, error) {
@@ -85,9 +79,7 @@ func (o ScepProfilesAlgorithm) MarshalJSON() ([]byte, error) {
 
 func (o ScepProfilesAlgorithm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Rsa) {
-		toSerialize["rsa"] = o.Rsa
-	}
+	toSerialize["rsa"] = o.Rsa
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -97,6 +89,27 @@ func (o ScepProfilesAlgorithm) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ScepProfilesAlgorithm) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"rsa",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varScepProfilesAlgorithm := _ScepProfilesAlgorithm{}
 
 	err = json.Unmarshal(data, &varScepProfilesAlgorithm)
