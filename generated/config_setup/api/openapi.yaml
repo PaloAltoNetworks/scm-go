@@ -6163,6 +6163,7 @@ components:
           enum:
           - predefined
           - custom
+          - readonly
           readOnly: true
           type: string
       required:
@@ -6564,13 +6565,13 @@ components:
           description: The device in which the resource is defined
           example: My Device
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d_\\-. ]+$"
           type: string
         folder:
           description: The folder in which the resource is defined
           example: My Folder
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d_\\-. ]+$"
           type: string
         id:
           description: UUID of the variable
@@ -6589,7 +6590,7 @@ components:
           description: The snippet in which the resource is defined
           example: My Snippet
           maxLength: 64
-          pattern: "^[a-zA-Z\\d-_\\. ]+$"
+          pattern: "^[a-zA-Z\\d_\\-. ]+$"
           type: string
         type:
           description: The variable type
