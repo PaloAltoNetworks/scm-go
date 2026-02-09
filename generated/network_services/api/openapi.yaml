@@ -9888,6 +9888,7 @@ components:
           id: id
           type: type
         local_address:
+          ip: ip
           interface: vlan
         name: name
         protocol_common:
@@ -21485,12 +21486,16 @@ components:
           $ref: '#/components/schemas/ike_gateways_authentication_pre_shared_key'
     ike_gateways_local_address:
       example:
+        ip: ip
         interface: vlan
       properties:
         interface:
           default: vlan
           description: Interface variable or hardcoded vlan/loopback. vlan will be
             passed as default value
+          type: string
+        ip:
+          description: IP Prefix of the assigned interface
           type: string
       x-computed-field: true
     ike_gateways_local_id:
