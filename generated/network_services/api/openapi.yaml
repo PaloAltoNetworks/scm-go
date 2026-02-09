@@ -15428,10 +15428,10 @@ components:
         mtu: 1267
       properties:
         comment:
-          description: Description
+          description: Description for loopback interface
           type: string
         default_value:
-          description: Default interface assignment
+          description: Default interface assignment for loopback interface
           example: loopback.123
           pattern: "^loopback\\.([1-9][0-9]{0,3})$"
           type: string
@@ -15448,12 +15448,12 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
-          description: UUID of the resource
+          description: UUID of the resource loopback interface
           example: 123e4567-e89b-12d3-a456-426655440000
           readOnly: true
           type: string
         interface_management_profile:
-          description: Interface management profile
+          description: Interface management profile for loopback interface
           example: string
           type: string
         ip:
@@ -15464,7 +15464,7 @@ components:
         ipv6:
           $ref: '#/components/schemas/loopback_interfaces_ipv6'
         mtu:
-          description: MTU
+          description: MTU for loopback interface
           maximum: 9216
           minimum: 576
           type: integer
@@ -16716,10 +16716,10 @@ components:
         mtu: 1267
       properties:
         comment:
-          description: Description
+          description: Description for tunnel interface
           type: string
         default_value:
-          description: Default interface assignment
+          description: Default interface assignment for tunnel interface
           example: tunnel.123
           pattern: "^tunnel\\.([1-9][0-9]{0,3})$"
           type: string
@@ -16736,12 +16736,12 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         id:
-          description: UUID of the resource
+          description: UUID of the resource for tunnel interface
           example: 123e4567-e89b-12d3-a456-426655440000
           readOnly: true
           type: string
         interface_management_profile:
-          description: Interface management profile
+          description: Interface management profile for tunnel interface
           example: string
           type: string
         ip:
@@ -16752,12 +16752,12 @@ components:
         ipv6:
           $ref: '#/components/schemas/tunnel_interfaces_ipv6'
         mtu:
-          description: MTU
+          description: MTU for tunnel interface
           maximum: 9216
           minimum: 576
           type: integer
         name:
-          description: L3 sub-interface name
+          description: L3 sub-interface name for tunnel interface
           type: string
         snippet:
           description: The snippet in which the resource is defined
@@ -32946,18 +32946,18 @@ components:
         enable_on_interface: true
       properties:
         anycast:
-          description: Anycast
+          description: Anycast for loopback interface
           type: object
         enable_on_interface:
           default: true
-          description: Enable Address on Interface
+          description: Enable Address on Interface for loopback interface
           type: boolean
         name:
-          description: IPv6 Address
+          description: IPv6 Address for loopback interface
           example: 2001:DB8::1/128
           type: string
         prefix:
-          description: Use interface ID as host portion
+          description: Use interface ID as host portion for loopback interface
           type: object
     loopback_interfaces_ipv6:
       description: Loopback IPv6 Configuration
@@ -32975,17 +32975,17 @@ components:
         enabled: false
       properties:
         address:
-          description: IPv6 Address Parent
+          description: IPv6 Address Parent for loopback interface
           items:
             $ref: '#/components/schemas/loopback_interfaces_ipv6_address_inner'
           type: array
         enabled:
           default: false
-          description: Enable IPv6
+          description: Enable IPv6 for loopback interface
           type: boolean
         interface_id:
           default: EUI-64
-          description: Interface ID
+          description: Interface ID for loopback interface
           type: string
     nat_rules_destination_translation_dns_rewrite:
       description: DNS rewrite
@@ -34341,6 +34341,27 @@ components:
           type: string
       required:
       - name
+    tunnel_interfaces_ipv6_address_inner:
+      example:
+        anycast: "{}"
+        prefix: "{}"
+        name: 2001:DB8::1/128
+        enable_on_interface: true
+      properties:
+        anycast:
+          description: Anycast for tunnel interface
+          type: object
+        enable_on_interface:
+          default: true
+          description: Enable Address on Interface for tunnel interface
+          type: boolean
+        name:
+          description: IPv6 Address for tunnel interface
+          example: 2001:DB8::1/128
+          type: string
+        prefix:
+          description: Use interface ID as host portion for tunnel interface
+          type: object
     tunnel_interfaces_ipv6:
       description: Tunnel Interface IPv6 Configuration
       example:
@@ -34357,17 +34378,17 @@ components:
         enabled: false
       properties:
         address:
-          description: IPv6 Address Parent
+          description: IPv6 Address Parent for tunnel interface
           items:
-            $ref: '#/components/schemas/loopback_interfaces_ipv6_address_inner'
+            $ref: '#/components/schemas/tunnel_interfaces_ipv6_address_inner'
           type: array
         enabled:
           default: false
-          description: Enable IPv6
+          description: Enable IPv6 for tunnel interface
           type: boolean
         interface_id:
           default: EUI-64
-          description: Interface ID
+          description: Interface ID for tunnel interface
           type: string
     vlan_interfaces_arp_inner:
       example:

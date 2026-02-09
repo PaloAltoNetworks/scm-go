@@ -20,11 +20,11 @@ var _ MappedNullable = &TunnelInterfacesIpv6{}
 
 // TunnelInterfacesIpv6 Tunnel Interface IPv6 Configuration
 type TunnelInterfacesIpv6 struct {
-	// IPv6 Address Parent
-	Address []LoopbackInterfacesIpv6AddressInner `json:"address,omitempty"`
-	// Enable IPv6
+	// IPv6 Address Parent for tunnel interface
+	Address []TunnelInterfacesIpv6AddressInner `json:"address,omitempty"`
+	// Enable IPv6 for tunnel interface
 	Enabled *bool `json:"enabled,omitempty"`
-	// Interface ID
+	// Interface ID for tunnel interface
 	InterfaceId          *string `json:"interface_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -57,9 +57,9 @@ func NewTunnelInterfacesIpv6WithDefaults() *TunnelInterfacesIpv6 {
 }
 
 // GetAddress returns the Address field value if set, zero value otherwise.
-func (o *TunnelInterfacesIpv6) GetAddress() []LoopbackInterfacesIpv6AddressInner {
+func (o *TunnelInterfacesIpv6) GetAddress() []TunnelInterfacesIpv6AddressInner {
 	if o == nil || IsNil(o.Address) {
-		var ret []LoopbackInterfacesIpv6AddressInner
+		var ret []TunnelInterfacesIpv6AddressInner
 		return ret
 	}
 	return o.Address
@@ -67,7 +67,7 @@ func (o *TunnelInterfacesIpv6) GetAddress() []LoopbackInterfacesIpv6AddressInner
 
 // GetAddressOk returns a tuple with the Address field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TunnelInterfacesIpv6) GetAddressOk() ([]LoopbackInterfacesIpv6AddressInner, bool) {
+func (o *TunnelInterfacesIpv6) GetAddressOk() ([]TunnelInterfacesIpv6AddressInner, bool) {
 	if o == nil || IsNil(o.Address) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *TunnelInterfacesIpv6) HasAddress() bool {
 	return false
 }
 
-// SetAddress gets a reference to the given []LoopbackInterfacesIpv6AddressInner and assigns it to the Address field.
-func (o *TunnelInterfacesIpv6) SetAddress(v []LoopbackInterfacesIpv6AddressInner) {
+// SetAddress gets a reference to the given []TunnelInterfacesIpv6AddressInner and assigns it to the Address field.
+func (o *TunnelInterfacesIpv6) SetAddress(v []TunnelInterfacesIpv6AddressInner) {
 	o.Address = v
 }
 
