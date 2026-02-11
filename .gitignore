@@ -24,3 +24,8 @@ go.work
 .DS_Store
 *.swp
 
+# SCM configuration with credentials
+config/scm-config.json
+
+.github/QUICK_START.md
+
