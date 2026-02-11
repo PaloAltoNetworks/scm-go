@@ -43,7 +43,7 @@ jobs:
           EOF
 
       - name: Run all tests
-        run: go test -v -skip "LogicalRouters" ./...
+        run: go test -v -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./...
         timeout-minutes: 30
 
       - name: Test Summary

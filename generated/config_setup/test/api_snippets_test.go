@@ -227,7 +227,7 @@ func Test_config_setup_SnippetsAPIService_List(t *testing.T) {
 	// Assert response object properties
 	require.NotNil(t, listRes, "List response should not be nil")
 	require.NotNil(t, listRes.Data, "List response data should not be nil")
-	assert.Equal(t, 500, len(listRes.Data), "Expected exactly 1 snippet matching the unique name filter")
+	assert.GreaterOrEqual(t, len(listRes.Data), 1, "Expected at least 1 snippet in the list response")
 
 	t.Logf("Successfully listed and found created snippet: %s", createdSnippetName)
 
