@@ -10,8 +10,20 @@ on:
 
 jobs:
   test:
-    name: Run All Tests
+    name: Test ${{ matrix.service }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        service:
+          - objects
+          - network_services
+          - security_services
+          - identity_services
+          - deployment_services
+          - config_setup
+          - config_operations
+          - auth
 
     steps:
       - name: Checkout code
@@ -42,8 +54,13 @@ jobs:
           }
           EOF
 
-      - name: Run all tests
-        run: go test -v -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./...
+      - name: Run tests for ${{ matrix.service }}
+        run: |
+          if [ "${{ matrix.service }}" = "auth" ]; then
+            go test -v ./auth/...
+          else
+            go test -v -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/...
+          fi
         timeout-minutes: 30
 
       - name: Test Summary
