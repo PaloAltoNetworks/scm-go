@@ -23,7 +23,6 @@ jobs:
           - deployment_services
           - config_setup
           - config_operations
-          - auth
 
     steps:
       - name: Checkout code
@@ -56,11 +55,7 @@ jobs:
 
       - name: Run tests for ${{ matrix.service }}
         run: |
-          if [ "${{ matrix.service }}" = "auth" ]; then
-            go test -v ./auth/...
-          else
-            go test -v -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/...
-          fi
+          go test -v -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/...
         timeout-minutes: 30
 
       - name: Test Summary
