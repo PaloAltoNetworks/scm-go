@@ -21,7 +21,9 @@ var _ MappedNullable = &IkeGatewaysLocalAddress{}
 // IkeGatewaysLocalAddress struct for IkeGatewaysLocalAddress
 type IkeGatewaysLocalAddress struct {
 	// Interface variable or hardcoded vlan/loopback. vlan will be passed as default value
-	Interface            *string `json:"interface,omitempty"`
+	Interface *string `json:"interface,omitempty"`
+	// IP Prefix of the assigned interface
+	Ip                   *string `json:"ip,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -80,6 +82,38 @@ func (o *IkeGatewaysLocalAddress) SetInterface(v string) {
 	o.Interface = &v
 }
 
+// GetIp returns the Ip field value if set, zero value otherwise.
+func (o *IkeGatewaysLocalAddress) GetIp() string {
+	if o == nil || IsNil(o.Ip) {
+		var ret string
+		return ret
+	}
+	return *o.Ip
+}
+
+// GetIpOk returns a tuple with the Ip field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IkeGatewaysLocalAddress) GetIpOk() (*string, bool) {
+	if o == nil || IsNil(o.Ip) {
+		return nil, false
+	}
+	return o.Ip, true
+}
+
+// HasIp returns a boolean if a field has been set.
+func (o *IkeGatewaysLocalAddress) HasIp() bool {
+	if o != nil && !IsNil(o.Ip) {
+		return true
+	}
+
+	return false
+}
+
+// SetIp gets a reference to the given string and assigns it to the Ip field.
+func (o *IkeGatewaysLocalAddress) SetIp(v string) {
+	o.Ip = &v
+}
+
 func (o IkeGatewaysLocalAddress) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -92,6 +126,9 @@ func (o IkeGatewaysLocalAddress) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Interface) {
 		toSerialize["interface"] = o.Interface
+	}
+	if !IsNil(o.Ip) {
+		toSerialize["ip"] = o.Ip
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -116,6 +153,7 @@ func (o *IkeGatewaysLocalAddress) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "interface")
+		delete(additionalProperties, "ip")
 		o.AdditionalProperties = additionalProperties
 	}
 

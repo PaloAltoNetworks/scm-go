@@ -13,7 +13,6 @@ package device_settings
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the GeneralSettingsGeneralGeoLocation type satisfies the MappedNullable interface at compile time
@@ -22,9 +21,9 @@ var _ MappedNullable = &GeneralSettingsGeneralGeoLocation{}
 // GeneralSettingsGeneralGeoLocation Geographic coordinates
 type GeneralSettingsGeneralGeoLocation struct {
 	// Latitude
-	Latitude string `json:"latitude"`
+	Latitude *string `json:"latitude,omitempty"`
 	// Longitude
-	Longitude            string `json:"longitude"`
+	Longitude            *string `json:"longitude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,10 +33,8 @@ type _GeneralSettingsGeneralGeoLocation GeneralSettingsGeneralGeoLocation
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGeneralSettingsGeneralGeoLocation(latitude string, longitude string) *GeneralSettingsGeneralGeoLocation {
+func NewGeneralSettingsGeneralGeoLocation() *GeneralSettingsGeneralGeoLocation {
 	this := GeneralSettingsGeneralGeoLocation{}
-	this.Latitude = latitude
-	this.Longitude = longitude
 	return &this
 }
 
@@ -49,52 +46,68 @@ func NewGeneralSettingsGeneralGeoLocationWithDefaults() *GeneralSettingsGeneralG
 	return &this
 }
 
-// GetLatitude returns the Latitude field value
+// GetLatitude returns the Latitude field value if set, zero value otherwise.
 func (o *GeneralSettingsGeneralGeoLocation) GetLatitude() string {
-	if o == nil {
+	if o == nil || IsNil(o.Latitude) {
 		var ret string
 		return ret
 	}
-
-	return o.Latitude
+	return *o.Latitude
 }
 
-// GetLatitudeOk returns a tuple with the Latitude field value
+// GetLatitudeOk returns a tuple with the Latitude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GeneralSettingsGeneralGeoLocation) GetLatitudeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Latitude) {
 		return nil, false
 	}
-	return &o.Latitude, true
+	return o.Latitude, true
 }
 
-// SetLatitude sets field value
+// HasLatitude returns a boolean if a field has been set.
+func (o *GeneralSettingsGeneralGeoLocation) HasLatitude() bool {
+	if o != nil && !IsNil(o.Latitude) {
+		return true
+	}
+
+	return false
+}
+
+// SetLatitude gets a reference to the given string and assigns it to the Latitude field.
 func (o *GeneralSettingsGeneralGeoLocation) SetLatitude(v string) {
-	o.Latitude = v
+	o.Latitude = &v
 }
 
-// GetLongitude returns the Longitude field value
+// GetLongitude returns the Longitude field value if set, zero value otherwise.
 func (o *GeneralSettingsGeneralGeoLocation) GetLongitude() string {
-	if o == nil {
+	if o == nil || IsNil(o.Longitude) {
 		var ret string
 		return ret
 	}
-
-	return o.Longitude
+	return *o.Longitude
 }
 
-// GetLongitudeOk returns a tuple with the Longitude field value
+// GetLongitudeOk returns a tuple with the Longitude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GeneralSettingsGeneralGeoLocation) GetLongitudeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Longitude) {
 		return nil, false
 	}
-	return &o.Longitude, true
+	return o.Longitude, true
 }
 
-// SetLongitude sets field value
+// HasLongitude returns a boolean if a field has been set.
+func (o *GeneralSettingsGeneralGeoLocation) HasLongitude() bool {
+	if o != nil && !IsNil(o.Longitude) {
+		return true
+	}
+
+	return false
+}
+
+// SetLongitude gets a reference to the given string and assigns it to the Longitude field.
 func (o *GeneralSettingsGeneralGeoLocation) SetLongitude(v string) {
-	o.Longitude = v
+	o.Longitude = &v
 }
 
 func (o GeneralSettingsGeneralGeoLocation) MarshalJSON() ([]byte, error) {
@@ -107,8 +120,12 @@ func (o GeneralSettingsGeneralGeoLocation) MarshalJSON() ([]byte, error) {
 
 func (o GeneralSettingsGeneralGeoLocation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["latitude"] = o.Latitude
-	toSerialize["longitude"] = o.Longitude
+	if !IsNil(o.Latitude) {
+		toSerialize["latitude"] = o.Latitude
+	}
+	if !IsNil(o.Longitude) {
+		toSerialize["longitude"] = o.Longitude
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -118,28 +135,6 @@ func (o GeneralSettingsGeneralGeoLocation) ToMap() (map[string]interface{}, erro
 }
 
 func (o *GeneralSettingsGeneralGeoLocation) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"latitude",
-		"longitude",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varGeneralSettingsGeneralGeoLocation := _GeneralSettingsGeneralGeoLocation{}
 
 	err = json.Unmarshal(data, &varGeneralSettingsGeneralGeoLocation)

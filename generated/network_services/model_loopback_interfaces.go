@@ -21,22 +21,22 @@ var _ MappedNullable = &LoopbackInterfaces{}
 
 // LoopbackInterfaces struct for LoopbackInterfaces
 type LoopbackInterfaces struct {
-	// Description
+	// Description for loopback interface
 	Comment *string `json:"comment,omitempty"`
-	// Default interface assignment
+	// Default interface assignment for loopback interface
 	DefaultValue *string `json:"default_value,omitempty" validate:"regexp=^loopback\\\\.([1-9][0-9]{0,3})$"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	// UUID of the resource
+	// UUID of the resource loopback interface
 	Id *string `json:"id,omitempty"`
-	// Interface management profile
+	// Interface management profile for loopback interface
 	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
 	// Loopback IP Parent
 	Ip   []LoopbackInterfacesIpInner `json:"ip,omitempty"`
 	Ipv6 *LoopbackInterfacesIpv6     `json:"ipv6,omitempty"`
-	// MTU
+	// MTU for loopback interface
 	Mtu *int32 `json:"mtu,omitempty"`
 	// Loopback Interface name
 	Name string `json:"name" validate:"regexp=^\\\\$[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`

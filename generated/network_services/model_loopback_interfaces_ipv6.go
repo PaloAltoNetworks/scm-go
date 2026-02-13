@@ -20,11 +20,11 @@ var _ MappedNullable = &LoopbackInterfacesIpv6{}
 
 // LoopbackInterfacesIpv6 Loopback IPv6 Configuration
 type LoopbackInterfacesIpv6 struct {
-	// IPv6 Address Parent
+	// IPv6 Address Parent for loopback interface
 	Address []LoopbackInterfacesIpv6AddressInner `json:"address,omitempty"`
-	// Enable IPv6
+	// Enable IPv6 for loopback interface
 	Enabled *bool `json:"enabled,omitempty"`
-	// Interface ID
+	// Interface ID for loopback interface
 	InterfaceId          *string `json:"interface_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

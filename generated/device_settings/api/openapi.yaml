@@ -8587,9 +8587,6 @@ components:
           description: Longitude
           example: "-121.983060"
           type: string
-      required:
-      - latitude
-      - longitude
       type: object
     general_settings_general_setting_management:
       example:

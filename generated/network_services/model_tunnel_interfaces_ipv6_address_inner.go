@@ -15,47 +15,47 @@ import (
 	"encoding/json"
 )
 
-// checks if the LoopbackInterfacesIpv6AddressInner type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &LoopbackInterfacesIpv6AddressInner{}
+// checks if the TunnelInterfacesIpv6AddressInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TunnelInterfacesIpv6AddressInner{}
 
-// LoopbackInterfacesIpv6AddressInner struct for LoopbackInterfacesIpv6AddressInner
-type LoopbackInterfacesIpv6AddressInner struct {
-	// Anycast for loopback interface
+// TunnelInterfacesIpv6AddressInner struct for TunnelInterfacesIpv6AddressInner
+type TunnelInterfacesIpv6AddressInner struct {
+	// Anycast for tunnel interface
 	Anycast map[string]interface{} `json:"anycast,omitempty"`
-	// Enable Address on Interface for loopback interface
+	// Enable Address on Interface for tunnel interface
 	EnableOnInterface *bool `json:"enable_on_interface,omitempty"`
-	// IPv6 Address for loopback interface
+	// IPv6 Address for tunnel interface
 	Name *string `json:"name,omitempty"`
-	// Use interface ID as host portion for loopback interface
+	// Use interface ID as host portion for tunnel interface
 	Prefix               map[string]interface{} `json:"prefix,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _LoopbackInterfacesIpv6AddressInner LoopbackInterfacesIpv6AddressInner
+type _TunnelInterfacesIpv6AddressInner TunnelInterfacesIpv6AddressInner
 
-// NewLoopbackInterfacesIpv6AddressInner instantiates a new LoopbackInterfacesIpv6AddressInner object
+// NewTunnelInterfacesIpv6AddressInner instantiates a new TunnelInterfacesIpv6AddressInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLoopbackInterfacesIpv6AddressInner() *LoopbackInterfacesIpv6AddressInner {
-	this := LoopbackInterfacesIpv6AddressInner{}
+func NewTunnelInterfacesIpv6AddressInner() *TunnelInterfacesIpv6AddressInner {
+	this := TunnelInterfacesIpv6AddressInner{}
 	var enableOnInterface bool = true
 	this.EnableOnInterface = &enableOnInterface
 	return &this
 }
 
-// NewLoopbackInterfacesIpv6AddressInnerWithDefaults instantiates a new LoopbackInterfacesIpv6AddressInner object
+// NewTunnelInterfacesIpv6AddressInnerWithDefaults instantiates a new TunnelInterfacesIpv6AddressInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewLoopbackInterfacesIpv6AddressInnerWithDefaults() *LoopbackInterfacesIpv6AddressInner {
-	this := LoopbackInterfacesIpv6AddressInner{}
+func NewTunnelInterfacesIpv6AddressInnerWithDefaults() *TunnelInterfacesIpv6AddressInner {
+	this := TunnelInterfacesIpv6AddressInner{}
 	var enableOnInterface bool = true
 	this.EnableOnInterface = &enableOnInterface
 	return &this
 }
 
 // GetAnycast returns the Anycast field value if set, zero value otherwise.
-func (o *LoopbackInterfacesIpv6AddressInner) GetAnycast() map[string]interface{} {
+func (o *TunnelInterfacesIpv6AddressInner) GetAnycast() map[string]interface{} {
 	if o == nil || IsNil(o.Anycast) {
 		var ret map[string]interface{}
 		return ret
@@ -65,7 +65,7 @@ func (o *LoopbackInterfacesIpv6AddressInner) GetAnycast() map[string]interface{}
 
 // GetAnycastOk returns a tuple with the Anycast field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) GetAnycastOk() (map[string]interface{}, bool) {
+func (o *TunnelInterfacesIpv6AddressInner) GetAnycastOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Anycast) {
 		return map[string]interface{}{}, false
 	}
@@ -73,7 +73,7 @@ func (o *LoopbackInterfacesIpv6AddressInner) GetAnycastOk() (map[string]interfac
 }
 
 // HasAnycast returns a boolean if a field has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) HasAnycast() bool {
+func (o *TunnelInterfacesIpv6AddressInner) HasAnycast() bool {
 	if o != nil && !IsNil(o.Anycast) {
 		return true
 	}
@@ -82,12 +82,12 @@ func (o *LoopbackInterfacesIpv6AddressInner) HasAnycast() bool {
 }
 
 // SetAnycast gets a reference to the given map[string]interface{} and assigns it to the Anycast field.
-func (o *LoopbackInterfacesIpv6AddressInner) SetAnycast(v map[string]interface{}) {
+func (o *TunnelInterfacesIpv6AddressInner) SetAnycast(v map[string]interface{}) {
 	o.Anycast = v
 }
 
 // GetEnableOnInterface returns the EnableOnInterface field value if set, zero value otherwise.
-func (o *LoopbackInterfacesIpv6AddressInner) GetEnableOnInterface() bool {
+func (o *TunnelInterfacesIpv6AddressInner) GetEnableOnInterface() bool {
 	if o == nil || IsNil(o.EnableOnInterface) {
 		var ret bool
 		return ret
@@ -97,7 +97,7 @@ func (o *LoopbackInterfacesIpv6AddressInner) GetEnableOnInterface() bool {
 
 // GetEnableOnInterfaceOk returns a tuple with the EnableOnInterface field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) GetEnableOnInterfaceOk() (*bool, bool) {
+func (o *TunnelInterfacesIpv6AddressInner) GetEnableOnInterfaceOk() (*bool, bool) {
 	if o == nil || IsNil(o.EnableOnInterface) {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *LoopbackInterfacesIpv6AddressInner) GetEnableOnInterfaceOk() (*bool, bo
 }
 
 // HasEnableOnInterface returns a boolean if a field has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) HasEnableOnInterface() bool {
+func (o *TunnelInterfacesIpv6AddressInner) HasEnableOnInterface() bool {
 	if o != nil && !IsNil(o.EnableOnInterface) {
 		return true
 	}
@@ -114,12 +114,12 @@ func (o *LoopbackInterfacesIpv6AddressInner) HasEnableOnInterface() bool {
 }
 
 // SetEnableOnInterface gets a reference to the given bool and assigns it to the EnableOnInterface field.
-func (o *LoopbackInterfacesIpv6AddressInner) SetEnableOnInterface(v bool) {
+func (o *TunnelInterfacesIpv6AddressInner) SetEnableOnInterface(v bool) {
 	o.EnableOnInterface = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *LoopbackInterfacesIpv6AddressInner) GetName() string {
+func (o *TunnelInterfacesIpv6AddressInner) GetName() string {
 	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
@@ -129,7 +129,7 @@ func (o *LoopbackInterfacesIpv6AddressInner) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) GetNameOk() (*string, bool) {
+func (o *TunnelInterfacesIpv6AddressInner) GetNameOk() (*string, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -137,7 +137,7 @@ func (o *LoopbackInterfacesIpv6AddressInner) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) HasName() bool {
+func (o *TunnelInterfacesIpv6AddressInner) HasName() bool {
 	if o != nil && !IsNil(o.Name) {
 		return true
 	}
@@ -146,12 +146,12 @@ func (o *LoopbackInterfacesIpv6AddressInner) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *LoopbackInterfacesIpv6AddressInner) SetName(v string) {
+func (o *TunnelInterfacesIpv6AddressInner) SetName(v string) {
 	o.Name = &v
 }
 
 // GetPrefix returns the Prefix field value if set, zero value otherwise.
-func (o *LoopbackInterfacesIpv6AddressInner) GetPrefix() map[string]interface{} {
+func (o *TunnelInterfacesIpv6AddressInner) GetPrefix() map[string]interface{} {
 	if o == nil || IsNil(o.Prefix) {
 		var ret map[string]interface{}
 		return ret
@@ -161,7 +161,7 @@ func (o *LoopbackInterfacesIpv6AddressInner) GetPrefix() map[string]interface{} 
 
 // GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) GetPrefixOk() (map[string]interface{}, bool) {
+func (o *TunnelInterfacesIpv6AddressInner) GetPrefixOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Prefix) {
 		return map[string]interface{}{}, false
 	}
@@ -169,7 +169,7 @@ func (o *LoopbackInterfacesIpv6AddressInner) GetPrefixOk() (map[string]interface
 }
 
 // HasPrefix returns a boolean if a field has been set.
-func (o *LoopbackInterfacesIpv6AddressInner) HasPrefix() bool {
+func (o *TunnelInterfacesIpv6AddressInner) HasPrefix() bool {
 	if o != nil && !IsNil(o.Prefix) {
 		return true
 	}
@@ -178,11 +178,11 @@ func (o *LoopbackInterfacesIpv6AddressInner) HasPrefix() bool {
 }
 
 // SetPrefix gets a reference to the given map[string]interface{} and assigns it to the Prefix field.
-func (o *LoopbackInterfacesIpv6AddressInner) SetPrefix(v map[string]interface{}) {
+func (o *TunnelInterfacesIpv6AddressInner) SetPrefix(v map[string]interface{}) {
 	o.Prefix = v
 }
 
-func (o LoopbackInterfacesIpv6AddressInner) MarshalJSON() ([]byte, error) {
+func (o TunnelInterfacesIpv6AddressInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -190,7 +190,7 @@ func (o LoopbackInterfacesIpv6AddressInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o LoopbackInterfacesIpv6AddressInner) ToMap() (map[string]interface{}, error) {
+func (o TunnelInterfacesIpv6AddressInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Anycast) {
 		toSerialize["anycast"] = o.Anycast
@@ -212,16 +212,16 @@ func (o LoopbackInterfacesIpv6AddressInner) ToMap() (map[string]interface{}, err
 	return toSerialize, nil
 }
 
-func (o *LoopbackInterfacesIpv6AddressInner) UnmarshalJSON(data []byte) (err error) {
-	varLoopbackInterfacesIpv6AddressInner := _LoopbackInterfacesIpv6AddressInner{}
+func (o *TunnelInterfacesIpv6AddressInner) UnmarshalJSON(data []byte) (err error) {
+	varTunnelInterfacesIpv6AddressInner := _TunnelInterfacesIpv6AddressInner{}
 
-	err = json.Unmarshal(data, &varLoopbackInterfacesIpv6AddressInner)
+	err = json.Unmarshal(data, &varTunnelInterfacesIpv6AddressInner)
 
 	if err != nil {
 		return err
 	}
 
-	*o = LoopbackInterfacesIpv6AddressInner(varLoopbackInterfacesIpv6AddressInner)
+	*o = TunnelInterfacesIpv6AddressInner(varTunnelInterfacesIpv6AddressInner)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -236,38 +236,38 @@ func (o *LoopbackInterfacesIpv6AddressInner) UnmarshalJSON(data []byte) (err err
 	return err
 }
 
-type NullableLoopbackInterfacesIpv6AddressInner struct {
-	value *LoopbackInterfacesIpv6AddressInner
+type NullableTunnelInterfacesIpv6AddressInner struct {
+	value *TunnelInterfacesIpv6AddressInner
 	isSet bool
 }
 
-func (v NullableLoopbackInterfacesIpv6AddressInner) Get() *LoopbackInterfacesIpv6AddressInner {
+func (v NullableTunnelInterfacesIpv6AddressInner) Get() *TunnelInterfacesIpv6AddressInner {
 	return v.value
 }
 
-func (v *NullableLoopbackInterfacesIpv6AddressInner) Set(val *LoopbackInterfacesIpv6AddressInner) {
+func (v *NullableTunnelInterfacesIpv6AddressInner) Set(val *TunnelInterfacesIpv6AddressInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableLoopbackInterfacesIpv6AddressInner) IsSet() bool {
+func (v NullableTunnelInterfacesIpv6AddressInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableLoopbackInterfacesIpv6AddressInner) Unset() {
+func (v *NullableTunnelInterfacesIpv6AddressInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableLoopbackInterfacesIpv6AddressInner(val *LoopbackInterfacesIpv6AddressInner) *NullableLoopbackInterfacesIpv6AddressInner {
-	return &NullableLoopbackInterfacesIpv6AddressInner{value: val, isSet: true}
+func NewNullableTunnelInterfacesIpv6AddressInner(val *TunnelInterfacesIpv6AddressInner) *NullableTunnelInterfacesIpv6AddressInner {
+	return &NullableTunnelInterfacesIpv6AddressInner{value: val, isSet: true}
 }
 
-func (v NullableLoopbackInterfacesIpv6AddressInner) MarshalJSON() ([]byte, error) {
+func (v NullableTunnelInterfacesIpv6AddressInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableLoopbackInterfacesIpv6AddressInner) UnmarshalJSON(src []byte) error {
+func (v *NullableTunnelInterfacesIpv6AddressInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

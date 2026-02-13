@@ -69,11 +69,11 @@ type Client struct {
 	Logging              string     `json:"logging"`
 	Logger               api.Logger `json:"-"`
 
-	Jwt       string `json:"-"`
+	Jwt       string `json:"jwt,omitempty"`
 	jwtAtomic int32  `json:"-"`
 
-	JwtExpiresAt time.Time `json:"-"` // The actual time the JWT will expire
-	JwtLifetime  int64     `json:"-"` // The TTL received from the auth server (in seconds)
+	JwtExpiresAt time.Time `json:"jwt_expires_at,omitempty"` // The actual time the JWT will expire
+	JwtLifetime  int64     `json:"jwt_lifetime,omitempty"`   // The TTL received from the auth server (in seconds)
 
 	apiPrefix string
 
@@ -232,6 +232,16 @@ func (c *Client) Setup() error {
 			c.Logging = json_client.Logging
 		} else {
 			c.Logging = api.LogQuiet
+		}
+	}
+
+	// JWT - allow passing pre-existing JWT from auth file.
+	// This enables token caching to avoid hitting auth API rate limits.
+	if c.Jwt == "" {
+		if json_client.Jwt != "" {
+			c.Jwt = json_client.Jwt
+			c.JwtExpiresAt = json_client.JwtExpiresAt
+			c.JwtLifetime = json_client.JwtLifetime
 		}
 	}
 

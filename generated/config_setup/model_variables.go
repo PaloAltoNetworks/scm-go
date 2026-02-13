@@ -24,9 +24,9 @@ type Variables struct {
 	// The description of the variable
 	Description *string `json:"description,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d_\\\\-. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d_\\\\-. ]+$"`
 	// UUID of the variable
 	Id string `json:"id"`
 	// The name of the variable
@@ -34,7 +34,7 @@ type Variables struct {
 	// Is the variable overridden?
 	Overridden *bool `json:"overridden,omitempty"`
 	// The snippet in which the resource is defined
-	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d_\\\\-. ]+$"`
 	// The variable type
 	Type string `json:"type"`
 	// The value of the variable

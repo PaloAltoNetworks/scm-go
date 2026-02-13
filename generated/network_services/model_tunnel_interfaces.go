@@ -21,24 +21,24 @@ var _ MappedNullable = &TunnelInterfaces{}
 
 // TunnelInterfaces struct for TunnelInterfaces
 type TunnelInterfaces struct {
-	// Description
+	// Description for tunnel interface
 	Comment *string `json:"comment,omitempty"`
-	// Default interface assignment
+	// Default interface assignment for tunnel interface
 	DefaultValue *string `json:"default_value,omitempty" validate:"regexp=^tunnel\\\\.([1-9][0-9]{0,3})$"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	// UUID of the resource
+	// UUID of the resource for tunnel interface
 	Id *string `json:"id,omitempty"`
-	// Interface management profile
+	// Interface management profile for tunnel interface
 	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
 	// Tunnel Interface IP Parent
 	Ip   []TunnelInterfacesIpInner `json:"ip,omitempty"`
 	Ipv6 *TunnelInterfacesIpv6     `json:"ipv6,omitempty"`
-	// MTU
+	// MTU for tunnel interface
 	Mtu *int32 `json:"mtu,omitempty"`
-	// L3 sub-interface name
+	// L3 sub-interface name for tunnel interface
 	Name string `json:"name"`
 	// The snippet in which the resource is defined
 	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`

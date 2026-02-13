@@ -17075,6 +17075,8 @@ components:
           - auth
           - decryption
           - dns-security
+          - gtp
+          - sctp
           type: string
         name:
           description: Name of the match profile
