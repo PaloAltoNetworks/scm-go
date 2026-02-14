@@ -48,12 +48,22 @@ jobs:
             "host": "${{ secrets.SCM_HOST }}",
             "protocol": "${{ secrets.SCM_PROTOCOL }}",
             "scope": "${{ secrets.SCM_SCOPE }}",
-            "logging": "${{ secrets.SCM_LOGGING }}",
+            "logging": "quiet",
             "skip_verify_certificate": ${{ secrets.SCM_SKIP_VERIFY_CERTIFICATE }}
           }
           EOF
 
       - name: Run tests for ${{ matrix.service }}
         run: |
-          go test -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/...
+          set +e
+          output=$(go test -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/... 2>&1)
+          exit_code=$?
+
+          if [ $exit_code -ne 0 ]; then
+            echo "❌ Tests failed for ${{ matrix.service }}"
+            echo "$output" | grep -E "(FAIL|--- FAIL:|panic:|Error:)" || echo "$output"
+            exit $exit_code
+          else
+            echo "✅ All tests passed for ${{ matrix.service }}"
+          fi
         timeout-minutes: 30
