@@ -55,11 +55,5 @@ jobs:
 
       - name: Run tests for ${{ matrix.service }}
         run: |
-          go test -v -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/...
+          go test -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/...
         timeout-minutes: 30
-
-      - name: Test Summary
-        if: always()
-        run: |
-          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "Tests completed with exit code: $?" >> $GITHUB_STEP_SUMMARY
