@@ -288,3 +288,60 @@ func Test_config_setup_SnippetsAPIService_DeleteByID(t *testing.T) {
 	assert.Error(t, errGet, "Expected an error when trying to retrieve deleted snippet")
 	assert.Equal(t, 404, httpResGet.StatusCode, "Expected 404 Not Found status after deletion")
 }
+
+// Test_config_setup_SnippetsAPIService_FetchSnippets tests the FetchSnippets convenience method
+func Test_config_setup_SnippetsAPIService_FetchSnippets(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupConfigSvcTestClient(t)
+
+	// Create test object using same payload as Create test
+	testName := "test-snippet-fetch-" + common.GenerateRandomString(6)
+	testObj := config_setup.Snippets{
+		Description: common.StringPtr("Test snippet for fetch API testing"),
+		Name:        testName,
+	}
+
+	createReq := client.SnippetsAPI.CreateSnippet(context.Background()).Snippets(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.SnippetsAPI.DeleteSnippetByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.SnippetsAPI.FetchSnippets(
+		context.Background(),
+		testName,
+		nil, // folder (snippets don't have folder field)
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch snippets by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchSnippets found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.SnippetsAPI.FetchSnippets(
+		context.Background(),
+		"non-existent-snippets-xyz-12345",
+		nil, // folder (snippets don't have folder field)
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchSnippets correctly returned nil for non-existent object")
+}

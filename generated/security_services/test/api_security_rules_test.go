@@ -332,3 +332,73 @@ func Test_security_services_SecurityRulesAPIService_Move(t *testing.T) {
 
 	t.Logf("Successfully executed move operation for rule %s", idA)
 }
+
+// Test_security_services_SecurityRulesAPIService_FetchSecurityRules tests the FetchSecurityRules convenience method
+func Test_security_services_SecurityRulesAPIService_FetchSecurityRules(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupSecuritySvcTestClient(t)
+
+	// Create test object using same payload as Create test
+	testName := "test-security-fetch-" + common.GenerateRandomString(6)
+	testObj := security_services.SecurityRules{
+		Folder:      common.StringPtr("Shared"),
+		Name:        common.StringPtr(testName),
+		PolicyType:  common.StringPtr("Security"),
+		From:        []string{"any"},
+		To:          []string{"any"},
+		Source:      []string{"any"},
+		Destination: []string{"any"},
+		Service:     []string{"any"},
+		Application: []string{"any"},
+		Action:      common.StringPtr("allow"),
+		SourceUser:  []string{"any"},
+		Category:    []string{"any"},
+	}
+
+	createReq := client.SecurityRulesAPI.CreateSecurityRules(context.Background()).Position("pre").SecurityRules(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	require.NotNil(t, createRes.Id, "Created rule should have an ID")
+	createdID := *createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.SecurityRulesAPI.DeleteSecurityRulesByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.SecurityRulesAPI.FetchSecurityRules(
+		context.Background(),
+		testName,
+		common.StringPtr("Shared"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch security_rules by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	require.NotNil(t, fetchedObj.Id, "Fetched object should have an ID")
+	require.NotNil(t, fetchedObj.Name, "Fetched object should have a name")
+	assert.Equal(t, createdID, *fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, *fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchSecurityRules found object: %s", *fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.SecurityRulesAPI.FetchSecurityRules(
+		context.Background(),
+		"non-existent-security_rules-xyz-12345",
+		common.StringPtr("Shared"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchSecurityRules correctly returned nil for non-existent object")
+}

@@ -1063,3 +1063,72 @@ func (a *AuthenticationRulesAPIService) UpdateAuthenticationRulesByIDExecute(r A
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+// FetchAuthenticationRules retrieves a single AuthenticationRules object by name.
+//
+// This is a convenience method that combines list and filter operations to retrieve
+// a specific object by its name within a container (folder, snippet, or device).
+//
+// Parameters:
+//   - ctx: Context for the request
+//   - name: The name of the object to fetch
+//   - folder: The folder in which the resource is defined (optional, use nil if not needed)
+//   - snippet: The snippet in which the resource is defined (optional, use nil if not needed)
+//   - device: The device in which the resource is defined (optional, use nil if not needed)
+//
+// Returns:
+//   - *AuthenticationRules: The matching object if found, nil otherwise
+//   - error: Any error that occurred during the fetch operation
+//
+// Example:
+//
+//	obj, err := api.FetchAuthenticationRules(ctx, "my-object", &folder, nil, nil)
+//	if err != nil {
+//	    return err
+//	}
+//	if obj != nil {
+//	    fmt.Printf("Found object\n")
+//	}
+func (a *AuthenticationRulesAPIService) FetchAuthenticationRules(ctx context.Context, name string, folder *string, snippet *string, device *string) (*AuthenticationRules, error) {
+	var offset int32 = 15 // Skip predefined rules with deserialization issues
+	var limit int32 = 5000
+
+	for {
+
+		// Build request with position and conditional parameters
+		req := a.ListAuthenticationRules(ctx).Position("pre")
+		if folder != nil {
+			req = req.Folder(*folder)
+		}
+		if snippet != nil {
+			req = req.Snippet(*snippet)
+		}
+		if device != nil {
+			req = req.Device(*device)
+		}
+		req = req.Offset(offset).Limit(limit)
+
+		response, _, err := req.Execute()
+		if err != nil {
+			return nil, err
+		}
+
+		// Filter by exact name match
+		if response.Data != nil {
+			for i := range response.Data {
+				if response.Data[i].Name == name {
+					return &response.Data[i], nil
+				}
+			}
+		}
+
+		// Check if we've reached the end
+		if response.Data == nil || len(response.Data) < int(limit) {
+			break
+		}
+
+		offset += limit
+	}
+
+	return nil, nil
+}

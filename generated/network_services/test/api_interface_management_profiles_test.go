@@ -292,3 +292,60 @@ func Test_InterfaceManagementProfiles_List(t *testing.T) {
 	require.NotNil(t, listRes, "List response should not be nil")
 	assert.GreaterOrEqual(t, len(listRes.Data), 1, "Expected at least one Interface Management Profile in the list")
 }
+
+// Test_network_services_InterfaceManagementProfilesAPIService_FetchInterfaceManagementProfiles tests the FetchInterfaceManagementProfiles convenience method
+func Test_network_services_InterfaceManagementProfilesAPIService_FetchInterfaceManagementProfiles(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create a test object first (inline creation like other tests)
+	testName := "fetch-ifmp-" + common.GenerateRandomString(6)
+	testObj := network_services.InterfaceManagementProfiles{
+		Name:   testName,
+		Folder: common.StringPtr("Prisma Access"),
+	}
+
+	createReq := client.InterfaceManagementProfilesAPI.CreateInterfaceManagementProfiles(context.Background()).InterfaceManagementProfiles(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.InterfaceManagementProfilesAPI.DeleteInterfaceManagementProfilesByID(context.Background(), *createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", *createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.InterfaceManagementProfilesAPI.FetchInterfaceManagementProfiles(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch interface_management_profiles by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchInterfaceManagementProfiles found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.InterfaceManagementProfilesAPI.FetchInterfaceManagementProfiles(
+		context.Background(),
+		"non-existent-interface_management_profiles-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchInterfaceManagementProfiles correctly returned nil for non-existent object")
+}

@@ -5872,7 +5872,10 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                items:
+                  $ref: '#/components/schemas/mfa-servers'
+                type: array
           description: OK
         "400":
           content:

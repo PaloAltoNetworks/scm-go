@@ -264,3 +264,72 @@ func Test_deployment_services_RemoteNetworksAPIService_DeleteByID(t *testing.T) 
 	_, errDel := depSvcClient.RemoteNetworksAPI.DeleteRemoteNetworksByID(context.Background(), createdNetworkID).Execute()
 	require.NoError(t, errDel, "Failed to delete remote network")
 }
+
+// Test_deployment_services_RemoteNetworksAPIService_FetchRemoteNetworks tests the FetchRemoteNetworks convenience method
+func Test_deployment_services_RemoteNetworksAPIService_FetchRemoteNetworks(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupDeploymentSvcTestClient(t)
+
+	// Create test object using same payload as Create test
+	randomSuffix := common.GenerateRandomString(6)
+	testName := "test-rn-fetch-" + randomSuffix
+
+	// Create dependencies (IPsec Tunnel, Gateway, Crypto Profile)
+	tunnelName, cleanupDeps := createTestIPsecTunnelAndDeps(t, "fetch-"+randomSuffix)
+
+	testObj := deployment_services.RemoteNetworks{
+		Name:        testName,
+		Folder:      "Remote Networks",
+		SpnName:     common.StringPtr("us-west-dakota"),
+		LicenseType: "FWAAS-AGGREGATE",
+		Region:      "us-west-2",
+		IpsecTunnel: common.StringPtr(tunnelName),
+		Subnets:     []string{"192.168.1.0/24"},
+	}
+
+	createReq := client.RemoteNetworksAPI.CreateRemoteNetworks(context.Background()).RemoteNetworks(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.RemoteNetworksAPI.DeleteRemoteNetworksByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+		// Cleanup dependencies
+		cleanupDeps()
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.RemoteNetworksAPI.FetchRemoteNetworks(
+		context.Background(),
+		testName,
+		common.StringPtr("Remote Networks"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch remote_networks by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchRemoteNetworks found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.RemoteNetworksAPI.FetchRemoteNetworks(
+		context.Background(),
+		"non-existent-remote_networks-xyz-12345",
+		common.StringPtr("Remote Networks"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchRemoteNetworks correctly returned nil for non-existent object")
+}

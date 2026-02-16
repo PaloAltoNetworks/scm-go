@@ -888,3 +888,72 @@ func (a *SDWANPathQualityProfilesAPIService) UpdateSDWANPathQualityProfilesByIDE
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+// FetchSDWANPathQualityProfiles retrieves a single SdwanPathQualityProfiles object by name.
+//
+// This is a convenience method that combines list and filter operations to retrieve
+// a specific object by its name within a container (folder, snippet, or device).
+//
+// Parameters:
+//   - ctx: Context for the request
+//   - name: The name of the object to fetch
+//   - folder: The folder in which the resource is defined (optional, use nil if not needed)
+//   - snippet: The snippet in which the resource is defined (optional, use nil if not needed)
+//   - device: The device in which the resource is defined (optional, use nil if not needed)
+//
+// Returns:
+//   - *SdwanPathQualityProfiles: The matching object if found, nil otherwise
+//   - error: Any error that occurred during the fetch operation
+//
+// Example:
+//
+//	obj, err := api.FetchSDWANPathQualityProfiles(ctx, "my-object", &folder, nil, nil)
+//	if err != nil {
+//	    return err
+//	}
+//	if obj != nil {
+//	    fmt.Printf("Found object\n")
+//	}
+func (a *SDWANPathQualityProfilesAPIService) FetchSDWANPathQualityProfiles(ctx context.Context, name string, folder *string, snippet *string, device *string) (*SdwanPathQualityProfiles, error) {
+	var offset int32 = 0
+	var limit int32 = 5000
+
+	for {
+		req := a.ListSDWANPathQualityProfiles(ctx).
+			Offset(offset).
+			Limit(limit)
+
+		if folder != nil {
+			req = req.Folder(*folder)
+		}
+		if snippet != nil {
+			req = req.Snippet(*snippet)
+		}
+		if device != nil {
+			req = req.Device(*device)
+		}
+
+		response, _, err := req.Execute()
+		if err != nil {
+			return nil, err
+		}
+
+		// Filter by exact name match
+		if response.Data != nil {
+			for i := range response.Data {
+				if response.Data[i].Name == name {
+					return &response.Data[i], nil
+				}
+			}
+		}
+
+		// Check if we've reached the end
+		if response.Data == nil || len(response.Data) < int(limit) {
+			break
+		}
+
+		offset += limit
+	}
+
+	return nil, nil
+}
