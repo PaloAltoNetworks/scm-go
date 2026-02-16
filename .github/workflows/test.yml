@@ -104,6 +104,15 @@ jobs:
                   except:
                       pass
 
+          # Print summary to console
+          print(f"\n{'='*60}")
+          print(f"Test Results: ${{ matrix.service }}")
+          print(f"{'='*60}")
+          print(f"✅ Passed: {len(passed)}")
+          print(f"❌ Failed: {len(failed)}")
+          print(f"⏭️  Skipped: {len(skipped)}")
+          print(f"{'='*60}\n")
+
           # Write to GITHUB_STEP_SUMMARY
           summary_file = sys.argv[1] if len(sys.argv) > 1 else '/dev/stdout'
           with open(summary_file, 'a') as f:
