@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - develop
+      - token-cache-feature
   pull_request:
     branches:
       - develop
+      - token-cache-feature
 
 jobs:
   test:
