@@ -318,3 +318,63 @@ func Test_config_setup_VariablesAPIService_DeleteByID(t *testing.T) {
 
 	t.Logf("Successfully deleted variable: %s", createdVariableID)
 }
+
+// Test_config_setup_VariablesAPIService_FetchVariables tests the FetchVariables convenience method
+func Test_config_setup_VariablesAPIService_FetchVariables(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupConfigSvcTestClient(t)
+
+	// Create test object using same payload as Create test
+	testName := "$test-variable-fetch-" + common.GenerateRandomString(10)
+	testObj := config_setup.Variables{
+		Description: common.StringPtr("Test variable for fetch API testing"),
+		Folder:      common.StringPtr("Shared"),
+		Value:       common.StringPtr("test.fetch.example.com"),
+		Type:        "fqdn",
+		Name:        testName,
+	}
+
+	createReq := client.VariablesAPI.CreateVariable(context.Background()).Variables(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.VariablesAPI.DeleteVariableByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.VariablesAPI.FetchVariables(
+		context.Background(),
+		testName,
+		common.StringPtr("Shared"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch variables by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchVariables found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.VariablesAPI.FetchVariables(
+		context.Background(),
+		"non-existent-variables-xyz-12345",
+		common.StringPtr("Shared"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchVariables correctly returned nil for non-existent object")
+}

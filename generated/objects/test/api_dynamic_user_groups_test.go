@@ -278,3 +278,69 @@ func Test_objects_DynamicUserGroupsAPIService_DeleteByID(t *testing.T) {
 	// Cleanup the test tag.
 	deleteTestTag(t, client, tagID, tagName)
 }
+
+// Test_objects_DynamicUserGroupsAPIService_FetchDynamicUserGroups tests the FetchDynamicUserGroups convenience method
+func Test_objects_DynamicUserGroupsAPIService_FetchDynamicUserGroups(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupObjectSvcTestClient(t)
+
+	// Create a test tag first (same as Create test)
+	randomSuffix := common.GenerateRandomString(6)
+	testName := "test-dug-fetch-" + randomSuffix
+	tagName := "tag-for-dug-fetch-" + randomSuffix
+	tagID := createTestTag(t, client, tagName, "Red")
+
+	// Create test object using same payload as Create test
+	testObj := objects.DynamicUserGroups{
+		Folder:      common.StringPtr("Shared"),
+		Name:        testName,
+		Description: common.StringPtr("Test DUG for fetch API"),
+		Filter:      fmt.Sprintf("'Microsoft 365 Access' and '%s'", tagName),
+	}
+
+	createReq := client.DynamicUserGroupsAPI.CreateDynamicUserGroups(context.Background()).DynamicUserGroups(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.DynamicUserGroupsAPI.DeleteDynamicUserGroupsByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+		// Cleanup test tag
+		deleteTestTag(t, client, tagID, tagName)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.DynamicUserGroupsAPI.FetchDynamicUserGroups(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch dynamic_user_groups by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchDynamicUserGroups found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.DynamicUserGroupsAPI.FetchDynamicUserGroups(
+		context.Background(),
+		"non-existent-dynamic_user_groups-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchDynamicUserGroups correctly returned nil for non-existent object")
+}

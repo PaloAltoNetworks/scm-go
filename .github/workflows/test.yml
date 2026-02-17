@@ -50,7 +50,7 @@ jobs:
             "host": "${{ secrets.SCM_HOST }}",
             "protocol": "${{ secrets.SCM_PROTOCOL }}",
             "scope": "${{ secrets.SCM_SCOPE }}",
-            "logging": "quiet",
+            "logging": "${{ secrets.SCM_LOGGING }}",
             "skip_verify_certificate": ${{ secrets.SCM_SKIP_VERIFY_CERTIFICATE }}
           }
           EOF
@@ -58,12 +58,120 @@ jobs:
       - name: Run tests for ${{ matrix.service }}
         run: |
           set +e
-          output=$(go test -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/... 2>&1)
+
+          # Run tests with JSON output for parsing
+          go test -timeout 60m -parallel 10 -v -json -skip "Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/... > test-output.json 2>&1
           exit_code=$?
+
+          # Parse JSON output and create summary with failure logs
+          cat > parse_tests.py << 'PYTHON'
+          import json
+          import sys
+
+          passed = []
+          failed = []
+          skipped = []
+          test_outputs = {}  # Store output for each test
+          current_test = None
+
+          with open('test-output.json', 'r') as f:
+              for line in f:
+                  try:
+                      data = json.loads(line)
+                      action = data.get('Action')
+                      test_name = data.get('Test', '')
+
+                      # Track current test for output collection
+                      if action == 'run' and test_name:
+                          current_test = test_name
+                          test_outputs[test_name] = []
+
+                      # Collect output lines for tests
+                      if action == 'output' and current_test and 'Output' in data:
+                          output_line = data['Output'].rstrip()
+                          if output_line:
+                              test_outputs[current_test].append(output_line)
+
+                      # Record test results
+                      if action == 'pass' and test_name:
+                          elapsed = data.get('Elapsed', 0)
+                          passed.append((test_name, elapsed))
+                      elif action == 'fail' and test_name:
+                          elapsed = data.get('Elapsed', 0)
+                          failed.append((test_name, elapsed))
+                      elif action == 'skip' and test_name:
+                          skipped.append(test_name)
+                  except:
+                      pass
+
+          # Print summary to console
+          print(f"\n{'='*60}")
+          print(f"Test Results: ${{ matrix.service }}")
+          print(f"{'='*60}")
+          print(f"✅ Passed: {len(passed)}")
+          print(f"❌ Failed: {len(failed)}")
+          print(f"⏭️  Skipped: {len(skipped)}")
+          print(f"{'='*60}\n")
+
+          # Write to GITHUB_STEP_SUMMARY
+          summary_file = sys.argv[1] if len(sys.argv) > 1 else '/dev/stdout'
+          with open(summary_file, 'a') as f:
+              f.write(f"## Test Results: ${{ matrix.service }}\n\n")
+              f.write(f"**Summary:** {len(passed)} passed ✅, {len(failed)} failed ❌, {len(skipped)} skipped ⏭️\n\n")
+
+              if failed:
+                  f.write("### ❌ Failed Tests\n\n")
+                  for test, elapsed in failed:
+                      f.write(f"#### `{test}` ({elapsed:.2f}s)\n\n")
+
+                      # Extract and display failure output
+                      if test in test_outputs:
+                          output = test_outputs[test]
+                          # Find relevant error messages
+                          error_lines = []
+                          for i, line in enumerate(output):
+                              # Capture lines with errors, failures, or important context
+                              if any(keyword in line for keyword in ['Error:', 'FAIL:', 'panic:', '504 Gateway Timeout', 'expected', 'actual']):
+                                  # Include context (previous 2 lines and next 5 lines)
+                                  start = max(0, i - 2)
+                                  end = min(len(output), i + 6)
+                                  error_lines.extend(output[start:end])
+                                  break
+
+                          if error_lines:
+                              f.write("<details>\n<summary>📋 Error Details</summary>\n\n")
+                              f.write("```\n")
+                              f.write('\n'.join(error_lines[-20:]))  # Last 20 lines to avoid huge output
+                              f.write("\n```\n")
+                              f.write("</details>\n\n")
+                          else:
+                              f.write("_No detailed error output captured_\n\n")
+
+                      f.write("---\n\n")
+
+              if passed:
+                  f.write("### ✅ Passed Tests\n\n")
+                  f.write("<details>\n<summary>Click to expand ({} tests)</summary>\n\n".format(len(passed)))
+                  f.write("| Test Name | Duration |\n")
+                  f.write("|-----------|----------|\n")
+                  for test, elapsed in passed:
+                      f.write(f"| `{test}` | {elapsed:.2f}s |\n")
+                  f.write("\n</details>\n\n")
+
+              if skipped:
+                  f.write("### ⏭️ Skipped Tests\n\n")
+                  f.write("<details>\n<summary>Click to expand ({} tests)</summary>\n\n".format(len(skipped)))
+                  f.write("| Test Name |\n")
+                  f.write("|-----------|\n")
+                  for test in skipped:
+                      f.write(f"| `{test}` |\n")
+                  f.write("\n</details>\n\n")
+          PYTHON
+
+          python3 parse_tests.py "$GITHUB_STEP_SUMMARY"
 
           if [ $exit_code -ne 0 ]; then
             echo "❌ Tests failed for ${{ matrix.service }}"
-            echo "$output" | grep -E "(FAIL|--- FAIL:|panic:|Error:)" || echo "$output"
             exit $exit_code
           else
             echo "✅ All tests passed for ${{ matrix.service }}"

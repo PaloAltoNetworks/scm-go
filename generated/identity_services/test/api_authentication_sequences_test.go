@@ -276,3 +276,64 @@ func Test_identityservices_AuthenticationSequencesAPIService__DeleteByID(t *test
 	// Status 200 OK or 204 No Content are typical for successful delete.
 	assert.True(t, httpResDel.StatusCode == http.StatusOK || httpResDel.StatusCode == http.StatusNoContent, "Expected 200 OK or 204 No Content status for deletion")
 }
+
+// Test_identity_services_AuthenticationSequencesAPIService_FetchAuthenticationSequences tests the FetchAuthenticationSequences convenience method
+func Test_identity_services_AuthenticationSequencesAPIService_FetchAuthenticationSequences(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupIdentitySvcTestClient(t)
+
+	// Create a test object first using same valid payload as Create test
+	testName := "test-authseq-fetch-" + common.GenerateRandomString(6)
+
+	// Setup prerequisite profile
+	profileName, profileCleanup := setupTestAuthProfile(t, client)
+	defer profileCleanup()
+
+	// Create sequence with the profile
+	testObj := createTestAuthSequence(t, testName)
+	testObj.SetAuthenticationProfiles([]string{profileName})
+
+	createReq := client.AuthenticationSequencesAPI.CreateAuthenticationSequences(context.Background()).AuthenticationSequences(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.AuthenticationSequencesAPI.DeleteAuthenticationSequencesByID(context.Background(), *createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", *createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.AuthenticationSequencesAPI.FetchAuthenticationSequences(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch authentication_sequences by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchAuthenticationSequences found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.AuthenticationSequencesAPI.FetchAuthenticationSequences(
+		context.Background(),
+		"non-existent-authentication_sequences-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchAuthenticationSequences correctly returned nil for non-existent object")
+}

@@ -200,3 +200,58 @@ func Test_network_services_PBFRulesAPIService_DeleteByID(t *testing.T) {
 	assert.Equal(t, http.StatusOK, httpResDel.StatusCode, "Expected 200 OK status")
 
 }
+
+// Test_network_services_PBFRulesAPIService_FetchPBFRules tests the FetchPBFRules convenience method
+func Test_network_services_PBFRulesAPIService_FetchPBFRules(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create a test object using the same helper as CRUD tests
+	testName := "fetch-pbf-" + common.GenerateRandomString(6)
+	testObj := createTestPbfRule(t, testName)
+	testObj.Folder = common.StringPtr("Prisma Access")
+
+	createReq := client.PBFRulesAPI.CreatePBFRules(context.Background()).PbfRules(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.PBFRulesAPI.DeletePBFRulesByID(context.Background(), *createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", *createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.PBFRulesAPI.FetchPBFRules(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch pbf_rules by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, *fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchPBFRules found object: %s", *fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.PBFRulesAPI.FetchPBFRules(
+		context.Background(),
+		"non-existent-pbf_rules-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchPBFRules correctly returned nil for non-existent object")
+}

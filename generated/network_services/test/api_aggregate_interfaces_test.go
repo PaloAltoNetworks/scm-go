@@ -315,3 +315,59 @@ func Test_AggregateInterfacesAPIService_List(t *testing.T) {
 	require.NotNil(t, listRes, "List response should not be nil")
 	assert.GreaterOrEqual(t, len(listRes.Data), 1, "Expected at least one Aggregate Interface in the list")
 }
+
+// Test_network_services_AggregateInterfacesAPIService_FetchAggregateInterfaces tests the FetchAggregateInterfaces convenience method
+func Test_network_services_AggregateInterfacesAPIService_FetchAggregateInterfaces(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create a test object using the same helper as CRUD tests
+	testObj := createBaseAggregateInterface(t, "fetch-")
+	testObj.SetFolder("Prisma Access")
+	testObj.SetLayer2(*network_services.NewAggregateInterfacesLayer2())
+	testName := testObj.GetName()
+
+	createReq := client.AggregateInterfacesAPI.CreateAggregateInterfaces(context.Background()).AggregateInterfaces(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.AggregateInterfacesAPI.DeleteAggregateInterfacesByID(context.Background(), *createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", *createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.AggregateInterfacesAPI.FetchAggregateInterfaces(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch aggregate_interfaces by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchAggregateInterfaces found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.AggregateInterfacesAPI.FetchAggregateInterfaces(
+		context.Background(),
+		"non-existent-aggregate_interfaces-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchAggregateInterfaces correctly returned nil for non-existent object")
+}

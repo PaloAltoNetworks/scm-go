@@ -8,6 +8,7 @@ package network_services
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"testing"
 
@@ -194,4 +195,44 @@ func Test_network_services_TunnelInterfacesAPIService_DeleteByID(t *testing.T) {
 
 	require.NoError(t, errDel, "Failed to delete Tunnel Interface")
 	assert.Equal(t, http.StatusOK, httpResDel.StatusCode, "Expected 200 OK status for deletion")
+}
+
+// Test_network_services_TunnelInterfacesAPIService_Fetch tests the fetch convenience method.
+func Test_network_services_TunnelInterfacesAPIService_Fetch(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+	interfaceName := generateTunnelName("scm-tun-fetch-")
+	tunnelInterface := createFullTestTunnelInterface(t, interfaceName)
+
+	// Setup: Create an interface first
+	createRes, _, err := client.TunnelInterfacesAPI.CreateTunnelInterfaces(context.Background()).TunnelInterfaces(tunnelInterface).Execute()
+	require.NoError(t, err, "Failed to create interface for fetch test")
+	createdID := *createRes.Id
+	createdFolder := createRes.Folder
+	require.NotEmpty(t, createdID, "Created tunnel interface ID should not be empty")
+
+	// Defer cleanup
+	defer func() {
+		t.Logf("Cleaning up Tunnel Interface with ID: %s", createdID)
+		_, errDel := client.TunnelInterfacesAPI.DeleteTunnelInterfacesByID(context.Background(), createdID).Execute()
+		require.NoError(t, errDel, "Failed to delete tunnel interface during cleanup")
+	}()
+
+	// Test Fetch by name operation
+	fmt.Printf("Attempting to fetch Tunnel Interface with name: %s\n", interfaceName)
+	fetchedIf, errFetch := client.TunnelInterfacesAPI.FetchTunnelInterfaces(context.Background(), interfaceName, createdFolder, nil, nil)
+
+	// Verify the fetch operation was successful
+	require.NoError(t, errFetch, "Failed to fetch tunnel interface by name")
+	require.NotNil(t, fetchedIf, "Fetched tunnel interface should not be nil")
+	assert.Equal(t, interfaceName, fetchedIf.GetName(), "Tunnel interface name should match")
+	assert.Equal(t, createdID, *fetchedIf.Id, "Tunnel interface ID should match")
+	assert.Equal(t, *createdFolder, fetchedIf.GetFolder(), "Folder should match")
+	t.Logf("Successfully fetched Tunnel Interface: %s", interfaceName)
+
+	// Test fetching non-existent tunnel interface (should return nil)
+	nonExistentName := "tunnel.99999"
+	notFoundIf, errNotFound := client.TunnelInterfacesAPI.FetchTunnelInterfaces(context.Background(), nonExistentName, createdFolder, nil, nil)
+	require.NoError(t, errNotFound, "Fetch for non-existent tunnel interface should not error")
+	assert.Nil(t, notFoundIf, "Non-existent tunnel interface should return nil")
+	t.Logf("Successfully verified fetch returns nil for non-existent tunnel interface")
 }

@@ -237,3 +237,57 @@ func Test_identity_services_AuthenticationRulesAPIService_Move(t *testing.T) {
 
 	t.Logf("Successfully executed move operation for rule %s (moved after %s)", idA, idB)
 }
+
+// Test_identity_services_AuthenticationRulesAPIService_FetchAuthenticationRules tests the FetchAuthenticationRules convenience method
+func Test_identity_services_AuthenticationRulesAPIService_FetchAuthenticationRules(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupIdentitySvcTestClient(t)
+
+	// Create a test object first using same valid payload as Create test
+	testName := "test-auth-fetch-" + common.GenerateRandomString(6)
+	testObj := createTestAuthenticationRule(t, testName)
+
+	createReq := client.AuthenticationRulesAPI.CreateAuthenticationRules(context.Background()).Position("pre").AuthenticationRules(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.AuthenticationRulesAPI.DeleteAuthenticationRulesByID(context.Background(), *createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", *createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.AuthenticationRulesAPI.FetchAuthenticationRules(
+		context.Background(),
+		testName,
+		common.StringPtr("All"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch authentication_rules by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchAuthenticationRules found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.AuthenticationRulesAPI.FetchAuthenticationRules(
+		context.Background(),
+		"non-existent-authentication_rules-xyz-12345",
+		common.StringPtr("All"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchAuthenticationRules correctly returned nil for non-existent object")
+}

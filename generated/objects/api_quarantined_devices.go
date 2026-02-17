@@ -364,7 +364,7 @@ func (r ApiListQuarantinedDevicesRequest) SerialNumber(serialNumber string) ApiL
 	return r
 }
 
-func (r ApiListQuarantinedDevicesRequest) Execute() (interface{}, *http.Response, error) {
+func (r ApiListQuarantinedDevicesRequest) Execute() ([]QuarantinedDevices, *http.Response, error) {
 	return r.ApiService.ListQuarantinedDevicesExecute(r)
 }
 
@@ -385,13 +385,13 @@ func (a *QuarantinedDevicesAPIService) ListQuarantinedDevices(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return interface{}
-func (a *QuarantinedDevicesAPIService) ListQuarantinedDevicesExecute(r ApiListQuarantinedDevicesRequest) (interface{}, *http.Response, error) {
+//	@return []QuarantinedDevices
+func (a *QuarantinedDevicesAPIService) ListQuarantinedDevicesExecute(r ApiListQuarantinedDevicesRequest) ([]QuarantinedDevices, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue interface{}
+		localVarReturnValue []QuarantinedDevices
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QuarantinedDevicesAPIService.ListQuarantinedDevices")

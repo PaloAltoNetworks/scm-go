@@ -208,3 +208,44 @@ func Test_security_services_DecryptionProfilesAPIService_DeleteByID(t *testing.T
 	require.NoError(t, errDel, "Failed to delete Decryption Profile")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status on successful delete")
 }
+
+// Test_security_services_DecryptionProfilesAPIService_Fetch tests the fetch convenience method
+func Test_security_services_DecryptionProfilesAPIService_Fetch(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
+	profileName := "test-decrypt-fetch-" + common.GenerateRandomString(6)
+	profile := security_services.DecryptionProfiles{
+		Folder: common.StringPtr("Shared"),
+		Name:   profileName,
+	}
+
+	createRes, _, err := client.DecryptionProfilesAPI.CreateDecryptionProfiles(context.Background()).DecryptionProfiles(profile).Execute()
+	require.NoError(t, err, "Failed to create Decryption Profile for fetch test")
+	createdID := *createRes.Id
+	require.NotEmpty(t, createdID, "Created profile ID should not be empty")
+
+	// Defer cleanup
+	defer func() {
+		t.Logf("Cleaning up Decryption Profile with ID: %s", createdID)
+		_, errDel := client.DecryptionProfilesAPI.DeleteDecryptionProfilesByID(context.Background(), createdID).Execute()
+		require.NoError(t, errDel, "Failed to delete profile during cleanup")
+	}()
+
+	// Test Fetch by name operation
+	fmt.Printf("Attempting to fetch Decryption Profile with name: %s\n", profileName)
+	fetchedProfile, errFetch := client.DecryptionProfilesAPI.FetchDecryptionProfiles(context.Background(), profileName, common.StringPtr("Shared"), nil, nil)
+
+	// Verify the fetch operation was successful
+	require.NoError(t, errFetch, "Failed to fetch profile by name")
+	require.NotNil(t, fetchedProfile, "Fetched profile should not be nil")
+	assert.Equal(t, profileName, fetchedProfile.Name, "Profile name should match")
+	assert.Equal(t, createdID, *fetchedProfile.Id, "Profile ID should match")
+	assert.Equal(t, "Shared", *fetchedProfile.Folder, "Folder should match")
+	t.Logf("Successfully fetched Decryption Profile: %s", profileName)
+
+	// Test fetching non-existent profile (should return nil)
+	nonExistentName := "non-existent-decrypt-profile-xyz-12345"
+	notFoundProfile, errNotFound := client.DecryptionProfilesAPI.FetchDecryptionProfiles(context.Background(), nonExistentName, common.StringPtr("Shared"), nil, nil)
+	require.NoError(t, errNotFound, "Fetch for non-existent profile should not error")
+	assert.Nil(t, notFoundProfile, "Non-existent profile should return nil")
+	t.Logf("Successfully verified fetch returns nil for non-existent profile")
+}

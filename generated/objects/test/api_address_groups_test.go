@@ -370,3 +370,77 @@ func Test_objects_AddressGroupsAPIService_DeleteByID(t *testing.T) {
 	deleteTestAddress(t, client, address1ID, address1Name)
 	deleteTestAddress(t, client, address2ID, address2Name)
 }
+
+// Test_objects_AddressGroupsAPIService_FetchAddressGroups tests the FetchAddressGroups convenience method
+func Test_objects_AddressGroupsAPIService_FetchAddressGroups(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupObjectSvcTestClient(t)
+
+	// Create test addresses first (same as Create test)
+	randomSuffix := common.GenerateRandomString(10)
+	testName := "test-address-group-fetch-" + randomSuffix
+	address1Name := "test-address-1-fetch-" + randomSuffix
+	address2Name := "test-address-2-fetch-" + randomSuffix
+	address1ID := createTestAddress(t, client, address1Name, "192.168.100.1/32")
+	address2ID := createTestAddress(t, client, address2Name, "192.168.100.2/32")
+
+	// Create test object using same payload structure as Create test
+	testObj := objects.AddressGroups{
+		Description:          common.StringPtr("Test address group for fetch API testing"),
+		Device:               nil,
+		Folder:               common.StringPtr("Prisma Access"),
+		Id:                   "",
+		Name:                 testName,
+		Snippet:              nil,
+		Static:               []string{address1Name, address2Name},
+		Tag:                  nil,
+		AdditionalProperties: nil,
+	}
+
+	createReq := client.AddressGroupsAPI.CreateAddressGroups(context.Background()).AddressGroups(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.AddressGroupsAPI.DeleteAddressGroupsByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+		// Cleanup test addresses
+		deleteTestAddress(t, client, address1ID, address1Name)
+		deleteTestAddress(t, client, address2ID, address2Name)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.AddressGroupsAPI.FetchAddressGroups(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch address_groups by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchAddressGroups found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.AddressGroupsAPI.FetchAddressGroups(
+		context.Background(),
+		"non-existent-address_groups-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchAddressGroups correctly returned nil for non-existent object")
+}

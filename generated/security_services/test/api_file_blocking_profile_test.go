@@ -227,3 +227,44 @@ func Test_security_services_FileBlockingProfilesAPIService_DeleteByID(t *testing
 	require.NoError(t, errDel, "Failed to delete File Blocking Profile")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 }
+
+// Test_security_services_FileBlockingProfilesAPIService_Fetch tests the fetch convenience method
+func Test_security_services_FileBlockingProfilesAPIService_Fetch(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
+	profileName := "test-file-block-fetch-" + common.GenerateRandomString(6)
+	profile := security_services.FileBlockingProfiles{
+		Folder: common.StringPtr("All"),
+		Name:   profileName,
+	}
+
+	createRes, _, err := client.FileBlockingProfilesAPI.CreateFileBlockingProfiles(context.Background()).FileBlockingProfiles(profile).Execute()
+	require.NoError(t, err, "Failed to create File Blocking Profile for fetch test")
+	createdID := *createRes.Id
+	require.NotEmpty(t, createdID, "Created profile ID should not be empty")
+
+	// Defer cleanup
+	defer func() {
+		t.Logf("Cleaning up File Blocking Profile with ID: %s", createdID)
+		_, errDel := client.FileBlockingProfilesAPI.DeleteFileBlockingProfilesByID(context.Background(), createdID).Execute()
+		require.NoError(t, errDel, "Failed to delete profile during cleanup")
+	}()
+
+	// Test Fetch by name operation
+	fmt.Printf("Attempting to fetch File Blocking Profile with name: %s\n", profileName)
+	fetchedProfile, errFetch := client.FileBlockingProfilesAPI.FetchFileBlockingProfiles(context.Background(), profileName, common.StringPtr("All"), nil, nil)
+
+	// Verify the fetch operation was successful
+	require.NoError(t, errFetch, "Failed to fetch profile by name")
+	require.NotNil(t, fetchedProfile, "Fetched profile should not be nil")
+	assert.Equal(t, profileName, fetchedProfile.Name, "Profile name should match")
+	assert.Equal(t, createdID, *fetchedProfile.Id, "Profile ID should match")
+	assert.Equal(t, "All", *fetchedProfile.Folder, "Folder should match")
+	t.Logf("Successfully fetched File Blocking Profile: %s", profileName)
+
+	// Test fetching non-existent profile (should return nil)
+	nonExistentName := "non-existent-file-block-xyz-12345"
+	notFoundProfile, errNotFound := client.FileBlockingProfilesAPI.FetchFileBlockingProfiles(context.Background(), nonExistentName, common.StringPtr("All"), nil, nil)
+	require.NoError(t, errNotFound, "Fetch for non-existent profile should not error")
+	assert.Nil(t, notFoundProfile, "Non-existent profile should return nil")
+	t.Logf("Successfully verified fetch returns nil for non-existent profile")
+}

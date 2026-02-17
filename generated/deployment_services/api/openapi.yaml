@@ -1288,7 +1288,10 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                items:
+                  $ref: '#/components/schemas/locations'
+                type: array
           description: OK
         "400":
           content:
@@ -5023,6 +5026,14 @@ components:
       - primary
       type: object
     locations:
+      example:
+        continent: North America
+        aggregate_region: us-southwest
+        display: US West
+        latitude: 37.38314
+        region: us-west-1
+        value: us-west-1
+        longitude: -121.98306
       properties:
         aggregate_region:
           example: us-southwest
