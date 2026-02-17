@@ -25,6 +25,7 @@ jobs:
           - deployment_services
           - config_setup
           - config_operations
+          - device_settings
 
     steps:
       - name: Checkout code
