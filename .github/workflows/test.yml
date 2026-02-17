@@ -50,7 +50,7 @@ jobs:
             "host": "${{ secrets.SCM_HOST }}",
             "protocol": "${{ secrets.SCM_PROTOCOL }}",
             "scope": "${{ secrets.SCM_SCOPE }}",
-            "logging": "${{ secrets.SCM_LOGGING }}",
+            "logging": "quiet",
             "skip_verify_certificate": ${{ secrets.SCM_SKIP_VERIFY_CERTIFICATE }}
           }
           EOF
