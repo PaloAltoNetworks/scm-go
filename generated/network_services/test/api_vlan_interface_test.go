@@ -207,3 +207,45 @@ func Test_network_services_VLANInterfacesAPIService_DeleteByID(t *testing.T) {
 	// The API returns 200 OK for successful deletion.
 	assert.Equal(t, http.StatusOK, httpResDel.StatusCode, "Expected 200 OK status for deletion")
 }
+
+// Test_network_services_VLANInterfacesAPIService_Fetch tests the fetch convenience method.
+func Test_network_services_VLANInterfacesAPIService_Fetch(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create a VLAN Interface to fetch
+	vlanName := "$vlan-fetch-" + common.GenerateRandomString(6)
+	vlanInterface := createFullTestVlanInterface(t, vlanName)
+
+	// Setup: Create an interface first
+	createRes, _, err := client.VLANInterfacesAPI.CreateVLANInterfaces(context.Background()).VlanInterfaces(vlanInterface).Execute()
+	require.NoError(t, err, "Failed to create interface for fetch test")
+	createdID := *createRes.Id
+	createdFolder := createRes.Folder
+	require.NotEmpty(t, createdID, "Created VLAN interface ID should not be empty")
+
+	// Defer cleanup
+	defer func() {
+		t.Logf("Cleaning up VLAN Interface with ID: %s", createdID)
+		_, errDel := client.VLANInterfacesAPI.DeleteVLANInterfacesByID(context.Background(), createdID).Execute()
+		require.NoError(t, errDel, "Failed to delete VLAN interface during cleanup")
+	}()
+
+	// Test Fetch by name operation
+	fmt.Printf("Attempting to fetch VLAN Interface with name: %s\n", vlanName)
+	fetchedIf, errFetch := client.VLANInterfacesAPI.FetchVLANInterfaces(context.Background(), vlanName, createdFolder, nil, nil)
+
+	// Verify the fetch operation was successful
+	require.NoError(t, errFetch, "Failed to fetch VLAN interface by name")
+	require.NotNil(t, fetchedIf, "Fetched VLAN interface should not be nil")
+	assert.Equal(t, vlanName, fetchedIf.GetName(), "VLAN interface name should match")
+	assert.Equal(t, createdID, *fetchedIf.Id, "VLAN interface ID should match")
+	assert.Equal(t, *createdFolder, fetchedIf.GetFolder(), "Folder should match")
+	t.Logf("Successfully fetched VLAN Interface: %s", vlanName)
+
+	// Test fetching non-existent VLAN interface (should return nil)
+	nonExistentName := "vlan.99999"
+	notFoundIf, errNotFound := client.VLANInterfacesAPI.FetchVLANInterfaces(context.Background(), nonExistentName, createdFolder, nil, nil)
+	require.NoError(t, errNotFound, "Fetch for non-existent VLAN interface should not error")
+	assert.Nil(t, notFoundIf, "Non-existent VLAN interface should return nil")
+	t.Logf("Successfully verified fetch returns nil for non-existent VLAN interface")
+}

@@ -8,6 +8,7 @@ package network_services
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"testing"
 
@@ -186,4 +187,48 @@ func Test_network_services_LoopbackInterfacesAPIService_DeleteByID(t *testing.T)
 
 	require.NoError(t, errDel, "Failed to delete Loopback Interface")
 	assert.Equal(t, http.StatusOK, httpResDel.StatusCode, "Expected 200 OK status for deletion")
+}
+
+// Test_network_services_LoopbackInterfacesAPIService_Fetch tests the fetch convenience method.
+func Test_network_services_LoopbackInterfacesAPIService_Fetch(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create a Loopback Interface to fetch
+	ifName := generateLoopbackName("loopback-fetch")
+	loopIf := createFullTestLoopbackInterface(t, ifName)
+
+	reqCreate := client.LoopbackInterfacesAPI.CreateLoopbackInterfaces(context.Background()).
+		LoopbackInterfaces(loopIf)
+
+	createRes, _, err := reqCreate.Execute()
+	require.NoError(t, err, "Failed to create Loopback Interface for fetch test")
+	createdID := *createRes.Id
+	createdFolder := createRes.Folder
+	require.NotEmpty(t, createdID, "Created loopback interface ID should not be empty")
+
+	// Defer cleanup
+	defer func() {
+		t.Logf("Cleaning up Loopback Interface with ID: %s", createdID)
+		_, errDel := client.LoopbackInterfacesAPI.DeleteLoopbackInterfacesByID(context.Background(), createdID).Execute()
+		require.NoError(t, errDel, "Failed to delete loopback interface during cleanup")
+	}()
+
+	// Test Fetch by name operation
+	fmt.Printf("Attempting to fetch Loopback Interface with name: %s\n", ifName)
+	fetchedIf, errFetch := client.LoopbackInterfacesAPI.FetchLoopbackInterfaces(context.Background(), ifName, createdFolder, nil, nil)
+
+	// Verify the fetch operation was successful
+	require.NoError(t, errFetch, "Failed to fetch loopback interface by name")
+	require.NotNil(t, fetchedIf, "Fetched loopback interface should not be nil")
+	assert.Equal(t, ifName, fetchedIf.GetName(), "Loopback interface name should match")
+	assert.Equal(t, createdID, *fetchedIf.Id, "Loopback interface ID should match")
+	assert.Equal(t, *createdFolder, fetchedIf.GetFolder(), "Folder should match")
+	t.Logf("Successfully fetched Loopback Interface: %s", ifName)
+
+	// Test fetching non-existent loopback interface (should return nil)
+	nonExistentName := "loopback.99999"
+	notFoundIf, errNotFound := client.LoopbackInterfacesAPI.FetchLoopbackInterfaces(context.Background(), nonExistentName, createdFolder, nil, nil)
+	require.NoError(t, errNotFound, "Fetch for non-existent loopback interface should not error")
+	assert.Nil(t, notFoundIf, "Non-existent loopback interface should return nil")
+	t.Logf("Successfully verified fetch returns nil for non-existent loopback interface")
 }
