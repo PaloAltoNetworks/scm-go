@@ -236,3 +236,58 @@ func Test_network_services_SecurityZonesAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, errDel, "Failed to delete Zone")
 	assert.Equal(t, http.StatusOK, httpResDel.StatusCode, "Expected 200 OK status for deletion")
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Test_network_services_SecurityZonesAPIService_FetchSecurityZones tests the FetchSecurityZones convenience method.
+func Test_network_services_SecurityZonesAPIService_FetchSecurityZones(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create a test object first.
+	testName := generateZoneName("scm-zone-fetch-")
+	testObj := createFullTestZone(t, testName)
+
+	createReq := client.SecurityZonesAPI.CreateZones(context.Background()).Zones(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := *createRes.Id
+
+	// Cleanup after test.
+	defer func() {
+		deleteReq := client.SecurityZonesAPI.DeleteZonesByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name.
+	fetchedObj, err := client.SecurityZonesAPI.FetchSecurityZones(
+		context.Background(),
+		testName,
+		common.StringPtr("All"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch.
+	require.NoError(t, err, "Failed to fetch Security Zone by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, *fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchSecurityZones found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil).
+	notFound, err := client.SecurityZonesAPI.FetchSecurityZones(
+		context.Background(),
+		"non-existent-zone-xyz-12345",
+		common.StringPtr("All"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchSecurityZones correctly returned nil for non-existent object")
+}
