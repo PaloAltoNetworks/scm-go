@@ -23,31 +23,31 @@ import (
 // GeneralSettingsAPIService GeneralSettingsAPI service
 type GeneralSettingsAPIService service
 
-type ApiCreeateGeneralSettingsRequest struct {
+type ApiCreateGeneralSettingsRequest struct {
 	ctx             context.Context
 	ApiService      *GeneralSettingsAPIService
 	generalSettings *GeneralSettings
 }
 
-func (r ApiCreeateGeneralSettingsRequest) GeneralSettings(generalSettings GeneralSettings) ApiCreeateGeneralSettingsRequest {
+func (r ApiCreateGeneralSettingsRequest) GeneralSettings(generalSettings GeneralSettings) ApiCreateGeneralSettingsRequest {
 	r.generalSettings = &generalSettings
 	return r
 }
 
-func (r ApiCreeateGeneralSettingsRequest) Execute() (*GeneralSettings, *http.Response, error) {
-	return r.ApiService.CreeateGeneralSettingsExecute(r)
+func (r ApiCreateGeneralSettingsRequest) Execute() (*GeneralSettings, *http.Response, error) {
+	return r.ApiService.CreateGeneralSettingsExecute(r)
 }
 
 /*
-CreeateGeneralSettings Create general settings
+CreateGeneralSettings Create general settings
 
 Create new general settings.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreeateGeneralSettingsRequest
+	@return ApiCreateGeneralSettingsRequest
 */
-func (a *GeneralSettingsAPIService) CreeateGeneralSettings(ctx context.Context) ApiCreeateGeneralSettingsRequest {
-	return ApiCreeateGeneralSettingsRequest{
+func (a *GeneralSettingsAPIService) CreateGeneralSettings(ctx context.Context) ApiCreateGeneralSettingsRequest {
+	return ApiCreateGeneralSettingsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -56,7 +56,7 @@ func (a *GeneralSettingsAPIService) CreeateGeneralSettings(ctx context.Context) 
 // Execute executes the request
 //
 //	@return GeneralSettings
-func (a *GeneralSettingsAPIService) CreeateGeneralSettingsExecute(r ApiCreeateGeneralSettingsRequest) (*GeneralSettings, *http.Response, error) {
+func (a *GeneralSettingsAPIService) CreateGeneralSettingsExecute(r ApiCreateGeneralSettingsRequest) (*GeneralSettings, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -64,7 +64,7 @@ func (a *GeneralSettingsAPIService) CreeateGeneralSettingsExecute(r ApiCreeateGe
 		localVarReturnValue *GeneralSettings
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GeneralSettingsAPIService.CreeateGeneralSettings")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GeneralSettingsAPIService.CreateGeneralSettings")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
