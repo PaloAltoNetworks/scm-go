@@ -100,8 +100,7 @@ func Test_networkservices_SDWANPathQualityProfilesAPIService_List(t *testing.T) 
 	}()
 
 	// List SD-WAN path quality profiles
-	t.Skip("List returns response with metric fields causing SDK unmarshal error")
-	listReq := client.SDWANPathQualityProfilesAPI.ListSDWANPathQualityProfiles(context.Background()).Folder("All")
+	listReq := client.SDWANPathQualityProfilesAPI.ListSDWANPathQualityProfiles(context.Background()).Folder("All").Limit(200).Offset(0)
 	resp, httpResp, err := listReq.Execute()
 
 	// Verify the response

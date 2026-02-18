@@ -119,11 +119,10 @@ func Test_network_services_BGPRouteMapRedistributionsAPIService_UpdateByID(t *te
 
 // Test_network_services_BGPRouteMapRedistributionsAPIService_List tests listing BGP route map redistributions.
 func Test_network_services_BGPRouteMapRedistributionsAPIService_List(t *testing.T) {
-	t.Skip("List response contains array fields that cause model deserialization error")
 	client := SetupNetworkSvcTestClient(t)
 
 	// Test: List redistributions
-	listRes, httpResList, errList := client.BGPRouteMapRedistributionsAPI.ListBGPRouteMapRedistributions(context.Background()).Folder("Prisma Access").Execute()
+	listRes, httpResList, errList := client.BGPRouteMapRedistributionsAPI.ListBGPRouteMapRedistributions(context.Background()).Folder("Prisma Access").Limit(200).Offset(0).Execute()
 
 	require.NoError(t, errList, "Failed to list BGP route map redistributions")
 	assert.Equal(t, http.StatusOK, httpResList.StatusCode, "Expected 200 OK status")

@@ -146,11 +146,10 @@ func Test_network_services_BGPAddressFamilyProfilesAPIService_UpdateByID(t *test
 
 // Test_network_services_BGPAddressFamilyProfilesAPIService_List tests listing BGP address family profiles.
 func Test_network_services_BGPAddressFamilyProfilesAPIService_List(t *testing.T) {
-	t.Skip("List response contains array fields that cause model deserialization error")
 	client := SetupNetworkSvcTestClient(t)
 
 	// Test: List profiles
-	listRes, httpResList, errList := client.BGPAddressFamilyProfilesAPI.ListBGPAddressFamilyProfiles(context.Background()).Folder("Prisma Access").Execute()
+	listRes, httpResList, errList := client.BGPAddressFamilyProfilesAPI.ListBGPAddressFamilyProfiles(context.Background()).Folder("Prisma Access").Limit(200).Offset(0).Execute()
 
 	require.NoError(t, errList, "Failed to list BGP address family profiles")
 	assert.Equal(t, http.StatusOK, httpResList.StatusCode, "Expected 200 OK status")

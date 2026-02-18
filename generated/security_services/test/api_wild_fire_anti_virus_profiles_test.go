@@ -186,8 +186,6 @@ func Test_security_services_WildFireAntiVirusProfilesAPIService_Update(t *testin
 // Test_security_services_WildFireAntiVirusProfilesAPIService_List tests listing wildfireantivirusprofiles with folder filter
 // This test creates a wildfireantivirusprofile, lists wildfireantivirusprofiles to verify it's included, then deletes it
 func Test_security_services_WildFireAntiVirusProfilesAPIService_List(t *testing.T) {
-	t.Skip("List response contains array fields that cause model deserialization error")
-
 	// Setup the authenticated client
 	client := SetupSecuritySvcTestClient(t)
 
@@ -211,7 +209,7 @@ func Test_security_services_WildFireAntiVirusProfilesAPIService_List(t *testing.
 	require.NotEmpty(t, createdWildFireAntiVirusProfileID, "Created wildfireantivirusprofile should have an ID")
 
 	// Test List operation with folder filter
-	reqList := client.WildFireAntiVirusProfilesAPI.ListWildFireAntiVirusProfiles(context.Background()).Folder("All")
+	reqList := client.WildFireAntiVirusProfilesAPI.ListWildFireAntiVirusProfiles(context.Background()).Folder("All").Limit(200).Offset(0)
 	listRes, httpResList, errList := reqList.Execute()
 	if errList != nil {
 		handleAPIError(errList)
