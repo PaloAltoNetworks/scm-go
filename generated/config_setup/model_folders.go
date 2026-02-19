@@ -24,7 +24,7 @@ type Folders struct {
 	// The description of the folder
 	Description *string `json:"description,omitempty"`
 	// The UUID of the folder
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// Labels assigned to the folder
 	Labels []string `json:"labels,omitempty"`
 	// The name of the folder
@@ -42,9 +42,8 @@ type _Folders Folders
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFolders(id string, name string, parent string) *Folders {
+func NewFolders(name string, parent string) *Folders {
 	this := Folders{}
-	this.Id = id
 	this.Name = name
 	this.Parent = parent
 	return &this
@@ -90,28 +89,36 @@ func (o *Folders) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *Folders) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Folders) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *Folders) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *Folders) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
@@ -239,7 +246,9 @@ func (o Folders) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
@@ -261,7 +270,6 @@ func (o *Folders) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"name",
 		"parent",
 	}

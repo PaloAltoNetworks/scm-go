@@ -25,7 +25,7 @@ import (
 
 // Test_config_setup_FoldersAPIService_Create tests the creation of a folder
 func Test_config_setup_FoldersAPIService_Create(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error on folder create - folder creation not supported in test environment")
+	t.Skip("API returns 500 Internal Server Error - folder creation not supported in test environment")
 	// Setup the authenticated client
 	client := SetupConfigSvcTestClient(t)
 
@@ -57,10 +57,10 @@ func Test_config_setup_FoldersAPIService_Create(t *testing.T) {
 	require.NotNil(t, res.Description, "API Response error: Description field in response is unexpectedly nil")
 	assert.Equal(t, *folder.Description, *res.Description, "Description string value should match the expected value")
 	assert.Equal(t, folder.Parent, res.Parent, "Parent should match")
-	assert.NotEmpty(t, res.Id, "Created folder should have an ID")
+	require.NotNil(t, res.Id, "Created folder should have an ID")
 
 	// Use the ID from the response object
-	createdFolderID := res.Id
+	createdFolderID := *res.Id
 	t.Logf("Successfully created folder: %s with ID: %s", createdFolderName, createdFolderID)
 
 	// Cleanup: Delete the created folder to maintain test isolation
@@ -79,7 +79,7 @@ func Test_config_setup_FoldersAPIService_Create(t *testing.T) {
 
 // Test_config_setup_FoldersAPIService_GetByID tests retrieving a folder by its ID
 func Test_config_setup_FoldersAPIService_GetByID(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error on folder create - folder creation not supported in test environment")
+	t.Skip("API returns 500 Internal Server Error - folder creation not supported in test environment")
 	// Setup the authenticated client
 	client := SetupConfigSvcTestClient(t)
 
@@ -99,8 +99,8 @@ func Test_config_setup_FoldersAPIService_GetByID(t *testing.T) {
 	}
 	require.NoError(t, err, "Failed to create folder for get test")
 	require.NotNil(t, createRes, "Create response should not be nil")
-	createdFolderID := createRes.Id
-	require.NotEmpty(t, createdFolderID, "Created folder should have an ID")
+	require.NotNil(t, createRes.Id, "Created folder should have an ID")
+	createdFolderID := *createRes.Id
 
 	// Test Get by ID operation
 	reqGetById := client.FoldersAPI.GetFolderByID(context.Background(), createdFolderID)
@@ -116,7 +116,7 @@ func Test_config_setup_FoldersAPIService_GetByID(t *testing.T) {
 	// Assert response object properties
 	require.NotNil(t, getRes, "Get response should not be nil")
 	assert.Equal(t, createdFolderName, getRes.Name, "Folder name should match")
-	assert.Equal(t, createdFolderID, getRes.Id, "Folder ID should match")
+	assert.Equal(t, createdFolderID, *getRes.Id, "Folder ID should match")
 	assert.Equal(t, "Shared", getRes.Parent, "Parent should match")
 
 	t.Logf("Successfully retrieved folder: %s", getRes.Name)
@@ -137,7 +137,7 @@ func Test_config_setup_FoldersAPIService_GetByID(t *testing.T) {
 
 // Test_config_setup_FoldersAPIService_Update tests updating an existing folder
 func Test_config_setup_FoldersAPIService_Update(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error on folder create - folder creation not supported in test environment")
+	t.Skip("API returns 500 Internal Server Error - folder creation not supported in test environment")
 	// Setup the authenticated client
 	client := SetupConfigSvcTestClient(t)
 
@@ -156,7 +156,7 @@ func Test_config_setup_FoldersAPIService_Update(t *testing.T) {
 		handleAPIError(err)
 	}
 	require.NoError(t, err, "Failed to create folder for update test")
-	createdFolderID := createRes.Id
+	createdFolderID := *createRes.Id
 
 	// 2. Test Update operation with modified fields
 	updatedFolder := config_setup.Folders{
@@ -179,7 +179,7 @@ func Test_config_setup_FoldersAPIService_Update(t *testing.T) {
 	require.NotNil(t, updateRes, "Update response should not be nil")
 	assert.Equal(t, createdFolderName, updateRes.Name, "Folder name should remain the same")
 	assert.Equal(t, *updatedFolder.Description, *updateRes.Description, "Description should be updated")
-	assert.Equal(t, createdFolderID, updateRes.Id, "Folder ID should remain the same")
+	assert.Equal(t, createdFolderID, *updateRes.Id, "Folder ID should remain the same")
 
 	t.Logf("Successfully updated folder: %s", createdFolderName)
 
@@ -217,7 +217,7 @@ func Test_config_setup_FoldersAPIService_List(t *testing.T) {
 
 // Test_config_setup_FoldersAPIService_DeleteByID tests deleting a folder by its ID
 func Test_config_setup_FoldersAPIService_DeleteByID(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error on folder create - folder creation not supported in test environment")
+	t.Skip("API returns 500 Internal Server Error - folder creation not supported in test environment")
 	// Setup the authenticated client
 	client := SetupConfigSvcTestClient(t)
 
@@ -236,8 +236,8 @@ func Test_config_setup_FoldersAPIService_DeleteByID(t *testing.T) {
 		handleAPIError(err)
 	}
 	require.NoError(t, err, "Failed to create folder for delete test")
-	createdFolderID := createRes.Id
-	require.NotEmpty(t, createdFolderID, "Created folder should have an ID")
+	require.NotNil(t, createRes.Id, "Created folder should have an ID")
+	createdFolderID := *createRes.Id
 	t.Logf("Folder created successfully: %s", createdFolderID)
 
 	// 2. Test Delete by ID operation

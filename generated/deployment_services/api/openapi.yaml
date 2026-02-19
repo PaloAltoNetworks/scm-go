@@ -5494,7 +5494,6 @@ components:
           example: "560093"
           type: string
       required:
-      - id
       - name
       type: object
     traffic-steering-rules:

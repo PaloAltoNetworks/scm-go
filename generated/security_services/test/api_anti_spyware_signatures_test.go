@@ -18,8 +18,6 @@ import (
 // Test_security_services_AntiSpywareSignaturesAPIService_Create tests the creation of an antispywaresignature object
 // This test creates a new antispywaresignature and then deletes it to ensure proper cleanup
 func Test_security_services_AntiSpywareSignaturesAPIService_Create(t *testing.T) {
-	t.Skip("Model has Id as string (non-pointer) which causes JSON serialization issues - omitempty cannot be applied")
-
 	// Setup the authenticated client
 	client := SetupSecuritySvcTestClient(t)
 
@@ -30,7 +28,16 @@ func Test_security_services_AntiSpywareSignaturesAPIService_Create(t *testing.T)
 		Folder:     common.StringPtr("All"),               // Using All folder scope
 		Threatname: createdAntiSpywareSignatureThreatName, // Unique test name
 		ThreatId:   "6900001",                             // Required field - must be in range 15000-18000 or 6900001-7000000
-		Id:         "",                                    // This is a required string field (not pointer) which causes serialization issues
+		Severity:   common.StringPtr("medium"),            // Required field
+		Direction:  common.StringPtr("client2server"),     // Required field
+		Signature: &security_services.AntiSpywareSignaturesSignature{
+			Standard: []security_services.AntiSpywareSignaturesSignatureStandardInner{
+				{
+					Name:  "std-sig-1",
+					Scope: common.StringPtr("protocol-data-unit"),
+				},
+			},
+		},
 	}
 
 	// Make the create request to the API
@@ -47,10 +54,10 @@ func Test_security_services_AntiSpywareSignaturesAPIService_Create(t *testing.T)
 	// Assert response object properties
 	require.NotNil(t, res, "Response should not be nil")
 	assert.Equal(t, createdAntiSpywareSignatureThreatName, res.Threatname, "Created antispywaresignature threatname should match")
-	assert.NotEmpty(t, res.Id, "Created antispywaresignature should have an ID")
+	require.NotNil(t, res.Id, "Created antispywaresignature should have an ID")
 
 	// Use the ID from the response object
-	createdAntiSpywareSignatureID := res.Id
+	createdAntiSpywareSignatureID := *res.Id
 	t.Logf("Successfully created antispywaresignature: %s with ID: %s", antispywaresignature.Threatname, createdAntiSpywareSignatureID)
 
 	// Cleanup: Delete the created antispywaresignature to maintain test isolation
@@ -68,8 +75,6 @@ func Test_security_services_AntiSpywareSignaturesAPIService_Create(t *testing.T)
 // Test_security_services_AntiSpywareSignaturesAPIService_GetByID tests retrieving an antispywaresignature by its ID
 // This test creates an antispywaresignature, retrieves it by ID, then deletes it
 func Test_security_services_AntiSpywareSignaturesAPIService_GetByID(t *testing.T) {
-	t.Skip("Model has Id as string (non-pointer) which causes JSON serialization issues - omitempty cannot be applied")
-
 	// Setup the authenticated client
 	client := SetupSecuritySvcTestClient(t)
 
@@ -80,7 +85,16 @@ func Test_security_services_AntiSpywareSignaturesAPIService_GetByID(t *testing.T
 		Folder:     common.StringPtr("All"),               // Using All folder scope
 		Threatname: createdAntiSpywareSignatureThreatName, // Unique test name
 		ThreatId:   "6900002",                             // Required field
-		Id:         "",                                    // Required string field causing issues
+		Severity:   common.StringPtr("medium"),            // Required field
+		Direction:  common.StringPtr("client2server"),     // Required field
+		Signature: &security_services.AntiSpywareSignaturesSignature{
+			Standard: []security_services.AntiSpywareSignaturesSignatureStandardInner{
+				{
+					Name:  "std-sig-1",
+					Scope: common.StringPtr("protocol-data-unit"),
+				},
+			},
+		},
 	}
 
 	// Create the antispywaresignature via API
@@ -91,8 +105,8 @@ func Test_security_services_AntiSpywareSignaturesAPIService_GetByID(t *testing.T
 	}
 	require.NoError(t, err, "Failed to create antispywaresignature for get test")
 	require.NotNil(t, createRes, "Create response should not be nil")
-	createdAntiSpywareSignatureID := createRes.Id
-	require.NotEmpty(t, createdAntiSpywareSignatureID, "Created antispywaresignature should have an ID")
+	require.NotNil(t, createRes.Id, "Created antispywaresignature should have an ID")
+	createdAntiSpywareSignatureID := *createRes.Id
 
 	// Test Get by ID operation
 	reqGetById := client.AntiSpywareSignaturesAPI.GetAntiSpywareSignaturesByID(context.Background(), createdAntiSpywareSignatureID)
@@ -108,7 +122,7 @@ func Test_security_services_AntiSpywareSignaturesAPIService_GetByID(t *testing.T
 	// Assert response object properties
 	require.NotNil(t, getRes, "Get response should not be nil")
 	assert.Equal(t, createdAntiSpywareSignatureThreatName, getRes.Threatname, "AntiSpywareSignature threatname should match")
-	assert.Equal(t, createdAntiSpywareSignatureID, getRes.Id, "AntiSpywareSignature ID should match")
+	assert.Equal(t, createdAntiSpywareSignatureID, *getRes.Id, "AntiSpywareSignature ID should match")
 
 	t.Logf("Successfully retrieved antispywaresignature: %s", getRes.Threatname)
 
@@ -127,8 +141,6 @@ func Test_security_services_AntiSpywareSignaturesAPIService_GetByID(t *testing.T
 // Test_security_services_AntiSpywareSignaturesAPIService_Update tests updating an existing antispywaresignature
 // This test creates an antispywaresignature, updates it, then deletes it
 func Test_security_services_AntiSpywareSignaturesAPIService_Update(t *testing.T) {
-	t.Skip("Model has Id as string (non-pointer) which causes JSON serialization issues - omitempty cannot be applied")
-
 	// Setup the authenticated client
 	client := SetupSecuritySvcTestClient(t)
 
@@ -139,7 +151,16 @@ func Test_security_services_AntiSpywareSignaturesAPIService_Update(t *testing.T)
 		Folder:     common.StringPtr("All"),               // Using All folder scope
 		Threatname: createdAntiSpywareSignatureThreatName, // Unique test name
 		ThreatId:   "6900003",                             // Required field
-		Id:         "",                                    // Required string field causing issues
+		Severity:   common.StringPtr("medium"),            // Required field
+		Direction:  common.StringPtr("client2server"),     // Required field
+		Signature: &security_services.AntiSpywareSignaturesSignature{
+			Standard: []security_services.AntiSpywareSignaturesSignatureStandardInner{
+				{
+					Name:  "std-sig-1",
+					Scope: common.StringPtr("protocol-data-unit"),
+				},
+			},
+		},
 	}
 
 	// Create the antispywaresignature via API
@@ -150,8 +171,8 @@ func Test_security_services_AntiSpywareSignaturesAPIService_Update(t *testing.T)
 	}
 	require.NoError(t, err, "Failed to create antispywaresignature for update test")
 	require.NotNil(t, createRes, "Create response should not be nil")
-	createdAntiSpywareSignatureID := createRes.Id
-	require.NotEmpty(t, createdAntiSpywareSignatureID, "Created antispywaresignature should have an ID")
+	require.NotNil(t, createRes.Id, "Created antispywaresignature should have an ID")
+	createdAntiSpywareSignatureID := *createRes.Id
 
 	// Test Update operation with modified fields
 	updatedAntiSpywareSignature := security_services.AntiSpywareSignatures{
@@ -159,7 +180,17 @@ func Test_security_services_AntiSpywareSignaturesAPIService_Update(t *testing.T)
 		Folder:     common.StringPtr("All"),                                         // Keep same folder scope
 		Threatname: createdAntiSpywareSignatureThreatName,                           // Keep same threatname (required for update)
 		ThreatId:   "6900003",                                                       // Keep same threat ID
-		Id:         createdAntiSpywareSignatureID,                                   // Include ID for update
+		Severity:   common.StringPtr("medium"),                                      // Required field
+		Direction:  common.StringPtr("client2server"),                               // Required field
+		Signature: &security_services.AntiSpywareSignaturesSignature{
+			Standard: []security_services.AntiSpywareSignaturesSignatureStandardInner{
+				{
+					Name:  "std-sig-1",
+					Scope: common.StringPtr("protocol-data-unit"),
+				},
+			},
+		},
+		Id: &createdAntiSpywareSignatureID, // Include ID for update
 	}
 
 	reqUpdate := client.AntiSpywareSignaturesAPI.UpdateAntiSpywareSignaturesByID(context.Background(), createdAntiSpywareSignatureID).AntiSpywareSignatures(updatedAntiSpywareSignature)
@@ -176,7 +207,7 @@ func Test_security_services_AntiSpywareSignaturesAPIService_Update(t *testing.T)
 	require.NotNil(t, updateRes, "Update response should not be nil")
 	assert.Equal(t, createdAntiSpywareSignatureThreatName, updateRes.Threatname, "AntiSpywareSignature threatname should remain the same")
 	assert.Equal(t, common.StringPtr("Updated test anti-spyware signature comment"), updateRes.Comment, "Comment should be updated")
-	assert.Equal(t, createdAntiSpywareSignatureID, updateRes.Id, "AntiSpywareSignature ID should remain the same")
+	assert.Equal(t, createdAntiSpywareSignatureID, *updateRes.Id, "AntiSpywareSignature ID should remain the same")
 
 	t.Logf("Successfully updated antispywaresignature: %s", createdAntiSpywareSignatureThreatName)
 
@@ -214,8 +245,6 @@ func Test_security_services_AntiSpywareSignaturesAPIService_List(t *testing.T) {
 // Test_security_services_AntiSpywareSignaturesAPIService_DeleteByID tests deleting an antispywaresignature by its ID
 // This test creates an antispywaresignature, deletes it, then verifies the deletion was successful
 func Test_security_services_AntiSpywareSignaturesAPIService_DeleteByID(t *testing.T) {
-	t.Skip("Model has Id as string (non-pointer) which causes JSON serialization issues - omitempty cannot be applied")
-
 	// Setup the authenticated client
 	client := SetupSecuritySvcTestClient(t)
 
@@ -226,7 +255,16 @@ func Test_security_services_AntiSpywareSignaturesAPIService_DeleteByID(t *testin
 		Folder:     common.StringPtr("All"),               // Using All folder scope
 		Threatname: createdAntiSpywareSignatureThreatName, // Unique test name
 		ThreatId:   "6900005",                             // Required field
-		Id:         "",                                    // Required string field causing issues
+		Severity:   common.StringPtr("medium"),            // Required field
+		Direction:  common.StringPtr("client2server"),     // Required field
+		Signature: &security_services.AntiSpywareSignaturesSignature{
+			Standard: []security_services.AntiSpywareSignaturesSignatureStandardInner{
+				{
+					Name:  "std-sig-1",
+					Scope: common.StringPtr("protocol-data-unit"),
+				},
+			},
+		},
 	}
 
 	// Create the antispywaresignature via API
@@ -237,8 +275,8 @@ func Test_security_services_AntiSpywareSignaturesAPIService_DeleteByID(t *testin
 	}
 	require.NoError(t, err, "Failed to create antispywaresignature for delete test")
 	require.NotNil(t, createRes, "Create response should not be nil")
-	createdAntiSpywareSignatureID := createRes.Id
-	require.NotEmpty(t, createdAntiSpywareSignatureID, "Created antispywaresignature should have an ID")
+	require.NotNil(t, createRes.Id, "Created antispywaresignature should have an ID")
+	createdAntiSpywareSignatureID := *createRes.Id
 
 	// Test Delete by ID operation
 	reqDel := client.AntiSpywareSignaturesAPI.DeleteAntiSpywareSignaturesByID(context.Background(), createdAntiSpywareSignatureID)

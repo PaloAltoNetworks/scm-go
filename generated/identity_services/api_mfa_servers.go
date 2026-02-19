@@ -549,7 +549,7 @@ func (r ApiListMFAServersRequest) Offset(offset int32) ApiListMFAServersRequest 
 	return r
 }
 
-func (r ApiListMFAServersRequest) Execute() ([]MfaServers, *http.Response, error) {
+func (r ApiListMFAServersRequest) Execute() (*MFAServersListResponse, *http.Response, error) {
 	return r.ApiService.ListMFAServersExecute(r)
 }
 
@@ -570,13 +570,13 @@ func (a *MFAServersAPIService) ListMFAServers(ctx context.Context) ApiListMFASer
 
 // Execute executes the request
 //
-//	@return []MfaServers
-func (a *MFAServersAPIService) ListMFAServersExecute(r ApiListMFAServersRequest) ([]MfaServers, *http.Response, error) {
+//	@return MFAServersListResponse
+func (a *MFAServersAPIService) ListMFAServersExecute(r ApiListMFAServersRequest) (*MFAServersListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []MfaServers
+		localVarReturnValue *MFAServersListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MFAServersAPIService.ListMFAServers")
@@ -962,11 +962,11 @@ func (a *MFAServersAPIService) FetchMFAServers(ctx context.Context, name string,
 		return nil, err
 	}
 
-	// Success: standard response
-	if len(response) > 0 {
-		for i := range response {
-			if response[i].Name == name {
-				return &response[i], nil
+	// Success: standard paginated response
+	if response != nil && response.Data != nil {
+		for i := range response.Data {
+			if response.Data[i].Name == name {
+				return &response.Data[i], nil
 			}
 		}
 	}

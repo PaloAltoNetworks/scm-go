@@ -20,7 +20,7 @@ import (
 
 // Test_identity_services_MFAServersAPIService_Create tests the creation of an MFA server.
 func Test_identity_services_MFAServersAPIService_Create(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error - MFA server operations not supported in test environment")
+	t.Skip("API returns 500 Internal Server Error - MFA server Create not supported in test environment")
 	client := SetupIdentitySvcTestClient(t)
 	createdName := "test-mfa-create-" + common.GenerateRandomString(6)
 
@@ -44,7 +44,7 @@ func Test_identity_services_MFAServersAPIService_Create(t *testing.T) {
 	require.NotNil(t, res, "Response should not be nil")
 	assert.Equal(t, createdName, res.Name, "Created MFA server name should match")
 
-	createdID := res.Id
+	createdID := *res.Id
 
 	defer func() {
 		t.Logf("Cleaning up MFA Server with ID: %s", createdID)
@@ -59,7 +59,7 @@ func Test_identity_services_MFAServersAPIService_Create(t *testing.T) {
 
 // Test_identity_services_MFAServersAPIService_GetByID tests retrieving an MFA server by ID.
 func Test_identity_services_MFAServersAPIService_GetByID(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error - MFA server operations not supported in test environment")
+	t.Skip("API returns 500 Internal Server Error - MFA server Create not supported in test environment")
 	client := SetupIdentitySvcTestClient(t)
 	mfaName := "test-mfa-get-" + common.GenerateRandomString(6)
 
@@ -71,7 +71,7 @@ func Test_identity_services_MFAServersAPIService_GetByID(t *testing.T) {
 
 	createRes, _, err := client.MFAServersAPI.CreateMFAServers(context.Background()).MfaServers(mfaServer).Execute()
 	require.NoError(t, err, "Failed to create MFA Server for get test")
-	createdID := createRes.Id
+	createdID := *createRes.Id
 
 	defer func() {
 		client.MFAServersAPI.DeleteMFAServersByID(context.Background(), createdID).Execute()
@@ -86,7 +86,7 @@ func Test_identity_services_MFAServersAPIService_GetByID(t *testing.T) {
 
 // Test_identity_services_MFAServersAPIService_Update tests updating an existing MFA server.
 func Test_identity_services_MFAServersAPIService_Update(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error - MFA server operations not supported in test environment")
+	t.Skip("API returns 500 Internal Server Error - MFA server Create not supported in test environment")
 	client := SetupIdentitySvcTestClient(t)
 	mfaName := "test-mfa-update-" + common.GenerateRandomString(6)
 
@@ -98,7 +98,7 @@ func Test_identity_services_MFAServersAPIService_Update(t *testing.T) {
 
 	createRes, _, err := client.MFAServersAPI.CreateMFAServers(context.Background()).MfaServers(mfaServer).Execute()
 	require.NoError(t, err, "Failed to create MFA Server for update test")
-	createdID := createRes.Id
+	createdID := *createRes.Id
 
 	defer func() {
 		client.MFAServersAPI.DeleteMFAServersByID(context.Background(), createdID).Execute()
@@ -119,10 +119,9 @@ func Test_identity_services_MFAServersAPIService_Update(t *testing.T) {
 
 // Test_identity_services_MFAServersAPIService_List tests listing MFA servers.
 func Test_identity_services_MFAServersAPIService_List(t *testing.T) {
-	t.Skip("API returns paginated object but SDK expects []MfaServers array - deserialization mismatch")
 	client := SetupIdentitySvcTestClient(t)
 
-	// Read-only test: list existing MFA servers (Create gives 500)
+	// Read-only test: list existing MFA servers
 	listRes, httpResList, errList := client.MFAServersAPI.ListMFAServers(context.Background()).Folder("All").Limit(200).Position("pre").Execute()
 	if errList != nil {
 		handleAPIError(errList)
@@ -130,12 +129,12 @@ func Test_identity_services_MFAServersAPIService_List(t *testing.T) {
 	require.NoError(t, errList, "Failed to list MFA servers")
 	assert.Equal(t, 200, httpResList.StatusCode, "Expected 200 OK status")
 	require.NotNil(t, listRes, "List response should not be nil")
-	t.Logf("Successfully listed MFA servers, total: %d", len(listRes))
+	t.Logf("Successfully listed MFA servers, total: %d", listRes.GetTotal())
 }
 
 // Test_identity_services_MFAServersAPIService_DeleteByID tests deleting an MFA server.
 func Test_identity_services_MFAServersAPIService_DeleteByID(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error - MFA server operations not supported in test environment")
+	t.Skip("API returns 500 Internal Server Error - MFA server Create not supported in test environment")
 	client := SetupIdentitySvcTestClient(t)
 	mfaName := "test-mfa-delete-" + common.GenerateRandomString(6)
 
@@ -147,7 +146,7 @@ func Test_identity_services_MFAServersAPIService_DeleteByID(t *testing.T) {
 
 	createRes, _, err := client.MFAServersAPI.CreateMFAServers(context.Background()).MfaServers(mfaServer).Execute()
 	require.NoError(t, err, "Failed to create MFA Server for delete test")
-	createdID := createRes.Id
+	createdID := *createRes.Id
 
 	httpResDel, errDel := client.MFAServersAPI.DeleteMFAServersByID(context.Background(), createdID).Execute()
 	require.NoError(t, errDel, "Failed to delete MFA Server")

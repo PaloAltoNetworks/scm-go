@@ -12505,7 +12505,6 @@ components:
             type: string
           type: array
       required:
-      - id
       - threat_id
       - threatname
       type: object
@@ -12757,7 +12756,6 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
-      - id
       - name
       type: object
     decryption-profiles:
