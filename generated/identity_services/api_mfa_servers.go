@@ -902,7 +902,7 @@ func (a *MFAServersAPIService) UpdateMFAServersByIDExecute(r ApiUpdateMFAServers
 
 // FetchMFAServers retrieves a single MfaServers object by name.
 //
-// This is a convenience method that combines list and filter operations to retrieve
+// This is a convenience method that uses server-side name filtering to retrieve
 // a specific object by its name within a container (folder, snippet, or device).
 //
 // Parameters:
@@ -926,44 +926,49 @@ func (a *MFAServersAPIService) UpdateMFAServersByIDExecute(r ApiUpdateMFAServers
 //	    fmt.Printf("Found object\n")
 //	}
 func (a *MFAServersAPIService) FetchMFAServers(ctx context.Context, name string, folder *string, snippet *string, device *string) (*MfaServers, error) {
-	var offset int32 = 0
-	var limit int32 = 5000
+	req := a.ListMFAServers(ctx).Name(name).Position("pre").Limit(5000)
 
-	for {
+	if folder != nil {
+		req = req.Folder(*folder)
+	}
+	if snippet != nil {
+		req = req.Snippet(*snippet)
+	}
+	if device != nil {
+		req = req.Device(*device)
+	}
 
-		// Build request with position and conditional parameters
-		req := a.ListMFAServers(ctx).Position("pre")
-		if folder != nil {
-			req = req.Folder(*folder)
-		}
-		if snippet != nil {
-			req = req.Snippet(*snippet)
-		}
-		if device != nil {
-			req = req.Device(*device)
-		}
-		req = req.Offset(offset).Limit(limit)
-
-		response, _, err := req.Execute()
-		if err != nil {
-			return nil, err
+	response, httpRes, err := req.Execute()
+	if err != nil {
+		// HTTP 404: server-side "get by name" found no match
+		if httpRes != nil && httpRes.StatusCode == http.StatusNotFound {
+			return nil, nil
 		}
 
-		// Filter by exact name match
-		if response != nil {
-			for i := range response {
-				if response[i].Name == name {
-					return &response[i], nil
+		// HTTP 200 with deserialization error: server returned bare object
+		if httpRes != nil && httpRes.StatusCode == http.StatusOK {
+			if apiErr, ok := err.(*GenericOpenAPIError); ok {
+				var result MfaServers
+				if decodeErr := a.client.decode(&result, apiErr.Body(), "application/json"); decodeErr == nil {
+					if result.Name == name {
+						return &result, nil
+					}
 				}
 			}
+			return nil, nil
 		}
 
-		// Check if we've reached the end
-		if response == nil || len(response) < int(limit) {
-			break
-		}
+		// Any other error: propagate to caller
+		return nil, err
+	}
 
-		offset += limit
+	// Success: standard response
+	if len(response) > 0 {
+		for i := range response {
+			if response[i].Name == name {
+				return &response[i], nil
+			}
+		}
 	}
 
 	return nil, nil

@@ -220,7 +220,7 @@ func Test_objects_LogForwardingProfilesAPIService_List(t *testing.T) {
 	}()
 
 	// 3. Test List operation with folder filter
-	reqList := client.LogForwardingProfilesAPI.ListLogForwardingProfiles(context.Background()).Folder("All")
+	reqList := client.LogForwardingProfilesAPI.ListLogForwardingProfiles(context.Background()).Folder("All").Limit(200).Offset(0)
 	listRes, httpResList, errList := reqList.Execute()
 	if errList != nil {
 		handleAPIError(errList)

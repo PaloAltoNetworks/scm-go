@@ -708,7 +708,7 @@ func (a *BandwidthAllocationsAPIService) UpdateBandwidthAllocationsExecute(r Api
 
 // FetchBandwidthAllocations retrieves a single BandwidthAllocations object by name.
 //
-// This is a convenience method that combines list and filter operations to retrieve
+// This is a convenience method that uses server-side name filtering to retrieve
 // a specific object by its name within a container (folder, snippet, or device).
 //
 // Parameters:

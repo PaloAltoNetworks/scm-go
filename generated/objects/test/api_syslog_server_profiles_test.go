@@ -246,7 +246,7 @@ func Test_objects_SyslogServerProfilesAPIService_List(t *testing.T) {
 	client := SetupObjectSvcTestClient(t)
 
 	// test List operation with folder filter
-	reqList := client.SyslogServerProfilesAPI.ListSyslogServerProfiles(context.Background()).Folder("All")
+	reqList := client.SyslogServerProfilesAPI.ListSyslogServerProfiles(context.Background()).Folder("All").Limit(200).Offset(0)
 	listRes, httpResList, errList := reqList.Execute()
 	if errList != nil {
 		handleAPIError(errList)
