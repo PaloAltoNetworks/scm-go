@@ -265,7 +265,6 @@ func Test_security_services_ApplicationOverrideRulesAPIService_Move(t *testing.T
 
 // Test_security_services_ApplicationOverrideRulesAPIService_FetchApplicationOverrideRules tests the FetchApplicationOverrideRules convenience method
 func Test_security_services_ApplicationOverrideRulesAPIService_FetchApplicationOverrideRules(t *testing.T) {
-	t.Skip("Fetch internally calls List which fails with deserialization error - no value given for required property application")
 	client := SetupSecuritySvcTestClient(t)
 
 	// Create a test object first

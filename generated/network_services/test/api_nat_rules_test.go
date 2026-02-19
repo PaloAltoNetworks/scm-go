@@ -204,7 +204,6 @@ func Test_network_services_NATRulesAPIService_DeleteByID(t *testing.T) {
 
 // Test_network_services_NATRulesAPIService_FetchNATRules tests the FetchNATRules convenience method
 func Test_network_services_NATRulesAPIService_FetchNATRules(t *testing.T) {
-	t.Skip("Fetch internally calls List which fails deserializing existing NAT rules with missing required properties - spec/model issue")
 	// Setup the authenticated client
 	client := SetupNetworkSvcTestClient(t)
 

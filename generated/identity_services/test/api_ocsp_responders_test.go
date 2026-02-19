@@ -200,7 +200,6 @@ func Test_identity_services_OCSPRespondersAPIService_DeleteByID(t *testing.T) {
 
 // Test_identity_services_OCSPRespondersAPIService_FetchOCSPResponders tests the FetchOCSPResponders convenience method
 func Test_identity_services_OCSPRespondersAPIService_FetchOCSPResponders(t *testing.T) {
-	t.Skip("Create returns no model and List fails with deserialization error - cannot retrieve created object ID")
 	// Setup the authenticated client
 	client := SetupIdentitySvcTestClient(t)
 
@@ -220,20 +219,7 @@ func Test_identity_services_OCSPRespondersAPIService_FetchOCSPResponders(t *test
 	}
 	require.NoError(t, err, "Failed to create test object for fetch test")
 
-	// Get the ID from list
-	listRes, _, errList := client.OCSPRespondersAPI.ListOCSPResponders(context.Background()).Folder("Prisma Access").Name(testName).Execute()
-	require.NoError(t, errList, "Failed to list OCSP Responders")
-	require.Greater(t, len(listRes.Data), 0, "Should have at least one OCSP responder")
-	createdID := listRes.Data[0].Id
-
-	// Cleanup after test
-	defer func() {
-		deleteReq := client.OCSPRespondersAPI.DeleteOCSPRespondersByID(context.Background(), createdID)
-		_, _ = deleteReq.Execute()
-		t.Logf("Cleaned up test object: %s", createdID)
-	}()
-
-	// Test 1: Fetch existing object by name
+	// Test 1: Fetch existing object by name (also used to get ID for cleanup)
 	fetchedObj, err := client.OCSPRespondersAPI.FetchOCSPResponders(
 		context.Background(),
 		testName,
@@ -245,9 +231,15 @@ func Test_identity_services_OCSPRespondersAPIService_FetchOCSPResponders(t *test
 	// Verify successful fetch
 	require.NoError(t, err, "Failed to fetch ocsp_responders by name")
 	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
-	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
 	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
 	t.Logf("[SUCCESS] FetchOCSPResponders found object: %s", fetchedObj.Name)
+
+	// Cleanup after test using ID from fetch
+	defer func() {
+		deleteReq := client.OCSPRespondersAPI.DeleteOCSPRespondersByID(context.Background(), fetchedObj.Id)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", fetchedObj.Id)
+	}()
 
 	// Test 2: Fetch non-existent object (should return nil, nil)
 	notFound, err := client.OCSPRespondersAPI.FetchOCSPResponders(
