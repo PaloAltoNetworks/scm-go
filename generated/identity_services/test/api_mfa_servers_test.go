@@ -119,37 +119,18 @@ func Test_identity_services_MFAServersAPIService_Update(t *testing.T) {
 
 // Test_identity_services_MFAServersAPIService_List tests listing MFA servers.
 func Test_identity_services_MFAServersAPIService_List(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error - MFA server operations not supported in test environment")
+	t.Skip("API returns paginated object but SDK expects []MfaServers array - deserialization mismatch")
 	client := SetupIdentitySvcTestClient(t)
-	mfaName := "test-mfa-list-" + common.GenerateRandomString(6)
 
-	mfaServer := identity_services.MfaServers{
-		Folder:         common.StringPtr("Shared"),
-		Name:           mfaName,
-		MfaCertProfile: "Default",
+	// Read-only test: list existing MFA servers (Create gives 500)
+	listRes, httpResList, errList := client.MFAServersAPI.ListMFAServers(context.Background()).Folder("All").Limit(200).Position("pre").Execute()
+	if errList != nil {
+		handleAPIError(errList)
 	}
-
-	createRes, _, err := client.MFAServersAPI.CreateMFAServers(context.Background()).MfaServers(mfaServer).Execute()
-	require.NoError(t, err, "Failed to create MFA Server for list test")
-	createdID := createRes.Id
-
-	defer func() {
-		client.MFAServersAPI.DeleteMFAServersByID(context.Background(), createdID).Execute()
-	}()
-
-	listRes, httpResList, errList := client.MFAServersAPI.ListMFAServers(context.Background()).Position("pre").Folder("Shared").Limit(200).Execute()
-	require.NoError(t, errList, "Failed to list MFA Servers")
+	require.NoError(t, errList, "Failed to list MFA servers")
 	assert.Equal(t, 200, httpResList.StatusCode, "Expected 200 OK status")
 	require.NotNil(t, listRes, "List response should not be nil")
-
-	found := false
-	for _, p := range listRes {
-		if p.Name == mfaName {
-			found = true
-			break
-		}
-	}
-	assert.True(t, found, "Created MFA Server should be present in the list")
+	t.Logf("Successfully listed MFA servers, total: %d", len(listRes))
 }
 
 // Test_identity_services_MFAServersAPIService_DeleteByID tests deleting an MFA server.
@@ -175,56 +156,13 @@ func Test_identity_services_MFAServersAPIService_DeleteByID(t *testing.T) {
 
 // Test_identity_services_MFAServersAPIService_FetchMFAServers tests the FetchMFAServers convenience method
 func Test_identity_services_MFAServersAPIService_FetchMFAServers(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error - MFA server operations not supported in test environment")
-	// Setup the authenticated client
 	client := SetupIdentitySvcTestClient(t)
 
-	// Create a test object first
-	testName := "fetch-mfa-" + common.GenerateRandomString(6)
-
-	testObj := identity_services.MfaServers{
-		Name:           testName,
-		Folder:         common.StringPtr("Prisma Access"),
-		MfaCertProfile: "Default",
-	}
-
-	createReq := client.MFAServersAPI.CreateMFAServers(context.Background()).MfaServers(testObj)
-	createRes, _, err := createReq.Execute()
-	if err != nil {
-		handleAPIError(err)
-	}
-	require.NoError(t, err, "Failed to create test object for fetch test")
-	require.NotNil(t, createRes, "Create response should not be nil")
-	createdID := createRes.Id
-
-	// Cleanup after test
-	defer func() {
-		deleteReq := client.MFAServersAPI.DeleteMFAServersByID(context.Background(), createdID)
-		_, _ = deleteReq.Execute()
-		t.Logf("Cleaned up test object: %s", createdID)
-	}()
-
-	// Test 1: Fetch existing object by name
-	fetchedObj, err := client.MFAServersAPI.FetchMFAServers(
-		context.Background(),
-		testName,
-		common.StringPtr("Prisma Access"),
-		nil, // snippet
-		nil, // device
-	)
-
-	// Verify successful fetch
-	require.NoError(t, err, "Failed to fetch mfa_servers by name")
-	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
-	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
-	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
-	t.Logf("[SUCCESS] FetchMFAServers found object: %s", fetchedObj.Name)
-
-	// Test 2: Fetch non-existent object (should return nil, nil)
+	// Read-only not-found test (Create gives 500)
 	notFound, err := client.MFAServersAPI.FetchMFAServers(
 		context.Background(),
-		"non-existent-mfa-servers-xyz-12345",
-		common.StringPtr("Prisma Access"),
+		"non-existent-mfa-server-xyz-12345",
+		common.StringPtr("All"),
 		nil,
 		nil,
 	)

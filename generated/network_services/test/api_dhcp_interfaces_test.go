@@ -159,106 +159,34 @@ func Test_networkservices_DHCPInterfacesAPIService_Update(t *testing.T) {
 
 // Test_networkservices_DHCPInterfacesAPIService_List tests listing DHCP Interfaces.
 func Test_networkservices_DHCPInterfacesAPIService_List(t *testing.T) {
-	t.Skip("Requires pre-existing device ethernet interface - cannot create interfaces via API")
 	client := SetupNetworkSvcTestClient(t)
 
-	// Create an interface to ensure it appears in the list.
-	interfaceName := "ethernet1/4"
-
-	dhcpInterface := network_services.DhcpInterfaces{
-		Name:   interfaceName,
-		Folder: common.StringPtr("All"),
+	// Read-only test: list existing objects (no Create needed)
+	listRes, httpResList, errList := client.DHCPInterfacesAPI.ListDHCPInterfaces(context.Background()).Folder("All").Limit(200).Offset(0).Execute()
+	if errList != nil {
+		handleAPIError(errList)
 	}
-
-	createRes, _, err := client.DHCPInterfacesAPI.CreateDHCPInterfaces(context.Background()).DhcpInterfaces(dhcpInterface).Execute()
-	handleAPIError(err)
-	require.NoError(t, err, "Failed to create interface for list test")
-	createdInterfaceID := *createRes.Id
-
-	// Defer cleanup for the DHCP Interface.
-	defer func() {
-		t.Logf("Cleaning up DHCP Interface with ID: %s", createdInterfaceID)
-		_, errDel := client.DHCPInterfacesAPI.DeleteDHCPInterfacesByID(context.Background(), createdInterfaceID).Execute()
-		if errDel != nil {
-			t.Logf("Failed to delete interface during cleanup: %v", errDel)
-		}
-	}()
-
-	// Test the List operation.
-	fmt.Println("Attempting to list DHCP Interfaces")
-	req := client.DHCPInterfacesAPI.ListDHCPInterfaces(context.Background()).Folder("All").Limit(200).Offset(0)
-	listRes, httpRes, err := req.Execute()
-
-	// Verify the list operation was successful.
-	handleAPIError(err)
-	require.NoError(t, err, "List request should not return an error")
-	assert.Equal(t, 200, httpRes.StatusCode, "Expected 200 OK status")
-	require.NotNil(t, listRes, "The response from list should not be nil")
-
-	// Verify our created interface is in the list if results returned.
-	if listRes.Data != nil && len(listRes.Data) > 0 {
-		found := false
-		for _, iface := range listRes.Data {
-			if iface.Name == interfaceName {
-				found = true
-				break
-			}
-		}
-		assert.True(t, found, "Created interface should be found in the list")
-		t.Logf("Successfully listed DHCP Interfaces and found created interface: %s", interfaceName)
-	}
+	require.NoError(t, errList, "Failed to list DHCP interfaces")
+	assert.Equal(t, 200, httpResList.StatusCode, "Expected 200 OK status")
+	require.NotNil(t, listRes, "List response should not be nil")
+	t.Logf("Successfully listed DHCP interfaces")
 }
 
 // Test_networkservices_DHCPInterfacesAPIService_Fetch tests the fetch convenience method.
 func Test_networkservices_DHCPInterfacesAPIService_Fetch(t *testing.T) {
-	t.Skip("Requires pre-existing device ethernet interface - cannot create interfaces via API")
 	client := SetupNetworkSvcTestClient(t)
 
-	// Create an interface to fetch by name.
-	interfaceName := "ethernet1/5"
-
-	dhcpInterface := network_services.DhcpInterfaces{
-		Name:   interfaceName,
-		Folder: common.StringPtr("All"),
-	}
-
-	createRes, _, err := client.DHCPInterfacesAPI.CreateDHCPInterfaces(context.Background()).DhcpInterfaces(dhcpInterface).Execute()
-	handleAPIError(err)
-	require.NoError(t, err, "Failed to create interface for fetch test")
-	createdInterfaceID := *createRes.Id
-	createdFolder := createRes.Folder
-	require.NotEmpty(t, createdInterfaceID, "Created interface ID should not be empty")
-
-	// Defer cleanup.
-	defer func() {
-		t.Logf("Cleaning up DHCP Interface with ID: %s", createdInterfaceID)
-		_, errDel := client.DHCPInterfacesAPI.DeleteDHCPInterfacesByID(context.Background(), createdInterfaceID).Execute()
-		if errDel != nil {
-			t.Logf("Failed to delete interface during cleanup: %v", errDel)
-		}
-	}()
-
-	// Test Fetch by name operation.
-	fmt.Printf("Attempting to fetch DHCP Interface with name: %s\n", interfaceName)
-	fetchedInterface, errFetch := client.DHCPInterfacesAPI.FetchDHCPInterfaces(context.Background(), interfaceName, createdFolder, nil, nil)
-
-	// Verify the fetch operation was successful.
-	handleAPIError(errFetch)
-	require.NoError(t, errFetch, "Failed to fetch interface by name")
-	require.NotNil(t, fetchedInterface, "Fetched interface should not be nil")
-	assert.Equal(t, interfaceName, fetchedInterface.Name, "Interface name should match")
-	assert.Equal(t, createdInterfaceID, *fetchedInterface.Id, "Interface ID should match")
-	if createdFolder != nil && fetchedInterface.Folder != nil {
-		assert.Equal(t, *createdFolder, *fetchedInterface.Folder, "Folder should match")
-	}
-	t.Logf("Successfully fetched DHCP Interface: %s", interfaceName)
-
-	// Test fetching non-existent interface (should return nil).
-	nonExistentName := "non-existent-dhcp-interface-xyz-12345"
-	notFoundInterface, errNotFound := client.DHCPInterfacesAPI.FetchDHCPInterfaces(context.Background(), nonExistentName, createdFolder, nil, nil)
-	require.NoError(t, errNotFound, "Fetch for non-existent interface should not error")
-	assert.Nil(t, notFoundInterface, "Non-existent interface should return nil")
-	t.Logf("Successfully verified fetch returns nil for non-existent interface")
+	// Read-only test: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.DHCPInterfacesAPI.FetchDHCPInterfaces(
+		context.Background(),
+		"non-existent-dhcp-interface-xyz-12345",
+		common.StringPtr("All"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchDHCPInterfaces correctly returned nil for non-existent object")
 }
 
 // Test_networkservices_DHCPInterfacesAPIService_DeleteByID tests deleting a DHCP Interface.

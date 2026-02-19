@@ -128,42 +128,18 @@ func Test_deployment_services_SitesAPIService_Update(t *testing.T) {
 	assert.Equal(t, "123 Updated Street", *updateRes.AddressLine1, "Address should be updated")
 }
 
-// Test_deployment_services_SitesAPIService_List tests listing Sites.
+// Test_deployment_services_SitesAPIService_List tests listing Sites (read-only).
 func Test_deployment_services_SitesAPIService_List(t *testing.T) {
-	t.Skip("Skipping test: Sites model has non-pointer Id field (Id string), which causes issues with object creation as the API populates this field")
+	client := SetupDeploymentSvcTestClient(t)
 
-	depSvcClient := SetupDeploymentSvcTestClient(t)
-	randomSuffix := common.GenerateRandomString(6)
-
-	// Create a site to ensure it appears in the list.
-	siteName := "test-site-list-" + randomSuffix
-	site := deployment_services.Sites{
-		Name: siteName,
-		Id:   "", // Will be populated by API
+	listRes, httpResList, errList := client.SitesAPI.ListSites(context.Background()).Folder("All").Limit(200).Offset(0).Execute()
+	if errList != nil {
+		handleAPIError(errList)
 	}
-	createRes, _, err := depSvcClient.SitesAPI.CreateSites(context.Background()).Sites(site).Execute()
-	require.NoError(t, err, "Failed to create site for list test")
-	createdSiteID := createRes.Id
-	defer func() {
-		depSvcClient.SitesAPI.DeleteSitesByID(context.Background(), createdSiteID).Execute()
-	}()
-
-	// Test List operation.
-	// Note: Sites API requires folder parameter
-	listRes, httpResList, errList := depSvcClient.SitesAPI.ListSites(context.Background()).Folder("All").Limit(10000).Execute()
 	require.NoError(t, errList, "Failed to list sites")
-	assert.Equal(t, 200, httpResList.StatusCode)
-	require.NotNil(t, listRes)
-
-	// Verify our created site is in the list.
-	foundSite := false
-	for _, s := range listRes.Data {
-		if s.Name == siteName {
-			foundSite = true
-			break
-		}
-	}
-	assert.True(t, foundSite, "Created site should be found in the list")
+	assert.Equal(t, 200, httpResList.StatusCode, "Expected 200 OK status")
+	require.NotNil(t, listRes, "List response should not be nil")
+	t.Logf("Successfully listed sites, total: %d", listRes.GetTotal())
 }
 
 // Test_deployment_services_SitesAPIService_DeleteByID tests deleting a site by ID.
@@ -188,58 +164,13 @@ func Test_deployment_services_SitesAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, errDel, "Failed to delete site")
 }
 
-// Test_deployment_services_SitesAPIService_FetchSites tests the FetchSites convenience method
+// Test_deployment_services_SitesAPIService_FetchSites tests the FetchSites convenience method (read-only).
 func Test_deployment_services_SitesAPIService_FetchSites(t *testing.T) {
-	t.Skip("Skipping test: Sites model has non-pointer Id field (Id string), which causes issues with object creation as the API populates this field")
-
-	// Setup the authenticated client
 	client := SetupDeploymentSvcTestClient(t)
 
-	// Create test object using same payload as Create test
-	randomSuffix := common.GenerateRandomString(6)
-	testName := "test-site-fetch-" + randomSuffix
-
-	testObj := deployment_services.Sites{
-		Name: testName,
-		Id:   "", // Will be populated by API
-	}
-
-	createReq := client.SitesAPI.CreateSites(context.Background()).Sites(testObj)
-	createRes, _, err := createReq.Execute()
-	if err != nil {
-		handleAPIError(err)
-	}
-	require.NoError(t, err, "Failed to create test object for fetch test")
-	require.NotNil(t, createRes, "Create response should not be nil")
-	createdID := createRes.Id
-
-	// Cleanup after test
-	defer func() {
-		deleteReq := client.SitesAPI.DeleteSitesByID(context.Background(), createdID)
-		_, _ = deleteReq.Execute()
-		t.Logf("Cleaned up test object: %s", createdID)
-	}()
-
-	// Test 1: Fetch existing object by name
-	fetchedObj, err := client.SitesAPI.FetchSites(
-		context.Background(),
-		testName,
-		common.StringPtr("All"),
-		nil, // snippet
-		nil, // device
-	)
-
-	// Verify successful fetch
-	require.NoError(t, err, "Failed to fetch sites by name")
-	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
-	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
-	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
-	t.Logf("[SUCCESS] FetchSites found object: %s", fetchedObj.Name)
-
-	// Test 2: Fetch non-existent object (should return nil, nil)
 	notFound, err := client.SitesAPI.FetchSites(
 		context.Background(),
-		"non-existent-sites-xyz-12345",
+		"non-existent-site-xyz-12345",
 		common.StringPtr("All"),
 		nil,
 		nil,

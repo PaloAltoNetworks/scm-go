@@ -197,58 +197,20 @@ func Test_config_setup_FoldersAPIService_Update(t *testing.T) {
 
 // ---
 
-// Test_config_setup_FoldersAPIService_List tests listing folders
+// Test_config_setup_FoldersAPIService_List tests listing folders (read-only)
 func Test_config_setup_FoldersAPIService_List(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error on folder create - folder creation not supported in test environment")
 	// Setup the authenticated client
 	client := SetupConfigSvcTestClient(t)
 
-	// 1. Create a folder first to have something to list
-	createdFolderName := "test-folder-list-" + common.GenerateRandomString(10)
-	folder := config_setup.Folders{
-		Description: common.StringPtr("Test folder for list API testing"),
-		Name:        createdFolderName,
-		Parent:      "Shared",
-	}
-
-	// Create the folder via API
-	reqCreate := client.FoldersAPI.CreateFolder(context.Background()).Folders(folder)
-	createRes, _, err := reqCreate.Execute()
-	if err != nil {
-		handleAPIError(err)
-	}
-	require.NoError(t, err, "Failed to create folder for list test")
-	createdFolderID := createRes.Id
-	require.NotEmpty(t, createdFolderID, "Created folder should have an ID")
-
-	// 2. Test List operation
-	reqList := client.FoldersAPI.ListFolders(context.Background()).Limit(500)
-	listRes, httpResList, errList := reqList.Execute()
+	// Read-only test: list existing folders (Create gives 500, but List works independently)
+	listRes, httpResList, errList := client.FoldersAPI.ListFolders(context.Background()).Limit(200).Offset(0).Execute()
 	if errList != nil {
 		handleAPIError(errList)
 	}
-
-	// Verify the list operation was successful
 	require.NoError(t, errList, "Failed to list folders")
 	assert.Equal(t, 200, httpResList.StatusCode, "Expected 200 OK status")
-
-	// Assert response object properties
 	require.NotNil(t, listRes, "List response should not be nil")
-	require.NotNil(t, listRes.Data, "List response data should not be nil")
-	assert.GreaterOrEqual(t, len(listRes.Data), 1, "Expected at least 1 folder in the list response")
-
-	t.Logf("Successfully listed and found created folder: %s", createdFolderName)
-
-	// 3. Cleanup: Delete the created folder
-	reqDel := client.FoldersAPI.DeleteFolderByID(context.Background(), createdFolderID)
-	httpResDel, errDel := reqDel.Execute()
-	if errDel != nil {
-		handleAPIError(errDel)
-	}
-	require.NoError(t, errDel, "Failed to delete folder during cleanup")
-	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status for delete")
-
-	t.Logf("Successfully cleaned up folder: %s", createdFolderID)
+	t.Logf("Successfully listed folders, total: %d", listRes.GetTotal())
 }
 
 // ---
@@ -299,59 +261,18 @@ func Test_config_setup_FoldersAPIService_DeleteByID(t *testing.T) {
 	assert.Equal(t, 404, httpResGet.StatusCode, "Expected 404 Not Found status after deletion")
 }
 
-// Test_config_setup_FoldersAPIService_FetchFolders tests the FetchFolders convenience method
+// Test_config_setup_FoldersAPIService_FetchFolders tests the FetchFolders convenience method (read-only)
 func Test_config_setup_FoldersAPIService_FetchFolders(t *testing.T) {
-	t.Skip("API returns 500 Internal Server Error on folder create - folder creation not supported in test environment")
 	// Setup the authenticated client
 	client := SetupConfigSvcTestClient(t)
 
-	// Create test object using same payload as Create test
-	testName := "test-folder-fetch-" + common.GenerateRandomString(6)
-	testObj := config_setup.Folders{
-		Description: common.StringPtr("Test folder for fetch API testing"),
-		Name:        testName,
-		Parent:      "Shared",
-	}
-
-	createReq := client.FoldersAPI.CreateFolder(context.Background()).Folders(testObj)
-	createRes, _, err := createReq.Execute()
-	if err != nil {
-		handleAPIError(err)
-	}
-	require.NoError(t, err, "Failed to create test object for fetch test")
-	require.NotNil(t, createRes, "Create response should not be nil")
-	createdID := createRes.Id
-
-	// Cleanup after test
-	defer func() {
-		deleteReq := client.FoldersAPI.DeleteFolderByID(context.Background(), createdID)
-		_, _ = deleteReq.Execute()
-		t.Logf("Cleaned up test object: %s", createdID)
-	}()
-
-	// Test 1: Fetch existing object by name
-	fetchedObj, err := client.FoldersAPI.FetchFolders(
-		context.Background(),
-		testName,
-		nil, // folder (folders don't have folder field)
-		nil, // snippet
-		nil, // device
-	)
-
-	// Verify successful fetch
-	require.NoError(t, err, "Failed to fetch folders by name")
-	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
-	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
-	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
-	t.Logf("[SUCCESS] FetchFolders found object: %s", fetchedObj.Name)
-
-	// Test 2: Fetch non-existent object (should return nil, nil)
+	// Read-only test: Fetch non-existent object (should return nil, nil)
 	notFound, err := client.FoldersAPI.FetchFolders(
 		context.Background(),
-		"non-existent-folders-xyz-12345",
-		nil, // folder (folders don't have folder field)
-		nil,
-		nil,
+		"non-existent-folder-xyz-12345",
+		nil, // folder
+		nil, // snippet
+		nil, // device
 	)
 	require.NoError(t, err, "Fetch should not error for non-existent object")
 	assert.Nil(t, notFound, "Should return nil for non-existent object")

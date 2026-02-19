@@ -117,10 +117,17 @@ func Test_networkservices_SDWANTrafficDistributionProfilesAPIService_DeleteByID(
 
 // Test_networkservices_SDWANTrafficDistributionProfilesAPIService_FetchSDWANTrafficDistributionProfiles tests the Fetch convenience method
 func Test_networkservices_SDWANTrafficDistributionProfilesAPIService_FetchSDWANTrafficDistributionProfiles(t *testing.T) {
-	t.Skip("Requires sdwan_interface_profiles prerequisite which is not available in our OpenAPI spec - link tags must be associated with interface profiles first")
 	client := SetupNetworkSvcTestClient(t)
 
-	testName := "test-sdwan-tdp-fetch-" + common.GenerateRandomString(6)
-	_ = testName
-	_ = client
+	// Read-only test: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.SDWANTrafficDistributionProfilesAPI.FetchSDWANTrafficDistributionProfiles(
+		context.Background(),
+		"non-existent-sdwan-tdp-xyz-12345",
+		common.StringPtr("All"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchSDWANTrafficDistributionProfiles correctly returned nil for non-existent object")
 }

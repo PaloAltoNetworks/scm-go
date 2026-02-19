@@ -160,106 +160,34 @@ func Test_networkservices_AutoVPNClustersAPIService_Update(t *testing.T) {
 
 // Test_networkservices_AutoVPNClustersAPIService_List tests listing Auto VPN Clusters.
 func Test_networkservices_AutoVPNClustersAPIService_List(t *testing.T) {
-	t.Skip("Auto VPN Clusters require special infrastructure (gateways, branches) that may not be available in test environment")
-
 	client := SetupNetworkSvcTestClient(t)
 
-	// Create a cluster to ensure it appears in the list.
-	randomSuffix := common.GenerateRandomString(6)
-	clusterName := "auto_vpn_cluster_list_" + randomSuffix
-
-	cluster := network_services.AutoVpnClusters{
-		Name: common.StringPtr(clusterName),
-		Type: common.StringPtr("hub-spoke"),
+	// Read-only test: list existing objects (no Create needed)
+	listRes, httpResList, errList := client.AutoVPNClustersAPI.ListAutoVPNClusters(context.Background()).Limit(200).Offset(0).Execute()
+	if errList != nil {
+		handleAPIError(errList)
 	}
-
-	createRes, _, err := client.AutoVPNClustersAPI.CreateAutoVPNClusters(context.Background()).AutoVpnClusters(cluster).Execute()
-	handleAPIError(err)
-	require.NoError(t, err, "Failed to create cluster for list test")
-	createdClusterID := *createRes.Id
-
-	// Defer cleanup for the Auto VPN Cluster.
-	defer func() {
-		t.Logf("Cleaning up Auto VPN Cluster with ID: %s", createdClusterID)
-		_, errDel := client.AutoVPNClustersAPI.DeleteAutoVPNClustersByID(context.Background(), createdClusterID).Execute()
-		if errDel != nil {
-			t.Logf("Failed to delete cluster during cleanup: %v", errDel)
-		}
-	}()
-
-	// Test the List operation.
-	fmt.Println("Attempting to list Auto VPN Clusters")
-	req := client.AutoVPNClustersAPI.ListAutoVPNClusters(context.Background())
-	listRes, httpRes, err := req.Execute()
-
-	// Verify the list operation was successful.
-	handleAPIError(err)
-	require.NoError(t, err, "List request should not return an error")
-	assert.Equal(t, 200, httpRes.StatusCode, "Expected 200 OK status")
-	require.NotNil(t, listRes, "The response from list should not be nil")
-
-	// Verify our created cluster is in the list if results returned.
-	if listRes.Data != nil && len(listRes.Data) > 0 {
-		found := false
-		for _, c := range listRes.Data {
-			if c.Name != nil && *c.Name == clusterName {
-				found = true
-				break
-			}
-		}
-		assert.True(t, found, "Created cluster should be found in the list")
-		t.Logf("Successfully listed Auto VPN Clusters and found created cluster: %s", clusterName)
-	}
+	require.NoError(t, errList, "Failed to list auto VPN clusters")
+	assert.Equal(t, 200, httpResList.StatusCode, "Expected 200 OK status")
+	require.NotNil(t, listRes, "List response should not be nil")
+	t.Logf("Successfully listed auto VPN clusters")
 }
 
 // Test_networkservices_AutoVPNClustersAPIService_Fetch tests the fetch convenience method.
 func Test_networkservices_AutoVPNClustersAPIService_Fetch(t *testing.T) {
-	t.Skip("Auto VPN Clusters require special infrastructure (gateways, branches) that may not be available in test environment")
-
 	client := SetupNetworkSvcTestClient(t)
 
-	// Create a cluster to fetch by name.
-	randomSuffix := common.GenerateRandomString(6)
-	clusterName := "auto_vpn_cluster_fetch_" + randomSuffix
-
-	cluster := network_services.AutoVpnClusters{
-		Name: common.StringPtr(clusterName),
-		Type: common.StringPtr("hub-spoke"),
-	}
-
-	createRes, _, err := client.AutoVPNClustersAPI.CreateAutoVPNClusters(context.Background()).AutoVpnClusters(cluster).Execute()
-	handleAPIError(err)
-	require.NoError(t, err, "Failed to create cluster for fetch test")
-	createdClusterID := *createRes.Id
-	require.NotEmpty(t, createdClusterID, "Created cluster ID should not be empty")
-
-	// Defer cleanup.
-	defer func() {
-		t.Logf("Cleaning up Auto VPN Cluster with ID: %s", createdClusterID)
-		_, errDel := client.AutoVPNClustersAPI.DeleteAutoVPNClustersByID(context.Background(), createdClusterID).Execute()
-		if errDel != nil {
-			t.Logf("Failed to delete cluster during cleanup: %v", errDel)
-		}
-	}()
-
-	// Test Fetch by name operation.
-	fmt.Printf("Attempting to fetch Auto VPN Cluster with name: %s\n", clusterName)
-	fetchedCluster, errFetch := client.AutoVPNClustersAPI.FetchAutoVPNClusters(context.Background(), clusterName, nil, nil, nil)
-
-	// Verify the fetch operation was successful.
-	handleAPIError(errFetch)
-	require.NoError(t, errFetch, "Failed to fetch cluster by name")
-	require.NotNil(t, fetchedCluster, "Fetched cluster should not be nil")
-	assert.Equal(t, clusterName, *fetchedCluster.Name, "Cluster name should match")
-	assert.Equal(t, createdClusterID, *fetchedCluster.Id, "Cluster ID should match")
-	t.Logf("Successfully fetched Auto VPN Cluster: %s", clusterName)
-
-	// Test fetching non-existent cluster (should return nil).
-	nonExistentName := "non-existent-auto-vpn-cluster-xyz-12345"
-	notFoundCluster, errNotFound := client.AutoVPNClustersAPI.FetchAutoVPNClusters(context.Background(), nonExistentName, nil, nil, nil)
-	require.NoError(t, errNotFound, "Fetch for non-existent cluster should not error")
-	assert.Nil(t, notFoundCluster, "Non-existent cluster should return nil")
-	t.Logf("Successfully verified fetch returns nil for non-existent cluster")
+	// Read-only test: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.AutoVPNClustersAPI.FetchAutoVPNClusters(
+		context.Background(),
+		"non-existent-auto-vpn-cluster-xyz-12345",
+		nil,
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchAutoVPNClusters correctly returned nil for non-existent object")
 }
 
 // Test_networkservices_AutoVPNClustersAPIService_DeleteByID tests deleting an Auto VPN Cluster.
