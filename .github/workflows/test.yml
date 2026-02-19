@@ -25,6 +25,7 @@ jobs:
           - deployment_services
           - config_setup
           - config_operations
+          - device_settings
 
     steps:
       - name: Checkout code
@@ -50,7 +51,7 @@ jobs:
             "host": "${{ secrets.SCM_HOST }}",
             "protocol": "${{ secrets.SCM_PROTOCOL }}",
             "scope": "${{ secrets.SCM_SCOPE }}",
-            "logging": "${{ secrets.SCM_LOGGING }}",
+            "logging": "quiet",
             "skip_verify_certificate": ${{ secrets.SCM_SKIP_VERIFY_CERTIFICATE }}
           }
           EOF

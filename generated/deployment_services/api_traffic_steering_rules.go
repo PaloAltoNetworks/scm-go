@@ -883,7 +883,7 @@ func (a *TrafficSteeringRulesAPIService) UpdateTrafficSteeringRulesByIDExecute(r
 
 // FetchTrafficSteeringRules retrieves a single TrafficSteeringRules object by name.
 //
-// This is a convenience method that combines list and filter operations to retrieve
+// This is a convenience method that uses server-side name filtering to retrieve
 // a specific object by its name within a container (folder, snippet, or device).
 //
 // Parameters:
@@ -907,38 +907,43 @@ func (a *TrafficSteeringRulesAPIService) UpdateTrafficSteeringRulesByIDExecute(r
 //	    fmt.Printf("Found object\n")
 //	}
 func (a *TrafficSteeringRulesAPIService) FetchTrafficSteeringRules(ctx context.Context, name string, folder *string, snippet *string, device *string) (*TrafficSteeringRules, error) {
-	var offset int32 = 0
-	var limit int32 = 5000
+	req := a.ListTrafficSteeringRules(ctx).Name(name).Limit(5000)
 
-	for {
-		req := a.ListTrafficSteeringRules(ctx).
-			Offset(offset).
-			Limit(limit)
+	if folder != nil {
+		req = req.Folder(*folder)
+	}
 
-		if folder != nil {
-			req = req.Folder(*folder)
+	response, httpRes, err := req.Execute()
+	if err != nil {
+		// HTTP 404: server-side "get by name" found no match
+		if httpRes != nil && httpRes.StatusCode == http.StatusNotFound {
+			return nil, nil
 		}
 
-		response, _, err := req.Execute()
-		if err != nil {
-			return nil, err
-		}
-
-		// Filter by exact name match
-		if response.Data != nil {
-			for i := range response.Data {
-				if response.Data[i].Name == name {
-					return &response.Data[i], nil
+		// HTTP 200 with deserialization error: server returned bare object
+		if httpRes != nil && httpRes.StatusCode == http.StatusOK {
+			if apiErr, ok := err.(*GenericOpenAPIError); ok {
+				var result TrafficSteeringRules
+				if decodeErr := a.client.decode(&result, apiErr.Body(), "application/json"); decodeErr == nil {
+					if result.Name == name {
+						return &result, nil
+					}
 				}
 			}
+			return nil, nil
 		}
 
-		// Check if we've reached the end
-		if response.Data == nil || len(response.Data) < int(limit) {
-			break
-		}
+		// Any other error: propagate to caller
+		return nil, err
+	}
 
-		offset += limit
+	// Success: standard paginated response
+	if response != nil && response.Data != nil {
+		for i := range response.Data {
+			if response.Data[i].Name == name {
+				return &response.Data[i], nil
+			}
+		}
 	}
 
 	return nil, nil

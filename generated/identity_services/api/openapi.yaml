@@ -5873,9 +5873,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/mfa-servers'
-                type: array
+                $ref: '#/components/schemas/MFAServersListResponse'
           description: OK
         "400":
           content:
@@ -10552,6 +10550,36 @@ components:
       - offset
       - total
       type: object
+    MFAServersListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MfaServers'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
     OCSPRespondersListResponse:
       example:
         total: 1
@@ -11856,7 +11884,6 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
-      - id
       - mfa_cert_profile
       - name
       type: object

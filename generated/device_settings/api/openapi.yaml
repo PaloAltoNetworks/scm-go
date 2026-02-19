@@ -1810,7 +1810,7 @@ paths:
     post:
       description: |
         Create new general settings.
-      operationId: CreeateGeneralSettings
+      operationId: CreateGeneralSettings
       requestBody:
         content:
           application/json:

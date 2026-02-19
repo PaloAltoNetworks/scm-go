@@ -285,3 +285,69 @@ func Test_networkservices_IPsecTunnelsAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, errDel)
 	assert.Equal(t, 200, httpResDel.StatusCode)
 }
+
+// Test_networkservices_IPsecTunnelsAPIService_FetchIPsecTunnels tests the FetchIPsecTunnels convenience method.
+func Test_networkservices_IPsecTunnelsAPIService_FetchIPsecTunnels(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+	randomSuffix := common.GenerateRandomString(6)
+
+	// Create dependencies.
+	gatewayName, _, cleanupGw := createTestIKEGateway(t, client, randomSuffix)
+	defer cleanupGw()
+
+	// Create a test tunnel first.
+	testName := "test-tunnel-fetch-" + randomSuffix
+	testObj := network_services.IpsecTunnels{
+		Folder: common.StringPtr("Remote Networks"),
+		Name:   testName,
+		AutoKey: network_services.IpsecTunnelsAutoKey{
+			IkeGateway: []network_services.IpsecTunnelsAutoKeyIkeGatewayInner{
+				{
+					Name: common.StringPtr(gatewayName),
+				},
+			},
+			IpsecCryptoProfile: "PaloAlto-Networks-IPSec-Crypto",
+		},
+	}
+
+	createReq := client.IPsecTunnelsAPI.CreateIPsecTunnels(context.Background()).IpsecTunnels(testObj)
+	createRes, _, err := createReq.Execute()
+	require.NoError(t, err, "Failed to create test tunnel for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := *createRes.Id
+
+	// Cleanup after test.
+	defer func() {
+		deleteReq := client.IPsecTunnelsAPI.DeleteIPsecTunnelsByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test tunnel: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name.
+	fetchedObj, err := client.IPsecTunnelsAPI.FetchIPsecTunnels(
+		context.Background(),
+		testName,
+		common.StringPtr("Remote Networks"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch.
+	require.NoError(t, err, "Failed to fetch IPsec Tunnel by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, *fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchIPsecTunnels found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil).
+	notFound, err := client.IPsecTunnelsAPI.FetchIPsecTunnels(
+		context.Background(),
+		"non-existent-ipsec-tunnel-xyz-12345",
+		common.StringPtr("Remote Networks"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchIPsecTunnels correctly returned nil for non-existent object")
+}

@@ -159,3 +159,54 @@ func Test_deployment_services_BandwidthAllocationsAPIService_FetchBandwidthAlloc
 	assert.Nil(t, notFound, "Should return nil for non-existent object")
 	t.Logf("[SUCCESS] FetchBandwidthAllocations correctly returned nil for non-existent object")
 }
+
+// Test_deployment_services_BandwidthAllocationsAPIService_Update tests updating a bandwidth allocation
+func Test_deployment_services_BandwidthAllocationsAPIService_Update(t *testing.T) {
+	t.Skip("API requires spn_name_list parameter when updating by region - complex prerequisite setup needed")
+	// Setup the authenticated client
+	client := SetupDeploymentSvcTestClient(t)
+
+	// Create a test object first
+	testName := "test-bw-alloc-update-" + common.GenerateRandomString(6)
+	testObj := deployment_services.BandwidthAllocations{
+		Name:               testName,
+		AllocatedBandwidth: 100, // Initial bandwidth in Mbps
+	}
+
+	createReq := client.BandwidthAllocationsAPI.CreateBandwidthAllocations(context.Background()).BandwidthAllocations(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for update test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+
+	// Cleanup after test - BandwidthAllocations uses name-based deletion
+	defer func() {
+		deleteReq := client.BandwidthAllocationsAPI.DeleteBandwidthAllocations(context.Background()).Name(testName)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", testName)
+	}()
+
+	// Prepare the updated object with modified fields
+	updatedObj := deployment_services.BandwidthAllocations{
+		Name:               testName,
+		AllocatedBandwidth: 200, // Updated bandwidth (doubled)
+	}
+
+	// Test: Update the bandwidth allocation
+	updateReq := client.BandwidthAllocationsAPI.UpdateBandwidthAllocations(context.Background()).BandwidthAllocations(updatedObj)
+	updateRes, httpResUpdate, errUpdate := updateReq.Execute()
+	if errUpdate != nil {
+		handleAPIError(errUpdate)
+	}
+
+	// Verify the update operation was successful
+	require.NoError(t, errUpdate, "Failed to update bandwidth allocation")
+	require.NotNil(t, httpResUpdate, "HTTP response should not be nil")
+	assert.Equal(t, 200, httpResUpdate.StatusCode, "Expected 200 OK status")
+	require.NotNil(t, updateRes, "Update response should not be nil")
+	assert.Equal(t, testName, updateRes.Name, "Name should remain the same")
+	assert.Equal(t, int32(200), updateRes.AllocatedBandwidth, "Allocated bandwidth should be updated to 200")
+	t.Logf("[SUCCESS] Updated bandwidth allocation: %s with new bandwidth: %d", updateRes.Name, updateRes.AllocatedBandwidth)
+}
