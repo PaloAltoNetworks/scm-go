@@ -20,13 +20,12 @@ import (
 
 // Test_identity_services_OCSPRespondersAPIService_Create tests the creation of an OCSP responder.
 func Test_identity_services_OCSPRespondersAPIService_Create(t *testing.T) {
-	t.Skip("Create returns no model and List fails with deserialization error - cannot retrieve created object ID")
 	client := SetupIdentitySvcTestClient(t)
 	createdName := "test-ocsp-create-" + common.GenerateRandomString(6)
 
 	// define the OCSP responder
 	ocspResponder := identity_services.OcspResponders{
-		Folder:   common.StringPtr("All"),
+		Folder:   common.StringPtr("Prisma Access"),
 		Name:     createdName,
 		HostName: "ocsp.example.com",
 	}
@@ -42,34 +41,36 @@ func Test_identity_services_OCSPRespondersAPIService_Create(t *testing.T) {
 	require.NoError(t, err, "Failed to create OCSP Responder")
 	assert.Equal(t, 201, httpRes.StatusCode, "Expected 201 Created status")
 
-	// Get the created object to retrieve the ID
-	listRes, _, errList := client.OCSPRespondersAPI.ListOCSPResponders(context.Background()).Folder("All").Name(createdName).Execute()
-	require.NoError(t, errList, "Failed to list OCSP Responders after creation")
-	require.NotNil(t, listRes, "List response should not be nil")
-	require.Greater(t, len(listRes.Data), 0, "Should have at least one OCSP responder")
-
-	createdID := listRes.Data[0].Id
+	// Use Fetch to retrieve the created object (Create returns no model, List has deser issues)
+	fetchedObj, errFetch := client.OCSPRespondersAPI.FetchOCSPResponders(
+		context.Background(),
+		createdName,
+		common.StringPtr("Prisma Access"),
+		nil, nil,
+	)
+	require.NoError(t, errFetch, "Failed to fetch OCSP Responder after creation")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
 
 	defer func() {
-		t.Logf("Cleaning up OCSP Responder with ID: %s", createdID)
-		_, errDel := client.OCSPRespondersAPI.DeleteOCSPRespondersByID(context.Background(), createdID).Execute()
-		require.NoError(t, errDel, "Failed to delete OCSP Responder during cleanup")
+		t.Logf("Cleaning up OCSP Responder with ID: %s", fetchedObj.Id)
+		_, errDel := client.OCSPRespondersAPI.DeleteOCSPRespondersByID(context.Background(), fetchedObj.Id).Execute()
+		if errDel != nil {
+			t.Logf("Cleanup failed: %v", errDel)
+		}
 	}()
 
-	t.Logf("Successfully created OCSP Responder: %s with ID: %s", ocspResponder.Name, createdID)
-	assert.Equal(t, createdName, listRes.Data[0].Name, "Created OCSP responder name should match")
-	assert.Equal(t, "All", *listRes.Data[0].Folder, "Folder should match")
-	assert.Equal(t, "ocsp.example.com", listRes.Data[0].HostName, "Hostname should match")
+	t.Logf("Successfully created OCSP Responder: %s with ID: %s", createdName, fetchedObj.Id)
+	assert.Equal(t, createdName, fetchedObj.Name, "Created OCSP responder name should match")
+	assert.Equal(t, "ocsp.example.com", fetchedObj.HostName, "Hostname should match")
 }
 
 // Test_identity_services_OCSPRespondersAPIService_GetByID tests retrieving an OCSP responder by ID.
 func Test_identity_services_OCSPRespondersAPIService_GetByID(t *testing.T) {
-	t.Skip("Create returns no model and List fails with deserialization error - cannot retrieve created object ID")
 	client := SetupIdentitySvcTestClient(t)
 	ocspName := "test-ocsp-get-" + common.GenerateRandomString(6)
 
 	ocspResponder := identity_services.OcspResponders{
-		Folder:   common.StringPtr("All"),
+		Folder:   common.StringPtr("Prisma Access"),
 		Name:     ocspName,
 		HostName: "ocsp-get.example.com",
 	}
@@ -77,11 +78,13 @@ func Test_identity_services_OCSPRespondersAPIService_GetByID(t *testing.T) {
 	_, err := client.OCSPRespondersAPI.CreateOCSPResponders(context.Background()).OcspResponders(ocspResponder).Execute()
 	require.NoError(t, err, "Failed to create OCSP Responder for get test")
 
-	// Get the ID from list
-	listRes, _, errList := client.OCSPRespondersAPI.ListOCSPResponders(context.Background()).Folder("All").Name(ocspName).Execute()
-	require.NoError(t, errList, "Failed to list OCSP Responders")
-	require.Greater(t, len(listRes.Data), 0, "Should have at least one OCSP responder")
-	createdID := listRes.Data[0].Id
+	// Use Fetch to get the ID (Create returns no model, List has deser issues)
+	fetchedObj, errFetch := client.OCSPRespondersAPI.FetchOCSPResponders(
+		context.Background(), ocspName, common.StringPtr("Prisma Access"), nil, nil,
+	)
+	require.NoError(t, errFetch, "Failed to fetch OCSP Responder")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	createdID := fetchedObj.Id
 
 	defer func() {
 		client.OCSPRespondersAPI.DeleteOCSPRespondersByID(context.Background(), createdID).Execute()
@@ -96,12 +99,11 @@ func Test_identity_services_OCSPRespondersAPIService_GetByID(t *testing.T) {
 
 // Test_identity_services_OCSPRespondersAPIService_Update tests updating an existing OCSP responder.
 func Test_identity_services_OCSPRespondersAPIService_Update(t *testing.T) {
-	t.Skip("Create returns no model and List fails with deserialization error - cannot retrieve created object ID")
 	client := SetupIdentitySvcTestClient(t)
 	ocspName := "test-ocsp-update-" + common.GenerateRandomString(6)
 
 	ocspResponder := identity_services.OcspResponders{
-		Folder:   common.StringPtr("All"),
+		Folder:   common.StringPtr("Prisma Access"),
 		Name:     ocspName,
 		HostName: "ocsp-original.example.com",
 	}
@@ -109,11 +111,13 @@ func Test_identity_services_OCSPRespondersAPIService_Update(t *testing.T) {
 	_, err := client.OCSPRespondersAPI.CreateOCSPResponders(context.Background()).OcspResponders(ocspResponder).Execute()
 	require.NoError(t, err, "Failed to create OCSP Responder for update test")
 
-	// Get the ID from list
-	listRes, _, errList := client.OCSPRespondersAPI.ListOCSPResponders(context.Background()).Folder("All").Name(ocspName).Execute()
-	require.NoError(t, errList, "Failed to list OCSP Responders")
-	require.Greater(t, len(listRes.Data), 0, "Should have at least one OCSP responder")
-	createdID := listRes.Data[0].Id
+	// Use Fetch to get the ID (Create returns no model, List has deser issues)
+	fetchedObj, errFetch := client.OCSPRespondersAPI.FetchOCSPResponders(
+		context.Background(), ocspName, common.StringPtr("Prisma Access"), nil, nil,
+	)
+	require.NoError(t, errFetch, "Failed to fetch OCSP Responder")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	createdID := fetchedObj.Id
 
 	defer func() {
 		client.OCSPRespondersAPI.DeleteOCSPRespondersByID(context.Background(), createdID).Execute()
@@ -174,12 +178,11 @@ func Test_identity_services_OCSPRespondersAPIService_List(t *testing.T) {
 
 // Test_identity_services_OCSPRespondersAPIService_DeleteByID tests deleting an OCSP responder.
 func Test_identity_services_OCSPRespondersAPIService_DeleteByID(t *testing.T) {
-	t.Skip("Create returns no model and List fails with deserialization error - cannot retrieve created object ID")
 	client := SetupIdentitySvcTestClient(t)
 	ocspName := "test-ocsp-delete-" + common.GenerateRandomString(6)
 
 	ocspResponder := identity_services.OcspResponders{
-		Folder:   common.StringPtr("Shared"),
+		Folder:   common.StringPtr("Prisma Access"),
 		Name:     ocspName,
 		HostName: "ocsp-delete.example.com",
 	}
@@ -187,13 +190,14 @@ func Test_identity_services_OCSPRespondersAPIService_DeleteByID(t *testing.T) {
 	_, err := client.OCSPRespondersAPI.CreateOCSPResponders(context.Background()).OcspResponders(ocspResponder).Execute()
 	require.NoError(t, err, "Failed to create OCSP Responder for delete test")
 
-	// Get the ID from list
-	listRes, _, errList := client.OCSPRespondersAPI.ListOCSPResponders(context.Background()).Folder("Shared").Name(ocspName).Execute()
-	require.NoError(t, errList, "Failed to list OCSP Responders")
-	require.Greater(t, len(listRes.Data), 0, "Should have at least one OCSP responder")
-	createdID := listRes.Data[0].Id
+	// Use Fetch to get the ID (Create returns no model, List has deser issues)
+	fetchedObj, errFetch := client.OCSPRespondersAPI.FetchOCSPResponders(
+		context.Background(), ocspName, common.StringPtr("Prisma Access"), nil, nil,
+	)
+	require.NoError(t, errFetch, "Failed to fetch OCSP Responder")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
 
-	httpResDel, errDel := client.OCSPRespondersAPI.DeleteOCSPRespondersByID(context.Background(), createdID).Execute()
+	httpResDel, errDel := client.OCSPRespondersAPI.DeleteOCSPRespondersByID(context.Background(), fetchedObj.Id).Execute()
 	require.NoError(t, errDel, "Failed to delete OCSP Responder")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 }

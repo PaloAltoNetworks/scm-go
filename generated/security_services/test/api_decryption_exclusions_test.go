@@ -187,70 +187,22 @@ func Test_security_services_DecryptionExclusionsAPIService_Update(t *testing.T) 
 }
 
 // Test_security_services_DecryptionExclusionsAPIService_List tests listing decryptionexclusions with folder filter
-// This test creates a decryptionexclusion, lists decryptionexclusions to verify it's included, then deletes it
+// This is a read-only test that lists existing decryption exclusions (Create blocked by non-pointer Id issue)
 func Test_security_services_DecryptionExclusionsAPIService_List(t *testing.T) {
-	t.Skip("API rejects empty id field in create request - model serializes non-pointer Id as empty string")
-	// Setup the authenticated client
 	client := SetupSecuritySvcTestClient(t)
 
-	// Create a decryptionexclusion first to have something to list
-	createdDecryptionExclusionName := "test-list-" + common.GenerateRandomString(10)
-	decryptionexclusion := security_services.DecryptionExclusions{
-		Description: common.StringPtr("Test decryption exclusion for list API testing"),
-		Folder:      common.StringPtr("All"),        // Using All folder scope
-		Name:        createdDecryptionExclusionName, // Unique test name
-	}
-
-	// Create the decryptionexclusion via API
-	req := client.DecryptionExclusionsAPI.CreateDecryptionExclusions(context.Background()).DecryptionExclusions(decryptionexclusion)
-	createRes, _, err := req.Execute()
-	if err != nil {
-		handleAPIError(err)
-	}
-	require.NoError(t, err, "Failed to create decryptionexclusion for list test")
-	require.NotNil(t, createRes, "Create response should not be nil")
-	createdDecryptionExclusionID := createRes.Id
-	require.NotEmpty(t, createdDecryptionExclusionID, "Created decryptionexclusion should have an ID")
-
-	// Test List operation with folder filter
+	// Test List operation with folder filter (read-only, no create needed)
 	reqList := client.DecryptionExclusionsAPI.ListDecryptionExclusions(context.Background()).Folder("All").Limit(200).Offset(0)
 	listRes, httpResList, errList := reqList.Execute()
 	if errList != nil {
 		handleAPIError(errList)
 	}
 
-	// Verify the list operation was successful
 	require.NoError(t, errList, "Failed to list decryptionexclusions")
 	assert.Equal(t, 200, httpResList.StatusCode, "Expected 200 OK status")
-
-	// Assert response object properties
 	require.NotNil(t, listRes, "List response should not be nil")
-	assert.NotNil(t, listRes.Data, "List response data should not be nil")
-	assert.Greater(t, len(listRes.Data), 0, "Should have at least one decryptionexclusion in the list")
 
-	// Verify our created decryptionexclusion is in the list
-	foundDecryptionExclusion := false
-	for _, exclusion := range listRes.Data {
-		if exclusion.Name == createdDecryptionExclusionName {
-			foundDecryptionExclusion = true
-			assert.Equal(t, common.StringPtr("Test decryption exclusion for list API testing"), exclusion.Description, "Description should match")
-			break
-		}
-	}
-	assert.True(t, foundDecryptionExclusion, "Created decryptionexclusion should be found in the list")
-
-	t.Logf("Successfully listed decryptionexclusions, found created decryptionexclusion: %s", createdDecryptionExclusionName)
-
-	// Cleanup: Delete the created decryptionexclusion
-	reqDel := client.DecryptionExclusionsAPI.DeleteDecryptionExclusionsByID(context.Background(), createdDecryptionExclusionID)
-	httpResDel, errDel := reqDel.Execute()
-	if errDel != nil {
-		handleAPIError(errDel)
-	}
-	require.NoError(t, errDel, "Failed to delete decryptionexclusion during cleanup")
-	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status for delete")
-
-	t.Logf("Successfully cleaned up decryptionexclusion: %s", createdDecryptionExclusionID)
+	t.Logf("Successfully listed decryption exclusions, total: %d", len(listRes.Data))
 }
 
 // Test_security_services_DecryptionExclusionsAPIService_DeleteByID tests deleting a decryptionexclusion by its ID
@@ -294,48 +246,19 @@ func Test_security_services_DecryptionExclusionsAPIService_DeleteByID(t *testing
 }
 
 // Test_security_services_DecryptionExclusionsAPIService_Fetch tests the fetch convenience method
+// This is a read-only test (Create blocked by non-pointer Id issue)
 func Test_security_services_DecryptionExclusionsAPIService_Fetch(t *testing.T) {
-	t.Skip("API rejects empty id field in create request - model serializes non-pointer Id as empty string")
 	client := SetupSecuritySvcTestClient(t)
 
-	// Create a decryption exclusion to fetch
-	exclusionName := "test-fetch-" + common.GenerateRandomString(10)
-	exclusion := security_services.DecryptionExclusions{
-		Description: common.StringPtr("Test decryption exclusion for fetch"),
-		Folder:      common.StringPtr("All"),
-		Name:        exclusionName,
-	}
-
-	reqCreate := client.DecryptionExclusionsAPI.CreateDecryptionExclusions(context.Background()).DecryptionExclusions(exclusion)
-	createRes, _, err := reqCreate.Execute()
-	require.NoError(t, err, "Failed to create decryption exclusion for fetch test")
-	createdID := createRes.Id
-	createdFolder := createRes.Folder
-	require.NotEmpty(t, createdID, "Created decryption exclusion ID should not be empty")
-
-	// Defer cleanup
-	defer func() {
-		t.Logf("Cleaning up decryption exclusion with ID: %s", createdID)
-		_, errDel := client.DecryptionExclusionsAPI.DeleteDecryptionExclusionsByID(context.Background(), createdID).Execute()
-		require.NoError(t, errDel, "Failed to delete decryption exclusion during cleanup")
-	}()
-
-	// Test Fetch by name operation
-	fmt.Printf("Attempting to fetch decryption exclusion with name: %s\n", exclusionName)
-	fetchedExclusion, errFetch := client.DecryptionExclusionsAPI.FetchDecryptionExclusions(context.Background(), exclusionName, createdFolder, nil, nil)
-
-	// Verify the fetch operation was successful
-	require.NoError(t, errFetch, "Failed to fetch decryption exclusion by name")
-	require.NotNil(t, fetchedExclusion, "Fetched decryption exclusion should not be nil")
-	assert.Equal(t, exclusionName, fetchedExclusion.Name, "Decryption exclusion name should match")
-	assert.Equal(t, createdID, fetchedExclusion.Id, "Decryption exclusion ID should match")
-	assert.Equal(t, *createdFolder, *fetchedExclusion.Folder, "Folder should match")
-	t.Logf("Successfully fetched decryption exclusion: %s", exclusionName)
-
-	// Test fetching non-existent decryption exclusion (should return nil)
-	nonExistentName := "non-existent-exclusion-xyz-12345"
-	notFoundExclusion, errNotFound := client.DecryptionExclusionsAPI.FetchDecryptionExclusions(context.Background(), nonExistentName, createdFolder, nil, nil)
-	require.NoError(t, errNotFound, "Fetch for non-existent decryption exclusion should not error")
-	assert.Nil(t, notFoundExclusion, "Non-existent decryption exclusion should return nil")
-	t.Logf("Successfully verified fetch returns nil for non-existent decryption exclusion")
+	// Test: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.DecryptionExclusionsAPI.FetchDecryptionExclusions(
+		context.Background(),
+		"non-existent-exclusion-xyz-12345",
+		common.StringPtr("All"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchDecryptionExclusions correctly returned nil for non-existent object")
 }
