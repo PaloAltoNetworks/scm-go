@@ -10136,7 +10136,7 @@ components:
         anti_replay: true
         tunnel_monitor:
           destination_ip: destination_ip
-          enable: true
+          enable: false
           proxy_id: proxy_id
         name: name
         auto_key:
@@ -21953,14 +21953,14 @@ components:
     ipsec_tunnels_tunnel_monitor:
       example:
         destination_ip: destination_ip
-        enable: true
+        enable: false
         proxy_id: proxy_id
       properties:
         destination_ip:
           description: Destination IP to send ICMP probe
           type: string
         enable:
-          default: true
+          default: false
           description: Enable tunnel monitoring on this tunnel
           type: boolean
         proxy_id:
