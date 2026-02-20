@@ -112,10 +112,19 @@ func Test_identity_services_LocalUserGroupsAPIService_Update(t *testing.T) {
 		t.Logf("Cleaned up test object: %s", createdID)
 	}()
 
-	// Note: LocalUserGroups Update test requires existing LocalUsers to add to the group.
-	// Since LocalUsers API has known issues (rejects empty Id field), this test is skipped.
-	// The Update API works, but requires prerequisite user creation.
-	t.Skip("LocalUserGroups Update test requires existing LocalUsers which have API creation issues")
+	// Update the group (no-op update to verify API endpoint works)
+	updatedObj := identity_services.LocalUserGroups{
+		Name:   testName,
+		Folder: common.StringPtr("Prisma Access"),
+	}
+
+	updateReq := client.LocalUserGroupsAPI.UpdateLocalUserGroupsByID(context.Background(), createdID).LocalUserGroups(updatedObj)
+	updateRes, httpResUpdate, errUpdate := updateReq.Execute()
+	require.NoError(t, errUpdate, "Failed to update local user group")
+	assert.Equal(t, 200, httpResUpdate.StatusCode, "Expected 200 OK status")
+	require.NotNil(t, updateRes, "Update response should not be nil")
+	assert.Equal(t, testName, updateRes.Name, "Name should match after update")
+	t.Logf("[SUCCESS] Updated local user group: %s", createdID)
 }
 
 // Test_identity_services_LocalUserGroupsAPIService_List tests listing local user groups

@@ -129,7 +129,7 @@ func Test_config_setup_LabelsAPIService_GetByID(t *testing.T) {
 
 // Test_config_setup_LabelsAPIService_Update tests updating an existing label
 func Test_config_setup_LabelsAPIService_Update(t *testing.T) {
-	t.Skip("API returns array in update response but model expects object - model deserialization error")
+	t.Skip("API returns array in update response but model expects object - model deserialization error. Cannot fix via spec change without breaking Terraform backwards compatibility.")
 	// Setup the authenticated client
 	client := SetupConfigSvcTestClient(t)
 

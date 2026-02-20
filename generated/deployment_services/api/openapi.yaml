@@ -5565,7 +5565,6 @@ components:
             type: string
           type: array
       required:
-      - folder
       - id
       - name
       - service

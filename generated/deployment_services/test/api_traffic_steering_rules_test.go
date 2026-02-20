@@ -36,7 +36,7 @@ func Test_deployment_services_TrafficSteeringRulesAPIService_Create(t *testing.T
 
 	rule := deployment_services.TrafficSteeringRules{
 		Name:    ruleName,
-		Folder:  "Service Connections",
+		Folder:  common.StringPtr("Service Connections"),
 		Id:      "", // Will be populated by API
 		Service: []string{"any"},
 		Source:  []string{"any"},
@@ -70,7 +70,8 @@ func Test_deployment_services_TrafficSteeringRulesAPIService_Create(t *testing.T
 
 	// Assert response object properties.
 	assert.Equal(t, ruleName, res.Name, "Created traffic steering rule name should match")
-	assert.Equal(t, "Service Connections", res.Folder, "Folder should match")
+	require.NotNil(t, res.Folder, "Folder should not be nil")
+	assert.Equal(t, "Service Connections", *res.Folder, "Folder should match")
 	t.Logf("Successfully created and validated Traffic Steering Rule: %s with ID: %s", rule.Name, createdRuleID)
 }
 
@@ -91,7 +92,7 @@ func Test_deployment_services_TrafficSteeringRulesAPIService_GetByID(t *testing.
 
 	rule := deployment_services.TrafficSteeringRules{
 		Name:    ruleName,
-		Folder:  "Service Connections",
+		Folder:  common.StringPtr("Service Connections"),
 		Id:      "", // Will be populated by API
 		Service: []string{"any"},
 		Source:  []string{"any"},
@@ -106,7 +107,6 @@ func Test_deployment_services_TrafficSteeringRulesAPIService_GetByID(t *testing.
 	}()
 
 	// Test Get by ID operation.
-	t.Skip("GetByID response missing required folder property - SDK model validation error")
 	getRes, httpResGet, errGet := depSvcClient.TrafficSteeringRulesAPI.GetTrafficSteeringRulesByID(context.Background(), createdRuleID).Execute()
 	require.NoError(t, errGet, "Failed to get traffic steering rule by ID")
 	assert.Equal(t, 200, httpResGet.StatusCode, "Expected 200 OK status")
@@ -132,7 +132,7 @@ func Test_deployment_services_TrafficSteeringRulesAPIService_Update(t *testing.T
 
 	rule := deployment_services.TrafficSteeringRules{
 		Name:    ruleName,
-		Folder:  "Service Connections",
+		Folder:  common.StringPtr("Service Connections"),
 		Id:      "", // Will be populated by API
 		Service: []string{"any"},
 		Source:  []string{"any"},
@@ -148,7 +148,7 @@ func Test_deployment_services_TrafficSteeringRulesAPIService_Update(t *testing.T
 	// Define the update payload with modified destination.
 	updatedRule := deployment_services.TrafficSteeringRules{
 		Name:        ruleName,
-		Folder:      "Service Connections",
+		Folder:      common.StringPtr("Service Connections"),
 		Id:          createdRuleID,
 		Service:     []string{"any"},
 		Source:      []string{"any"},
@@ -181,7 +181,7 @@ func Test_deployment_services_TrafficSteeringRulesAPIService_List(t *testing.T) 
 
 	rule := deployment_services.TrafficSteeringRules{
 		Name:    ruleName,
-		Folder:  "Service Connections",
+		Folder:  common.StringPtr("Service Connections"),
 		Id:      "", // Will be populated by API
 		Service: []string{"any"},
 		Source:  []string{"any"},
@@ -228,7 +228,7 @@ func Test_deployment_services_TrafficSteeringRulesAPIService_DeleteByID(t *testi
 
 	rule := deployment_services.TrafficSteeringRules{
 		Name:    ruleName,
-		Folder:  "Service Connections",
+		Folder:  common.StringPtr("Service Connections"),
 		Id:      "", // Will be populated by API
 		Service: []string{"any"},
 		Source:  []string{"any"},
@@ -261,7 +261,7 @@ func Test_deployment_services_TrafficSteeringRulesAPIService_FetchTrafficSteerin
 
 	testObj := deployment_services.TrafficSteeringRules{
 		Name:    testName,
-		Folder:  "Service Connections",
+		Folder:  common.StringPtr("Service Connections"),
 		Id:      "", // Will be populated by API
 		Service: []string{"any"},
 		Source:  []string{"any"},
