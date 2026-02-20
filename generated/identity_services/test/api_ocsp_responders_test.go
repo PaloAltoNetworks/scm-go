@@ -138,7 +138,6 @@ func Test_identity_services_OCSPRespondersAPIService_Update(t *testing.T) {
 
 // Test_identity_services_OCSPRespondersAPIService_List tests listing OCSP responders.
 func Test_identity_services_OCSPRespondersAPIService_List(t *testing.T) {
-	t.Skip("List response fails with deserialization error - no value given for required property data")
 	client := SetupIdentitySvcTestClient(t)
 	ocspName := "test-ocsp-list-" + common.GenerateRandomString(6)
 
@@ -151,11 +150,13 @@ func Test_identity_services_OCSPRespondersAPIService_List(t *testing.T) {
 	_, err := client.OCSPRespondersAPI.CreateOCSPResponders(context.Background()).OcspResponders(ocspResponder).Execute()
 	require.NoError(t, err, "Failed to create OCSP Responder for list test")
 
-	// Get the ID from list for cleanup
-	listRes, _, errList := client.OCSPRespondersAPI.ListOCSPResponders(context.Background()).Folder("Shared").Name(ocspName).Execute()
-	require.NoError(t, errList, "Failed to list OCSP Responders")
-	require.Greater(t, len(listRes.Data), 0, "Should have at least one OCSP responder")
-	createdID := listRes.Data[0].Id
+	// Get the ID via Fetch for cleanup (List without Limit returns bare array)
+	fetchedObj, errFetch := client.OCSPRespondersAPI.FetchOCSPResponders(
+		context.Background(), ocspName, common.StringPtr("Shared"), nil, nil,
+	)
+	require.NoError(t, errFetch, "Failed to fetch OCSP Responder for list test")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	createdID := fetchedObj.Id
 
 	defer func() {
 		client.OCSPRespondersAPI.DeleteOCSPRespondersByID(context.Background(), createdID).Execute()
