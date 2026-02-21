@@ -56,6 +56,9 @@ jobs:
           }
           EOF
 
+      - name: Disable Go test annotations
+        run: echo "::remove-matcher owner=go::"
+
       - name: Run tests for ${{ matrix.service }}
         run: |
           set +e
