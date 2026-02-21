@@ -121,6 +121,7 @@ jobs:
 
           # Write detailed markdown to file (NOT to GITHUB_STEP_SUMMARY)
           with open('test-detail-${{ matrix.service }}.md', 'w') as f:
+              f.write(f'<a name="${{ matrix.service }}"></a>\n\n')
               f.write(f"## ${{ matrix.service }}\n\n")
               f.write(f"**{len(passed)} passed, {len(failed)} failed, {len(skipped)} skipped**\n\n")
 
@@ -248,7 +249,7 @@ jobs:
               status = "PASS" if pkg['failed'] == 0 else "FAIL"
               anchor = pkg['package']
               summary.append(
-                  f"| [`{pkg['package']}`](#{anchor}) | {pkg['passed']} | {pkg['failed']} | "
+                  f"| [`{pkg['package']}`](#user-content-{anchor}) | {pkg['passed']} | {pkg['failed']} | "
                   f"{pkg['skipped']} | {pkg['total']} | {status} |"
               )
 
