@@ -362,6 +362,12 @@ jobs:
           PYTHON
           python3 generate_summary.py
 
+      - name: Clean up intermediate artifacts
+        if: always()
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: test-stats-*
+
       - name: Propagate failure
         if: needs.test.result == 'failure'
         run: exit 1
