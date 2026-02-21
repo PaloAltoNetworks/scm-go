@@ -37,6 +37,11 @@ jobs:
           go-version: '1.24.0'
           cache: true
 
+      - name: Disable test annotations
+        run: |
+          echo "::remove-matcher owner=go::"
+          echo "::remove-matcher owner=go-test::"
+
       - name: Download dependencies
         run: go mod download
 
@@ -56,9 +61,6 @@ jobs:
           }
           EOF
 
-      - name: Disable Go test annotations
-        run: echo "::remove-matcher owner=go::"
-
       - name: Run tests for ${{ matrix.service }}
         run: |
           set +e
@@ -67,7 +69,7 @@ jobs:
           go test -timeout 60m -parallel 10 -v -json -skip "Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/... > test-output.json 2>&1
           exit_code=$?
 
-          # Parse JSON output and create summary with failure logs
+          # Parse JSON output and create detailed markdown summary
           cat > parse_tests.py << 'PYTHON'
           import json
           import sys
@@ -112,19 +114,18 @@ jobs:
           print(f"\n{'='*60}")
           print(f"Test Results: ${{ matrix.service }}")
           print(f"{'='*60}")
-          print(f"✅ Passed: {len(passed)}")
-          print(f"❌ Failed: {len(failed)}")
-          print(f"⏭️  Skipped: {len(skipped)}")
+          print(f"Passed: {len(passed)}")
+          print(f"Failed: {len(failed)}")
+          print(f"Skipped: {len(skipped)}")
           print(f"{'='*60}\n")
 
-          # Write to GITHUB_STEP_SUMMARY
-          summary_file = sys.argv[1] if len(sys.argv) > 1 else '/dev/stdout'
-          with open(summary_file, 'a') as f:
-              f.write(f"## Test Results: ${{ matrix.service }}\n\n")
-              f.write(f"**Summary:** {len(passed)} passed ✅, {len(failed)} failed ❌, {len(skipped)} skipped ⏭️\n\n")
+          # Write detailed markdown to file (NOT to GITHUB_STEP_SUMMARY)
+          with open('test-detail-${{ matrix.service }}.md', 'w') as f:
+              f.write(f"## ${{ matrix.service }}\n\n")
+              f.write(f"**{len(passed)} passed, {len(failed)} failed, {len(skipped)} skipped**\n\n")
 
               if failed:
-                  f.write("### ❌ Failed Tests\n\n")
+                  f.write("### Failed Tests\n\n")
                   for test, elapsed in failed:
                       f.write(f"#### `{test}` ({elapsed:.2f}s)\n\n")
 
@@ -134,18 +135,16 @@ jobs:
                           # Find relevant error messages
                           error_lines = []
                           for i, line in enumerate(output):
-                              # Capture lines with errors, failures, or important context
                               if any(keyword in line for keyword in ['Error:', 'FAIL:', 'panic:', '504 Gateway Timeout', 'expected', 'actual']):
-                                  # Include context (previous 2 lines and next 5 lines)
                                   start = max(0, i - 2)
                                   end = min(len(output), i + 6)
                                   error_lines.extend(output[start:end])
                                   break
 
                           if error_lines:
-                              f.write("<details>\n<summary>📋 Error Details</summary>\n\n")
+                              f.write("<details>\n<summary>Error Details</summary>\n\n")
                               f.write("```\n")
-                              f.write('\n'.join(error_lines[-20:]))  # Last 20 lines to avoid huge output
+                              f.write('\n'.join(error_lines[-20:]))
                               f.write("\n```\n")
                               f.write("</details>\n\n")
                           else:
@@ -154,8 +153,7 @@ jobs:
                       f.write("---\n\n")
 
               if passed:
-                  f.write("### ✅ Passed Tests\n\n")
-                  f.write("<details>\n<summary>Click to expand ({} tests)</summary>\n\n".format(len(passed)))
+                  f.write("<details>\n<summary>Passed Tests ({} tests)</summary>\n\n".format(len(passed)))
                   f.write("| Test Name | Duration |\n")
                   f.write("|-----------|----------|\n")
                   for test, elapsed in passed:
@@ -163,82 +161,43 @@ jobs:
                   f.write("\n</details>\n\n")
 
               if skipped:
-                  f.write("### ⏭️ Skipped Tests\n\n")
-                  f.write("<details>\n<summary>Click to expand ({} tests)</summary>\n\n".format(len(skipped)))
+                  f.write("<details>\n<summary>Skipped Tests ({} tests)</summary>\n\n".format(len(skipped)))
                   f.write("| Test Name |\n")
                   f.write("|-----------|\n")
                   for test in skipped:
                       f.write(f"| `{test}` |\n")
                   f.write("\n</details>\n\n")
+
+          # Write stats JSON for the unified summary table
+          stats = {
+              "package": "${{ matrix.service }}",
+              "passed": len(passed),
+              "failed": len(failed),
+              "skipped": len(skipped),
+              "total": len(passed) + len(failed) + len(skipped)
+          }
+          with open('test-stats-${{ matrix.service }}.json', 'w') as f:
+              json.dump(stats, f, indent=2)
           PYTHON
 
-          python3 parse_tests.py "$GITHUB_STEP_SUMMARY"
+          python3 parse_tests.py
 
           if [ $exit_code -ne 0 ]; then
-            echo "❌ Tests failed for ${{ matrix.service }}"
+            echo "Tests failed for ${{ matrix.service }}"
             exit $exit_code
           else
-            echo "✅ All tests passed for ${{ matrix.service }}"
+            echo "All tests passed for ${{ matrix.service }}"
           fi
         timeout-minutes: 30
 
-      - name: Save test statistics
-        if: always()
-        run: |
-          cat > extract_stats.py << 'PYTHON'
-          import json, sys
-
-          passed = 0
-          failed = 0
-          skipped = 0
-          tests = {}
-
-          with open('test-output.json', 'r') as f:
-              for line in f:
-                  try:
-                      data = json.loads(line)
-                      action = data.get('Action')
-                      test_name = data.get('Test', '')
-                      if not test_name:
-                          continue
-                      if action == 'pass':
-                          tests[test_name] = 'pass'
-                      elif action == 'fail':
-                          tests[test_name] = 'fail'
-                      elif action == 'skip':
-                          tests[test_name] = 'skip'
-                  except:
-                      pass
-
-          for status in tests.values():
-              if status == 'pass':
-                  passed += 1
-              elif status == 'fail':
-                  failed += 1
-              elif status == 'skip':
-                  skipped += 1
-
-          stats = {
-              "package": "${{ matrix.service }}",
-              "passed": passed,
-              "failed": failed,
-              "skipped": skipped,
-              "total": passed + failed + skipped
-          }
-
-          with open('test-stats-${{ matrix.service }}.json', 'w') as f:
-              json.dump(stats, f, indent=2)
-
-          print(f"Stats saved: {stats}")
-          PYTHON
-          python3 extract_stats.py
-
-      - name: Upload test statistics
+      - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-stats-${{ matrix.service }}
-          path: test-stats-${{ matrix.service }}.json
+          name: test-results-${{ matrix.service }}
+          path: |
+            test-stats-${{ matrix.service }}.json
+            test-detail-${{ matrix.service }}.md
           retention-days: 1
 
   summary:
@@ -250,19 +209,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download all test statistics
+      - name: Download all test results
         uses: actions/download-artifact@v4
         with:
-          pattern: test-stats-*
-          path: test-stats
+          pattern: test-results-*
+          path: test-results
 
       - name: Generate unified summary
         run: |
           cat > generate_summary.py << 'PYTHON'
           import json, os, glob, re
 
-          # ── Part 1: Unified test results table ──
-          stats_files = sorted(glob.glob('test-stats/test-stats-*/test-stats-*.json'))
+          summary = []
+
+          # ── Part 1: Unified results table (TOP) ──
+          stats_files = sorted(glob.glob('test-results/test-results-*/test-stats-*.json'))
           packages = []
           total_passed = 0
           total_failed = 0
@@ -278,27 +239,36 @@ jobs:
                   total_skipped += data['skipped']
                   total_tests += data['total']
 
-          summary = []
           summary.append("# Test Summary\n")
           summary.append("## Results by Package\n")
           summary.append("| Package | Passed | Failed | Skipped | Total | Status |")
           summary.append("|---------|--------|--------|---------|-------|--------|")
 
           for pkg in packages:
-              status = "✅" if pkg['failed'] == 0 else "❌"
+              status = "PASS" if pkg['failed'] == 0 else "FAIL"
               summary.append(
                   f"| `{pkg['package']}` | {pkg['passed']} | {pkg['failed']} | "
                   f"{pkg['skipped']} | {pkg['total']} | {status} |"
               )
 
-          overall_status = "✅ All Passing" if total_failed == 0 else f"❌ {total_failed} Failures"
+          overall_status = "All Passing" if total_failed == 0 else f"{total_failed} Failures"
           summary.append(
               f"| **Total** | **{total_passed}** | **{total_failed}** | "
               f"**{total_skipped}** | **{total_tests}** | **{overall_status}** |"
           )
           summary.append("")
 
-          # ── Part 2: Missing test coverage scan ──
+          # ── Part 2: Per-package details (MIDDLE) ──
+          summary.append("---\n")
+          summary.append("## Package Details\n")
+
+          detail_files = sorted(glob.glob('test-results/test-results-*/test-detail-*.md'))
+          for f in detail_files:
+              with open(f) as fh:
+                  summary.append(fh.read())
+
+          # ── Part 3: Missing test coverage (BOTTOM) ──
+          summary.append("---\n")
           summary.append("## Test Coverage Gaps\n")
 
           missing_any = False
@@ -310,7 +280,6 @@ jobs:
               test_dir = os.path.join(pkg_dir, 'test')
               test_files = glob.glob(os.path.join(test_dir, 'api_*_test.go')) if os.path.isdir(test_dir) else []
 
-              # Skip non-API files
               skip_names = {'api_client.go', 'api_default.go'}
 
               api_names = set()
@@ -318,14 +287,12 @@ jobs:
                   base = os.path.basename(af)
                   if base in skip_names:
                       continue
-                  # api_addresses.go → addresses
                   name = base.replace('api_', '').replace('.go', '')
                   api_names.add(name)
 
               test_names = set()
               for tf in test_files:
                   base = os.path.basename(tf)
-                  # api_addresses_test.go → addresses
                   name = base.replace('api_', '').replace('_test.go', '')
                   test_names.add(name)
 
@@ -333,7 +300,6 @@ jobs:
               if missing:
                   missing_any = True
                   for m in sorted(missing):
-                      # Check which methods the API has
                       api_path = os.path.join(pkg_dir, f'api_{m}.go')
                       methods = []
                       if os.path.exists(api_path):
@@ -351,7 +317,7 @@ jobs:
               summary.append("|---------|-----|-------------------|")
               summary.extend(coverage_rows)
           else:
-              summary.append("All API implementations have corresponding test files. ✅")
+              summary.append("All API implementations have corresponding test files.")
 
           summary.append("")
 
@@ -360,7 +326,6 @@ jobs:
           with open(summary_path, 'w') as f:
               f.write('\n'.join(summary) + '\n')
 
-          # Also print to console
           print('\n'.join(summary))
           PYTHON
           python3 generate_summary.py
@@ -369,7 +334,7 @@ jobs:
         if: always()
         uses: geekyeggo/delete-artifact@v5
         with:
-          name: test-stats-*
+          name: test-results-*
 
       - name: Propagate failure
         if: needs.test.result == 'failure'
