@@ -10503,7 +10503,7 @@ components:
           type: string
         comments:
           description: Description of the link tag
-          maxLength: 0
+          maxLength: 1024
           type: string
         device:
           description: The device in which the resource is defined
@@ -16095,13 +16095,13 @@ components:
             - name: 9607
               action: deny
               community:
-              - blackhole
-              - blackhole
+              - community
+              - community
             - name: 9607
               action: deny
               community:
-              - blackhole
-              - blackhole
+              - community
+              - community
         device: My Device
       properties:
         description:
@@ -33182,7 +33182,7 @@ components:
         key:
           description: MD5 hash
           format: password
-          maxLength: 16
+          maxLength: 256
           type: string
         name:
           description: Key ID
@@ -33839,8 +33839,8 @@ components:
         name: 9607
         action: deny
         community:
-        - blackhole
-        - blackhole
+        - community
+        - community
       properties:
         action:
           description: Action
@@ -33851,18 +33851,7 @@ components:
         community:
           description: Communities
           items:
-            description: Community
-            enum:
-            - blackhole
-            - no-peer
-            - graceful-shutdown
-            - accept-own
-            - local-as
-            - route-filter-v4
-            - route-filter-v6
-            - no-advertise
-            - no-export
-            - internet
+            description: Community value (well-known name or ASN:value format)
             type: string
           type: array
         name:
@@ -33876,13 +33865,13 @@ components:
         - name: 9607
           action: deny
           community:
-          - blackhole
-          - blackhole
+          - community
+          - community
         - name: 9607
           action: deny
           community:
-          - blackhole
-          - blackhole
+          - community
+          - community
       properties:
         regular_entry:
           description: Regular community lists
@@ -33932,13 +33921,13 @@ components:
           - name: 9607
             action: deny
             community:
-            - blackhole
-            - blackhole
+            - community
+            - community
           - name: 9607
             action: deny
             community:
-            - blackhole
-            - blackhole
+            - community
+            - community
       properties:
         extended:
           $ref: '#/components/schemas/route_community_lists_type_extended'

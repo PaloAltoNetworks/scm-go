@@ -12620,14 +12620,7 @@ components:
             type: string
           type: array
       required:
-      - application
-      - destination
-      - from
       - name
-      - port
-      - protocol
-      - source
-      - to
       type: object
     base-rule-properties:
       properties:

@@ -28,15 +28,15 @@ type ConfigVersion struct {
 	Date        time.Time `json:"date"`
 	Deleted     float32   `json:"deleted"`
 	Description string    `json:"description"`
-	EditedBy    string    `json:"edited_by"`
+	EditedBy    *string   `json:"edited_by,omitempty"`
 	// The configuration version
-	Id              int32  `json:"id"`
-	ImpactedDevices string `json:"impacted_devices"`
+	Id              int32   `json:"id"`
+	ImpactedDevices *string `json:"impacted_devices,omitempty"`
 	// A comma separated list of firewall serial numbers
 	NgfwScope *string `json:"ngfw_scope,omitempty"`
 	Scope     string  `json:"scope"`
 	SwgConfig *string `json:"swg_config,omitempty"`
-	Types     string  `json:"types"`
+	Types     *string `json:"types,omitempty"`
 	Updated   float32 `json:"updated"`
 	// The configuration version name
 	Version              string `json:"version"`
@@ -49,18 +49,15 @@ type _ConfigVersion ConfigVersion
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewConfigVersion(admin string, created float32, date time.Time, deleted float32, description string, editedBy string, id int32, impactedDevices string, scope string, types string, updated float32, version string) *ConfigVersion {
+func NewConfigVersion(admin string, created float32, date time.Time, deleted float32, description string, id int32, scope string, updated float32, version string) *ConfigVersion {
 	this := ConfigVersion{}
 	this.Admin = admin
 	this.Created = created
 	this.Date = date
 	this.Deleted = deleted
 	this.Description = description
-	this.EditedBy = editedBy
 	this.Id = id
-	this.ImpactedDevices = impactedDevices
 	this.Scope = scope
-	this.Types = types
 	this.Updated = updated
 	this.Version = version
 	return &this
@@ -194,28 +191,36 @@ func (o *ConfigVersion) SetDescription(v string) {
 	o.Description = v
 }
 
-// GetEditedBy returns the EditedBy field value
+// GetEditedBy returns the EditedBy field value if set, zero value otherwise.
 func (o *ConfigVersion) GetEditedBy() string {
-	if o == nil {
+	if o == nil || IsNil(o.EditedBy) {
 		var ret string
 		return ret
 	}
-
-	return o.EditedBy
+	return *o.EditedBy
 }
 
-// GetEditedByOk returns a tuple with the EditedBy field value
+// GetEditedByOk returns a tuple with the EditedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigVersion) GetEditedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.EditedBy) {
 		return nil, false
 	}
-	return &o.EditedBy, true
+	return o.EditedBy, true
 }
 
-// SetEditedBy sets field value
+// HasEditedBy returns a boolean if a field has been set.
+func (o *ConfigVersion) HasEditedBy() bool {
+	if o != nil && !IsNil(o.EditedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetEditedBy gets a reference to the given string and assigns it to the EditedBy field.
 func (o *ConfigVersion) SetEditedBy(v string) {
-	o.EditedBy = v
+	o.EditedBy = &v
 }
 
 // GetId returns the Id field value
@@ -242,28 +247,36 @@ func (o *ConfigVersion) SetId(v int32) {
 	o.Id = v
 }
 
-// GetImpactedDevices returns the ImpactedDevices field value
+// GetImpactedDevices returns the ImpactedDevices field value if set, zero value otherwise.
 func (o *ConfigVersion) GetImpactedDevices() string {
-	if o == nil {
+	if o == nil || IsNil(o.ImpactedDevices) {
 		var ret string
 		return ret
 	}
-
-	return o.ImpactedDevices
+	return *o.ImpactedDevices
 }
 
-// GetImpactedDevicesOk returns a tuple with the ImpactedDevices field value
+// GetImpactedDevicesOk returns a tuple with the ImpactedDevices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigVersion) GetImpactedDevicesOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ImpactedDevices) {
 		return nil, false
 	}
-	return &o.ImpactedDevices, true
+	return o.ImpactedDevices, true
 }
 
-// SetImpactedDevices sets field value
+// HasImpactedDevices returns a boolean if a field has been set.
+func (o *ConfigVersion) HasImpactedDevices() bool {
+	if o != nil && !IsNil(o.ImpactedDevices) {
+		return true
+	}
+
+	return false
+}
+
+// SetImpactedDevices gets a reference to the given string and assigns it to the ImpactedDevices field.
 func (o *ConfigVersion) SetImpactedDevices(v string) {
-	o.ImpactedDevices = v
+	o.ImpactedDevices = &v
 }
 
 // GetNgfwScope returns the NgfwScope field value if set, zero value otherwise.
@@ -354,28 +367,36 @@ func (o *ConfigVersion) SetSwgConfig(v string) {
 	o.SwgConfig = &v
 }
 
-// GetTypes returns the Types field value
+// GetTypes returns the Types field value if set, zero value otherwise.
 func (o *ConfigVersion) GetTypes() string {
-	if o == nil {
+	if o == nil || IsNil(o.Types) {
 		var ret string
 		return ret
 	}
-
-	return o.Types
+	return *o.Types
 }
 
-// GetTypesOk returns a tuple with the Types field value
+// GetTypesOk returns a tuple with the Types field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConfigVersion) GetTypesOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Types) {
 		return nil, false
 	}
-	return &o.Types, true
+	return o.Types, true
 }
 
-// SetTypes sets field value
+// HasTypes returns a boolean if a field has been set.
+func (o *ConfigVersion) HasTypes() bool {
+	if o != nil && !IsNil(o.Types) {
+		return true
+	}
+
+	return false
+}
+
+// SetTypes gets a reference to the given string and assigns it to the Types field.
 func (o *ConfigVersion) SetTypes(v string) {
-	o.Types = v
+	o.Types = &v
 }
 
 // GetUpdated returns the Updated field value
@@ -441,9 +462,13 @@ func (o ConfigVersion) ToMap() (map[string]interface{}, error) {
 	toSerialize["date"] = o.Date
 	toSerialize["deleted"] = o.Deleted
 	toSerialize["description"] = o.Description
-	toSerialize["edited_by"] = o.EditedBy
+	if !IsNil(o.EditedBy) {
+		toSerialize["edited_by"] = o.EditedBy
+	}
 	toSerialize["id"] = o.Id
-	toSerialize["impacted_devices"] = o.ImpactedDevices
+	if !IsNil(o.ImpactedDevices) {
+		toSerialize["impacted_devices"] = o.ImpactedDevices
+	}
 	if !IsNil(o.NgfwScope) {
 		toSerialize["ngfw_scope"] = o.NgfwScope
 	}
@@ -451,7 +476,9 @@ func (o ConfigVersion) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SwgConfig) {
 		toSerialize["swg_config"] = o.SwgConfig
 	}
-	toSerialize["types"] = o.Types
+	if !IsNil(o.Types) {
+		toSerialize["types"] = o.Types
+	}
 	toSerialize["updated"] = o.Updated
 	toSerialize["version"] = o.Version
 
@@ -472,11 +499,8 @@ func (o *ConfigVersion) UnmarshalJSON(data []byte) (err error) {
 		"date",
 		"deleted",
 		"description",
-		"edited_by",
 		"id",
-		"impacted_devices",
 		"scope",
-		"types",
 		"updated",
 		"version",
 	}
