@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         service:
           - objects
@@ -198,6 +199,7 @@ jobs:
             test-stats-${{ matrix.service }}.json
             test-detail-${{ matrix.service }}.md
           retention-days: 1
+          overwrite: true
 
   summary:
     name: Test Summary
@@ -329,12 +331,6 @@ jobs:
           print('\n'.join(summary))
           PYTHON
           python3 generate_summary.py
-
-      - name: Clean up intermediate artifacts
-        if: always()
-        uses: geekyeggo/delete-artifact@v5
-        with:
-          name: test-results-*
 
       - name: Propagate failure
         if: needs.test.result == 'failure'

@@ -12413,7 +12413,7 @@ components:
           type: string
         name:
           description: The trusted certificate authority name
-          maxLength: 63
+          maxLength: 255
           type: string
         not_valid_after:
           description: Not valid after this date
