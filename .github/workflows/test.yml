@@ -65,7 +65,7 @@ jobs:
           set +e
 
           # Run tests with JSON output for parsing
-          go test -timeout 60m -parallel 10 -v -json -skip "Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/... > test-output.json 2>&1
+          go test -timeout 60m -parallel 1 -v -json -skip "Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/... > test-output.json 2>&1
           exit_code=$?
 
           # Parse JSON output and create detailed markdown summary
