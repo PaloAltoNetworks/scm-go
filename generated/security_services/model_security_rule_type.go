@@ -86,6 +86,8 @@ func NewSecurityRuleType(action string, application []string, category []string,
 	var disabled bool = false
 	this.Disabled = &disabled
 	this.From = from
+	var logSetting string = "Cortex Data Lake"
+	this.LogSetting = &logSetting
 	this.Name = name
 	var negateDestination bool = false
 	this.NegateDestination = &negateDestination
@@ -107,6 +109,8 @@ func NewSecurityRuleTypeWithDefaults() *SecurityRuleType {
 	this := SecurityRuleType{}
 	var disabled bool = false
 	this.Disabled = &disabled
+	var logSetting string = "Cortex Data Lake"
+	this.LogSetting = &logSetting
 	var negateDestination bool = false
 	this.NegateDestination = &negateDestination
 	var negateSource bool = false

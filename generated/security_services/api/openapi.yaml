@@ -13911,6 +13911,7 @@ components:
           description: Log at session end?
           type: boolean
         log_setting:
+          default: Cortex Data Lake
           description: The external log forwarding profile
           type: string
         log_start:
@@ -14117,7 +14118,7 @@ components:
         tag:
         - tag
         - tag
-        log_setting: log_setting
+        log_setting: Cortex Data Lake
         negate_user: false
         devices:
         - devices
@@ -14259,6 +14260,7 @@ components:
           description: Log at session end?
           type: boolean
         log_setting:
+          default: Cortex Data Lake
           description: The external log forwarding profile
           type: string
         log_settings:
