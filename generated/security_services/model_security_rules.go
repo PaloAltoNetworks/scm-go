@@ -95,8 +95,6 @@ func NewSecurityRules() *SecurityRules {
 	this := SecurityRules{}
 	var disabled bool = false
 	this.Disabled = &disabled
-	var logSetting string = "Cortex Data Lake"
-	this.LogSetting = &logSetting
 	var negateDestination bool = false
 	this.NegateDestination = &negateDestination
 	var negateSource bool = false
@@ -115,8 +113,6 @@ func NewSecurityRulesWithDefaults() *SecurityRules {
 	this := SecurityRules{}
 	var disabled bool = false
 	this.Disabled = &disabled
-	var logSetting string = "Cortex Data Lake"
-	this.LogSetting = &logSetting
 	var negateDestination bool = false
 	this.NegateDestination = &negateDestination
 	var negateSource bool = false
