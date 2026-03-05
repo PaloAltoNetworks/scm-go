@@ -135,9 +135,9 @@ jobs:
                           # Find relevant error messages
                           error_lines = []
                           for i, line in enumerate(output):
-                              if any(keyword in line for keyword in ['Error:', 'FAIL:', 'panic:', '504 Gateway Timeout', 'expected', 'actual']):
+                              if any(keyword in line for keyword in ['Error:', 'FAIL:', 'panic:', '504 Gateway Timeout', 'expected', 'actual', 'X-Request-ID:', 'X-Trace-ID:', 'API RESPONSE HEADERS', 'API ERROR RESPONSE']):
                                   start = max(0, i - 2)
-                                  end = min(len(output), i + 6)
+                                  end = min(len(output), i + 12)
                                   error_lines.extend(output[start:end])
                                   break
 
