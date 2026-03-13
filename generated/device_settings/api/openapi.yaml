@@ -7909,6 +7909,8 @@ components:
         folder: My Folder
         id: 123e4567-e89b-12d3-a456-426655440000
         management_interface:
+          default_gateway: default_gateway
+          netmask: netmask
           service:
             disable_userid_syslog_listener_ssl: false
             disable_icmp: false
@@ -7925,6 +7927,7 @@ components:
             description: description
           - name: name
             description: description
+          ip_address: ip_address
           speed_duplex: auto-negotiate
           mgmt_type:
             dhcp_client:
@@ -7932,10 +7935,7 @@ components:
               send_hostname: false
               accept_dhcp_hostname: false
               send_client_id: false
-            static:
-              default_gateway: default_gateway
-              netmask: netmask
-              ip_address: ip_address
+            static: "{}"
           mtu: 0
         device: My Device
       properties:
@@ -9048,26 +9048,6 @@ components:
           description: Send hostname
           type: boolean
       type: object
-    management_interface_management_interface_mgmt_type_static:
-      example:
-        default_gateway: default_gateway
-        netmask: netmask
-        ip_address: ip_address
-      properties:
-        default_gateway:
-          description: Default gateway
-          type: string
-        ip_address:
-          description: IP address
-          type: string
-        netmask:
-          description: Netmask
-          type: string
-      required:
-      - default_gateway
-      - ip_address
-      - netmask
-      type: object
     management_interface_management_interface_mgmt_type:
       description: IP type
       example:
@@ -9076,15 +9056,12 @@ components:
           send_hostname: false
           accept_dhcp_hostname: false
           send_client_id: false
-        static:
-          default_gateway: default_gateway
-          netmask: netmask
-          ip_address: ip_address
+        static: "{}"
       properties:
         dhcp_client:
           $ref: '#/components/schemas/management_interface_management_interface_mgmt_type_dhcp_client'
         static:
-          $ref: '#/components/schemas/management_interface_management_interface_mgmt_type_static'
+          type: object
       type: object
     management_interface_management_interface_permitted_ip_inner:
       example:
@@ -9156,6 +9133,8 @@ components:
       type: object
     management_interface_management_interface:
       example:
+        default_gateway: default_gateway
+        netmask: netmask
         service:
           disable_userid_syslog_listener_ssl: false
           disable_icmp: false
@@ -9172,6 +9151,7 @@ components:
           description: description
         - name: name
           description: description
+        ip_address: ip_address
         speed_duplex: auto-negotiate
         mgmt_type:
           dhcp_client:
@@ -9179,18 +9159,24 @@ components:
             send_hostname: false
             accept_dhcp_hostname: false
             send_client_id: false
-          static:
-            default_gateway: default_gateway
-            netmask: netmask
-            ip_address: ip_address
+          static: "{}"
         mtu: 0
       properties:
+        default_gateway:
+          description: Default gateway
+          type: string
+        ip_address:
+          description: IP address
+          type: string
         mgmt_type:
           $ref: '#/components/schemas/management_interface_management_interface_mgmt_type'
         mtu:
           default: 1500
           description: MTU
           type: integer
+        netmask:
+          description: Netmask
+          type: string
         permitted_ip:
           description: Permitting IP addresses
           items:
