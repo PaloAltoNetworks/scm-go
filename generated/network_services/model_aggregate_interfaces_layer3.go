@@ -30,7 +30,9 @@ type AggregateInterfacesLayer3 struct {
 	Ip   []AggregateInterfacesLayer3IpInner `json:"ip,omitempty"`
 	Lacp *Lacp                              `json:"lacp,omitempty"`
 	// MTU
-	Mtu                  *int32 `json:"mtu,omitempty"`
+	Mtu *int32 `json:"mtu,omitempty"`
+	// Name of Netflow Profile to assign to Interface
+	NetflowProfile       *string `json:"netflow_profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -281,6 +283,38 @@ func (o *AggregateInterfacesLayer3) SetMtu(v int32) {
 	o.Mtu = &v
 }
 
+// GetNetflowProfile returns the NetflowProfile field value if set, zero value otherwise.
+func (o *AggregateInterfacesLayer3) GetNetflowProfile() string {
+	if o == nil || IsNil(o.NetflowProfile) {
+		var ret string
+		return ret
+	}
+	return *o.NetflowProfile
+}
+
+// GetNetflowProfileOk returns a tuple with the NetflowProfile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregateInterfacesLayer3) GetNetflowProfileOk() (*string, bool) {
+	if o == nil || IsNil(o.NetflowProfile) {
+		return nil, false
+	}
+	return o.NetflowProfile, true
+}
+
+// HasNetflowProfile returns a boolean if a field has been set.
+func (o *AggregateInterfacesLayer3) HasNetflowProfile() bool {
+	if o != nil && !IsNil(o.NetflowProfile) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetflowProfile gets a reference to the given string and assigns it to the NetflowProfile field.
+func (o *AggregateInterfacesLayer3) SetNetflowProfile(v string) {
+	o.NetflowProfile = &v
+}
+
 func (o AggregateInterfacesLayer3) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -312,6 +346,9 @@ func (o AggregateInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Mtu) {
 		toSerialize["mtu"] = o.Mtu
 	}
+	if !IsNil(o.NetflowProfile) {
+		toSerialize["netflow_profile"] = o.NetflowProfile
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -341,6 +378,7 @@ func (o *AggregateInterfacesLayer3) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "lacp")
 		delete(additionalProperties, "mtu")
+		delete(additionalProperties, "netflow_profile")
 		o.AdditionalProperties = additionalProperties
 	}
 

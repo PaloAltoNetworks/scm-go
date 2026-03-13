@@ -21,6 +21,8 @@ var _ MappedNullable = &EthernetInterfacesLayer2{}
 // EthernetInterfacesLayer2 struct for EthernetInterfacesLayer2
 type EthernetInterfacesLayer2 struct {
 	Lldp *EthernetInterfacesLayer2Lldp `json:"lldp,omitempty"`
+	// Name of Netflow Profile to assign to Interface
+	NetflowProfile *string `json:"netflow_profile,omitempty"`
 	// Assign interface to VLAN tag
 	VlanTag              *string `json:"vlan_tag,omitempty" validate:"regexp=^([1-9]\\\\d{0,2}|[1-3]\\\\d{3}|40[0-8]\\\\d|409[0-6])$"`
 	AdditionalProperties map[string]interface{}
@@ -77,6 +79,38 @@ func (o *EthernetInterfacesLayer2) SetLldp(v EthernetInterfacesLayer2Lldp) {
 	o.Lldp = &v
 }
 
+// GetNetflowProfile returns the NetflowProfile field value if set, zero value otherwise.
+func (o *EthernetInterfacesLayer2) GetNetflowProfile() string {
+	if o == nil || IsNil(o.NetflowProfile) {
+		var ret string
+		return ret
+	}
+	return *o.NetflowProfile
+}
+
+// GetNetflowProfileOk returns a tuple with the NetflowProfile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EthernetInterfacesLayer2) GetNetflowProfileOk() (*string, bool) {
+	if o == nil || IsNil(o.NetflowProfile) {
+		return nil, false
+	}
+	return o.NetflowProfile, true
+}
+
+// HasNetflowProfile returns a boolean if a field has been set.
+func (o *EthernetInterfacesLayer2) HasNetflowProfile() bool {
+	if o != nil && !IsNil(o.NetflowProfile) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetflowProfile gets a reference to the given string and assigns it to the NetflowProfile field.
+func (o *EthernetInterfacesLayer2) SetNetflowProfile(v string) {
+	o.NetflowProfile = &v
+}
+
 // GetVlanTag returns the VlanTag field value if set, zero value otherwise.
 func (o *EthernetInterfacesLayer2) GetVlanTag() string {
 	if o == nil || IsNil(o.VlanTag) {
@@ -122,6 +156,9 @@ func (o EthernetInterfacesLayer2) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Lldp) {
 		toSerialize["lldp"] = o.Lldp
 	}
+	if !IsNil(o.NetflowProfile) {
+		toSerialize["netflow_profile"] = o.NetflowProfile
+	}
 	if !IsNil(o.VlanTag) {
 		toSerialize["vlan_tag"] = o.VlanTag
 	}
@@ -148,6 +185,7 @@ func (o *EthernetInterfacesLayer2) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lldp")
+		delete(additionalProperties, "netflow_profile")
 		delete(additionalProperties, "vlan_tag")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -45,7 +45,7 @@ type EthernetInterfaces struct {
 	Poe  *Poe   `json:"poe,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet              *string                `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	Tap                  map[string]interface{} `json:"tap,omitempty"`
+	Tap                  *EthernetInterfacesTap `json:"tap,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -515,19 +515,19 @@ func (o *EthernetInterfaces) SetSnippet(v string) {
 }
 
 // GetTap returns the Tap field value if set, zero value otherwise.
-func (o *EthernetInterfaces) GetTap() map[string]interface{} {
+func (o *EthernetInterfaces) GetTap() EthernetInterfacesTap {
 	if o == nil || IsNil(o.Tap) {
-		var ret map[string]interface{}
+		var ret EthernetInterfacesTap
 		return ret
 	}
-	return o.Tap
+	return *o.Tap
 }
 
 // GetTapOk returns a tuple with the Tap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfaces) GetTapOk() (map[string]interface{}, bool) {
+func (o *EthernetInterfaces) GetTapOk() (*EthernetInterfacesTap, bool) {
 	if o == nil || IsNil(o.Tap) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Tap, true
 }
@@ -541,9 +541,9 @@ func (o *EthernetInterfaces) HasTap() bool {
 	return false
 }
 
-// SetTap gets a reference to the given map[string]interface{} and assigns it to the Tap field.
-func (o *EthernetInterfaces) SetTap(v map[string]interface{}) {
-	o.Tap = v
+// SetTap gets a reference to the given EthernetInterfacesTap and assigns it to the Tap field.
+func (o *EthernetInterfaces) SetTap(v EthernetInterfacesTap) {
+	o.Tap = &v
 }
 
 func (o EthernetInterfaces) MarshalJSON() ([]byte, error) {

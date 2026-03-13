@@ -40,6 +40,8 @@ type LoopbackInterfaces struct {
 	Mtu *int32 `json:"mtu,omitempty"`
 	// Loopback Interface name
 	Name string `json:"name" validate:"regexp=^\\\\$[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
+	// Name of Netflow Profile to assign to Interface
+	NetflowProfile *string `json:"netflow_profile,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
@@ -377,6 +379,38 @@ func (o *LoopbackInterfaces) SetName(v string) {
 	o.Name = v
 }
 
+// GetNetflowProfile returns the NetflowProfile field value if set, zero value otherwise.
+func (o *LoopbackInterfaces) GetNetflowProfile() string {
+	if o == nil || IsNil(o.NetflowProfile) {
+		var ret string
+		return ret
+	}
+	return *o.NetflowProfile
+}
+
+// GetNetflowProfileOk returns a tuple with the NetflowProfile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoopbackInterfaces) GetNetflowProfileOk() (*string, bool) {
+	if o == nil || IsNil(o.NetflowProfile) {
+		return nil, false
+	}
+	return o.NetflowProfile, true
+}
+
+// HasNetflowProfile returns a boolean if a field has been set.
+func (o *LoopbackInterfaces) HasNetflowProfile() bool {
+	if o != nil && !IsNil(o.NetflowProfile) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetflowProfile gets a reference to the given string and assigns it to the NetflowProfile field.
+func (o *LoopbackInterfaces) SetNetflowProfile(v string) {
+	o.NetflowProfile = &v
+}
+
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
 func (o *LoopbackInterfaces) GetSnippet() string {
 	if o == nil || IsNil(o.Snippet) {
@@ -447,6 +481,9 @@ func (o LoopbackInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["mtu"] = o.Mtu
 	}
 	toSerialize["name"] = o.Name
+	if !IsNil(o.NetflowProfile) {
+		toSerialize["netflow_profile"] = o.NetflowProfile
+	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
@@ -503,6 +540,7 @@ func (o *LoopbackInterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ipv6")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "netflow_profile")
 		delete(additionalProperties, "snippet")
 		o.AdditionalProperties = additionalProperties
 	}

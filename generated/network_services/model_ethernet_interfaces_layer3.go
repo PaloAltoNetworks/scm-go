@@ -29,7 +29,9 @@ type EthernetInterfacesLayer3 struct {
 	// Ethernet Interface IP addresses
 	Ip []EthernetInterfacesLayer3IpInner `json:"ip,omitempty"`
 	// MTU
-	Mtu                  *int32                         `json:"mtu,omitempty"`
+	Mtu *int32 `json:"mtu,omitempty"`
+	// Name of Netflow Profile to assign to Interface
+	NetflowProfile       *string                        `json:"netflow_profile,omitempty"`
 	Pppoe                *EthernetInterfacesLayer3Pppoe `json:"pppoe,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -249,6 +251,38 @@ func (o *EthernetInterfacesLayer3) SetMtu(v int32) {
 	o.Mtu = &v
 }
 
+// GetNetflowProfile returns the NetflowProfile field value if set, zero value otherwise.
+func (o *EthernetInterfacesLayer3) GetNetflowProfile() string {
+	if o == nil || IsNil(o.NetflowProfile) {
+		var ret string
+		return ret
+	}
+	return *o.NetflowProfile
+}
+
+// GetNetflowProfileOk returns a tuple with the NetflowProfile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EthernetInterfacesLayer3) GetNetflowProfileOk() (*string, bool) {
+	if o == nil || IsNil(o.NetflowProfile) {
+		return nil, false
+	}
+	return o.NetflowProfile, true
+}
+
+// HasNetflowProfile returns a boolean if a field has been set.
+func (o *EthernetInterfacesLayer3) HasNetflowProfile() bool {
+	if o != nil && !IsNil(o.NetflowProfile) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetflowProfile gets a reference to the given string and assigns it to the NetflowProfile field.
+func (o *EthernetInterfacesLayer3) SetNetflowProfile(v string) {
+	o.NetflowProfile = &v
+}
+
 // GetPppoe returns the Pppoe field value if set, zero value otherwise.
 func (o *EthernetInterfacesLayer3) GetPppoe() EthernetInterfacesLayer3Pppoe {
 	if o == nil || IsNil(o.Pppoe) {
@@ -309,6 +343,9 @@ func (o EthernetInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Mtu) {
 		toSerialize["mtu"] = o.Mtu
 	}
+	if !IsNil(o.NetflowProfile) {
+		toSerialize["netflow_profile"] = o.NetflowProfile
+	}
 	if !IsNil(o.Pppoe) {
 		toSerialize["pppoe"] = o.Pppoe
 	}
@@ -340,6 +377,7 @@ func (o *EthernetInterfacesLayer3) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "mtu")
+		delete(additionalProperties, "netflow_profile")
 		delete(additionalProperties, "pppoe")
 		o.AdditionalProperties = additionalProperties
 	}

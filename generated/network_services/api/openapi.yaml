@@ -7905,6 +7905,7 @@ components:
             enable: false
             system_priority: 39501
             max_ports: 1
+          netflow_profile: netflow_profile
           ip:
           - name: name
           - name: name
@@ -7936,6 +7937,7 @@ components:
             system_priority: 39501
             max_ports: 1
           vlan_tag: "123"
+          netflow_profile: netflow_profile
         device: My Device
       properties:
         comment:
@@ -9614,7 +9616,8 @@ components:
     ethernet-interfaces:
       example:
         snippet: My Snippet
-        tap: "{}"
+        tap:
+          netflow_profile: netflow_profile
         poe:
           poe_rsvd_pwr: 50
           poe_enabled: false
@@ -9629,6 +9632,7 @@ components:
               hostname: system-hostname
               enable: true
             default_route_metric: 39501
+          netflow_profile: netflow_profile
           ip:
           - name: name
           - name: name
@@ -9664,6 +9668,7 @@ components:
         id: 123e4567-e89b-12d3-a456-426655440000
         layer2:
           vlan_tag: vlan_tag
+          netflow_profile: netflow_profile
           lldp:
             enable: false
         link_state: auto
@@ -9742,8 +9747,7 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         tap:
-          default: {}
-          type: object
+          $ref: '#/components/schemas/ethernet_interfaces_tap'
       required:
       - id
       - name
@@ -10346,6 +10350,7 @@ components:
     layer3-subinterfaces:
       example:
         snippet: My Snippet
+        netflow_profile: netflow_profile
         ip:
         - name: name
         - name: name
@@ -10424,6 +10429,9 @@ components:
           type: integer
         name:
           description: L3 sub-interface name
+          type: string
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
           type: string
         parent_interface:
           description: Parent interface
@@ -15404,6 +15412,7 @@ components:
       example:
         snippet: My Snippet
         folder: My Folder
+        netflow_profile: netflow_profile
         ipv6:
           address:
           - anycast: "{}"
@@ -15471,6 +15480,9 @@ components:
         name:
           description: Loopback Interface name
           pattern: "^\\$[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
           type: string
         snippet:
           description: The snippet in which the resource is defined
@@ -16692,6 +16704,7 @@ components:
       example:
         snippet: My Snippet
         folder: My Folder
+        netflow_profile: netflow_profile
         ipv6:
           address:
           - anycast: "{}"
@@ -16759,6 +16772,9 @@ components:
         name:
           description: L3 sub-interface name for tunnel interface
           type: string
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
@@ -16770,6 +16786,7 @@ components:
     vlan-interfaces:
       example:
         snippet: My Snippet
+        netflow_profile: netflow_profile
         ip:
         - name: name
         - name: name
@@ -16855,6 +16872,9 @@ components:
           type: integer
         name:
           description: L3 sub-interface name
+          type: string
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
           type: string
         snippet:
           description: The snippet in which the resource is defined
@@ -17360,9 +17380,13 @@ components:
           system_priority: 39501
           max_ports: 1
         vlan_tag: "123"
+        netflow_profile: netflow_profile
       properties:
         lacp:
           $ref: '#/components/schemas/lacp'
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
         vlan_tag:
           description: VLAN tag
           example: "123"
@@ -17439,6 +17463,7 @@ components:
           enable: false
           system_priority: 39501
           max_ports: 1
+        netflow_profile: netflow_profile
         ip:
         - name: name
         - name: name
@@ -17484,6 +17509,9 @@ components:
           maximum: 9216
           minimum: 576
           type: integer
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
     auto_vpn_clusters_branches_inner_interfaces_inner_sdwan_link_settings_upstream_nat_static_ip:
       example:
         fqdn: fqdn
@@ -21143,11 +21171,15 @@ components:
     ethernet_interfaces_layer2:
       example:
         vlan_tag: vlan_tag
+        netflow_profile: netflow_profile
         lldp:
           enable: false
       properties:
         lldp:
           $ref: '#/components/schemas/ethernet_interfaces_layer2_lldp'
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
         vlan_tag:
           description: Assign interface to VLAN tag
           pattern: "^([1-9]\\d{0,2}|[1-3]\\d{3}|40[0-8]\\d|409[0-6])$"
@@ -21336,6 +21368,7 @@ components:
             hostname: system-hostname
             enable: true
           default_route_metric: 39501
+        netflow_profile: netflow_profile
         ip:
         - name: name
         - name: name
@@ -21391,8 +21424,18 @@ components:
           maximum: 9216
           minimum: 576
           type: integer
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
         pppoe:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_pppoe'
+    ethernet_interfaces_tap:
+      example:
+        netflow_profile: netflow_profile
+      properties:
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
     ethernet_interfaces_arp_inner:
       default: {}
       description: Ethernet Interfaces ARP configuration object
