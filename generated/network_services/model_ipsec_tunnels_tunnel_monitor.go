@@ -39,7 +39,7 @@ type _IpsecTunnelsTunnelMonitor IpsecTunnelsTunnelMonitor
 func NewIpsecTunnelsTunnelMonitor(destinationIp string) *IpsecTunnelsTunnelMonitor {
 	this := IpsecTunnelsTunnelMonitor{}
 	this.DestinationIp = destinationIp
-	var enable bool = true
+	var enable bool = false
 	this.Enable = &enable
 	return &this
 }
@@ -49,7 +49,7 @@ func NewIpsecTunnelsTunnelMonitor(destinationIp string) *IpsecTunnelsTunnelMonit
 // but it doesn't guarantee that properties required by API are set
 func NewIpsecTunnelsTunnelMonitorWithDefaults() *IpsecTunnelsTunnelMonitor {
 	this := IpsecTunnelsTunnelMonitor{}
-	var enable bool = true
+	var enable bool = false
 	this.Enable = &enable
 	return &this
 }

@@ -293,3 +293,68 @@ func Test_networkservices_IPsecCryptoProfilesAPIService_DeleteByID(t *testing.T)
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 	t.Logf("Successfully deleted IPsec Crypto Profile: %s", createdProfileID)
 }
+
+// Test_networkservices_IPsecCryptoProfilesAPIService_FetchIPsecCryptoProfiles tests the FetchIPsecCryptoProfiles convenience method.
+func Test_networkservices_IPsecCryptoProfilesAPIService_FetchIPsecCryptoProfiles(t *testing.T) {
+	// Setup the authenticated client.
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create a test object first (inline creation like other tests).
+	testName := "test-ipsec-fetch-" + common.GenerateRandomString(6)
+	testObj := network_services.IpsecCryptoProfiles{
+		Name:    testName,
+		Folder:  common.StringPtr("Prisma Access"),
+		DhGroup: common.StringPtr("group14"),
+		Esp: &network_services.IpsecCryptoProfilesEsp{
+			Authentication: []string{"sha256"},
+			Encryption:     []string{"aes-256-gcm"},
+		},
+		Lifetime: network_services.IpsecCryptoProfilesLifetime{
+			Hours: common.Int32Ptr(8),
+		},
+	}
+
+	createReq := client.IPsecCryptoProfilesAPI.CreateIPsecCryptoProfiles(context.Background()).IpsecCryptoProfiles(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := *createRes.Id
+
+	// Cleanup after test.
+	defer func() {
+		deleteReq := client.IPsecCryptoProfilesAPI.DeleteIPsecCryptoProfilesByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name.
+	fetchedObj, err := client.IPsecCryptoProfilesAPI.FetchIPsecCryptoProfiles(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch.
+	require.NoError(t, err, "Failed to fetch IPsec Crypto Profile by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, *fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchIPsecCryptoProfiles found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil).
+	notFound, err := client.IPsecCryptoProfilesAPI.FetchIPsecCryptoProfiles(
+		context.Background(),
+		"non-existent-ipsec-crypto-profile-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchIPsecCryptoProfiles correctly returned nil for non-existent object")
+}

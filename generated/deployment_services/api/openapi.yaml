@@ -1288,7 +1288,10 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                items:
+                  $ref: '#/components/schemas/locations'
+                type: array
           description: OK
         "400":
           content:
@@ -5023,6 +5026,14 @@ components:
       - primary
       type: object
     locations:
+      example:
+        continent: North America
+        aggregate_region: us-southwest
+        display: US West
+        latitude: 37.38314
+        region: us-west-1
+        value: us-west-1
+        longitude: -121.98306
       properties:
         aggregate_region:
           example: us-southwest
@@ -5061,6 +5072,7 @@ components:
         protocol:
           bgp_peer:
             peer_ip_address: peer_ip_address
+            same_as_primary: true
             secret: secret
             local_ip_address: local_ip_address
           bgp:
@@ -5483,7 +5495,6 @@ components:
           example: "560093"
           type: string
       required:
-      - id
       - name
       type: object
     traffic-steering-rules:
@@ -5555,7 +5566,6 @@ components:
             type: string
           type: array
       required:
-      - folder
       - id
       - name
       - service
@@ -5675,6 +5685,7 @@ components:
       description: secondary bgp routing as bgp_peer
       example:
         peer_ip_address: peer_ip_address
+        same_as_primary: true
         secret: secret
         local_ip_address: local_ip_address
       properties:
@@ -5684,6 +5695,9 @@ components:
         peer_ip_address:
           description: Remote peer IP address (secondary WAN)
           type: string
+        same_as_primary:
+          description: Same peer IP address as primary WAN
+          type: boolean
         secret:
           description: BGP peering secret (secondary WAN)
           format: password
@@ -5694,6 +5708,7 @@ components:
       example:
         bgp_peer:
           peer_ip_address: peer_ip_address
+          same_as_primary: true
           secret: secret
           local_ip_address: local_ip_address
         bgp:

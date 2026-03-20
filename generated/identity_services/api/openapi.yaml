@@ -5872,7 +5872,8 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                $ref: '#/components/schemas/MFAServersListResponse'
           description: OK
         "400":
           content:
@@ -10549,6 +10550,36 @@ components:
       - offset
       - total
       type: object
+    MFAServersListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/MfaServers'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
     OCSPRespondersListResponse:
       example:
         total: 1
@@ -11603,13 +11634,13 @@ components:
           name: name
         verify_server_certificate: true
         ssl: true
-        timelimit: 1
+        timelimit: 5
         ldap_type: active-directory
         folder: My Folder
         bind_password: bind_password
         name: name
         id: 123e4567-e89b-12d3-a456-426655440000
-        retry_interval: 0
+        retry_interval: 343
         device: My Device
         bind_timelimit: bind_timelimit
         base: base
@@ -11629,6 +11660,8 @@ components:
           type: string
         bind_timelimit:
           description: The bind timeout (seconds)
+          maximum: 30
+          minimum: 1
           type: string
         device:
           description: The device in which the resource is defined
@@ -11660,6 +11693,8 @@ components:
           type: string
         retry_interval:
           description: The search retry interval (seconds)
+          maximum: 3600
+          minimum: 60
           type: integer
         server:
           description: The LDAP server configuration
@@ -11677,6 +11712,8 @@ components:
           type: boolean
         timelimit:
           description: The search timeout (seconds)
+          maximum: 30
+          minimum: 1
           type: integer
         verify_server_certificate:
           description: Verify server certificate for SSL sessions?
@@ -11853,7 +11890,6 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
       required:
-      - id
       - mfa_cert_profile
       - name
       type: object
@@ -12383,7 +12419,7 @@ components:
           type: string
         name:
           description: The trusted certificate authority name
-          maxLength: 63
+          maxLength: 255
           type: string
         not_valid_after:
           description: Not valid after this date

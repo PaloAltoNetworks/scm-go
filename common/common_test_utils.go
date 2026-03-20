@@ -26,7 +26,19 @@ func (lrt *LoggingRoundTripper) RoundTrip(req *http.Request) (*http.Response, er
 	// Print the curl command equivalent
 	printCurlCommand(req)
 	// Execute the actual request
-	return lrt.Wrapped.RoundTrip(req)
+	resp, err := lrt.Wrapped.RoundTrip(req)
+	// Print specific headers on error responses for debugging
+	if resp != nil && resp.StatusCode >= 400 {
+		fmt.Printf("=== API RESPONSE HEADERS ===\n")
+		fmt.Printf("Status Code: %d\n", resp.StatusCode)
+		fmt.Printf("X-Request-ID: %s\n", resp.Header.Get("X-Request-ID"))
+		fmt.Printf("X-Trace-ID: %s\n", resp.Header.Get("X-Trace-ID"))
+		if flowErr := resp.Header.Get("X-Request-Flow-Error"); flowErr != "" {
+			fmt.Printf("X-Request-Flow-Error: %s\n", flowErr)
+		}
+		fmt.Printf("============================\n")
+	}
+	return resp, err
 }
 
 // maskCurlCommand masks sensitive information in curl commands

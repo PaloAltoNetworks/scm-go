@@ -1233,11 +1233,8 @@ components:
       - date
       - deleted
       - description
-      - edited_by
       - id
-      - impacted_devices
       - scope
-      - types
       - updated
       - version
       type: object

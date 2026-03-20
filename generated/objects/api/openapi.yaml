@@ -6770,7 +6770,10 @@ paths:
         "200":
           content:
             application/json:
-              schema: {}
+              schema:
+                items:
+                  $ref: '#/components/schemas/quarantined-devices'
+                type: array
           description: OK
         "400":
           content:

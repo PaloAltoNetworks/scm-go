@@ -25,7 +25,7 @@ type TrafficSteeringRules struct {
 	Category    []string                    `json:"category,omitempty"`
 	Destination []string                    `json:"destination,omitempty"`
 	// The folder containing the traffic steering rule
-	Folder string `json:"folder"`
+	Folder *string `json:"folder,omitempty"`
 	// The UUID of the traffic steering rule
 	Id                   string   `json:"id"`
 	Name                 string   `json:"name"`
@@ -41,9 +41,10 @@ type _TrafficSteeringRules TrafficSteeringRules
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTrafficSteeringRules(folder string, id string, name string, service []string, source []string) *TrafficSteeringRules {
+func NewTrafficSteeringRules(id string, name string, service []string, source []string) *TrafficSteeringRules {
 	this := TrafficSteeringRules{}
-	this.Folder = folder
+	var folder string = "Service Connections"
+	this.Folder = &folder
 	this.Id = id
 	this.Name = name
 	this.Service = service
@@ -57,7 +58,7 @@ func NewTrafficSteeringRules(folder string, id string, name string, service []st
 func NewTrafficSteeringRulesWithDefaults() *TrafficSteeringRules {
 	this := TrafficSteeringRules{}
 	var folder string = "Service Connections"
-	this.Folder = folder
+	this.Folder = &folder
 	return &this
 }
 
@@ -157,28 +158,36 @@ func (o *TrafficSteeringRules) SetDestination(v []string) {
 	o.Destination = v
 }
 
-// GetFolder returns the Folder field value
+// GetFolder returns the Folder field value if set, zero value otherwise.
 func (o *TrafficSteeringRules) GetFolder() string {
-	if o == nil {
+	if o == nil || IsNil(o.Folder) {
 		var ret string
 		return ret
 	}
-
-	return o.Folder
+	return *o.Folder
 }
 
-// GetFolderOk returns a tuple with the Folder field value
+// GetFolderOk returns a tuple with the Folder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrafficSteeringRules) GetFolderOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Folder) {
 		return nil, false
 	}
-	return &o.Folder, true
+	return o.Folder, true
 }
 
-// SetFolder sets field value
+// HasFolder returns a boolean if a field has been set.
+func (o *TrafficSteeringRules) HasFolder() bool {
+	if o != nil && !IsNil(o.Folder) {
+		return true
+	}
+
+	return false
+}
+
+// SetFolder gets a reference to the given string and assigns it to the Folder field.
 func (o *TrafficSteeringRules) SetFolder(v string) {
-	o.Folder = v
+	o.Folder = &v
 }
 
 // GetId returns the Id field value
@@ -328,7 +337,9 @@ func (o TrafficSteeringRules) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Destination) {
 		toSerialize["destination"] = o.Destination
 	}
-	toSerialize["folder"] = o.Folder
+	if !IsNil(o.Folder) {
+		toSerialize["folder"] = o.Folder
+	}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["service"] = o.Service
@@ -349,7 +360,6 @@ func (o *TrafficSteeringRules) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"folder",
 		"id",
 		"name",
 		"service",

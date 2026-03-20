@@ -22,14 +22,14 @@ var _ MappedNullable = &HaConfigurations{}
 // HaConfigurations struct for HaConfigurations
 type HaConfigurations struct {
 	// The device in which the resource is defined
-	Device  *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device  *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Enabled *bool   `json:"enabled,omitempty"`
 	// The folder in which the resource is defined
-	Folder    *string                   `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder    *string                   `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Group     HaConfigurationsGroup     `json:"group"`
 	Interface HaConfigurationsInterface `json:"interface"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

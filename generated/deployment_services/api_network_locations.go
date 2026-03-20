@@ -27,7 +27,7 @@ type ApiListLocationsRequest struct {
 	ApiService *NetworkLocationsAPIService
 }
 
-func (r ApiListLocationsRequest) Execute() (interface{}, *http.Response, error) {
+func (r ApiListLocationsRequest) Execute() ([]Locations, *http.Response, error) {
 	return r.ApiService.ListLocationsExecute(r)
 }
 
@@ -48,13 +48,13 @@ func (a *NetworkLocationsAPIService) ListLocations(ctx context.Context) ApiListL
 
 // Execute executes the request
 //
-//	@return interface{}
-func (a *NetworkLocationsAPIService) ListLocationsExecute(r ApiListLocationsRequest) (interface{}, *http.Response, error) {
+//	@return []Locations
+func (a *NetworkLocationsAPIService) ListLocationsExecute(r ApiListLocationsRequest) ([]Locations, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue interface{}
+		localVarReturnValue []Locations
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkLocationsAPIService.ListLocations")

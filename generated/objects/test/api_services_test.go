@@ -347,3 +347,85 @@ func Test_objects_ServicesAPIService_DeleteByID(t *testing.T) {
 
 	t.Logf("Successfully deleted service: %s", createdSvcID)
 }
+
+// Test_objects_ServicesAPIService_FetchServices tests the FetchServices convenience method
+func Test_objects_ServicesAPIService_FetchServices(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupObjectSvcTestClient(t)
+
+	// Create tags for the service (same as Create test)
+	tag1Name := "tag1-fetch-" + common.GenerateRandomString(4)
+	tag2Name := "tag2-fetch-" + common.GenerateRandomString(4)
+	tag1 := objects.Tags{Folder: common.StringPtr("Prisma Access"), Name: tag1Name}
+	tag2 := objects.Tags{Folder: common.StringPtr("Prisma Access"), Name: tag2Name}
+
+	createTag1Req := client.TagsAPI.CreateTags(context.Background()).Tags(tag1)
+	tag1Res, _, err := createTag1Req.Execute()
+	require.NoError(t, err, "Failed to create tag1 for fetch test")
+
+	createTag2Req := client.TagsAPI.CreateTags(context.Background()).Tags(tag2)
+	tag2Res, _, err := createTag2Req.Execute()
+	require.NoError(t, err, "Failed to create tag2 for fetch test")
+
+	// Create test object using same payload as Create test
+	testName := "test-tcp-fetch-" + common.GenerateRandomString(6)
+	testObj := objects.Services{
+		Folder:      common.StringPtr("Prisma Access"),
+		Name:        testName,
+		Description: common.StringPtr("Test TCP service for fetch API"),
+		Protocol: &objects.ServicesProtocol{
+			Tcp: &objects.ServicesProtocolTcp{
+				Port:       "1024-1026",
+				SourcePort: common.StringPtr("1024"),
+			},
+		},
+		Tag: []string{tag1Name, tag2Name},
+	}
+
+	createReq := client.ServicesAPI.CreateServices(context.Background()).Services(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := *createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.ServicesAPI.DeleteServicesByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+		// Cleanup tags
+		client.TagsAPI.DeleteTagsByID(context.Background(), *tag1Res.Id).Execute()
+		client.TagsAPI.DeleteTagsByID(context.Background(), *tag2Res.Id).Execute()
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.ServicesAPI.FetchServices(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch services by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, *fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchServices found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.ServicesAPI.FetchServices(
+		context.Background(),
+		"non-existent-services-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchServices correctly returned nil for non-existent object")
+}

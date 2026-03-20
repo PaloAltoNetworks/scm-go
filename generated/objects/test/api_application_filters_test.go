@@ -310,3 +310,64 @@ func Test_objects_ApplicationFiltersAPIService_DeleteByID(t *testing.T) {
 
 	t.Logf("Successfully deleted application filter: %s", *createdFilterID)
 }
+
+// Test_objects_ApplicationFiltersAPIService_FetchApplicationFilters tests the FetchApplicationFilters convenience method
+func Test_objects_ApplicationFiltersAPIService_FetchApplicationFilters(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupObjectSvcTestClient(t)
+
+	// Create a test object first using same payload as Create test
+	testName := "test-appflt-fetch-" + common.GenerateRandomString(6)
+	testObj := objects.ApplicationFilters{
+		Folder:               common.StringPtr("Prisma Access"),
+		Name:                 testName,
+		Category:             []string{"business-systems"},
+		Risk:                 []int32{1},
+		Evasive:              common.BoolPtr(true),
+		AdditionalProperties: nil,
+	}
+
+	createReq := client.ApplicationFiltersAPI.CreateApplicationFilters(context.Background()).ApplicationFilters(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := *createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.ApplicationFiltersAPI.DeleteApplicationFiltersByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.ApplicationFiltersAPI.FetchApplicationFilters(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch application_filters by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, *fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchApplicationFilters found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.ApplicationFiltersAPI.FetchApplicationFilters(
+		context.Background(),
+		"non-existent-application_filters-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchApplicationFilters correctly returned nil for non-existent object")
+}

@@ -246,7 +246,7 @@ func Test_objects_SyslogServerProfilesAPIService_List(t *testing.T) {
 	client := SetupObjectSvcTestClient(t)
 
 	// test List operation with folder filter
-	reqList := client.SyslogServerProfilesAPI.ListSyslogServerProfiles(context.Background()).Folder("All")
+	reqList := client.SyslogServerProfilesAPI.ListSyslogServerProfiles(context.Background()).Folder("All").Limit(200).Offset(0)
 	listRes, httpResList, errList := reqList.Execute()
 	if errList != nil {
 		handleAPIError(errList)
@@ -289,4 +289,58 @@ func Test_objects_SyslogServerProfilesAPIService_DeleteByID(t *testing.T) {
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 
 	t.Logf("Successfully deleted syslog profile: %s", createdProfileID)
+}
+
+// Test_objects_SyslogServerProfilesAPIService_FetchSyslogServerProfiles tests the FetchSyslogServerProfiles convenience method
+func Test_objects_SyslogServerProfilesAPIService_FetchSyslogServerProfiles(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupObjectSvcTestClient(t)
+
+	// Create test object using same payload as Create test
+	testObj := createComplexTestSyslogProfile("fetch", "All")
+	testName := testObj.Name
+
+	createReq := client.SyslogServerProfilesAPI.CreateSyslogServerProfiles(context.Background()).SyslogServerProfiles(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.SyslogServerProfilesAPI.DeleteSyslogServerProfilesByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.SyslogServerProfilesAPI.FetchSyslogServerProfiles(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch syslog_server_profiles by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchSyslogServerProfiles found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.SyslogServerProfilesAPI.FetchSyslogServerProfiles(
+		context.Background(),
+		"non-existent-syslog_server_profiles-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchSyslogServerProfiles correctly returned nil for non-existent object")
 }

@@ -316,3 +316,71 @@ func Test_objects_ApplicationGroupsAPIService_DeleteByID(t *testing.T) {
 	// Cleanup the test application.
 	deleteTestApplication(t, client, app1ID, app1Name)
 }
+
+// Test_objects_ApplicationGroupsAPIService_FetchApplicationGroups tests the FetchApplicationGroups convenience method
+func Test_objects_ApplicationGroupsAPIService_FetchApplicationGroups(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupObjectSvcTestClient(t)
+
+	// Create test applications first (same as Create test)
+	randomSuffix := common.GenerateRandomString(6)
+	testName := "test-app-group-fetch-" + randomSuffix
+	app1Name := "test-app-1-fetch-" + randomSuffix
+	app2Name := "test-app-2-fetch-" + randomSuffix
+	app1ID := createTestApplication(t, client, app1Name)
+	app2ID := createTestApplication(t, client, app2Name)
+
+	// Create test object using same payload as Create test
+	testObj := objects.ApplicationGroups{
+		Folder:  common.StringPtr("Shared"),
+		Name:    testName,
+		Members: []string{app1Name, app2Name},
+	}
+
+	createReq := client.ApplicationGroupsAPI.CreateApplicationGroups(context.Background()).ApplicationGroups(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.ApplicationGroupsAPI.DeleteApplicationGroupsByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+		// Cleanup test applications
+		deleteTestApplication(t, client, app1ID, app1Name)
+		deleteTestApplication(t, client, app2ID, app2Name)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.ApplicationGroupsAPI.FetchApplicationGroups(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch application_groups by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchApplicationGroups found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.ApplicationGroupsAPI.FetchApplicationGroups(
+		context.Background(),
+		"non-existent-application_groups-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchApplicationGroups correctly returned nil for non-existent object")
+}

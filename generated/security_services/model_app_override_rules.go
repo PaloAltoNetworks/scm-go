@@ -21,28 +21,28 @@ var _ MappedNullable = &AppOverrideRules{}
 
 // AppOverrideRules struct for AppOverrideRules
 type AppOverrideRules struct {
-	Application string   `json:"application"`
+	Application *string  `json:"application,omitempty"`
 	Description *string  `json:"description,omitempty"`
-	Destination []string `json:"destination"`
+	Destination []string `json:"destination,omitempty"`
 	// The device in which the resource is defined
 	Device   *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Disabled *bool   `json:"disabled,omitempty"`
 	// The folder in which the resource is defined
 	Folder   *string  `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	From     []string `json:"from"`
+	From     []string `json:"from,omitempty"`
 	GroupTag *string  `json:"group_tag,omitempty"`
 	// UUID of the resource
 	Id                *string `json:"id,omitempty"`
 	Name              string  `json:"name" validate:"regexp=^[a-zA-Z0-9._-]+$"`
 	NegateDestination *bool   `json:"negate_destination,omitempty"`
 	NegateSource      *bool   `json:"negate_source,omitempty"`
-	Port              string  `json:"port"`
-	Protocol          string  `json:"protocol"`
+	Port              *string `json:"port,omitempty"`
+	Protocol          *string `json:"protocol,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet              *string  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	Source               []string `json:"source"`
+	Source               []string `json:"source,omitempty"`
 	Tag                  []string `json:"tag,omitempty"`
-	To                   []string `json:"to"`
+	To                   []string `json:"to,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -52,22 +52,15 @@ type _AppOverrideRules AppOverrideRules
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppOverrideRules(application string, destination []string, from []string, name string, port string, protocol string, source []string, to []string) *AppOverrideRules {
+func NewAppOverrideRules(name string) *AppOverrideRules {
 	this := AppOverrideRules{}
-	this.Application = application
-	this.Destination = destination
 	var disabled bool = false
 	this.Disabled = &disabled
-	this.From = from
 	this.Name = name
 	var negateDestination bool = false
 	this.NegateDestination = &negateDestination
 	var negateSource bool = false
 	this.NegateSource = &negateSource
-	this.Port = port
-	this.Protocol = protocol
-	this.Source = source
-	this.To = to
 	return &this
 }
 
@@ -85,28 +78,36 @@ func NewAppOverrideRulesWithDefaults() *AppOverrideRules {
 	return &this
 }
 
-// GetApplication returns the Application field value
+// GetApplication returns the Application field value if set, zero value otherwise.
 func (o *AppOverrideRules) GetApplication() string {
-	if o == nil {
+	if o == nil || IsNil(o.Application) {
 		var ret string
 		return ret
 	}
-
-	return o.Application
+	return *o.Application
 }
 
-// GetApplicationOk returns a tuple with the Application field value
+// GetApplicationOk returns a tuple with the Application field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppOverrideRules) GetApplicationOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Application) {
 		return nil, false
 	}
-	return &o.Application, true
+	return o.Application, true
 }
 
-// SetApplication sets field value
+// HasApplication returns a boolean if a field has been set.
+func (o *AppOverrideRules) HasApplication() bool {
+	if o != nil && !IsNil(o.Application) {
+		return true
+	}
+
+	return false
+}
+
+// SetApplication gets a reference to the given string and assigns it to the Application field.
 func (o *AppOverrideRules) SetApplication(v string) {
-	o.Application = v
+	o.Application = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -141,26 +142,34 @@ func (o *AppOverrideRules) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetDestination returns the Destination field value
+// GetDestination returns the Destination field value if set, zero value otherwise.
 func (o *AppOverrideRules) GetDestination() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Destination) {
 		var ret []string
 		return ret
 	}
-
 	return o.Destination
 }
 
-// GetDestinationOk returns a tuple with the Destination field value
+// GetDestinationOk returns a tuple with the Destination field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppOverrideRules) GetDestinationOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Destination) {
 		return nil, false
 	}
 	return o.Destination, true
 }
 
-// SetDestination sets field value
+// HasDestination returns a boolean if a field has been set.
+func (o *AppOverrideRules) HasDestination() bool {
+	if o != nil && !IsNil(o.Destination) {
+		return true
+	}
+
+	return false
+}
+
+// SetDestination gets a reference to the given []string and assigns it to the Destination field.
 func (o *AppOverrideRules) SetDestination(v []string) {
 	o.Destination = v
 }
@@ -261,26 +270,34 @@ func (o *AppOverrideRules) SetFolder(v string) {
 	o.Folder = &v
 }
 
-// GetFrom returns the From field value
+// GetFrom returns the From field value if set, zero value otherwise.
 func (o *AppOverrideRules) GetFrom() []string {
-	if o == nil {
+	if o == nil || IsNil(o.From) {
 		var ret []string
 		return ret
 	}
-
 	return o.From
 }
 
-// GetFromOk returns a tuple with the From field value
+// GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppOverrideRules) GetFromOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.From) {
 		return nil, false
 	}
 	return o.From, true
 }
 
-// SetFrom sets field value
+// HasFrom returns a boolean if a field has been set.
+func (o *AppOverrideRules) HasFrom() bool {
+	if o != nil && !IsNil(o.From) {
+		return true
+	}
+
+	return false
+}
+
+// SetFrom gets a reference to the given []string and assigns it to the From field.
 func (o *AppOverrideRules) SetFrom(v []string) {
 	o.From = v
 }
@@ -437,52 +454,68 @@ func (o *AppOverrideRules) SetNegateSource(v bool) {
 	o.NegateSource = &v
 }
 
-// GetPort returns the Port field value
+// GetPort returns the Port field value if set, zero value otherwise.
 func (o *AppOverrideRules) GetPort() string {
-	if o == nil {
+	if o == nil || IsNil(o.Port) {
 		var ret string
 		return ret
 	}
-
-	return o.Port
+	return *o.Port
 }
 
-// GetPortOk returns a tuple with the Port field value
+// GetPortOk returns a tuple with the Port field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppOverrideRules) GetPortOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Port) {
 		return nil, false
 	}
-	return &o.Port, true
+	return o.Port, true
 }
 
-// SetPort sets field value
+// HasPort returns a boolean if a field has been set.
+func (o *AppOverrideRules) HasPort() bool {
+	if o != nil && !IsNil(o.Port) {
+		return true
+	}
+
+	return false
+}
+
+// SetPort gets a reference to the given string and assigns it to the Port field.
 func (o *AppOverrideRules) SetPort(v string) {
-	o.Port = v
+	o.Port = &v
 }
 
-// GetProtocol returns the Protocol field value
+// GetProtocol returns the Protocol field value if set, zero value otherwise.
 func (o *AppOverrideRules) GetProtocol() string {
-	if o == nil {
+	if o == nil || IsNil(o.Protocol) {
 		var ret string
 		return ret
 	}
-
-	return o.Protocol
+	return *o.Protocol
 }
 
-// GetProtocolOk returns a tuple with the Protocol field value
+// GetProtocolOk returns a tuple with the Protocol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppOverrideRules) GetProtocolOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Protocol) {
 		return nil, false
 	}
-	return &o.Protocol, true
+	return o.Protocol, true
 }
 
-// SetProtocol sets field value
+// HasProtocol returns a boolean if a field has been set.
+func (o *AppOverrideRules) HasProtocol() bool {
+	if o != nil && !IsNil(o.Protocol) {
+		return true
+	}
+
+	return false
+}
+
+// SetProtocol gets a reference to the given string and assigns it to the Protocol field.
 func (o *AppOverrideRules) SetProtocol(v string) {
-	o.Protocol = v
+	o.Protocol = &v
 }
 
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
@@ -517,26 +550,34 @@ func (o *AppOverrideRules) SetSnippet(v string) {
 	o.Snippet = &v
 }
 
-// GetSource returns the Source field value
+// GetSource returns the Source field value if set, zero value otherwise.
 func (o *AppOverrideRules) GetSource() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret []string
 		return ret
 	}
-
 	return o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppOverrideRules) GetSourceOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
 }
 
-// SetSource sets field value
+// HasSource returns a boolean if a field has been set.
+func (o *AppOverrideRules) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given []string and assigns it to the Source field.
 func (o *AppOverrideRules) SetSource(v []string) {
 	o.Source = v
 }
@@ -573,26 +614,34 @@ func (o *AppOverrideRules) SetTag(v []string) {
 	o.Tag = v
 }
 
-// GetTo returns the To field value
+// GetTo returns the To field value if set, zero value otherwise.
 func (o *AppOverrideRules) GetTo() []string {
-	if o == nil {
+	if o == nil || IsNil(o.To) {
 		var ret []string
 		return ret
 	}
-
 	return o.To
 }
 
-// GetToOk returns a tuple with the To field value
+// GetToOk returns a tuple with the To field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppOverrideRules) GetToOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.To) {
 		return nil, false
 	}
 	return o.To, true
 }
 
-// SetTo sets field value
+// HasTo returns a boolean if a field has been set.
+func (o *AppOverrideRules) HasTo() bool {
+	if o != nil && !IsNil(o.To) {
+		return true
+	}
+
+	return false
+}
+
+// SetTo gets a reference to the given []string and assigns it to the To field.
 func (o *AppOverrideRules) SetTo(v []string) {
 	o.To = v
 }
@@ -607,11 +656,15 @@ func (o AppOverrideRules) MarshalJSON() ([]byte, error) {
 
 func (o AppOverrideRules) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["application"] = o.Application
+	if !IsNil(o.Application) {
+		toSerialize["application"] = o.Application
+	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	toSerialize["destination"] = o.Destination
+	if !IsNil(o.Destination) {
+		toSerialize["destination"] = o.Destination
+	}
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
@@ -621,7 +674,9 @@ func (o AppOverrideRules) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
 	}
-	toSerialize["from"] = o.From
+	if !IsNil(o.From) {
+		toSerialize["from"] = o.From
+	}
 	if !IsNil(o.GroupTag) {
 		toSerialize["group_tag"] = o.GroupTag
 	}
@@ -635,16 +690,24 @@ func (o AppOverrideRules) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NegateSource) {
 		toSerialize["negate_source"] = o.NegateSource
 	}
-	toSerialize["port"] = o.Port
-	toSerialize["protocol"] = o.Protocol
+	if !IsNil(o.Port) {
+		toSerialize["port"] = o.Port
+	}
+	if !IsNil(o.Protocol) {
+		toSerialize["protocol"] = o.Protocol
+	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
-	toSerialize["source"] = o.Source
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
 	if !IsNil(o.Tag) {
 		toSerialize["tag"] = o.Tag
 	}
-	toSerialize["to"] = o.To
+	if !IsNil(o.To) {
+		toSerialize["to"] = o.To
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -658,14 +721,7 @@ func (o *AppOverrideRules) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"application",
-		"destination",
-		"from",
 		"name",
-		"port",
-		"protocol",
-		"source",
-		"to",
 	}
 
 	allProperties := make(map[string]interface{})

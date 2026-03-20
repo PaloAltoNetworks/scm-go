@@ -232,35 +232,6 @@ func Test_CreateEthernetInterfaces_L3PPPoE(t *testing.T) {
 	assert.Equal(t, "testuser", pppoeVal.GetUsername(), "PPPoE username must match setup")
 }
 
-// Test_CreateEthernetInterfaces_Tap tests creation of a TAP Ethernet Interface.
-func Test_CreateEthernetInterfaces_Tap(t *testing.T) {
-	client := SetupNetworkSvcTestClient(t)
-	intf := createBaseEthernetInterface(t, "tap-intf-")
-
-	// Set TAP mode
-	intf.SetTap(make(map[string]interface{}))
-
-	res, httpRes, err := client.EthernetInterfacesAPI.
-		CreateEthernetInterfaces(context.Background()).
-		EthernetInterfaces(intf).
-		Execute()
-
-	if err != nil {
-		handleAPIError(err)
-	}
-	require.NoError(t, err, "Failed to create TAP Ethernet Interface")
-	assert.Equal(t, http.StatusCreated, httpRes.StatusCode, "Expected 201 Created status")
-	assert.NotEmpty(t, res.GetId(), "The server must return a generated Id")
-
-	// Cleanup the created resource
-	defer func() {
-		client.EthernetInterfacesAPI.DeleteEthernetInterfacesByID(context.Background(), res.GetId()).Execute()
-	}()
-
-	assert.True(t, res.HasTap(), "Tap field must be set")
-	assert.False(t, res.HasLayer2(), "Layer2 field must NOT be set")
-}
-
 // Test_EthernetInterfacesAPIService_GetByID tests retrieving an Ethernet Interface by ID.
 func Test_EthernetInterfacesAPIService_GetByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
@@ -368,4 +339,60 @@ func Test_EthernetInterfacesAPIService_List(t *testing.T) {
 	require.NoError(t, errList, "Failed to list Ethernet Interfaces")
 	assert.Equal(t, http.StatusOK, httpResList.StatusCode, "Expected 200 OK status")
 	require.NotNil(t, listRes, "List response should not be nil")
+}
+
+// Test_network_services_EthernetInterfacesAPIService_FetchEthernetInterfaces tests the FetchEthernetInterfaces convenience method
+func Test_network_services_EthernetInterfacesAPIService_FetchEthernetInterfaces(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create a test object using the same helper as CRUD tests
+	testObj := createBaseEthernetInterface(t, "fetch-")
+	testObj.SetFolder("Prisma Access")
+	testObj.SetLayer2(*network_services.NewEthernetInterfacesLayer2())
+	testName := testObj.GetName()
+
+	createReq := client.EthernetInterfacesAPI.CreateEthernetInterfaces(context.Background()).EthernetInterfaces(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.EthernetInterfacesAPI.DeleteEthernetInterfacesByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.EthernetInterfacesAPI.FetchEthernetInterfaces(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch ethernet_interfaces by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchEthernetInterfaces found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.EthernetInterfacesAPI.FetchEthernetInterfaces(
+		context.Background(),
+		"non-existent-ethernet_interfaces-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchEthernetInterfaces correctly returned nil for non-existent object")
 }

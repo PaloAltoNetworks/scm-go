@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         service:
           - objects
@@ -23,6 +24,7 @@ jobs:
           - deployment_services
           - config_setup
           - config_operations
+          - device_settings
 
     steps:
       - name: Checkout code
@@ -33,6 +35,11 @@ jobs:
         with:
           go-version: '1.24.0'
           cache: true
+
+      - name: Disable test annotations
+        run: |
+          echo "::remove-matcher owner=go::"
+          echo "::remove-matcher owner=go-test::"
 
       - name: Download dependencies
         run: go mod download
@@ -48,18 +55,283 @@ jobs:
             "host": "${{ secrets.SCM_HOST }}",
             "protocol": "${{ secrets.SCM_PROTOCOL }}",
             "scope": "${{ secrets.SCM_SCOPE }}",
-            "logging": "${{ secrets.SCM_LOGGING }}",
+            "logging": "quiet",
             "skip_verify_certificate": ${{ secrets.SCM_SKIP_VERIFY_CERTIFICATE }}
           }
           EOF
 
       - name: Run tests for ${{ matrix.service }}
         run: |
-          go test -v -skip "LogicalRouters|Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/...
+          set +e
+
+          # Run tests with JSON output for parsing
+          go test -timeout 60m -parallel 1 -v -json -skip "Test_objects_ApplicationsAPIService_List" ./generated/${{ matrix.service }}/... > test-output.json 2>&1
+          exit_code=$?
+
+          # Parse JSON output and create detailed markdown summary
+          cat > parse_tests.py << 'PYTHON'
+          import json
+          import sys
+
+          passed = []
+          failed = []
+          skipped = []
+          test_outputs = {}  # Store output for each test
+          current_test = None
+
+          with open('test-output.json', 'r') as f:
+              for line in f:
+                  try:
+                      data = json.loads(line)
+                      action = data.get('Action')
+                      test_name = data.get('Test', '')
+
+                      # Track current test for output collection
+                      if action == 'run' and test_name:
+                          current_test = test_name
+                          test_outputs[test_name] = []
+
+                      # Collect output lines for tests
+                      if action == 'output' and current_test and 'Output' in data:
+                          output_line = data['Output'].rstrip()
+                          if output_line:
+                              test_outputs[current_test].append(output_line)
+
+                      # Record test results
+                      if action == 'pass' and test_name:
+                          elapsed = data.get('Elapsed', 0)
+                          passed.append((test_name, elapsed))
+                      elif action == 'fail' and test_name:
+                          elapsed = data.get('Elapsed', 0)
+                          failed.append((test_name, elapsed))
+                      elif action == 'skip' and test_name:
+                          skipped.append(test_name)
+                  except:
+                      pass
+
+          # Print summary to console
+          print(f"\n{'='*60}")
+          print(f"Test Results: ${{ matrix.service }}")
+          print(f"{'='*60}")
+          print(f"Passed: {len(passed)}")
+          print(f"Failed: {len(failed)}")
+          print(f"Skipped: {len(skipped)}")
+          print(f"{'='*60}\n")
+
+          # Write detailed markdown to file (NOT to GITHUB_STEP_SUMMARY)
+          with open('test-detail-${{ matrix.service }}.md', 'w') as f:
+              f.write(f'<a name="${{ matrix.service }}"></a>\n\n')
+              f.write(f"## ${{ matrix.service }}\n\n")
+              f.write(f"**{len(passed)} passed, {len(failed)} failed, {len(skipped)} skipped**\n\n")
+
+              if failed:
+                  f.write("### Failed Tests\n\n")
+                  for test, elapsed in failed:
+                      f.write(f"#### `{test}` ({elapsed:.2f}s)\n\n")
+
+                      # Extract and display failure output
+                      if test in test_outputs:
+                          output = test_outputs[test]
+                          # Find relevant error messages
+                          error_lines = []
+                          for i, line in enumerate(output):
+                              if any(keyword in line for keyword in ['Error:', 'FAIL:', 'panic:', '504 Gateway Timeout', 'expected', 'actual', 'X-Request-ID:', 'X-Trace-ID:', 'API RESPONSE HEADERS', 'API ERROR RESPONSE']):
+                                  start = max(0, i - 2)
+                                  end = min(len(output), i + 12)
+                                  error_lines.extend(output[start:end])
+                                  break
+
+                          if error_lines:
+                              f.write("<details>\n<summary>Error Details</summary>\n\n")
+                              f.write("```\n")
+                              f.write('\n'.join(error_lines[-20:]))
+                              f.write("\n```\n")
+                              f.write("</details>\n\n")
+                          else:
+                              f.write("_No detailed error output captured_\n\n")
+
+                      f.write("---\n\n")
+
+              if passed:
+                  f.write("<details>\n<summary>Passed Tests ({} tests)</summary>\n\n".format(len(passed)))
+                  f.write("| Test Name | Duration |\n")
+                  f.write("|-----------|----------|\n")
+                  for test, elapsed in passed:
+                      f.write(f"| `{test}` | {elapsed:.2f}s |\n")
+                  f.write("\n</details>\n\n")
+
+              if skipped:
+                  f.write("<details>\n<summary>Skipped Tests ({} tests)</summary>\n\n".format(len(skipped)))
+                  f.write("| Test Name |\n")
+                  f.write("|-----------|\n")
+                  for test in skipped:
+                      f.write(f"| `{test}` |\n")
+                  f.write("\n</details>\n\n")
+
+          # Write stats JSON for the unified summary table
+          stats = {
+              "package": "${{ matrix.service }}",
+              "passed": len(passed),
+              "failed": len(failed),
+              "skipped": len(skipped),
+              "total": len(passed) + len(failed) + len(skipped)
+          }
+          with open('test-stats-${{ matrix.service }}.json', 'w') as f:
+              json.dump(stats, f, indent=2)
+          PYTHON
+
+          python3 parse_tests.py
+
+          if [ $exit_code -ne 0 ]; then
+            echo "Tests failed for ${{ matrix.service }}"
+            exit $exit_code
+          else
+            echo "All tests passed for ${{ matrix.service }}"
+          fi
         timeout-minutes: 30
 
-      - name: Test Summary
+      - name: Upload test results
         if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.service }}
+          path: |
+            test-stats-${{ matrix.service }}.json
+            test-detail-${{ matrix.service }}.md
+          retention-days: 1
+          overwrite: true
+
+  summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: test
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all test results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: test-results-*
+          path: test-results
+
+      - name: Generate unified summary
         run: |
-          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "Tests completed with exit code: $?" >> $GITHUB_STEP_SUMMARY
+          cat > generate_summary.py << 'PYTHON'
+          import json, os, glob, re
+
+          summary = []
+
+          # ── Part 1: Unified results table (TOP) ──
+          stats_files = sorted(glob.glob('test-results/test-results-*/test-stats-*.json'))
+          packages = []
+          total_passed = 0
+          total_failed = 0
+          total_skipped = 0
+          total_tests = 0
+
+          for f in stats_files:
+              with open(f) as fh:
+                  data = json.load(fh)
+                  packages.append(data)
+                  total_passed += data['passed']
+                  total_failed += data['failed']
+                  total_skipped += data['skipped']
+                  total_tests += data['total']
+
+          summary.append("# Test Summary\n")
+          summary.append("## Results by Package\n")
+          summary.append("| Package | Passed | Failed | Skipped | Total | Status |")
+          summary.append("|---------|--------|--------|---------|-------|--------|")
+
+          for pkg in packages:
+              status = "PASS" if pkg['failed'] == 0 else "FAIL"
+              anchor = pkg['package']
+              summary.append(
+                  f"| [`{pkg['package']}`](#user-content-{anchor}) | {pkg['passed']} | {pkg['failed']} | "
+                  f"{pkg['skipped']} | {pkg['total']} | {status} |"
+              )
+
+          overall_status = "All Passing" if total_failed == 0 else f"{total_failed} Failures"
+          summary.append(
+              f"| **Total** | **{total_passed}** | **{total_failed}** | "
+              f"**{total_skipped}** | **{total_tests}** | **{overall_status}** |"
+          )
+          summary.append("")
+
+          # ── Part 2: Per-package details (MIDDLE) ──
+          summary.append("---\n")
+          summary.append("## Package Details\n")
+
+          detail_files = sorted(glob.glob('test-results/test-results-*/test-detail-*.md'))
+          for f in detail_files:
+              with open(f) as fh:
+                  summary.append(fh.read())
+
+          # ── Part 3: Missing test coverage (BOTTOM) ──
+          summary.append("---\n")
+          summary.append("## Test Coverage Gaps\n")
+
+          missing_any = False
+          coverage_rows = []
+
+          for pkg_dir in sorted(glob.glob('generated/*/')):
+              pkg_name = os.path.basename(pkg_dir.rstrip('/'))
+              api_files = glob.glob(os.path.join(pkg_dir, 'api_*.go'))
+              test_dir = os.path.join(pkg_dir, 'test')
+              test_files = glob.glob(os.path.join(test_dir, 'api_*_test.go')) if os.path.isdir(test_dir) else []
+
+              skip_names = {'api_client.go', 'api_default.go'}
+
+              api_names = set()
+              for af in api_files:
+                  base = os.path.basename(af)
+                  if base in skip_names:
+                      continue
+                  name = base.replace('api_', '').replace('.go', '')
+                  api_names.add(name)
+
+              test_names = set()
+              for tf in test_files:
+                  base = os.path.basename(tf)
+                  name = base.replace('api_', '').replace('_test.go', '')
+                  test_names.add(name)
+
+              missing = api_names - test_names
+              if missing:
+                  missing_any = True
+                  for m in sorted(missing):
+                      api_path = os.path.join(pkg_dir, f'api_{m}.go')
+                      methods = []
+                      if os.path.exists(api_path):
+                          with open(api_path) as fh:
+                              content = fh.read()
+                              for method in ['Create', 'List', 'Get', 'Update', 'Delete', 'Fetch']:
+                                  if re.search(rf'func\s+\(.*\)\s+{method}', content):
+                                      methods.append(method)
+                      method_str = ', '.join(methods) if methods else 'unknown'
+                      coverage_rows.append(f"| `{pkg_name}` | `{m}` | {method_str} |")
+
+          if missing_any:
+              summary.append("APIs with **no test file** (have implementation but no `test/api_*_test.go`):\n")
+              summary.append("| Package | API | Available Methods |")
+              summary.append("|---------|-----|-------------------|")
+              summary.extend(coverage_rows)
+          else:
+              summary.append("All API implementations have corresponding test files.")
+
+          summary.append("")
+
+          # Write to GITHUB_STEP_SUMMARY
+          summary_path = os.environ.get('GITHUB_STEP_SUMMARY', '/dev/stdout')
+          with open(summary_path, 'w') as f:
+              f.write('\n'.join(summary) + '\n')
+
+          print('\n'.join(summary))
+          PYTHON
+          python3 generate_summary.py
+
+      - name: Propagate failure
+        if: needs.test.result == 'failure'
+        run: exit 1

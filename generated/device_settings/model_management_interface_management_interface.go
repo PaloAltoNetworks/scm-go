@@ -20,9 +20,15 @@ var _ MappedNullable = &ManagementInterfaceManagementInterface{}
 
 // ManagementInterfaceManagementInterface struct for ManagementInterfaceManagementInterface
 type ManagementInterfaceManagementInterface struct {
-	MgmtType *ManagementInterfaceManagementInterfaceMgmtType `json:"mgmt_type,omitempty"`
+	// Default gateway
+	DefaultGateway *string `json:"default_gateway,omitempty"`
+	// IP address
+	IpAddress *string                                         `json:"ip_address,omitempty"`
+	MgmtType  *ManagementInterfaceManagementInterfaceMgmtType `json:"mgmt_type,omitempty"`
 	// MTU
 	Mtu *int32 `json:"mtu,omitempty"`
+	// Netmask
+	Netmask *string `json:"netmask,omitempty"`
 	// Permitting IP addresses
 	PermittedIp []ManagementInterfaceManagementInterfacePermittedIpInner `json:"permitted_ip,omitempty"`
 	Service     *ManagementInterfaceManagementInterfaceService           `json:"service,omitempty"`
@@ -56,6 +62,70 @@ func NewManagementInterfaceManagementInterfaceWithDefaults() *ManagementInterfac
 	var speedDuplex string = "auto-negotiate"
 	this.SpeedDuplex = &speedDuplex
 	return &this
+}
+
+// GetDefaultGateway returns the DefaultGateway field value if set, zero value otherwise.
+func (o *ManagementInterfaceManagementInterface) GetDefaultGateway() string {
+	if o == nil || IsNil(o.DefaultGateway) {
+		var ret string
+		return ret
+	}
+	return *o.DefaultGateway
+}
+
+// GetDefaultGatewayOk returns a tuple with the DefaultGateway field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ManagementInterfaceManagementInterface) GetDefaultGatewayOk() (*string, bool) {
+	if o == nil || IsNil(o.DefaultGateway) {
+		return nil, false
+	}
+	return o.DefaultGateway, true
+}
+
+// HasDefaultGateway returns a boolean if a field has been set.
+func (o *ManagementInterfaceManagementInterface) HasDefaultGateway() bool {
+	if o != nil && !IsNil(o.DefaultGateway) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultGateway gets a reference to the given string and assigns it to the DefaultGateway field.
+func (o *ManagementInterfaceManagementInterface) SetDefaultGateway(v string) {
+	o.DefaultGateway = &v
+}
+
+// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
+func (o *ManagementInterfaceManagementInterface) GetIpAddress() string {
+	if o == nil || IsNil(o.IpAddress) {
+		var ret string
+		return ret
+	}
+	return *o.IpAddress
+}
+
+// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ManagementInterfaceManagementInterface) GetIpAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.IpAddress) {
+		return nil, false
+	}
+	return o.IpAddress, true
+}
+
+// HasIpAddress returns a boolean if a field has been set.
+func (o *ManagementInterfaceManagementInterface) HasIpAddress() bool {
+	if o != nil && !IsNil(o.IpAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
+func (o *ManagementInterfaceManagementInterface) SetIpAddress(v string) {
+	o.IpAddress = &v
 }
 
 // GetMgmtType returns the MgmtType field value if set, zero value otherwise.
@@ -120,6 +190,38 @@ func (o *ManagementInterfaceManagementInterface) HasMtu() bool {
 // SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
 func (o *ManagementInterfaceManagementInterface) SetMtu(v int32) {
 	o.Mtu = &v
+}
+
+// GetNetmask returns the Netmask field value if set, zero value otherwise.
+func (o *ManagementInterfaceManagementInterface) GetNetmask() string {
+	if o == nil || IsNil(o.Netmask) {
+		var ret string
+		return ret
+	}
+	return *o.Netmask
+}
+
+// GetNetmaskOk returns a tuple with the Netmask field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ManagementInterfaceManagementInterface) GetNetmaskOk() (*string, bool) {
+	if o == nil || IsNil(o.Netmask) {
+		return nil, false
+	}
+	return o.Netmask, true
+}
+
+// HasNetmask returns a boolean if a field has been set.
+func (o *ManagementInterfaceManagementInterface) HasNetmask() bool {
+	if o != nil && !IsNil(o.Netmask) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetmask gets a reference to the given string and assigns it to the Netmask field.
+func (o *ManagementInterfaceManagementInterface) SetNetmask(v string) {
+	o.Netmask = &v
 }
 
 // GetPermittedIp returns the PermittedIp field value if set, zero value otherwise.
@@ -228,11 +330,20 @@ func (o ManagementInterfaceManagementInterface) MarshalJSON() ([]byte, error) {
 
 func (o ManagementInterfaceManagementInterface) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DefaultGateway) {
+		toSerialize["default_gateway"] = o.DefaultGateway
+	}
+	if !IsNil(o.IpAddress) {
+		toSerialize["ip_address"] = o.IpAddress
+	}
 	if !IsNil(o.MgmtType) {
 		toSerialize["mgmt_type"] = o.MgmtType
 	}
 	if !IsNil(o.Mtu) {
 		toSerialize["mtu"] = o.Mtu
+	}
+	if !IsNil(o.Netmask) {
+		toSerialize["netmask"] = o.Netmask
 	}
 	if !IsNil(o.PermittedIp) {
 		toSerialize["permitted_ip"] = o.PermittedIp
@@ -265,8 +376,11 @@ func (o *ManagementInterfaceManagementInterface) UnmarshalJSON(data []byte) (err
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "default_gateway")
+		delete(additionalProperties, "ip_address")
 		delete(additionalProperties, "mgmt_type")
 		delete(additionalProperties, "mtu")
+		delete(additionalProperties, "netmask")
 		delete(additionalProperties, "permitted_ip")
 		delete(additionalProperties, "service")
 		delete(additionalProperties, "speed_duplex")

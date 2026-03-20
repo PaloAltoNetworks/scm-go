@@ -300,3 +300,49 @@ func Test_network_services_Layer2SubinterfacesAPIService_List(t *testing.T) {
 	assert.Equal(t, http.StatusOK, httpResList.StatusCode, "Expected 200 OK status")
 	require.NotNil(t, listRes, "List response should not be nil")
 }
+
+// Test_network_services_Layer2SubinterfacesAPIService_Fetch tests the fetch convenience method
+func Test_network_services_Layer2SubinterfacesAPIService_Fetch(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+
+	// --- 1. SETUP PREREQUISITE: Create the L2 Parent Interface ---
+	parentIfName, parentCleanup := setupL2EthernetInterface(t, client)
+	defer parentCleanup()
+
+	// Setup: Create subinterface
+	vlanTag := "999"
+	subIf := createFullLayer2Subinterface(t, parentIfName, vlanTag)
+
+	createRes, _, err := client.Layer2SubinterfacesAPI.CreateLayer2Subinterfaces(context.Background()).Layer2Subinterfaces(subIf).Execute()
+	require.NoError(t, err, "Failed to create Layer 2 Subinterface for fetch test")
+	createdID := *createRes.Id
+	createdName := createRes.Name
+	createdFolder := createRes.Folder
+	require.NotEmpty(t, createdID, "Created subinterface ID should not be empty")
+
+	// Defer cleanup
+	defer func() {
+		t.Logf("Cleaning up Layer 2 Subinterface with ID: %s", createdID)
+		_, errDel := client.Layer2SubinterfacesAPI.DeleteLayer2SubinterfacesByID(context.Background(), createdID).Execute()
+		require.NoError(t, errDel, "Failed to delete subinterface during cleanup")
+	}()
+
+	// Test Fetch by name operation
+	fmt.Printf("Attempting to fetch Layer 2 Subinterface with name: %s\n", createdName)
+	fetchedSubIf, errFetch := client.Layer2SubinterfacesAPI.FetchLayer2Subinterfaces(context.Background(), createdName, createdFolder, nil, nil)
+
+	// Verify the fetch operation was successful
+	require.NoError(t, errFetch, "Failed to fetch subinterface by name")
+	require.NotNil(t, fetchedSubIf, "Fetched subinterface should not be nil")
+	assert.Equal(t, createdName, fetchedSubIf.Name, "Subinterface name should match")
+	assert.Equal(t, createdID, *fetchedSubIf.Id, "Subinterface ID should match")
+	assert.Equal(t, *createdFolder, *fetchedSubIf.Folder, "Folder should match")
+	t.Logf("Successfully fetched Layer 2 Subinterface: %s", createdName)
+
+	// Test fetching non-existent subinterface (should return nil)
+	nonExistentName := "non-existent-layer2-xyz-12345"
+	notFoundSubIf, errNotFound := client.Layer2SubinterfacesAPI.FetchLayer2Subinterfaces(context.Background(), nonExistentName, createdFolder, nil, nil)
+	require.NoError(t, errNotFound, "Fetch for non-existent subinterface should not error")
+	assert.Nil(t, notFoundSubIf, "Non-existent subinterface should return nil")
+	t.Logf("Successfully verified fetch returns nil for non-existent subinterface")
+}

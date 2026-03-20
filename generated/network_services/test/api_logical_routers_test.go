@@ -27,50 +27,49 @@ func generateLogicalRouterName(base string) string {
 }
 
 // createLogicalRouterVrfInner creates the nested LogicalRoutersVrfInner structure
-// using the specific resource names from the updated Terraform example.
-func createLogicalRouterVrfInner(t *testing.T, interfaceName string, nextHopVarName string) network_services.LogicalRoutersVrfInner {
+// with static routes using literal IP addresses and FQDNs.
+func createLogicalRouterVrfInner(t *testing.T, interfaceName string) network_services.LogicalRoutersVrfInner {
 	// 1. Define the Static Route components using the correct, specific model types.
 
-	// Define the type for Nexthop (assuming it must be defined elsewhere, but using inferred name)
-	// NOTE: If the client did not generate 'LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop',
-	// you must replace this type with the actual generated Nexthop struct.
 	type NexthopType = network_services.LogicalRoutersVrfInnerRoutingTableIpStaticRouteInnerNexthop
 
 	// Route 1: default-route (Literal IP address nexthop)
 	route1Name := "default-route"
 	route1 := *network_services.NewLogicalRoutersVrfInnerRoutingTableIpStaticRouteInner(route1Name)
 	route1.SetDestination("0.0.0.0/0")
-	route1.SetAdminDist(10) // Assuming Preference maps to AdminDist or Metric based on standard routing practice
+	route1.SetAdminDist(10)
 	route1.SetNexthop(NexthopType{
 		IpAddress: common.StringPtr("198.18.1.1"),
 	})
 
-	// Route 2: internal-route (Variable IP address nexthop)
+	// Route 2: internal-route (Literal IP address nexthop with interface)
 	route2Name := "internal-route"
 	route2 := *network_services.NewLogicalRoutersVrfInnerRoutingTableIpStaticRouteInner(route2Name)
 	route2.SetDestination("192.168.1.0/24")
 	route2.SetInterface(interfaceName)
 	route2.SetAdminDist(11)
 	route2.SetNexthop(NexthopType{
-		IpAddress: common.StringPtr(nextHopVarName), // Use the variable name
+		IpAddress: common.StringPtr("192.0.2.1"), // Use a literal IP address
 	})
 
-	// Route 3: route-with-fqdn-nh (Variable FQDN nexthop)
+	// Route 3: route-with-fqdn-nh (Literal FQDN nexthop)
 	route3Name := "route-with-fqdn-nh"
 	route3 := *network_services.NewLogicalRoutersVrfInnerRoutingTableIpStaticRouteInner(route3Name)
 	route3.SetDestination("192.168.2.0/24")
 	route3.SetInterface(interfaceName)
 	route3.SetAdminDist(12)
 	route3.SetNexthop(NexthopType{
-		Fqdn: common.StringPtr(nextHopVarName), // Use the FQDN variable
+		Fqdn: common.StringPtr("nexthop.example.com"), // Use a literal FQDN
 	})
-	// If the client generated a Bfd struct:
-	// route3.SetBfd(network_services.LogicalRoutersVrfInnerBgpGlobalBfd{})
 
 	// 2. Define Routing Table and IP configuration
 	routingTableIp := network_services.NewLogicalRoutersVrfInnerRoutingTableIp()
 
 	// SetStaticRoute expects []LogicalRoutersVrfInnerRoutingTableIpStaticRouteInner
+	// This creates three test routes:
+	// - Default route via 198.18.1.1
+	// - Route to 192.168.1.0/24 via interface with nexthop 192.0.2.1
+	// - Route to 192.168.2.0/24 via interface with FQDN nexthop
 	staticRoutes := []network_services.LogicalRoutersVrfInnerRoutingTableIpStaticRouteInner{route1, route2, route3}
 	routingTableIp.SetStaticRoute(staticRoutes)
 
@@ -87,16 +86,12 @@ func createLogicalRouterVrfInner(t *testing.T, interfaceName string, nextHopVarN
 }
 
 // createTestLogicalRouter creates a LogicalRouters object for testing.
-func createTestLogicalRouter(t *testing.T, routerName string) network_services.LogicalRouters {
-	// UPDATED CONSTANTS based on your new resource definitions
-	const (
-		EthInterfaceName = "$scm_ethernet_interface_test1"
-		NextHopVarName   = "$scm_next_hop_test"
-		TargetFolder     = "All"
-	)
+// Takes an actual ethernet interface name (not a variable reference).
+func createTestLogicalRouter(t *testing.T, routerName string, ethInterfaceName string) network_services.LogicalRouters {
+	const TargetFolder = "All"
 
-	// Build the nested VRF structure
-	vrfInner := createLogicalRouterVrfInner(t, EthInterfaceName, NextHopVarName)
+	// Build the nested VRF structure using the actual ethernet interface
+	vrfInner := createLogicalRouterVrfInner(t, ethInterfaceName)
 
 	// Build the main Logical Router
 	logicalRouter := network_services.NewLogicalRouters(routerName)
@@ -109,18 +104,51 @@ func createTestLogicalRouter(t *testing.T, routerName string) network_services.L
 	return *logicalRouter
 }
 
+// createPrerequisiteEthernetInterface creates an ethernet interface for use in logical router tests.
+func createPrerequisiteEthernetInterface(t *testing.T, client *network_services.APIClient, baseName string) (string, string) {
+	// Generate unique name (ethernet interfaces require $ prefix)
+	intfName := "$" + baseName + common.GenerateRandomString(4)
+
+	// Create a simple Layer 3 ethernet interface
+	intf := *network_services.NewEthernetInterfacesWithDefaults()
+	intf.SetName(intfName)
+	intf.SetComment("Prerequisite for Logical Router Test")
+	intf.SetFolder("All")
+	intf.SetLinkDuplex("auto")
+	intf.SetLinkSpeed("auto")
+	intf.SetLinkState("up")
+
+	// Set Layer 3 mode with a basic IP
+	layer3Config := network_services.NewEthernetInterfacesLayer3WithDefaults()
+	layer3Config.SetIp([]network_services.EthernetInterfacesLayer3IpInner{
+		{Name: "192.0.2.1/24"},
+	})
+	intf.SetLayer3(*layer3Config)
+
+	res, _, err := client.EthernetInterfacesAPI.CreateEthernetInterfaces(context.Background()).
+		EthernetInterfaces(intf).Execute()
+	require.NoError(t, err, "Failed to create prerequisite ethernet interface")
+
+	return res.GetId(), intfName
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 
 // Test_network_services_LogicalRoutersAPIService_Create tests the creation of a Logical Router.
 func Test_network_services_LogicalRoutersAPIService_Create(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
-	// Use the name from the example, and let the UUID be unique
-	routerName := "scm_logical_router_test123"
 
-	// To ensure the test is isolated, append a random string to the name.
+	// Step 1: Create prerequisite ethernet interface
+	ethIntfID, ethIntfName := createPrerequisiteEthernetInterface(t, client, "eth-lr-create-")
+	defer func() {
+		client.EthernetInterfacesAPI.DeleteEthernetInterfacesByID(context.Background(), ethIntfID).Execute()
+	}()
+
+	// Step 2: Create logical router using the actual interface
+	routerName := "scm_logical_router_test123"
 	uniqueRouterName := generateLogicalRouterName(routerName + "-")
 
-	logicalRouter := createTestLogicalRouter(t, uniqueRouterName)
+	logicalRouter := createTestLogicalRouter(t, uniqueRouterName, ethIntfName)
 
 	t.Logf("Creating Logical Router with name: %s in folder: %s", uniqueRouterName, logicalRouter.GetFolder())
 	req := client.LogicalRoutersAPI.CreateLogicalRouters(context.Background()).LogicalRouters(logicalRouter)
@@ -157,12 +185,18 @@ func Test_network_services_LogicalRoutersAPIService_Create(t *testing.T) {
 // Test_network_services_LogicalRoutersAPIService_GetByID tests retrieving a Logical Router by ID.
 func Test_network_services_LogicalRoutersAPIService_GetByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
-	routerName := "scm_logical_router_test"
 
-	// To ensure the test is isolated, append a random string to the name.
+	// Step 1: Create prerequisite ethernet interface
+	ethIntfID, ethIntfName := createPrerequisiteEthernetInterface(t, client, "eth-lr-get-")
+	defer func() {
+		client.EthernetInterfacesAPI.DeleteEthernetInterfacesByID(context.Background(), ethIntfID).Execute()
+	}()
+
+	// Step 2: Create logical router
+	routerName := "scm_logical_router_test"
 	uniqueRouterName := generateLogicalRouterName(routerName + "-")
 
-	logicalRouter := createTestLogicalRouter(t, uniqueRouterName)
+	logicalRouter := createTestLogicalRouter(t, uniqueRouterName, ethIntfName)
 	createRes, _, err := client.LogicalRoutersAPI.CreateLogicalRouters(context.Background()).LogicalRouters(logicalRouter).Execute()
 	require.NoError(t, err, "Failed to create router for get test setup")
 	createdID := *createRes.Id
@@ -191,12 +225,18 @@ func Test_network_services_LogicalRoutersAPIService_GetByID(t *testing.T) {
 // Test_network_services_LogicalRoutersAPIService_DeleteByID tests deleting a Logical Router.
 func Test_network_services_LogicalRoutersAPIService_DeleteByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
-	routerName := "scm_logical_router_test"
 
-	// To ensure the test is isolated, append a random string to the name.
+	// Step 1: Create prerequisite ethernet interface
+	ethIntfID, ethIntfName := createPrerequisiteEthernetInterface(t, client, "eth-lr-del-")
+	defer func() {
+		client.EthernetInterfacesAPI.DeleteEthernetInterfacesByID(context.Background(), ethIntfID).Execute()
+	}()
+
+	// Step 2: Create logical router
+	routerName := "scm_logical_router_test"
 	uniqueRouterName := generateLogicalRouterName(routerName + "-")
 
-	logicalRouter := createTestLogicalRouter(t, uniqueRouterName)
+	logicalRouter := createTestLogicalRouter(t, uniqueRouterName, ethIntfName)
 
 	createRes, _, err := client.LogicalRoutersAPI.CreateLogicalRouters(context.Background()).LogicalRouters(logicalRouter).Execute()
 	require.NoError(t, err, "Failed to create router for delete test setup")
@@ -217,7 +257,26 @@ func Test_network_services_LogicalRoutersAPIService_List(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
 	targetFolder := "All"
 
-	// Test: List the routers, filtering by name and folder
+	// Step 1: Create prerequisite ethernet interface
+	ethIntfID, ethIntfName := createPrerequisiteEthernetInterface(t, client, "eth-lr-list-")
+	defer func() {
+		client.EthernetInterfacesAPI.DeleteEthernetInterfacesByID(context.Background(), ethIntfID).Execute()
+	}()
+
+	// Step 2: Create a logical router to ensure list is not empty
+	routerName := "scm_logical_router_list"
+	uniqueRouterName := generateLogicalRouterName(routerName + "-")
+	logicalRouter := createTestLogicalRouter(t, uniqueRouterName, ethIntfName)
+
+	createRes, _, err := client.LogicalRoutersAPI.CreateLogicalRouters(context.Background()).LogicalRouters(logicalRouter).Execute()
+	require.NoError(t, err, "Failed to create router for list test setup")
+	createdID := *createRes.Id
+
+	defer func() {
+		client.LogicalRoutersAPI.DeleteLogicalRoutersByID(context.Background(), createdID).Execute()
+	}()
+
+	// Test: List the routers, filtering by folder
 	listRes, httpRes, err := client.LogicalRoutersAPI.ListLogicalRouters(context.Background()).
 		Folder(targetFolder).
 		Limit(100).
@@ -235,12 +294,20 @@ func Test_network_services_LogicalRoutersAPIService_List(t *testing.T) {
 // Test_network_services_LogicalRoutersAPIService_Update tests updating a Logical Router's root-level property.
 func Test_network_services_LogicalRoutersAPIService_Update(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+
+	// Step 1: Create prerequisite ethernet interface
+	ethIntfID, ethIntfName := createPrerequisiteEthernetInterface(t, client, "eth-lr-upd-")
+	defer func() {
+		client.EthernetInterfacesAPI.DeleteEthernetInterfacesByID(context.Background(), ethIntfID).Execute()
+	}()
+
+	// Step 2: Create logical router
 	routerName := "scm_lr_root_update_test"
 	uniqueRouterName := generateLogicalRouterName(routerName + "-")
 	targetFolder := "All"
 
 	// --- 1. SETUP: Create the resource ---
-	initialRouter := createTestLogicalRouter(t, uniqueRouterName)
+	initialRouter := createTestLogicalRouter(t, uniqueRouterName, ethIntfName)
 	initialRouter.SetFolder(targetFolder)
 
 	originalVrf := initialRouter.GetVrf()
@@ -258,7 +325,7 @@ func Test_network_services_LogicalRoutersAPIService_Update(t *testing.T) {
 
 	updatedRoutingStack := "legacy"
 
-	updatedRouter := createTestLogicalRouter(t, uniqueRouterName)
+	updatedRouter := createTestLogicalRouter(t, uniqueRouterName, ethIntfName)
 
 	// 2.1. Apply the ONLY change: Update the root-level field
 	updatedRouter.SetRoutingStack(updatedRoutingStack)
@@ -285,4 +352,61 @@ func Test_network_services_LogicalRoutersAPIService_Update(t *testing.T) {
 	// Verify non-updated identifying and nested fields are preserved
 	assert.Equal(t, uniqueRouterName, updateRes.Name, "Name must remain unchanged")
 	require.Equal(t, len(originalVrf), len(updateRes.Vrf), "VRF list size must be preserved")
+}
+
+// Test_network_services_LogicalRoutersAPIService_FetchLogicalRouters tests the FetchLogicalRouters convenience method
+func Test_network_services_LogicalRoutersAPIService_FetchLogicalRouters(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create a test object first (inline creation like other tests)
+	testName := "fetch-lr-" + common.GenerateRandomString(6)
+	testObj := network_services.LogicalRouters{
+		Name:   testName,
+		Folder: common.StringPtr("Prisma Access"),
+	}
+
+	createReq := client.LogicalRoutersAPI.CreateLogicalRouters(context.Background()).LogicalRouters(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.LogicalRoutersAPI.DeleteLogicalRoutersByID(context.Background(), *createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", *createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.LogicalRoutersAPI.FetchLogicalRouters(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch logical_routers by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchLogicalRouters found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.LogicalRoutersAPI.FetchLogicalRouters(
+		context.Background(),
+		"non-existent-logical_routers-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchLogicalRouters correctly returned nil for non-existent object")
 }

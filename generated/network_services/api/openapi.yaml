@@ -104,12 +104,22 @@ tags:
   name: VLAN Interfaces
 - description: Zone Protection Profiles
   name: Zone Protection Profiles
-- description: Ssl Decrypt
-  name: Ssl Decryption Settings
 - description: Remote Networks License Info
   name: Remote Networks License
 - description: LLDP Profiles
   name: LLDP Profiles
+- description: Config Match List
+  name: Config Match List
+- description: Globalprotect Match List
+  name: Globalprotect Match List
+- description: Hipmatch Match List
+  name: Hipmatch Match List
+- description: Iptag Match List
+  name: Iptag Match List
+- description: System Match List
+  name: System Match List
+- description: Userid Match List
+  name: Userid Match List
 paths:
   /aggregate-interfaces:
     get:
@@ -1397,6 +1407,153 @@ paths:
       summary: Update a BGP route map
       tags:
       - BGP Route Maps
+  /config-match-list:
+    get:
+      description: |
+        Retrieve a list of config match list entries.
+      operationId: ListConfigMatchList
+      parameters:
+      - $ref: '#/components/parameters/name'
+      - $ref: '#/components/parameters/folder'
+      - $ref: '#/components/parameters/snippet'
+      - $ref: '#/components/parameters/device'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigMatchListListResponse'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: List config match list entries
+      tags:
+      - Config Match List
+    post:
+      description: |
+        Create a new config match list entry.
+      operationId: CreateConfigMatchList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/config-match-list'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/config-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Create a config match list entry
+      tags:
+      - Config Match List
+  /config-match-list/{id}:
+    delete:
+      description: |
+        Delete a config match list entry.
+      operationId: DeleteConfigMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          $ref: '#/components/responses/http_ok'
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Delete a config match list entry
+      tags:
+      - Config Match List
+    get:
+      description: |
+        Get an existing config match list entry.
+      operationId: GetConfigMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/config-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Get a config match list entry
+      tags:
+      - Config Match List
+    put:
+      description: |
+        Update an existing config match list entry.
+      operationId: UpdateConfigMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/config-match-list'
+        description: OK
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/config-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Update a config match list entry
+      tags:
+      - Config Match List
   /dhcp-interfaces:
     get:
       description: |
@@ -1838,6 +1995,300 @@ paths:
       summary: Update an ethernet interface
       tags:
       - Ethernet Interfaces
+  /globalprotect-match-list:
+    get:
+      description: |
+        Retrieve a list of globalprotect match list entries.
+      operationId: ListGlobalprotectMatchList
+      parameters:
+      - $ref: '#/components/parameters/name'
+      - $ref: '#/components/parameters/folder'
+      - $ref: '#/components/parameters/snippet'
+      - $ref: '#/components/parameters/device'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalprotectMatchListListResponse'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: List globalprotect match list entries
+      tags:
+      - Globalprotect Match List
+    post:
+      description: |
+        Create a new globalprotect match list entry.
+      operationId: CreateGlobalprotectMatchList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/globalprotect-match-list'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/globalprotect-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Create a globalprotect match list entry
+      tags:
+      - Globalprotect Match List
+  /globalprotect-match-list/{id}:
+    delete:
+      description: |
+        Delete a globalprotect match list entry.
+      operationId: DeleteGlobalprotectMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          $ref: '#/components/responses/http_ok'
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Delete a globalprotect match list entry
+      tags:
+      - Globalprotect Match List
+    get:
+      description: |
+        Get an existing globalprotect match list entry.
+      operationId: GetGlobalprotectMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/globalprotect-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Get a globalprotect match list entry
+      tags:
+      - Globalprotect Match List
+    put:
+      description: |
+        Update an existing globalprotect match list entry.
+      operationId: UpdateGlobalprotectMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/globalprotect-match-list'
+        description: OK
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/globalprotect-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Update a globalprotect match list entry
+      tags:
+      - Globalprotect Match List
+  /hipmatch-match-list:
+    get:
+      description: |
+        Retrieve a list of hipmatch match list entries.
+      operationId: ListHipmatchMatchList
+      parameters:
+      - $ref: '#/components/parameters/name'
+      - $ref: '#/components/parameters/folder'
+      - $ref: '#/components/parameters/snippet'
+      - $ref: '#/components/parameters/device'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HipmatchMatchListListResponse'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: List hipmatch match list entries
+      tags:
+      - Hipmatch Match List
+    post:
+      description: |
+        Create a new hipmatch match list entry.
+      operationId: CreateHipmatchMatchList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hipmatch-match-list'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hipmatch-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Create a hipmatch match list entry
+      tags:
+      - Hipmatch Match List
+  /hipmatch-match-list/{id}:
+    delete:
+      description: |
+        Delete a hipmatch match list entry.
+      operationId: DeleteHipmatchMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          $ref: '#/components/responses/http_ok'
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Delete a hipmatch match list entry
+      tags:
+      - Hipmatch Match List
+    get:
+      description: |
+        Get an existing hipmatch match list entry.
+      operationId: GetHipmatchMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hipmatch-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Get a hipmatch match list entry
+      tags:
+      - Hipmatch Match List
+    put:
+      description: |
+        Update an existing hipmatch match list entry.
+      operationId: UpdateHipmatchMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hipmatch-match-list'
+        description: OK
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hipmatch-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Update a hipmatch match list entry
+      tags:
+      - Hipmatch Match List
   /ike-crypto-profiles:
     get:
       description: |
@@ -2573,6 +3024,153 @@ paths:
       summary: Update an IPsec tunnel
       tags:
       - IPsec Tunnels
+  /iptag-match-list:
+    get:
+      description: |
+        Retrieve a list of iptag match list entries.
+      operationId: ListIptagMatchList
+      parameters:
+      - $ref: '#/components/parameters/name'
+      - $ref: '#/components/parameters/folder'
+      - $ref: '#/components/parameters/snippet'
+      - $ref: '#/components/parameters/device'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IptagMatchListListResponse'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: List iptag match list entries
+      tags:
+      - Iptag Match List
+    post:
+      description: |
+        Create a new iptag match list entry.
+      operationId: CreateIptagMatchList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/iptag-match-list'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iptag-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Create an iptag match list entry
+      tags:
+      - Iptag Match List
+  /iptag-match-list/{id}:
+    delete:
+      description: |
+        Delete an iptag match list entry.
+      operationId: DeleteIptagMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          $ref: '#/components/responses/http_ok'
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Delete an iptag match list entry
+      tags:
+      - Iptag Match List
+    get:
+      description: |
+        Get an existing iptag match list entry.
+      operationId: GetIptagMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iptag-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Get an iptag match list entry
+      tags:
+      - Iptag Match List
+    put:
+      description: |
+        Update an existing iptag match list entry.
+      operationId: UpdateIptagMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/iptag-match-list'
+        description: OK
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/iptag-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Update an iptag match list entry
+      tags:
+      - Iptag Match List
   /layer2-subinterfaces:
     get:
       description: |
@@ -5582,36 +6180,13 @@ paths:
       summary: Update an SD-WAN traffic distribution profile
       tags:
       - SD-WAN Traffic Distribution Profiles
-  /ssl-decryption-settings:
-    delete:
-      description: DELETE Ssl Decryption Settings
-      operationId: deleteSslDecryptionSettings
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ssl-decryption-settings'
-          description: Successful response
-        "400":
-          $ref: '#/components/responses/bad_request_errors_basic'
-        "401":
-          $ref: '#/components/responses/auth_errors'
-        "403":
-          $ref: '#/components/responses/access_errors'
-        "404":
-          $ref: '#/components/responses/not_found'
-        "409":
-          $ref: '#/components/responses/conflict_errors'
-        default:
-          $ref: '#/components/responses/default_errors'
-      summary: DELETE Ssl Decryption Settings
-      tags:
-      - Ssl Decryption Settings
+  /system-match-list:
     get:
-      description: GET Ssl Decryption Settings
-      operationId: getSslDecryptionSettings
+      description: |
+        Retrieve a list of system match list entries.
+      operationId: ListSystemMatchList
       parameters:
+      - $ref: '#/components/parameters/name'
       - $ref: '#/components/parameters/folder'
       - $ref: '#/components/parameters/snippet'
       - $ref: '#/components/parameters/device'
@@ -5622,8 +6197,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ssl-decryption-settings'
-          description: Successful response
+                $ref: '#/components/schemas/SystemMatchListListResponse'
+          description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic'
         "401":
@@ -5634,24 +6209,25 @@ paths:
           $ref: '#/components/responses/not_found'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: GET Ssl Decryption Settings
+      summary: List system match list entries
       tags:
-      - Ssl Decryption Settings
+      - System Match List
     post:
-      description: POST Ssl Decryption Settings
-      operationId: postSslDecryptionSettings
+      description: |
+        Create a new system match list entry.
+      operationId: CreateSystemMatchList
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ssl-decryption-settings'
-        required: true
+              $ref: '#/components/schemas/system-match-list'
+        description: Created
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ssl-decryption-settings'
+                $ref: '#/components/schemas/system-match-list'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic_with_body'
@@ -5663,18 +6239,78 @@ paths:
           $ref: '#/components/responses/conflict_errors'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: POST Ssl Decryption Settings
+      summary: Create a system match list entry
       tags:
-      - Ssl Decryption Settings
-    put:
-      description: PUT Ssl Decryption Settings
-      operationId: putSslDecryptionSettings
+      - System Match List
+  /system-match-list/{id}:
+    delete:
+      description: |
+        Delete a system match list entry.
+      operationId: DeleteSystemMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          $ref: '#/components/responses/http_ok'
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Delete a system match list entry
+      tags:
+      - System Match List
+    get:
+      description: |
+        Get an existing system match list entry.
+      operationId: GetSystemMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ssl-decryption-settings'
+                $ref: '#/components/schemas/system-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Get a system match list entry
+      tags:
+      - System Match List
+    put:
+      description: |
+        Update an existing system match list entry.
+      operationId: UpdateSystemMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/system-match-list'
+        description: OK
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/system-match-list'
           description: OK
         "400":
           $ref: '#/components/responses/bad_request_errors_basic_with_body'
@@ -5688,9 +6324,9 @@ paths:
           $ref: '#/components/responses/conflict_errors'
         default:
           $ref: '#/components/responses/default_errors'
-      summary: PUT Ssl Decryption Settings
+      summary: Update a system match list entry
       tags:
-      - Ssl Decryption Settings
+      - System Match List
   /tunnel-interfaces:
     get:
       description: |
@@ -5838,6 +6474,153 @@ paths:
       summary: Update a tunnel interface
       tags:
       - Tunnel Interfaces
+  /userid-match-list:
+    get:
+      description: |
+        Retrieve a list of userid match list entries.
+      operationId: ListUseridMatchList
+      parameters:
+      - $ref: '#/components/parameters/name'
+      - $ref: '#/components/parameters/folder'
+      - $ref: '#/components/parameters/snippet'
+      - $ref: '#/components/parameters/device'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UseridMatchListListResponse'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: List userid match list entries
+      tags:
+      - Userid Match List
+    post:
+      description: |
+        Create a new userid match list entry.
+      operationId: CreateUseridMatchList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userid-match-list'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userid-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Create a userid match list entry
+      tags:
+      - Userid Match List
+  /userid-match-list/{id}:
+    delete:
+      description: |
+        Delete a userid match list entry.
+      operationId: DeleteUseridMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          $ref: '#/components/responses/http_ok'
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Delete a userid match list entry
+      tags:
+      - Userid Match List
+    get:
+      description: |
+        Get an existing userid match list entry.
+      operationId: GetUseridMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userid-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Get a userid match list entry
+      tags:
+      - Userid Match List
+    put:
+      description: |
+        Update an existing userid match list entry.
+      operationId: UpdateUseridMatchListByID
+      parameters:
+      - $ref: '#/components/parameters/uuid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userid-match-list'
+        description: OK
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userid-match-list'
+          description: OK
+        "400":
+          $ref: '#/components/responses/bad_request_errors_basic_with_body'
+        "401":
+          $ref: '#/components/responses/auth_errors'
+        "403":
+          $ref: '#/components/responses/access_errors'
+        "404":
+          $ref: '#/components/responses/not_found'
+        "409":
+          $ref: '#/components/responses/conflict_errors'
+        default:
+          $ref: '#/components/responses/default_errors'
+      summary: Update a userid match list entry
+      tags:
+      - Userid Match List
   /vlan-interfaces:
     get:
       description: |
@@ -6900,6 +7683,35 @@ components:
       - limit
       - offset
       - total
+    ConfigMatchListListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ConfigMatchList'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
     DHCPInterfacesListResponse:
       example:
         total: 1
@@ -6970,6 +7782,64 @@ components:
         data:
           items:
             $ref: '#/components/schemas/EthernetInterfaces'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+    GlobalprotectMatchListListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/GlobalprotectMatchList'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+    HipmatchMatchListListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/HipmatchMatchList'
           type: array
         limit:
           default: 200
@@ -7115,6 +7985,35 @@ components:
         data:
           items:
             $ref: '#/components/schemas/InterfaceManagementProfiles'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+    IptagMatchListListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/IptagMatchList'
           type: array
         limit:
           default: 200
@@ -7760,6 +8659,35 @@ components:
       - limit
       - offset
       - total
+    SystemMatchListListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SystemMatchList'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
     TunnelInterfacesListResponse:
       example:
         total: 1
@@ -7772,6 +8700,35 @@ components:
         data:
           items:
             $ref: '#/components/schemas/TunnelInterfaces'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+    UseridMatchListListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/UseridMatchList'
           type: array
         limit:
           default: 200
@@ -7905,6 +8862,7 @@ components:
             enable: false
             system_priority: 39501
             max_ports: 1
+          netflow_profile: netflow_profile
           ip:
           - name: name
           - name: name
@@ -7936,6 +8894,7 @@ components:
             system_priority: 39501
             max_ports: 1
           vlan_tag: "123"
+          netflow_profile: netflow_profile
         device: My Device
       properties:
         comment:
@@ -9341,6 +10300,87 @@ components:
           type: string
       required:
       - name
+    config-match-list:
+      example:
+        filter: filter
+        snippet: My Snippet
+        send_syslog:
+        - send_syslog
+        - send_syslog
+        folder: My Folder
+        send_snmptrap:
+        - send_snmptrap
+        - send_snmptrap
+        send_to_panorama: true
+        name: name
+        description: description
+        send_email:
+        - send_email
+        - send_email
+        id: 123e4567-e89b-12d3-a456-426655440000
+        device: My Device
+        send_http:
+        - send_http
+        - send_http
+      properties:
+        description:
+          description: Description of the config match list entry
+          type: string
+        device:
+          description: The device in which the resource is defined
+          example: My Device
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        filter:
+          description: Filter of the config match list entry
+          type: string
+        folder:
+          description: The folder in which the resource is defined
+          example: My Folder
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        id:
+          description: UUID of the resource
+          example: 123e4567-e89b-12d3-a456-426655440000
+          readOnly: true
+          type: string
+        name:
+          description: Name of the config match list entry
+          maxLength: 63
+          type: string
+        send_email:
+          description: Send Email List of the config match list entry
+          items:
+            type: string
+          type: array
+        send_http:
+          description: Send HTTP List of the config match list entry
+          items:
+            type: string
+          type: array
+        send_snmptrap:
+          description: Send SNMP Trap List of the config match list entry
+          items:
+            type: string
+          type: array
+        send_syslog:
+          description: Send Sys Log List of the config match list entry
+          items:
+            type: string
+          type: array
+        send_to_panorama:
+          description: Send Panorama Flag of the config match list entry
+          type: boolean
+        snippet:
+          description: The snippet in which the resource is defined
+          example: My Snippet
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+      required:
+      - name
     ddns-config:
       properties:
         ddns_cert_profile:
@@ -9614,7 +10654,8 @@ components:
     ethernet-interfaces:
       example:
         snippet: My Snippet
-        tap: "{}"
+        tap:
+          netflow_profile: netflow_profile
         poe:
           poe_rsvd_pwr: 50
           poe_enabled: false
@@ -9629,6 +10670,7 @@ components:
               hostname: system-hostname
               enable: true
             default_route_metric: 39501
+          netflow_profile: netflow_profile
           ip:
           - name: name
           - name: name
@@ -9664,6 +10706,7 @@ components:
         id: 123e4567-e89b-12d3-a456-426655440000
         layer2:
           vlan_tag: vlan_tag
+          netflow_profile: netflow_profile
           lldp:
             enable: false
         link_state: auto
@@ -9742,8 +10785,7 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         tap:
-          default: {}
-          type: object
+          $ref: '#/components/schemas/ethernet_interfaces_tap'
       required:
       - id
       - name
@@ -9767,6 +10809,176 @@ components:
         _request_id:
           type: string
       x-examples: {}
+    globalprotect-match-list:
+      example:
+        snippet: My Snippet
+        send_snmptrap:
+        - send_snmptrap
+        - send_snmptrap
+        send_to_panorama: true
+        description: description
+        send_email:
+        - send_email
+        - send_email
+        send_http:
+        - send_http
+        - send_http
+        filter: filter
+        send_syslog:
+        - send_syslog
+        - send_syslog
+        folder: My Folder
+        name: name
+        quarantine: true
+        id: 123e4567-e89b-12d3-a456-426655440000
+        device: My Device
+      properties:
+        description:
+          description: Description of the globalprotect match list entry
+          type: string
+        device:
+          description: The device in which the resource is defined
+          example: My Device
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        filter:
+          description: Filter of the globalprotect match list entry
+          type: string
+        folder:
+          description: The folder in which the resource is defined
+          example: My Folder
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        id:
+          description: UUID of the resource
+          example: 123e4567-e89b-12d3-a456-426655440000
+          readOnly: true
+          type: string
+        name:
+          description: Name of the globalprotect match list entry
+          maxLength: 63
+          type: string
+        quarantine:
+          description: Quarantine Flag of the globalprotect match list entry
+          type: boolean
+        send_email:
+          description: Send Email List of the globalprotect match list entry
+          items:
+            type: string
+          type: array
+        send_http:
+          description: Send HTTP List of the globalprotect match list entry
+          items:
+            type: string
+          type: array
+        send_snmptrap:
+          description: Send SNMP Trap List of the globalprotect match list entry
+          items:
+            type: string
+          type: array
+        send_syslog:
+          description: Send Sys log List of the globalprotect match list entry
+          items:
+            type: string
+          type: array
+        send_to_panorama:
+          description: Send to Panorama Flag of the globalprotect match list entry
+          type: boolean
+        snippet:
+          description: The snippet in which the resource is defined
+          example: My Snippet
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+      required:
+      - name
+    hipmatch-match-list:
+      example:
+        snippet: My Snippet
+        send_snmptrap:
+        - send_snmptrap
+        - send_snmptrap
+        send_to_panorama: true
+        description: description
+        send_email:
+        - send_email
+        - send_email
+        send_http:
+        - send_http
+        - send_http
+        filter: filter
+        send_syslog:
+        - send_syslog
+        - send_syslog
+        folder: My Folder
+        name: name
+        quarantine: true
+        id: 123e4567-e89b-12d3-a456-426655440000
+        device: My Device
+      properties:
+        description:
+          description: Description of the hipmatch match list entry
+          type: string
+        device:
+          description: The device in which the resource is defined
+          example: My Device
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        filter:
+          description: Filter of the hipmatch match list entry
+          type: string
+        folder:
+          description: The folder in which the resource is defined
+          example: My Folder
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        id:
+          description: UUID of the resource
+          example: 123e4567-e89b-12d3-a456-426655440000
+          readOnly: true
+          type: string
+        name:
+          description: Name of the hipmatch match list entry
+          maxLength: 63
+          type: string
+        quarantine:
+          description: Quarantine Flag of the hipmatch match list entry
+          type: boolean
+        send_email:
+          description: Send Email List of the hipmatch match list entry
+          items:
+            type: string
+          type: array
+        send_http:
+          description: Send HTTP List of the hipmatch match list entry
+          items:
+            type: string
+          type: array
+        send_snmptrap:
+          description: Send SNMP Trap List of the hipmatch match list entry
+          items:
+            type: string
+          type: array
+        send_syslog:
+          description: Send Sys Log List of the hipmatch match list entry
+          items:
+            type: string
+          type: array
+        send_to_panorama:
+          description: Send to Panorama Flag of the hipmatch match list entry
+          type: boolean
+        snippet:
+          description: The snippet in which the resource is defined
+          example: My Snippet
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+      required:
+      - name
     ike-crypto-profiles:
       example:
         snippet: My Snippet
@@ -10136,7 +11348,7 @@ components:
         anti_replay: true
         tunnel_monitor:
           destination_ip: destination_ip
-          enable: true
+          enable: false
           proxy_id: proxy_id
         name: name
         auto_key:
@@ -10244,6 +11456,91 @@ components:
       required:
       - auto_key
       - name
+    iptag-match-list:
+      example:
+        snippet: My Snippet
+        send_snmptrap:
+        - send_snmptrap
+        - send_snmptrap
+        send_to_panorama: true
+        description: description
+        send_email:
+        - send_email
+        - send_email
+        send_http:
+        - send_http
+        - send_http
+        filter: filter
+        send_syslog:
+        - send_syslog
+        - send_syslog
+        folder: My Folder
+        name: name
+        quarantine: true
+        id: 123e4567-e89b-12d3-a456-426655440000
+        device: My Device
+      properties:
+        description:
+          description: Description of the iptag match list entry
+          type: string
+        device:
+          description: The device in which the resource is defined
+          example: My Device
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        filter:
+          description: Filter of the iptag match list entry
+          type: string
+        folder:
+          description: The folder in which the resource is defined
+          example: My Folder
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        id:
+          description: UUID of the resource
+          example: 123e4567-e89b-12d3-a456-426655440000
+          readOnly: true
+          type: string
+        name:
+          description: Name of the iptag match list entry
+          maxLength: 63
+          type: string
+        quarantine:
+          description: Quarantine Flag of the iptag match list entry
+          type: boolean
+        send_email:
+          description: Send Email List of the iptag match list entry
+          items:
+            type: string
+          type: array
+        send_http:
+          description: Send HTTP List of the iptag match list entry
+          items:
+            type: string
+          type: array
+        send_snmptrap:
+          description: Send SNMP Trap List of the iptag match list entry
+          items:
+            type: string
+          type: array
+        send_syslog:
+          description: Send Sys Log List of the iptag match list entry
+          items:
+            type: string
+          type: array
+        send_to_panorama:
+          description: Send to Panorama Flag of the iptag match list entry
+          type: boolean
+        snippet:
+          description: The snippet in which the resource is defined
+          example: My Snippet
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+      required:
+      - name
     lacp:
       example:
         mode: passive
@@ -10346,6 +11643,7 @@ components:
     layer3-subinterfaces:
       example:
         snippet: My Snippet
+        netflow_profile: netflow_profile
         ip:
         - name: name
         - name: name
@@ -10425,6 +11723,9 @@ components:
         name:
           description: L3 sub-interface name
           type: string
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
         parent_interface:
           description: Parent interface
           type: string
@@ -10503,7 +11804,7 @@ components:
           type: string
         comments:
           description: Description of the link tag
-          maxLength: 0
+          maxLength: 1024
           type: string
         device:
           description: The device in which the resource is defined
@@ -15404,6 +16705,7 @@ components:
       example:
         snippet: My Snippet
         folder: My Folder
+        netflow_profile: netflow_profile
         ipv6:
           address:
           - anycast: "{}"
@@ -15471,6 +16773,9 @@ components:
         name:
           description: Loopback Interface name
           pattern: "^\\$[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
           type: string
         snippet:
           description: The snippet in which the resource is defined
@@ -16095,13 +17400,13 @@ components:
             - name: 9607
               action: deny
               community:
-              - blackhole
-              - blackhole
+              - community
+              - community
             - name: 9607
               action: deny
               community:
-              - blackhole
-              - blackhole
+              - community
+              - community
         device: My Device
       properties:
         description:
@@ -16643,55 +17948,92 @@ components:
           type: string
       required:
       - name
-    ssl-decryption-settings:
+    system-match-list:
       example:
-        forward_trust_certificate:
-          rsa: rsa
-          ecdsa: ecdsa
-        trusted_root_CA:
-        - "{}"
-        - "{}"
-        forward_untrust_certificate:
-          rsa: rsa
-          ecdsa: ecdsa
-        root_ca_exclude_list:
-        - "{}"
-        - "{}"
-        disabled_ssl_exclude_cert_from_predefined:
-        - "{}"
-        - "{}"
-        ssl_exclude_cert:
-        - name: name
-          description: description
-          exclude: true
-        - name: name
-          description: description
-          exclude: true
+        filter: filter
+        snippet: My Snippet
+        send_syslog:
+        - send_syslog
+        - send_syslog
+        folder: My Folder
+        send_snmptrap:
+        - send_snmptrap
+        - send_snmptrap
+        send_to_panorama: true
+        name: name
+        description: description
+        send_email:
+        - send_email
+        - send_email
+        id: 123e4567-e89b-12d3-a456-426655440000
+        device: My Device
+        send_http:
+        - send_http
+        - send_http
       properties:
-        disabled_ssl_exclude_cert_from_predefined:
+        description:
+          description: Description of the system match list entry
+          type: string
+        device:
+          description: The device in which the resource is defined
+          example: My Device
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        filter:
+          description: Filter of the system match list entry
+          type: string
+        folder:
+          description: The folder in which the resource is defined
+          example: My Folder
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        id:
+          description: UUID of the resource
+          example: 123e4567-e89b-12d3-a456-426655440000
+          readOnly: true
+          type: string
+        name:
+          description: Name of the system match list entry
+          maxLength: 63
+          type: string
+        send_email:
+          description: Send Email List of the system match list entry
           items:
-            type: object
+            type: string
           type: array
-        forward_trust_certificate:
-          $ref: '#/components/schemas/ssl_decryption_settings_forward_trust_certificate'
-        forward_untrust_certificate:
-          $ref: '#/components/schemas/ssl_decryption_settings_forward_trust_certificate'
-        root_ca_exclude_list:
+        send_http:
+          description: Send HTTP List of the system match list entry
           items:
-            type: object
+            type: string
           type: array
-        ssl_exclude_cert:
+        send_snmptrap:
+          description: Send SNMP Trap List of the system match list entry
           items:
-            $ref: '#/components/schemas/ssl_decryption_settings_ssl_exclude_cert_inner'
+            type: string
           type: array
-        trusted_root_CA:
+        send_syslog:
+          description: Send Sys Log List of the system match list entry
           items:
-            type: object
+            type: string
           type: array
+        send_to_panorama:
+          description: Send to Panorama Flag of the system match list entry
+          type: boolean
+        snippet:
+          description: The snippet in which the resource is defined
+          example: My Snippet
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+      required:
+      - name
     tunnel-interfaces:
       example:
         snippet: My Snippet
         folder: My Folder
+        netflow_profile: netflow_profile
         ipv6:
           address:
           - anycast: "{}"
@@ -16759,6 +18101,94 @@ components:
         name:
           description: L3 sub-interface name for tunnel interface
           type: string
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
+        snippet:
+          description: The snippet in which the resource is defined
+          example: My Snippet
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+      required:
+      - name
+    userid-match-list:
+      example:
+        snippet: My Snippet
+        send_snmptrap:
+        - send_snmptrap
+        - send_snmptrap
+        send_to_panorama: true
+        description: description
+        send_email:
+        - send_email
+        - send_email
+        send_http:
+        - send_http
+        - send_http
+        filter: filter
+        send_syslog:
+        - send_syslog
+        - send_syslog
+        folder: My Folder
+        name: name
+        quarantine: true
+        id: 123e4567-e89b-12d3-a456-426655440000
+        device: My Device
+      properties:
+        description:
+          description: Description of the userid match list entry
+          type: string
+        device:
+          description: The device in which the resource is defined
+          example: My Device
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        filter:
+          description: Filter of the userid match list entry
+          type: string
+        folder:
+          description: The folder in which the resource is defined
+          example: My Folder
+          maxLength: 64
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        id:
+          description: UUID of the resource
+          example: 123e4567-e89b-12d3-a456-426655440000
+          readOnly: true
+          type: string
+        name:
+          description: Name of the userid match list entry
+          maxLength: 63
+          type: string
+        quarantine:
+          description: Quarantine Flag of the userid match list entry
+          type: boolean
+        send_email:
+          description: Send Email List of the userid match list entry
+          items:
+            type: string
+          type: array
+        send_http:
+          description: Send HTTP List of the userid match list entry
+          items:
+            type: string
+          type: array
+        send_snmptrap:
+          description: Send SNMP Trap List of the userid match list entry
+          items:
+            type: string
+          type: array
+        send_syslog:
+          description: Send Sys Log List of the userid match list entry
+          items:
+            type: string
+          type: array
+        send_to_panorama:
+          description: Send to Panorama Flag of the userid match list entry
+          type: boolean
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
@@ -16770,6 +18200,7 @@ components:
     vlan-interfaces:
       example:
         snippet: My Snippet
+        netflow_profile: netflow_profile
         ip:
         - name: name
         - name: name
@@ -16855,6 +18286,9 @@ components:
           type: integer
         name:
           description: L3 sub-interface name
+          type: string
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
           type: string
         snippet:
           description: The snippet in which the resource is defined
@@ -17360,9 +18794,13 @@ components:
           system_priority: 39501
           max_ports: 1
         vlan_tag: "123"
+        netflow_profile: netflow_profile
       properties:
         lacp:
           $ref: '#/components/schemas/lacp'
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
         vlan_tag:
           description: VLAN tag
           example: "123"
@@ -17439,6 +18877,7 @@ components:
           enable: false
           system_priority: 39501
           max_ports: 1
+        netflow_profile: netflow_profile
         ip:
         - name: name
         - name: name
@@ -17484,6 +18923,9 @@ components:
           maximum: 9216
           minimum: 576
           type: integer
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
     auto_vpn_clusters_branches_inner_interfaces_inner_sdwan_link_settings_upstream_nat_static_ip:
       example:
         fqdn: fqdn
@@ -21143,11 +22585,15 @@ components:
     ethernet_interfaces_layer2:
       example:
         vlan_tag: vlan_tag
+        netflow_profile: netflow_profile
         lldp:
           enable: false
       properties:
         lldp:
           $ref: '#/components/schemas/ethernet_interfaces_layer2_lldp'
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
         vlan_tag:
           description: Assign interface to VLAN tag
           pattern: "^([1-9]\\d{0,2}|[1-3]\\d{3}|40[0-8]\\d|409[0-6])$"
@@ -21336,6 +22782,7 @@ components:
             hostname: system-hostname
             enable: true
           default_route_metric: 39501
+        netflow_profile: netflow_profile
         ip:
         - name: name
         - name: name
@@ -21391,8 +22838,18 @@ components:
           maximum: 9216
           minimum: 576
           type: integer
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
         pppoe:
           $ref: '#/components/schemas/ethernet_interfaces_layer3_pppoe'
+    ethernet_interfaces_tap:
+      example:
+        netflow_profile: netflow_profile
+      properties:
+        netflow_profile:
+          description: Name of Netflow Profile to assign to Interface
+          type: string
     ethernet_interfaces_arp_inner:
       default: {}
       description: Ethernet Interfaces ARP configuration object
@@ -21953,14 +23410,14 @@ components:
     ipsec_tunnels_tunnel_monitor:
       example:
         destination_ip: destination_ip
-        enable: true
+        enable: false
         proxy_id: proxy_id
       properties:
         destination_ip:
           description: Destination IP to send ICMP probe
           type: string
         enable:
-          default: true
+          default: false
           description: Enable tunnel monitoring on this tunnel
           type: boolean
         proxy_id:
@@ -33182,7 +34639,7 @@ components:
         key:
           description: MD5 hash
           format: password
-          maxLength: 16
+          maxLength: 256
           type: string
         name:
           description: Key ID
@@ -33839,8 +35296,8 @@ components:
         name: 9607
         action: deny
         community:
-        - blackhole
-        - blackhole
+        - community
+        - community
       properties:
         action:
           description: Action
@@ -33851,18 +35308,7 @@ components:
         community:
           description: Communities
           items:
-            description: Community
-            enum:
-            - blackhole
-            - no-peer
-            - graceful-shutdown
-            - accept-own
-            - local-as
-            - route-filter-v4
-            - route-filter-v6
-            - no-advertise
-            - no-export
-            - internet
+            description: Community value (well-known name or ASN:value format)
             type: string
           type: array
         name:
@@ -33876,13 +35322,13 @@ components:
         - name: 9607
           action: deny
           community:
-          - blackhole
-          - blackhole
+          - community
+          - community
         - name: 9607
           action: deny
           community:
-          - blackhole
-          - blackhole
+          - community
+          - community
       properties:
         regular_entry:
           description: Regular community lists
@@ -33932,13 +35378,13 @@ components:
           - name: 9607
             action: deny
             community:
-            - blackhole
-            - blackhole
+            - community
+            - community
           - name: 9607
             action: deny
             community:
-            - blackhole
-            - blackhole
+            - community
+            - community
       properties:
         extended:
           $ref: '#/components/schemas/route_community_lists_type_extended'
@@ -34311,27 +35757,6 @@ components:
           type: integer
       required:
       - name
-    ssl_decryption_settings_forward_trust_certificate:
-      example:
-        rsa: rsa
-        ecdsa: ecdsa
-      properties:
-        ecdsa:
-          type: string
-        rsa:
-          type: string
-    ssl_decryption_settings_ssl_exclude_cert_inner:
-      example:
-        name: name
-        description: description
-        exclude: true
-      properties:
-        description:
-          type: string
-        exclude:
-          type: boolean
-        name:
-          type: string
     tunnel_interfaces_ip_inner:
       example:
         name: name

@@ -21,7 +21,7 @@ var _ MappedNullable = &ManagementInterfaceManagementInterfaceMgmtType{}
 // ManagementInterfaceManagementInterfaceMgmtType IP type
 type ManagementInterfaceManagementInterfaceMgmtType struct {
 	DhcpClient           *ManagementInterfaceManagementInterfaceMgmtTypeDhcpClient `json:"dhcp_client,omitempty"`
-	Static               *ManagementInterfaceManagementInterfaceMgmtTypeStatic     `json:"static,omitempty"`
+	Static               map[string]interface{}                                    `json:"static,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,19 +77,19 @@ func (o *ManagementInterfaceManagementInterfaceMgmtType) SetDhcpClient(v Managem
 }
 
 // GetStatic returns the Static field value if set, zero value otherwise.
-func (o *ManagementInterfaceManagementInterfaceMgmtType) GetStatic() ManagementInterfaceManagementInterfaceMgmtTypeStatic {
+func (o *ManagementInterfaceManagementInterfaceMgmtType) GetStatic() map[string]interface{} {
 	if o == nil || IsNil(o.Static) {
-		var ret ManagementInterfaceManagementInterfaceMgmtTypeStatic
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Static
+	return o.Static
 }
 
 // GetStaticOk returns a tuple with the Static field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ManagementInterfaceManagementInterfaceMgmtType) GetStaticOk() (*ManagementInterfaceManagementInterfaceMgmtTypeStatic, bool) {
+func (o *ManagementInterfaceManagementInterfaceMgmtType) GetStaticOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Static) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Static, true
 }
@@ -103,9 +103,9 @@ func (o *ManagementInterfaceManagementInterfaceMgmtType) HasStatic() bool {
 	return false
 }
 
-// SetStatic gets a reference to the given ManagementInterfaceManagementInterfaceMgmtTypeStatic and assigns it to the Static field.
-func (o *ManagementInterfaceManagementInterfaceMgmtType) SetStatic(v ManagementInterfaceManagementInterfaceMgmtTypeStatic) {
-	o.Static = &v
+// SetStatic gets a reference to the given map[string]interface{} and assigns it to the Static field.
+func (o *ManagementInterfaceManagementInterfaceMgmtType) SetStatic(v map[string]interface{}) {
+	o.Static = v
 }
 
 func (o ManagementInterfaceManagementInterfaceMgmtType) MarshalJSON() ([]byte, error) {

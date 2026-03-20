@@ -31,7 +31,7 @@ type AntiSpywareSignatures struct {
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
-	Id        string                          `json:"id"`
+	Id        *string                         `json:"id,omitempty"`
 	Reference []string                        `json:"reference,omitempty"`
 	Severity  *string                         `json:"severity,omitempty"`
 	Signature *AntiSpywareSignaturesSignature `json:"signature,omitempty"`
@@ -50,9 +50,8 @@ type _AntiSpywareSignatures AntiSpywareSignatures
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAntiSpywareSignatures(id string, threatId string, threatname string) *AntiSpywareSignatures {
+func NewAntiSpywareSignatures(threatId string, threatname string) *AntiSpywareSignatures {
 	this := AntiSpywareSignatures{}
-	this.Id = id
 	this.ThreatId = threatId
 	this.Threatname = threatname
 	return &this
@@ -290,28 +289,36 @@ func (o *AntiSpywareSignatures) SetFolder(v string) {
 	o.Folder = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *AntiSpywareSignatures) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AntiSpywareSignatures) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *AntiSpywareSignatures) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *AntiSpywareSignatures) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetReference returns the Reference field value if set, zero value otherwise.
@@ -553,7 +560,9 @@ func (o AntiSpywareSignatures) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
 	}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.Reference) {
 		toSerialize["reference"] = o.Reference
 	}
@@ -584,7 +593,6 @@ func (o *AntiSpywareSignatures) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"threat_id",
 		"threatname",
 	}

@@ -5468,7 +5468,6 @@ components:
             type: string
           type: array
       required:
-      - id
       - name
       - parent
       type: object

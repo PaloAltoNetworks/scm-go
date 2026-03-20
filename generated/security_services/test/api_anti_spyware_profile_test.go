@@ -301,3 +301,50 @@ func Test_security_services_AntiSpywareProfilesAPIService_DeleteByID(t *testing.
 
 	t.Logf("Successfully deleted antispywareprofile: %s", createdAntiSpywareProfileID)
 }
+
+// Test_security_services_AntiSpywareProfilesAPIService_Fetch tests the fetch convenience method
+func Test_security_services_AntiSpywareProfilesAPIService_Fetch(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
+
+	// Create an anti-spyware profile to fetch
+	profileName := "test-fetch-" + common.GenerateRandomString(10)
+	profile := security_services.AntiSpywareProfiles{
+		Description:         common.StringPtr("Test anti-spyware profile for fetch"),
+		Folder:              common.StringPtr("Prisma Access"),
+		CloudInlineAnalysis: common.BoolPtr(true),
+		Name:                profileName,
+	}
+
+	reqCreate := client.AntiSpywareProfilesAPI.CreateAntiSpywareProfiles(context.Background()).AntiSpywareProfiles(profile)
+	createRes, _, err := reqCreate.Execute()
+	require.NoError(t, err, "Failed to create anti-spyware profile for fetch test")
+	createdID := createRes.Id
+	createdFolder := createRes.Folder
+	require.NotEmpty(t, createdID, "Created profile ID should not be empty")
+
+	// Defer cleanup
+	defer func() {
+		t.Logf("Cleaning up anti-spyware profile with ID: %s", createdID)
+		_, errDel := client.AntiSpywareProfilesAPI.DeleteAntiSpywareProfilesByID(context.Background(), createdID).Execute()
+		require.NoError(t, errDel, "Failed to delete profile during cleanup")
+	}()
+
+	// Test Fetch by name operation
+	fmt.Printf("Attempting to fetch anti-spyware profile with name: %s\n", profileName)
+	fetchedProfile, errFetch := client.AntiSpywareProfilesAPI.FetchAntiSpywareProfiles(context.Background(), profileName, createdFolder, nil, nil)
+
+	// Verify the fetch operation was successful
+	require.NoError(t, errFetch, "Failed to fetch profile by name")
+	require.NotNil(t, fetchedProfile, "Fetched profile should not be nil")
+	assert.Equal(t, profileName, fetchedProfile.Name, "Profile name should match")
+	assert.Equal(t, createdID, fetchedProfile.Id, "Profile ID should match")
+	assert.Equal(t, *createdFolder, *fetchedProfile.Folder, "Folder should match")
+	t.Logf("Successfully fetched anti-spyware profile: %s", profileName)
+
+	// Test fetching non-existent profile (should return nil)
+	nonExistentName := "non-existent-profile-xyz-12345"
+	notFoundProfile, errNotFound := client.AntiSpywareProfilesAPI.FetchAntiSpywareProfiles(context.Background(), nonExistentName, createdFolder, nil, nil)
+	require.NoError(t, errNotFound, "Fetch for non-existent profile should not error")
+	assert.Nil(t, notFoundProfile, "Non-existent profile should return nil")
+	t.Logf("Successfully verified fetch returns nil for non-existent profile")
+}

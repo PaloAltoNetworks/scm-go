@@ -43,6 +43,8 @@ type VlanInterfaces struct {
 	Mtu *int32 `json:"mtu,omitempty"`
 	// L3 sub-interface name
 	Name string `json:"name"`
+	// Name of Netflow Profile to assign to Interface
+	NetflowProfile *string `json:"netflow_profile,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
@@ -446,6 +448,38 @@ func (o *VlanInterfaces) SetName(v string) {
 	o.Name = v
 }
 
+// GetNetflowProfile returns the NetflowProfile field value if set, zero value otherwise.
+func (o *VlanInterfaces) GetNetflowProfile() string {
+	if o == nil || IsNil(o.NetflowProfile) {
+		var ret string
+		return ret
+	}
+	return *o.NetflowProfile
+}
+
+// GetNetflowProfileOk returns a tuple with the NetflowProfile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VlanInterfaces) GetNetflowProfileOk() (*string, bool) {
+	if o == nil || IsNil(o.NetflowProfile) {
+		return nil, false
+	}
+	return o.NetflowProfile, true
+}
+
+// HasNetflowProfile returns a boolean if a field has been set.
+func (o *VlanInterfaces) HasNetflowProfile() bool {
+	if o != nil && !IsNil(o.NetflowProfile) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetflowProfile gets a reference to the given string and assigns it to the NetflowProfile field.
+func (o *VlanInterfaces) SetNetflowProfile(v string) {
+	o.NetflowProfile = &v
+}
+
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
 func (o *VlanInterfaces) GetSnippet() string {
 	if o == nil || IsNil(o.Snippet) {
@@ -554,6 +588,9 @@ func (o VlanInterfaces) ToMap() (map[string]interface{}, error) {
 		toSerialize["mtu"] = o.Mtu
 	}
 	toSerialize["name"] = o.Name
+	if !IsNil(o.NetflowProfile) {
+		toSerialize["netflow_profile"] = o.NetflowProfile
+	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
@@ -615,6 +652,7 @@ func (o *VlanInterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "netflow_profile")
 		delete(additionalProperties, "snippet")
 		delete(additionalProperties, "vlan_tag")
 		o.AdditionalProperties = additionalProperties

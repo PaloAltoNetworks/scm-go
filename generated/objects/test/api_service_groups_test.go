@@ -303,3 +303,75 @@ func Test_objects_ServiceGroupsAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, 200, httpRes.StatusCode)
 }
+
+// Test_objects_ServiceGroupsAPIService_FetchServiceGroups tests the FetchServiceGroups convenience method
+func Test_objects_ServiceGroupsAPIService_FetchServiceGroups(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupObjectSvcTestClient(t)
+
+	// Create test services first (same as Create test)
+	randomSuffix := common.GenerateRandomString(6)
+	service1Name := "test-svc-1-fetch-" + randomSuffix
+	service2Name := "test-svc-2-fetch-" + randomSuffix
+	testName := "test-sg-fetch-" + randomSuffix
+
+	protocol1 := objects.ServicesProtocol{Tcp: &objects.ServicesProtocolTcp{Port: "80"}}
+	service1ID := createTestService(t, client, service1Name, protocol1)
+
+	protocol2 := objects.ServicesProtocol{Udp: &objects.ServicesProtocolUdp{Port: "53"}}
+	service2ID := createTestService(t, client, service2Name, protocol2)
+
+	// Create test object using same payload as Create test
+	testObj := objects.ServiceGroups{
+		Name:    testName,
+		Folder:  common.StringPtr("Prisma Access"),
+		Members: []string{service1Name, service2Name},
+	}
+
+	createReq := client.ServiceGroupsAPI.CreateServiceGroups(context.Background()).ServiceGroups(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.ServiceGroupsAPI.DeleteServiceGroupsByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+		// Cleanup test services
+		deleteTestService(t, client, service1ID)
+		deleteTestService(t, client, service2ID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.ServiceGroupsAPI.FetchServiceGroups(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch service_groups by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchServiceGroups found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.ServiceGroupsAPI.FetchServiceGroups(
+		context.Background(),
+		"non-existent-service_groups-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchServiceGroups correctly returned nil for non-existent object")
+}

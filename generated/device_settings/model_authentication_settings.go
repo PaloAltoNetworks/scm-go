@@ -23,13 +23,13 @@ var _ MappedNullable = &AuthenticationSettings{}
 type AuthenticationSettings struct {
 	Authentication *AuthenticationSettingsAuthentication `json:"authentication,omitempty"`
 	// The device in which the resource is defined
-	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
 	Id string `json:"id"`
 	// The snippet in which the resource is defined
-	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d-_\\\\. ]+$"`
+	Snippet              *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	AdditionalProperties map[string]interface{}
 }
 

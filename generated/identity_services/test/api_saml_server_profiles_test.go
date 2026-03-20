@@ -186,3 +186,57 @@ func Test_identity_services_SAMLServerProfilesAPIService_DeleteByID(t *testing.T
 
 	t.Logf("Successfully deleted SAML Server Profile with ID: %s", createdProfileID)
 }
+
+// Test_identity_services_SAMLServerProfilesAPIService_FetchSAMLServerProfiles tests the FetchSAMLServerProfiles convenience method
+func Test_identity_services_SAMLServerProfilesAPIService_FetchSAMLServerProfiles(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupIdentitySvcTestClient(t)
+
+	// Create a test object first using same valid payload as Create test
+	testName := "test-saml-fetch-" + common.GenerateRandomString(6)
+	testObj := createSAMLServerProfile(testName)
+
+	createReq := client.SAMLServerProfilesAPI.CreateSAMLServerProfiles(context.Background()).SamlServerProfiles(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.SAMLServerProfilesAPI.DeleteSAMLServerProfilesByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.SAMLServerProfilesAPI.FetchSAMLServerProfiles(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch saml_server_profiles by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchSAMLServerProfiles found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.SAMLServerProfilesAPI.FetchSAMLServerProfiles(
+		context.Background(),
+		"non-existent-saml_server_profiles-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchSAMLServerProfiles correctly returned nil for non-existent object")
+}

@@ -195,6 +195,52 @@ func Test_networkservices_IkeGatewaysAPIService_List(t *testing.T) {
 	t.Logf("Successfully listed IKE Gateways and found created gateway: %s", gatewayName)
 }
 
+// Test_networkservices_IkeGatewaysAPIService_Fetch tests the fetch convenience method.
+func Test_networkservices_IkeGatewaysAPIService_Fetch(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+
+	// Create the IKE Crypto Profile dependency first.
+	randomSuffix := common.GenerateRandomString(6)
+	cryptoProfileName := "test-crypto-fetch-" + randomSuffix
+	cryptoProfileID := CreateTestIKECryptoProfile(t, client, cryptoProfileName)
+	defer DeleteTestIKECryptoProfile(t, client, cryptoProfileID, cryptoProfileName)
+
+	// Create a gateway to fetch by name.
+	gatewayName := "auto_ike_gw_fetch-" + randomSuffix
+	gateway := CreateIkeGatewayTestObject(gatewayName, cryptoProfileName)
+	createRes, _, err := client.IKEGatewaysAPI.CreateIKEGateways(context.Background()).IkeGateways(gateway).Execute()
+	require.NoError(t, err, "Failed to create gateway for fetch test")
+	createdGatewayID := *createRes.Id
+	createdFolder := createRes.Folder
+	require.NotEmpty(t, createdGatewayID, "Created gateway ID should not be empty")
+
+	// Defer cleanup.
+	defer func() {
+		t.Logf("Cleaning up IKE Gateway with ID: %s", createdGatewayID)
+		_, errDel := client.IKEGatewaysAPI.DeleteIKEGatewaysByID(context.Background(), createdGatewayID).Execute()
+		require.NoError(t, errDel, "Failed to delete gateway during cleanup")
+	}()
+
+	// Test Fetch by name operation.
+	fmt.Printf("Attempting to fetch IKE Gateway with name: %s\n", gatewayName)
+	fetchedGateway, errFetch := client.IKEGatewaysAPI.FetchIKEGateways(context.Background(), gatewayName, createdFolder, nil, nil)
+
+	// Verify the fetch operation was successful.
+	require.NoError(t, errFetch, "Failed to fetch gateway by name")
+	require.NotNil(t, fetchedGateway, "Fetched gateway should not be nil")
+	assert.Equal(t, gatewayName, fetchedGateway.Name, "Gateway name should match")
+	assert.Equal(t, createdGatewayID, *fetchedGateway.Id, "Gateway ID should match")
+	assert.Equal(t, *createdFolder, *fetchedGateway.Folder, "Folder should match")
+	t.Logf("Successfully fetched IKE Gateway: %s", gatewayName)
+
+	// Test fetching non-existent gateway (should return nil).
+	nonExistentName := "non-existent-ike-gateway-xyz-12345"
+	notFoundGateway, errNotFound := client.IKEGatewaysAPI.FetchIKEGateways(context.Background(), nonExistentName, createdFolder, nil, nil)
+	require.NoError(t, errNotFound, "Fetch for non-existent gateway should not error")
+	assert.Nil(t, notFoundGateway, "Non-existent gateway should return nil")
+	t.Logf("Successfully verified fetch returns nil for non-existent gateway")
+}
+
 // Test_networkservices_IkeGatewaysAPIService_DeleteByID tests deleting an IKE Gateway.
 func Test_networkservices_IkeGatewaysAPIService_DeleteByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)

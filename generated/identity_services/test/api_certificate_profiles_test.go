@@ -1,10 +1,10 @@
+package identity_services
+
 /*
  * Identity Services Testing
  *
  * CertificateProfilesAPIService
  */
-
-package identity_services
 
 import (
 	"context"
@@ -387,4 +387,82 @@ func Test_identityservices_CertificateProfilesAPIService_DeleteByID(t *testing.T
 	require.NoError(t, errDel, "Failed to delete profile")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 	t.Logf("Successfully deleted Certificate Profile: %s", createdProfileID)
+}
+
+// Test_identity_services_CertificateProfilesAPIService_FetchCertificateProfiles tests the FetchCertificateProfiles convenience method
+func Test_identity_services_CertificateProfilesAPIService_FetchCertificateProfiles(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupIdentitySvcTestClient(t)
+
+	// Create a test object first using same valid payload as Create test
+	testName := "test-cert-fetch-" + common.GenerateRandomString(6)
+	testObj := identity_services.CertificateProfiles{
+		Folder: common.StringPtr("Prisma Access"),
+		Name:   testName,
+		CaCertificates: []identity_services.CertificateProfilesCaCertificatesInner{
+			{
+				Name:           "Forward-Trust-CA",
+				DefaultOcspUrl: common.StringPtr("http://test.com"),
+				OcspVerifyCert: common.StringPtr("Forward-Trust-CA-ECDSA"),
+				TemplateName:   common.StringPtr("something"),
+			},
+		},
+		Domain:                   common.StringPtr("test"),
+		UseCrl:                   common.BoolPtr(true),
+		UseOcsp:                  common.BoolPtr(true),
+		BlockUnknownCert:         common.BoolPtr(true),
+		BlockTimeoutCert:         common.BoolPtr(true),
+		BlockUnauthenticatedCert: common.BoolPtr(true),
+		BlockExpiredCert:         common.BoolPtr(true),
+		UsernameField: &identity_services.CertificateProfilesUsernameField{
+			Subject: common.StringPtr("common-name"),
+		},
+		CrlReceiveTimeout:  common.StringPtr("5"),
+		OcspReceiveTimeout: common.StringPtr("5"),
+		CertStatusTimeout:  common.StringPtr("5"),
+	}
+
+	createReq := client.CertificateProfilesAPI.CreateCertificateProfiles(context.Background()).CertificateProfiles(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.CertificateProfilesAPI.DeleteCertificateProfilesByID(context.Background(), *createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", *createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.CertificateProfilesAPI.FetchCertificateProfiles(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch certificate_profiles by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchCertificateProfiles found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.CertificateProfilesAPI.FetchCertificateProfiles(
+		context.Background(),
+		"non-existent-certificate_profiles-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchCertificateProfiles correctly returned nil for non-existent object")
 }

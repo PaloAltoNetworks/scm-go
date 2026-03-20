@@ -23,12 +23,12 @@ func createTestAppOverrideRule(t *testing.T, ruleName string) security_services.
 	// Required fields for AppOverrideRules:
 	// Application, Destination, From, Name, Port, Protocol, Source, To
 	return security_services.AppOverrideRules{
-		Application:       "web-browsing",
+		Application:       common.StringPtr("web-browsing"),
 		Destination:       []string{"any"},
 		From:              []string{"any"},
 		Name:              ruleName,
-		Port:              "21", // Standard FTP port
-		Protocol:          "tcp",
+		Port:              common.StringPtr("21"), // Standard FTP port
+		Protocol:          common.StringPtr("tcp"),
 		Source:            []string{"any"},
 		To:                []string{"any"},
 		Description:       common.StringPtr("Test rule for AppOverride CRUD"),
@@ -139,7 +139,7 @@ func Test_security_services_ApplicationOverrideRulesAPIService_Update(t *testing
 	updatedDescription := "Updated app override rule description"
 
 	updatedRule := createTestAppOverrideRule(t, ruleName)
-	updatedRule.Port = updatedPort // Change a value
+	updatedRule.Port = common.StringPtr(updatedPort) // Change a value
 	updatedRule.Description = common.StringPtr(updatedDescription)
 	updatedRule.Id = &createdRuleID // Include the ID for consistency
 
@@ -155,7 +155,7 @@ func Test_security_services_ApplicationOverrideRulesAPIService_Update(t *testing
 	require.NotNil(t, updateRes, "Update response should not be nil")
 
 	// Verify the changes
-	assert.Equal(t, updatedPort, updateRes.Port, "Port should be updated")
+	assert.Equal(t, common.StringPtr(updatedPort), updateRes.Port, "Port should be updated")
 	assert.Equal(t, updatedDescription, *updateRes.Description, "Description should be updated")
 }
 
@@ -259,4 +259,58 @@ func Test_security_services_ApplicationOverrideRulesAPIService_Move(t *testing.T
 	assert.Equal(t, 200, httpResMove.StatusCode, "Expected 200 OK status for move operation")
 
 	t.Logf("Successfully executed move operation for rule %s (moved after %s)", idA, idB)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Test_security_services_ApplicationOverrideRulesAPIService_FetchApplicationOverrideRules tests the FetchApplicationOverrideRules convenience method
+func Test_security_services_ApplicationOverrideRulesAPIService_FetchApplicationOverrideRules(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
+
+	// Create a test object first
+	testName := "fetch-app-override-" + common.GenerateRandomString(6)
+	testObj := createTestAppOverrideRule(t, testName)
+
+	createReq := client.ApplicationOverrideRulesAPI.CreateApplicationOverrideRules(context.Background()).Position("pre").AppOverrideRules(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := *createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.ApplicationOverrideRulesAPI.DeleteApplicationOverrideRulesByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.ApplicationOverrideRulesAPI.FetchApplicationOverrideRules(
+		context.Background(),
+		testName,
+		common.StringPtr("All"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch app override rule by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchApplicationOverrideRules found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.ApplicationOverrideRulesAPI.FetchApplicationOverrideRules(
+		context.Background(),
+		"non-existent-app-override-xyz-12345",
+		common.StringPtr("All"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchApplicationOverrideRules correctly returned nil for non-existent object")
 }

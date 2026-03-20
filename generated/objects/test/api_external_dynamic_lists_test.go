@@ -344,3 +344,71 @@ func Test_objects_ExternalDynamicListsAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, errDel, "Failed to delete EDL")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status")
 }
+
+// Test_objects_ExternalDynamicListsAPIService_FetchExternalDynamicLists tests the FetchExternalDynamicLists convenience method
+func Test_objects_ExternalDynamicListsAPIService_FetchExternalDynamicLists(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupObjectSvcTestClient(t)
+
+	// Create test object using same payload as Create test
+	testName := "test-edl-fetch-" + common.GenerateRandomString(6)
+	testObj := objects.ExternalDynamicLists{
+		Folder: common.StringPtr("Prisma Access"),
+		Name:   testName,
+		Type: &objects.ExternalDynamicListsType{
+			Domain: &objects.ExternalDynamicListsTypeDomain{
+				Url:         "http://example.com/domains.txt",
+				Description: common.StringPtr("Test EDL for fetch API"),
+				Recurring: objects.ExternalDynamicListsTypeDomainRecurring{
+					Daily: &objects.ExternalDynamicListsTypeDomainRecurringDaily{
+						At: "03",
+					},
+				},
+			},
+		},
+	}
+
+	createReq := client.ExternalDynamicListsAPI.CreateExternalDynamicLists(context.Background()).ExternalDynamicLists(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := *createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.ExternalDynamicListsAPI.DeleteExternalDynamicListsByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.ExternalDynamicListsAPI.FetchExternalDynamicLists(
+		context.Background(),
+		testName,
+		common.StringPtr("Prisma Access"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch external_dynamic_lists by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, *fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchExternalDynamicLists found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.ExternalDynamicListsAPI.FetchExternalDynamicLists(
+		context.Background(),
+		"non-existent-external_dynamic_lists-xyz-12345",
+		common.StringPtr("Prisma Access"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchExternalDynamicLists correctly returned nil for non-existent object")
+}

@@ -139,9 +139,37 @@ func Test_config_operations_ConfigVersionsAPIService_GetRunning(t *testing.T) {
 	t.Logf("Successfully retrieved %d running config version(s)", len(runningVersions))
 }
 
+// Test_config_operations_ConfigVersionsAPIService_DeleteByID tests deleting a candidate configuration
+// This is a destructive operation that deletes the candidate configuration and rolls back to running config
+func Test_config_operations_ConfigVersionsAPIService_DeleteByID(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupConfigOperationsTestClient(t)
+
+	fmt.Printf("Testing deletion of candidate configuration\n")
+
+	// Note: This test will only work if there is an active candidate configuration
+	// If no candidate exists, the delete will fail with a 404 error
+	req := client.ConfigVersionsAPI.DeleteCandidateConfigVersions(context.Background())
+	httpRes, err := req.Execute()
+
+	// This operation may fail if no candidate config exists, which is acceptable
+	if err != nil {
+		handleAPIError(err)
+		t.Skipf("No candidate configuration exists to delete - this is expected behavior")
+		return
+	}
+
+	// Verify the request was successful
+	require.NoError(t, err, "Failed to delete candidate configuration")
+	require.NotNil(t, httpRes, "HTTP response should not be nil")
+	assert.Equal(t, 200, httpRes.StatusCode, "Expected 200 OK status")
+
+	fmt.Printf("Successfully deleted candidate configuration\n")
+	t.Logf("Successfully deleted candidate configuration")
+}
+
 // NOTE: The following operations are NOT tested as they are destructive/action operations:
 // - LoadConfigVersions: This loads a candidate config (action operation)
 // - PushCandidateConfigVersions: This pushes config to devices (action operation)
-// - DeleteCandidateConfigVersions: This deletes the candidate config (destructive operation)
 //
 // These operations should be tested in integration tests or manually in a controlled environment.

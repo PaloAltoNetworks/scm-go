@@ -318,3 +318,68 @@ func Test_deployment_services_ServiceConnectionGroupsAPIService_Update(t *testin
 
 	t.Logf("Successfully updated SC Group: %s", groupName)
 }
+
+// Test_deployment_services_ServiceConnectionGroupsAPIService_FetchServiceConnectionGroups tests the FetchServiceConnectionGroups convenience method
+func Test_deployment_services_ServiceConnectionGroupsAPIService_FetchServiceConnectionGroups(t *testing.T) {
+	// Setup the authenticated client
+	client := SetupDeploymentSvcTestClient(t)
+
+	// Create test object using same payload as Create test
+	randomSuffix := common.GenerateRandomString(6)
+	testName := "test-sc-group-fetch-" + randomSuffix
+
+	// Create dependency (Service Connection)
+	targetSCName, cleanupSC := createTestServiceConnection(t, client, "fetch-"+randomSuffix)
+
+	testObj := deployment_services.ServiceConnectionGroups{
+		Name:   testName,
+		Target: []string{targetSCName},
+	}
+	testObj.SetDisableSnat(true)
+
+	createReq := client.ServiceConnectionGroupsAPI.CreateServiceConnectionGroups(context.Background()).ServiceConnectionGroups(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.ServiceConnectionGroupsAPI.DeleteServiceConnectionGroupsByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+		// Cleanup dependency
+		cleanupSC()
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.ServiceConnectionGroupsAPI.FetchServiceConnectionGroups(
+		context.Background(),
+		testName,
+		common.StringPtr("Service Connections"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch service_connection_groups by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchServiceConnectionGroups found object: %s", fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.ServiceConnectionGroupsAPI.FetchServiceConnectionGroups(
+		context.Background(),
+		"non-existent-service_connection_groups-xyz-12345",
+		common.StringPtr("Service Connections"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchServiceConnectionGroups correctly returned nil for non-existent object")
+}

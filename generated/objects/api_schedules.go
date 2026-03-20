@@ -888,3 +888,77 @@ func (a *SchedulesAPIService) UpdateSchedulesByIDExecute(r ApiUpdateSchedulesByI
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+// FetchSchedules retrieves a single Schedules object by name.
+//
+// This is a convenience method that uses server-side name filtering to retrieve
+// a specific object by its name within a container (folder, snippet, or device).
+//
+// Parameters:
+//   - ctx: Context for the request
+//   - name: The name of the object to fetch
+//   - folder: The folder in which the resource is defined (optional, use nil if not needed)
+//   - snippet: The snippet in which the resource is defined (optional, use nil if not needed)
+//   - device: The device in which the resource is defined (optional, use nil if not needed)
+//
+// Returns:
+//   - *Schedules: The matching object if found, nil otherwise
+//   - error: Any error that occurred during the fetch operation
+//
+// Example:
+//
+//	obj, err := api.FetchSchedules(ctx, "my-object", &folder, nil, nil)
+//	if err != nil {
+//	    return err
+//	}
+//	if obj != nil {
+//	    fmt.Printf("Found object\n")
+//	}
+func (a *SchedulesAPIService) FetchSchedules(ctx context.Context, name string, folder *string, snippet *string, device *string) (*Schedules, error) {
+	req := a.ListSchedules(ctx).Name(name).Limit(5000)
+
+	if folder != nil {
+		req = req.Folder(*folder)
+	}
+	if snippet != nil {
+		req = req.Snippet(*snippet)
+	}
+	if device != nil {
+		req = req.Device(*device)
+	}
+
+	response, httpRes, err := req.Execute()
+	if err != nil {
+		// HTTP 404: server-side "get by name" found no match
+		if httpRes != nil && httpRes.StatusCode == http.StatusNotFound {
+			return nil, nil
+		}
+
+		// HTTP 200 with deserialization error: server returned bare object
+		if httpRes != nil && httpRes.StatusCode == http.StatusOK {
+			if apiErr, ok := err.(*GenericOpenAPIError); ok {
+				var result Schedules
+				if decodeErr := a.client.decode(&result, apiErr.Body(), "application/json"); decodeErr == nil {
+					if result.Name == name {
+						return &result, nil
+					}
+				}
+			}
+			return nil, nil
+		}
+
+		// Any other error: propagate to caller
+		return nil, err
+	}
+
+	// Success: standard paginated response
+	if response != nil && response.Data != nil {
+		for i := range response.Data {
+			if response.Data[i].Name == name {
+				return &response.Data[i], nil
+			}
+		}
+	}
+
+	return nil, nil
+}

@@ -24,6 +24,8 @@ type RemoteNetworksProtocolBgpPeer struct {
 	LocalIpAddress *string `json:"local_ip_address,omitempty"`
 	// Remote peer IP address (secondary WAN)
 	PeerIpAddress *string `json:"peer_ip_address,omitempty"`
+	// Same peer IP address as primary WAN
+	SameAsPrimary *bool `json:"same_as_primary,omitempty"`
 	// BGP peering secret (secondary WAN)
 	Secret               *string `json:"secret,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -112,6 +114,38 @@ func (o *RemoteNetworksProtocolBgpPeer) SetPeerIpAddress(v string) {
 	o.PeerIpAddress = &v
 }
 
+// GetSameAsPrimary returns the SameAsPrimary field value if set, zero value otherwise.
+func (o *RemoteNetworksProtocolBgpPeer) GetSameAsPrimary() bool {
+	if o == nil || IsNil(o.SameAsPrimary) {
+		var ret bool
+		return ret
+	}
+	return *o.SameAsPrimary
+}
+
+// GetSameAsPrimaryOk returns a tuple with the SameAsPrimary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RemoteNetworksProtocolBgpPeer) GetSameAsPrimaryOk() (*bool, bool) {
+	if o == nil || IsNil(o.SameAsPrimary) {
+		return nil, false
+	}
+	return o.SameAsPrimary, true
+}
+
+// HasSameAsPrimary returns a boolean if a field has been set.
+func (o *RemoteNetworksProtocolBgpPeer) HasSameAsPrimary() bool {
+	if o != nil && !IsNil(o.SameAsPrimary) {
+		return true
+	}
+
+	return false
+}
+
+// SetSameAsPrimary gets a reference to the given bool and assigns it to the SameAsPrimary field.
+func (o *RemoteNetworksProtocolBgpPeer) SetSameAsPrimary(v bool) {
+	o.SameAsPrimary = &v
+}
+
 // GetSecret returns the Secret field value if set, zero value otherwise.
 func (o *RemoteNetworksProtocolBgpPeer) GetSecret() string {
 	if o == nil || IsNil(o.Secret) {
@@ -160,6 +194,9 @@ func (o RemoteNetworksProtocolBgpPeer) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PeerIpAddress) {
 		toSerialize["peer_ip_address"] = o.PeerIpAddress
 	}
+	if !IsNil(o.SameAsPrimary) {
+		toSerialize["same_as_primary"] = o.SameAsPrimary
+	}
 	if !IsNil(o.Secret) {
 		toSerialize["secret"] = o.Secret
 	}
@@ -187,6 +224,7 @@ func (o *RemoteNetworksProtocolBgpPeer) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "local_ip_address")
 		delete(additionalProperties, "peer_ip_address")
+		delete(additionalProperties, "same_as_primary")
 		delete(additionalProperties, "secret")
 		o.AdditionalProperties = additionalProperties
 	}

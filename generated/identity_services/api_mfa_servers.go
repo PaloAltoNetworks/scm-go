@@ -549,7 +549,7 @@ func (r ApiListMFAServersRequest) Offset(offset int32) ApiListMFAServersRequest 
 	return r
 }
 
-func (r ApiListMFAServersRequest) Execute() (interface{}, *http.Response, error) {
+func (r ApiListMFAServersRequest) Execute() (*MFAServersListResponse, *http.Response, error) {
 	return r.ApiService.ListMFAServersExecute(r)
 }
 
@@ -570,13 +570,13 @@ func (a *MFAServersAPIService) ListMFAServers(ctx context.Context) ApiListMFASer
 
 // Execute executes the request
 //
-//	@return interface{}
-func (a *MFAServersAPIService) ListMFAServersExecute(r ApiListMFAServersRequest) (interface{}, *http.Response, error) {
+//	@return MFAServersListResponse
+func (a *MFAServersAPIService) ListMFAServersExecute(r ApiListMFAServersRequest) (*MFAServersListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue interface{}
+		localVarReturnValue *MFAServersListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MFAServersAPIService.ListMFAServers")
@@ -898,4 +898,78 @@ func (a *MFAServersAPIService) UpdateMFAServersByIDExecute(r ApiUpdateMFAServers
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// FetchMFAServers retrieves a single MfaServers object by name.
+//
+// This is a convenience method that uses server-side name filtering to retrieve
+// a specific object by its name within a container (folder, snippet, or device).
+//
+// Parameters:
+//   - ctx: Context for the request
+//   - name: The name of the object to fetch
+//   - folder: The folder in which the resource is defined (optional, use nil if not needed)
+//   - snippet: The snippet in which the resource is defined (optional, use nil if not needed)
+//   - device: The device in which the resource is defined (optional, use nil if not needed)
+//
+// Returns:
+//   - *MfaServers: The matching object if found, nil otherwise
+//   - error: Any error that occurred during the fetch operation
+//
+// Example:
+//
+//	obj, err := api.FetchMFAServers(ctx, "my-object", &folder, nil, nil)
+//	if err != nil {
+//	    return err
+//	}
+//	if obj != nil {
+//	    fmt.Printf("Found object\n")
+//	}
+func (a *MFAServersAPIService) FetchMFAServers(ctx context.Context, name string, folder *string, snippet *string, device *string) (*MfaServers, error) {
+	req := a.ListMFAServers(ctx).Name(name).Position("pre").Limit(5000)
+
+	if folder != nil {
+		req = req.Folder(*folder)
+	}
+	if snippet != nil {
+		req = req.Snippet(*snippet)
+	}
+	if device != nil {
+		req = req.Device(*device)
+	}
+
+	response, httpRes, err := req.Execute()
+	if err != nil {
+		// HTTP 404: server-side "get by name" found no match
+		if httpRes != nil && httpRes.StatusCode == http.StatusNotFound {
+			return nil, nil
+		}
+
+		// HTTP 200 with deserialization error: server returned bare object
+		if httpRes != nil && httpRes.StatusCode == http.StatusOK {
+			if apiErr, ok := err.(*GenericOpenAPIError); ok {
+				var result MfaServers
+				if decodeErr := a.client.decode(&result, apiErr.Body(), "application/json"); decodeErr == nil {
+					if result.Name == name {
+						return &result, nil
+					}
+				}
+			}
+			return nil, nil
+		}
+
+		// Any other error: propagate to caller
+		return nil, err
+	}
+
+	// Success: standard paginated response
+	if response != nil && response.Data != nil {
+		for i := range response.Data {
+			if response.Data[i].Name == name {
+				return &response.Data[i], nil
+			}
+		}
+	}
+
+	return nil, nil
 }
