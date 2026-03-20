@@ -59,6 +59,10 @@ type APIClient struct {
 
 	DNSSecurityProfilesAPI *DNSSecurityProfilesAPIService
 
+	DataFilteringAPI *DataFilteringAPIService
+
+	DataObjectsAPI *DataObjectsAPIService
+
 	DecryptionExclusionsAPI *DecryptionExclusionsAPIService
 
 	DecryptionProfilesAPI *DecryptionProfilesAPIService
@@ -78,6 +82,8 @@ type APIClient struct {
 	SaasTenantRestrictionsAPI *SaasTenantRestrictionsAPIService
 
 	SecurityRulesAPI *SecurityRulesAPIService
+
+	SslDecryptionSettingsAPI *SslDecryptionSettingsAPIService
 
 	URLAccessProfilesAPI *URLAccessProfilesAPIService
 
@@ -112,6 +118,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AntiSpywareSignaturesAPI = (*AntiSpywareSignaturesAPIService)(&c.common)
 	c.ApplicationOverrideRulesAPI = (*ApplicationOverrideRulesAPIService)(&c.common)
 	c.DNSSecurityProfilesAPI = (*DNSSecurityProfilesAPIService)(&c.common)
+	c.DataFilteringAPI = (*DataFilteringAPIService)(&c.common)
+	c.DataObjectsAPI = (*DataObjectsAPIService)(&c.common)
 	c.DecryptionExclusionsAPI = (*DecryptionExclusionsAPIService)(&c.common)
 	c.DecryptionProfilesAPI = (*DecryptionProfilesAPIService)(&c.common)
 	c.DecryptionRulesAPI = (*DecryptionRulesAPIService)(&c.common)
@@ -122,6 +130,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ProfileGroupsAPI = (*ProfileGroupsAPIService)(&c.common)
 	c.SaasTenantRestrictionsAPI = (*SaasTenantRestrictionsAPIService)(&c.common)
 	c.SecurityRulesAPI = (*SecurityRulesAPIService)(&c.common)
+	c.SslDecryptionSettingsAPI = (*SslDecryptionSettingsAPIService)(&c.common)
 	c.URLAccessProfilesAPI = (*URLAccessProfilesAPIService)(&c.common)
 	c.URLCategoriesAPI = (*URLCategoriesAPIService)(&c.common)
 	c.URLFilteringCategoriesAPI = (*URLFilteringCategoriesAPIService)(&c.common)

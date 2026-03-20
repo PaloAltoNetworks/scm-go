@@ -73,11 +73,17 @@ type APIClient struct {
 
 	BGPRouteMapsAPI *BGPRouteMapsAPIService
 
+	ConfigMatchListAPI *ConfigMatchListAPIService
+
 	DHCPInterfacesAPI *DHCPInterfacesAPIService
 
 	DNSProxiesAPI *DNSProxiesAPIService
 
 	EthernetInterfacesAPI *EthernetInterfacesAPIService
+
+	GlobalprotectMatchListAPI *GlobalprotectMatchListAPIService
+
+	HipmatchMatchListAPI *HipmatchMatchListAPIService
 
 	IKECryptoProfilesAPI *IKECryptoProfilesAPIService
 
@@ -88,6 +94,8 @@ type APIClient struct {
 	IPsecTunnelsAPI *IPsecTunnelsAPIService
 
 	InterfaceManagementProfilesAPI *InterfaceManagementProfilesAPIService
+
+	IptagMatchListAPI *IptagMatchListAPIService
 
 	LLDPProfilesAPI *LLDPProfilesAPIService
 
@@ -133,9 +141,11 @@ type APIClient struct {
 
 	SecurityZonesAPI *SecurityZonesAPIService
 
-	SslDecryptionSettingsAPI *SslDecryptionSettingsAPIService
+	SystemMatchListAPI *SystemMatchListAPIService
 
 	TunnelInterfacesAPI *TunnelInterfacesAPIService
+
+	UseridMatchListAPI *UseridMatchListAPIService
 
 	VLANInterfacesAPI *VLANInterfacesAPIService
 
@@ -169,14 +179,18 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.BGPRedistributionProfilesAPI = (*BGPRedistributionProfilesAPIService)(&c.common)
 	c.BGPRouteMapRedistributionsAPI = (*BGPRouteMapRedistributionsAPIService)(&c.common)
 	c.BGPRouteMapsAPI = (*BGPRouteMapsAPIService)(&c.common)
+	c.ConfigMatchListAPI = (*ConfigMatchListAPIService)(&c.common)
 	c.DHCPInterfacesAPI = (*DHCPInterfacesAPIService)(&c.common)
 	c.DNSProxiesAPI = (*DNSProxiesAPIService)(&c.common)
 	c.EthernetInterfacesAPI = (*EthernetInterfacesAPIService)(&c.common)
+	c.GlobalprotectMatchListAPI = (*GlobalprotectMatchListAPIService)(&c.common)
+	c.HipmatchMatchListAPI = (*HipmatchMatchListAPIService)(&c.common)
 	c.IKECryptoProfilesAPI = (*IKECryptoProfilesAPIService)(&c.common)
 	c.IKEGatewaysAPI = (*IKEGatewaysAPIService)(&c.common)
 	c.IPsecCryptoProfilesAPI = (*IPsecCryptoProfilesAPIService)(&c.common)
 	c.IPsecTunnelsAPI = (*IPsecTunnelsAPIService)(&c.common)
 	c.InterfaceManagementProfilesAPI = (*InterfaceManagementProfilesAPIService)(&c.common)
+	c.IptagMatchListAPI = (*IptagMatchListAPIService)(&c.common)
 	c.LLDPProfilesAPI = (*LLDPProfilesAPIService)(&c.common)
 	c.Layer2SubinterfacesAPI = (*Layer2SubinterfacesAPIService)(&c.common)
 	c.Layer3SubinterfacesAPI = (*Layer3SubinterfacesAPIService)(&c.common)
@@ -199,8 +213,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.SDWANSaaSQualityProfilesAPI = (*SDWANSaaSQualityProfilesAPIService)(&c.common)
 	c.SDWANTrafficDistributionProfilesAPI = (*SDWANTrafficDistributionProfilesAPIService)(&c.common)
 	c.SecurityZonesAPI = (*SecurityZonesAPIService)(&c.common)
-	c.SslDecryptionSettingsAPI = (*SslDecryptionSettingsAPIService)(&c.common)
+	c.SystemMatchListAPI = (*SystemMatchListAPIService)(&c.common)
 	c.TunnelInterfacesAPI = (*TunnelInterfacesAPIService)(&c.common)
+	c.UseridMatchListAPI = (*UseridMatchListAPIService)(&c.common)
 	c.VLANInterfacesAPI = (*VLANInterfacesAPIService)(&c.common)
 	c.ZoneProtectionProfilesAPI = (*ZoneProtectionProfilesAPIService)(&c.common)
 
