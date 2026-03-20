@@ -232,6 +232,35 @@ func Test_CreateEthernetInterfaces_L3PPPoE(t *testing.T) {
 	assert.Equal(t, "testuser", pppoeVal.GetUsername(), "PPPoE username must match setup")
 }
 
+// Test_CreateEthernetInterfaces_Tap tests creation of a TAP Ethernet Interface.
+func Test_CreateEthernetInterfaces_Tap(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+	intf := createBaseEthernetInterface(t, "tap-intf-")
+
+	// Set TAP mode
+	intf.SetTap(make(map[string]interface{}))
+
+	res, httpRes, err := client.EthernetInterfacesAPI.
+		CreateEthernetInterfaces(context.Background()).
+		EthernetInterfaces(intf).
+		Execute()
+
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create TAP Ethernet Interface")
+	assert.Equal(t, http.StatusCreated, httpRes.StatusCode, "Expected 201 Created status")
+	assert.NotEmpty(t, res.GetId(), "The server must return a generated Id")
+
+	// Cleanup the created resource
+	defer func() {
+		client.EthernetInterfacesAPI.DeleteEthernetInterfacesByID(context.Background(), res.GetId()).Execute()
+	}()
+
+	assert.True(t, res.HasTap(), "Tap field must be set")
+	assert.False(t, res.HasLayer2(), "Layer2 field must NOT be set")
+}
+
 // Test_EthernetInterfacesAPIService_GetByID tests retrieving an Ethernet Interface by ID.
 func Test_EthernetInterfacesAPIService_GetByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
