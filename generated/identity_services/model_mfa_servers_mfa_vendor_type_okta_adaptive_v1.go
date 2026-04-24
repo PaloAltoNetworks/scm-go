@@ -27,7 +27,7 @@ type MfaServersMfaVendorTypeOktaAdaptiveV1 struct {
 	// Okta organization
 	OktaOrg string `json:"okta_org"`
 	// Okta timeout (seconds)
-	OktaTimeout int32 `json:"okta_timeout"`
+	OktaTimeout string `json:"okta_timeout"`
 	// Okta API token
 	OktaToken            string `json:"okta_token"`
 	AdditionalProperties map[string]interface{}
@@ -39,7 +39,7 @@ type _MfaServersMfaVendorTypeOktaAdaptiveV1 MfaServersMfaVendorTypeOktaAdaptiveV
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMfaServersMfaVendorTypeOktaAdaptiveV1(oktaApiHost string, oktaBaseuri string, oktaOrg string, oktaTimeout int32, oktaToken string) *MfaServersMfaVendorTypeOktaAdaptiveV1 {
+func NewMfaServersMfaVendorTypeOktaAdaptiveV1(oktaApiHost string, oktaBaseuri string, oktaOrg string, oktaTimeout string, oktaToken string) *MfaServersMfaVendorTypeOktaAdaptiveV1 {
 	this := MfaServersMfaVendorTypeOktaAdaptiveV1{}
 	this.OktaApiHost = oktaApiHost
 	this.OktaBaseuri = oktaBaseuri
@@ -56,7 +56,7 @@ func NewMfaServersMfaVendorTypeOktaAdaptiveV1WithDefaults() *MfaServersMfaVendor
 	this := MfaServersMfaVendorTypeOktaAdaptiveV1{}
 	var oktaBaseuri string = "/api/v1"
 	this.OktaBaseuri = oktaBaseuri
-	var oktaTimeout int32 = 30
+	var oktaTimeout string = "30"
 	this.OktaTimeout = oktaTimeout
 	return &this
 }
@@ -134,9 +134,9 @@ func (o *MfaServersMfaVendorTypeOktaAdaptiveV1) SetOktaOrg(v string) {
 }
 
 // GetOktaTimeout returns the OktaTimeout field value
-func (o *MfaServersMfaVendorTypeOktaAdaptiveV1) GetOktaTimeout() int32 {
+func (o *MfaServersMfaVendorTypeOktaAdaptiveV1) GetOktaTimeout() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
@@ -145,7 +145,7 @@ func (o *MfaServersMfaVendorTypeOktaAdaptiveV1) GetOktaTimeout() int32 {
 
 // GetOktaTimeoutOk returns a tuple with the OktaTimeout field value
 // and a boolean to check if the value has been set.
-func (o *MfaServersMfaVendorTypeOktaAdaptiveV1) GetOktaTimeoutOk() (*int32, bool) {
+func (o *MfaServersMfaVendorTypeOktaAdaptiveV1) GetOktaTimeoutOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -153,7 +153,7 @@ func (o *MfaServersMfaVendorTypeOktaAdaptiveV1) GetOktaTimeoutOk() (*int32, bool
 }
 
 // SetOktaTimeout sets field value
-func (o *MfaServersMfaVendorTypeOktaAdaptiveV1) SetOktaTimeout(v int32) {
+func (o *MfaServersMfaVendorTypeOktaAdaptiveV1) SetOktaTimeout(v string) {
 	o.OktaTimeout = v
 }
 

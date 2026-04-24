@@ -1,0 +1,4296 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@paloaltonetworks.com
+    name: Palo Alto Networks Technical Support
+    url: https://support.paloaltonetworks.com
+  description: These APIs are used for defining and managing Prisma Access GlobalProtect
+    services within Strata Cloud Manager.
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit
+  termsOfService: https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/legal/palo-alto-networks-end-user-license-agreement-eula.pdf
+  title: GlobalProtect
+  version: 2.0.0
+servers:
+- description: Current
+  url: https://api.strata.paloaltonetworks.com/config/mobile-agent/v1
+- description: Legacy
+  url: https://api.sase.paloaltonetworks.com/sse/config/v1/mobile-agent
+security:
+- scmToken: []
+tags:
+- description: Agent Authentication Settings
+  name: Agent Authentication Settings
+- description: Agent Versions
+  name: Agent Versions
+- description: Application Settings
+  name: Application Settings
+- description: Global Settings
+  name: Global Settings
+- description: GlobalProtect Enablement
+  name: GlobalProtect Enablement
+- description: Infrastructure Settings
+  name: Infrastructure Settings
+- description: Mobile User Locations
+  name: Mobile User Locations
+- description: Tunnel Settings
+  name: Tunnel Settings
+- description: Forwarding Profiles
+  name: Forwarding Profiles
+- description: Destinations
+  name: Destinations
+- description: Source Applications
+  name: Source Applications
+- description: User Locations
+  name: User Locations
+- description: Regional and Custom Proxies
+  name: Regional and Custom Proxies
+paths:
+  /forwarding-profile-destinations:
+    get:
+      description: |
+        Retrieve a list of GlobalProtect destinations
+      operationId: ListGlobalProtectDestinations
+      parameters:
+      - description: The name of the configuration resource
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The maximum number of results per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 200
+          type: integer
+        style: form
+      - description: The offset into the list of results returned
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          type: integer
+        style: form
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalProtectDestinationsListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: List GlobalProtect destinations
+      tags:
+      - Destinations
+    post:
+      description: |
+        Create a new GlobalProtect destination
+      operationId: CreateGlobalProtectDestination
+      parameters:
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profile-destinations'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-destinations'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Create a GlobalProtect destination
+      tags:
+      - Destinations
+  /forwarding-profile-destinations/{id}:
+    delete:
+      description: |
+        Delete a GlobalProtect destination
+      operationId: DeleteGlobalProtectDestination
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Delete a GlobalProtect destination
+      tags:
+      - Destinations
+    get:
+      description: |
+        Retrieve an existing GlobalProtect destination
+      operationId: GetGlobalProtectDestinationByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-destinations'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Get a GlobalProtect destination
+      tags:
+      - Destinations
+    put:
+      description: |
+        Update an existing GlobalProtect destination
+      operationId: UpdateGlobalProtectDestinationByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profile-destinations'
+        description: The destination resource definition
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-destinations'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Update a GlobalProtect destination
+      tags:
+      - Destinations
+  /forwarding-profile-regional-and-custom-proxies:
+    get:
+      description: |
+        Retrieve a list of GlobalProtect regional and custom proxies
+      operationId: ListGlobalProtectRegionalAndCustomProxies
+      parameters:
+      - description: The name of the configuration resource
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The maximum number of results per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 200
+          type: integer
+        style: form
+      - description: The offset into the list of results returned
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          type: integer
+        style: form
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalProtectRegionalAndCustomProxiesListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: List GlobalProtect regional and custom proxies
+      tags:
+      - Regional and Custom Proxies
+    post:
+      description: |
+        Create a new GlobalProtect regional and custom proxy
+      operationId: CreateGlobalProtectRegionalAndCustomProxies
+      parameters:
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profile-regional-and-custom-proxies'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-regional-and-custom-proxies'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Create a GlobalProtect regional and custom proxy
+      tags:
+      - Regional and Custom Proxies
+  /forwarding-profile-regional-and-custom-proxies/{id}:
+    delete:
+      description: |
+        Delete a GlobalProtect regional and custom proxy
+      operationId: DeleteGlobalProtectRegionalAndCustomProxies
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Delete a GlobalProtect regional and custom proxy
+      tags:
+      - Regional and Custom Proxies
+    get:
+      description: |
+        Retrieve an existing GlobalProtect regional and custom proxy
+      operationId: GetGlobalProtectRegionalAndCustomProxyByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-regional-and-custom-proxies'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Get a GlobalProtect regional and custom proxy
+      tags:
+      - Regional and Custom Proxies
+    put:
+      description: |
+        Update an existing GlobalProtect regional and custom proxy
+      operationId: UpdateGlobalProtectRegionalAndCustomProxyByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profile-regional-and-custom-proxies'
+        description: The regional and custom proxy resource definition
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-regional-and-custom-proxies'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Update a GlobalProtect regional and custom proxy
+      tags:
+      - Regional and Custom Proxies
+  /forwarding-profile-source-applications:
+    get:
+      description: |
+        Retrieve a list of GlobalProtect source applications
+      operationId: ListGlobalProtectSourceApplications
+      parameters:
+      - description: The name of the configuration resource
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The maximum number of results per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 200
+          type: integer
+        style: form
+      - description: The offset into the list of results returned
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          type: integer
+        style: form
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalProtectSourceApplicationsListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: List GlobalProtect source applications
+      tags:
+      - Source Applications
+    post:
+      description: |
+        Create a new GlobalProtect source application
+      operationId: CreateGlobalProtectSourceApplication
+      parameters:
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profile-source-applications'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-source-applications'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Create a GlobalProtect source application
+      tags:
+      - Source Applications
+  /forwarding-profile-source-applications/{id}:
+    delete:
+      description: |
+        Delete a GlobalProtect source application
+      operationId: DeleteGlobalProtectSourceApplication
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Delete a GlobalProtect source application
+      tags:
+      - Source Applications
+    get:
+      description: |
+        Retrieve an existing GlobalProtect source application
+      operationId: GetGlobalProtectSourceApplicationByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-source-applications'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Get a GlobalProtect source application
+      tags:
+      - Source Applications
+    put:
+      description: |
+        Update an existing GlobalProtect source application
+      operationId: UpdateGlobalProtectSourceApplicationByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profile-source-applications'
+        description: The source application resource definition
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-source-applications'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Update a GlobalProtect source application
+      tags:
+      - Source Applications
+  /forwarding-profile-user-locations:
+    get:
+      description: |
+        Retrieve a list of GlobalProtect user locations
+      operationId: ListGlobalProtectUserLocations
+      parameters:
+      - description: The name of the configuration resource
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The maximum number of results per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 200
+          type: integer
+        style: form
+      - description: The offset into the list of results returned
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          type: integer
+        style: form
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalProtectUserLocationsListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: List GlobalProtect user locations
+      tags:
+      - User Locations
+    post:
+      description: |
+        Create a new GlobalProtect user location
+      operationId: CreateGlobalProtectUserLocation
+      parameters:
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profile-user-locations'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-user-locations'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Create a GlobalProtect user location
+      tags:
+      - User Locations
+  /forwarding-profile-user-locations/{id}:
+    delete:
+      description: |
+        Delete a GlobalProtect user location
+      operationId: DeleteGlobalProtectUserLocation
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Delete a GlobalProtect user location
+      tags:
+      - User Locations
+    get:
+      description: |
+        Retrieve an existing GlobalProtect user location
+      operationId: GetGlobalProtectUserLocationByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-user-locations'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Get a GlobalProtect user location
+      tags:
+      - User Locations
+    put:
+      description: |
+        Update an existing GlobalProtect user location
+      operationId: UpdateGlobalProtectUserLocationByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profile-user-locations'
+        description: The user location resource definition
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profile-user-locations'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Update a GlobalProtect user location
+      tags:
+      - User Locations
+  /forwarding-profiles:
+    get:
+      description: |
+        Retrieve a list of GlobalProtect forwarding profiles
+      operationId: ListGlobalProtectForwardingProfiles
+      parameters:
+      - description: The name of the configuration resource
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The maximum number of results per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 200
+          type: integer
+        style: form
+      - description: The offset into the list of results returned
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          type: integer
+        style: form
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalProtectForwardingProfilesListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: List GlobalProtect forwarding profiles
+      tags:
+      - Forwarding Profiles
+    post:
+      description: |
+        Create a new GlobalProtect forwarding profile
+      operationId: CreateGlobalProtectForwardingProfile
+      parameters:
+      - description: |
+          The folder in which the resource is defined
+        explode: true
+        in: query
+        name: folder
+        required: false
+        schema:
+          enum:
+          - Mobile Users
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profiles'
+        description: Created
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profiles'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Create a GlobalProtect forwarding profile
+      tags:
+      - Forwarding Profiles
+  /forwarding-profiles/{id}:
+    delete:
+      description: |
+        Delete a GlobalProtect forwarding profile
+      operationId: DeleteGlobalProtectForwardingProfile
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Delete a GlobalProtect forwarding profile
+      tags:
+      - Forwarding Profiles
+    get:
+      description: |
+        Retrieve an existing GlobalProtect forwarding profile
+      operationId: GetGlobalProtectForwardingProfileByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profiles'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Get a GlobalProtect forwarding profile
+      tags:
+      - Forwarding Profiles
+    put:
+      description: |
+        Update an existing GlobalProtect forwarding profile
+      operationId: UpdateGlobalProtectForwardingProfileByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forwarding-profiles'
+        description: The forwarding profile resource definition
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forwarding-profiles'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Update a GlobalProtect forwarding profile
+      tags:
+      - Forwarding Profiles
+components:
+  examples:
+    json_400_panui_mgmt_bad_xpath:
+      summary: Bad XPath
+      value:
+        _errors:
+        - code: E013
+          details: {}
+          message: Bad XPath
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_400_panui_mgmt_invalid_command:
+      summary: Invalid Command
+      value:
+        _errors:
+        - code: E003
+          details: {}
+          message: Invalid Command
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_400_panui_mgmt_invalid_object:
+      summary: Invalid Object
+      value:
+        _errors:
+        - code: E003
+          details: {}
+          message: Invalid Object
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_400_panui_mgmt_malformed_command:
+      summary: Malformed Command
+      value:
+        _errors:
+        - code: E003
+          details: {}
+          message: Malformed Command
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_400_panui_restapi_input_format_mismatch:
+      summary: Input Format Mismatch
+      value:
+        _errors:
+        - code: E003
+          details: {}
+          message: "Input Format Mismatch: input-format=json"
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_400_panui_restapi_invalid_query_parameter:
+      summary: Invalid Query Parameter
+      value:
+        _errors:
+        - code: E003
+          details: {}
+          message: "Invalid Query Parameter: location=invalid"
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_400_panui_restapi_missing_body:
+      summary: Missing Body
+      value:
+        _errors:
+        - code: E003
+          details: {}
+          message: Missing Body
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_400_panui_restapi_missing_query_parameter:
+      summary: Missing Query Parameter
+      value:
+        _errors:
+        - code: E003
+          details: {}
+          message: "Missing Query Parameter: name"
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_400_panui_restapi_output_format_mismatch:
+      summary: Output Format Mismatch
+      value:
+        _errors:
+        - code: E003
+          details: {}
+          message: "Output Format Mismatch: output-format=json Accept=xml"
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_401_panui_auth_invalid_credential:
+      summary: Invalid Credential
+      value:
+        _errors:
+        - code: E016
+          details: {}
+          message: Invalid Credential
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_401_panui_auth_key_expired:
+      summary: Key Expired
+      value:
+        _errors:
+        - code: E016
+          details: {}
+          message: Key Expired
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_401_panui_auth_key_too_long:
+      summary: Key Too Long
+      value:
+        _errors:
+        - code: E016
+          details: {}
+          message: Key Too Long
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_401_panui_auth_need_password_change:
+      summary: Need Password Change
+      value:
+        _errors:
+        - code: E016
+          details: {}
+          message: The password needs to be changed.
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_401_panui_auth_not_authenticated:
+      summary: Not Authenticated
+      value:
+        _errors:
+        - code: E016
+          details: {}
+          message: Not Authenticated
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_403_panui_auth_unauthorized:
+      summary: Unauthorized
+      value:
+        _errors:
+        - code: E007
+          details: {}
+          message: Unauthorized
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_404_panui_mgmt_object_not_present:
+      summary: Object Not Present
+      value:
+        _errors:
+        - code: E005
+          details: {}
+          message: Object Not Present
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_405_panui_restapi_action_not_supported:
+      summary: Action Not Supported
+      value:
+        _errors:
+        - code: E012
+          details: {}
+          message: "Action Not Supported: move"
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_409_panui_mgmt_name_not_unique:
+      summary: Name Not Unique
+      value:
+        _errors:
+        - code: E006
+          details: {}
+          message: Name Not Unique
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_409_panui_mgmt_object_not_unique:
+      summary: Object Not Unique
+      value:
+        _errors:
+        - code: E016
+          details: {}
+          message: Object Not Unique
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_409_panui_mgmt_reference_not_zero:
+      summary: Reference Not Zero
+      value:
+        _errors:
+        - code: E009
+          details: {}
+          message: Reference Not Zero
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_501_panui_restapi_method_not_supported:
+      summary: Method Not Supported
+      value:
+        _errors:
+        - code: E012
+          details: {}
+          message: Method Not Supported
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_501_panui_restapi_version_not_supported:
+      summary: Version Not Supported
+      value:
+        _errors:
+        - code: E012
+          details: {}
+          message: Version Not Supported
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+    json_504_panui_mgmt_session_timeout:
+      summary: Session Timeout
+      value:
+        _errors:
+        - code: "4"
+          details: {}
+          message: Session Timeout
+        _request_id: 123e4567-e89b-12d3-a456-426655440000
+  parameters:
+    folder-mobileusers-required:
+      description: |
+        The folder in which the resource is defined
+      explode: true
+      in: query
+      name: folder
+      required: false
+      schema:
+        enum:
+        - Mobile Users
+        type: string
+      style: form
+    limit:
+      description: The maximum number of results per page
+      explode: true
+      in: query
+      name: limit
+      required: false
+      schema:
+        default: 200
+        type: integer
+      style: form
+    name:
+      description: The name of the configuration resource
+      explode: true
+      in: query
+      name: name
+      required: false
+      schema:
+        type: string
+      style: form
+    name-in-path:
+      description: The name of the configuration resource
+      explode: false
+      in: path
+      name: name
+      required: true
+      schema:
+        type: string
+      style: simple
+    name-required:
+      description: The name of the configuration resource
+      explode: true
+      in: query
+      name: name
+      required: true
+      schema:
+        type: string
+      style: form
+    offset:
+      description: The offset into the list of results returned
+      explode: true
+      in: query
+      name: offset
+      required: false
+      schema:
+        default: 0
+        type: integer
+      style: form
+    uuid:
+      description: The UUID of the resource
+      explode: false
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      style: simple
+  responses:
+    access_errors:
+      content:
+        application/json:
+          examples:
+            auth_unauthorized:
+              $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Forbidden
+    auth_errors:
+      content:
+        application/json:
+          examples:
+            auth_not_authenticated:
+              $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+            invalid_credential:
+              $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+            key_expired:
+              $ref: '#/components/examples/json_401_panui_auth_key_expired'
+            key_too_long:
+              $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+            need_password_change:
+              $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Unauthorized
+    bad_request_errors_basic:
+      content:
+        application/json:
+          examples:
+            input_format_mismatch:
+              $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+            invalid_query_parameter:
+              $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+            missing_query_parameter:
+              $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+            output_format_mismatch:
+              $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Bad Request
+    bad_request_errors_basic_with_body:
+      content:
+        application/json:
+          examples:
+            input_format_mismatch:
+              $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+            invalid_object:
+              $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+            invalid_query_parameter:
+              $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+            missing_body:
+              $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+            missing_query_parameter:
+              $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+            output_format_mismatch:
+              $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Bad Request
+    conflict_errors:
+      content:
+        application/json:
+          examples:
+            name_not_unique:
+              $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+            object_not_unique:
+              $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+            reference_not_zero:
+              $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Conflict
+    default_errors:
+      content:
+        application/json:
+          examples:
+            action_not_supported:
+              $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+            bad_xpath:
+              $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+            invalid_command:
+              $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+            malformed_command:
+              $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+            method_not_allowed:
+              $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+            session_timeout:
+              $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+            version_not_supported:
+              $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: General Errors
+    http_created:
+      description: Created
+    http_ok:
+      description: OK
+    not_found:
+      content:
+        application/json:
+          examples:
+            object_not_present:
+              $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Not Found
+  schemas:
+    GlobalProtectDestinationsListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ForwardingProfileDestinations'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    GlobalProtectForwardingProfilesListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ForwardingProfiles'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    GlobalProtectRegionalAndCustomProxiesListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ForwardingProfileRegionalAndCustomProxies'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    GlobalProtectSourceApplicationsListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ForwardingProfileSourceApplications'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    GlobalProtectUserLocationsListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ForwardingProfileUserLocations'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    block-rule-basic:
+      description: Basic block rule configuration for PAC file and GlobalProtect proxy
+        profiles
+      example:
+        enable: true
+        allow_tcp:
+          enable_locations: true
+          locations:
+          - locations
+          - locations
+        allow_udp:
+          enable_locations: true
+          destinations: destinations
+          locations:
+          - locations
+          - locations
+          enable_destinations: true
+      properties:
+        allow_tcp:
+          $ref: '#/components/schemas/block_rule_basic_allow_tcp'
+        allow_udp:
+          $ref: '#/components/schemas/block_rule_basic_allow_udp'
+        enable:
+          description: Enable block rule
+          type: boolean
+      type: object
+    block-rule-ztna:
+      description: ZTNA block rule configuration
+      example:
+        block_outbound_lan_access_when_connected_to_tunnel: false
+        enforcer_fqdn_dns_resolution_via_dns_servers: true
+        resolve_all_fqdns_using_dns_servers_assigned_by_the_tunnel: true
+        block_non_tcp_non_udp_traffic_when_connected_to_tunnel: false
+        block_all_other_unmatched_outbound_connections: false
+        block_inbound_access_when_connected_to_tunnel: false
+        allow_icmp_for_troubleshooting: false
+      properties:
+        allow_icmp_for_troubleshooting:
+          default: false
+          description: Allow ICMP for troubleshooting
+          type: boolean
+        block_all_other_unmatched_outbound_connections:
+          default: false
+          description: Block all other unmatched outbound connections
+          type: boolean
+        block_inbound_access_when_connected_to_tunnel:
+          default: false
+          description: Block inbound access when connected to tunnel
+          type: boolean
+        block_non_tcp_non_udp_traffic_when_connected_to_tunnel:
+          default: false
+          description: Block Non-TCP Non UDP based traffic when connected to tunnel
+          type: boolean
+        block_outbound_lan_access_when_connected_to_tunnel:
+          default: false
+          description: Block outbound LAN access when connected to tunnel
+          type: boolean
+        enforcer_fqdn_dns_resolution_via_dns_servers:
+          default: true
+          description: Enforce FQDN DNS resolution via tunnel DNS servers
+          type: boolean
+        resolve_all_fqdns_using_dns_servers_assigned_by_the_tunnel:
+          default: true
+          description: Resolve All FQDNs using DNS servers assigned by the tunnel
+            (Windows Only)
+          type: boolean
+      type: object
+    error_detail_cause_info:
+      description: "Detailed information about an error cause including code, message,\
+        \ and contextual details"
+      example:
+        help: help
+        code: code
+        details: ""
+        message: message
+      properties:
+        code:
+          description: Error code identifying the type of error
+          type: string
+        details:
+          description: Additional error details as string or structured object
+        help:
+          description: Help text for resolving the error
+          type: string
+        message:
+          description: Human-readable error message
+          type: string
+      title: Cause Info
+      type: object
+    error_detail_cause_infos:
+      description: Array of detailed error cause information
+      items:
+        $ref: '#/components/schemas/error_detail_cause_info'
+      type: array
+      x-examples: {}
+    forwarding-profile-destination-fqdn-entry:
+      description: FQDN entry destination
+      example:
+        port: 5249
+        name: name
+      properties:
+        name:
+          description: "alphanumeric string [*0-9a-zA-Z._-] and at most one $ by the\
+            \ end"
+          maxLength: 255
+          pattern: "^([\\*a-zA-Z0-9._-])+\\$?$"
+          type: string
+        port:
+          description: Port number for fqdn based destination
+          maximum: 65535
+          minimum: 1
+          type: integer
+      required:
+      - name
+      type: object
+    forwarding-profile-destination-ip-entry:
+      description: IP address entry destination
+      example:
+        port: 39501
+        name: name
+      properties:
+        name:
+          description: IP address with wildcards and CIDR notation support
+          pattern: "^(\\*|25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(\\*|25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\
+            .(\\*|25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(((\\*|(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\
+            /(3[0-2]|[1-2]?[0-9]))))$"
+          type: string
+        port:
+          description: Port number for IP address based destination
+          maximum: 65535
+          minimum: 1
+          type: integer
+      required:
+      - name
+      type: object
+    forwarding-profile-destinations:
+      example:
+        fqdn:
+        - port: 5249
+          name: name
+        - port: 5249
+          name: name
+        ip_addresses:
+        - port: 39501
+          name: name
+        - port: 39501
+          name: name
+        name: name
+        description: description
+        id: id
+      properties:
+        description:
+          description: description of the destination
+          maxLength: 1023
+          type: string
+        fqdn:
+          description: List of FQDN based destination entries
+          items:
+            $ref: '#/components/schemas/forwarding-profile-destination-fqdn-entry'
+          type: array
+        id:
+          description: The UUID of the destination
+          readOnly: true
+          type: string
+        ip_addresses:
+          description: List of IP address based destination entries
+          items:
+            $ref: '#/components/schemas/forwarding-profile-destination-ip-entry'
+          type: array
+        name:
+          description: "alphanumeric string [ 0-9a-zA-Z._ -]"
+          maxLength: 64
+          pattern: "^[0-9a-zA-Z._ -]+$"
+          type: string
+      required:
+      - name
+      type: object
+    forwarding-profile-global-protect-proxy:
+      description: GlobalProtect proxy-based forwarding profile configuration
+      properties:
+        global_protect_proxy:
+          $ref: '#/components/schemas/forwarding_profile_global_protect_proxy_global_protect_proxy'
+      type: object
+    forwarding-profile-pac-file:
+      description: PAC file-based forwarding profile configuration
+      properties:
+        pac_file:
+          $ref: '#/components/schemas/forwarding_profile_pac_file_pac_file'
+      type: object
+    forwarding-profile-regional-and-custom-proxies:
+      example:
+        prisma_access_locations:
+        - name: name
+          locations:
+          - locations
+          - locations
+        - name: name
+          locations:
+          - locations
+          - locations
+        proxy_1:
+          fqdn: fqdn
+          port: 5249
+          location: location
+        proxy_2:
+          fqdn: fqdn
+          port: 39501
+          location: location
+        name: name
+        description: description
+        connectivity_preference:
+        - name: tunnel
+          enabled: false
+        - name: tunnel
+          enabled: false
+        id: id
+        type: gp-and-pac
+        location_preference: best-available-pa-location
+        fallback_option: fail-open
+      properties:
+        connectivity_preference:
+          description: List of connectivity methods and their enablement status for
+            establishing proxy connections
+          items:
+            $ref: '#/components/schemas/forwarding_profile_regional_and_custom_proxies_connectivity_preference_inner'
+          type: array
+        description:
+          description: regional and custom proxy configuration description
+          maxLength: 1023
+          type: string
+        fallback_option:
+          description: "Behavior when proxy connection fails - 'fail-open' allows\
+            \ direct internet access, 'fail-safe' blocks traffic until proxy is restored"
+          enum:
+          - fail-open
+          - fail-safe
+          type: string
+        id:
+          description: The UUID of the regional and custom proxy
+          readOnly: true
+          type: string
+        location_preference:
+          description: "Strategy for selecting Prisma Access location - 'best-available-pa-location'\
+            \ automatically selects optimal location, 'specific-pa-location' uses\
+            \ predefined locations"
+          enum:
+          - best-available-pa-location
+          - specific-pa-location
+          type: string
+        name:
+          description: "alphanumeric string [ 0-9a-zA-Z ._-]"
+          maxLength: 64
+          pattern: "^[0-9a-zA-Z ._-]+$"
+          type: string
+        prisma_access_locations:
+          description: "Select Prisma Access location Americas, Europe and Asia-Pacific."
+          items:
+            $ref: '#/components/schemas/forwarding_profile_regional_and_custom_proxies_prisma_access_locations_inner'
+          type: array
+        proxy_1:
+          $ref: '#/components/schemas/forwarding_profile_regional_and_custom_proxies_proxy_1'
+        proxy_2:
+          $ref: '#/components/schemas/forwarding_profile_regional_and_custom_proxies_proxy_2'
+        type:
+          default: gp-and-pac
+          description: "Proxy configuration type - 'gp-and-pac' for GlobalProtect\
+            \ and PAC file forwarding, 'ztna-agent' for ZTNA agent forwarding"
+          enum:
+          - gp-and-pac
+          - ztna-agent
+          type: string
+      required:
+      - name
+      type: object
+    forwarding-profile-source-applications:
+      example:
+        name: name
+        description: description
+        id: id
+        applications:
+        - applications
+        - applications
+      properties:
+        applications:
+          description: List of application names to be included in this source application
+            profile
+          items:
+            maxLength: 511
+            minLength: 1
+            type: string
+          type: array
+        description:
+          description: fowarding profile source application description
+          maxLength: 1023
+          type: string
+        id:
+          description: The id of the source application
+          readOnly: true
+          type: string
+        name:
+          description: "The unique name identifying the source application. Must be\
+            \ alphanumeric with allowed characters [0-9a-zA-Z._-]"
+          maxLength: 64
+          pattern: "^[0-9a-zA-Z._-]+$"
+          type: string
+      required:
+      - applications
+      - name
+      type: object
+    forwarding-profile-user-locations:
+      example:
+        ip_addresses:
+        - ip_addresses
+        - ip_addresses
+        name: name
+        description: description
+        internal_host_detection:
+          fqdn: fqdn
+          ip_address: ip_address
+        id: id
+      properties:
+        description:
+          description: Description of the user location
+          maxLength: 1023
+          type: string
+        id:
+          description: The UUID of the user location
+          readOnly: true
+          type: string
+        internal_host_detection:
+          $ref: '#/components/schemas/forwarding_profile_user_locations_internal_host_detection'
+        ip_addresses:
+          description: List of IP addresses that define the user location
+          items:
+            description: user location list of ip addresses
+            pattern: "^(\\*|25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(\\*|25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\
+              .(\\*|25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.((\\*|(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\
+              /(3[0-2]|[1-2]?[0-9])))$"
+            type: string
+          type: array
+        name:
+          description: "alphanumeric string [ 0-9a-zA-Z._-]"
+          maxLength: 64
+          pattern: "^[0-9a-zA-Z._-]+$"
+          type: string
+      type: object
+    forwarding-profile-ztna-agent:
+      description: ZTNA agent-based forwarding profile configuration
+      properties:
+        ztna_agent:
+          $ref: '#/components/schemas/forwarding_profile_ztna_agent_ztna_agent'
+      type: object
+    forwarding-profiles:
+      example:
+        definition_method: rules
+        name: name
+        description: description
+        id: id
+        type:
+          ztna_agent:
+            block_rule:
+              block_outbound_lan_access_when_connected_to_tunnel: false
+              enforcer_fqdn_dns_resolution_via_dns_servers: true
+              resolve_all_fqdns_using_dns_servers_assigned_by_the_tunnel: true
+              block_non_tcp_non_udp_traffic_when_connected_to_tunnel: false
+              block_all_other_unmatched_outbound_connections: false
+              block_inbound_access_when_connected_to_tunnel: false
+              allow_icmp_for_troubleshooting: false
+            forwarding_rules:
+            - connectivity: direct
+              user_locations: Any
+              destinations: Any
+              name: name
+              traffic_type: dns
+              enabled: true
+              source_applications: Any
+            - connectivity: direct
+              user_locations: Any
+              destinations: Any
+              name: name
+              traffic_type: dns
+              enabled: true
+              source_applications: Any
+            pac_upload: false
+          pac_file:
+            block_rule:
+              enable: true
+              allow_tcp:
+                enable_locations: true
+                locations:
+                - locations
+                - locations
+              allow_udp:
+                enable_locations: true
+                destinations: destinations
+                locations:
+                - locations
+                - locations
+                enable_destinations: true
+            forwarding_rules:
+            - connectivity: direct
+              user_locations: Any
+              destinations: Any
+              name: name
+              enabled: true
+            - connectivity: direct
+              user_locations: Any
+              destinations: Any
+              name: name
+              enabled: true
+            pac_upload: false
+          global_protect_proxy:
+            block_rule:
+              enable: true
+              allow_tcp:
+                enable_locations: true
+                locations:
+                - locations
+                - locations
+              allow_udp:
+                enable_locations: true
+                destinations: destinations
+                locations:
+                - locations
+                - locations
+                enable_destinations: true
+            forwarding_rules:
+            - connectivity: direct
+              user_locations: Any
+              destinations: Any
+              name: name
+              enabled: true
+            - connectivity: direct
+              user_locations: Any
+              destinations: Any
+              name: name
+              enabled: true
+            pac_upload: false
+      properties:
+        definition_method:
+          default: rules
+          description: Enable forwarding rule for forwarding profile
+          enum:
+          - rules
+          - pac-file
+          type: string
+        description:
+          description: Forwarding profile description
+          maxLength: 1023
+          type: string
+        id:
+          description: The UUID of the forwarding profile
+          readOnly: true
+          type: string
+        name:
+          description: "forwarding profile name as an alphanumeric string [ 0-9a-zA-Z._\
+            \ -]"
+          maxLength: 64
+          pattern: "^[0-9a-zA-Z._ -]+$"
+          type: string
+        type:
+          $ref: '#/components/schemas/forwarding_profiles_type'
+      required:
+      - name
+      type: object
+    forwarding-rule-basic:
+      description: Basic forwarding rule configuration for PAC file and GlobalProtect
+        proxy profiles
+      example:
+        connectivity: direct
+        user_locations: Any
+        destinations: Any
+        name: name
+        enabled: true
+      properties:
+        connectivity:
+          default: direct
+          description: Connectivity method for this forwarding rule (e.g. direct)
+          maxLength: 64
+          type: string
+        destinations:
+          default: Any
+          description: Destination scope this forwarding rule applies to
+          maxLength: 64
+          type: string
+        enabled:
+          default: true
+          description: Enable a basic forwarding rule
+          type: boolean
+        name:
+          description: "Basic forwarding rule name as an alphanumeric string [ 0-9a-zA-Z._\
+            \ -]"
+          maxLength: 64
+          pattern: "^[0-9a-zA-Z._ -]+$"
+          type: string
+        user_locations:
+          default: Any
+          description: User location scope this rule applies to
+          maxLength: 64
+          type: string
+      required:
+      - name
+      type: object
+    forwarding-rule-ztna:
+      description: ZTNA forwarding rule configuration
+      example:
+        connectivity: direct
+        user_locations: Any
+        destinations: Any
+        name: name
+        traffic_type: dns
+        enabled: true
+        source_applications: Any
+      properties:
+        connectivity:
+          default: direct
+          description: Connectivity method for this ZTNA forwarding rule (e.g. direct)
+          maxLength: 64
+          type: string
+        destinations:
+          default: Any
+          description: Destination scope this ZTNA forwarding rule applies to
+          maxLength: 64
+          type: string
+        enabled:
+          default: true
+          description: Enable a forwarding rule ztna
+          type: boolean
+        name:
+          description: "Forwarding rule ZTNA name as an alphanumeric string [ 0-9a-zA-Z._\
+            \ -]"
+          maxLength: 64
+          pattern: "^[0-9a-zA-Z._ -]+$"
+          type: string
+        source_applications:
+          default: Any
+          description: Source applications this ZTNA rule applies to
+          type: string
+        traffic_type:
+          default: dns
+          description: "Type of traffic this ZTNA rule applies to (dns, network, or\
+            \ both)"
+          enum:
+          - dns
+          - dns-and-network-traffic
+          - network-traffic
+          type: string
+        user_locations:
+          default: Any
+          description: User location scope this ZTNA rule applies to
+          maxLength: 64
+          type: string
+      required:
+      - name
+      type: object
+    generic_error:
+      description: Generic error response structure
+      example:
+        _request_id: _request_id
+        _errors:
+        - help: help
+          code: code
+          details: ""
+          message: message
+        - help: help
+          code: code
+          details: ""
+          message: message
+      properties:
+        _errors:
+          description: Array of detailed error cause information
+          items:
+            $ref: '#/components/schemas/error_detail_cause_info'
+          type: array
+          x-examples: {}
+        _request_id:
+          description: Unique identifier for the API request
+          type: string
+      type: object
+      x-examples: {}
+    block_rule_basic_allow_tcp:
+      description: TCP traffic allowlist configuration
+      example:
+        enable_locations: true
+        locations:
+        - locations
+        - locations
+      properties:
+        enable_locations:
+          description: Enable locations for allow-tcp
+          type: boolean
+        locations:
+          description: List of user locations allowed for TCP traffic
+          items:
+            description: A user location name allowed for TCP traffic
+            maxLength: 64
+            type: string
+          type: array
+      type: object
+    block_rule_basic_allow_udp:
+      description: UDP traffic allowlist configuration with location and destination
+        support
+      example:
+        enable_locations: true
+        destinations: destinations
+        locations:
+        - locations
+        - locations
+        enable_destinations: true
+      properties:
+        destinations:
+          description: Destination addresses or networks allowed for UDP traffic
+          maxLength: 64
+          type: string
+        enable_destinations:
+          description: Enable destinations for allow-udp
+          type: boolean
+        enable_locations:
+          description: Enable locations for allow-udp
+          type: boolean
+        locations:
+          description: List of user locations allowed for UDP traffic
+          items:
+            description: A user location name allowed for UDP traffic
+            maxLength: 64
+            type: string
+          type: array
+      type: object
+    forwarding_profile_global_protect_proxy_global_protect_proxy:
+      description: Global Protect proxy-based forwarding configuration
+      example:
+        block_rule:
+          enable: true
+          allow_tcp:
+            enable_locations: true
+            locations:
+            - locations
+            - locations
+          allow_udp:
+            enable_locations: true
+            destinations: destinations
+            locations:
+            - locations
+            - locations
+            enable_destinations: true
+        forwarding_rules:
+        - connectivity: direct
+          user_locations: Any
+          destinations: Any
+          name: name
+          enabled: true
+        - connectivity: direct
+          user_locations: Any
+          destinations: Any
+          name: name
+          enabled: true
+        pac_upload: false
+      properties:
+        block_rule:
+          $ref: '#/components/schemas/block-rule-basic'
+        forwarding_rules:
+          description: List of GlobalProtect proxy-based forwarding rules
+          items:
+            $ref: '#/components/schemas/forwarding-rule-basic'
+          type: array
+        pac_upload:
+          default: false
+          description: User uploaded PAC file for Global Protect proxy-based forwarding
+            configuration
+          type: boolean
+      type: object
+    forwarding_profile_pac_file_pac_file:
+      description: PAC file based forwarding configuration
+      example:
+        block_rule:
+          enable: true
+          allow_tcp:
+            enable_locations: true
+            locations:
+            - locations
+            - locations
+          allow_udp:
+            enable_locations: true
+            destinations: destinations
+            locations:
+            - locations
+            - locations
+            enable_destinations: true
+        forwarding_rules:
+        - connectivity: direct
+          user_locations: Any
+          destinations: Any
+          name: name
+          enabled: true
+        - connectivity: direct
+          user_locations: Any
+          destinations: Any
+          name: name
+          enabled: true
+        pac_upload: false
+      properties:
+        block_rule:
+          $ref: '#/components/schemas/block-rule-basic'
+        forwarding_rules:
+          description: List of PAC file-based forwarding rules
+          items:
+            $ref: '#/components/schemas/forwarding-rule-basic'
+          type: array
+        pac_upload:
+          default: false
+          description: User upload PAC file for PAC file based forwarding configuration
+          type: boolean
+      type: object
+    forwarding_profile_regional_and_custom_proxies_connectivity_preference_inner:
+      example:
+        name: tunnel
+        enabled: false
+      properties:
+        enabled:
+          default: false
+          description: Indicates whether this connectivity method is enabled for use
+            in the proxy configuration
+          type: boolean
+        name:
+          description: "Connectivity method type - 'tunnel' for VPN tunnels, 'proxy'\
+            \ for HTTP/HTTPS proxies, 'adns' for authenticated DNS, 'masque' for MASQUE\
+            \ protocol"
+          enum:
+          - tunnel
+          - proxy
+          - adns
+          - masque
+          type: string
+      required:
+      - name
+      type: object
+    forwarding_profile_regional_and_custom_proxies_prisma_access_locations_inner:
+      example:
+        name: name
+        locations:
+        - locations
+        - locations
+      properties:
+        locations:
+          description: "Add list of locations separated by space, in that region"
+          items:
+            description: Name of the Location to spawn GP Gateway
+            maxLength: 63
+            pattern: "^[a-zA-Z0-9-]+$"
+            type: string
+          type: array
+        name:
+          description: "One of the region from 'americas', 'europe', 'apac'"
+          pattern: "^[a-zA-Z]+$"
+          type: string
+      required:
+      - name
+      type: object
+    forwarding_profile_regional_and_custom_proxies_proxy_1:
+      description: primary regional and custom proxy
+      example:
+        fqdn: fqdn
+        port: 5249
+        location: location
+      properties:
+        fqdn:
+          description: "fqdn of the primary proxy server (supports wildcards and alphanumeric\
+            \ characters with dots, hyphens, and underscores)"
+          maxLength: 255
+          pattern: "^([\\*a-zA-Z0-9._-])+$"
+          type: string
+        location:
+          description: Geographic or network location identifier for the primary proxy
+            server
+          type: string
+        port:
+          description: port number for primary proxy
+          maximum: 65535
+          minimum: 1
+          type: integer
+      type: object
+    forwarding_profile_regional_and_custom_proxies_proxy_2:
+      description: secondary regional and custom proxy
+      example:
+        fqdn: fqdn
+        port: 39501
+        location: location
+      properties:
+        fqdn:
+          description: Fqdn of the secondary (backup) proxy server used for failover
+            scenarios
+          maxLength: 255
+          pattern: "^([\\*a-zA-Z0-9._-])+$"
+          type: string
+        location:
+          description: Geographic or network location identifier for the secondary
+            proxy server
+          type: string
+        port:
+          description: port number for secondary proxy
+          maximum: 65535
+          minimum: 1
+          type: integer
+      type: object
+    forwarding_profile_user_locations_internal_host_detection:
+      description: Configuration for detecting internal hosts using IP address and
+        FQDN
+      example:
+        fqdn: fqdn
+        ip_address: ip_address
+      properties:
+        fqdn:
+          description: user location fqdn
+          maxLength: 255
+          pattern: "^([\\*a-zA-Z0-9._-])+$"
+          type: string
+        ip_address:
+          description: user location ip address
+          pattern: "^(\\*|25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(\\*|25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\
+            .(\\*|25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.((\\*|(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\
+            /(3[0-2]|[1-2]?[0-9])))$"
+          type: string
+      required:
+      - fqdn
+      - ip_address
+      type: object
+    forwarding_profile_ztna_agent_ztna_agent:
+      description: ZTNA agent-based forwarding configuration
+      example:
+        block_rule:
+          block_outbound_lan_access_when_connected_to_tunnel: false
+          enforcer_fqdn_dns_resolution_via_dns_servers: true
+          resolve_all_fqdns_using_dns_servers_assigned_by_the_tunnel: true
+          block_non_tcp_non_udp_traffic_when_connected_to_tunnel: false
+          block_all_other_unmatched_outbound_connections: false
+          block_inbound_access_when_connected_to_tunnel: false
+          allow_icmp_for_troubleshooting: false
+        forwarding_rules:
+        - connectivity: direct
+          user_locations: Any
+          destinations: Any
+          name: name
+          traffic_type: dns
+          enabled: true
+          source_applications: Any
+        - connectivity: direct
+          user_locations: Any
+          destinations: Any
+          name: name
+          traffic_type: dns
+          enabled: true
+          source_applications: Any
+        pac_upload: false
+      properties:
+        block_rule:
+          $ref: '#/components/schemas/block-rule-ztna'
+        forwarding_rules:
+          description: List of ZTNA agent-based forwarding rules
+          items:
+            $ref: '#/components/schemas/forwarding-rule-ztna'
+          type: array
+        pac_upload:
+          default: false
+          description: User uploaded PAC file for a ZTNA agent-based forwarding configuration
+          type: boolean
+      type: object
+    forwarding_profiles_type:
+      description: "Forwarding profile type configuration (PAC file, GlobalProtect\
+        \ proxy, or ZTNA agent)"
+      example:
+        ztna_agent:
+          block_rule:
+            block_outbound_lan_access_when_connected_to_tunnel: false
+            enforcer_fqdn_dns_resolution_via_dns_servers: true
+            resolve_all_fqdns_using_dns_servers_assigned_by_the_tunnel: true
+            block_non_tcp_non_udp_traffic_when_connected_to_tunnel: false
+            block_all_other_unmatched_outbound_connections: false
+            block_inbound_access_when_connected_to_tunnel: false
+            allow_icmp_for_troubleshooting: false
+          forwarding_rules:
+          - connectivity: direct
+            user_locations: Any
+            destinations: Any
+            name: name
+            traffic_type: dns
+            enabled: true
+            source_applications: Any
+          - connectivity: direct
+            user_locations: Any
+            destinations: Any
+            name: name
+            traffic_type: dns
+            enabled: true
+            source_applications: Any
+          pac_upload: false
+        pac_file:
+          block_rule:
+            enable: true
+            allow_tcp:
+              enable_locations: true
+              locations:
+              - locations
+              - locations
+            allow_udp:
+              enable_locations: true
+              destinations: destinations
+              locations:
+              - locations
+              - locations
+              enable_destinations: true
+          forwarding_rules:
+          - connectivity: direct
+            user_locations: Any
+            destinations: Any
+            name: name
+            enabled: true
+          - connectivity: direct
+            user_locations: Any
+            destinations: Any
+            name: name
+            enabled: true
+          pac_upload: false
+        global_protect_proxy:
+          block_rule:
+            enable: true
+            allow_tcp:
+              enable_locations: true
+              locations:
+              - locations
+              - locations
+            allow_udp:
+              enable_locations: true
+              destinations: destinations
+              locations:
+              - locations
+              - locations
+              enable_destinations: true
+          forwarding_rules:
+          - connectivity: direct
+            user_locations: Any
+            destinations: Any
+            name: name
+            enabled: true
+          - connectivity: direct
+            user_locations: Any
+            destinations: Any
+            name: name
+            enabled: true
+          pac_upload: false
+      properties:
+        global_protect_proxy:
+          $ref: '#/components/schemas/forwarding_profile_global_protect_proxy_global_protect_proxy'
+        pac_file:
+          $ref: '#/components/schemas/forwarding_profile_pac_file_pac_file'
+        ztna_agent:
+          $ref: '#/components/schemas/forwarding_profile_ztna_agent_ztna_agent'
+      type: object
+  securitySchemes:
+    scmOAuth:
+      description: "Strata Cloud Manager APIs authenticate client requests using the\
+        \ \nOAuth 2.0 Client Credentials flow.  Please use the `client_id`, \n`client_secret`\
+        \ values associated with an IAM service account along \nwith a scope value\
+        \ of `tsg_id:XXXXXXXXXX`, where `XXXXXXXXXX` is the \nTenant Service Group\
+        \ (TSG) ID.  The resulting JWT access token should \nbe attached to all API\
+        \ calls as a `Bearer` token in the `Authorization` \nheader (ex. `Authorization:\
+        \ Bearer tokenstring`).\n"
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://auth.apps.paloaltonetworks.com/oauth2/access_token
+      type: oauth2
+    scmToken:
+      bearerFormat: JWT
+      description: "Strata Cloud Manager APIs authenticate client requests using the\
+        \ \nOAuth 2.0 Client Credentials flow.  Please use the `client_id`, \n`client_secret`\
+        \ values associated with an IAM service account along \nwith a scope value\
+        \ of `tsg_id:XXXXXXXXXX`, where `XXXXXXXXXX` is the \nTenant Service Group\
+        \ (TSG) ID.  The resulting JWT access token should \nbe attached to all API\
+        \ calls as a `Bearer` token in the `Authorization` \nheader (ex. `Authorization:\
+        \ Bearer tokenstring`).\n"
+      scheme: bearer
+      type: http
+x-internal: false

@@ -9,6 +9,7 @@ import (
 	"github.com/paloaltonetworks/scm-go/generated/deployment_services"
 	"github.com/paloaltonetworks/scm-go/generated/device_settings"
 	"github.com/paloaltonetworks/scm-go/generated/identity_services"
+	"github.com/paloaltonetworks/scm-go/generated/mobile_agent"
 	"github.com/paloaltonetworks/scm-go/generated/network_services"
 	"github.com/paloaltonetworks/scm-go/generated/objects"
 	"github.com/paloaltonetworks/scm-go/generated/security_services"
@@ -149,6 +150,33 @@ func GetIdentityServicesAPIClient(setupClient *Client) *identity_services.APICli
 	config.HTTPClient = httpClientWithJWT
 
 	return identity_services.NewAPIClient(config)
+}
+
+func GetMobileAgentAPIClient(setupClient *Client) *mobile_agent.APIClient {
+	config := mobile_agent.NewConfiguration()
+	config.Host = setupClient.GetHost()
+	config.Scheme = "https"
+
+	// Create a custom transport that handles JWT refresh
+	jwtTransport := &JWTRefreshTransport{
+		Wrapped:     setupClient.HttpClient.Transport,
+		SetupClient: setupClient,
+	}
+
+	// Wrap with logging transport
+	loggingTransport := &common.LoggingRoundTripper{
+		Wrapped: jwtTransport,
+	}
+
+	// Create a new HTTP client with the transports
+	httpClientWithJWT := &http.Client{
+		Transport: loggingTransport,
+		Timeout:   setupClient.HttpClient.Timeout,
+	}
+
+	config.HTTPClient = httpClientWithJWT
+
+	return mobile_agent.NewAPIClient(config)
 }
 
 func GetNetworkServicesAPIClient(setupClient *Client) *network_services.APIClient {

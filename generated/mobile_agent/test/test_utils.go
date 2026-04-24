@@ -1,0 +1,83 @@
+// Package mobile_agent
+/*
+Testing utilities for mobile_agent API
+Shared utilities for testing mobile_agent API services
+*/
+package mobile_agent
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"testing"
+
+	"github.com/stretchr/testify/require"
+
+	setup "github.com/paloaltonetworks/scm-go"
+	"github.com/paloaltonetworks/scm-go/common"
+	"github.com/paloaltonetworks/scm-go/generated/mobile_agent"
+)
+
+func SetupMobileAgentTestClient(t *testing.T) *mobile_agent.APIClient {
+	configPath := common.GetConfigPath()
+	setupClient := &setup.Client{
+		AuthFile:         configPath,
+		CheckEnvironment: false,
+	}
+
+	fmt.Printf("Using config file: %s\n", setupClient.AuthFile)
+
+	err := setupClient.Setup()
+	require.NoError(t, err, "Failed to setup client")
+
+	ctx := context.Background()
+	if setupClient.Jwt == "" {
+		fmt.Printf("\n***************\nGetting tokens\n**********************\n")
+		err = setupClient.RefreshJwt(ctx)
+		if err != nil {
+			fmt.Printf("=== JWT REFRESH ERROR ===\n")
+			fmt.Printf("Error: %v\n", err)
+			fmt.Printf("Error Type: %T\n", err)
+			fmt.Printf("Error String: %s\n", err.Error())
+			fmt.Printf("=========================\n")
+		}
+		require.NoError(t, err, "Failed to refresh JWT after multiple retries")
+	}
+
+	return setup.GetMobileAgentAPIClient(setupClient)
+}
+
+// printAPIError prints formatted API error response from error object's body
+func printAPIError(err *mobile_agent.GenericOpenAPIError) {
+	if err == nil {
+		return
+	}
+	fmt.Printf("=== API ERROR RESPONSE ===\n")
+	fmt.Printf("Error: %v\n", err)
+	bodyBytes := err.Body()
+	if bodyBytes == nil {
+		fmt.Printf("No body found in error object\n")
+		fmt.Printf("===========================\n\n")
+		return
+	}
+	if len(bodyBytes) == 0 {
+		fmt.Printf("No body found in error object\n")
+		fmt.Printf("===========================\n\n")
+		return
+	}
+	fmt.Printf("Raw Error Body:\n%s\n", string(bodyBytes))
+	fmt.Printf("===========================\n\n")
+}
+
+// handleAPIError is a utility method to consistently handle and print API errors
+func handleAPIError(err error) {
+	if err == nil {
+		return
+	}
+	var apiErr *mobile_agent.GenericOpenAPIError
+	if errors.As(err, &apiErr) {
+		printAPIError(apiErr)
+	} else {
+		fmt.Printf("Non-API Error: %v\n", err)
+	}
+}

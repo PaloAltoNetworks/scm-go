@@ -11827,7 +11827,7 @@ components:
         snippet: My Snippet
         mfa_vendor_type:
           rsa_securid_access_v1:
-            rsa_timeout: 359
+            rsa_timeout: 92
             rsa_accesskey: rsa_accesskey
             rsa_api_host: rsa_api_host
             rsa_assurancepolicyid: rsa_assurancepolicyid
@@ -11836,7 +11836,7 @@ components:
           okta_adaptive_v1:
             okta_token: okta_token
             okta_baseuri: /api/v1
-            okta_timeout: 363
+            okta_timeout: "30"
             okta_api_host: okta_api_host
             okta_org: okta_org
           ping_identity_v1:
@@ -11845,7 +11845,7 @@ components:
             ping_token: ping_token
             ping_baseuri: /pingid/rest/4
             ping_use_base64_key: ping_use_base64_key
-            ping_timeout: 92
+            ping_timeout: 363
           duo_security_v2:
             duo_timeout: 52
             duo_api_host: duo_api_host
@@ -12754,7 +12754,7 @@ components:
       example:
         okta_token: okta_token
         okta_baseuri: /api/v1
-        okta_timeout: 363
+        okta_timeout: "30"
         okta_api_host: okta_api_host
         okta_org: okta_org
       properties:
@@ -12771,11 +12771,9 @@ components:
           description: Okta organization
           type: string
         okta_timeout:
-          default: 30
+          default: "30"
           description: Okta timeout (seconds)
-          maximum: 600
-          minimum: 5
-          type: integer
+          type: string
         okta_token:
           description: Okta API token
           format: password
@@ -12796,7 +12794,7 @@ components:
         ping_token: ping_token
         ping_baseuri: /pingid/rest/4
         ping_use_base64_key: ping_use_base64_key
-        ping_timeout: 92
+        ping_timeout: 363
       properties:
         ping_api_host:
           default: idpxny3lm.pingidentity.com
@@ -12839,7 +12837,7 @@ components:
     mfa_servers_mfa_vendor_type_rsa_securid_access_v1:
       description: "Integration with [RSA SecurID](https://www.rsa.com/products/securid/)"
       example:
-        rsa_timeout: 359
+        rsa_timeout: 92
         rsa_accesskey: rsa_accesskey
         rsa_api_host: rsa_api_host
         rsa_assurancepolicyid: rsa_assurancepolicyid
@@ -12880,7 +12878,7 @@ components:
       description: The MFA vendor type
       example:
         rsa_securid_access_v1:
-          rsa_timeout: 359
+          rsa_timeout: 92
           rsa_accesskey: rsa_accesskey
           rsa_api_host: rsa_api_host
           rsa_assurancepolicyid: rsa_assurancepolicyid
@@ -12889,7 +12887,7 @@ components:
         okta_adaptive_v1:
           okta_token: okta_token
           okta_baseuri: /api/v1
-          okta_timeout: 363
+          okta_timeout: "30"
           okta_api_host: okta_api_host
           okta_org: okta_org
         ping_identity_v1:
@@ -12898,7 +12896,7 @@ components:
           ping_token: ping_token
           ping_baseuri: /pingid/rest/4
           ping_use_base64_key: ping_use_base64_key
-          ping_timeout: 92
+          ping_timeout: 363
         duo_security_v2:
           duo_timeout: 52
           duo_api_host: duo_api_host
