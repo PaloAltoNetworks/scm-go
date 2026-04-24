@@ -5262,6 +5262,7 @@ components:
         backup_SC: backup_SC
         nat_pool: nat_pool
         onboarding_type: classic
+        region_tag: region_tag
         protocol:
           bgp:
             fast_failover: true
@@ -5328,6 +5329,9 @@ components:
           $ref: '#/components/schemas/service_connections_qos'
         region:
           type: string
+        region_tag:
+          type: string
+          x-computed-field: true
         secondary_ipsec_tunnel:
           type: string
         source_nat:

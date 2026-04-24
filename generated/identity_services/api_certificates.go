@@ -504,58 +504,61 @@ func (a *CertificatesAPIService) ExportCertificateByIDExecute(r ApiExportCertifi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetCertificatesByIDRequest struct {
-	ctx        context.Context
-	ApiService *CertificatesAPIService
-	id         string
+type ApiImportCertificatesRequest struct {
+	ctx                context.Context
+	ApiService         *CertificatesAPIService
+	certificatesImport *CertificatesImport
 }
 
-func (r ApiGetCertificatesByIDRequest) Execute() (*CertificatesGet, *http.Response, error) {
-	return r.ApiService.GetCertificatesByIDExecute(r)
+// Import certificate payload
+func (r ApiImportCertificatesRequest) CertificatesImport(certificatesImport CertificatesImport) ApiImportCertificatesRequest {
+	r.certificatesImport = &certificatesImport
+	return r
+}
+
+func (r ApiImportCertificatesRequest) Execute() (*CertificatesGet, *http.Response, error) {
+	return r.ApiService.ImportCertificatesExecute(r)
 }
 
 /*
-GetCertificatesByID Get a certificate
+ImportCertificates Import a certificate
 
-Get an existing certificate.
+Import a certificate.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The UUID of the configuration resource
-	@return ApiGetCertificatesByIDRequest
+	@return ApiImportCertificatesRequest
 */
-func (a *CertificatesAPIService) GetCertificatesByID(ctx context.Context, id string) ApiGetCertificatesByIDRequest {
-	return ApiGetCertificatesByIDRequest{
+func (a *CertificatesAPIService) ImportCertificates(ctx context.Context) ApiImportCertificatesRequest {
+	return ApiImportCertificatesRequest{
 		ApiService: a,
 		ctx:        ctx,
-		id:         id,
 	}
 }
 
 // Execute executes the request
 //
 //	@return CertificatesGet
-func (a *CertificatesAPIService) GetCertificatesByIDExecute(r ApiGetCertificatesByIDRequest) (*CertificatesGet, *http.Response, error) {
+func (a *CertificatesAPIService) ImportCertificatesExecute(r ApiImportCertificatesRequest) (*CertificatesGet, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
+		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
 		localVarReturnValue *CertificatesGet
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificatesAPIService.GetCertificatesByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificatesAPIService.ImportCertificates")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/certificates/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath := localBasePath + "/certificates:import"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -571,6 +574,8 @@ func (a *CertificatesAPIService) GetCertificatesByIDExecute(r ApiGetCertificates
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.certificatesImport
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -616,17 +621,6 @@ func (a *CertificatesAPIService) GetCertificatesByIDExecute(r ApiGetCertificates
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
-			var v GenericError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
 			var v GenericError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

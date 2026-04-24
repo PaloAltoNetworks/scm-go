@@ -51,6 +51,8 @@ type APIClient struct {
 
 	// API Services
 
+	DevicesAPI *DevicesAPIService
+
 	FoldersAPI *FoldersAPIService
 
 	LabelsAPI *LabelsAPIService
@@ -94,6 +96,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.DevicesAPI = (*DevicesAPIService)(&c.common)
 	c.FoldersAPI = (*FoldersAPIService)(&c.common)
 	c.LabelsAPI = (*LabelsAPIService)(&c.common)
 	c.SharedSnippetsAPI = (*SharedSnippetsAPIService)(&c.common)
