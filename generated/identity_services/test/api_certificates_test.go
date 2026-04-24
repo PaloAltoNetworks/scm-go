@@ -62,6 +62,7 @@ func Test_identity_services_CertificatesAPIService_FetchCertificates(t *testing.
 	assert.Nil(t, notFound, "Should return nil for non-existent object")
 	t.Logf("[SUCCESS] FetchCertificates correctly returned nil for non-existent object")
 }
+<<<<<<< HEAD
 
 // Test_identity_services_CertificatesAPIService_FetchExisting tests fetching an existing certificate by name
 func Test_identity_services_CertificatesAPIService_FetchExisting(t *testing.T) {
