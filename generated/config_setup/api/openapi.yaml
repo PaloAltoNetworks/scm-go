@@ -5662,7 +5662,7 @@ components:
         vm_state: vm_state
         folder: folder
         ha_peer_state: ha_peer_state
-        connected_since: 2000-01-23T04:56:07.000+00:00
+        connected_since: connected_since
         name: name
         app_release_date: app_release_date
         license_match: true
@@ -5686,7 +5686,6 @@ components:
           readOnly: true
           type: array
         connected_since:
-          format: date-time
           readOnly: true
           type: string
         description:

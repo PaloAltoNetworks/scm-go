@@ -14,7 +14,6 @@ package config_setup
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 )
 
 // checks if the Devices type satisfies the MappedNullable interface at compile time
@@ -27,7 +26,7 @@ type Devices struct {
 	AppVersion         *string                          `json:"app_version,omitempty"`
 	AvReleaseDate      *string                          `json:"av_release_date,omitempty"`
 	AvailableLicensess []DevicesAvailableLicensessInner `json:"available_licensess,omitempty"`
-	ConnectedSince     *time.Time                       `json:"connected_since,omitempty"`
+	ConnectedSince     *string                          `json:"connected_since,omitempty"`
 	// The description of the device
 	Description       *string `json:"description,omitempty"`
 	DevCertDetail     *string `json:"dev_cert_detail,omitempty"`
@@ -262,9 +261,9 @@ func (o *Devices) SetAvailableLicensess(v []DevicesAvailableLicensessInner) {
 }
 
 // GetConnectedSince returns the ConnectedSince field value if set, zero value otherwise.
-func (o *Devices) GetConnectedSince() time.Time {
+func (o *Devices) GetConnectedSince() string {
 	if o == nil || IsNil(o.ConnectedSince) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.ConnectedSince
@@ -272,7 +271,7 @@ func (o *Devices) GetConnectedSince() time.Time {
 
 // GetConnectedSinceOk returns a tuple with the ConnectedSince field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Devices) GetConnectedSinceOk() (*time.Time, bool) {
+func (o *Devices) GetConnectedSinceOk() (*string, bool) {
 	if o == nil || IsNil(o.ConnectedSince) {
 		return nil, false
 	}
@@ -288,8 +287,8 @@ func (o *Devices) HasConnectedSince() bool {
 	return false
 }
 
-// SetConnectedSince gets a reference to the given time.Time and assigns it to the ConnectedSince field.
-func (o *Devices) SetConnectedSince(v time.Time) {
+// SetConnectedSince gets a reference to the given string and assigns it to the ConnectedSince field.
+func (o *Devices) SetConnectedSince(v string) {
 	o.ConnectedSince = &v
 }
 
