@@ -20,10 +20,12 @@ var _ MappedNullable = &ServiceConnectionsBgpPeer{}
 
 // ServiceConnectionsBgpPeer struct for ServiceConnectionsBgpPeer
 type ServiceConnectionsBgpPeer struct {
-	LocalIpAddress       *string `json:"local_ip_address,omitempty"`
-	LocalIpv6Address     *string `json:"local_ipv6_address,omitempty"`
-	PeerIpAddress        *string `json:"peer_ip_address,omitempty"`
-	PeerIpv6Address      *string `json:"peer_ipv6_address,omitempty"`
+	LocalIpAddress   *string `json:"local_ip_address,omitempty"`
+	LocalIpv6Address *string `json:"local_ipv6_address,omitempty"`
+	PeerIpAddress    *string `json:"peer_ip_address,omitempty"`
+	PeerIpv6Address  *string `json:"peer_ipv6_address,omitempty"`
+	// Same peer IP address for SC
+	SameAsPrimary        *bool   `json:"same_as_primary,omitempty"`
 	Secret               *string `json:"secret,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -175,6 +177,38 @@ func (o *ServiceConnectionsBgpPeer) SetPeerIpv6Address(v string) {
 	o.PeerIpv6Address = &v
 }
 
+// GetSameAsPrimary returns the SameAsPrimary field value if set, zero value otherwise.
+func (o *ServiceConnectionsBgpPeer) GetSameAsPrimary() bool {
+	if o == nil || IsNil(o.SameAsPrimary) {
+		var ret bool
+		return ret
+	}
+	return *o.SameAsPrimary
+}
+
+// GetSameAsPrimaryOk returns a tuple with the SameAsPrimary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceConnectionsBgpPeer) GetSameAsPrimaryOk() (*bool, bool) {
+	if o == nil || IsNil(o.SameAsPrimary) {
+		return nil, false
+	}
+	return o.SameAsPrimary, true
+}
+
+// HasSameAsPrimary returns a boolean if a field has been set.
+func (o *ServiceConnectionsBgpPeer) HasSameAsPrimary() bool {
+	if o != nil && !IsNil(o.SameAsPrimary) {
+		return true
+	}
+
+	return false
+}
+
+// SetSameAsPrimary gets a reference to the given bool and assigns it to the SameAsPrimary field.
+func (o *ServiceConnectionsBgpPeer) SetSameAsPrimary(v bool) {
+	o.SameAsPrimary = &v
+}
+
 // GetSecret returns the Secret field value if set, zero value otherwise.
 func (o *ServiceConnectionsBgpPeer) GetSecret() string {
 	if o == nil || IsNil(o.Secret) {
@@ -229,6 +263,9 @@ func (o ServiceConnectionsBgpPeer) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PeerIpv6Address) {
 		toSerialize["peer_ipv6_address"] = o.PeerIpv6Address
 	}
+	if !IsNil(o.SameAsPrimary) {
+		toSerialize["same_as_primary"] = o.SameAsPrimary
+	}
 	if !IsNil(o.Secret) {
 		toSerialize["secret"] = o.Secret
 	}
@@ -258,6 +295,7 @@ func (o *ServiceConnectionsBgpPeer) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "local_ipv6_address")
 		delete(additionalProperties, "peer_ip_address")
 		delete(additionalProperties, "peer_ipv6_address")
+		delete(additionalProperties, "same_as_primary")
 		delete(additionalProperties, "secret")
 		o.AdditionalProperties = additionalProperties
 	}

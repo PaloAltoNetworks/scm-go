@@ -5277,6 +5277,7 @@ components:
         bgp_peer:
           peer_ipv6_address: peer_ipv6_address
           peer_ip_address: peer_ip_address
+          same_as_primary: true
           local_ipv6_address: local_ipv6_address
           secret: secret
           local_ip_address: local_ip_address
@@ -5735,6 +5736,7 @@ components:
       example:
         peer_ipv6_address: peer_ipv6_address
         peer_ip_address: peer_ip_address
+        same_as_primary: true
         local_ipv6_address: local_ipv6_address
         secret: secret
         local_ip_address: local_ip_address
@@ -5747,6 +5749,9 @@ components:
           type: string
         peer_ipv6_address:
           type: string
+        same_as_primary:
+          description: Same peer IP address for SC
+          type: boolean
         secret:
           format: password
           type: string
