@@ -300,3 +300,70 @@ func Test_security_services_DataObjectsAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, errDel, "Failed to delete Data Object")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status on successful delete")
 }
+
+// Test_security_services_DataObjectsAPIService_FetchDataObjects tests the FetchDataObjects convenience method
+func Test_security_services_DataObjectsAPIService_FetchDataObjects(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
+
+	// Create a test object first
+	testName := "test-do-fetch-" + common.GenerateRandomString(6)
+	predefinedPattern := security_services.DataObjectsPatternTypePredefinedPatternInner{
+		Name:     common.StringPtr("ABA-Routing-Number"),
+		FileType: []string{"text/html"},
+	}
+	predefined := security_services.DataObjectsPatternTypePredefined{
+		Pattern: []security_services.DataObjectsPatternTypePredefinedPatternInner{predefinedPattern},
+	}
+	patternType := security_services.DataObjectsPatternType{
+		Predefined: &predefined,
+	}
+	testObj := security_services.DataObjects{
+		Folder:      common.StringPtr("ngfw-shared"),
+		Name:        common.StringPtr(testName),
+		PatternType: &patternType,
+	}
+
+	createReq := client.DataObjectsAPI.CreateDataObjects(context.Background()).DataObjects(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := *createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.DataObjectsAPI.DeleteDataObjectsByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.DataObjectsAPI.FetchDataObjects(
+		context.Background(),
+		testName,
+		common.StringPtr("ngfw-shared"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch data object by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, *fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, *fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchDataObjects found object: %s", *fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.DataObjectsAPI.FetchDataObjects(
+		context.Background(),
+		"non-existent-data-object-xyz-12345",
+		common.StringPtr("ngfw-shared"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchDataObjects correctly returned nil for non-existent object")
+}

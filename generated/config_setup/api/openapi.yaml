@@ -47,6 +47,338 @@ tags:
 - description: Snippet Audit Logs
   name: Snippet Audit Logs
 paths:
+  /devices:
+    get:
+      description: |
+        Retrieve a list of devices.
+      operationId: ListDevices
+      parameters:
+      - description: "The parameter to mention if the response should be paginated.\
+          \ By default, its set to false"
+        explode: true
+        in: query
+        name: pagination
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: The maximum number of resources to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The offset into the list of resources returned
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The name of the resource
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevicesListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: List devices
+      tags:
+      - Devices
+  /devices/{id}:
+    get:
+      description: |
+        Retrieve an existing device.
+      operationId: GetDeviceByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/devices'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Get a device
+      tags:
+      - Devices
+    put:
+      description: |
+        Update an existing device.
+      operationId: UpdateDeviceByID
+      parameters:
+      - description: The UUID of the resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/devices-put'
+        description: The `device` resource definition.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/devices'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                object_not_present:
+                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Update a device
+      tags:
+      - Devices
   /folders:
     get:
       description: |
@@ -5041,6 +5373,36 @@ components:
             $ref: '#/components/schemas/generic_error'
       description: Not Found
   schemas:
+    DevicesListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Devices'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
     FoldersListResponse:
       example:
         total: 1
@@ -5241,6 +5603,70 @@ components:
           type: string
       type: object
     devices:
+      example:
+        ha_peer_serial: ha_peer_serial
+        installed_licenses:
+        - authcode: authcode
+          expires: expires
+          expired: expired
+          feature: feature
+          issued: 2000-01-23
+        - authcode: authcode
+          expires: expires
+          expired: expired
+          feature: feature
+          issued: 2000-01-23
+        gp_client_verion: gp_client_verion
+        app_version: app_version
+        url_db_type: url_db_type
+        description: description
+        iot_version: iot_version
+        ipV6_address: ipV6_address
+        hostname: hostname
+        log_db_version: log_db_version
+        threat_release_date: threat_release_date
+        ha_state: ha_state
+        mac_address: mac_address
+        snippets:
+        - snippets
+        - snippets
+        dev_cert_expiry_date: dev_cert_expiry_date
+        threat_version: threat_version
+        wf_release_date: wf_release_date
+        model: model
+        id: id
+        software_version: software_version
+        url_db_ver: url_db_ver
+        iot_release_date: iot_release_date
+        is_connected: true
+        av_release_date: av_release_date
+        available_licensess:
+        - authcode: authcode
+          expires: 2000-01-23
+          feature: feature
+          issued: 2000-01-23
+        - authcode: authcode
+          expires: 2000-01-23
+          feature: feature
+          issued: 2000-01-23
+        wf_ver: wf_ver
+        ip_address: ip_address
+        anti_virus_version: anti_virus_version
+        dev_cert_detail: dev_cert_detail
+        display_name: display_name
+        gp_data_version: gp_data_version
+        labels:
+        - labels
+        - labels
+        uptime: uptime
+        vm_state: vm_state
+        folder: folder
+        ha_peer_state: ha_peer_state
+        connected_since: connected_since
+        name: name
+        app_release_date: app_release_date
+        license_match: true
+        family: family
       properties:
         anti_virus_version:
           readOnly: true
@@ -5260,7 +5686,6 @@ components:
           readOnly: true
           type: array
         connected_since:
-          format: date-time
           readOnly: true
           type: string
         description:
@@ -6636,6 +7061,11 @@ components:
       - tsg_id
       type: object
     devices_available_licensess_inner:
+      example:
+        authcode: authcode
+        expires: 2000-01-23
+        feature: feature
+        issued: 2000-01-23
       properties:
         authcode:
           readOnly: true
@@ -6653,6 +7083,12 @@ components:
           type: string
       type: object
     devices_installed_licenses_inner:
+      example:
+        authcode: authcode
+        expires: expires
+        expired: expired
+        feature: feature
+        issued: 2000-01-23
       properties:
         authcode:
           readOnly: true

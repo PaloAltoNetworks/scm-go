@@ -15786,6 +15786,7 @@ components:
           - saas_tenant_list
           dlp: dlp
           type: type
+          app_id: app_id
           file_control:
             download: allow-all-file-types
             upload: allow-all-file-types
@@ -15820,6 +15821,7 @@ components:
           - saas_tenant_list
           dlp: dlp
           type: type
+          app_id: app_id
           file_control:
             download: allow-all-file-types
             upload: allow-all-file-types
@@ -19534,6 +19536,7 @@ components:
         - saas_tenant_list
         dlp: dlp
         type: type
+        app_id: app_id
         file_control:
           download: allow-all-file-types
           upload: allow-all-file-types
@@ -19555,6 +19558,9 @@ components:
         - saas_user_list
         - saas_user_list
       properties:
+        app_id:
+          type: string
+          x-computed-field: true
         application_function:
           items:
             type: string

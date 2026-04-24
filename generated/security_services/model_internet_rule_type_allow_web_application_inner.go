@@ -20,6 +20,7 @@ var _ MappedNullable = &InternetRuleTypeAllowWebApplicationInner{}
 
 // InternetRuleTypeAllowWebApplicationInner struct for InternetRuleTypeAllowWebApplicationInner
 type InternetRuleTypeAllowWebApplicationInner struct {
+	AppId                 *string                                                        `json:"app_id,omitempty"`
 	ApplicationFunction   []string                                                       `json:"application_function,omitempty"`
 	Dlp                   *string                                                        `json:"dlp,omitempty"`
 	FileControl           *InternetRuleTypeAllowUrlCategoryInnerFileControl              `json:"file_control,omitempty"`
@@ -49,6 +50,38 @@ func NewInternetRuleTypeAllowWebApplicationInner() *InternetRuleTypeAllowWebAppl
 func NewInternetRuleTypeAllowWebApplicationInnerWithDefaults() *InternetRuleTypeAllowWebApplicationInner {
 	this := InternetRuleTypeAllowWebApplicationInner{}
 	return &this
+}
+
+// GetAppId returns the AppId field value if set, zero value otherwise.
+func (o *InternetRuleTypeAllowWebApplicationInner) GetAppId() string {
+	if o == nil || IsNil(o.AppId) {
+		var ret string
+		return ret
+	}
+	return *o.AppId
+}
+
+// GetAppIdOk returns a tuple with the AppId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InternetRuleTypeAllowWebApplicationInner) GetAppIdOk() (*string, bool) {
+	if o == nil || IsNil(o.AppId) {
+		return nil, false
+	}
+	return o.AppId, true
+}
+
+// HasAppId returns a boolean if a field has been set.
+func (o *InternetRuleTypeAllowWebApplicationInner) HasAppId() bool {
+	if o != nil && !IsNil(o.AppId) {
+		return true
+	}
+
+	return false
+}
+
+// SetAppId gets a reference to the given string and assigns it to the AppId field.
+func (o *InternetRuleTypeAllowWebApplicationInner) SetAppId(v string) {
+	o.AppId = &v
 }
 
 // GetApplicationFunction returns the ApplicationFunction field value if set, zero value otherwise.
@@ -349,6 +382,9 @@ func (o InternetRuleTypeAllowWebApplicationInner) MarshalJSON() ([]byte, error) 
 
 func (o InternetRuleTypeAllowWebApplicationInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AppId) {
+		toSerialize["app_id"] = o.AppId
+	}
 	if !IsNil(o.ApplicationFunction) {
 		toSerialize["application_function"] = o.ApplicationFunction
 	}
@@ -398,6 +434,7 @@ func (o *InternetRuleTypeAllowWebApplicationInner) UnmarshalJSON(data []byte) (e
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "app_id")
 		delete(additionalProperties, "application_function")
 		delete(additionalProperties, "dlp")
 		delete(additionalProperties, "file_control")

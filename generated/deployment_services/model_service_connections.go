@@ -34,6 +34,7 @@ type ServiceConnections struct {
 	Protocol             *ServiceConnectionsProtocol `json:"protocol,omitempty"`
 	Qos                  *ServiceConnectionsQos      `json:"qos,omitempty"`
 	Region               string                      `json:"region"`
+	RegionTag            *string                     `json:"region_tag,omitempty"`
 	SecondaryIpsecTunnel *string                     `json:"secondary_ipsec_tunnel,omitempty"`
 	SourceNat            *bool                       `json:"source_nat,omitempty"`
 	Subnets              []string                    `json:"subnets,omitempty"`
@@ -387,6 +388,38 @@ func (o *ServiceConnections) SetRegion(v string) {
 	o.Region = v
 }
 
+// GetRegionTag returns the RegionTag field value if set, zero value otherwise.
+func (o *ServiceConnections) GetRegionTag() string {
+	if o == nil || IsNil(o.RegionTag) {
+		var ret string
+		return ret
+	}
+	return *o.RegionTag
+}
+
+// GetRegionTagOk returns a tuple with the RegionTag field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceConnections) GetRegionTagOk() (*string, bool) {
+	if o == nil || IsNil(o.RegionTag) {
+		return nil, false
+	}
+	return o.RegionTag, true
+}
+
+// HasRegionTag returns a boolean if a field has been set.
+func (o *ServiceConnections) HasRegionTag() bool {
+	if o != nil && !IsNil(o.RegionTag) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegionTag gets a reference to the given string and assigns it to the RegionTag field.
+func (o *ServiceConnections) SetRegionTag(v string) {
+	o.RegionTag = &v
+}
+
 // GetSecondaryIpsecTunnel returns the SecondaryIpsecTunnel field value if set, zero value otherwise.
 func (o *ServiceConnections) GetSecondaryIpsecTunnel() string {
 	if o == nil || IsNil(o.SecondaryIpsecTunnel) {
@@ -518,6 +551,9 @@ func (o ServiceConnections) ToMap() (map[string]interface{}, error) {
 		toSerialize["qos"] = o.Qos
 	}
 	toSerialize["region"] = o.Region
+	if !IsNil(o.RegionTag) {
+		toSerialize["region_tag"] = o.RegionTag
+	}
 	if !IsNil(o.SecondaryIpsecTunnel) {
 		toSerialize["secondary_ipsec_tunnel"] = o.SecondaryIpsecTunnel
 	}
@@ -584,6 +620,7 @@ func (o *ServiceConnections) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "protocol")
 		delete(additionalProperties, "qos")
 		delete(additionalProperties, "region")
+		delete(additionalProperties, "region_tag")
 		delete(additionalProperties, "secondary_ipsec_tunnel")
 		delete(additionalProperties, "source_nat")
 		delete(additionalProperties, "subnets")

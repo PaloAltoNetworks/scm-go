@@ -216,3 +216,59 @@ func Test_security_services_DataFilteringAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, errDel, "Failed to delete Data Filtering Profile")
 	assert.Equal(t, 200, httpResDel.StatusCode, "Expected 200 OK status on successful delete")
 }
+
+// Test_security_services_DataFilteringAPIService_FetchDataFiltering tests the FetchDataFiltering convenience method
+func Test_security_services_DataFilteringAPIService_FetchDataFiltering(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
+
+	// Create a test object first
+	testName := "test-df-fetch-" + common.GenerateRandomString(6)
+	testObj := security_services.DataFilteringProfiles{
+		Folder: common.StringPtr("ngfw-shared"),
+		Name:   common.StringPtr(testName),
+	}
+
+	createReq := client.DataFilteringAPI.CreateDataFilteringProfiles(context.Background()).DataFilteringProfiles(testObj)
+	createRes, _, err := createReq.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create test object for fetch test")
+	require.NotNil(t, createRes, "Create response should not be nil")
+	createdID := *createRes.Id
+
+	// Cleanup after test
+	defer func() {
+		deleteReq := client.DataFilteringAPI.DeleteDataFilteringProfilesByID(context.Background(), createdID)
+		_, _ = deleteReq.Execute()
+		t.Logf("Cleaned up test object: %s", createdID)
+	}()
+
+	// Test 1: Fetch existing object by name
+	fetchedObj, err := client.DataFilteringAPI.FetchDataFiltering(
+		context.Background(),
+		testName,
+		common.StringPtr("ngfw-shared"),
+		nil, // snippet
+		nil, // device
+	)
+
+	// Verify successful fetch
+	require.NoError(t, err, "Failed to fetch data filtering profile by name")
+	require.NotNil(t, fetchedObj, "Fetched object should not be nil")
+	assert.Equal(t, createdID, *fetchedObj.Id, "Fetched object ID should match")
+	assert.Equal(t, testName, *fetchedObj.Name, "Fetched object name should match")
+	t.Logf("[SUCCESS] FetchDataFiltering found object: %s", *fetchedObj.Name)
+
+	// Test 2: Fetch non-existent object (should return nil, nil)
+	notFound, err := client.DataFilteringAPI.FetchDataFiltering(
+		context.Background(),
+		"non-existent-data-filtering-xyz-12345",
+		common.StringPtr("ngfw-shared"),
+		nil,
+		nil,
+	)
+	require.NoError(t, err, "Fetch should not error for non-existent object")
+	assert.Nil(t, notFound, "Should return nil for non-existent object")
+	t.Logf("[SUCCESS] FetchDataFiltering correctly returned nil for non-existent object")
+}

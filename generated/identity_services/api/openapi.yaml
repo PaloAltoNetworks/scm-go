@@ -3336,115 +3336,6 @@ paths:
       summary: Delete a certificate
       tags:
       - Certificates
-    get:
-      description: |
-        Get an existing certificate.
-      operationId: GetCertificatesByID
-      parameters:
-      - description: The UUID of the configuration resource
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          example: 123e4567-e89b-12d3-a456-426655440000
-          format: uuid
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/certificates-get'
-          description: OK
-        "400":
-          content:
-            application/json:
-              examples:
-                input_format_mismatch:
-                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
-                invalid_query_parameter:
-                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
-                missing_query_parameter:
-                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
-                output_format_mismatch:
-                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: Bad Request
-        "401":
-          content:
-            application/json:
-              examples:
-                auth_not_authenticated:
-                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
-                invalid_credential:
-                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
-                key_expired:
-                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
-                key_too_long:
-                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
-                need_password_change:
-                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: Unauthorized
-        "403":
-          content:
-            application/json:
-              examples:
-                auth_unauthorized:
-                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              examples:
-                object_not_present:
-                  $ref: '#/components/examples/json_404_panui_mgmt_object_not_present'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: Not Found
-        "409":
-          content:
-            application/json:
-              examples:
-                name_not_unique:
-                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
-                object_not_unique:
-                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
-                reference_not_zero:
-                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: Conflict
-        default:
-          content:
-            application/json:
-              examples:
-                action_not_supported:
-                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
-                bad_xpath:
-                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
-                invalid_command:
-                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
-                malformed_command:
-                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
-                method_not_allowed:
-                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
-                session_timeout:
-                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
-                version_not_supported:
-                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
-              schema:
-                $ref: '#/components/schemas/generic_error'
-          description: General Errors
-      summary: Get a certificate
-      tags:
-      - Certificates
   /certificates/{id}:export:
     post:
       description: |
@@ -3468,7 +3359,7 @@ paths:
               $ref: '#/components/schemas/export-certificate-payload'
         description: Export a Certificate
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:
@@ -3554,6 +3445,106 @@ paths:
                 $ref: '#/components/schemas/generic_error'
           description: General Errors
       summary: Export a certificate
+      tags:
+      - Certificates
+  /certificates:import:
+    post:
+      description: |
+        Import a certificate.
+      operationId: ImportCertificates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/certificates-import'
+        description: Import certificate payload
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificates-get'
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                input_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_input_format_mismatch'
+                invalid_object:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_object'
+                invalid_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_invalid_query_parameter'
+                missing_body:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_body'
+                missing_query_parameter:
+                  $ref: '#/components/examples/json_400_panui_restapi_missing_query_parameter'
+                output_format_mismatch:
+                  $ref: '#/components/examples/json_400_panui_restapi_output_format_mismatch'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                auth_not_authenticated:
+                  $ref: '#/components/examples/json_401_panui_auth_not_authenticated'
+                invalid_credential:
+                  $ref: '#/components/examples/json_401_panui_auth_invalid_credential'
+                key_expired:
+                  $ref: '#/components/examples/json_401_panui_auth_key_expired'
+                key_too_long:
+                  $ref: '#/components/examples/json_401_panui_auth_key_too_long'
+                need_password_change:
+                  $ref: '#/components/examples/json_401_panui_auth_need_password_change'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                auth_unauthorized:
+                  $ref: '#/components/examples/json_403_panui_auth_unauthorized'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              examples:
+                name_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_name_not_unique'
+                object_not_unique:
+                  $ref: '#/components/examples/json_409_panui_mgmt_object_not_unique'
+                reference_not_zero:
+                  $ref: '#/components/examples/json_409_panui_mgmt_reference_not_zero'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Conflict
+        default:
+          content:
+            application/json:
+              examples:
+                action_not_supported:
+                  $ref: '#/components/examples/json_405_panui_restapi_action_not_supported'
+                bad_xpath:
+                  $ref: '#/components/examples/json_400_panui_mgmt_bad_xpath'
+                invalid_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_invalid_command'
+                malformed_command:
+                  $ref: '#/components/examples/json_400_panui_mgmt_malformed_command'
+                method_not_allowed:
+                  $ref: '#/components/examples/json_501_panui_restapi_method_not_supported'
+                session_timeout:
+                  $ref: '#/components/examples/json_504_panui_mgmt_session_timeout'
+                version_not_supported:
+                  $ref: '#/components/examples/json_501_panui_restapi_version_not_supported'
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Import a certificate
       tags:
       - Certificates
   /kerberos-server-profiles:
@@ -11271,11 +11262,11 @@ components:
         public_key: public_key
         snippet: My Snippet
         subject_hash: subject_hash
-        not_valid_after: 2000-01-23
+        not_valid_after: not_valid_after
         common_name_int: common_name_int
         subject: subject
         expiry_epoch: expiry_epoch
-        not_valid_before: 2000-01-23
+        not_valid_before: not_valid_before
         subject_int: subject_int
         issuer: issuer
         issuer_hash: issuer_hash
@@ -11329,11 +11320,9 @@ components:
           type: string
         not_valid_after:
           description: Not valid after this date
-          format: date
           type: string
         not_valid_before:
           description: Not valid before this date
-          format: date
           type: string
         public_key:
           description: Public key
@@ -11530,13 +11519,13 @@ components:
     export-certificate-payload:
       properties:
         format:
-          type: string
-        passphrase:
           enum:
           - pkcs12
           - pem
           - der
           - pkcs10
+          type: string
+        passphrase:
           type: string
       required:
       - format
@@ -11827,7 +11816,7 @@ components:
         snippet: My Snippet
         mfa_vendor_type:
           rsa_securid_access_v1:
-            rsa_timeout: 359
+            rsa_timeout: 92
             rsa_accesskey: rsa_accesskey
             rsa_api_host: rsa_api_host
             rsa_assurancepolicyid: rsa_assurancepolicyid
@@ -11836,7 +11825,7 @@ components:
           okta_adaptive_v1:
             okta_token: okta_token
             okta_baseuri: /api/v1
-            okta_timeout: 363
+            okta_timeout: "30"
             okta_api_host: okta_api_host
             okta_org: okta_org
           ping_identity_v1:
@@ -11845,7 +11834,7 @@ components:
             ping_token: ping_token
             ping_baseuri: /pingid/rest/4
             ping_use_base64_key: ping_use_base64_key
-            ping_timeout: 92
+            ping_timeout: 363
           duo_security_v2:
             duo_timeout: 52
             duo_api_host: duo_api_host
@@ -12754,7 +12743,7 @@ components:
       example:
         okta_token: okta_token
         okta_baseuri: /api/v1
-        okta_timeout: 363
+        okta_timeout: "30"
         okta_api_host: okta_api_host
         okta_org: okta_org
       properties:
@@ -12771,11 +12760,9 @@ components:
           description: Okta organization
           type: string
         okta_timeout:
-          default: 30
+          default: "30"
           description: Okta timeout (seconds)
-          maximum: 600
-          minimum: 5
-          type: integer
+          type: string
         okta_token:
           description: Okta API token
           format: password
@@ -12796,7 +12783,7 @@ components:
         ping_token: ping_token
         ping_baseuri: /pingid/rest/4
         ping_use_base64_key: ping_use_base64_key
-        ping_timeout: 92
+        ping_timeout: 363
       properties:
         ping_api_host:
           default: idpxny3lm.pingidentity.com
@@ -12839,7 +12826,7 @@ components:
     mfa_servers_mfa_vendor_type_rsa_securid_access_v1:
       description: "Integration with [RSA SecurID](https://www.rsa.com/products/securid/)"
       example:
-        rsa_timeout: 359
+        rsa_timeout: 92
         rsa_accesskey: rsa_accesskey
         rsa_api_host: rsa_api_host
         rsa_assurancepolicyid: rsa_assurancepolicyid
@@ -12880,7 +12867,7 @@ components:
       description: The MFA vendor type
       example:
         rsa_securid_access_v1:
-          rsa_timeout: 359
+          rsa_timeout: 92
           rsa_accesskey: rsa_accesskey
           rsa_api_host: rsa_api_host
           rsa_assurancepolicyid: rsa_assurancepolicyid
@@ -12889,7 +12876,7 @@ components:
         okta_adaptive_v1:
           okta_token: okta_token
           okta_baseuri: /api/v1
-          okta_timeout: 363
+          okta_timeout: "30"
           okta_api_host: okta_api_host
           okta_org: okta_org
         ping_identity_v1:
@@ -12898,7 +12885,7 @@ components:
           ping_token: ping_token
           ping_baseuri: /pingid/rest/4
           ping_use_base64_key: ping_use_base64_key
-          ping_timeout: 92
+          ping_timeout: 363
         duo_security_v2:
           duo_timeout: 52
           duo_api_host: duo_api_host
