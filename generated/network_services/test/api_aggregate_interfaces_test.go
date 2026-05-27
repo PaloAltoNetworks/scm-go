@@ -39,6 +39,18 @@ func createBaseAggregateInterface(t *testing.T, baseName string) network_service
 	return intf
 }
 
+// createLacpWithHA creates a Lacp configuration with HighAvailability passive_pre_negotiation enabled.
+func createLacpWithHA() network_services.Lacp {
+	lacpConfig := network_services.NewLacpWithDefaults()
+	lacpConfig.SetEnable(true)
+
+	haConfig := network_services.NewLacpHighAvailability()
+	haConfig.SetPassivePreNegotiation(true)
+	lacpConfig.SetHighAvailability(*haConfig)
+
+	return *lacpConfig
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 // --- Test Cases for different 'Create' modes (L2 vs. L3 exclusivity) ---
 // ---------------------------------------------------------------------------------------------------------------------
@@ -314,6 +326,202 @@ func Test_AggregateInterfacesAPIService_List(t *testing.T) {
 	assert.Equal(t, http.StatusOK, httpResList.StatusCode, "Expected 200 OK status")
 	require.NotNil(t, listRes, "List response should not be nil")
 	assert.GreaterOrEqual(t, len(listRes.Data), 1, "Expected at least one Aggregate Interface in the list")
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- LACP High Availability Tests (passive_pre_negotiation) ---
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Test_CreateAggregateInterfaces_L3_LacpHA tests creation of a Layer 3 Aggregate Interface with LACP HA passive pre-negotiation.
+func Test_CreateAggregateInterfaces_L3_LacpHA(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+	intf := createBaseAggregateInterface(t, "ae-l3-ha-")
+
+	// Set Layer 3 mode with static IP and LACP HA configuration
+	layer3Config := network_services.NewAggregateInterfacesLayer3()
+	layer3Config.SetIp([]network_services.AggregateInterfacesLayer3IpInner{
+		{
+			Name: "198.18.2.1/24",
+		},
+	})
+
+	// Add LACP with HighAvailability passive_pre_negotiation enabled
+	lacpConfig := createLacpWithHA()
+	layer3Config.SetLacp(lacpConfig)
+
+	intf.SetLayer3(*layer3Config)
+
+	res, httpRes, err := client.AggregateInterfacesAPI.
+		CreateAggregateInterfaces(context.Background()).
+		AggregateInterfaces(intf).
+		Execute()
+
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create L3 Aggregate Interface with LACP HA")
+	assert.Equal(t, http.StatusCreated, httpRes.StatusCode, "Expected 201 Created status")
+	createdID := res.GetId()
+
+	// Cleanup the created resource
+	defer func() {
+		client.AggregateInterfacesAPI.DeleteAggregateInterfacesByID(context.Background(), createdID).Execute()
+	}()
+
+	// Verify Layer3 is set
+	layer3Val, ok := res.GetLayer3Ok()
+	require.True(t, ok, "Layer3 field must be set")
+	assert.False(t, res.HasLayer2(), "Layer2 field must NOT be set")
+
+	// Verify LACP config is present
+	require.True(t, layer3Val.HasLacp(), "LACP config must be present")
+	lacpVal, lacpOk := layer3Val.GetLacpOk()
+	require.True(t, lacpOk, "LACP config must be present (ok boolean)")
+	assert.True(t, lacpVal.GetEnable(), "LACP must be enabled")
+
+	// Verify HighAvailability with passive_pre_negotiation
+	require.True(t, lacpVal.HasHighAvailability(), "LACP HighAvailability must be present")
+	haVal, haOk := lacpVal.GetHighAvailabilityOk()
+	require.True(t, haOk, "HighAvailability must be present (ok boolean)")
+	assert.True(t, haVal.GetPassivePreNegotiation(), "PassivePreNegotiation must be true")
+}
+
+// Test_AggregateInterfacesAPIService_GetByID_LacpHA tests that LACP HA passive_pre_negotiation persists on read.
+func Test_AggregateInterfacesAPIService_GetByID_LacpHA(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+	intf := createBaseAggregateInterface(t, "ae-get-ha-")
+
+	// Set L3 with LACP HA
+	layer3Config := network_services.NewAggregateInterfacesLayer3()
+	layer3Config.SetIp([]network_services.AggregateInterfacesLayer3IpInner{
+		{
+			Name: "198.18.3.1/24",
+		},
+	})
+	lacpConfig := createLacpWithHA()
+	layer3Config.SetLacp(lacpConfig)
+	intf.SetLayer3(*layer3Config)
+
+	// Setup: Create the interface
+	createRes, _, err := client.AggregateInterfacesAPI.CreateAggregateInterfaces(context.Background()).AggregateInterfaces(intf).Execute()
+	require.NoError(t, err, "Failed to create interface for get HA test setup")
+	createdID := createRes.GetId()
+
+	defer func() {
+		client.AggregateInterfacesAPI.DeleteAggregateInterfacesByID(context.Background(), createdID).Execute()
+	}()
+
+	// Test: Retrieve the interface by ID
+	getRes, httpResGet, errGet := client.AggregateInterfacesAPI.GetAggregateInterfacesByID(context.Background(), createdID).Execute()
+
+	require.NoError(t, errGet, "Failed to get Aggregate Interface by ID")
+	assert.Equal(t, http.StatusOK, httpResGet.StatusCode, "Expected 200 OK status")
+	assert.Equal(t, intf.GetName(), getRes.GetName(), "Interface name should match")
+
+	// Verify LACP HA persists on read
+	layer3Val, ok := getRes.GetLayer3Ok()
+	require.True(t, ok, "Layer3 field must be set on read")
+	require.True(t, layer3Val.HasLacp(), "LACP config must persist on read")
+
+	lacpVal, lacpOk := layer3Val.GetLacpOk()
+	require.True(t, lacpOk, "LACP must be present (ok boolean)")
+	require.True(t, lacpVal.HasHighAvailability(), "LACP HighAvailability must persist on read")
+
+	haVal, haOk := lacpVal.GetHighAvailabilityOk()
+	require.True(t, haOk, "HighAvailability must be present (ok boolean)")
+	assert.True(t, haVal.GetPassivePreNegotiation(), "PassivePreNegotiation must remain true after read")
+}
+
+// Test_AggregateInterfacesAPIService_Update_LacpHA tests updating an interface to add LACP HA passive_pre_negotiation.
+func Test_AggregateInterfacesAPIService_Update_LacpHA(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+	intf := createBaseAggregateInterface(t, "ae-upd-ha-")
+
+	// Setup: Create L3 interface with LACP but WITHOUT HighAvailability
+	layer3Config := network_services.NewAggregateInterfacesLayer3()
+	layer3Config.SetIp([]network_services.AggregateInterfacesLayer3IpInner{
+		{
+			Name: "198.18.4.1/24",
+		},
+	})
+	lacpConfig := network_services.NewLacpWithDefaults()
+	lacpConfig.SetEnable(true)
+	layer3Config.SetLacp(*lacpConfig)
+	intf.SetLayer3(*layer3Config)
+
+	createRes, _, err := client.AggregateInterfacesAPI.CreateAggregateInterfaces(context.Background()).AggregateInterfaces(intf).Execute()
+	require.NoError(t, err, "Failed to create interface for update HA test setup")
+	createdID := createRes.GetId()
+
+	defer func() {
+		client.AggregateInterfacesAPI.DeleteAggregateInterfacesByID(context.Background(), createdID).Execute()
+	}()
+
+	// Prepare updated object: Add HighAvailability to LACP
+	updatedIntf := *createRes
+	updatedIntf.SetComment("Updated with LACP HA passive_pre_negotiation.")
+
+	updatedLayer3 := network_services.NewAggregateInterfacesLayer3()
+	updatedLayer3.SetIp([]network_services.AggregateInterfacesLayer3IpInner{
+		{
+			Name: "198.18.4.1/24",
+		},
+	})
+	updatedLacp := createLacpWithHA()
+	updatedLayer3.SetLacp(updatedLacp)
+	updatedIntf.SetLayer3(*updatedLayer3)
+
+	// Test: Update the interface
+	updateRes, httpResUpdate, errUpdate := client.AggregateInterfacesAPI.
+		UpdateAggregateInterfacesByID(context.Background(), createdID).
+		AggregateInterfaces(updatedIntf).
+		Execute()
+
+	require.NoError(t, errUpdate, "Failed to update Aggregate Interface with LACP HA")
+	assert.Equal(t, http.StatusOK, httpResUpdate.StatusCode, "Expected 200 OK status")
+
+	// Verify the update
+	assert.Equal(t, "Updated with LACP HA passive_pre_negotiation.", updateRes.GetComment(), "Comment should be updated")
+	require.True(t, updateRes.HasLayer3(), "Layer3 config must be present after update")
+
+	layer3Val, layer3Ok := updateRes.GetLayer3Ok()
+	require.True(t, layer3Ok, "Layer3 config must be present (ok boolean)")
+	require.True(t, layer3Val.HasLacp(), "LACP config must be present after update")
+
+	lacpVal, lacpOk := layer3Val.GetLacpOk()
+	require.True(t, lacpOk, "LACP must be present (ok boolean)")
+	require.True(t, lacpVal.HasHighAvailability(), "HighAvailability must be present after update")
+
+	haVal, haOk := lacpVal.GetHighAvailabilityOk()
+	require.True(t, haOk, "HighAvailability must be present (ok boolean)")
+	assert.True(t, haVal.GetPassivePreNegotiation(), "PassivePreNegotiation must be true after update")
+}
+
+// Test_AggregateInterfacesAPIService_DeleteByID_LacpHA tests deleting an interface with LACP HA configuration.
+func Test_AggregateInterfacesAPIService_DeleteByID_LacpHA(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+	intf := createBaseAggregateInterface(t, "ae-del-ha-")
+
+	// Setup: Create L3 interface with LACP HA
+	layer3Config := network_services.NewAggregateInterfacesLayer3()
+	layer3Config.SetIp([]network_services.AggregateInterfacesLayer3IpInner{
+		{
+			Name: "198.18.5.1/24",
+		},
+	})
+	lacpConfig := createLacpWithHA()
+	layer3Config.SetLacp(lacpConfig)
+	intf.SetLayer3(*layer3Config)
+
+	createRes, _, err := client.AggregateInterfacesAPI.CreateAggregateInterfaces(context.Background()).AggregateInterfaces(intf).Execute()
+	require.NoError(t, err, "Failed to create interface for delete HA test setup")
+	createdID := createRes.GetId()
+
+	// Test: Delete the interface
+	httpResDel, errDel := client.AggregateInterfacesAPI.DeleteAggregateInterfacesByID(context.Background(), createdID).Execute()
+
+	require.NoError(t, errDel, "Failed to delete Aggregate Interface with LACP HA")
+	assert.Equal(t, http.StatusOK, httpResDel.StatusCode, "Expected 200 OK status for deletion")
 }
 
 // Test_network_services_AggregateInterfacesAPIService_FetchAggregateInterfaces tests the FetchAggregateInterfaces convenience method

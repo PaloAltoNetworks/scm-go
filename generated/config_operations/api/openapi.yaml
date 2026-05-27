@@ -1507,12 +1507,11 @@ components:
         devices:
           description: The target devices for the configuration push
           example:
-          - 7951000388704
-          - 7951000388707
-          - 7051000239252
+          - "007951000388704"
+          - "007951000388707"
+          - "007051000239252"
           items:
-            maxLength: 16
-            type: number
+            type: string
           type: array
           uniqueItems: true
         folder:

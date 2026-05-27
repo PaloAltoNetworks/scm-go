@@ -1,3 +1,10 @@
+//go:build ignore
+// +build ignore
+
+// This file is a template copied verbatim into the generated scm-go SDK.
+// It is not compiled as part of openapi-integration-creator and must not
+// pull testify into this module's go.mod.
+
 package errors
 
 import (

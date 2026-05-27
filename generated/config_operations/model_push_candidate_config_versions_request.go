@@ -25,7 +25,7 @@ type PushCandidateConfigVersionsRequest struct {
 	// A description of the changes being pushed
 	Description *string `json:"description,omitempty"`
 	// The target devices for the configuration push
-	Devices []float32 `json:"devices,omitempty"`
+	Devices []string `json:"devices,omitempty"`
 	// The target folders for the configuration push
 	Folder               []string `json:"folder,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -115,9 +115,9 @@ func (o *PushCandidateConfigVersionsRequest) SetDescription(v string) {
 }
 
 // GetDevices returns the Devices field value if set, zero value otherwise.
-func (o *PushCandidateConfigVersionsRequest) GetDevices() []float32 {
+func (o *PushCandidateConfigVersionsRequest) GetDevices() []string {
 	if o == nil || IsNil(o.Devices) {
-		var ret []float32
+		var ret []string
 		return ret
 	}
 	return o.Devices
@@ -125,7 +125,7 @@ func (o *PushCandidateConfigVersionsRequest) GetDevices() []float32 {
 
 // GetDevicesOk returns a tuple with the Devices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PushCandidateConfigVersionsRequest) GetDevicesOk() ([]float32, bool) {
+func (o *PushCandidateConfigVersionsRequest) GetDevicesOk() ([]string, bool) {
 	if o == nil || IsNil(o.Devices) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *PushCandidateConfigVersionsRequest) HasDevices() bool {
 	return false
 }
 
-// SetDevices gets a reference to the given []float32 and assigns it to the Devices field.
-func (o *PushCandidateConfigVersionsRequest) SetDevices(v []float32) {
+// SetDevices gets a reference to the given []string and assigns it to the Devices field.
+func (o *PushCandidateConfigVersionsRequest) SetDevices(v []string) {
 	o.Devices = v
 }
 
