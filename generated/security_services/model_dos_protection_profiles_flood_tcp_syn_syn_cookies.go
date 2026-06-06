@@ -13,7 +13,6 @@ package security_services
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the DosProtectionProfilesFloodTcpSynSynCookies type satisfies the MappedNullable interface at compile time
@@ -22,12 +21,12 @@ var _ MappedNullable = &DosProtectionProfilesFloodTcpSynSynCookies{}
 // DosProtectionProfilesFloodTcpSynSynCookies struct for DosProtectionProfilesFloodTcpSynSynCookies
 type DosProtectionProfilesFloodTcpSynSynCookies struct {
 	// Connection rate (cps) to activate SYN cookies proxy
-	ActivateRate int32 `json:"activate-rate"`
+	ActivateRate *int32 `json:"activate-rate,omitempty"`
 	// Connection rate (cps) to generate alarm
-	AlarmRate int32                                            `json:"alarm-rate"`
+	AlarmRate *int32                                           `json:"alarm-rate,omitempty"`
 	Block     *DosProtectionProfilesFloodTcpSynSynCookiesBlock `json:"block,omitempty"`
 	// Maximum connection rate (cps) allowed
-	MaximalRate          int32 `json:"maximal-rate"`
+	MaximalRate          *int32 `json:"maximal-rate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,11 +36,14 @@ type _DosProtectionProfilesFloodTcpSynSynCookies DosProtectionProfilesFloodTcpSy
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDosProtectionProfilesFloodTcpSynSynCookies(activateRate int32, alarmRate int32, maximalRate int32) *DosProtectionProfilesFloodTcpSynSynCookies {
+func NewDosProtectionProfilesFloodTcpSynSynCookies() *DosProtectionProfilesFloodTcpSynSynCookies {
 	this := DosProtectionProfilesFloodTcpSynSynCookies{}
-	this.ActivateRate = activateRate
-	this.AlarmRate = alarmRate
-	this.MaximalRate = maximalRate
+	var activateRate int32 = 0
+	this.ActivateRate = &activateRate
+	var alarmRate int32 = 10000
+	this.AlarmRate = &alarmRate
+	var maximalRate int32 = 1000000
+	this.MaximalRate = &maximalRate
 	return &this
 }
 
@@ -51,60 +53,76 @@ func NewDosProtectionProfilesFloodTcpSynSynCookies(activateRate int32, alarmRate
 func NewDosProtectionProfilesFloodTcpSynSynCookiesWithDefaults() *DosProtectionProfilesFloodTcpSynSynCookies {
 	this := DosProtectionProfilesFloodTcpSynSynCookies{}
 	var activateRate int32 = 0
-	this.ActivateRate = activateRate
+	this.ActivateRate = &activateRate
 	var alarmRate int32 = 10000
-	this.AlarmRate = alarmRate
+	this.AlarmRate = &alarmRate
 	var maximalRate int32 = 1000000
-	this.MaximalRate = maximalRate
+	this.MaximalRate = &maximalRate
 	return &this
 }
 
-// GetActivateRate returns the ActivateRate field value
+// GetActivateRate returns the ActivateRate field value if set, zero value otherwise.
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) GetActivateRate() int32 {
-	if o == nil {
+	if o == nil || IsNil(o.ActivateRate) {
 		var ret int32
 		return ret
 	}
-
-	return o.ActivateRate
+	return *o.ActivateRate
 }
 
-// GetActivateRateOk returns a tuple with the ActivateRate field value
+// GetActivateRateOk returns a tuple with the ActivateRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) GetActivateRateOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ActivateRate) {
 		return nil, false
 	}
-	return &o.ActivateRate, true
+	return o.ActivateRate, true
 }
 
-// SetActivateRate sets field value
+// HasActivateRate returns a boolean if a field has been set.
+func (o *DosProtectionProfilesFloodTcpSynSynCookies) HasActivateRate() bool {
+	if o != nil && !IsNil(o.ActivateRate) {
+		return true
+	}
+
+	return false
+}
+
+// SetActivateRate gets a reference to the given int32 and assigns it to the ActivateRate field.
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) SetActivateRate(v int32) {
-	o.ActivateRate = v
+	o.ActivateRate = &v
 }
 
-// GetAlarmRate returns the AlarmRate field value
+// GetAlarmRate returns the AlarmRate field value if set, zero value otherwise.
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) GetAlarmRate() int32 {
-	if o == nil {
+	if o == nil || IsNil(o.AlarmRate) {
 		var ret int32
 		return ret
 	}
-
-	return o.AlarmRate
+	return *o.AlarmRate
 }
 
-// GetAlarmRateOk returns a tuple with the AlarmRate field value
+// GetAlarmRateOk returns a tuple with the AlarmRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) GetAlarmRateOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AlarmRate) {
 		return nil, false
 	}
-	return &o.AlarmRate, true
+	return o.AlarmRate, true
 }
 
-// SetAlarmRate sets field value
+// HasAlarmRate returns a boolean if a field has been set.
+func (o *DosProtectionProfilesFloodTcpSynSynCookies) HasAlarmRate() bool {
+	if o != nil && !IsNil(o.AlarmRate) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlarmRate gets a reference to the given int32 and assigns it to the AlarmRate field.
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) SetAlarmRate(v int32) {
-	o.AlarmRate = v
+	o.AlarmRate = &v
 }
 
 // GetBlock returns the Block field value if set, zero value otherwise.
@@ -139,28 +157,36 @@ func (o *DosProtectionProfilesFloodTcpSynSynCookies) SetBlock(v DosProtectionPro
 	o.Block = &v
 }
 
-// GetMaximalRate returns the MaximalRate field value
+// GetMaximalRate returns the MaximalRate field value if set, zero value otherwise.
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) GetMaximalRate() int32 {
-	if o == nil {
+	if o == nil || IsNil(o.MaximalRate) {
 		var ret int32
 		return ret
 	}
-
-	return o.MaximalRate
+	return *o.MaximalRate
 }
 
-// GetMaximalRateOk returns a tuple with the MaximalRate field value
+// GetMaximalRateOk returns a tuple with the MaximalRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) GetMaximalRateOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaximalRate) {
 		return nil, false
 	}
-	return &o.MaximalRate, true
+	return o.MaximalRate, true
 }
 
-// SetMaximalRate sets field value
+// HasMaximalRate returns a boolean if a field has been set.
+func (o *DosProtectionProfilesFloodTcpSynSynCookies) HasMaximalRate() bool {
+	if o != nil && !IsNil(o.MaximalRate) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaximalRate gets a reference to the given int32 and assigns it to the MaximalRate field.
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) SetMaximalRate(v int32) {
-	o.MaximalRate = v
+	o.MaximalRate = &v
 }
 
 func (o DosProtectionProfilesFloodTcpSynSynCookies) MarshalJSON() ([]byte, error) {
@@ -173,12 +199,18 @@ func (o DosProtectionProfilesFloodTcpSynSynCookies) MarshalJSON() ([]byte, error
 
 func (o DosProtectionProfilesFloodTcpSynSynCookies) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["activate-rate"] = o.ActivateRate
-	toSerialize["alarm-rate"] = o.AlarmRate
+	if !IsNil(o.ActivateRate) {
+		toSerialize["activate-rate"] = o.ActivateRate
+	}
+	if !IsNil(o.AlarmRate) {
+		toSerialize["alarm-rate"] = o.AlarmRate
+	}
 	if !IsNil(o.Block) {
 		toSerialize["block"] = o.Block
 	}
-	toSerialize["maximal-rate"] = o.MaximalRate
+	if !IsNil(o.MaximalRate) {
+		toSerialize["maximal-rate"] = o.MaximalRate
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -188,29 +220,6 @@ func (o DosProtectionProfilesFloodTcpSynSynCookies) ToMap() (map[string]interfac
 }
 
 func (o *DosProtectionProfilesFloodTcpSynSynCookies) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"activate-rate",
-		"alarm-rate",
-		"maximal-rate",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varDosProtectionProfilesFloodTcpSynSynCookies := _DosProtectionProfilesFloodTcpSynSynCookies{}
 
 	err = json.Unmarshal(data, &varDosProtectionProfilesFloodTcpSynSynCookies)

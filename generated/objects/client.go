@@ -61,8 +61,6 @@ type APIClient struct {
 
 	ApplicationsAPI *ApplicationsAPIService
 
-	AutoTagActionsAPI *AutoTagActionsAPIService
-
 	DynamicUserGroupsAPI *DynamicUserGroupsAPIService
 
 	ExternalDynamicListsAPI *ExternalDynamicListsAPIService
@@ -111,7 +109,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApplicationFiltersAPI = (*ApplicationFiltersAPIService)(&c.common)
 	c.ApplicationGroupsAPI = (*ApplicationGroupsAPIService)(&c.common)
 	c.ApplicationsAPI = (*ApplicationsAPIService)(&c.common)
-	c.AutoTagActionsAPI = (*AutoTagActionsAPIService)(&c.common)
 	c.DynamicUserGroupsAPI = (*DynamicUserGroupsAPIService)(&c.common)
 	c.ExternalDynamicListsAPI = (*ExternalDynamicListsAPIService)(&c.common)
 	c.HIPObjectsAPI = (*HIPObjectsAPIService)(&c.common)

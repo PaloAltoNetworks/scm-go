@@ -20,21 +20,29 @@ import (
 
 // Test_networkservices_UseridMatchListAPIService_Create tests the creation of a User ID Match List.
 func Test_networkservices_UseridMatchListAPIService_Create(t *testing.T) {
-	// Setup the authenticated client.
+	// Setup clients
 	client := SetupNetworkSvcTestClient(t)
+	objClient := getObjectsClient(t)
+	folder := "ngfw-shared"
 
-	// Create a valid User ID Match List object with a unique name.
+	// Step 1: Create dependency profiles first
+	httpProfileName, httpProfileID := createTestHTTPServerProfile(objClient, t, "userid-create", folder)
+	syslogProfileName, syslogProfileID := createTestSyslogServerProfile(objClient, t, "userid-create", folder)
+
+	// Defer cleanup of dependencies (will run last)
+	defer deleteTestHTTPServerProfile(objClient, t, httpProfileID)
+	defer deleteTestSyslogServerProfile(objClient, t, syslogProfileID)
+
+	// Step 2: Create User ID Match List with dependencies
 	matchListName := "test-userid-match-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.UseridMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("User ID match list for monitoring and forwarding user authentication events to external systems"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
+		SendSyslog:     []string{syslogProfileName},
+		SendHttp:       []string{httpProfileName},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -45,7 +53,7 @@ func Test_networkservices_UseridMatchListAPIService_Create(t *testing.T) {
 	req := client.UseridMatchListAPI.CreateUseridMatchList(context.Background()).UseridMatchList(matchList)
 	res, httpRes, err := req.Execute()
 
-	// Defer cleanup for the User ID Match List.
+	// Defer cleanup for the User ID Match List (runs before dependency cleanup)
 	if res != nil && res.Id != nil {
 		defer func() {
 			t.Logf("Cleaning up User ID Match List with ID: %s", *res.Id)
@@ -71,19 +79,16 @@ func Test_networkservices_UseridMatchListAPIService_Create(t *testing.T) {
 // Test_networkservices_UseridMatchListAPIService_GetByID tests the retrieval of a User ID Match List by its ID.
 func Test_networkservices_UseridMatchListAPIService_GetByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to retrieve.
+	// Create a simple match list to retrieve (no dependencies needed)
 	matchListName := "test-userid-match-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.UseridMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("User ID match list for get by ID test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -121,19 +126,16 @@ func Test_networkservices_UseridMatchListAPIService_GetByID(t *testing.T) {
 // Test_networkservices_UseridMatchListAPIService_Update tests updating a User ID Match List.
 func Test_networkservices_UseridMatchListAPIService_Update(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to update.
+	// Create a simple match list to update
 	matchListName := "test-userid-match-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.UseridMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("User ID match list for update test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -158,12 +160,8 @@ func Test_networkservices_UseridMatchListAPIService_Update(t *testing.T) {
 	updatedMatchList := network_services.UseridMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("Updated description for User ID match list"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -216,19 +214,16 @@ func Test_networkservices_UseridMatchListAPIService_Fetch(t *testing.T) {
 // Test_networkservices_UseridMatchListAPIService_DeleteByID tests deleting a User ID Match List.
 func Test_networkservices_UseridMatchListAPIService_DeleteByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to delete.
+	// Create a simple match list to delete
 	matchListName := "test-userid-match-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.UseridMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("User ID match list for delete test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
