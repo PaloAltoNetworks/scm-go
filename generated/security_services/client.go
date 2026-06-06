@@ -57,6 +57,8 @@ type APIClient struct {
 
 	ApplicationOverrideRulesAPI *ApplicationOverrideRulesAPIService
 
+	AutoTagActionsAPI *AutoTagActionsAPIService
+
 	DNSSecurityProfilesAPI *DNSSecurityProfilesAPIService
 
 	DataFilteringAPI *DataFilteringAPIService
@@ -117,6 +119,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AntiSpywareProfilesAPI = (*AntiSpywareProfilesAPIService)(&c.common)
 	c.AntiSpywareSignaturesAPI = (*AntiSpywareSignaturesAPIService)(&c.common)
 	c.ApplicationOverrideRulesAPI = (*ApplicationOverrideRulesAPIService)(&c.common)
+	c.AutoTagActionsAPI = (*AutoTagActionsAPIService)(&c.common)
 	c.DNSSecurityProfilesAPI = (*DNSSecurityProfilesAPIService)(&c.common)
 	c.DataFilteringAPI = (*DataFilteringAPIService)(&c.common)
 	c.DataObjectsAPI = (*DataObjectsAPIService)(&c.common)

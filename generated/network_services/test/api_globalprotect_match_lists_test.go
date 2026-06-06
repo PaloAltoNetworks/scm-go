@@ -20,21 +20,29 @@ import (
 
 // Test_networkservices_GlobalprotectMatchListAPIService_Create tests the creation of a GlobalProtect Match List.
 func Test_networkservices_GlobalprotectMatchListAPIService_Create(t *testing.T) {
-	// Setup the authenticated client.
+	// Setup clients
 	client := SetupNetworkSvcTestClient(t)
+	objClient := getObjectsClient(t)
+	folder := "ngfw-shared"
 
-	// Create a valid GlobalProtect Match List object with a unique name.
+	// Step 1: Create dependency profiles first
+	httpProfileName, httpProfileID := createTestHTTPServerProfile(objClient, t, "gp-create", folder)
+	syslogProfileName, syslogProfileID := createTestSyslogServerProfile(objClient, t, "gp-create", folder)
+
+	// Defer cleanup of dependencies (will run last)
+	defer deleteTestHTTPServerProfile(objClient, t, httpProfileID)
+	defer deleteTestSyslogServerProfile(objClient, t, syslogProfileID)
+
+	// Step 2: Create GlobalProtect Match List with dependencies
 	matchListName := "test-gp-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.GlobalprotectMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("GlobalProtect match list for monitoring VPN connection events and remote access activities"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
+		SendSyslog:     []string{syslogProfileName},
+		SendHttp:       []string{httpProfileName},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -45,7 +53,7 @@ func Test_networkservices_GlobalprotectMatchListAPIService_Create(t *testing.T) 
 	req := client.GlobalprotectMatchListAPI.CreateGlobalprotectMatchList(context.Background()).GlobalprotectMatchList(matchList)
 	res, httpRes, err := req.Execute()
 
-	// Defer cleanup for the GlobalProtect Match List.
+	// Defer cleanup for the GlobalProtect Match List (runs before dependency cleanup)
 	if res != nil && res.Id != nil {
 		defer func() {
 			t.Logf("Cleaning up GlobalProtect Match List with ID: %s", *res.Id)
@@ -71,19 +79,16 @@ func Test_networkservices_GlobalprotectMatchListAPIService_Create(t *testing.T) 
 // Test_networkservices_GlobalprotectMatchListAPIService_GetByID tests the retrieval of a GlobalProtect Match List by its ID.
 func Test_networkservices_GlobalprotectMatchListAPIService_GetByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to retrieve.
+	// Create a simple match list to retrieve (no dependencies needed)
 	matchListName := "test-gp-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.GlobalprotectMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("GlobalProtect match list for get by ID test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -121,19 +126,16 @@ func Test_networkservices_GlobalprotectMatchListAPIService_GetByID(t *testing.T)
 // Test_networkservices_GlobalprotectMatchListAPIService_Update tests updating a GlobalProtect Match List.
 func Test_networkservices_GlobalprotectMatchListAPIService_Update(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to update.
+	// Create a simple match list to update
 	matchListName := "test-gp-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.GlobalprotectMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("GlobalProtect match list for update test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -158,12 +160,8 @@ func Test_networkservices_GlobalprotectMatchListAPIService_Update(t *testing.T) 
 	updatedMatchList := network_services.GlobalprotectMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("Updated description for GlobalProtect match list"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -216,19 +214,16 @@ func Test_networkservices_GlobalprotectMatchListAPIService_Fetch(t *testing.T) {
 // Test_networkservices_GlobalprotectMatchListAPIService_DeleteByID tests deleting a GlobalProtect Match List.
 func Test_networkservices_GlobalprotectMatchListAPIService_DeleteByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to delete.
+	// Create a simple match list to delete
 	matchListName := "test-gp-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.GlobalprotectMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("GlobalProtect match list for delete test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}

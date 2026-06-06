@@ -1,8 +1,8 @@
 /*
-Objects Testing AutoTagActionsAPIService
+Security Services Testing AutoTagActionsAPIService
 Note: This API uses name-based operations for delete (not ID-based)
 */
-package objects
+package security_services
 
 import (
 	"context"
@@ -12,24 +12,24 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/paloaltonetworks/scm-go/common"
-	"github.com/paloaltonetworks/scm-go/generated/objects"
+	"github.com/paloaltonetworks/scm-go/generated/security_services"
 )
 
-// Test_objects_AutoTagActionsAPIService_Create tests the creation of an auto tag action
-func Test_objects_AutoTagActionsAPIService_Create(t *testing.T) {
-	client := SetupObjectSvcTestClient(t)
+// Test_security_services_AutoTagActionsAPIService_Create tests the creation of an auto tag action
+func Test_security_services_AutoTagActionsAPIService_Create(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
 
 	testName := "test-autotag-create-" + common.GenerateRandomString(10)
-	autoTag := objects.AutoTagActions{
+	autoTag := security_services.AutoTagActions{
 		Name:    testName,
 		Folder:  common.StringPtr("Prisma Access"),
 		Filter:  "addr.src in 10.0.0.0/8",
 		LogType: "traffic",
-		Actions: []objects.AutoTagActionsActionsInner{
+		Actions: []security_services.AutoTagActionsActionsInner{
 			{
 				Name: "test-action",
-				Type: objects.AutoTagActionsActionsInnerType{
-					Tagging: objects.AutoTagActionsActionsInnerTypeTagging{
+				Type: security_services.AutoTagActionsActionsInnerType{
+					Tagging: security_services.AutoTagActionsActionsInnerTypeTagging{
 						Action: "add-tag",
 						Tags:   []string{"test-tag"},
 						Target: "source-address",
@@ -63,21 +63,21 @@ func Test_objects_AutoTagActionsAPIService_Create(t *testing.T) {
 	t.Logf("Successfully cleaned up auto tag action: %s", testName)
 }
 
-// Test_objects_AutoTagActionsAPIService_List tests listing auto tag actions
-func Test_objects_AutoTagActionsAPIService_List(t *testing.T) {
-	client := SetupObjectSvcTestClient(t)
+// Test_security_services_AutoTagActionsAPIService_List tests listing auto tag actions
+func Test_security_services_AutoTagActionsAPIService_List(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
 
 	testName := "test-autotag-list-" + common.GenerateRandomString(10)
-	autoTag := objects.AutoTagActions{
+	autoTag := security_services.AutoTagActions{
 		Name:    testName,
 		Folder:  common.StringPtr("Prisma Access"),
 		Filter:  "addr.src in 172.16.0.0/12",
 		LogType: "traffic",
-		Actions: []objects.AutoTagActionsActionsInner{
+		Actions: []security_services.AutoTagActionsActionsInner{
 			{
 				Name: "list-action",
-				Type: objects.AutoTagActionsActionsInnerType{
-					Tagging: objects.AutoTagActionsActionsInnerTypeTagging{
+				Type: security_services.AutoTagActionsActionsInnerType{
+					Tagging: security_services.AutoTagActionsActionsInnerTypeTagging{
 						Action: "add-tag",
 						Tags:   []string{"list-tag"},
 						Target: "source-address",
@@ -121,21 +121,21 @@ func Test_objects_AutoTagActionsAPIService_List(t *testing.T) {
 	t.Logf("Successfully cleaned up auto tag action: %s", testName)
 }
 
-// Test_objects_AutoTagActionsAPIService_Update tests updating an existing auto tag action
-func Test_objects_AutoTagActionsAPIService_Update(t *testing.T) {
-	client := SetupObjectSvcTestClient(t)
+// Test_security_services_AutoTagActionsAPIService_Update tests updating an existing auto tag action
+func Test_security_services_AutoTagActionsAPIService_Update(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
 
 	testName := "test-autotag-update-" + common.GenerateRandomString(10)
-	autoTag := objects.AutoTagActions{
+	autoTag := security_services.AutoTagActions{
 		Name:    testName,
 		Folder:  common.StringPtr("Prisma Access"),
 		Filter:  "addr.src in 192.168.0.0/16",
 		LogType: "traffic",
-		Actions: []objects.AutoTagActionsActionsInner{
+		Actions: []security_services.AutoTagActionsActionsInner{
 			{
 				Name: "update-action",
-				Type: objects.AutoTagActionsActionsInnerType{
-					Tagging: objects.AutoTagActionsActionsInnerTypeTagging{
+				Type: security_services.AutoTagActionsActionsInnerType{
+					Tagging: security_services.AutoTagActionsActionsInnerTypeTagging{
 						Action: "add-tag",
 						Tags:   []string{"update-tag"},
 						Target: "source-address",
@@ -154,17 +154,17 @@ func Test_objects_AutoTagActionsAPIService_Update(t *testing.T) {
 	require.NotNil(t, createRes, "Create response should not be nil")
 
 	// Test Update
-	updatedAutoTag := objects.AutoTagActions{
+	updatedAutoTag := security_services.AutoTagActions{
 		Name:        testName,
 		Folder:      common.StringPtr("Prisma Access"),
 		Filter:      "addr.src in 192.168.0.0/16",
 		LogType:     "traffic",
 		Description: common.StringPtr("Updated description"),
-		Actions: []objects.AutoTagActionsActionsInner{
+		Actions: []security_services.AutoTagActionsActionsInner{
 			{
 				Name: "updated-action",
-				Type: objects.AutoTagActionsActionsInnerType{
-					Tagging: objects.AutoTagActionsActionsInnerTypeTagging{
+				Type: security_services.AutoTagActionsActionsInnerType{
+					Tagging: security_services.AutoTagActionsActionsInnerTypeTagging{
 						Action: "add-tag",
 						Tags:   []string{"updated-tag"},
 						Target: "source-address",
@@ -199,21 +199,21 @@ func Test_objects_AutoTagActionsAPIService_Update(t *testing.T) {
 	t.Logf("Successfully cleaned up auto tag action: %s", testName)
 }
 
-// Test_objects_AutoTagActionsAPIService_Delete tests deleting an auto tag action by name
-func Test_objects_AutoTagActionsAPIService_Delete(t *testing.T) {
-	client := SetupObjectSvcTestClient(t)
+// Test_security_services_AutoTagActionsAPIService_Delete tests deleting an auto tag action by name
+func Test_security_services_AutoTagActionsAPIService_Delete(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
 
 	testName := "test-autotag-delete-" + common.GenerateRandomString(10)
-	autoTag := objects.AutoTagActions{
+	autoTag := security_services.AutoTagActions{
 		Name:    testName,
 		Folder:  common.StringPtr("Prisma Access"),
 		Filter:  "addr.src in 10.10.0.0/16",
 		LogType: "traffic",
-		Actions: []objects.AutoTagActionsActionsInner{
+		Actions: []security_services.AutoTagActionsActionsInner{
 			{
 				Name: "delete-action",
-				Type: objects.AutoTagActionsActionsInnerType{
-					Tagging: objects.AutoTagActionsActionsInnerTypeTagging{
+				Type: security_services.AutoTagActionsActionsInnerType{
+					Tagging: security_services.AutoTagActionsActionsInnerTypeTagging{
 						Action: "add-tag",
 						Tags:   []string{"delete-tag"},
 						Target: "source-address",
@@ -244,21 +244,21 @@ func Test_objects_AutoTagActionsAPIService_Delete(t *testing.T) {
 	t.Logf("Successfully deleted auto tag action: %s", testName)
 }
 
-// Test_objects_AutoTagActionsAPIService_Fetch tests the Fetch convenience method
-func Test_objects_AutoTagActionsAPIService_Fetch(t *testing.T) {
-	client := SetupObjectSvcTestClient(t)
+// Test_security_services_AutoTagActionsAPIService_Fetch tests the Fetch convenience method
+func Test_security_services_AutoTagActionsAPIService_Fetch(t *testing.T) {
+	client := SetupSecuritySvcTestClient(t)
 
 	testName := "test-autotag-fetch-" + common.GenerateRandomString(10)
-	autoTag := objects.AutoTagActions{
+	autoTag := security_services.AutoTagActions{
 		Name:    testName,
 		Folder:  common.StringPtr("Prisma Access"),
 		Filter:  "addr.src in 10.20.0.0/16",
 		LogType: "traffic",
-		Actions: []objects.AutoTagActionsActionsInner{
+		Actions: []security_services.AutoTagActionsActionsInner{
 			{
 				Name: "fetch-action",
-				Type: objects.AutoTagActionsActionsInnerType{
-					Tagging: objects.AutoTagActionsActionsInnerTypeTagging{
+				Type: security_services.AutoTagActionsActionsInnerType{
+					Tagging: security_services.AutoTagActionsActionsInnerTypeTagging{
 						Action: "add-tag",
 						Tags:   []string{"fetch-tag"},
 						Target: "source-address",

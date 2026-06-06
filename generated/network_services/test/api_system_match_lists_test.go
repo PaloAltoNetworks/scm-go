@@ -20,21 +20,29 @@ import (
 
 // Test_networkservices_SystemMatchListAPIService_Create tests the creation of a System Match List.
 func Test_networkservices_SystemMatchListAPIService_Create(t *testing.T) {
-	// Setup the authenticated client.
+	// Setup clients
 	client := SetupNetworkSvcTestClient(t)
+	objClient := getObjectsClient(t)
+	folder := "ngfw-shared"
 
-	// Create a valid System Match List object with a unique name.
+	// Step 1: Create dependency profiles first
+	httpProfileName, httpProfileID := createTestHTTPServerProfile(objClient, t, "sys-create", folder)
+	syslogProfileName, syslogProfileID := createTestSyslogServerProfile(objClient, t, "sys-create", folder)
+
+	// Defer cleanup of dependencies (will run last)
+	defer deleteTestHTTPServerProfile(objClient, t, httpProfileID)
+	defer deleteTestSyslogServerProfile(objClient, t, syslogProfileID)
+
+	// Step 2: Create System Match List with dependencies
 	matchListName := "test-system-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.SystemMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("System match list for capturing system-level events and forwarding to monitoring platforms"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
+		SendSyslog:     []string{syslogProfileName},
+		SendHttp:       []string{httpProfileName},
 		SendToPanorama: common.BoolPtr(false),
 	}
 
@@ -44,7 +52,7 @@ func Test_networkservices_SystemMatchListAPIService_Create(t *testing.T) {
 	req := client.SystemMatchListAPI.CreateSystemMatchList(context.Background()).SystemMatchList(matchList)
 	res, httpRes, err := req.Execute()
 
-	// Defer cleanup for the System Match List.
+	// Defer cleanup for the System Match List (runs before dependency cleanup)
 	if res != nil && res.Id != nil {
 		defer func() {
 			t.Logf("Cleaning up System Match List with ID: %s", *res.Id)
@@ -70,19 +78,16 @@ func Test_networkservices_SystemMatchListAPIService_Create(t *testing.T) {
 // Test_networkservices_SystemMatchListAPIService_GetByID tests the retrieval of a System Match List by its ID.
 func Test_networkservices_SystemMatchListAPIService_GetByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to retrieve.
+	// Create a simple match list to retrieve (no dependencies needed)
 	matchListName := "test-system-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.SystemMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("System match list for get by ID test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		SendToPanorama: common.BoolPtr(false),
 	}
 
@@ -119,19 +124,16 @@ func Test_networkservices_SystemMatchListAPIService_GetByID(t *testing.T) {
 // Test_networkservices_SystemMatchListAPIService_Update tests updating a System Match List.
 func Test_networkservices_SystemMatchListAPIService_Update(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to update.
+	// Create a simple match list to update
 	matchListName := "test-system-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.SystemMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("System match list for update test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		SendToPanorama: common.BoolPtr(false),
 	}
 
@@ -155,12 +157,8 @@ func Test_networkservices_SystemMatchListAPIService_Update(t *testing.T) {
 	updatedMatchList := network_services.SystemMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("Updated description for System match list"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		SendToPanorama: common.BoolPtr(false),
 	}
 
@@ -212,19 +210,16 @@ func Test_networkservices_SystemMatchListAPIService_Fetch(t *testing.T) {
 // Test_networkservices_SystemMatchListAPIService_DeleteByID tests deleting a System Match List.
 func Test_networkservices_SystemMatchListAPIService_DeleteByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to delete.
+	// Create a simple match list to delete
 	matchListName := "test-system-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.SystemMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("System match list for delete test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		SendToPanorama: common.BoolPtr(false),
 	}
 
