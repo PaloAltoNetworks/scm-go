@@ -8,6 +8,7 @@ import (
 // Client defines the interface for API operations
 type Client interface {
 	GetHost() string
+	GetZtnaHost() string
 	LoggingIsSetTo(string) bool
 	Log(context.Context, string, string)
 	Do(context.Context, string, string, url.Values, interface{}, interface{}, ...error) ([]byte, error)

@@ -25,6 +25,7 @@ jobs:
           - config_setup
           - config_operations
           - device_settings
+          - ztna_connector_all
           - mobile_agent
 
     steps:
@@ -62,6 +63,11 @@ jobs:
           EOF
 
       - name: Run tests for ${{ matrix.service }}
+        env:
+          ZTNA_CONNECTOR_GROUP_ID: ${{ secrets.ZTNA_CONNECTOR_GROUP_ID }}
+          ZTNA_ONLINE_CONNECTOR_OID: ${{ secrets.ZTNA_ONLINE_CONNECTOR_OID }}
+          ZTNA_PCAP_CONNECTOR_OID: ${{ secrets.ZTNA_PCAP_CONNECTOR_OID }}
+          ZTNAFQDN_CONNECTOR_GROUP_ID: ${{ secrets.ZTNAFQDN_CONNECTOR_GROUP_ID }}
         run: |
           set +e
 

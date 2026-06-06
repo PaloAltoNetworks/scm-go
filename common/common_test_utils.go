@@ -27,7 +27,7 @@ func (lrt *LoggingRoundTripper) RoundTrip(req *http.Request) (*http.Response, er
 	printCurlCommand(req)
 	// Execute the actual request
 	resp, err := lrt.Wrapped.RoundTrip(req)
-	// Print specific headers on error responses for debugging
+	// Print headers and body for error responses
 	if resp != nil && resp.StatusCode >= 400 {
 		fmt.Printf("=== API RESPONSE HEADERS ===\n")
 		fmt.Printf("Status Code: %d\n", resp.StatusCode)
@@ -37,6 +37,14 @@ func (lrt *LoggingRoundTripper) RoundTrip(req *http.Request) (*http.Response, er
 			fmt.Printf("X-Request-Flow-Error: %s\n", flowErr)
 		}
 		fmt.Printf("============================\n")
+		if resp.Body != nil {
+			bodyBytes, readErr := io.ReadAll(resp.Body)
+			resp.Body.Close()
+			resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+			if readErr == nil && len(bodyBytes) > 0 {
+				fmt.Printf("=== API RESPONSE BODY ===\n%s\n=========================\n", string(bodyBytes))
+			}
+		}
 	}
 	return resp, err
 }

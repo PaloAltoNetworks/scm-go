@@ -37,6 +37,7 @@ Param | Environment Variable | JSON Key | Default
 -------------------------------------------------
 AuthUrl | SCM_AUTH_URL | auth_url | "https://auth.apps.paloaltonetworks.com/auth/v1/oauth2/access_token"
 Host | SCM_HOST | host | "api.strata.paloaltonetworks.com"
+ZtnaHost | ZTNA_HOST | ztna_host | "api.sase.paloaltonetworks.com"
 Port | SCM_PORT | port | 0
 ClientId | SCM_CLIENT_ID | client_id | ""
 ClientSecret | SCM_CLIENT_SECRET | client_secret | ""
@@ -51,6 +52,7 @@ SkipLoggingTransport | - | skip_logging_transport | false
 type Client struct {
 	AuthUrl      string            `json:"auth_url"`
 	Host         string            `json:"host"`
+	ZtnaHost     string            `json:"ztna_host"`
 	Port         int               `json:"port"`
 	ClientId     string            `json:"client_id"`
 	ClientSecret string            `json:"client_secret"`
@@ -133,6 +135,18 @@ func (c *Client) Setup() error {
 	}
 	if c.Host == "" {
 		c.Host = "api.strata.paloaltonetworks.com"
+	}
+
+	// ZtnaHost.
+	if c.ZtnaHost == "" {
+		if val := os.Getenv("ZTNA_HOST"); c.CheckEnvironment && val != "" {
+			c.ZtnaHost = val
+		} else if json_client.ZtnaHost != "" {
+			c.ZtnaHost = json_client.ZtnaHost
+		}
+	}
+	if c.ZtnaHost == "" {
+		c.ZtnaHost = "api.sase.paloaltonetworks.com"
 	}
 
 	// Port.
@@ -453,7 +467,7 @@ func (c *Client) Log(ctx context.Context, level, msg string) {
 
 	if level == "" || c.Logging == level {
 		if c.Logger == nil {
-			log.Printf(msg)
+			log.Printf("%s", msg)
 		} else {
 			c.Logger(ctx, msg)
 		}
@@ -623,6 +637,9 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 
 // GetHost returns the Host property.
 func (c *Client) GetHost() string { return c.Host }
+
+// GetZtnaHost returns the ZtnaHost property.
+func (c *Client) GetZtnaHost() string { return c.ZtnaHost }
 
 // authResponse represents the response from the auth endpoint
 type authResponse struct {
