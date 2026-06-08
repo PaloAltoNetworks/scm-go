@@ -16,18 +16,12 @@ import (
 	"github.com/paloaltonetworks/scm-go/generated/ztna_connector_all"
 )
 
-// fqdnConnectorGroupID reads ZTNA_CONNECTOR_GROUP_ID and skips the test if unset.
-func fqdnConnectorGroupID(t *testing.T) string {
-	t.Helper()
-	return connectorGroupID(t)
-}
-
 const testFQDN = "test.example.com"
 
 // Test_ztna_connector_all_FQDNRulesAPIService_Create tests creating a FQDN rule.
 func Test_ztna_connector_all_FQDNRulesAPIService_Create(t *testing.T) {
-	groupID := fqdnConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-fqdn-create-%s", common.GenerateRandomString(6))
 
 	createTestApplication(t, client, name, groupID, testFQDN)
@@ -40,8 +34,8 @@ func Test_ztna_connector_all_FQDNRulesAPIService_Create(t *testing.T) {
 
 // Test_ztna_connector_all_FQDNRulesAPIService_GetByID creates a FQDN rule and retrieves it by OID.
 func Test_ztna_connector_all_FQDNRulesAPIService_GetByID(t *testing.T) {
-	groupID := fqdnConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-fqdn-getbyid-%s", common.GenerateRandomString(6))
 
 	createTestApplication(t, client, name, groupID, testFQDN)
@@ -69,8 +63,8 @@ func Test_ztna_connector_all_FQDNRulesAPIService_GetByID(t *testing.T) {
 
 // Test_ztna_connector_all_FQDNRulesAPIService_Update creates a FQDN rule and updates its spec.
 func Test_ztna_connector_all_FQDNRulesAPIService_Update(t *testing.T) {
-	groupID := fqdnConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-fqdn-update-%s", common.GenerateRandomString(6))
 
 	createTestApplication(t, client, name, groupID, testFQDN)
@@ -106,8 +100,8 @@ func Test_ztna_connector_all_FQDNRulesAPIService_Update(t *testing.T) {
 
 // Test_ztna_connector_all_FQDNRulesAPIService_List lists FQDN rules and verifies the created one appears.
 func Test_ztna_connector_all_FQDNRulesAPIService_List(t *testing.T) {
-	groupID := fqdnConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-fqdn-list-%s", common.GenerateRandomString(6))
 
 	createTestApplication(t, client, name, groupID, testFQDN)
@@ -138,8 +132,8 @@ func Test_ztna_connector_all_FQDNRulesAPIService_List(t *testing.T) {
 
 // Test_ztna_connector_all_FQDNRulesAPIService_Delete creates a FQDN rule, deletes it, then verifies 404.
 func Test_ztna_connector_all_FQDNRulesAPIService_Delete(t *testing.T) {
-	groupID := fqdnConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-fqdn-delete-%s", common.GenerateRandomString(6))
 
 	createTestApplication(t, client, name, groupID, testFQDN)
@@ -164,8 +158,8 @@ func Test_ztna_connector_all_FQDNRulesAPIService_Delete(t *testing.T) {
 
 // Test_ztna_connector_all_FQDNRulesAPIService_FetchByName tests the FetchFQDN convenience method.
 func Test_ztna_connector_all_FQDNRulesAPIService_FetchByName(t *testing.T) {
-	groupID := fqdnConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 
 	name := fmt.Sprintf("test-fqdn-fetch-%s", common.GenerateRandomString(8))
 	createTestApplication(t, client, name, groupID, testFQDN)

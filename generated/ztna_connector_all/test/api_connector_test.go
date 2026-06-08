@@ -18,16 +18,6 @@ import (
 	"github.com/paloaltonetworks/scm-go/generated/ztna_connector_all"
 )
 
-// connectorGroupID reads ZTNA_CONNECTOR_GROUP_ID and skips the test if unset.
-func connectorGroupID(t *testing.T) string {
-	t.Helper()
-	id := os.Getenv("ZTNA_CONNECTOR_GROUP_ID")
-	if id == "" {
-		t.Skip("Skipping: ZTNA_CONNECTOR_GROUP_ID environment variable is not set")
-	}
-	return id
-}
-
 // onlineConnectorOID reads ZTNA_ONLINE_CONNECTOR_OID and skips if unset.
 func onlineConnectorOID(t *testing.T) string {
 	t.Helper()
@@ -65,8 +55,8 @@ func fetchFirstConnectorImage(t *testing.T, client *ztna_connector_all.APIClient
 
 // Test_ztna_connector_all_ConnectorAPIService_Create tests creating a connector.
 func Test_ztna_connector_all_ConnectorAPIService_Create(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-create-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -79,8 +69,8 @@ func Test_ztna_connector_all_ConnectorAPIService_Create(t *testing.T) {
 
 // Test_ztna_connector_all_ConnectorAPIService_GetByID creates a connector and retrieves it by OID.
 func Test_ztna_connector_all_ConnectorAPIService_GetByID(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-getbyid-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -106,8 +96,8 @@ func Test_ztna_connector_all_ConnectorAPIService_GetByID(t *testing.T) {
 
 // Test_ztna_connector_all_ConnectorAPIService_Update creates a connector and updates its description.
 func Test_ztna_connector_all_ConnectorAPIService_Update(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-update-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -140,8 +130,8 @@ func Test_ztna_connector_all_ConnectorAPIService_Update(t *testing.T) {
 
 // Test_ztna_connector_all_ConnectorAPIService_List lists connectors and verifies the created one appears.
 func Test_ztna_connector_all_ConnectorAPIService_List(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-list-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -174,8 +164,8 @@ func Test_ztna_connector_all_ConnectorAPIService_List(t *testing.T) {
 
 // Test_ztna_connector_all_ConnectorAPIService_Delete creates a connector, deletes it, then verifies 404.
 func Test_ztna_connector_all_ConnectorAPIService_Delete(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-delete-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -239,8 +229,8 @@ func Test_ztna_connector_all_ConnectorAPIService_ListImages(t *testing.T) {
 // Test_ztna_connector_all_ConnectorAPIService_GetQuiesce reads quiesce state from a new connector.
 // Offline connectors may return an error — both outcomes are acceptable.
 func Test_ztna_connector_all_ConnectorAPIService_GetQuiesce(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-quiesce-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -285,8 +275,8 @@ func Test_ztna_connector_all_ConnectorAPIService_GetQuiesce_OnlineConnector(t *t
 // Test_ztna_connector_all_ConnectorAPIService_UpdateQuiesce sends a quiesce command.
 // Non-2xx is acceptable — connector is not online.
 func Test_ztna_connector_all_ConnectorAPIService_UpdateQuiesce(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-uquiesce-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -313,8 +303,8 @@ func Test_ztna_connector_all_ConnectorAPIService_UpdateQuiesce(t *testing.T) {
 
 // Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Create tests scheduling an upgrade.
 func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Create(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	imageID := fetchFirstConnectorImage(t, client)
 	name := fmt.Sprintf("test-connector-sucreate-%s", common.GenerateRandomString(6))
 
@@ -341,8 +331,8 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Create(t *test
 
 // Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Get retrieves a scheduled upgrade.
 func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Get(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	imageID := fetchFirstConnectorImage(t, client)
 	name := fmt.Sprintf("test-connector-suget-%s", common.GenerateRandomString(6))
 
@@ -374,8 +364,8 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Get(t *testing
 
 // Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_GetStatus retrieves upgrade status.
 func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_GetStatus(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-sustatus-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -398,8 +388,8 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_GetStatus(t *t
 
 // Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Update tests updating a scheduled upgrade.
 func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Update(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	images, _, _ := client.ConnectorAPI.ListConnectorImages(context.Background()).Execute()
 	if len(images) < 2 {
 		t.Skip("Need at least 2 connector images to test scheduled upgrade update")
@@ -434,8 +424,8 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Update(t *test
 
 // Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Delete deletes a scheduled upgrade.
 func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Delete(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	imageID := fetchFirstConnectorImage(t, client)
 	name := fmt.Sprintf("test-connector-sudelete-%s", common.GenerateRandomString(6))
 
@@ -485,8 +475,8 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Get_OnlineConn
 
 // Test_ztna_connector_all_ConnectorAPIService_Pcap_List lists PCAPs for a connector.
 func Test_ztna_connector_all_ConnectorAPIService_Pcap_List(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-pcaplist-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -528,8 +518,8 @@ func Test_ztna_connector_all_ConnectorAPIService_Pcap_List_OnlineConnector(t *te
 // Test_ztna_connector_all_ConnectorAPIService_Pcap_Create starts a packet capture.
 // Only succeeds if the connector is online.
 func Test_ztna_connector_all_ConnectorAPIService_Pcap_Create(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-pcap-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -558,8 +548,8 @@ func Test_ztna_connector_all_ConnectorAPIService_Pcap_Create(t *testing.T) {
 // Test_ztna_connector_all_ConnectorAPIService_Pcap_StopAndDownload stops and downloads a PCAP.
 // Skipped if the connector is not online.
 func Test_ztna_connector_all_ConnectorAPIService_Pcap_StopAndDownload(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-pcapstop-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -648,8 +638,8 @@ func Test_ztna_connector_all_ConnectorAPIService_Pcap_StartWaitStop(t *testing.T
 
 // Test_ztna_connector_all_ConnectorAPIService_TechSupport_List lists tech support files.
 func Test_ztna_connector_all_ConnectorAPIService_TechSupport_List(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-tslist-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -672,8 +662,8 @@ func Test_ztna_connector_all_ConnectorAPIService_TechSupport_List(t *testing.T) 
 // Test_ztna_connector_all_ConnectorAPIService_TechSupport_Create triggers tech support collection.
 // Only succeeds on online connectors.
 func Test_ztna_connector_all_ConnectorAPIService_TechSupport_Create(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-tscreate-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)
@@ -695,8 +685,8 @@ func Test_ztna_connector_all_ConnectorAPIService_TechSupport_Create(t *testing.T
 // Test_ztna_connector_all_ConnectorAPIService_TechSupport_StopAndDownload stops and downloads
 // a tech support file. Skipped if file collection cannot be triggered.
 func Test_ztna_connector_all_ConnectorAPIService_TechSupport_StopAndDownload(t *testing.T) {
-	groupID := connectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-connector-tsstop-%s", common.GenerateRandomString(6))
 
 	createTestConnector(t, client, name, groupID)

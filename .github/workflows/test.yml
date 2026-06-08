@@ -56,6 +56,7 @@ jobs:
             "client_id": "${{ secrets.SCM_CLIENT_ID }}",
             "client_secret": "${{ secrets.SCM_CLIENT_SECRET }}",
             "host": "${{ secrets.SCM_HOST }}",
+            "ztna_host": "${{ secrets.ZTNA_HOST || secrets.SCM_HOST }}",
             "protocol": "${{ secrets.SCM_PROTOCOL }}",
             "scope": "${{ secrets.SCM_SCOPE }}",
             "logging": "quiet",
@@ -65,10 +66,8 @@ jobs:
 
       - name: Run tests for ${{ matrix.service }}
         env:
-          ZTNA_CONNECTOR_GROUP_ID: ${{ secrets.ZTNA_CONNECTOR_GROUP_ID }}
           ZTNA_ONLINE_CONNECTOR_OID: ${{ secrets.ZTNA_ONLINE_CONNECTOR_OID }}
           ZTNA_PCAP_CONNECTOR_OID: ${{ secrets.ZTNA_PCAP_CONNECTOR_OID }}
-          ZTNAFQDN_CONNECTOR_GROUP_ID: ${{ secrets.ZTNAFQDN_CONNECTOR_GROUP_ID }}
         run: |
           set +e
 

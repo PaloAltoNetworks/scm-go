@@ -16,12 +16,6 @@ import (
 	"github.com/paloaltonetworks/scm-go/generated/ztna_connector_all"
 )
 
-// subnetConnectorGroupID reads ZTNA_CONNECTOR_GROUP_ID and skips if unset.
-func subnetConnectorGroupID(t *testing.T) string {
-	t.Helper()
-	return connectorGroupID(t)
-}
-
 const testIPSubnet = "10.100.0.0/24"
 
 // createTestSubnet creates a subnet and asserts 201.
@@ -82,8 +76,8 @@ func deleteTestSubnet(t *testing.T, client *ztna_connector_all.APIClient, oid, n
 
 // Test_ztna_connector_all_SubnetAPIService_Create tests creating a subnet.
 func Test_ztna_connector_all_SubnetAPIService_Create(t *testing.T) {
-	groupID := subnetConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-subnet-create-%s", common.GenerateRandomString(6))
 
 	createTestSubnet(t, client, name, groupID, testIPSubnet)
@@ -96,8 +90,8 @@ func Test_ztna_connector_all_SubnetAPIService_Create(t *testing.T) {
 
 // Test_ztna_connector_all_SubnetAPIService_GetByID creates a subnet and retrieves it by OID.
 func Test_ztna_connector_all_SubnetAPIService_GetByID(t *testing.T) {
-	groupID := subnetConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-subnet-getbyid-%s", common.GenerateRandomString(6))
 
 	createTestSubnet(t, client, name, groupID, testIPSubnet)
@@ -122,8 +116,8 @@ func Test_ztna_connector_all_SubnetAPIService_GetByID(t *testing.T) {
 
 // Test_ztna_connector_all_SubnetAPIService_Update creates a subnet and updates its description.
 func Test_ztna_connector_all_SubnetAPIService_Update(t *testing.T) {
-	groupID := subnetConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-subnet-update-%s", common.GenerateRandomString(6))
 
 	createTestSubnet(t, client, name, groupID, testIPSubnet)
@@ -152,8 +146,8 @@ func Test_ztna_connector_all_SubnetAPIService_Update(t *testing.T) {
 
 // Test_ztna_connector_all_SubnetAPIService_List lists subnets and verifies the created one appears.
 func Test_ztna_connector_all_SubnetAPIService_List(t *testing.T) {
-	groupID := subnetConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-subnet-list-%s", common.GenerateRandomString(6))
 
 	createTestSubnet(t, client, name, groupID, testIPSubnet)
@@ -182,8 +176,8 @@ func Test_ztna_connector_all_SubnetAPIService_List(t *testing.T) {
 
 // Test_ztna_connector_all_SubnetAPIService_Delete creates a subnet, deletes it, then verifies 404.
 func Test_ztna_connector_all_SubnetAPIService_Delete(t *testing.T) {
-	groupID := subnetConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-subnet-delete-%s", common.GenerateRandomString(6))
 
 	createTestSubnet(t, client, name, groupID, testIPSubnet)
@@ -224,8 +218,8 @@ func Test_ztna_connector_all_SubnetAPIService_ListFilters(t *testing.T) {
 
 // Test_ztna_connector_all_SubnetAPIService_FetchByName tests the FetchSubnet convenience method.
 func Test_ztna_connector_all_SubnetAPIService_FetchByName(t *testing.T) {
-	groupID := subnetConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-subnet-fetch-%s", common.GenerateRandomString(8))
 
 	createTestSubnet(t, client, name, groupID, testIPSubnet)

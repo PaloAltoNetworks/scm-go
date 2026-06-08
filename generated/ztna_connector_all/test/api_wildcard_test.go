@@ -16,13 +16,6 @@ import (
 	"github.com/paloaltonetworks/scm-go/generated/ztna_connector_all"
 )
 
-// wildcardConnectorGroupID reads ZTNA_CONNECTOR_GROUP_ID and skips if unset.
-func wildcardConnectorGroupID(t *testing.T) string {
-	t.Helper()
-	id := connectorGroupID(t)
-	return id
-}
-
 // wildcardFQDN derives a unique FQDN from the test name so each test owns a
 // distinct FQDN — the API rejects duplicate FQDNs across all wildcards in the tenant.
 func wildcardFQDN(name string) string {
@@ -92,8 +85,8 @@ func deleteTestWildcard(t *testing.T, client *ztna_connector_all.APIClient, oid,
 
 // Test_ztna_connector_all_WildcardAPIService_Create tests creating a wildcard.
 func Test_ztna_connector_all_WildcardAPIService_Create(t *testing.T) {
-	groupID := wildcardConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-wc-create-%s", common.GenerateRandomString(6))
 
 	createTestWildcard(t, client, name, groupID, wildcardFQDN(name))
@@ -106,8 +99,8 @@ func Test_ztna_connector_all_WildcardAPIService_Create(t *testing.T) {
 
 // Test_ztna_connector_all_WildcardAPIService_GetByID creates a wildcard and retrieves it by OID.
 func Test_ztna_connector_all_WildcardAPIService_GetByID(t *testing.T) {
-	groupID := wildcardConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-wc-getbyid-%s", common.GenerateRandomString(6))
 
 	createTestWildcard(t, client, name, groupID, wildcardFQDN(name))
@@ -135,8 +128,8 @@ func Test_ztna_connector_all_WildcardAPIService_GetByID(t *testing.T) {
 
 // Test_ztna_connector_all_WildcardAPIService_Update creates a wildcard and updates its description.
 func Test_ztna_connector_all_WildcardAPIService_Update(t *testing.T) {
-	groupID := wildcardConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-wc-update-%s", common.GenerateRandomString(6))
 
 	createTestWildcard(t, client, name, groupID, wildcardFQDN(name))
@@ -165,8 +158,8 @@ func Test_ztna_connector_all_WildcardAPIService_Update(t *testing.T) {
 
 // Test_ztna_connector_all_WildcardAPIService_List lists wildcards and verifies the created one appears.
 func Test_ztna_connector_all_WildcardAPIService_List(t *testing.T) {
-	groupID := wildcardConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-wc-list-%s", common.GenerateRandomString(6))
 
 	createTestWildcard(t, client, name, groupID, wildcardFQDN(name))
@@ -199,8 +192,8 @@ func Test_ztna_connector_all_WildcardAPIService_List(t *testing.T) {
 
 // Test_ztna_connector_all_WildcardAPIService_Delete creates a wildcard, deletes it, then verifies 404.
 func Test_ztna_connector_all_WildcardAPIService_Delete(t *testing.T) {
-	groupID := wildcardConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-wc-delete-%s", common.GenerateRandomString(6))
 
 	createTestWildcard(t, client, name, groupID, wildcardFQDN(name))
@@ -241,8 +234,8 @@ func Test_ztna_connector_all_WildcardAPIService_ListFilters(t *testing.T) {
 
 // Test_ztna_connector_all_WildcardAPIService_FetchByName tests the FetchWildcard convenience method.
 func Test_ztna_connector_all_WildcardAPIService_FetchByName(t *testing.T) {
-	groupID := wildcardConnectorGroupID(t)
 	client := SetupZtnaConnectorAllTestClient(t)
+	groupID := provisionGroupID(t, client)
 	name := fmt.Sprintf("test-wc-fetch-%s", common.GenerateRandomString(8))
 
 	createTestWildcard(t, client, name, groupID, wildcardFQDN(name))
