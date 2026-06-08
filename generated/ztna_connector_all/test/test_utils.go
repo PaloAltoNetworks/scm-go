@@ -90,6 +90,22 @@ func handleAPIError(err error) {
 	}
 }
 
+// ── Self-provisioning helpers ─────────────────────────────────────────────────
+
+// provisionGroupID creates a temporary connector group for the duration of the test,
+// registers t.Cleanup to delete it, and returns the group OID. This makes lifecycle
+// tests fully self-contained with no environment variable dependencies.
+func provisionGroupID(t *testing.T, client *ztna_connector_all.APIClient) string {
+	t.Helper()
+	name := "test-group-" + common.GenerateRandomString(8)
+	createTestConnectorGroup(t, client, name)
+	oid := fetchTestConnectorGroupOID(t, client, name)
+	t.Cleanup(func() {
+		deleteTestConnectorGroup(t, client, oid, name)
+	})
+	return oid
+}
+
 // ── Connector-Group helpers ───────────────────────────────────────────────────
 
 // createTestConnectorGroup creates a connector group and asserts 201.
