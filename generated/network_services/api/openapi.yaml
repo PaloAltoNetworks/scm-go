@@ -11909,7 +11909,6 @@ components:
       example:
         snippet: My Snippet
         folder: My Folder
-        routing_stack: legacy
         name: name
         id: 123e4567-e89b-12d3-a456-426655440000
         vrf:
@@ -16691,11 +16690,6 @@ components:
           readOnly: true
           type: string
         name:
-          type: string
-        routing_stack:
-          enum:
-          - legacy
-          - advanced
           type: string
         snippet:
           description: The snippet in which the resource is defined

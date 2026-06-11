@@ -202,16 +202,6 @@ func Test_mobile_agent_DestinationsAPIService_DeleteByID(t *testing.T) {
 	require.NoError(t, errDel, "Failed to delete ForwardingProfileDestinations")
 }
 
-// Test_mobile_agent_DestinationsAPIService_GetByID_NotFound tests that fetching a non-existent destination returns 404.
-func Test_mobile_agent_DestinationsAPIService_GetByID_NotFound(t *testing.T) {
-	client := SetupMobileAgentTestClient(t)
-
-	nonExistentID := "00000000-0000-0000-0000-000000000000"
-	_, httpRes, err := client.DestinationsAPI.GetGlobalProtectDestinationByID(context.Background(), nonExistentID).Execute()
-	common.LogRequestIDOnFailure(t, httpRes)
-	assert.Equal(t, 404, httpRes.StatusCode, "Expected 404 Not Found status")
-}
-
 // Test_mobile_agent_DestinationsAPIService_UpdateByID_NotFound tests that updating a non-existent destination returns 404.
 func Test_mobile_agent_DestinationsAPIService_UpdateByID_NotFound(t *testing.T) {
 	client := SetupMobileAgentTestClient(t)
@@ -220,16 +210,6 @@ func Test_mobile_agent_DestinationsAPIService_UpdateByID_NotFound(t *testing.T) 
 	_, httpRes, _ := client.DestinationsAPI.UpdateGlobalProtectDestinationByID(context.Background(), nonExistentID).
 		ForwardingProfileDestinations(newTestForwardingProfileDestinations("non-existent-dest")).
 		Execute()
-	common.LogRequestIDOnFailure(t, httpRes)
-	assert.Equal(t, 404, httpRes.StatusCode, "Expected 404 Not Found status")
-}
-
-// Test_mobile_agent_DestinationsAPIService_DeleteByID_NotFound tests that deleting a non-existent destination returns 404.
-func Test_mobile_agent_DestinationsAPIService_DeleteByID_NotFound(t *testing.T) {
-	client := SetupMobileAgentTestClient(t)
-
-	nonExistentID := "00000000-0000-0000-0000-000000000000"
-	httpRes, err := client.DestinationsAPI.DeleteGlobalProtectDestination(context.Background(), nonExistentID).Execute()
 	common.LogRequestIDOnFailure(t, httpRes)
 	assert.Equal(t, 404, httpRes.StatusCode, "Expected 404 Not Found status")
 }

@@ -98,7 +98,6 @@ func createTestLogicalRouter(t *testing.T, routerName string, ethInterfaceName s
 
 	// Set required / essential fields
 	logicalRouter.SetFolder(TargetFolder)
-	logicalRouter.SetRoutingStack("advanced")
 	logicalRouter.SetVrf([]network_services.LogicalRoutersVrfInner{vrfInner})
 
 	return *logicalRouter
@@ -178,7 +177,6 @@ func Test_network_services_LogicalRoutersAPIService_Create(t *testing.T) {
 	// Verify the response matches key input fields
 	assert.Equal(t, uniqueRouterName, res.Name, "Created router name should match")
 	assert.Equal(t, "All", res.GetFolder(), "Folder should be 'All'")
-	assert.Equal(t, "advanced", res.GetRoutingStack(), "Routing stack should match")
 	require.Len(t, res.Vrf, 1, "Vrf list should contain one element")
 }
 
@@ -219,7 +217,6 @@ func Test_network_services_LogicalRoutersAPIService_GetByID(t *testing.T) {
 	// Verify the retrieved data matches the creation input
 	assert.Equal(t, createdID, getRes.GetId(), "Retrieved ID should match the created ID")
 	assert.Equal(t, uniqueRouterName, getRes.Name, "Retrieved name should match")
-	assert.Equal(t, "advanced", getRes.GetRoutingStack(), "Routing stack should match")
 }
 
 // Test_network_services_LogicalRoutersAPIService_DeleteByID tests deleting a Logical Router.
@@ -323,12 +320,7 @@ func Test_network_services_LogicalRoutersAPIService_Update(t *testing.T) {
 
 	// --- 2. UPDATE: Prepare payload and execute PUT ---
 
-	updatedRoutingStack := "legacy"
-
 	updatedRouter := createTestLogicalRouter(t, uniqueRouterName, ethIntfName)
-
-	// 2.1. Apply the ONLY change: Update the root-level field
-	updatedRouter.SetRoutingStack(updatedRoutingStack)
 
 	// 2.2. Critical: Set metadata required for the PUT request
 	updatedRouter.SetId(createdID)
@@ -345,9 +337,6 @@ func Test_network_services_LogicalRoutersAPIService_Update(t *testing.T) {
 	require.NoError(t, errUpdate, "Failed to update Logical Router")
 	assert.Equal(t, http.StatusOK, httpResUpdate.StatusCode, "Expected 200 OK status")
 	assert.NotNil(t, updateRes, "Update response should not be nil")
-
-	// Verify updated root field
-	assert.Equal(t, updatedRoutingStack, updateRes.GetRoutingStack(), "Routing Stack should be updated to 'legacy'")
 
 	// Verify non-updated identifying and nested fields are preserved
 	assert.Equal(t, uniqueRouterName, updateRes.Name, "Name must remain unchanged")
