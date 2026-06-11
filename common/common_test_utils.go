@@ -14,6 +14,7 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+	"testing"
 	"time"
 )
 
@@ -198,4 +199,33 @@ type ErrorInfo struct {
 type APIErrorResponse struct {
 	Errors    []ErrorInfo `json:"_errors"`
 	RequestID string      `json:"_request_id"`
+}
+
+// LogRequestIDOnFailure registers a cleanup that logs the X-Request-Id, X-Trace-Id, and X-Request-Flow-Error headers if the test fails.
+// Call it once after each Execute() call; captures the request ID by value so multiple calls
+// in the same test each log their own ID independently.
+func LogRequestIDOnFailure(t *testing.T, httpRes *http.Response) {
+	t.Helper()
+	if httpRes == nil {
+		return
+	}
+	reqID := httpRes.Header.Get("X-Request-Id")
+	traceID := httpRes.Header.Get("X-Trace-Id")
+	flowError := httpRes.Header.Get("X-Request-Flow-Error")
+	method, path := "", ""
+	if httpRes.Request != nil {
+		method = httpRes.Request.Method
+		path = httpRes.Request.URL.Path
+	}
+	t.Cleanup(func() {
+		if t.Failed() {
+			if reqID != "" {
+				t.Logf("X-Request-ID [%s %s]: %s", method, path, reqID)
+			} else if traceID != "" {
+				t.Logf("X-Trace-ID [%s %s]: %s", method, path, traceID)
+			} else if flowError != "" {
+				t.Logf("X-Request-Flow-Error [%s %s]: %s", method, path, flowError)
+			}
+		}
+	})
 }

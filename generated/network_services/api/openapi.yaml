@@ -8862,6 +8862,8 @@ components:
             enable: false
             system_priority: 39501
             max_ports: 1
+            high_availability:
+              passive_pre_negotiation: false
           netflow_profile: netflow_profile
           ip:
           - name: name
@@ -8893,6 +8895,8 @@ components:
             enable: false
             system_priority: 39501
             max_ports: 1
+            high_availability:
+              passive_pre_negotiation: false
           vlan_tag: "123"
           netflow_profile: netflow_profile
         device: My Device
@@ -11549,6 +11553,8 @@ components:
         enable: false
         system_priority: 39501
         max_ports: 1
+        high_availability:
+          passive_pre_negotiation: false
       properties:
         enable:
           default: false
@@ -11558,6 +11564,8 @@ components:
           default: false
           description: Fast failover
           type: boolean
+        high_availability:
+          $ref: '#/components/schemas/lacp_high_availability'
         max_ports:
           default: 8
           description: Maximum number of physical ports bundled in the LAG
@@ -18793,6 +18801,8 @@ components:
           enable: false
           system_priority: 39501
           max_ports: 1
+          high_availability:
+            passive_pre_negotiation: false
         vlan_tag: "123"
         netflow_profile: netflow_profile
       properties:
@@ -18877,6 +18887,8 @@ components:
           enable: false
           system_priority: 39501
           max_ports: 1
+          high_availability:
+            passive_pre_negotiation: false
         netflow_profile: netflow_profile
         ip:
         - name: name
@@ -23426,6 +23438,14 @@ components:
           type: string
       required:
       - destination_ip
+    lacp_high_availability:
+      description: High Availability settings
+      example:
+        passive_pre_negotiation: false
+      properties:
+        passive_pre_negotiation:
+          default: false
+          type: boolean
     layer3_sub_interfaces_dhcp_client_dhcp_client_send_hostname:
       description: Layer3 sub interfaces DHCP Client Send hostname
       example:

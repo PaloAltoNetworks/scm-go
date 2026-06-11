@@ -14,27 +14,135 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
+	setup "github.com/paloaltonetworks/scm-go"
 	"github.com/paloaltonetworks/scm-go/common"
 	"github.com/paloaltonetworks/scm-go/generated/network_services"
+	"github.com/paloaltonetworks/scm-go/generated/objects"
 )
+
+// Helper function to get objects API client for creating dependencies
+func getObjectsClient(t *testing.T) *objects.APIClient {
+	configPath := common.GetConfigPath()
+	setupClient := &setup.Client{
+		AuthFile:         configPath,
+		CheckEnvironment: false,
+	}
+	err := setupClient.Setup()
+	require.NoError(t, err, "Failed to setup objects client")
+	ctx := context.Background()
+	if setupClient.Jwt == "" {
+		err = setupClient.RefreshJwt(ctx)
+		require.NoError(t, err, "Failed to refresh JWT for objects client")
+	}
+	return setup.GetObjectsAPIClient(setupClient)
+}
+
+// Helper function to create an HTTP server profile for testing
+func createTestHTTPServerProfile(objClient *objects.APIClient, t *testing.T, nameSuffix string, folder string) (string, string) {
+	httpProfile := objects.HttpServerProfiles{
+		Name:   "test-http-" + nameSuffix + "-" + common.GenerateRandomString(5),
+		Folder: common.StringPtr(folder),
+		Server: []objects.HttpServerProfilesServerInner{
+			{
+				Name:       common.StringPtr("http-server-1"),
+				Address:    common.StringPtr("192.168.1.100"),
+				Port:       common.Int32Ptr(8080),
+				Protocol:   common.StringPtr("HTTP"),
+				HttpMethod: common.StringPtr("POST"),
+			},
+		},
+	}
+
+	req := objClient.HTTPServerProfilesAPI.CreateHTTPServerProfiles(context.Background()).HttpServerProfiles(httpProfile)
+	res, _, err := req.Execute()
+	if err != nil {
+		if apiErr, ok := err.(*objects.GenericOpenAPIError); ok {
+			t.Logf("API Error Body: %s", string(apiErr.Body()))
+		}
+		t.Logf("Failed to create HTTP server profile: %v", err)
+	}
+	require.NoError(t, err, "Failed to create HTTP server profile")
+	t.Logf("Created HTTP server profile: %s with ID: %s", httpProfile.Name, res.Id)
+	return httpProfile.Name, res.Id
+}
+
+// Helper function to create a Syslog server profile for testing
+func createTestSyslogServerProfile(objClient *objects.APIClient, t *testing.T, nameSuffix string, folder string) (string, string) {
+	syslogProfile := objects.SyslogServerProfiles{
+		Name:   "sys-" + nameSuffix + "-" + common.GenerateRandomString(5),
+		Folder: common.StringPtr(folder),
+		Server: []objects.SyslogServerProfilesServerInner{
+			{
+				Name:      common.StringPtr("syslog-server-1"),
+				Server:    common.StringPtr("192.168.1.101"),
+				Port:      common.Int32Ptr(514),
+				Format:    common.StringPtr("BSD"),
+				Facility:  common.StringPtr("LOG_USER"),
+				Transport: common.StringPtr("UDP"),
+			},
+		},
+	}
+
+	req := objClient.SyslogServerProfilesAPI.CreateSyslogServerProfiles(context.Background()).SyslogServerProfiles(syslogProfile)
+	res, _, err := req.Execute()
+	if err != nil {
+		if apiErr, ok := err.(*objects.GenericOpenAPIError); ok {
+			t.Logf("API Error Body: %s", string(apiErr.Body()))
+		}
+		t.Logf("Failed to create Syslog server profile: %v", err)
+	}
+	require.NoError(t, err, "Failed to create Syslog server profile")
+	t.Logf("Created Syslog server profile: %s with ID: %s", syslogProfile.Name, res.Id)
+	return syslogProfile.Name, res.Id
+}
+
+// Helper function to delete an HTTP server profile
+func deleteTestHTTPServerProfile(objClient *objects.APIClient, t *testing.T, id string) {
+	req := objClient.HTTPServerProfilesAPI.DeleteHTTPServerProfilesByID(context.Background(), id)
+	_, err := req.Execute()
+	if err != nil {
+		t.Logf("Warning: Failed to delete HTTP server profile %s: %v", id, err)
+	} else {
+		t.Logf("Deleted HTTP server profile: %s", id)
+	}
+}
+
+// Helper function to delete a Syslog server profile
+func deleteTestSyslogServerProfile(objClient *objects.APIClient, t *testing.T, id string) {
+	req := objClient.SyslogServerProfilesAPI.DeleteSyslogServerProfilesByID(context.Background(), id)
+	_, err := req.Execute()
+	if err != nil {
+		t.Logf("Warning: Failed to delete Syslog server profile %s: %v", id, err)
+	} else {
+		t.Logf("Deleted Syslog server profile: %s", id)
+	}
+}
 
 // Test_networkservices_ConfigMatchListAPIService_Create tests the creation of a Config Match List.
 func Test_networkservices_ConfigMatchListAPIService_Create(t *testing.T) {
-	// Setup the authenticated client.
+	// Setup clients
 	client := SetupNetworkSvcTestClient(t)
+	objClient := getObjectsClient(t)
+	folder := "ngfw-shared"
 
-	// Create a valid Config Match List object with a unique name.
+	// Step 1: Create dependency profiles first
+	httpProfileName, httpProfileID := createTestHTTPServerProfile(objClient, t, "cfgmatch-create", folder)
+	syslogProfileName, syslogProfileID := createTestSyslogServerProfile(objClient, t, "cfgmatch-create", folder)
+
+	// Defer cleanup of dependencies (will run last)
+	defer deleteTestHTTPServerProfile(objClient, t, httpProfileID)
+	defer deleteTestSyslogServerProfile(objClient, t, syslogProfileID)
+
+	// Step 2: Create Config Match List with dependencies
 	matchListName := "test-config-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.ConfigMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("Config match list for tracking configuration changes and audit log forwarding"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
+		SendSyslog:     []string{syslogProfileName},
+		SendHttp:       []string{httpProfileName},
 		SendToPanorama: common.BoolPtr(false),
 	}
 
@@ -44,7 +152,7 @@ func Test_networkservices_ConfigMatchListAPIService_Create(t *testing.T) {
 	req := client.ConfigMatchListAPI.CreateConfigMatchList(context.Background()).ConfigMatchList(matchList)
 	res, httpRes, err := req.Execute()
 
-	// Defer cleanup for the Config Match List.
+	// Defer cleanup for the Config Match List (runs before dependency cleanup)
 	if res != nil && res.Id != nil {
 		defer func() {
 			t.Logf("Cleaning up Config Match List with ID: %s", *res.Id)
@@ -70,19 +178,16 @@ func Test_networkservices_ConfigMatchListAPIService_Create(t *testing.T) {
 // Test_networkservices_ConfigMatchListAPIService_GetByID tests the retrieval of a Config Match List by its ID.
 func Test_networkservices_ConfigMatchListAPIService_GetByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to retrieve.
+	// Create a simple match list to retrieve (no dependencies needed for basic test)
 	matchListName := "test-config-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.ConfigMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("Config match list for get by ID test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		SendToPanorama: common.BoolPtr(false),
 	}
 
@@ -119,19 +224,16 @@ func Test_networkservices_ConfigMatchListAPIService_GetByID(t *testing.T) {
 // Test_networkservices_ConfigMatchListAPIService_Update tests updating a Config Match List.
 func Test_networkservices_ConfigMatchListAPIService_Update(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to update.
+	// Create a simple match list to update
 	matchListName := "test-config-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.ConfigMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("Config match list for update test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		SendToPanorama: common.BoolPtr(false),
 	}
 
@@ -155,12 +257,8 @@ func Test_networkservices_ConfigMatchListAPIService_Update(t *testing.T) {
 	updatedMatchList := network_services.ConfigMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("Updated description for Config match list"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		SendToPanorama: common.BoolPtr(false),
 	}
 
@@ -212,19 +310,16 @@ func Test_networkservices_ConfigMatchListAPIService_Fetch(t *testing.T) {
 // Test_networkservices_ConfigMatchListAPIService_DeleteByID tests deleting a Config Match List.
 func Test_networkservices_ConfigMatchListAPIService_DeleteByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to delete.
+	// Create a simple match list to delete
 	matchListName := "test-config-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.ConfigMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("Config match list for delete test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		SendToPanorama: common.BoolPtr(false),
 	}
 

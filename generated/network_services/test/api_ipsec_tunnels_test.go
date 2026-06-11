@@ -15,41 +15,19 @@ import (
 	"github.com/paloaltonetworks/scm-go/generated/network_services"
 )
 
-// createTestIKEGateway creates an IKE Gateway and its dependencies.
+// createTestIKEGatewayWithCleanup creates an IKE Gateway and its dependencies.
 // It returns the gateway name, gateway ID, and a cleanup function.
-func createTestIKEGateway(t *testing.T, client *network_services.APIClient, suffix string) (string, string, func()) {
+func createTestIKEGatewayWithCleanup(t *testing.T, client *network_services.APIClient, suffix string) (string, string, func()) {
 	// Create the IKE Crypto Profile dependency first using the shared helper.
 	cryptoProfileName := "test-crypto-for-tunnel-" + suffix
 	cryptoProfileID := CreateTestIKECryptoProfile(t, client, cryptoProfileName)
 
-	// Create a valid IKE Gateway object.
+	// Create the IKE Gateway using the shared helper function.
 	gatewayName := "test-gw-for-tunnel-" + suffix
-	gateway := network_services.IkeGateways{
-		Folder: common.StringPtr("Remote Networks"),
-		Name:   gatewayName,
-		Authentication: network_services.IkeGatewaysAuthentication{
-			PreSharedKey: &network_services.IkeGatewaysAuthenticationPreSharedKey{
-				Key: common.StringPtr("secret"),
-			},
-		},
-		PeerAddress: network_services.IkeGatewaysPeerAddress{
-			Ip: common.StringPtr("1.1.1.1"),
-		},
-		Protocol: network_services.IkeGatewaysProtocol{
-			Ikev1: &network_services.IkeGatewaysProtocolIkev1{
-				IkeCryptoProfile: common.StringPtr(cryptoProfileName),
-			},
-		},
-	}
-
-	req := client.IKEGatewaysAPI.CreateIKEGateways(context.Background()).IkeGateways(gateway)
-	res, _, err := req.Execute()
-	require.NoError(t, err, "Failed to create test IKE Gateway dependency")
-	require.NotNil(t, res, "Test IKE Gateway create response should not be nil")
-	t.Logf("Created test IKE Gateway '%s' with ID %s", gatewayName, *res.Id)
+	gatewayID := CreateTestIkeGateway(t, client, gatewayName, cryptoProfileName)
 
 	cleanup := func() {
-		delGwReq := client.IKEGatewaysAPI.DeleteIKEGatewaysByID(context.Background(), *res.Id)
+		delGwReq := client.IKEGatewaysAPI.DeleteIKEGatewaysByID(context.Background(), gatewayID)
 		_, err := delGwReq.Execute()
 		require.NoError(t, err, "Failed to delete test IKE Gateway '%s'", gatewayName)
 		t.Logf("Deleted test IKE Gateway '%s'", gatewayName)
@@ -58,7 +36,7 @@ func createTestIKEGateway(t *testing.T, client *network_services.APIClient, suff
 		DeleteTestIKECryptoProfile(t, client, cryptoProfileID, cryptoProfileName)
 	}
 
-	return gatewayName, *res.Id, cleanup
+	return gatewayName, gatewayID, cleanup
 }
 
 // Test_networkservices_IPsecTunnelsAPIService_Create tests the creation of an IPsec tunnel object.
@@ -67,7 +45,7 @@ func Test_networkservices_IPsecTunnelsAPIService_Create(t *testing.T) {
 	randomSuffix := common.GenerateRandomString(6)
 
 	// Create dependencies.
-	gatewayName, _, cleanupGw := createTestIKEGateway(t, client, randomSuffix)
+	gatewayName, _, cleanupGw := createTestIKEGatewayWithCleanup(t, client, randomSuffix)
 	defer cleanupGw()
 
 	// Create the IPsec tunnel object.
@@ -115,7 +93,7 @@ func Test_networkservices_IPsecTunnelsAPIService_GetByID(t *testing.T) {
 	randomSuffix := common.GenerateRandomString(6)
 
 	// Create dependencies.
-	gatewayName, _, cleanupGw := createTestIKEGateway(t, client, randomSuffix)
+	gatewayName, _, cleanupGw := createTestIKEGatewayWithCleanup(t, client, randomSuffix)
 	defer cleanupGw()
 
 	// Create an IPsec tunnel to retrieve.
@@ -156,7 +134,7 @@ func Test_networkservices_IPsecTunnelsAPIService_Update(t *testing.T) {
 	randomSuffix := common.GenerateRandomString(6)
 
 	// Create dependencies.
-	gatewayName, _, cleanupGw := createTestIKEGateway(t, client, randomSuffix)
+	gatewayName, _, cleanupGw := createTestIKEGatewayWithCleanup(t, client, randomSuffix)
 	defer cleanupGw()
 
 	// Create an IPsec tunnel to update.
@@ -204,7 +182,7 @@ func Test_networkservices_IPsecTunnelsAPIService_List(t *testing.T) {
 	randomSuffix := common.GenerateRandomString(6)
 
 	// Create dependencies.
-	gatewayName, _, cleanupGw := createTestIKEGateway(t, client, randomSuffix)
+	gatewayName, _, cleanupGw := createTestIKEGatewayWithCleanup(t, client, randomSuffix)
 	defer cleanupGw()
 
 	// Create an IPsec tunnel to list.
@@ -256,7 +234,7 @@ func Test_networkservices_IPsecTunnelsAPIService_DeleteByID(t *testing.T) {
 	randomSuffix := common.GenerateRandomString(6)
 
 	// Create dependencies.
-	gatewayName, _, cleanupGw := createTestIKEGateway(t, client, randomSuffix)
+	gatewayName, _, cleanupGw := createTestIKEGatewayWithCleanup(t, client, randomSuffix)
 	defer cleanupGw()
 
 	// Create an IPsec tunnel to delete.
@@ -292,7 +270,7 @@ func Test_networkservices_IPsecTunnelsAPIService_FetchIPsecTunnels(t *testing.T)
 	randomSuffix := common.GenerateRandomString(6)
 
 	// Create dependencies.
-	gatewayName, _, cleanupGw := createTestIKEGateway(t, client, randomSuffix)
+	gatewayName, _, cleanupGw := createTestIKEGatewayWithCleanup(t, client, randomSuffix)
 	defer cleanupGw()
 
 	// Create a test tunnel first.

@@ -31,36 +31,107 @@ func createTestLogForwardingProfile(nameSuffix string, folder string) objects.Lo
 	}
 }
 
-// Helper function to create a COMPLEX LogForwardingProfiles object for testing.
-func createComplexTestLogForwardingProfile(nameSuffix string, folder string) objects.LogForwardingProfiles {
+// Helper function to create an HTTP server profile for testing
+func createTestHttpServerProfile(client *objects.APIClient, t *testing.T, nameSuffix string, folder string) (string, string) {
+	httpProfile := objects.HttpServerProfiles{
+		Name:   "test-http-" + nameSuffix + "-" + common.GenerateRandomString(5),
+		Folder: common.StringPtr(folder),
+		Server: []objects.HttpServerProfilesServerInner{
+			{
+				Name:       common.StringPtr("http-server-1"),
+				Address:    common.StringPtr("192.168.1.100"),
+				Port:       common.Int32Ptr(8080),
+				Protocol:   common.StringPtr("HTTP"),
+				HttpMethod: common.StringPtr("POST"),
+			},
+		},
+	}
 
-	// 1. define the list of match list objects
+	req := client.HTTPServerProfilesAPI.CreateHTTPServerProfiles(context.Background()).HttpServerProfiles(httpProfile)
+	res, _, err := req.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create HTTP server profile")
+	t.Logf("Created HTTP server profile: %s with ID: %s", httpProfile.Name, res.Id)
+	return httpProfile.Name, res.Id
+}
+
+// Helper function to create a Syslog server profile for testing
+func createTestSyslogServerProfile(client *objects.APIClient, t *testing.T, nameSuffix string, folder string) (string, string) {
+	syslogProfile := objects.SyslogServerProfiles{
+		Name:   "test-syslog-" + nameSuffix + "-" + common.GenerateRandomString(5),
+		Folder: common.StringPtr(folder),
+		Server: []objects.SyslogServerProfilesServerInner{
+			{
+				Name:      common.StringPtr("syslog-server-1"),
+				Server:    common.StringPtr("192.168.1.101"),
+				Port:      common.Int32Ptr(514),
+				Facility:  common.StringPtr("LOG_USER"),
+				Transport: common.StringPtr("UDP"),
+			},
+		},
+	}
+
+	req := client.SyslogServerProfilesAPI.CreateSyslogServerProfiles(context.Background()).SyslogServerProfiles(syslogProfile)
+	res, _, err := req.Execute()
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create Syslog server profile")
+	t.Logf("Created Syslog server profile: %s with ID: %s", syslogProfile.Name, res.Id)
+	return syslogProfile.Name, res.Id
+}
+
+// Helper function to delete an HTTP server profile
+func deleteTestHttpServerProfile(client *objects.APIClient, t *testing.T, id string) {
+	req := client.HTTPServerProfilesAPI.DeleteHTTPServerProfilesByID(context.Background(), id)
+	_, err := req.Execute()
+	if err != nil {
+		t.Logf("Warning: Failed to delete HTTP server profile %s: %v", id, err)
+	} else {
+		t.Logf("Deleted HTTP server profile: %s", id)
+	}
+}
+
+// Helper function to delete a Syslog server profile
+func deleteTestSyslogServerProfile(client *objects.APIClient, t *testing.T, id string) {
+	req := client.SyslogServerProfilesAPI.DeleteSyslogServerProfilesByID(context.Background(), id)
+	_, err := req.Execute()
+	if err != nil {
+		t.Logf("Warning: Failed to delete Syslog server profile %s: %v", id, err)
+	} else {
+		t.Logf("Deleted Syslog server profile: %s", id)
+	}
+}
+
+// Helper function to create a COMPLEX LogForwardingProfiles object for testing.
+// Requires httpProfileName and syslogProfileName to be created first.
+func createComplexTestLogForwardingProfile(nameSuffix string, folder string, httpProfileName string, syslogProfileName string) objects.LogForwardingProfiles {
+
+	// 1. define the list of match list objects using the provided profile names
 	matchList := []objects.LogForwardingProfilesMatchListInner{
 		{
 			Name:       "profile-match-1",
-			ActionDesc: common.StringPtr("profile match for tunnel"),
+			ActionDesc: common.StringPtr("profile match for tunnel with syslog"),
 			LogType:    "tunnel",
 			Filter:     "(tunnelid neq 123) or (zone.dst eq 192.5.125.155)",
-			SendSyslog: []string{"syslog-server-prof-mixed"},
-			SendHttp:   []string{"test_http"},
+			SendSyslog: []string{syslogProfileName},
 		},
 		{
-			Name:         "profile-match-2",
-			ActionDesc:   common.StringPtr("profile match w/ snmp and email"),
-			LogType:      "decryption",
-			Filter:       "(addr.src in 10.0.0.0/8)",
-			SendSnmptrap: []string{"snmp_test"},
-			SendEmail:    []string{"email_test", "email_test_2"},
+			Name:       "profile-match-2",
+			ActionDesc: common.StringPtr("profile match with http"),
+			LogType:    "decryption",
+			Filter:     "(addr.src in 10.0.0.0/8)",
+			SendHttp:   []string{httpProfileName},
 		},
 		{
-			Name:         "profile-match-3",
-			ActionDesc:   common.StringPtr("profile match w/ all server profiles"),
-			LogType:      "traffic",
-			Filter:       "(device_name eq test_device)",
-			SendSyslog:   []string{"syslog-server-prof-mixed", "syslog-server-prof-complete"},
-			SendHttp:     []string{"test_http", "t10", "t5"},
-			SendSnmptrap: []string{"snmp_test"},
-			SendEmail:    []string{"email_test", "email_test_2"},
+			Name:       "profile-match-3",
+			ActionDesc: common.StringPtr("profile match with both http and syslog"),
+			LogType:    "traffic",
+			Filter:     "(device_name eq test_device)",
+			SendSyslog: []string{syslogProfileName},
+			SendHttp:   []string{httpProfileName},
 		},
 	}
 
@@ -76,9 +147,18 @@ func createComplexTestLogForwardingProfile(nameSuffix string, folder string) obj
 // Test_objects_LogForwardingProfilesAPIService_Create tests the creation of a log forwarding profile
 func Test_objects_LogForwardingProfilesAPIService_Create(t *testing.T) {
 	client := SetupObjectSvcTestClient(t)
+	folder := "All"
 
-	// create a profile object
-	profile := createComplexTestLogForwardingProfile("create", "All")
+	// Step 1: Create dependency profiles first
+	httpProfileName, httpProfileID := createTestHttpServerProfile(client, t, "create", folder)
+	syslogProfileName, syslogProfileID := createTestSyslogServerProfile(client, t, "create", folder)
+
+	// Defer cleanup of dependencies (will run last, after log forwarding profile cleanup)
+	defer deleteTestHttpServerProfile(client, t, httpProfileID)
+	defer deleteTestSyslogServerProfile(client, t, syslogProfileID)
+
+	// Step 2: Create the complex log forwarding profile using the dependency names
+	profile := createComplexTestLogForwardingProfile("create", folder, httpProfileName, syslogProfileName)
 	profileName := profile.Name
 
 	// make the create request to the API
@@ -102,7 +182,7 @@ func Test_objects_LogForwardingProfilesAPIService_Create(t *testing.T) {
 	createdID := *res.Id
 	t.Logf("Successfully created log forwarding profile: %s with ID: %s", profileName, createdID)
 
-	// cleanup: delete the created profile to maintain test isolation
+	// cleanup: delete the created log forwarding profile first (before dependencies)
 	reqDel := client.LogForwardingProfilesAPI.DeleteLogForwardingProfilesByID(context.Background(), createdID)
 	httpResDel, errDel := reqDel.Execute()
 	if errDel != nil {
@@ -166,14 +246,13 @@ func Test_objects_LogForwardingProfilesAPIService_Update(t *testing.T) {
 	require.NoError(t, err, "Failed to create profile for update test")
 	createdID := *createRes.Id
 
-	// 2. prepare the updated object (adding a second match list entry)
+	// 2. prepare the updated object (adding a second match list entry without external references)
 	updatedProfile := *createRes
 	updatedProfile.Description = common.StringPtr("Updated Description")
 	updatedProfile.MatchList = append(updatedProfile.MatchList, objects.LogForwardingProfilesMatchListInner{
-		Name:     "added-match-during-update",
-		LogType:  "wildfire",
-		Filter:   "(imei contains test_server)",
-		SendHttp: []string{"t20"},
+		Name:    "added-match-during-update",
+		LogType: "wildfire",
+		Filter:  "(imei contains test_server)",
 	})
 
 	// 3. test update operation
@@ -277,9 +356,18 @@ func Test_objects_LogForwardingProfilesAPIService_DeleteByID(t *testing.T) {
 func Test_objects_LogForwardingProfilesAPIService_FetchLogForwardingProfiles(t *testing.T) {
 	// Setup the authenticated client
 	client := SetupObjectSvcTestClient(t)
+	folder := "All"
 
-	// Create test object using same payload as Create test
-	testObj := createComplexTestLogForwardingProfile("fetch", "All")
+	// Step 1: Create dependency profiles first
+	httpProfileName, httpProfileID := createTestHttpServerProfile(client, t, "fetch", folder)
+	syslogProfileName, syslogProfileID := createTestSyslogServerProfile(client, t, "fetch", folder)
+
+	// Defer cleanup of dependencies (will run last)
+	defer deleteTestHttpServerProfile(client, t, httpProfileID)
+	defer deleteTestSyslogServerProfile(client, t, syslogProfileID)
+
+	// Step 2: Create test object using complex payload with dependencies
+	testObj := createComplexTestLogForwardingProfile("fetch", folder, httpProfileName, syslogProfileName)
 	testName := testObj.Name
 
 	createReq := client.LogForwardingProfilesAPI.CreateLogForwardingProfiles(context.Background()).LogForwardingProfiles(testObj)
@@ -291,7 +379,7 @@ func Test_objects_LogForwardingProfilesAPIService_FetchLogForwardingProfiles(t *
 	require.NotNil(t, createRes, "Create response should not be nil")
 	createdID := *createRes.Id
 
-	// Cleanup after test
+	// Cleanup log forwarding profile after test (before dependencies)
 	defer func() {
 		deleteReq := client.LogForwardingProfilesAPI.DeleteLogForwardingProfilesByID(context.Background(), createdID)
 		_, _ = deleteReq.Execute()
@@ -302,7 +390,7 @@ func Test_objects_LogForwardingProfilesAPIService_FetchLogForwardingProfiles(t *
 	fetchedObj, err := client.LogForwardingProfilesAPI.FetchLogForwardingProfiles(
 		context.Background(),
 		testName,
-		common.StringPtr("Prisma Access"),
+		common.StringPtr(folder),
 		nil, // snippet
 		nil, // device
 	)
@@ -318,7 +406,7 @@ func Test_objects_LogForwardingProfilesAPIService_FetchLogForwardingProfiles(t *
 	notFound, err := client.LogForwardingProfilesAPI.FetchLogForwardingProfiles(
 		context.Background(),
 		"non-existent-log_forwarding_profiles-xyz-12345",
-		common.StringPtr("Prisma Access"),
+		common.StringPtr(folder),
 		nil,
 		nil,
 	)

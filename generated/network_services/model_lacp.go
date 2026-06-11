@@ -23,7 +23,8 @@ type Lacp struct {
 	// Enable LACP?
 	Enable *bool `json:"enable,omitempty"`
 	// Fast failover
-	FastFailover *bool `json:"fast_failover,omitempty"`
+	FastFailover     *bool                 `json:"fast_failover,omitempty"`
+	HighAvailability *LacpHighAvailability `json:"high_availability,omitempty"`
 	// Maximum number of physical ports bundled in the LAG
 	MaxPorts *int32 `json:"max_ports,omitempty"`
 	// Mode
@@ -140,6 +141,38 @@ func (o *Lacp) HasFastFailover() bool {
 // SetFastFailover gets a reference to the given bool and assigns it to the FastFailover field.
 func (o *Lacp) SetFastFailover(v bool) {
 	o.FastFailover = &v
+}
+
+// GetHighAvailability returns the HighAvailability field value if set, zero value otherwise.
+func (o *Lacp) GetHighAvailability() LacpHighAvailability {
+	if o == nil || IsNil(o.HighAvailability) {
+		var ret LacpHighAvailability
+		return ret
+	}
+	return *o.HighAvailability
+}
+
+// GetHighAvailabilityOk returns a tuple with the HighAvailability field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Lacp) GetHighAvailabilityOk() (*LacpHighAvailability, bool) {
+	if o == nil || IsNil(o.HighAvailability) {
+		return nil, false
+	}
+	return o.HighAvailability, true
+}
+
+// HasHighAvailability returns a boolean if a field has been set.
+func (o *Lacp) HasHighAvailability() bool {
+	if o != nil && !IsNil(o.HighAvailability) {
+		return true
+	}
+
+	return false
+}
+
+// SetHighAvailability gets a reference to the given LacpHighAvailability and assigns it to the HighAvailability field.
+func (o *Lacp) SetHighAvailability(v LacpHighAvailability) {
+	o.HighAvailability = &v
 }
 
 // GetMaxPorts returns the MaxPorts field value if set, zero value otherwise.
@@ -286,6 +319,9 @@ func (o Lacp) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FastFailover) {
 		toSerialize["fast_failover"] = o.FastFailover
 	}
+	if !IsNil(o.HighAvailability) {
+		toSerialize["high_availability"] = o.HighAvailability
+	}
 	if !IsNil(o.MaxPorts) {
 		toSerialize["max_ports"] = o.MaxPorts
 	}
@@ -322,6 +358,7 @@ func (o *Lacp) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "enable")
 		delete(additionalProperties, "fast_failover")
+		delete(additionalProperties, "high_availability")
 		delete(additionalProperties, "max_ports")
 		delete(additionalProperties, "mode")
 		delete(additionalProperties, "system_priority")

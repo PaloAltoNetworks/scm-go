@@ -20,21 +20,29 @@ import (
 
 // Test_networkservices_HipmatchMatchListAPIService_Create tests the creation of a HIP Match List.
 func Test_networkservices_HipmatchMatchListAPIService_Create(t *testing.T) {
-	// Setup the authenticated client.
+	// Setup clients
 	client := SetupNetworkSvcTestClient(t)
+	objClient := getObjectsClient(t)
+	folder := "ngfw-shared"
 
-	// Create a valid HIP Match List object with a unique name.
+	// Step 1: Create dependency profiles first
+	httpProfileName, httpProfileID := createTestHTTPServerProfile(objClient, t, "hip-create", folder)
+	syslogProfileName, syslogProfileID := createTestSyslogServerProfile(objClient, t, "hip-create", folder)
+
+	// Defer cleanup of dependencies (will run last)
+	defer deleteTestHTTPServerProfile(objClient, t, httpProfileID)
+	defer deleteTestSyslogServerProfile(objClient, t, syslogProfileID)
+
+	// Step 2: Create HIP Match List with dependencies
 	matchListName := "test-hipmatch-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.HipmatchMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("HIP match list for monitoring host information profile events and endpoint compliance status"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
+		SendSyslog:     []string{syslogProfileName},
+		SendHttp:       []string{httpProfileName},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -45,7 +53,7 @@ func Test_networkservices_HipmatchMatchListAPIService_Create(t *testing.T) {
 	req := client.HipmatchMatchListAPI.CreateHipmatchMatchList(context.Background()).HipmatchMatchList(matchList)
 	res, httpRes, err := req.Execute()
 
-	// Defer cleanup for the HIP Match List.
+	// Defer cleanup for the HIP Match List (runs before dependency cleanup)
 	if res != nil && res.Id != nil {
 		defer func() {
 			t.Logf("Cleaning up HIP Match List with ID: %s", *res.Id)
@@ -71,19 +79,16 @@ func Test_networkservices_HipmatchMatchListAPIService_Create(t *testing.T) {
 // Test_networkservices_HipmatchMatchListAPIService_GetByID tests the retrieval of a HIP Match List by its ID.
 func Test_networkservices_HipmatchMatchListAPIService_GetByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to retrieve.
+	// Create a simple match list to retrieve (no dependencies needed)
 	matchListName := "test-hipmatch-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.HipmatchMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("HIP match list for get by ID test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -121,19 +126,16 @@ func Test_networkservices_HipmatchMatchListAPIService_GetByID(t *testing.T) {
 // Test_networkservices_HipmatchMatchListAPIService_Update tests updating a HIP Match List.
 func Test_networkservices_HipmatchMatchListAPIService_Update(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to update.
+	// Create a simple match list to update
 	matchListName := "test-hipmatch-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.HipmatchMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("HIP match list for update test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -158,12 +160,8 @@ func Test_networkservices_HipmatchMatchListAPIService_Update(t *testing.T) {
 	updatedMatchList := network_services.HipmatchMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("Updated description for HIP match list"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
@@ -216,19 +214,16 @@ func Test_networkservices_HipmatchMatchListAPIService_Fetch(t *testing.T) {
 // Test_networkservices_HipmatchMatchListAPIService_DeleteByID tests deleting a HIP Match List.
 func Test_networkservices_HipmatchMatchListAPIService_DeleteByID(t *testing.T) {
 	client := SetupNetworkSvcTestClient(t)
+	folder := "ngfw-shared"
 
-	// Create a match list to delete.
+	// Create a simple match list to delete
 	matchListName := "test-hipmatch-list-" + common.GenerateRandomString(10)
 
 	matchList := network_services.HipmatchMatchList{
 		Name:           matchListName,
 		Description:    common.StringPtr("HIP match list for delete test"),
-		Folder:         common.StringPtr("ngfw-shared"),
+		Folder:         common.StringPtr(folder),
 		Filter:         common.StringPtr("All Logs"),
-		SendSyslog:     []string{"test-syslog"},
-		SendHttp:       []string{"some-http-profile"},
-		SendSnmptrap:   []string{"snmp_test"},
-		SendEmail:      []string{"test-email"},
 		Quarantine:     common.BoolPtr(false),
 		SendToPanorama: common.BoolPtr(false),
 	}
