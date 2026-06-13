@@ -55,6 +55,7 @@ func Test_mobile_agent_DestinationsAPIService_Create(t *testing.T) {
 		ForwardingProfileDestinations(dest).
 		Execute()
 
+	common.LogRequestIDOnFailure(t, httpRes)
 	if err != nil {
 		handleAPIError(err)
 	}
@@ -92,10 +93,11 @@ func Test_mobile_agent_DestinationsAPIService_GetByID(t *testing.T) {
 	randomSuffix := common.GenerateRandomString(6)
 	destName := "test-dest-get-" + randomSuffix
 
-	createRes, _, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
+	createRes, httpResCreate, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
 		Folder("Mobile Users").
 		ForwardingProfileDestinations(newTestForwardingProfileDestinations(destName)).
 		Execute()
+	common.LogRequestIDOnFailure(t, httpResCreate)
 	require.NoError(t, err, "Failed to create ForwardingProfileDestinations for get test")
 	createdID := *createRes.Id
 
@@ -104,6 +106,7 @@ func Test_mobile_agent_DestinationsAPIService_GetByID(t *testing.T) {
 	}()
 
 	getRes, httpResGet, errGet := client.DestinationsAPI.GetGlobalProtectDestinationByID(context.Background(), createdID).Execute()
+	common.LogRequestIDOnFailure(t, httpResGet)
 	require.NoError(t, errGet, "Failed to get ForwardingProfileDestinations by ID")
 	assert.Equal(t, 200, httpResGet.StatusCode, "Expected 200 OK status")
 	require.NotNil(t, getRes, "Get response should not be nil")
@@ -117,10 +120,11 @@ func Test_mobile_agent_DestinationsAPIService_Update(t *testing.T) {
 	randomSuffix := common.GenerateRandomString(6)
 	destName := "test-dest-update-" + randomSuffix
 
-	createRes, _, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
+	createRes, httpResCreate, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
 		Folder("Mobile Users").
 		ForwardingProfileDestinations(newTestForwardingProfileDestinations(destName)).
 		Execute()
+	common.LogRequestIDOnFailure(t, httpResCreate)
 	require.NoError(t, err, "Failed to create ForwardingProfileDestinations for update test")
 	createdID := *createRes.Id
 
@@ -134,6 +138,7 @@ func Test_mobile_agent_DestinationsAPIService_Update(t *testing.T) {
 	updateRes, httpResUpdate, errUpdate := client.DestinationsAPI.UpdateGlobalProtectDestinationByID(context.Background(), createdID).
 		ForwardingProfileDestinations(updatedDest).
 		Execute()
+	common.LogRequestIDOnFailure(t, httpResUpdate)
 	require.NoError(t, errUpdate, "Failed to update ForwardingProfileDestinations")
 	assert.Equal(t, 200, httpResUpdate.StatusCode)
 	require.NotNil(t, updateRes)
@@ -147,10 +152,11 @@ func Test_mobile_agent_DestinationsAPIService_List(t *testing.T) {
 	randomSuffix := common.GenerateRandomString(6)
 	destName := "test-dest-list-" + randomSuffix
 
-	createRes, _, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
+	createRes, httpResCreate, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
 		Folder("Mobile Users").
 		ForwardingProfileDestinations(newTestForwardingProfileDestinations(destName)).
 		Execute()
+	common.LogRequestIDOnFailure(t, httpResCreate)
 	require.NoError(t, err, "Failed to create ForwardingProfileDestinations for list test")
 	createdID := *createRes.Id
 
@@ -162,6 +168,7 @@ func Test_mobile_agent_DestinationsAPIService_List(t *testing.T) {
 		Folder("Mobile Users").
 		Limit(10000).
 		Execute()
+	common.LogRequestIDOnFailure(t, httpResList)
 	require.NoError(t, errList, "Failed to list Destinations")
 	assert.Equal(t, 200, httpResList.StatusCode)
 	require.NotNil(t, listRes)
@@ -182,14 +189,16 @@ func Test_mobile_agent_DestinationsAPIService_DeleteByID(t *testing.T) {
 	randomSuffix := common.GenerateRandomString(6)
 	destName := "test-dest-delete-" + randomSuffix
 
-	createRes, _, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
+	createRes, httpResCreate, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
 		Folder("Mobile Users").
 		ForwardingProfileDestinations(newTestForwardingProfileDestinations(destName)).
 		Execute()
+	common.LogRequestIDOnFailure(t, httpResCreate)
 	require.NoError(t, err, "Failed to create ForwardingProfileDestinations for delete test")
 	createdID := *createRes.Id
 
-	_, errDel := client.DestinationsAPI.DeleteGlobalProtectDestination(context.Background(), createdID).Execute()
+	httpResDel, errDel := client.DestinationsAPI.DeleteGlobalProtectDestination(context.Background(), createdID).Execute()
+	common.LogRequestIDOnFailure(t, httpResDel)
 	require.NoError(t, errDel, "Failed to delete ForwardingProfileDestinations")
 }
 
@@ -198,7 +207,8 @@ func Test_mobile_agent_DestinationsAPIService_GetByID_NotFound(t *testing.T) {
 	client := SetupMobileAgentTestClient(t)
 
 	nonExistentID := "00000000-0000-0000-0000-000000000000"
-	_, httpRes, _ := client.DestinationsAPI.GetGlobalProtectDestinationByID(context.Background(), nonExistentID).Execute()
+	_, httpRes, err := client.DestinationsAPI.GetGlobalProtectDestinationByID(context.Background(), nonExistentID).Execute()
+	common.LogRequestIDOnFailure(t, httpRes)
 	assert.Equal(t, 404, httpRes.StatusCode, "Expected 404 Not Found status")
 }
 
@@ -210,6 +220,7 @@ func Test_mobile_agent_DestinationsAPIService_UpdateByID_NotFound(t *testing.T) 
 	_, httpRes, _ := client.DestinationsAPI.UpdateGlobalProtectDestinationByID(context.Background(), nonExistentID).
 		ForwardingProfileDestinations(newTestForwardingProfileDestinations("non-existent-dest")).
 		Execute()
+	common.LogRequestIDOnFailure(t, httpRes)
 	assert.Equal(t, 404, httpRes.StatusCode, "Expected 404 Not Found status")
 }
 
@@ -218,7 +229,8 @@ func Test_mobile_agent_DestinationsAPIService_DeleteByID_NotFound(t *testing.T) 
 	client := SetupMobileAgentTestClient(t)
 
 	nonExistentID := "00000000-0000-0000-0000-000000000000"
-	httpRes, _ := client.DestinationsAPI.DeleteGlobalProtectDestination(context.Background(), nonExistentID).Execute()
+	httpRes, err := client.DestinationsAPI.DeleteGlobalProtectDestination(context.Background(), nonExistentID).Execute()
+	common.LogRequestIDOnFailure(t, httpRes)
 	assert.Equal(t, 404, httpRes.StatusCode, "Expected 404 Not Found status")
 }
 
@@ -228,17 +240,22 @@ func Test_mobile_agent_DestinationsAPIService_DeleteByID_VerifyGone(t *testing.T
 	randomSuffix := common.GenerateRandomString(6)
 	destName := "test-dest-gone-" + randomSuffix
 
-	createRes, _, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
+	createRes, httpResCreate, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
 		Folder("Mobile Users").
 		ForwardingProfileDestinations(newTestForwardingProfileDestinations(destName)).
 		Execute()
+	common.LogRequestIDOnFailure(t, httpResCreate)
 	require.NoError(t, err, "Failed to create ForwardingProfileDestinations for delete-verify test")
 	createdID := *createRes.Id
 
-	_, errDel := client.DestinationsAPI.DeleteGlobalProtectDestination(context.Background(), createdID).Execute()
+	httpResDel, errDel := client.DestinationsAPI.DeleteGlobalProtectDestination(context.Background(), createdID).Execute()
+	common.LogRequestIDOnFailure(t, httpResDel)
 	require.NoError(t, errDel, "Failed to delete ForwardingProfileDestinations")
 
-	_, httpRes, _ := client.DestinationsAPI.GetGlobalProtectDestinationByID(context.Background(), createdID).Execute()
+	_, httpRes, errGet := client.DestinationsAPI.GetGlobalProtectDestinationByID(context.Background(), createdID).Execute()
+	common.LogRequestIDOnFailure(t, httpRes)
+	require.Error(t, errGet, "Expected an error after deletion")
+	require.NotNil(t, httpRes, "HTTP response should not be nil")
 	assert.Equal(t, 404, httpRes.StatusCode, "Expected 404 after deletion")
 }
 
@@ -251,10 +268,11 @@ func Test_mobile_agent_DestinationsAPIService_FetchDestinations(t *testing.T) {
 	testObj := newTestForwardingProfileDestinations(testName)
 	testObj.Description = common.StringPtr("Test destination for fetch")
 
-	createRes, _, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
+	createRes, httpResCreate, err := client.DestinationsAPI.CreateGlobalProtectDestination(context.Background()).
 		Folder("Mobile Users").
 		ForwardingProfileDestinations(testObj).
 		Execute()
+	common.LogRequestIDOnFailure(t, httpResCreate)
 	if err != nil {
 		handleAPIError(err)
 	}
