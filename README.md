@@ -15,6 +15,7 @@ In the project root scm-go, populate scm-config.json with the relevant parameter
   "client_id": "",
   "client_secret": "",
   "host": "",
+  "ztna_host": "",
   "logging": "quiet",
   "protocol": "https",
   "scope": "",

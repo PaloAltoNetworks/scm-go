@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - fix-ci-cd-tests
   pull_request:
     branches:
       - develop
@@ -26,6 +25,7 @@ jobs:
           - config_setup
           - config_operations
           - device_settings
+          - ztna_connector_all
           - mobile_agent
 
     steps:
@@ -55,6 +55,7 @@ jobs:
             "client_id": "${{ secrets.SCM_CLIENT_ID }}",
             "client_secret": "${{ secrets.SCM_CLIENT_SECRET }}",
             "host": "${{ secrets.SCM_HOST }}",
+            "ztna_host": "${{ secrets.ZTNA_HOST || secrets.SCM_HOST }}",
             "protocol": "${{ secrets.SCM_PROTOCOL }}",
             "scope": "${{ secrets.SCM_SCOPE }}",
             "logging": "quiet",
@@ -63,6 +64,9 @@ jobs:
           EOF
 
       - name: Run tests for ${{ matrix.service }}
+        env:
+          ZTNA_ONLINE_CONNECTOR_OID: ${{ secrets.ZTNA_ONLINE_CONNECTOR_OID }}
+          ZTNA_PCAP_CONNECTOR_OID: ${{ secrets.ZTNA_PCAP_CONNECTOR_OID }}
         run: |
           set +e
 

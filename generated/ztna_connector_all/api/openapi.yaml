@@ -1,0 +1,6061 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@paloaltonetworks.com
+    name: Palo Alto Networks Technical Support
+    url: https://support.paloaltonetworks.com
+  description: ZTNA Connector Restful API Specification
+  license:
+    name: Palo Alto Networks EULA
+    url: https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/legal/palo-alto-networks-end-user-license-agreement-eula.pdf
+  termsOfService: https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/legal/palo-alto-networks-end-user-license-agreement-eula.pdf
+  title: ZTNA Connector Restful API
+  version: v2
+servers:
+- description: ZTNA Connector API
+  url: https://api.sase.paloaltonetworks.com/sse/connector/v2.0/api
+security:
+- bearerAuth: []
+tags:
+- description: Tenant management operations
+  name: Tenant
+  x-displayName: Tenant
+- description: Connector Group management operations
+  name: Connector-Group
+  x-displayName: Connector Group
+- description: Connector management operations
+  name: Connector
+  x-displayName: Connector
+- description: FQDN Rules management operations
+  name: FQDN
+  x-displayName: FQDN
+- description: Subnet management operations
+  name: Subnet
+  x-displayName: Subnet
+- description: Wildcard management operations
+  name: Wildcard
+  x-displayName: Wildcard
+- description: Discovered Application operations
+  name: Discovered-Application
+  x-displayName: Discovered Application
+paths:
+  /applications:
+    get:
+      operationId: ListApplications
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: |
+          A 0-based offset into the collection.
+          It is the index of the starting entry of the page
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: The max count in result entry (count per page)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationsListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List FQDNs
+      tags:
+      - FQDN
+    post:
+      operationId: CreateApplications
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/applications'
+        required: true
+      responses:
+        "201":
+          description: |
+            [201 Created](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201)
+          x-summary: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Create FQDN
+      tags:
+      - FQDN
+  /applications/filters:
+    get:
+      description: |
+        Get filter values for FQDN rule fields.
+      operationId: ListApplicationFilters
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: String that represents a static filter field. Call any of the
+          /filters endpoints without specifying a field to get a list of all available
+          fields.
+        explode: true
+        in: query
+        name: field
+        required: false
+        schema:
+          example: connector_group
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                common:
+                  $ref: '#/components/examples/filter'
+                empty:
+                  $ref: '#/components/examples/filter-empty'
+              schema:
+                $ref: '#/components/schemas/filters'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List FQDN Filters
+      tags:
+      - FQDN
+  /applications/{oid}:
+    delete:
+      operationId: DeleteApplicationsByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: |
+            [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+          x-summary: Accepted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Delete FQDN
+      tags:
+      - FQDN
+    get:
+      operationId: GetApplicationsByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/applications'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Get FQDN
+      tags:
+      - FQDN
+    put:
+      operationId: UpdateApplicationsByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/applications'
+        required: true
+      responses:
+        "200":
+          description: |
+            [200 OK](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200)
+          x-summary: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Update FQDN
+      tags:
+      - FQDN
+  /connector-groups:
+    get:
+      operationId: ListConnectorGroups
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: |
+          A 0-based offset into the collection.
+          It is the index of the starting entry of the page
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: The max count in result entry (count per page)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectorGroupsListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Connector Groups
+      tags:
+      - Connector-Group
+    post:
+      operationId: CreateConnectorGroup
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connector_groups'
+        required: true
+      responses:
+        "201":
+          description: |
+            [201 Created](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201)
+          x-summary: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Create Connector Group
+      tags:
+      - Connector-Group
+  /connector-groups/filters:
+    get:
+      description: |
+        Get filter values for connector group fields.
+      operationId: ListConnectorGroupFilters
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: String that represents a static filter field. Call any of the
+          /filters endpoints without specifying a field to get a list of all available
+          fields.
+        explode: true
+        in: query
+        name: field
+        required: false
+        schema:
+          example: connector_group
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                common:
+                  $ref: '#/components/examples/filter'
+                empty:
+                  $ref: '#/components/examples/filter-empty'
+              schema:
+                $ref: '#/components/schemas/filters'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Connector Group Filters
+      tags:
+      - Connector-Group
+  /connector-groups/{oid}:
+    delete:
+      operationId: DeleteConnectorGroupByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: |
+            [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+          x-summary: Accepted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Delete Connector Group
+      tags:
+      - Connector-Group
+    get:
+      operationId: GetConnectorGroupByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector_groups'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Get Connector Group
+      tags:
+      - Connector-Group
+    put:
+      operationId: UpdateConnectorGroupByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connector_groups'
+        required: true
+      responses:
+        "200":
+          description: |
+            [200 OK](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200)
+          x-summary: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Update Connector Group
+      tags:
+      - Connector-Group
+  /connector-groups/{oid}/applications:
+    get:
+      operationId: ListConnectorGroupApplications
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector_group.fqdn_rules'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: List FQDNs per Connector Group
+      tags:
+      - Connector-Group
+  /connector-groups/{oid}/connectors:
+    get:
+      operationId: ListConnectorGroupConnectors
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector_group.connectors'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: List Connectors per Connector Group
+      tags:
+      - Connector-Group
+  /connector-groups/{oid}/scheduled-upgrade:
+    delete:
+      operationId: DeleteConnectorGroupScheduledUpgrade
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: |
+            [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+          x-summary: Accepted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Delete Connector Group Scheduled Upgrade
+      tags:
+      - Connector-Group
+    get:
+      operationId: GetConnectorGroupScheduledUpgrade
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector_group.scheduled_upgrade'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Get Connector Group Scheduled Upgrade
+      tags:
+      - Connector-Group
+    post:
+      operationId: CreateConnectorGroupScheduledUpgrade
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connector_group.scheduled_upgrade'
+        required: true
+      responses:
+        "201":
+          description: |
+            [201 Created](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201)
+          x-summary: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Create Connector Group Scheduled Upgrade
+      tags:
+      - Connector-Group
+    put:
+      operationId: UpdateConnectorGroupScheduledUpgrade
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connector_group.scheduled_upgrade'
+        required: true
+      responses:
+        "204":
+          description: |
+            [204 No Content](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204)
+          x-summary: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Update Connector Group Scheduled Upgrade
+      tags:
+      - Connector-Group
+  /connector-groups/{oid}/scheduled-upgrade-status:
+    get:
+      description: "Retrieves the scheduled upgrade status for a connector group,\
+        \ including the upgrade status of all connectors in the group"
+      operationId: GetConnectorGroupScheduledUpgradeStatus
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector_group.upgrade_status'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Get Connector Group Scheduled Upgrade Status
+      tags:
+      - Connector-Group
+  /connector-groups/{oid}/subnets:
+    get:
+      operationId: ListConnectorGroupSubnets
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector_group.subnet_rules'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: List Subnets per Connector Group
+      tags:
+      - Connector-Group
+  /connector-groups/{oid}/wildcards:
+    get:
+      operationId: ListConnectorGroupWildcards
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector_group.wildcards'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: List Wildcards per Connector Group
+      tags:
+      - Connector-Group
+  /connector-images:
+    get:
+      operationId: ListConnectorImages
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Connector Image Versions
+      tags:
+      - Connector
+  /connectors:
+    get:
+      operationId: ListConnectors
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: |
+          A 0-based offset into the collection.
+          It is the index of the starting entry of the page
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: The max count in result entry (count per page)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectorsListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Connectors
+      tags:
+      - Connector
+    post:
+      operationId: CreateConnectors
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connectors'
+        required: true
+      responses:
+        "201":
+          description: |
+            [201 Created](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201)
+          x-summary: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Create Connector
+      tags:
+      - Connector
+  /connectors/filters:
+    get:
+      description: |
+        Get filter values for connector fields.
+      operationId: ListConnectorFilters
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: String that represents a static filter field. Call any of the
+          /filters endpoints without specifying a field to get a list of all available
+          fields.
+        explode: true
+        in: query
+        name: field
+        required: false
+        schema:
+          example: connector_group
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                common:
+                  $ref: '#/components/examples/filter'
+                empty:
+                  $ref: '#/components/examples/filter-empty'
+              schema:
+                $ref: '#/components/schemas/filters'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Connector Filters
+      tags:
+      - Connector
+  /connectors/{oid}:
+    delete:
+      operationId: DeleteConnectorsByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: |
+            [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+          x-summary: Accepted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Delete Connector
+      tags:
+      - Connector
+    get:
+      operationId: GetConnectorsByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connectors'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Get Connector
+      tags:
+      - Connector
+    put:
+      operationId: UpdateConnectorsByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connectors'
+        required: true
+      responses:
+        "200":
+          description: |
+            [200 OK](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200)
+          x-summary: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Update Connector
+      tags:
+      - Connector
+  /connectors/{oid}/pcaps:
+    get:
+      description: |-
+        This API is used to get the list of captured packet files on the ZTNA connector.
+        The result is an array of file information objects.
+        Each file information object has id, state, date, name and size of the file.
+      operationId: ListConnectorsPcapsByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/diagnostic_file.list'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Connector Packet Capture Files
+      tags:
+      - Connector
+    post:
+      description: This API will start a packet capture operation on the ZTNA connector.
+        The Interface information must be provided in the API.
+      operationId: CreateConnectorsPcapsByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/packet_capture.create'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/packet_capture'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: Start Connector Packet Capture
+      tags:
+      - Connector
+  /connectors/{oid}/pcaps/{id}:download:
+    get:
+      description: This API downloads the captured packet file from the ZTNA connector.
+      operationId: DownloadConnectorsPcapsByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: request id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: Download Connector Packet Capture File
+      tags:
+      - Connector
+  /connectors/{oid}/pcaps/{id}:stop:
+    post:
+      description: This API will stop an in-progress packet capture operation on the
+        ZTNA connector.
+      operationId: StopConnectorsPcapsByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: request id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/packet_capture'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: Stop Connector Packet Capture
+      tags:
+      - Connector
+  /connectors/{oid}/quiesce:
+    get:
+      operationId: GetConnectorsQuiesceByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector.quiesce'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "424":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Failed Dependency
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Server Error
+      summary: Get Connector Quiesce State
+      tags:
+      - Connector
+    put:
+      operationId: UpdateConnectorsQuiesceByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connector.quiesce'
+        required: true
+      responses:
+        "204":
+          description: |
+            [204 No Content](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204)
+          x-summary: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "424":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Failed Dependency
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Server Error
+      summary: Update Connector Quiesce State
+      tags:
+      - Connector
+  /connectors/{oid}/scheduled-upgrade:
+    delete:
+      operationId: DeleteConnectorsScheduledUpgradeByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: |
+            [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+          x-summary: Accepted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Delete Connector Scheduled Upgrade
+      tags:
+      - Connector
+    get:
+      operationId: GetConnectorsScheduledUpgradeByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector.scheduled_upgrade'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Get Connector Scheduled Upgrade
+      tags:
+      - Connector
+    post:
+      operationId: CreateConnectorsScheduledUpgradeByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connector.scheduled_upgrade'
+        required: true
+      responses:
+        "201":
+          description: |
+            [201 Created](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201)
+          x-summary: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Create Connector Scheduled Upgrade
+      tags:
+      - Connector
+    put:
+      operationId: UpdateConnectorsScheduledUpgradeByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connector.scheduled_upgrade'
+        required: true
+      responses:
+        "204":
+          description: |
+            [204 No Content](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204)
+          x-summary: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Update Connector Scheduled Upgrade
+      tags:
+      - Connector
+  /connectors/{oid}/scheduled-upgrade-status:
+    get:
+      description: Retrieves the detailed scheduled upgrade status for a specific
+        connector
+      operationId: GetConnectorsScheduledUpgradeStatusByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector.upgrade_status'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "5XX":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Server Error
+      summary: Get Connector Scheduled Upgrade Status
+      tags:
+      - Connector
+  /connectors/{oid}/tech-support-files:
+    get:
+      description: |-
+        This API is used to get the list the available "dump tech-support" data files on the ZTNA connector.
+        The result is an array of file information objects.
+        Each file information object has id, state, date, name and size of the file.
+      operationId: ListConnectorsTechSupportFilesByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/diagnostic_file.list'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Connector Tech Support Files
+      tags:
+      - Connector
+    post:
+      description: |-
+        This API will start a tech support operation on the ZTNA connector.
+        In the current implementation it uses the "dump tech-support" command to generate the data.
+      operationId: CreateConnectorsTechSupportFilesByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: Start Connector Tech Support Generation
+      tags:
+      - Connector
+  /connectors/{oid}/tech-support-files/{id}:download:
+    get:
+      description: This API downloads a tech support file from the ZTNA connector.
+      operationId: DownloadConnectorsTechSupportFilesByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: request id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: Download Connector Tech Support File
+      tags:
+      - Connector
+  /connectors/{oid}/tech-support-files/{id}:stop:
+    post:
+      description: This API will stop an in-progress tech support operation on the
+        ZTNA connector.
+      operationId: StopConnectorsTechSupportFilesByID
+      parameters:
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: request id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: Stop Connector Tech Support Generation
+      tags:
+      - Connector
+  /discovered-applications:
+    get:
+      operationId: ListDiscoveredApplications
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: |
+          A 0-based offset into the collection.
+          It is the index of the starting entry of the page
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: The max count in result entry (count per page)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoveredApplicationsListResponse'
+          description: OK
+        "202":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: |
+            [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+
+            The request has been accepted for processing, but the processing has not been completed.
+            The client should retry the request after the time specified in the Retry-After header.
+          headers:
+            Retry-After:
+              description: Indicates how long the client should wait before making
+                a follow-up request
+              explode: false
+              schema:
+                example: 60
+                type: integer
+              style: simple
+          x-summary: Accepted - Retry After
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Discovered Applications
+      tags:
+      - Discovered-Application
+  /discovered-applications/filters:
+    get:
+      description: |
+        Get filter values for discovered application fields.
+      operationId: ListDiscoveredApplicationFilters
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: String that represents a static filter field. Call any of the
+          /filters endpoints without specifying a field to get a list of all available
+          fields.
+        explode: true
+        in: query
+        name: field
+        required: false
+        schema:
+          example: connector_group
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                common:
+                  $ref: '#/components/examples/filter'
+                empty:
+                  $ref: '#/components/examples/filter-empty'
+              schema:
+                $ref: '#/components/schemas/filters'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Discovered Application Filters
+      tags:
+      - Discovered-Application
+  /license:
+    get:
+      operationId: GetLicense
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/license_info'
+          description: OK
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "424":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Failed Dependency
+      summary: Get Tenant License Info
+      tags:
+      - Tenant
+  /subnets:
+    get:
+      operationId: ListSubnets
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: |
+          A 0-based offset into the collection.
+          It is the index of the starting entry of the page
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: The max count in result entry (count per page)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubnetsListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Subnets
+      tags:
+      - Subnet
+    post:
+      operationId: CreateSubnet
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subnets'
+        required: true
+      responses:
+        "201":
+          description: |
+            [201 Created](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201)
+          x-summary: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Create Subnet
+      tags:
+      - Subnet
+  /subnets/filters:
+    get:
+      description: |
+        Get filter values for subnet rule fields.
+      operationId: ListSubnetFilters
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: String that represents a static filter field. Call any of the
+          /filters endpoints without specifying a field to get a list of all available
+          fields.
+        explode: true
+        in: query
+        name: field
+        required: false
+        schema:
+          example: connector_group
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                common:
+                  $ref: '#/components/examples/filter'
+                empty:
+                  $ref: '#/components/examples/filter-empty'
+              schema:
+                $ref: '#/components/schemas/filters'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Subnet Filters
+      tags:
+      - Subnet
+  /subnets/{oid}:
+    delete:
+      operationId: DeleteSubnetByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: |
+            [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+          x-summary: Accepted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Delete Subnet
+      tags:
+      - Subnet
+    get:
+      operationId: GetSubnetByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subnets'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Get Subnet
+      tags:
+      - Subnet
+    put:
+      operationId: UpdateSubnetByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subnets'
+        required: true
+      responses:
+        "200":
+          description: |
+            [200 OK](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200)
+          x-summary: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Update Subnet
+      tags:
+      - Subnet
+  /tenant:start-offboarding:
+    post:
+      description: Initiates tenant deletion. This marks the tenant for deletion and
+        triggers the cleanup process.
+      operationId: StartTenantOffboarding
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartTenantOffboarding_202_response'
+          description: Accepted
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Start Tenant Offboarding
+      tags:
+      - Tenant
+  /tenant:start-onboarding:
+    post:
+      operationId: StartTenantOnboarding
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: |
+            [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+          x-summary: Accepted
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: Start Tenant Onboarding
+      tags:
+      - Tenant
+  /tenant:status:
+    get:
+      description: Retrieves the current status of the tenant
+      operationId: GetTenantStatus
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tenant.status'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: Get Tenant Status
+      tags:
+      - Tenant
+  /wildcards:
+    get:
+      operationId: ListWildcards
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: |
+          A 0-based offset into the collection.
+          It is the index of the starting entry of the page
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: The max count in result entry (count per page)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: List of fields from item response to sort by.
+        examples:
+          threeItems:
+            summary: "An example sort list that sorts first by A in ascending order,\
+              \ then B in descending order, and finally C in ascending order."
+            value: "A[asc],B[desc],C"
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      - description: String to filter list results by searching one specified field
+          of an object. Multiple filters can be specified.
+        examples:
+          freeFormFilter:
+            summary: A free form filter on the field name searching for a substring
+              match of abc.
+            value: "{\"field\":\"name\",\"search\":\"abc\"}"
+          staticFilter:
+            summary: A static filter on the field connector_group searching for an
+              exact match of abc.
+            value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WildcardsListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Wildcards
+      tags:
+      - Wildcard
+    post:
+      operationId: CreateWildcard
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wildcards'
+        required: true
+      responses:
+        "201":
+          description: |
+            [201 Created](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201)
+          x-summary: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Create Wildcard
+      tags:
+      - Wildcard
+  /wildcards/filters:
+    get:
+      description: |
+        Get filter values for wildcard fields.
+      operationId: ListWildcardFilters
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: String that represents a static filter field. Call any of the
+          /filters endpoints without specifying a field to get a list of all available
+          fields.
+        explode: true
+        in: query
+        name: field
+        required: false
+        schema:
+          example: connector_group
+          type: string
+        style: form
+      - description: String to filter list results by. Is searched over multiple fields
+          in each object. Multiple searches can be specified.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: connector1
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                common:
+                  $ref: '#/components/examples/filter'
+                empty:
+                  $ref: '#/components/examples/filter-empty'
+              schema:
+                $ref: '#/components/schemas/filters'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+      summary: List Wildcard Filters
+      tags:
+      - Wildcard
+  /wildcards/{oid}:
+    delete:
+      operationId: DeleteWildcardByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: |
+            [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+          x-summary: Accepted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Delete Wildcard
+      tags:
+      - Wildcard
+    get:
+      operationId: GetWildcardByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wildcards'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+      summary: Get Wildcard
+      tags:
+      - Wildcard
+    put:
+      operationId: UpdateWildcardByID
+      parameters:
+      - description: The region of the tenant
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          enum:
+          - ae
+          - americas
+          - au
+          - br
+          - ca
+          - ch
+          - cn
+          - de
+          - es
+          - europe
+          - fr
+          - id
+          - il
+          - in
+          - it
+          - jp
+          - kr
+          - pl
+          - qa
+          - sa
+          - sg
+          - tw
+          - uk
+          - za
+          type: string
+        style: simple
+      - description: Object ID
+        explode: false
+        in: path
+        name: oid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wildcards'
+        required: true
+      responses:
+        "200":
+          description: |
+            [200 OK](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200)
+          x-summary: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response'
+          description: Conflict
+      summary: Update Wildcard
+      tags:
+      - Wildcard
+components:
+  examples:
+    filter:
+      summary: common scenario
+      value:
+      - value 1
+      - value 2
+    filter-empty:
+      summary: when no filter value is available
+      value: []
+  parameters:
+    pagination.limit:
+      description: The max count in result entry (count per page)
+      explode: true
+      in: query
+      name: limit
+      required: false
+      schema:
+        minimum: 0
+        type: integer
+      style: form
+    pagination.offset:
+      description: |
+        A 0-based offset into the collection.
+        It is the index of the starting entry of the page
+      explode: true
+      in: query
+      name: offset
+      required: false
+      schema:
+        minimum: 0
+        type: integer
+      style: form
+    path.id:
+      description: request id
+      explode: false
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      style: simple
+    path.oid:
+      description: Object ID
+      explode: false
+      in: path
+      name: oid
+      required: true
+      schema:
+        type: string
+      style: simple
+    query.field:
+      description: String that represents a static filter field. Call any of the /filters
+        endpoints without specifying a field to get a list of all available fields.
+      explode: true
+      in: query
+      name: field
+      required: false
+      schema:
+        example: connector_group
+        type: string
+      style: form
+    query.filters:
+      description: String to filter list results by searching one specified field
+        of an object. Multiple filters can be specified.
+      examples:
+        freeFormFilter:
+          summary: A free form filter on the field name searching for a substring
+            match of abc.
+          value: "{\"field\":\"name\",\"search\":\"abc\"}"
+        staticFilter:
+          summary: A static filter on the field connector_group searching for an exact
+            match of abc.
+          value: "{\"field\":\"connector_group\",\"filter\":\"abc\"}"
+      explode: true
+      in: query
+      name: filters
+      required: false
+      schema:
+        type: string
+      style: form
+    query.search:
+      description: String to filter list results by. Is searched over multiple fields
+        in each object. Multiple searches can be specified.
+      explode: true
+      in: query
+      name: search
+      required: false
+      schema:
+        example: connector1
+        type: string
+      style: form
+    query.sort:
+      description: List of fields from item response to sort by.
+      examples:
+        threeItems:
+          summary: "An example sort list that sorts first by A in ascending order,\
+            \ then B in descending order, and finally C in ascending order."
+          value: "A[asc],B[desc],C"
+      explode: true
+      in: query
+      name: sort
+      required: false
+      schema:
+        type: string
+      style: form
+    x-panw-region:
+      description: The region of the tenant
+      explode: false
+      in: header
+      name: x-panw-region
+      required: false
+      schema:
+        enum:
+        - ae
+        - americas
+        - au
+        - br
+        - ca
+        - ch
+        - cn
+        - de
+        - es
+        - europe
+        - fr
+        - id
+        - il
+        - in
+        - it
+        - jp
+        - kr
+        - pl
+        - qa
+        - sa
+        - sg
+        - tw
+        - uk
+        - za
+        type: string
+      style: simple
+  responses:
+    error-400:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+      description: Bad Request
+    error-401:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+      description: Unauthorized
+    error-403:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+      description: Forbidden
+    error-404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+      description: Not Found
+    error-409:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+      description: Conflict
+    error-424:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+      description: Failed Dependency
+    error-5xx:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+      description: Server Error
+    http.200_ok:
+      description: |
+        [200 OK](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200)
+      x-summary: OK
+    http.201_created:
+      description: |
+        [201 Created](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201)
+      x-summary: Created
+    http.202_accepted:
+      description: |
+        [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+      x-summary: Accepted
+    http.202_retry_after:
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+      description: |
+        [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202)
+
+        The request has been accepted for processing, but the processing has not been completed.
+        The client should retry the request after the time specified in the Retry-After header.
+      headers:
+        Retry-After:
+          description: Indicates how long the client should wait before making a follow-up
+            request
+          explode: false
+          schema:
+            example: 60
+            type: integer
+          style: simple
+      x-summary: Accepted - Retry After
+    http.204_no_content:
+      description: |
+        [204 No Content](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204)
+      x-summary: No Content
+  schemas:
+    ApplicationsListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Applications'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    ConnectorGroupsListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ConnectorGroups'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    ConnectorsListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Connectors'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    DiscoveredApplicationsListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/DiscoveredApplications'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    SubnetsListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Subnets'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    WildcardsListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Wildcards'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
+    applications:
+      example:
+        use_dc_ip: true
+        created_time: created_time
+        updated_time: updated_time
+        icmp_allowed: true
+        anycast_ip: anycast_ip
+        name: name
+        description: description
+        app_enabled: true
+        oid: 123e4567-e89b-12d3-a456-426655440000
+        spec:
+        - tcp_port: tcp_port
+          probe_type: tcp_ping
+          fqdn: fqdn
+          probe_port: probe_port
+          udp_port: udp_port
+        - tcp_port: tcp_port
+          probe_type: tcp_ping
+          fqdn: fqdn
+          probe_port: probe_port
+          udp_port: udp_port
+        group: group
+      properties:
+        anycast_ip:
+          description: Anycast IP address assigned to this FQDN rule.
+          readOnly: true
+          type: string
+        app_enabled:
+          description: |-
+            Whether the FQDN rule is enabled.
+
+            If omitted, defaults to false.
+          type: boolean
+        created_time:
+          readOnly: true
+          type: string
+        description:
+          description: The description of the resource
+          maxLength: 1023
+          type: string
+        group:
+          description: A comma separated list of connector group IDs
+          type: string
+        icmp_allowed:
+          description: |-
+            Whether ICMP is allowed for this FQDN rule.
+
+            If omitted, defaults to true.
+          type: boolean
+        name:
+          description: Name of the FQDN rule.
+          maxLength: 63
+          minLength: 1
+          pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
+          type: string
+        oid:
+          description: The UUID of the resource
+          example: 123e4567-e89b-12d3-a456-426655440000
+          readOnly: true
+          type: string
+        spec:
+          items:
+            $ref: '#/components/schemas/applications_spec_inner'
+          type: array
+        updated_time:
+          readOnly: true
+          type: string
+        use_dc_ip:
+          description: |-
+            Whether to use datacenter IP for this FQDN rule.
+
+            If omitted, defaults to false.
+          type: boolean
+      required:
+      - group
+      - name
+      - spec
+      type: object
+    connector.quiesce:
+      example:
+        mode: mode
+      properties:
+        mode:
+          type: string
+      required:
+      - mode
+      type: object
+    connector.scheduled_upgrade:
+      example:
+        scheduled_download: 2000-01-23T04:56:07.000+00:00
+        scheduled_upgrade: 2000-01-23T04:56:07.000+00:00
+        image_id: image_id
+      properties:
+        image_id:
+          description: The connector image version ID to upgrade to.
+          type: string
+        scheduled_download:
+          description: |-
+            The scheduled download time in RFC3339 format (UTC).
+
+            If omitted, defaults to current UTC time.
+          format: date-time
+          type: string
+        scheduled_upgrade:
+          description: |-
+            The scheduled upgrade time in RFC3339 format (UTC).
+
+            Must be after the scheduled_download time. If omitted, defaults to current UTC time.
+          format: date-time
+          type: string
+      required:
+      - image_id
+      type: object
+    connector.status:
+      properties:
+        cgnx_location:
+          type: string
+        cgnx_scheduled_download:
+          type: string
+        cgnx_scheduled_sw_version:
+          type: string
+        cgnx_scheduled_upgrade:
+          type: string
+        cgnx_sw_version:
+          type: string
+        cgnx_upgrade_description:
+          type: string
+        cgnx_upgrade_download_percent:
+          type: number
+        cgnx_upgrade_failure_info:
+          type: string
+        cgnx_upgrade_retry_count:
+          type: number
+        cgnx_upgrade_state:
+          description: "When undefined, no upgrade is in progress."
+          enum:
+          - download_cancelled
+          - download_complete
+          - download_discovery
+          - download_failed
+          - download_init
+          - download_scheduled
+          - failed
+          - init
+          - installing
+          - install_failed
+          - upgrade_cancelled
+          - upgrade_init
+          - upgrade_scheduled
+          - upgrade_timeout
+          - upgrading
+          - verify
+          - verifying
+          type: string
+        cgnx_upgrade_status_last_updated:
+          type: string
+        cgnx_vion_ip:
+          type: string
+        cidr:
+          type: string
+        error:
+          type: object
+        flags:
+          $ref: '#/components/schemas/connector_status_flags'
+        local_ip:
+          type: string
+        sc_id:
+          description: Service Connection ID
+          type: string
+        sc_name:
+          type: string
+        state_bits:
+          type: number
+        token_active:
+          type: string
+        token_secret:
+          type: string
+      type: object
+    connector.upgrade_status:
+      example:
+        active_version: active_version
+        failure_info: failure_info
+        upgrade_description: upgrade_description
+        previous_image_id: previous_image_id
+        scheduled_download: scheduled_download
+        upgrade_image_id: upgrade_image_id
+        active_image_id: active_image_id
+        scheduled_upgrade: scheduled_upgrade
+        download_percent: 0
+        upgrade_state: upgrade_state
+      properties:
+        active_image_id:
+          description: Currently active image ID
+          type: string
+        active_version:
+          description: Currently active software version
+          type: string
+        download_percent:
+          description: Download progress percentage
+          type: integer
+        failure_info:
+          description: Failure information if upgrade failed
+          type: string
+        previous_image_id:
+          description: Previous image ID
+          type: string
+        scheduled_download:
+          description: Scheduled download time
+          type: string
+        scheduled_upgrade:
+          description: Scheduled upgrade time
+          type: string
+        upgrade_description:
+          description: Description of the upgrade
+          type: string
+        upgrade_image_id:
+          description: Target upgrade image ID
+          type: string
+        upgrade_state:
+          description: Current state of the upgrade process
+          type: string
+      type: object
+    connector_group.connectors:
+      example:
+        connectors:
+          total: 1
+          data: ""
+          offset: 6
+          limit: 0
+        group:
+          created_time: created_time
+          updated_time: updated_time
+          is_ngfw: true
+          is_autoscale: true
+          pba_project_name: pba_project_name
+          name: name
+          description: description
+          preserve_user_id: true
+          oid: oid
+      properties:
+        connectors:
+          $ref: '#/components/schemas/connector_group_connectors_connectors'
+        group:
+          $ref: '#/components/schemas/connector_groups'
+      type: object
+    connector_group.fqdn_rules:
+      example:
+        applications:
+          total: 1
+          data: ""
+          offset: 6
+          limit: 0
+        group:
+          created_time: created_time
+          updated_time: updated_time
+          is_ngfw: true
+          is_autoscale: true
+          pba_project_name: pba_project_name
+          name: name
+          description: description
+          preserve_user_id: true
+          oid: oid
+      properties:
+        applications:
+          $ref: '#/components/schemas/connector_group_connectors_connectors'
+        group:
+          $ref: '#/components/schemas/connector_groups'
+      type: object
+    connector_group.scheduled_upgrade:
+      example:
+        rolling_upgrade: true
+        scheduled_download: 2000-01-23T04:56:07.000+00:00
+        scheduled_upgrade: 2000-01-23T04:56:07.000+00:00
+        image_id: image_id
+        drain_timeout: 0
+      properties:
+        drain_timeout:
+          description: |-
+            Drain timeout in seconds for rolling upgrades.
+
+            If omitted, defaults to 0.
+          type: integer
+        image_id:
+          description: The connector image version ID to upgrade to.
+          type: string
+        rolling_upgrade:
+          description: |-
+            Whether to perform a rolling upgrade.
+
+            If omitted, defaults to false. Requires SaasAgent version 6.1.0 or later.
+          type: boolean
+        scheduled_download:
+          description: |-
+            The scheduled download time in RFC3339 format (UTC).
+
+            If omitted, defaults to current UTC time.
+          format: date-time
+          type: string
+        scheduled_upgrade:
+          description: |-
+            The scheduled upgrade time in RFC3339 format (UTC).
+
+            Must be after the scheduled_download time. If omitted, defaults to current UTC time.
+          format: date-time
+          type: string
+      required:
+      - image_id
+      type: object
+    connector_group.status:
+      properties:
+        anycast_ip:
+          type: string
+        counts:
+          $ref: '#/components/schemas/connector_group_status_counts'
+        pa_region:
+          type: string
+        sw_version:
+          type: string
+        token_active:
+          type: string
+        token_secret:
+          type: string
+        user_id_ip:
+          type: string
+        user_id_port:
+          type: string
+      type: object
+    connector_group.subnet_rules:
+      example:
+        subnets:
+          total: 1
+          data: ""
+          offset: 6
+          limit: 0
+        group:
+          created_time: created_time
+          updated_time: updated_time
+          is_ngfw: true
+          is_autoscale: true
+          pba_project_name: pba_project_name
+          name: name
+          description: description
+          preserve_user_id: true
+          oid: oid
+      properties:
+        group:
+          $ref: '#/components/schemas/connector_groups'
+        subnets:
+          $ref: '#/components/schemas/connector_group_connectors_connectors'
+      type: object
+    connector_group.upgrade_status:
+      example:
+        upgrade_status: upgrade_status
+        data:
+        - current_sw_version: current_sw_version
+          upgrade_time: upgrade_time
+          connector_oid: connector_oid
+          upgrade_status: upgrade_status
+          upgrade_sw_version: upgrade_sw_version
+          drain_time: 0
+          sessions_count: 6
+          failure_reason: failure_reason
+          connector_name: connector_name
+        - current_sw_version: current_sw_version
+          upgrade_time: upgrade_time
+          connector_oid: connector_oid
+          upgrade_status: upgrade_status
+          upgrade_sw_version: upgrade_sw_version
+          drain_time: 0
+          sessions_count: 6
+          failure_reason: failure_reason
+          connector_name: connector_name
+        rolling_upgrade: true
+        name: name
+        oid: oid
+      properties:
+        data:
+          description: List of connector upgrade statuses within this group
+          items:
+            $ref: '#/components/schemas/connector_group_upgrade_status_data_inner'
+          type: array
+        name:
+          description: Connector group name
+          type: string
+        oid:
+          description: Connector group ID
+          type: string
+        rolling_upgrade:
+          description: Whether rolling upgrade is enabled for this connector group
+          type: boolean
+        upgrade_status:
+          description: Overall upgrade status for the connector group
+          type: string
+      type: object
+    connector_group.wildcards:
+      example:
+        wildcards:
+          total: 1
+          data: ""
+          offset: 6
+          limit: 0
+        group:
+          created_time: created_time
+          updated_time: updated_time
+          is_ngfw: true
+          is_autoscale: true
+          pba_project_name: pba_project_name
+          name: name
+          description: description
+          preserve_user_id: true
+          oid: oid
+      properties:
+        group:
+          $ref: '#/components/schemas/connector_groups'
+        wildcards:
+          $ref: '#/components/schemas/connector_group_connectors_connectors'
+      type: object
+    connector_groups:
+      example:
+        created_time: created_time
+        updated_time: updated_time
+        is_ngfw: true
+        is_autoscale: true
+        pba_project_name: pba_project_name
+        name: name
+        description: description
+        preserve_user_id: true
+        oid: oid
+      properties:
+        created_time:
+          readOnly: true
+          type: string
+        description:
+          description: Description of the connector group.
+          maxLength: 64
+          pattern: "^[\\p{L}\\p{N}\\p{P}\\s,.:_-]*$"
+          type: string
+        is_autoscale:
+          description: |-
+            Whether the connector group is autoscaled.
+
+            If omitted, defaults to false.
+          type: boolean
+        is_ngfw:
+          description: |-
+            Connector group type.
+
+            If false (default), the group is a ZTNA Connector group.
+            If true, the group is an NGFW Connector group.
+
+            If omitted, defaults to false.
+          type: boolean
+        name:
+          description: |-
+            Name of the connector group.
+
+            It can only be 64 characters long
+            and contain unicode text, space, dash, or underscore, or period.
+          maxLength: 64
+          minLength: 1
+          pattern: "^[\\p{L}\\p{N}\\p{P}\\s,.:_-]*$"
+          type: string
+        oid:
+          description: Connector Group ID
+          readOnly: true
+          type: string
+        pba_project_name:
+          description: |-
+            DPA project name that this connector group will serve.
+
+            This field must be provided when the tenant is DPA-enabled,
+            and must not be provided when the tenant is not DPA-enabled.
+          type: string
+        preserve_user_id:
+          description: |-
+            Whether to preserve user ID for this connector group.
+
+            If omitted, defaults to false.
+          type: boolean
+        updated_time:
+          readOnly: true
+          type: string
+      required:
+      - name
+      type: object
+    connectors:
+      example:
+        created_time: created_time
+        updated_time: updated_time
+        name: name
+        description: description
+        oid: oid
+        group: group
+      properties:
+        created_time:
+          readOnly: true
+          type: string
+        description:
+          description: Description of the connector.
+          maxLength: 64
+          pattern: "^[\\p{L}\\p{N}\\p{P}\\s,.:_-]*$"
+          type: string
+        group:
+          description: The connector group id
+          type: string
+        name:
+          description: |-
+            Name of the connector.
+
+            It can only be 64 characters long
+            and contain unicode text, space, dash, or underscore, or period.
+          maxLength: 64
+          minLength: 1
+          pattern: "^[\\p{L}\\p{N}\\p{P}\\s,.:_-]*$"
+          type: string
+        oid:
+          description: Id of the entry.
+          readOnly: true
+          type: string
+        updated_time:
+          readOnly: true
+          type: string
+      required:
+      - group
+      - name
+      type: object
+    diagnostic_file.list:
+      example:
+        data:
+        - date: date
+          filename: filename
+          filesize: 0.8008281904610115
+          id: id
+          state: inprogress
+        - date: date
+          filename: filename
+          filesize: 0.8008281904610115
+          id: id
+          state: inprogress
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/diagnostic_file_list_data_inner'
+          type: array
+      type: object
+    discovered_applications:
+      properties:
+        applications:
+          items:
+            $ref: '#/components/schemas/discovered_applications_applications_inner'
+          type: array
+        cie_tenant_id:
+          type: string
+        count:
+          type: number
+        tenant_id:
+          type: string
+      type: object
+    error_detail:
+      description: Error detail information following Google Cloud API CauseInfo format
+      example:
+        '@type': google-cloud-api/CauseInfo
+        causes:
+        - module: module
+          message: message
+        - module: module
+          message: message
+        message: message
+      properties:
+        '@type':
+          description: Type identifier for the detail object
+          example: google-cloud-api/CauseInfo
+          type: string
+        causes:
+          description: Array of cause information objects
+          items:
+            $ref: '#/components/schemas/error_detail_causes_inner'
+          type: array
+        message:
+          description: Detailed error message
+          type: string
+      type: object
+    error_object:
+      description: Error object following Google Cloud API error format
+      example:
+        code: INVALID_ARGUMENT
+        details:
+        - '@type': google-cloud-api/CauseInfo
+          causes:
+          - module: module
+            message: message
+          - module: module
+            message: message
+          message: message
+        - '@type': google-cloud-api/CauseInfo
+          causes:
+          - module: module
+            message: message
+          - module: module
+            message: message
+          message: message
+        message: Unable to find tenantID from TSG mapping or request
+      properties:
+        code:
+          description: Error code
+          example: INVALID_ARGUMENT
+          type: string
+        details:
+          description: Additional error details
+          items:
+            $ref: '#/components/schemas/error_detail'
+          type: array
+        message:
+          description: Human-readable error message
+          example: Unable to find tenantID from TSG mapping or request
+          type: string
+      type: object
+    error_response:
+      description: Error response payload
+      example:
+        error:
+          code: INVALID_ARGUMENT
+          details:
+          - '@type': google-cloud-api/CauseInfo
+            causes:
+            - module: module
+              message: message
+            - module: module
+              message: message
+            message: message
+          - '@type': google-cloud-api/CauseInfo
+            causes:
+            - module: module
+              message: message
+            - module: module
+              message: message
+            message: message
+          message: Unable to find tenantID from TSG mapping or request
+      properties:
+        error:
+          $ref: '#/components/schemas/error_object'
+      required:
+      - error
+      type: object
+    filters:
+      items:
+        type: string
+      type: array
+    license_info:
+      example:
+        connectors: 6.027456183070403
+        license_name: license_name
+        expiry: 2000-01-23T04:56:07.000+00:00
+        max_connectors: 5.962133916683182
+        applications: 0.8008281904610115
+        max_applications: 1.4658129805029452
+      properties:
+        applications:
+          type: number
+        connectors:
+          type: number
+        expiry:
+          format: date-time
+          type: string
+        license_name:
+          type: string
+        max_applications:
+          type: number
+        max_connectors:
+          type: number
+      type: object
+    packet_capture:
+      example:
+        id: id
+        message: 0.8008281904610115
+        status: status
+      properties:
+        id:
+          description: "Request id generated by the micro-service, and is used on\
+            \ other API calls"
+          type: string
+        message:
+          description: Return code description
+          type: number
+        status:
+          description: Return code (CDBG_ERROR or CDBG_OK)
+          type: string
+      type: object
+    packet_capture.create:
+      properties:
+        host:
+          description: IPv4 address
+          type: string
+        interface:
+          description: "Following are the acceptable labels - internal, external,\
+            \ tunnel"
+          type: string
+        port:
+          description: Port number
+          type: string
+        protocol:
+          description: "Following are the acceptable labels - TCP, UDP, ICMP, ARP"
+          type: string
+      required:
+      - interface
+      type: object
+    subnets:
+      example:
+        created_time: created_time
+        updated_time: updated_time
+        ip_subnets: ip_subnets
+        icmp_allowed: true
+        name: name
+        description: description
+        app_enabled: true
+        oid: oid
+        group: group
+      properties:
+        app_enabled:
+          description: |-
+            Whether the IP subnet rule is enabled.
+
+            If omitted, defaults to false.
+          type: boolean
+        created_time:
+          readOnly: true
+          type: string
+        description:
+          maxLength: 64
+          pattern: "^[\\p{L}\\p{N}\\p{P}\\s,.:_-]*$"
+          type: string
+        group:
+          description: A comma separated list of connector group IDs
+          type: string
+        icmp_allowed:
+          description: |-
+            Whether ICMP is allowed for this IP subnet rule.
+
+            If omitted, defaults to true.
+          type: boolean
+        ip_subnets:
+          description: IPv4 subnet in CIDR notation (x.x.x.x/y)
+          type: string
+        name:
+          description: |-
+            Name of the IP Subnet rule.
+
+            It can only be 64 characters long
+            and contain unicode text, space, dash, or underscore, or period.
+          maxLength: 64
+          minLength: 1
+          pattern: "^[\\p{L}\\p{N}\\p{P}\\s,.:_-]*$"
+          type: string
+        oid:
+          description: Id of the entry.
+          readOnly: true
+          type: string
+        updated_time:
+          readOnly: true
+          type: string
+      required:
+      - group
+      - ip_subnets
+      - name
+      type: object
+    tenant.status:
+      example:
+        status: ok
+      properties:
+        status:
+          description: Tenant status
+          enum:
+          - ok
+          - not_found
+          - delete_in_progress
+          type: string
+      required:
+      - status
+      type: object
+    wildcards:
+      example:
+        tcp_port: tcp_port
+        use_dc_ip: true
+        created_time: created_time
+        updated_time: updated_time
+        probe_type: tcp_ping
+        fqdn: fqdn
+        icmp_allowed: true
+        description: description
+        oid: oid
+        enable_policy: true
+        name: name
+        probe_port: probe_port
+        udp_port: udp_port
+        app_enabled: true
+        id: id
+        applications: "{}"
+        group: group
+      properties:
+        app_enabled:
+          description: |-
+            Whether the wildcard is enabled.
+
+            If omitted, defaults to false.
+          type: boolean
+        applications:
+          description: Discovered Wildcard App oid to name mapping.
+          readOnly: true
+          type: object
+        created_time:
+          readOnly: true
+          type: string
+        description:
+          maxLength: 64
+          pattern: "^[\\p{L}\\p{N}\\p{P}\\s,.:_-]*$"
+          type: string
+        enable_policy:
+          description: |-
+            Whether policy is enabled for this wildcard.
+
+            If omitted, defaults to false.
+          type: boolean
+        fqdn:
+          description: The wildcard to match.
+          type: string
+        group:
+          description: A comma separated list of connector group IDs
+          type: string
+        icmp_allowed:
+          description: |-
+            Whether ICMP is allowed for this wildcard.
+
+            If omitted, defaults to true.
+          type: boolean
+        id:
+          description: Id of the entry as returned by list/get operations.
+          readOnly: true
+          type: string
+        name:
+          description: |-
+            Name of the wildcard.
+
+            It can only be 64 characters long
+            and contain unicode text, space, dash, or underscore, or period.
+          maxLength: 64
+          minLength: 1
+          pattern: "^[\\p{L}\\p{N}\\p{P}\\s,.:_-]*$"
+          type: string
+        oid:
+          description: Id of the entry.
+          readOnly: true
+          type: string
+        probe_port:
+          description: The probing port if the `probe_type` is `tcp_ping`.
+          type: string
+        probe_type:
+          description: |-
+            The probing type.
+
+            The value can be `tcp_ping`, `icmp_ping`, or omitted.
+          enum:
+          - tcp_ping
+          - icmp_ping
+          type: string
+        tcp_port:
+          description: |-
+            TCP port number(s).
+
+            It can be a single port number, multiple port numbers separated by comma,
+            or a port range like 8000-9000.
+
+            If both tcp_port and udp_port are omitted, tcp_port defaults to 443.
+          type: string
+        udp_port:
+          description: |-
+            UDP port number(s).
+
+            It can be a single port number, multiple port numbers separated by comma,
+            or a port range like 8000-9000.
+
+            If both tcp_port and udp_port are omitted, tcp_port defaults to 443.
+          type: string
+        updated_time:
+          readOnly: true
+          type: string
+        use_dc_ip:
+          description: |-
+            Whether to use datacenter IP for this wildcard.
+
+            If omitted, defaults to false.
+          type: boolean
+      required:
+      - fqdn
+      - group
+      - name
+      type: object
+    StartTenantOffboarding_202_response:
+      example:
+        msg: msg
+      properties:
+        msg:
+          description: Confirmation message
+          type: string
+      type: object
+    applications_spec_inner:
+      example:
+        tcp_port: tcp_port
+        probe_type: tcp_ping
+        fqdn: fqdn
+        probe_port: probe_port
+        udp_port: udp_port
+      properties:
+        fqdn:
+          description: FQDN of the rule.
+          pattern: "^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,63}$"
+          type: string
+        probe_port:
+          description: The probing port if the `probe_type` is `tcp_ping`.
+          type: string
+        probe_type:
+          description: |-
+            The probing type.
+
+            The value can be `tcp_ping`, `icmp_ping`, or omitted.
+          enum:
+          - tcp_ping
+          - icmp_ping
+          type: string
+        tcp_port:
+          description: |-
+            TCP port number(s).
+
+            It can be a single port number, multiple port numbers separated by comma,
+            or a port range like 8000-9000.
+
+            If both tcp_port and udp_port are omitted, tcp_port defaults to 443.
+          type: string
+        udp_port:
+          description: |-
+            UDP port number(s).
+
+            It can be a single port number, multiple port numbers separated by comma,
+            or a port range like 8000-9000.
+
+            If both tcp_port and udp_port are omitted, tcp_port defaults to 443.
+          type: string
+      required:
+      - fqdn
+      type: object
+    connector_status_flags_capabilities:
+      properties:
+        ipsubnet_supported:
+          type: boolean
+        wildcard_supported:
+          type: boolean
+      type: object
+    connector_status_flags:
+      properties:
+        capabilities:
+          $ref: '#/components/schemas/connector_status_flags_capabilities'
+        config_state:
+          type: string
+        control_plane_up:
+          type: boolean
+        token_state:
+          type: string
+        tunnel_up:
+          type: boolean
+      type: object
+    connector_group_connectors_connectors:
+      example:
+        total: 1
+        data: ""
+        offset: 6
+        limit: 0
+      properties:
+        data: {}
+        limit:
+          default: 200
+          type: integer
+        offset:
+          default: 0
+          type: integer
+        total:
+          type: integer
+      type: object
+    connector_group_status_counts:
+      properties:
+        applications:
+          type: integer
+        connectors:
+          type: integer
+        ipsubnets:
+          type: integer
+        wildcards:
+          type: integer
+      type: object
+    connector_group_upgrade_status_data_inner:
+      example:
+        current_sw_version: current_sw_version
+        upgrade_time: upgrade_time
+        connector_oid: connector_oid
+        upgrade_status: upgrade_status
+        upgrade_sw_version: upgrade_sw_version
+        drain_time: 0
+        sessions_count: 6
+        failure_reason: failure_reason
+        connector_name: connector_name
+      properties:
+        connector_name:
+          description: Connector name
+          type: string
+        connector_oid:
+          description: Connector ID
+          type: string
+        current_sw_version:
+          description: Current software version running on the connector
+          type: string
+        drain_time:
+          description: Time remaining until drain completes in seconds (present when
+            connector is draining)
+          type: integer
+        failure_reason:
+          description: Reason for upgrade failure (if upgrade failed)
+          type: string
+        sessions_count:
+          description: Number of active sessions (present when connector is draining)
+          type: integer
+        upgrade_status:
+          description: Current upgrade status of the connector
+          type: string
+        upgrade_sw_version:
+          description: Target software version for the upgrade
+          type: string
+        upgrade_time:
+          description: Scheduled upgrade time
+          type: string
+      type: object
+    diagnostic_file_list_data_inner:
+      example:
+        date: date
+        filename: filename
+        filesize: 0.8008281904610115
+        id: id
+        state: inprogress
+      properties:
+        date:
+          type: string
+        filename:
+          description: Name of the file.
+          type: string
+        filesize:
+          description: Size of the file.
+          type: number
+        id:
+          description: Request id
+          type: string
+        state:
+          description: "stopped, complete, inprogress"
+          enum:
+          - inprogress
+          - complete
+          - stopped
+          type: string
+      type: object
+    discovered_applications_applications_inner_app_spec_inner:
+      properties:
+        fqdn:
+          type: string
+        port:
+          type: string
+        protocol:
+          type: string
+      type: object
+    discovered_applications_applications_inner:
+      properties:
+        app_spec:
+          items:
+            $ref: '#/components/schemas/discovered_applications_applications_inner_app_spec_inner'
+          type: array
+        fqdn:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        port:
+          type: string
+        protocol:
+          type: string
+        provider:
+          type: string
+      type: object
+    error_detail_causes_inner:
+      example:
+        module: module
+        message: message
+      properties:
+        message:
+          description: Cause message
+          type: string
+        module:
+          description: Module where the cause originated
+          type: string
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
