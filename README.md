@@ -16,12 +16,15 @@ In the project root scm-go, populate scm-config.json with the relevant parameter
   "client_secret": "",
   "host": "",
   "ztna_host": "",
+  "x_panw_region": "",
   "logging": "quiet",
   "protocol": "https",
   "scope": "",
   "skip_verify_certificate": false
 }
 ```
+
+`x_panw_region` is required for ZTNA Connector API requests (`x-panw-region` header). Valid values: `americas`, `europe`, `apac`. Leave empty if not using ZTNA resources.
 
 Then you can write a go program to test out the authentication.
 There are tests provided in the tests directory for convenience.
@@ -150,6 +153,8 @@ Starting from version 1.0.8, the scm-go client supports passing JWT tokens via t
   "client_id": "your-client-id",
   "client_secret": "your-client-secret",
   "host": "api.strata.paloaltonetworks.com",
+  "ztna_host": "api.sase.paloaltonetworks.com",
+  "x_panw_region": "americas",
   "protocol": "https",
   "scope": "tsg_id:1234567890",
   "jwt": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",

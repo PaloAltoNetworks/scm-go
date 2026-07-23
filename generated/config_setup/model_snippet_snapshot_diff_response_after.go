@@ -136,6 +136,7 @@ func (o SnippetSnapshotDiffResponseAfter) ToMap() (map[string]interface{}, error
 func (o *SnippetSnapshotDiffResponseAfter) UnmarshalJSON(data []byte) (err error) {
 	varSnippetSnapshotDiffResponseAfter := _SnippetSnapshotDiffResponseAfter{}
 
+	data = normalizeRFC3339(data, "@ts")
 	err = json.Unmarshal(data, &varSnippetSnapshotDiffResponseAfter)
 
 	if err != nil {

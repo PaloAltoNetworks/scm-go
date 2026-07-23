@@ -1778,14 +1778,33 @@ paths:
   /connector-images:
     get:
       operationId: ListConnectorImages
+      parameters:
+      - description: |
+          A 0-based offset into the collection.
+          It is the index of the starting entry of the page
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
+      - description: The max count in result entry (count per page)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+        style: form
       responses:
         "200":
           content:
             application/json:
               schema:
-                items:
-                  type: string
-                type: array
+                $ref: '#/components/schemas/ConnectorImagesListResponse'
           description: OK
         "400":
           content:
@@ -3311,7 +3330,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/license_info'
+                $ref: '#/components/schemas/license'
           description: OK
         "401":
           content:
@@ -4828,6 +4847,36 @@ components:
       - offset
       - total
       type: object
+    ConnectorImagesListResponse:
+      example:
+        total: 1
+        data:
+        - "{}"
+        - "{}"
+        offset: 6
+        limit: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ConnectorImages'
+          type: array
+        limit:
+          default: 200
+          description: The maximum number of results per page
+          type: integer
+        offset:
+          default: 0
+          description: The offset into the list of results returned
+          type: integer
+        total:
+          description: The total count of results
+          type: integer
+      required:
+      - data
+      - limit
+      - offset
+      - total
+      type: object
     ConnectorsListResponse:
       example:
         total: 1
@@ -5434,6 +5483,13 @@ components:
       required:
       - name
       type: object
+    connector_images:
+      properties:
+        id:
+          type: string
+        version:
+          type: string
+      type: object
     connectors:
       example:
         created_time: created_time
@@ -5597,11 +5653,11 @@ components:
       items:
         type: string
       type: array
-    license_info:
+    license:
       example:
         connectors: 6.027456183070403
         license_name: license_name
-        expiry: 2000-01-23T04:56:07.000+00:00
+        expiry: 2000-01-23
         max_connectors: 5.962133916683182
         applications: 0.8008281904610115
         max_applications: 1.4658129805029452
@@ -5611,7 +5667,7 @@ components:
         connectors:
           type: number
         expiry:
-          format: date-time
+          format: date
           type: string
         license_name:
           type: string

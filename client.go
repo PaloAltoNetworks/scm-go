@@ -38,6 +38,7 @@ Param | Environment Variable | JSON Key | Default
 AuthUrl | SCM_AUTH_URL | auth_url | "https://auth.apps.paloaltonetworks.com/auth/v1/oauth2/access_token"
 Host | SCM_HOST | host | "api.strata.paloaltonetworks.com"
 ZtnaHost | ZTNA_HOST | ztna_host | "api.sase.paloaltonetworks.com"
+XPanwRegion | X_PANW_REGION | x_panw_region | ""
 Port | SCM_PORT | port | 0
 ClientId | SCM_CLIENT_ID | client_id | ""
 ClientSecret | SCM_CLIENT_SECRET | client_secret | ""
@@ -53,6 +54,7 @@ type Client struct {
 	AuthUrl      string            `json:"auth_url"`
 	Host         string            `json:"host"`
 	ZtnaHost     string            `json:"ztna_host"`
+	XPanwRegion  string            `json:"x_panw_region"`
 	Port         int               `json:"port"`
 	ClientId     string            `json:"client_id"`
 	ClientSecret string            `json:"client_secret"`
@@ -147,6 +149,15 @@ func (c *Client) Setup() error {
 	}
 	if c.ZtnaHost == "" {
 		c.ZtnaHost = "api.sase.paloaltonetworks.com"
+	}
+
+	// XPanwRegion.
+	if c.XPanwRegion == "" {
+		if val := os.Getenv("X_PANW_REGION"); c.CheckEnvironment && val != "" {
+			c.XPanwRegion = val
+		} else if json_client.XPanwRegion != "" {
+			c.XPanwRegion = json_client.XPanwRegion
+		}
 	}
 
 	// Port.
@@ -640,6 +651,9 @@ func (c *Client) GetHost() string { return c.Host }
 
 // GetZtnaHost returns the ZtnaHost property.
 func (c *Client) GetZtnaHost() string { return c.ZtnaHost }
+
+// GetXPanwRegion returns the XPanwRegion property.
+func (c *Client) GetXPanwRegion() string { return c.XPanwRegion }
 
 // authResponse represents the response from the auth endpoint
 type authResponse struct {

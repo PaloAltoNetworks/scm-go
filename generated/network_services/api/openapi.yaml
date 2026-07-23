@@ -8882,6 +8882,11 @@ components:
             name: name
           - hw_address: hw_address
             name: name
+          lldp:
+            enable: false
+            profile: profile
+            high_availability:
+              passive_pre_negotiation: false
           mtu: 5446
         name: name
         comment: comment
@@ -8899,6 +8904,11 @@ components:
               passive_pre_negotiation: false
           vlan_tag: "123"
           netflow_profile: netflow_profile
+          lldp:
+            enable: false
+            profile: profile
+            high_availability:
+              passive_pre_negotiation: false
         device: My Device
       properties:
         comment:
@@ -10704,6 +10714,11 @@ components:
             name: name
           - hw_address: hw_address
             name: name
+          lldp:
+            enable: false
+            profile: profile
+            high_availability:
+              passive_pre_negotiation: false
           mtu: 1842
         name: name
         comment: comment
@@ -10713,6 +10728,9 @@ components:
           netflow_profile: netflow_profile
           lldp:
             enable: false
+            profile: profile
+            high_availability:
+              passive_pre_negotiation: false
         link_state: auto
         aggregate_group: $aggregate-interface-example
         device: My Device
@@ -11843,6 +11861,25 @@ components:
           type: string
       required:
       - name
+    lldp:
+      description: LLDP settings for the interface
+      example:
+        enable: false
+        profile: profile
+        high_availability:
+          passive_pre_negotiation: false
+      properties:
+        enable:
+          default: false
+          description: Enable LLDP on Interface
+          type: boolean
+        high_availability:
+          $ref: '#/components/schemas/lldp_high_availability'
+        profile:
+          description: Name of the LLDP profile to assign to the interface
+          type: string
+      required:
+      - enable
     lldp-profiles:
       example:
         mode: mode
@@ -17016,6 +17053,7 @@ components:
           - name: name
           - name: name
           enabled: true
+        negate_source: false
         schedule: schedule
         folder: My Folder
         application:
@@ -17048,6 +17086,7 @@ components:
         - source_user
         - source_user
         id: 123e4567-e89b-12d3-a456-426655440000
+        negate_destination: false
         tag:
         - tag
         - tag
@@ -17093,6 +17132,14 @@ components:
         name:
           description: PBF rule name
           type: string
+        negate_destination:
+          default: false
+          description: Negate destination address
+          type: boolean
+        negate_source:
+          default: false
+          description: Negate source address
+          type: boolean
         schedule:
           description: Schedule
           type: string
@@ -18799,9 +18846,16 @@ components:
             passive_pre_negotiation: false
         vlan_tag: "123"
         netflow_profile: netflow_profile
+        lldp:
+          enable: false
+          profile: profile
+          high_availability:
+            passive_pre_negotiation: false
       properties:
         lacp:
           $ref: '#/components/schemas/lacp'
+        lldp:
+          $ref: '#/components/schemas/lldp'
         netflow_profile:
           description: Name of Netflow Profile to assign to Interface
           type: string
@@ -18901,6 +18955,11 @@ components:
           name: name
         - hw_address: hw_address
           name: name
+        lldp:
+          enable: false
+          profile: profile
+          high_availability:
+            passive_pre_negotiation: false
         mtu: 5446
       properties:
         arp:
@@ -18923,6 +18982,8 @@ components:
           type: array
         lacp:
           $ref: '#/components/schemas/lacp'
+        lldp:
+          $ref: '#/components/schemas/lldp'
         mtu:
           default: 1500
           description: MTU
@@ -22577,26 +22638,18 @@ components:
       properties:
         retries:
           $ref: '#/components/schemas/dns_proxies_udp_queries_retries'
-    ethernet_interfaces_layer2_lldp:
-      description: LLDP Settings
-      example:
-        enable: false
-      properties:
-        enable:
-          default: false
-          description: Enable LLDP on Interface
-          type: boolean
-      required:
-      - enable
     ethernet_interfaces_layer2:
       example:
         vlan_tag: vlan_tag
         netflow_profile: netflow_profile
         lldp:
           enable: false
+          profile: profile
+          high_availability:
+            passive_pre_negotiation: false
       properties:
         lldp:
-          $ref: '#/components/schemas/ethernet_interfaces_layer2_lldp'
+          $ref: '#/components/schemas/lldp'
         netflow_profile:
           description: Name of Netflow Profile to assign to Interface
           type: string
@@ -22818,6 +22871,11 @@ components:
           name: name
         - hw_address: hw_address
           name: name
+        lldp:
+          enable: false
+          profile: profile
+          high_availability:
+            passive_pre_negotiation: false
         mtu: 1842
       properties:
         arp:
@@ -22838,6 +22896,8 @@ components:
           items:
             $ref: '#/components/schemas/ethernet_interfaces_layer3_ip_inner'
           type: array
+        lldp:
+          $ref: '#/components/schemas/lldp'
         mtu:
           default: 1500
           description: MTU
@@ -23552,6 +23612,14 @@ components:
           description: IP address
           format: ip-address
           type: string
+    lldp_high_availability:
+      description: LLDP high availability settings
+      example:
+        passive_pre_negotiation: false
+      properties:
+        passive_pre_negotiation:
+          default: false
+          type: boolean
     lldp_profiles_option_tlvs_management_address_iplist_inner:
       example:
         ipv4: ipv4

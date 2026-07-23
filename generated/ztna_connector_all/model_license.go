@@ -13,44 +13,43 @@ package ztna_connector_all
 
 import (
 	"encoding/json"
-	"time"
 )
 
-// checks if the LicenseInfo type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &LicenseInfo{}
+// checks if the License type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &License{}
 
-// LicenseInfo struct for LicenseInfo
-type LicenseInfo struct {
-	Applications         *float32   `json:"applications,omitempty"`
-	Connectors           *float32   `json:"connectors,omitempty"`
-	Expiry               *time.Time `json:"expiry,omitempty"`
-	LicenseName          *string    `json:"license_name,omitempty"`
-	MaxApplications      *float32   `json:"max_applications,omitempty"`
-	MaxConnectors        *float32   `json:"max_connectors,omitempty"`
+// License struct for License
+type License struct {
+	Applications         *float32 `json:"applications,omitempty"`
+	Connectors           *float32 `json:"connectors,omitempty"`
+	Expiry               *string  `json:"expiry,omitempty"`
+	LicenseName          *string  `json:"license_name,omitempty"`
+	MaxApplications      *float32 `json:"max_applications,omitempty"`
+	MaxConnectors        *float32 `json:"max_connectors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _LicenseInfo LicenseInfo
+type _License License
 
-// NewLicenseInfo instantiates a new LicenseInfo object
+// NewLicense instantiates a new License object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLicenseInfo() *LicenseInfo {
-	this := LicenseInfo{}
+func NewLicense() *License {
+	this := License{}
 	return &this
 }
 
-// NewLicenseInfoWithDefaults instantiates a new LicenseInfo object
+// NewLicenseWithDefaults instantiates a new License object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewLicenseInfoWithDefaults() *LicenseInfo {
-	this := LicenseInfo{}
+func NewLicenseWithDefaults() *License {
+	this := License{}
 	return &this
 }
 
 // GetApplications returns the Applications field value if set, zero value otherwise.
-func (o *LicenseInfo) GetApplications() float32 {
+func (o *License) GetApplications() float32 {
 	if o == nil || IsNil(o.Applications) {
 		var ret float32
 		return ret
@@ -60,7 +59,7 @@ func (o *LicenseInfo) GetApplications() float32 {
 
 // GetApplicationsOk returns a tuple with the Applications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicenseInfo) GetApplicationsOk() (*float32, bool) {
+func (o *License) GetApplicationsOk() (*float32, bool) {
 	if o == nil || IsNil(o.Applications) {
 		return nil, false
 	}
@@ -68,7 +67,7 @@ func (o *LicenseInfo) GetApplicationsOk() (*float32, bool) {
 }
 
 // HasApplications returns a boolean if a field has been set.
-func (o *LicenseInfo) HasApplications() bool {
+func (o *License) HasApplications() bool {
 	if o != nil && !IsNil(o.Applications) {
 		return true
 	}
@@ -77,12 +76,12 @@ func (o *LicenseInfo) HasApplications() bool {
 }
 
 // SetApplications gets a reference to the given float32 and assigns it to the Applications field.
-func (o *LicenseInfo) SetApplications(v float32) {
+func (o *License) SetApplications(v float32) {
 	o.Applications = &v
 }
 
 // GetConnectors returns the Connectors field value if set, zero value otherwise.
-func (o *LicenseInfo) GetConnectors() float32 {
+func (o *License) GetConnectors() float32 {
 	if o == nil || IsNil(o.Connectors) {
 		var ret float32
 		return ret
@@ -92,7 +91,7 @@ func (o *LicenseInfo) GetConnectors() float32 {
 
 // GetConnectorsOk returns a tuple with the Connectors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicenseInfo) GetConnectorsOk() (*float32, bool) {
+func (o *License) GetConnectorsOk() (*float32, bool) {
 	if o == nil || IsNil(o.Connectors) {
 		return nil, false
 	}
@@ -100,7 +99,7 @@ func (o *LicenseInfo) GetConnectorsOk() (*float32, bool) {
 }
 
 // HasConnectors returns a boolean if a field has been set.
-func (o *LicenseInfo) HasConnectors() bool {
+func (o *License) HasConnectors() bool {
 	if o != nil && !IsNil(o.Connectors) {
 		return true
 	}
@@ -109,14 +108,14 @@ func (o *LicenseInfo) HasConnectors() bool {
 }
 
 // SetConnectors gets a reference to the given float32 and assigns it to the Connectors field.
-func (o *LicenseInfo) SetConnectors(v float32) {
+func (o *License) SetConnectors(v float32) {
 	o.Connectors = &v
 }
 
 // GetExpiry returns the Expiry field value if set, zero value otherwise.
-func (o *LicenseInfo) GetExpiry() time.Time {
+func (o *License) GetExpiry() string {
 	if o == nil || IsNil(o.Expiry) {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.Expiry
@@ -124,7 +123,7 @@ func (o *LicenseInfo) GetExpiry() time.Time {
 
 // GetExpiryOk returns a tuple with the Expiry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicenseInfo) GetExpiryOk() (*time.Time, bool) {
+func (o *License) GetExpiryOk() (*string, bool) {
 	if o == nil || IsNil(o.Expiry) {
 		return nil, false
 	}
@@ -132,7 +131,7 @@ func (o *LicenseInfo) GetExpiryOk() (*time.Time, bool) {
 }
 
 // HasExpiry returns a boolean if a field has been set.
-func (o *LicenseInfo) HasExpiry() bool {
+func (o *License) HasExpiry() bool {
 	if o != nil && !IsNil(o.Expiry) {
 		return true
 	}
@@ -140,13 +139,13 @@ func (o *LicenseInfo) HasExpiry() bool {
 	return false
 }
 
-// SetExpiry gets a reference to the given time.Time and assigns it to the Expiry field.
-func (o *LicenseInfo) SetExpiry(v time.Time) {
+// SetExpiry gets a reference to the given string and assigns it to the Expiry field.
+func (o *License) SetExpiry(v string) {
 	o.Expiry = &v
 }
 
 // GetLicenseName returns the LicenseName field value if set, zero value otherwise.
-func (o *LicenseInfo) GetLicenseName() string {
+func (o *License) GetLicenseName() string {
 	if o == nil || IsNil(o.LicenseName) {
 		var ret string
 		return ret
@@ -156,7 +155,7 @@ func (o *LicenseInfo) GetLicenseName() string {
 
 // GetLicenseNameOk returns a tuple with the LicenseName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicenseInfo) GetLicenseNameOk() (*string, bool) {
+func (o *License) GetLicenseNameOk() (*string, bool) {
 	if o == nil || IsNil(o.LicenseName) {
 		return nil, false
 	}
@@ -164,7 +163,7 @@ func (o *LicenseInfo) GetLicenseNameOk() (*string, bool) {
 }
 
 // HasLicenseName returns a boolean if a field has been set.
-func (o *LicenseInfo) HasLicenseName() bool {
+func (o *License) HasLicenseName() bool {
 	if o != nil && !IsNil(o.LicenseName) {
 		return true
 	}
@@ -173,12 +172,12 @@ func (o *LicenseInfo) HasLicenseName() bool {
 }
 
 // SetLicenseName gets a reference to the given string and assigns it to the LicenseName field.
-func (o *LicenseInfo) SetLicenseName(v string) {
+func (o *License) SetLicenseName(v string) {
 	o.LicenseName = &v
 }
 
 // GetMaxApplications returns the MaxApplications field value if set, zero value otherwise.
-func (o *LicenseInfo) GetMaxApplications() float32 {
+func (o *License) GetMaxApplications() float32 {
 	if o == nil || IsNil(o.MaxApplications) {
 		var ret float32
 		return ret
@@ -188,7 +187,7 @@ func (o *LicenseInfo) GetMaxApplications() float32 {
 
 // GetMaxApplicationsOk returns a tuple with the MaxApplications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicenseInfo) GetMaxApplicationsOk() (*float32, bool) {
+func (o *License) GetMaxApplicationsOk() (*float32, bool) {
 	if o == nil || IsNil(o.MaxApplications) {
 		return nil, false
 	}
@@ -196,7 +195,7 @@ func (o *LicenseInfo) GetMaxApplicationsOk() (*float32, bool) {
 }
 
 // HasMaxApplications returns a boolean if a field has been set.
-func (o *LicenseInfo) HasMaxApplications() bool {
+func (o *License) HasMaxApplications() bool {
 	if o != nil && !IsNil(o.MaxApplications) {
 		return true
 	}
@@ -205,12 +204,12 @@ func (o *LicenseInfo) HasMaxApplications() bool {
 }
 
 // SetMaxApplications gets a reference to the given float32 and assigns it to the MaxApplications field.
-func (o *LicenseInfo) SetMaxApplications(v float32) {
+func (o *License) SetMaxApplications(v float32) {
 	o.MaxApplications = &v
 }
 
 // GetMaxConnectors returns the MaxConnectors field value if set, zero value otherwise.
-func (o *LicenseInfo) GetMaxConnectors() float32 {
+func (o *License) GetMaxConnectors() float32 {
 	if o == nil || IsNil(o.MaxConnectors) {
 		var ret float32
 		return ret
@@ -220,7 +219,7 @@ func (o *LicenseInfo) GetMaxConnectors() float32 {
 
 // GetMaxConnectorsOk returns a tuple with the MaxConnectors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicenseInfo) GetMaxConnectorsOk() (*float32, bool) {
+func (o *License) GetMaxConnectorsOk() (*float32, bool) {
 	if o == nil || IsNil(o.MaxConnectors) {
 		return nil, false
 	}
@@ -228,7 +227,7 @@ func (o *LicenseInfo) GetMaxConnectorsOk() (*float32, bool) {
 }
 
 // HasMaxConnectors returns a boolean if a field has been set.
-func (o *LicenseInfo) HasMaxConnectors() bool {
+func (o *License) HasMaxConnectors() bool {
 	if o != nil && !IsNil(o.MaxConnectors) {
 		return true
 	}
@@ -237,11 +236,11 @@ func (o *LicenseInfo) HasMaxConnectors() bool {
 }
 
 // SetMaxConnectors gets a reference to the given float32 and assigns it to the MaxConnectors field.
-func (o *LicenseInfo) SetMaxConnectors(v float32) {
+func (o *License) SetMaxConnectors(v float32) {
 	o.MaxConnectors = &v
 }
 
-func (o LicenseInfo) MarshalJSON() ([]byte, error) {
+func (o License) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -249,7 +248,7 @@ func (o LicenseInfo) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o LicenseInfo) ToMap() (map[string]interface{}, error) {
+func (o License) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Applications) {
 		toSerialize["applications"] = o.Applications
@@ -277,16 +276,16 @@ func (o LicenseInfo) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *LicenseInfo) UnmarshalJSON(data []byte) (err error) {
-	varLicenseInfo := _LicenseInfo{}
+func (o *License) UnmarshalJSON(data []byte) (err error) {
+	varLicense := _License{}
 
-	err = json.Unmarshal(data, &varLicenseInfo)
+	err = json.Unmarshal(data, &varLicense)
 
 	if err != nil {
 		return err
 	}
 
-	*o = LicenseInfo(varLicenseInfo)
+	*o = License(varLicense)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -303,38 +302,38 @@ func (o *LicenseInfo) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableLicenseInfo struct {
-	value *LicenseInfo
+type NullableLicense struct {
+	value *License
 	isSet bool
 }
 
-func (v NullableLicenseInfo) Get() *LicenseInfo {
+func (v NullableLicense) Get() *License {
 	return v.value
 }
 
-func (v *NullableLicenseInfo) Set(val *LicenseInfo) {
+func (v *NullableLicense) Set(val *License) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableLicenseInfo) IsSet() bool {
+func (v NullableLicense) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableLicenseInfo) Unset() {
+func (v *NullableLicense) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableLicenseInfo(val *LicenseInfo) *NullableLicenseInfo {
-	return &NullableLicenseInfo{value: val, isSet: true}
+func NewNullableLicense(val *License) *NullableLicense {
+	return &NullableLicense{value: val, isSet: true}
 }
 
-func (v NullableLicenseInfo) MarshalJSON() ([]byte, error) {
+func (v NullableLicense) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableLicenseInfo) UnmarshalJSON(src []byte) error {
+func (v *NullableLicense) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

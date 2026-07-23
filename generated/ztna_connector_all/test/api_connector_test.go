@@ -78,7 +78,6 @@ func Test_ztna_connector_all_ConnectorAPIService_GetByID(t *testing.T) {
 	t.Cleanup(func() { deleteTestConnector(t, client, oid, name) })
 
 	connector, httpRes, err := client.ConnectorAPI.GetConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -109,7 +108,6 @@ func Test_ztna_connector_all_ConnectorAPIService_Update(t *testing.T) {
 	updated.Description = &updatedDesc
 
 	httpRes, err := client.ConnectorAPI.UpdateConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Connectors(*updated).
 		Execute()
 	if err != nil {
@@ -120,7 +118,6 @@ func Test_ztna_connector_all_ConnectorAPIService_Update(t *testing.T) {
 	assert.Equal(t, 200, httpRes.StatusCode, "Expected 200 OK for update")
 
 	connector, _, err := client.ConnectorAPI.GetConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	require.NoError(t, err)
 	require.NotNil(t, connector.Description)
@@ -139,7 +136,6 @@ func Test_ztna_connector_all_ConnectorAPIService_List(t *testing.T) {
 	t.Cleanup(func() { deleteTestConnector(t, client, oid, name) })
 
 	listRes, httpRes, err := client.ConnectorAPI.ListConnectors(context.Background()).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -172,7 +168,6 @@ func Test_ztna_connector_all_ConnectorAPIService_Delete(t *testing.T) {
 	oid := fetchTestConnectorOID(t, client, name)
 
 	httpRes, err := client.ConnectorAPI.DeleteConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -183,7 +178,6 @@ func Test_ztna_connector_all_ConnectorAPIService_Delete(t *testing.T) {
 	t.Logf("Delete OK: name=%s oid=%s", name, oid)
 
 	_, httpRes, err = client.ConnectorAPI.GetConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	require.Error(t, err, "Expected error after deletion")
 	require.NotNil(t, httpRes)
@@ -198,7 +192,6 @@ func Test_ztna_connector_all_ConnectorAPIService_ListFilters(t *testing.T) {
 	client := SetupZtnaConnectorAllTestClient(t)
 
 	filters, httpRes, err := client.ConnectorAPI.ListConnectorFilters(context.Background()).
-		XPanwRegion("americas").
 		Field("name").
 		Execute()
 	if err != nil {
@@ -238,7 +231,6 @@ func Test_ztna_connector_all_ConnectorAPIService_GetQuiesce(t *testing.T) {
 	t.Cleanup(func() { deleteTestConnector(t, client, oid, name) })
 
 	quiesce, httpRes, err := client.ConnectorAPI.GetConnectorsQuiesceByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -259,7 +251,6 @@ func Test_ztna_connector_all_ConnectorAPIService_GetQuiesce_OnlineConnector(t *t
 	client := SetupZtnaConnectorAllTestClient(t)
 
 	quiesce, httpRes, err := client.ConnectorAPI.GetConnectorsQuiesceByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -285,7 +276,6 @@ func Test_ztna_connector_all_ConnectorAPIService_UpdateQuiesce(t *testing.T) {
 
 	quiesce := ztna_connector_all.NewConnectorQuiesce("quiesce")
 	httpRes, err := client.ConnectorAPI.UpdateConnectorsQuiesceByID(context.Background(), oid).
-		XPanwRegion("americas").
 		ConnectorQuiesce(*quiesce).
 		Execute()
 	if err != nil {
@@ -372,8 +362,7 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_GetStatus(t *t
 	oid := fetchTestConnectorOID(t, client, name)
 	t.Cleanup(func() { deleteTestConnector(t, client, oid, name) })
 
-	status, httpRes, err := client.ConnectorAPI.GetConnectorsScheduledUpgradeStatusByID(context.Background(), oid).
-		XPanwRegion("americas").Execute()
+	status, httpRes, err := client.ConnectorAPI.GetConnectorsScheduledUpgradeStatusByID(context.Background(), oid).Execute()
 	if err != nil {
 		handleAPIError(err)
 		t.Logf("GetScheduledUpgradeStatus error (connector may be offline): %v", err)

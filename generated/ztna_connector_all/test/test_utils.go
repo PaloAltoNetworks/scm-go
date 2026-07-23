@@ -46,7 +46,9 @@ func SetupZtnaConnectorAllTestClient(t *testing.T) *ztna_connector_all.APIClient
 
 	cfg := ztna_connector_all.NewConfiguration()
 	cfg.Servers[0].URL = fmt.Sprintf("https://%s/sse/connector/v2.0/api", setupClient.GetZtnaHost())
-	cfg.AddDefaultHeader("x-panw-region", "americas")
+	if region := setupClient.GetXPanwRegion(); region != "" {
+		cfg.AddDefaultHeader("x-panw-region", region)
+	}
 
 	jwtTransport := &setup.JWTRefreshTransport{
 		Wrapped:     setupClient.HttpClient.Transport,

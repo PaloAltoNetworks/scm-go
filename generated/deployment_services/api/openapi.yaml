@@ -5264,6 +5264,12 @@ components:
         onboarding_type: classic
         region_tag: region_tag
         protocol:
+          bgp_peer:
+            peer_ipv6_address: peer_ipv6_address
+            peer_ip_address: peer_ip_address
+            local_ipv6_address: local_ipv6_address
+            secret: secret
+            local_ip_address: local_ip_address
           bgp:
             fast_failover: true
             enable: true
@@ -5274,13 +5280,6 @@ components:
             secret: secret
             originate_default_route: true
             local_ip_address: local_ip_address
-        bgp_peer:
-          peer_ipv6_address: peer_ipv6_address
-          peer_ip_address: peer_ip_address
-          same_as_primary: true
-          local_ipv6_address: local_ipv6_address
-          secret: secret
-          local_ip_address: local_ip_address
         qos:
           enable: true
           qos_profile: qos_profile
@@ -5297,8 +5296,6 @@ components:
       properties:
         backup_SC:
           type: string
-        bgp_peer:
-          $ref: '#/components/schemas/service_connections_bgp_peer'
         id:
           description: The UUID of the service connection
           example: 123e4567-e89b-12d3-a456-426655440000
@@ -5709,7 +5706,7 @@ components:
           type: string
       type: object
     remote_networks_protocol:
-      description: setup the protocol when ecmp_load_balancing is disable
+      description: setup the protocol when ecmp_load_balancing is disabled
       example:
         bgp_peer:
           peer_ip_address: peer_ip_address
@@ -5731,30 +5728,6 @@ components:
           $ref: '#/components/schemas/remote-networks-protocol-bgp'
         bgp_peer:
           $ref: '#/components/schemas/remote_networks_protocol_bgp_peer'
-      type: object
-    service_connections_bgp_peer:
-      example:
-        peer_ipv6_address: peer_ipv6_address
-        peer_ip_address: peer_ip_address
-        same_as_primary: true
-        local_ipv6_address: local_ipv6_address
-        secret: secret
-        local_ip_address: local_ip_address
-      properties:
-        local_ip_address:
-          type: string
-        local_ipv6_address:
-          type: string
-        peer_ip_address:
-          type: string
-        peer_ipv6_address:
-          type: string
-        same_as_primary:
-          description: Same peer IP address for SC
-          type: boolean
-        secret:
-          format: password
-          type: string
       type: object
     service_connections_protocol_bgp:
       example:
@@ -5790,8 +5763,39 @@ components:
       required:
       - peer_as
       type: object
+    service_connections_protocol_bgp_peer:
+      example:
+        peer_ipv6_address: peer_ipv6_address
+        peer_ip_address: peer_ip_address
+        local_ipv6_address: local_ipv6_address
+        secret: secret
+        local_ip_address: local_ip_address
+      properties:
+        local_ip_address:
+          description: Local peer IP address (secondary WAN)
+          type: string
+        local_ipv6_address:
+          description: Local peer IPv6 address (secondary WAN)
+          type: string
+        peer_ip_address:
+          description: Remote peer IP address (secondary WAN)
+          type: string
+        peer_ipv6_address:
+          description: Remote peer IPv6 address (secondary WAN)
+          type: string
+        secret:
+          description: BGP peering secret (secondary WAN)
+          format: password
+          type: string
+      type: object
     service_connections_protocol:
       example:
+        bgp_peer:
+          peer_ipv6_address: peer_ipv6_address
+          peer_ip_address: peer_ip_address
+          local_ipv6_address: local_ipv6_address
+          secret: secret
+          local_ip_address: local_ip_address
         bgp:
           fast_failover: true
           enable: true
@@ -5805,6 +5809,8 @@ components:
       properties:
         bgp:
           $ref: '#/components/schemas/service_connections_protocol_bgp'
+        bgp_peer:
+          $ref: '#/components/schemas/service_connections_protocol_bgp_peer'
       type: object
     service_connections_qos:
       example:

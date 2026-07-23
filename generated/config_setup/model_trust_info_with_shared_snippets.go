@@ -748,6 +748,7 @@ func (o TrustInfoWithSharedSnippets) ToMap() (map[string]interface{}, error) {
 func (o *TrustInfoWithSharedSnippets) UnmarshalJSON(data []byte) (err error) {
 	varTrustInfoWithSharedSnippets := _TrustInfoWithSharedSnippets{}
 
+	data = normalizeRFC3339(data, "created", "last_updated")
 	err = json.Unmarshal(data, &varTrustInfoWithSharedSnippets)
 
 	if err != nil {

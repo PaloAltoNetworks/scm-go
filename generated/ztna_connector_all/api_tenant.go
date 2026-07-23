@@ -34,7 +34,7 @@ func (r ApiGetLicenseRequest) XPanwRegion(xPanwRegion string) ApiGetLicenseReque
 	return r
 }
 
-func (r ApiGetLicenseRequest) Execute() (*LicenseInfo, *http.Response, error) {
+func (r ApiGetLicenseRequest) Execute() (*License, *http.Response, error) {
 	return r.ApiService.GetLicenseExecute(r)
 }
 
@@ -53,13 +53,13 @@ func (a *TenantAPIService) GetLicense(ctx context.Context) ApiGetLicenseRequest 
 
 // Execute executes the request
 //
-//	@return LicenseInfo
-func (a *TenantAPIService) GetLicenseExecute(r ApiGetLicenseRequest) (*LicenseInfo, *http.Response, error) {
+//	@return License
+func (a *TenantAPIService) GetLicenseExecute(r ApiGetLicenseRequest) (*License, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LicenseInfo
+		localVarReturnValue *License
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TenantAPIService.GetLicense")

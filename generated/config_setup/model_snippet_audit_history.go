@@ -568,6 +568,7 @@ func (o SnippetAuditHistory) ToMap() (map[string]interface{}, error) {
 func (o *SnippetAuditHistory) UnmarshalJSON(data []byte) (err error) {
 	varSnippetAuditHistory := _SnippetAuditHistory{}
 
+	data = normalizeRFC3339(data, "created")
 	err = json.Unmarshal(data, &varSnippetAuditHistory)
 
 	if err != nil {

@@ -856,6 +856,7 @@ func (o SnippetShareInfo) ToMap() (map[string]interface{}, error) {
 func (o *SnippetShareInfo) UnmarshalJSON(data []byte) (err error) {
 	varSnippetShareInfo := _SnippetShareInfo{}
 
+	data = normalizeRFC3339(data, "created", "last_updated")
 	err = json.Unmarshal(data, &varSnippetShareInfo)
 
 	if err != nil {

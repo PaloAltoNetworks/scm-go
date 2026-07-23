@@ -1821,9 +1821,23 @@ func (a *ConnectorAPIService) ListConnectorFiltersExecute(r ApiListConnectorFilt
 type ApiListConnectorImagesRequest struct {
 	ctx        context.Context
 	ApiService *ConnectorAPIService
+	offset     *int32
+	limit      *int32
 }
 
-func (r ApiListConnectorImagesRequest) Execute() ([]string, *http.Response, error) {
+// A 0-based offset into the collection. It is the index of the starting entry of the page
+func (r ApiListConnectorImagesRequest) Offset(offset int32) ApiListConnectorImagesRequest {
+	r.offset = &offset
+	return r
+}
+
+// The max count in result entry (count per page)
+func (r ApiListConnectorImagesRequest) Limit(limit int32) ApiListConnectorImagesRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ApiListConnectorImagesRequest) Execute() (*ConnectorImagesListResponse, *http.Response, error) {
 	return r.ApiService.ListConnectorImagesExecute(r)
 }
 
@@ -1842,13 +1856,13 @@ func (a *ConnectorAPIService) ListConnectorImages(ctx context.Context) ApiListCo
 
 // Execute executes the request
 //
-//	@return []string
-func (a *ConnectorAPIService) ListConnectorImagesExecute(r ApiListConnectorImagesRequest) ([]string, *http.Response, error) {
+//	@return ConnectorImagesListResponse
+func (a *ConnectorAPIService) ListConnectorImagesExecute(r ApiListConnectorImagesRequest) (*ConnectorImagesListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []string
+		localVarReturnValue *ConnectorImagesListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectorAPIService.ListConnectorImages")
@@ -1862,6 +1876,12 @@ func (a *ConnectorAPIService) ListConnectorImagesExecute(r ApiListConnectorImage
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

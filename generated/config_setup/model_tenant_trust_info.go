@@ -928,6 +928,7 @@ func (o TenantTrustInfo) ToMap() (map[string]interface{}, error) {
 func (o *TenantTrustInfo) UnmarshalJSON(data []byte) (err error) {
 	varTenantTrustInfo := _TenantTrustInfo{}
 
+	data = normalizeRFC3339(data, "created", "last_updated")
 	err = json.Unmarshal(data, &varTenantTrustInfo)
 
 	if err != nil {

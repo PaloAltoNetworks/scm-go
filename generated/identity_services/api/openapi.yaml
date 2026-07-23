@@ -11526,6 +11526,7 @@ components:
           - pkcs10
           type: string
         passphrase:
+          format: password
           type: string
       required:
       - format

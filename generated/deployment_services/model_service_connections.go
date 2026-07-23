@@ -21,8 +21,7 @@ var _ MappedNullable = &ServiceConnections{}
 
 // ServiceConnections struct for ServiceConnections
 type ServiceConnections struct {
-	BackupSC *string                    `json:"backup_SC,omitempty"`
-	BgpPeer  *ServiceConnectionsBgpPeer `json:"bgp_peer,omitempty"`
+	BackupSC *string `json:"backup_SC,omitempty"`
 	// The UUID of the service connection
 	Id          string `json:"id"`
 	IpsecTunnel string `json:"ipsec_tunnel"`
@@ -98,38 +97,6 @@ func (o *ServiceConnections) HasBackupSC() bool {
 // SetBackupSC gets a reference to the given string and assigns it to the BackupSC field.
 func (o *ServiceConnections) SetBackupSC(v string) {
 	o.BackupSC = &v
-}
-
-// GetBgpPeer returns the BgpPeer field value if set, zero value otherwise.
-func (o *ServiceConnections) GetBgpPeer() ServiceConnectionsBgpPeer {
-	if o == nil || IsNil(o.BgpPeer) {
-		var ret ServiceConnectionsBgpPeer
-		return ret
-	}
-	return *o.BgpPeer
-}
-
-// GetBgpPeerOk returns a tuple with the BgpPeer field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ServiceConnections) GetBgpPeerOk() (*ServiceConnectionsBgpPeer, bool) {
-	if o == nil || IsNil(o.BgpPeer) {
-		return nil, false
-	}
-	return o.BgpPeer, true
-}
-
-// HasBgpPeer returns a boolean if a field has been set.
-func (o *ServiceConnections) HasBgpPeer() bool {
-	if o != nil && !IsNil(o.BgpPeer) {
-		return true
-	}
-
-	return false
-}
-
-// SetBgpPeer gets a reference to the given ServiceConnectionsBgpPeer and assigns it to the BgpPeer field.
-func (o *ServiceConnections) SetBgpPeer(v ServiceConnectionsBgpPeer) {
-	o.BgpPeer = &v
 }
 
 // GetId returns the Id field value
@@ -529,9 +496,6 @@ func (o ServiceConnections) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BackupSC) {
 		toSerialize["backup_SC"] = o.BackupSC
 	}
-	if !IsNil(o.BgpPeer) {
-		toSerialize["bgp_peer"] = o.BgpPeer
-	}
 	toSerialize["id"] = o.Id
 	toSerialize["ipsec_tunnel"] = o.IpsecTunnel
 	toSerialize["name"] = o.Name
@@ -610,7 +574,6 @@ func (o *ServiceConnections) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "backup_SC")
-		delete(additionalProperties, "bgp_peer")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "ipsec_tunnel")
 		delete(additionalProperties, "name")

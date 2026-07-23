@@ -262,6 +262,7 @@ func (o *ConnectorGroupScheduledUpgrade) UnmarshalJSON(data []byte) (err error) 
 
 	varConnectorGroupScheduledUpgrade := _ConnectorGroupScheduledUpgrade{}
 
+	data = normalizeRFC3339(data, "scheduled_download", "scheduled_upgrade")
 	err = json.Unmarshal(data, &varConnectorGroupScheduledUpgrade)
 
 	if err != nil {
