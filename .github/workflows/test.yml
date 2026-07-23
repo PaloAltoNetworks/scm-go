@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - fix-ci-cd-tests
   pull_request:
     branches:
       - develop
