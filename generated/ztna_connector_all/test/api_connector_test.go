@@ -41,14 +41,14 @@ func pcapConnectorOID(t *testing.T) string {
 // fetchFirstConnectorImage returns the first available image ID, or skips the test.
 func fetchFirstConnectorImage(t *testing.T, client *ztna_connector_all.APIClient) string {
 	t.Helper()
-	images, _, err := client.ConnectorAPI.ListConnectorImages(context.Background()).Execute()
+	imagesResp, _, err := client.ConnectorAPI.ListConnectorImages(context.Background()).Execute()
 	if err != nil {
 		t.Skipf("Cannot list connector images: %v", err)
 	}
-	if len(images) == 0 {
+	if imagesResp == nil || len(imagesResp.GetData()) == 0 {
 		t.Skip("No connector images available")
 	}
-	return images[0]
+	return imagesResp.GetData()[0].GetId()
 }
 
 // ── CRUD ─────────────────────────────────────────────────────────────────────
@@ -379,8 +379,8 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_GetStatus(t *t
 func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Update(t *testing.T) {
 	client := SetupZtnaConnectorAllTestClient(t)
 	groupID := provisionGroupID(t, client)
-	images, _, _ := client.ConnectorAPI.ListConnectorImages(context.Background()).Execute()
-	if len(images) < 2 {
+	imagesResp, _, _ := client.ConnectorAPI.ListConnectorImages(context.Background()).Execute()
+	if imagesResp == nil || len(imagesResp.GetData()) < 2 {
 		t.Skip("Need at least 2 connector images to test scheduled upgrade update")
 	}
 	name := fmt.Sprintf("test-connector-suupdate-%s", common.GenerateRandomString(6))
@@ -392,13 +392,13 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Update(t *test
 		deleteTestConnector(t, client, oid, name)
 	})
 
-	upgrade := ztna_connector_all.NewConnectorScheduledUpgrade(images[0])
+	upgrade := ztna_connector_all.NewConnectorScheduledUpgrade(imagesResp.GetData()[0].GetId())
 	if _, err := client.ConnectorAPI.CreateConnectorsScheduledUpgradeByID(context.Background(), oid).
 		ConnectorScheduledUpgrade(*upgrade).Execute(); err != nil {
 		t.Skipf("Cannot create scheduled upgrade: %v", err)
 	}
 
-	updated := ztna_connector_all.NewConnectorScheduledUpgrade(images[1])
+	updated := ztna_connector_all.NewConnectorScheduledUpgrade(imagesResp.GetData()[1].GetId())
 	httpRes, err := client.ConnectorAPI.UpdateConnectorsScheduledUpgradeByID(context.Background(), oid).
 		ConnectorScheduledUpgrade(*updated).Execute()
 	if err != nil {
