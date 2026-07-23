@@ -21,6 +21,7 @@ var _ MappedNullable = &AggregateInterfacesLayer2{}
 // AggregateInterfacesLayer2 struct for AggregateInterfacesLayer2
 type AggregateInterfacesLayer2 struct {
 	Lacp *Lacp `json:"lacp,omitempty"`
+	Lldp *Lldp `json:"lldp,omitempty"`
 	// Name of Netflow Profile to assign to Interface
 	NetflowProfile *string `json:"netflow_profile,omitempty"`
 	// VLAN tag
@@ -77,6 +78,38 @@ func (o *AggregateInterfacesLayer2) HasLacp() bool {
 // SetLacp gets a reference to the given Lacp and assigns it to the Lacp field.
 func (o *AggregateInterfacesLayer2) SetLacp(v Lacp) {
 	o.Lacp = &v
+}
+
+// GetLldp returns the Lldp field value if set, zero value otherwise.
+func (o *AggregateInterfacesLayer2) GetLldp() Lldp {
+	if o == nil || IsNil(o.Lldp) {
+		var ret Lldp
+		return ret
+	}
+	return *o.Lldp
+}
+
+// GetLldpOk returns a tuple with the Lldp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregateInterfacesLayer2) GetLldpOk() (*Lldp, bool) {
+	if o == nil || IsNil(o.Lldp) {
+		return nil, false
+	}
+	return o.Lldp, true
+}
+
+// HasLldp returns a boolean if a field has been set.
+func (o *AggregateInterfacesLayer2) HasLldp() bool {
+	if o != nil && !IsNil(o.Lldp) {
+		return true
+	}
+
+	return false
+}
+
+// SetLldp gets a reference to the given Lldp and assigns it to the Lldp field.
+func (o *AggregateInterfacesLayer2) SetLldp(v Lldp) {
+	o.Lldp = &v
 }
 
 // GetNetflowProfile returns the NetflowProfile field value if set, zero value otherwise.
@@ -156,6 +189,9 @@ func (o AggregateInterfacesLayer2) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Lacp) {
 		toSerialize["lacp"] = o.Lacp
 	}
+	if !IsNil(o.Lldp) {
+		toSerialize["lldp"] = o.Lldp
+	}
 	if !IsNil(o.NetflowProfile) {
 		toSerialize["netflow_profile"] = o.NetflowProfile
 	}
@@ -185,6 +221,7 @@ func (o *AggregateInterfacesLayer2) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lacp")
+		delete(additionalProperties, "lldp")
 		delete(additionalProperties, "netflow_profile")
 		delete(additionalProperties, "vlan_tag")
 		o.AdditionalProperties = additionalProperties

@@ -20,7 +20,7 @@ var _ MappedNullable = &EthernetInterfacesLayer2{}
 
 // EthernetInterfacesLayer2 struct for EthernetInterfacesLayer2
 type EthernetInterfacesLayer2 struct {
-	Lldp *EthernetInterfacesLayer2Lldp `json:"lldp,omitempty"`
+	Lldp *Lldp `json:"lldp,omitempty"`
 	// Name of Netflow Profile to assign to Interface
 	NetflowProfile *string `json:"netflow_profile,omitempty"`
 	// Assign interface to VLAN tag
@@ -48,9 +48,9 @@ func NewEthernetInterfacesLayer2WithDefaults() *EthernetInterfacesLayer2 {
 }
 
 // GetLldp returns the Lldp field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer2) GetLldp() EthernetInterfacesLayer2Lldp {
+func (o *EthernetInterfacesLayer2) GetLldp() Lldp {
 	if o == nil || IsNil(o.Lldp) {
-		var ret EthernetInterfacesLayer2Lldp
+		var ret Lldp
 		return ret
 	}
 	return *o.Lldp
@@ -58,7 +58,7 @@ func (o *EthernetInterfacesLayer2) GetLldp() EthernetInterfacesLayer2Lldp {
 
 // GetLldpOk returns a tuple with the Lldp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer2) GetLldpOk() (*EthernetInterfacesLayer2Lldp, bool) {
+func (o *EthernetInterfacesLayer2) GetLldpOk() (*Lldp, bool) {
 	if o == nil || IsNil(o.Lldp) {
 		return nil, false
 	}
@@ -74,8 +74,8 @@ func (o *EthernetInterfacesLayer2) HasLldp() bool {
 	return false
 }
 
-// SetLldp gets a reference to the given EthernetInterfacesLayer2Lldp and assigns it to the Lldp field.
-func (o *EthernetInterfacesLayer2) SetLldp(v EthernetInterfacesLayer2Lldp) {
+// SetLldp gets a reference to the given Lldp and assigns it to the Lldp field.
+func (o *EthernetInterfacesLayer2) SetLldp(v Lldp) {
 	o.Lldp = &v
 }
 

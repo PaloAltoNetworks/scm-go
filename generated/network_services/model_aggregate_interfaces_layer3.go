@@ -29,6 +29,7 @@ type AggregateInterfacesLayer3 struct {
 	// Aggregate Interface IP addresses
 	Ip   []AggregateInterfacesLayer3IpInner `json:"ip,omitempty"`
 	Lacp *Lacp                              `json:"lacp,omitempty"`
+	Lldp *Lldp                              `json:"lldp,omitempty"`
 	// MTU
 	Mtu *int32 `json:"mtu,omitempty"`
 	// Name of Netflow Profile to assign to Interface
@@ -251,6 +252,38 @@ func (o *AggregateInterfacesLayer3) SetLacp(v Lacp) {
 	o.Lacp = &v
 }
 
+// GetLldp returns the Lldp field value if set, zero value otherwise.
+func (o *AggregateInterfacesLayer3) GetLldp() Lldp {
+	if o == nil || IsNil(o.Lldp) {
+		var ret Lldp
+		return ret
+	}
+	return *o.Lldp
+}
+
+// GetLldpOk returns a tuple with the Lldp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregateInterfacesLayer3) GetLldpOk() (*Lldp, bool) {
+	if o == nil || IsNil(o.Lldp) {
+		return nil, false
+	}
+	return o.Lldp, true
+}
+
+// HasLldp returns a boolean if a field has been set.
+func (o *AggregateInterfacesLayer3) HasLldp() bool {
+	if o != nil && !IsNil(o.Lldp) {
+		return true
+	}
+
+	return false
+}
+
+// SetLldp gets a reference to the given Lldp and assigns it to the Lldp field.
+func (o *AggregateInterfacesLayer3) SetLldp(v Lldp) {
+	o.Lldp = &v
+}
+
 // GetMtu returns the Mtu field value if set, zero value otherwise.
 func (o *AggregateInterfacesLayer3) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
@@ -343,6 +376,9 @@ func (o AggregateInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Lacp) {
 		toSerialize["lacp"] = o.Lacp
 	}
+	if !IsNil(o.Lldp) {
+		toSerialize["lldp"] = o.Lldp
+	}
 	if !IsNil(o.Mtu) {
 		toSerialize["mtu"] = o.Mtu
 	}
@@ -377,6 +413,7 @@ func (o *AggregateInterfacesLayer3) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "lacp")
+		delete(additionalProperties, "lldp")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "netflow_profile")
 		o.AdditionalProperties = additionalProperties

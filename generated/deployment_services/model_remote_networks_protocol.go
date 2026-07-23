@@ -18,7 +18,7 @@ import (
 // checks if the RemoteNetworksProtocol type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RemoteNetworksProtocol{}
 
-// RemoteNetworksProtocol setup the protocol when ecmp_load_balancing is disable
+// RemoteNetworksProtocol setup the protocol when ecmp_load_balancing is disabled
 type RemoteNetworksProtocol struct {
 	Bgp                  *RemoteNetworksProtocolBgp     `json:"bgp,omitempty"`
 	BgpPeer              *RemoteNetworksProtocolBgpPeer `json:"bgp_peer,omitempty"`
