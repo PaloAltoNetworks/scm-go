@@ -408,7 +408,7 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Update(t *test
 	}
 	require.NotNil(t, httpRes)
 	assert.Equal(t, 200, httpRes.StatusCode)
-	t.Logf("UpdateScheduledUpgrade OK: oid=%s newImageID=%s", oid, images[1])
+	t.Logf("UpdateScheduledUpgrade OK: oid=%s newImageID=%s", oid, imagesResp.GetData()[1].GetId())
 }
 
 // Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Delete deletes a scheduled upgrade.
