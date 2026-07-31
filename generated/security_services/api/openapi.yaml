@@ -15935,7 +15935,6 @@ components:
           description: Negate the source address(es)?
           type: boolean
         negate_user:
-          default: false
           type: boolean
         policy_type:
           default: Security
@@ -16439,7 +16438,7 @@ components:
         - tag
         - tag
         log_setting: log_setting
-        negate_user: false
+        negate_user: true
         devices:
         - devices
         - devices
@@ -16599,7 +16598,6 @@ components:
           description: Negate the source address(es)?
           type: boolean
         negate_user:
-          default: false
           type: boolean
         policy_type:
           default: Security
