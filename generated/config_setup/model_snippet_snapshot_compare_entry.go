@@ -352,7 +352,6 @@ func (o SnippetSnapshotCompareEntry) ToMap() (map[string]interface{}, error) {
 func (o *SnippetSnapshotCompareEntry) UnmarshalJSON(data []byte) (err error) {
 	varSnippetSnapshotCompareEntry := _SnippetSnapshotCompareEntry{}
 
-	data = normalizeRFC3339(data, "timestamp")
 	err = json.Unmarshal(data, &varSnippetSnapshotCompareEntry)
 
 	if err != nil {

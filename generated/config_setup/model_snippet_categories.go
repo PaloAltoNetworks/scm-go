@@ -1077,7 +1077,6 @@ func (o *SnippetCategories) UnmarshalJSON(data []byte) (err error) {
 
 	varSnippetCategories := _SnippetCategories{}
 
-	data = normalizeRFC3339(data, "created_in", "last_update")
 	err = json.Unmarshal(data, &varSnippetCategories)
 
 	if err != nil {

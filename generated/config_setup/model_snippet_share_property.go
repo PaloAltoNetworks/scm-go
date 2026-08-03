@@ -640,7 +640,6 @@ func (o SnippetShareProperty) ToMap() (map[string]interface{}, error) {
 func (o *SnippetShareProperty) UnmarshalJSON(data []byte) (err error) {
 	varSnippetShareProperty := _SnippetShareProperty{}
 
-	data = normalizeRFC3339(data, "created", "updated")
 	err = json.Unmarshal(data, &varSnippetShareProperty)
 
 	if err != nil {

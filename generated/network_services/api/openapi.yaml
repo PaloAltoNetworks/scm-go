@@ -21976,11 +21976,13 @@ components:
         aspath_exclude:
           items:
             description: AS number
+            format: int64
             type: integer
           type: array
         aspath_prepend:
           items:
             description: AS number
+            format: int64
             type: integer
           type: array
         atomic_aggregate:
