@@ -21,6 +21,7 @@ var _ MappedNullable = &VlanInterfaces{}
 
 // VlanInterfaces struct for VlanInterfaces
 type VlanInterfaces struct {
+	AdjustTcpMss *AdjustTcpMss `json:"adjust_tcp_mss,omitempty"`
 	// ARP configuration
 	Arp []VlanInterfacesArpInner `json:"arp,omitempty"`
 	// Description
@@ -70,6 +71,38 @@ func NewVlanInterfaces(name string) *VlanInterfaces {
 func NewVlanInterfacesWithDefaults() *VlanInterfaces {
 	this := VlanInterfaces{}
 	return &this
+}
+
+// GetAdjustTcpMss returns the AdjustTcpMss field value if set, zero value otherwise.
+func (o *VlanInterfaces) GetAdjustTcpMss() AdjustTcpMss {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		var ret AdjustTcpMss
+		return ret
+	}
+	return *o.AdjustTcpMss
+}
+
+// GetAdjustTcpMssOk returns a tuple with the AdjustTcpMss field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VlanInterfaces) GetAdjustTcpMssOk() (*AdjustTcpMss, bool) {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		return nil, false
+	}
+	return o.AdjustTcpMss, true
+}
+
+// HasAdjustTcpMss returns a boolean if a field has been set.
+func (o *VlanInterfaces) HasAdjustTcpMss() bool {
+	if o != nil && !IsNil(o.AdjustTcpMss) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdjustTcpMss gets a reference to the given AdjustTcpMss and assigns it to the AdjustTcpMss field.
+func (o *VlanInterfaces) SetAdjustTcpMss(v AdjustTcpMss) {
+	o.AdjustTcpMss = &v
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
@@ -554,6 +587,9 @@ func (o VlanInterfaces) MarshalJSON() ([]byte, error) {
 
 func (o VlanInterfaces) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AdjustTcpMss) {
+		toSerialize["adjust_tcp_mss"] = o.AdjustTcpMss
+	}
 	if !IsNil(o.Arp) {
 		toSerialize["arp"] = o.Arp
 	}
@@ -640,6 +676,7 @@ func (o *VlanInterfaces) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "adjust_tcp_mss")
 		delete(additionalProperties, "arp")
 		delete(additionalProperties, "comment")
 		delete(additionalProperties, "ddns_config")
