@@ -264,6 +264,9 @@ func GetSecurityServicesAPIClient(setupClient *Client) *security_services.APICli
 func GetZtnaConnectorAllAPIClient(setupClient *Client) *ztna_connector_all.APIClient {
 	config := ztna_connector_all.NewConfiguration()
 	config.Host = setupClient.GetZtnaHost()
+	if region := setupClient.GetXPanwRegion(); region != "" {
+		config.AddDefaultHeader("x-panw-region", region)
+	}
 	config.Scheme = "https"
 
 	// Create a custom transport that handles JWT refresh

@@ -46,7 +46,9 @@ func SetupZtnaConnectorAllTestClient(t *testing.T) *ztna_connector_all.APIClient
 
 	cfg := ztna_connector_all.NewConfiguration()
 	cfg.Servers[0].URL = fmt.Sprintf("https://%s/sse/connector/v2.0/api", setupClient.GetZtnaHost())
-	cfg.AddDefaultHeader("x-panw-region", "americas")
+	if region := setupClient.GetXPanwRegion(); region != "" {
+		cfg.AddDefaultHeader("x-panw-region", region)
+	}
 
 	jwtTransport := &setup.JWTRefreshTransport{
 		Wrapped:     setupClient.HttpClient.Transport,
@@ -147,8 +149,11 @@ func fetchTestConnectorGroupOID(t *testing.T, client *ztna_connector_all.APIClie
 }
 
 // deleteTestConnectorGroup deletes a connector group by OID. Treats 404 as already deleted.
+// Before deleting, it drains all wildcards that reference this group to avoid 400 errors
+// caused by leftover child resources from previous failed test runs.
 func deleteTestConnectorGroup(t *testing.T, client *ztna_connector_all.APIClient, oid, name string) {
 	t.Helper()
+	drainWildcardsForGroup(t, client, oid)
 	httpRes, err := client.ConnectorGroupAPI.DeleteConnectorGroupByID(context.Background(), oid).Execute()
 	if err != nil {
 		if httpRes != nil && httpRes.StatusCode == 404 {
@@ -159,6 +164,36 @@ func deleteTestConnectorGroup(t *testing.T, client *ztna_connector_all.APIClient
 		require.Fail(t, "Failed to delete test connector group", "OID: %s", oid)
 	}
 	t.Logf("Deleted test connector group: %s (OID: %s)", name, oid)
+}
+
+// drainWildcardsForGroup deletes all wildcards whose Group field matches groupOID.
+// This prevents 400 "connector group is used by other objects" errors when deleting a group
+// that still has wildcards from a previous failed test run.
+func drainWildcardsForGroup(t *testing.T, client *ztna_connector_all.APIClient, groupOID string) {
+	t.Helper()
+	listRes, httpRes, err := client.WildcardAPI.ListWildcards(context.Background()).Execute()
+	if err != nil || httpRes == nil || httpRes.StatusCode != 200 {
+		t.Logf("drainWildcardsForGroup: could not list wildcards (skipping drain): %v", err)
+		return
+	}
+	for _, w := range listRes.GetData() {
+		if w.Group != groupOID {
+			continue
+		}
+		wcOID := w.GetOid()
+		if wcOID == "" && w.Id != nil {
+			wcOID = *w.Id
+		}
+		if wcOID == "" {
+			continue
+		}
+		delRes, delErr := client.WildcardAPI.DeleteWildcardByID(context.Background(), wcOID).Execute()
+		if delErr != nil && (delRes == nil || delRes.StatusCode != 404) {
+			t.Logf("drainWildcardsForGroup: failed to delete wildcard %s: %v", wcOID, delErr)
+		} else {
+			t.Logf("drainWildcardsForGroup: deleted stale wildcard %s from group %s", wcOID, groupOID)
+		}
+	}
 }
 
 // ── Connector helpers ─────────────────────────────────────────────────────────

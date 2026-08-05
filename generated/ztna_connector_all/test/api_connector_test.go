@@ -41,14 +41,14 @@ func pcapConnectorOID(t *testing.T) string {
 // fetchFirstConnectorImage returns the first available image ID, or skips the test.
 func fetchFirstConnectorImage(t *testing.T, client *ztna_connector_all.APIClient) string {
 	t.Helper()
-	images, _, err := client.ConnectorAPI.ListConnectorImages(context.Background()).Execute()
+	imagesResp, _, err := client.ConnectorAPI.ListConnectorImages(context.Background()).Execute()
 	if err != nil {
 		t.Skipf("Cannot list connector images: %v", err)
 	}
-	if len(images) == 0 {
+	if imagesResp == nil || len(imagesResp.GetData()) == 0 {
 		t.Skip("No connector images available")
 	}
-	return images[0]
+	return imagesResp.GetData()[0].GetId()
 }
 
 // ── CRUD ─────────────────────────────────────────────────────────────────────
@@ -78,7 +78,6 @@ func Test_ztna_connector_all_ConnectorAPIService_GetByID(t *testing.T) {
 	t.Cleanup(func() { deleteTestConnector(t, client, oid, name) })
 
 	connector, httpRes, err := client.ConnectorAPI.GetConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -109,7 +108,6 @@ func Test_ztna_connector_all_ConnectorAPIService_Update(t *testing.T) {
 	updated.Description = &updatedDesc
 
 	httpRes, err := client.ConnectorAPI.UpdateConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Connectors(*updated).
 		Execute()
 	if err != nil {
@@ -120,7 +118,6 @@ func Test_ztna_connector_all_ConnectorAPIService_Update(t *testing.T) {
 	assert.Equal(t, 200, httpRes.StatusCode, "Expected 200 OK for update")
 
 	connector, _, err := client.ConnectorAPI.GetConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	require.NoError(t, err)
 	require.NotNil(t, connector.Description)
@@ -139,7 +136,6 @@ func Test_ztna_connector_all_ConnectorAPIService_List(t *testing.T) {
 	t.Cleanup(func() { deleteTestConnector(t, client, oid, name) })
 
 	listRes, httpRes, err := client.ConnectorAPI.ListConnectors(context.Background()).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -172,7 +168,6 @@ func Test_ztna_connector_all_ConnectorAPIService_Delete(t *testing.T) {
 	oid := fetchTestConnectorOID(t, client, name)
 
 	httpRes, err := client.ConnectorAPI.DeleteConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -183,7 +178,6 @@ func Test_ztna_connector_all_ConnectorAPIService_Delete(t *testing.T) {
 	t.Logf("Delete OK: name=%s oid=%s", name, oid)
 
 	_, httpRes, err = client.ConnectorAPI.GetConnectorsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	require.Error(t, err, "Expected error after deletion")
 	require.NotNil(t, httpRes)
@@ -198,7 +192,6 @@ func Test_ztna_connector_all_ConnectorAPIService_ListFilters(t *testing.T) {
 	client := SetupZtnaConnectorAllTestClient(t)
 
 	filters, httpRes, err := client.ConnectorAPI.ListConnectorFilters(context.Background()).
-		XPanwRegion("americas").
 		Field("name").
 		Execute()
 	if err != nil {
@@ -238,7 +231,6 @@ func Test_ztna_connector_all_ConnectorAPIService_GetQuiesce(t *testing.T) {
 	t.Cleanup(func() { deleteTestConnector(t, client, oid, name) })
 
 	quiesce, httpRes, err := client.ConnectorAPI.GetConnectorsQuiesceByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -259,7 +251,6 @@ func Test_ztna_connector_all_ConnectorAPIService_GetQuiesce_OnlineConnector(t *t
 	client := SetupZtnaConnectorAllTestClient(t)
 
 	quiesce, httpRes, err := client.ConnectorAPI.GetConnectorsQuiesceByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -285,7 +276,6 @@ func Test_ztna_connector_all_ConnectorAPIService_UpdateQuiesce(t *testing.T) {
 
 	quiesce := ztna_connector_all.NewConnectorQuiesce("quiesce")
 	httpRes, err := client.ConnectorAPI.UpdateConnectorsQuiesceByID(context.Background(), oid).
-		XPanwRegion("americas").
 		ConnectorQuiesce(*quiesce).
 		Execute()
 	if err != nil {
@@ -372,8 +362,7 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_GetStatus(t *t
 	oid := fetchTestConnectorOID(t, client, name)
 	t.Cleanup(func() { deleteTestConnector(t, client, oid, name) })
 
-	status, httpRes, err := client.ConnectorAPI.GetConnectorsScheduledUpgradeStatusByID(context.Background(), oid).
-		XPanwRegion("americas").Execute()
+	status, httpRes, err := client.ConnectorAPI.GetConnectorsScheduledUpgradeStatusByID(context.Background(), oid).Execute()
 	if err != nil {
 		handleAPIError(err)
 		t.Logf("GetScheduledUpgradeStatus error (connector may be offline): %v", err)
@@ -390,8 +379,8 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_GetStatus(t *t
 func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Update(t *testing.T) {
 	client := SetupZtnaConnectorAllTestClient(t)
 	groupID := provisionGroupID(t, client)
-	images, _, _ := client.ConnectorAPI.ListConnectorImages(context.Background()).Execute()
-	if len(images) < 2 {
+	imagesResp, _, _ := client.ConnectorAPI.ListConnectorImages(context.Background()).Execute()
+	if imagesResp == nil || len(imagesResp.GetData()) < 2 {
 		t.Skip("Need at least 2 connector images to test scheduled upgrade update")
 	}
 	name := fmt.Sprintf("test-connector-suupdate-%s", common.GenerateRandomString(6))
@@ -403,13 +392,13 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Update(t *test
 		deleteTestConnector(t, client, oid, name)
 	})
 
-	upgrade := ztna_connector_all.NewConnectorScheduledUpgrade(images[0])
+	upgrade := ztna_connector_all.NewConnectorScheduledUpgrade(imagesResp.GetData()[0].GetId())
 	if _, err := client.ConnectorAPI.CreateConnectorsScheduledUpgradeByID(context.Background(), oid).
 		ConnectorScheduledUpgrade(*upgrade).Execute(); err != nil {
 		t.Skipf("Cannot create scheduled upgrade: %v", err)
 	}
 
-	updated := ztna_connector_all.NewConnectorScheduledUpgrade(images[1])
+	updated := ztna_connector_all.NewConnectorScheduledUpgrade(imagesResp.GetData()[1].GetId())
 	httpRes, err := client.ConnectorAPI.UpdateConnectorsScheduledUpgradeByID(context.Background(), oid).
 		ConnectorScheduledUpgrade(*updated).Execute()
 	if err != nil {
@@ -419,7 +408,7 @@ func Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Update(t *test
 	}
 	require.NotNil(t, httpRes)
 	assert.Equal(t, 200, httpRes.StatusCode)
-	t.Logf("UpdateScheduledUpgrade OK: oid=%s newImageID=%s", oid, images[1])
+	t.Logf("UpdateScheduledUpgrade OK: oid=%s newImageID=%s", oid, imagesResp.GetData()[1].GetId())
 }
 
 // Test_ztna_connector_all_ConnectorAPIService_ScheduledUpgrade_Delete deletes a scheduled upgrade.

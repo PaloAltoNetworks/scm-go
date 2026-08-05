@@ -43,7 +43,6 @@ func Test_ztna_connector_all_FQDNRulesAPIService_GetByID(t *testing.T) {
 	t.Cleanup(func() { deleteTestApplication(t, client, oid, name) })
 
 	app, httpRes, err := client.FQDNAPI.GetApplicationsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -72,8 +71,7 @@ func Test_ztna_connector_all_FQDNRulesAPIService_Update(t *testing.T) {
 	t.Cleanup(func() { deleteTestApplication(t, client, oid, name) })
 
 	// Fetch current state so immutable fields are preserved.
-	current, _, err := client.FQDNAPI.GetApplicationsByID(context.Background(), oid).
-		XPanwRegion("americas").Execute()
+	current, _, err := client.FQDNAPI.GetApplicationsByID(context.Background(), oid).Execute()
 	require.NoError(t, err, "Failed to fetch current FQDN rule before update")
 
 	// Rebuild spec with the same FQDN but updated tcp_port.
@@ -88,7 +86,6 @@ func Test_ztna_connector_all_FQDNRulesAPIService_Update(t *testing.T) {
 
 	httpRes, err := client.FQDNAPI.UpdateApplicationsByID(context.Background(), oid).
 		Applications(*updated).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -109,7 +106,6 @@ func Test_ztna_connector_all_FQDNRulesAPIService_List(t *testing.T) {
 	t.Cleanup(func() { deleteTestApplication(t, client, oid, name) })
 
 	listRes, httpRes, err := client.FQDNAPI.ListApplications(context.Background()).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -140,7 +136,6 @@ func Test_ztna_connector_all_FQDNRulesAPIService_Delete(t *testing.T) {
 	oid := fetchTestApplicationOID(t, client, name)
 
 	httpRes, err := client.FQDNAPI.DeleteApplicationsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -149,7 +144,6 @@ func Test_ztna_connector_all_FQDNRulesAPIService_Delete(t *testing.T) {
 	assert.Equal(t, 202, httpRes.StatusCode, "Expected 202 Accepted for delete")
 
 	_, getRes, getErr := client.FQDNAPI.GetApplicationsByID(context.Background(), oid).
-		XPanwRegion("americas").
 		Execute()
 	assert.Error(t, getErr, "Should error when fetching deleted rule")
 	assert.Equal(t, 404, getRes.StatusCode, "Should get 404 for deleted rule")

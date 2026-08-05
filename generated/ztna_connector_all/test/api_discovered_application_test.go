@@ -19,7 +19,6 @@ func Test_ztna_connector_all_DiscoveredApplicationAPIService_List(t *testing.T) 
 	client := SetupZtnaConnectorAllTestClient(t)
 
 	listRes, httpRes, err := client.DiscoveredApplicationAPI.ListDiscoveredApplications(context.Background()).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
@@ -39,7 +38,6 @@ func Test_ztna_connector_all_DiscoveredApplicationAPIService_ListFilters(t *test
 	client := SetupZtnaConnectorAllTestClient(t)
 
 	filters, httpRes, err := client.DiscoveredApplicationAPI.ListDiscoveredApplicationFilters(context.Background()).
-		XPanwRegion("americas").
 		Execute()
 	if err != nil {
 		handleAPIError(err)
