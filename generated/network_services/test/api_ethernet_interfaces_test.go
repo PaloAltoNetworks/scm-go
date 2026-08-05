@@ -56,6 +56,16 @@ func createBaseEthernetInterface(t *testing.T, baseName string) network_services
 	return intf
 }
 
+// createEthernetAdjustTcpMss builds a TCP MSS adjustment config with both IPv4 and IPv6 sizes set.
+func createEthernetAdjustTcpMss() network_services.AdjustTcpMss {
+	mssConfig := network_services.NewAdjustTcpMssWithDefaults()
+	mssConfig.SetEnable(true)
+	mssConfig.SetIpv4MssAdjustment(int32(40))
+	mssConfig.SetIpv6MssAdjustment(int32(60))
+
+	return *mssConfig
+}
+
 // --- Test Cases for different 'Create' modes ---
 
 // Test_CreateEthernetInterfaces_L2 tests creation of a Layer 2 Ethernet Interface.
@@ -103,6 +113,9 @@ func Test_CreateEthernetInterfaces_L3Static(t *testing.T) {
 		},
 	})
 
+	// Adjust TCP MSS for both IPv4 and IPv6
+	layer3Config.SetAdjustTcpMss(createEthernetAdjustTcpMss())
+
 	intf.SetLayer3(*layer3Config)
 
 	res, httpRes, err := client.EthernetInterfacesAPI.
@@ -125,6 +138,14 @@ func Test_CreateEthernetInterfaces_L3Static(t *testing.T) {
 	layer3Val, ok := res.GetLayer3Ok()
 	require.True(t, ok, "Layer3 field must be explicitly set (ok boolean must be true)")
 	assert.NotNil(t, layer3Val, "Layer3 configuration pointer should not be nil")
+
+	// TCP MSS adjustment must round-trip for both address families
+	require.True(t, layer3Val.HasAdjustTcpMss(), "AdjustTcpMss must be present")
+	mssVal, mssOk := layer3Val.GetAdjustTcpMssOk()
+	require.True(t, mssOk, "AdjustTcpMss must be explicitly set (ok boolean)")
+	assert.True(t, mssVal.GetEnable(), "TCP MSS adjustment must be enabled")
+	assert.Equal(t, int32(40), mssVal.GetIpv4MssAdjustment(), "IPv4 MSS adjustment must match")
+	assert.Equal(t, int32(60), mssVal.GetIpv6MssAdjustment(), "IPv6 MSS adjustment must match")
 }
 
 // Test_CreateEthernetInterfaces_L3DHCP tests creation of a Layer 3 Ethernet Interface with DHCP client.
@@ -190,8 +211,8 @@ func Test_CreateEthernetInterfaces_L3PPPoE(t *testing.T) {
 	// Set Layer 3 mode with PPPoE configuration
 	layer3Config := network_services.NewEthernetInterfacesLayer3WithDefaults()
 
-	// Assuming NewEthernetInterfacesPppoeWithDefaults exists and sets required fields
-	pppoeConfig := network_services.NewEthernetInterfacesLayer3PppoeWithDefaults()
+	// Pppoe is a shared component, reused across interface types
+	pppoeConfig := network_services.NewPppoeWithDefaults()
 	pppoeConfig.SetEnable(true)
 	pppoeConfig.SetUsername("testuser")
 	pppoeConfig.SetPassword("testpass")

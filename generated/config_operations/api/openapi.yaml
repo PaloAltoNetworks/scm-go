@@ -1514,7 +1514,7 @@ components:
             type: string
           type: array
           uniqueItems: true
-        folder:
+        folders:
           description: The target folders for the configuration push
           example:
           - Prisma Access

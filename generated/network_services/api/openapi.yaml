@@ -8833,6 +8833,26 @@ components:
       - limit
       - offset
       - total
+    adjust-tcp-mss:
+      description: TCP MSS adjustment settings for the interface
+      example:
+        ipv4_mss_adjustment: 78
+        enable: true
+        ipv6_mss_adjustment: 203
+      properties:
+        enable:
+          description: Enable TCP MSS adjustment on the interface
+          type: boolean
+        ipv4_mss_adjustment:
+          description: IPv4 MSS adjustment size in bytes
+          maximum: 300
+          minimum: 40
+          type: integer
+        ipv6_mss_adjustment:
+          description: IPv6 MSS adjustment size in bytes
+          maximum: 300
+          minimum: 60
+          type: integer
     agg-ethernet-arp:
       description: Aggregate Ethernet ARP configuration
       items:
@@ -8854,7 +8874,7 @@ components:
             send_hostname:
               hostname: system-hostname
               enable: true
-            default_route_metric: 39073
+            default_route_metric: 15087
           lacp:
             mode: passive
             fast_failover: false
@@ -8872,11 +8892,15 @@ components:
             ddns_enabled: false
             ddns_hostname: ddns_hostname
             ddns_vendor: ddns_vendor
-            ddns_update_interval: 5
+            ddns_update_interval: 17
             ddns_ip: ddns_ip
             ddns_cert_profile: ddns_cert_profile
             ddns_vendor_config: ddns_vendor_config
           interface_management_profile: interface_management_profile
+          adjust_tcp_mss:
+            ipv4_mss_adjustment: 78
+            enable: true
+            ipv6_mss_adjustment: 203
           arp:
           - hw_address: hw_address
             name: name
@@ -8887,7 +8911,7 @@ components:
             profile: profile
             high_availability:
               passive_pre_negotiation: false
-          mtu: 5446
+          mtu: 6677
         name: name
         comment: comment
         default_value: default_value
@@ -10709,6 +10733,10 @@ components:
             authentication: CHAP
             username: username
           interface_management_profile: interface_management_profile
+          adjust_tcp_mss:
+            ipv4_mss_adjustment: 78
+            enable: true
+            ipv6_mss_adjustment: 203
           arp:
           - hw_address: hw_address
             name: name
@@ -11674,6 +11702,10 @@ components:
         - name: name
         - name: name
         interface_management_profile: string
+        adjust_tcp_mss:
+          ipv4_mss_adjustment: 78
+          enable: true
+          ipv6_mss_adjustment: 203
         mtu: 1842
         dhcp_client:
           enable: true
@@ -11693,6 +11725,18 @@ components:
           ddns_cert_profile: ddns_cert_profile
           ddns_vendor_config: ddns_vendor_config
         name: name
+        pppoe:
+          password: password
+          enable: true
+          service: service
+          default_route_metric: 39073
+          access_concentrator: access_concentrator
+          passive:
+            enable: false
+          static_address:
+            ip: ip
+          authentication: CHAP
+          username: username
         comment: comment
         id: 123e4567-e89b-12d3-a456-426655440000
         tag: 2442
@@ -11703,6 +11747,8 @@ components:
         - hw_address: hw_address
           name: name
       properties:
+        adjust_tcp_mss:
+          $ref: '#/components/schemas/adjust-tcp-mss'
         arp:
           description: Layer 3 sub Interfaces ARP configuration
           items:
@@ -11755,6 +11801,8 @@ components:
         parent_interface:
           description: Parent interface
           type: string
+        pppoe:
+          $ref: '#/components/schemas/pppoe'
         snippet:
           description: The snippet in which the resource is defined
           example: My Snippet
@@ -16743,8 +16791,18 @@ components:
     loopback-interfaces:
       example:
         snippet: My Snippet
-        folder: My Folder
         netflow_profile: netflow_profile
+        ip:
+        - name: name
+        - name: name
+        interface_management_profile: string
+        adjust_tcp_mss:
+          ipv4_mss_adjustment: 78
+          enable: true
+          ipv6_mss_adjustment: 203
+        default_value: loopback.123
+        mtu: 1267
+        folder: My Folder
         ipv6:
           address:
           - anycast: "{}"
@@ -16757,17 +16815,13 @@ components:
             enable_on_interface: true
           interface_id: EUI-64
           enabled: false
-        ip:
-        - name: name
-        - name: name
         name: name
-        interface_management_profile: string
         comment: comment
-        default_value: loopback.123
         id: 123e4567-e89b-12d3-a456-426655440000
         device: My Device
-        mtu: 1267
       properties:
+        adjust_tcp_mss:
+          $ref: '#/components/schemas/adjust-tcp-mss'
         comment:
           description: Description for loopback interface
           type: string
@@ -17186,6 +17240,65 @@ components:
           maximum: 90
           minimum: 0
           type: integer
+    pppoe:
+      description: PPPoE configuration for the interface
+      example:
+        password: password
+        enable: true
+        service: service
+        default_route_metric: 39073
+        access_concentrator: access_concentrator
+        passive:
+          enable: false
+        static_address:
+          ip: ip
+        authentication: CHAP
+        username: username
+      properties:
+        access_concentrator:
+          description: Access concentrator
+          maxLength: 255
+          minLength: 1
+          type: string
+        authentication:
+          description: Authentication protocol
+          enum:
+          - CHAP
+          - PAP
+          - auto
+          type: string
+        default_route_metric:
+          default: 10
+          description: Metric of the default route created
+          maximum: 65535
+          minimum: 1
+          type: integer
+        enable:
+          default: true
+          description: Enable PPPoE on the interface
+          type: boolean
+        passive:
+          $ref: '#/components/schemas/pppoe_passive'
+        password:
+          description: Password
+          format: password
+          maxLength: 255
+          type: string
+        service:
+          description: Service
+          maxLength: 255
+          minLength: 1
+          type: string
+        static_address:
+          $ref: '#/components/schemas/pppoe_static_address'
+        username:
+          description: Username
+          maxLength: 255
+          minLength: 1
+          type: string
+      required:
+      - password
+      - username
     qos-policy-rules:
       example:
         snippet: My Snippet
@@ -18254,6 +18367,10 @@ components:
         - name: name
         - name: name
         interface_management_profile: string
+        adjust_tcp_mss:
+          ipv4_mss_adjustment: 78
+          enable: true
+          ipv6_mss_adjustment: 203
         default_value: vlan.123
         mtu: 1842
         dhcp_client:
@@ -18285,6 +18402,8 @@ components:
           name: name
           interface: interface
       properties:
+        adjust_tcp_mss:
+          $ref: '#/components/schemas/adjust-tcp-mss'
         arp:
           description: ARP configuration
           items:
@@ -18814,7 +18933,7 @@ components:
         send_hostname:
           hostname: system-hostname
           enable: true
-        default_route_metric: 39073
+        default_route_metric: 15087
       properties:
         create_default_route:
           default: true
@@ -18870,7 +18989,7 @@ components:
         ddns_enabled: false
         ddns_hostname: ddns_hostname
         ddns_vendor: ddns_vendor
-        ddns_update_interval: 5
+        ddns_update_interval: 17
         ddns_ip: ddns_ip
         ddns_cert_profile: ddns_cert_profile
         ddns_vendor_config: ddns_vendor_config
@@ -18927,7 +19046,7 @@ components:
           send_hostname:
             hostname: system-hostname
             enable: true
-          default_route_metric: 39073
+          default_route_metric: 15087
         lacp:
           mode: passive
           fast_failover: false
@@ -18945,11 +19064,15 @@ components:
           ddns_enabled: false
           ddns_hostname: ddns_hostname
           ddns_vendor: ddns_vendor
-          ddns_update_interval: 5
+          ddns_update_interval: 17
           ddns_ip: ddns_ip
           ddns_cert_profile: ddns_cert_profile
           ddns_vendor_config: ddns_vendor_config
         interface_management_profile: interface_management_profile
+        adjust_tcp_mss:
+          ipv4_mss_adjustment: 78
+          enable: true
+          ipv6_mss_adjustment: 203
         arp:
         - hw_address: hw_address
           name: name
@@ -18960,8 +19083,10 @@ components:
           profile: profile
           high_availability:
             passive_pre_negotiation: false
-        mtu: 5446
+        mtu: 6677
       properties:
+        adjust_tcp_mss:
+          $ref: '#/components/schemas/adjust-tcp-mss'
         arp:
           description: Aggregate Ethernet ARP configuration
           items:
@@ -22756,83 +22881,6 @@ components:
           type: string
       required:
       - name
-    ethernet_interfaces_layer3_pppoe_passive:
-      example:
-        enable: false
-      properties:
-        enable:
-          default: false
-          description: Passive Mode enabled
-          type: boolean
-      required:
-      - enable
-    ethernet_interfaces_layer3_pppoe_static_address:
-      example:
-        ip: ip
-      properties:
-        ip:
-          description: Static IP address
-          maxLength: 63
-          type: string
-      required:
-      - ip
-    ethernet_interfaces_layer3_pppoe:
-      example:
-        password: password
-        enable: true
-        service: service
-        default_route_metric: 39073
-        access_concentrator: access_concentrator
-        passive:
-          enable: false
-        static_address:
-          ip: ip
-        authentication: CHAP
-        username: username
-      properties:
-        access_concentrator:
-          description: Access concentrator
-          maxLength: 255
-          minLength: 1
-          type: string
-        authentication:
-          description: Authentication protocol
-          enum:
-          - CHAP
-          - PAP
-          - auto
-          type: string
-        default_route_metric:
-          default: 10
-          description: Metric of the default route created
-          maximum: 65535
-          minimum: 1
-          type: integer
-        enable:
-          default: true
-          type: boolean
-        passive:
-          $ref: '#/components/schemas/ethernet_interfaces_layer3_pppoe_passive'
-        password:
-          description: Password
-          format: password
-          maxLength: 255
-          type: string
-        service:
-          description: Service
-          maxLength: 255
-          minLength: 1
-          type: string
-        static_address:
-          $ref: '#/components/schemas/ethernet_interfaces_layer3_pppoe_static_address'
-        username:
-          description: Username
-          maxLength: 255
-          minLength: 1
-          type: string
-      required:
-      - password
-      - username
     ethernet_interfaces_layer3:
       description: Ethernet Interface Layer 3 configuration
       example:
@@ -22868,6 +22916,10 @@ components:
           authentication: CHAP
           username: username
         interface_management_profile: interface_management_profile
+        adjust_tcp_mss:
+          ipv4_mss_adjustment: 78
+          enable: true
+          ipv6_mss_adjustment: 203
         arp:
         - hw_address: hw_address
           name: name
@@ -22880,6 +22932,8 @@ components:
             passive_pre_negotiation: false
         mtu: 1842
       properties:
+        adjust_tcp_mss:
+          $ref: '#/components/schemas/adjust-tcp-mss'
         arp:
           description: Ethernet Interfaces ARP configuration
           items:
@@ -22910,7 +22964,7 @@ components:
           description: Name of Netflow Profile to assign to Interface
           type: string
         pppoe:
-          $ref: '#/components/schemas/ethernet_interfaces_layer3_pppoe'
+          $ref: '#/components/schemas/pppoe'
     ethernet_interfaces_tap:
       example:
         netflow_profile: netflow_profile
@@ -34842,6 +34896,26 @@ components:
             description: Source zone name
             type: string
           type: array
+    pppoe_passive:
+      example:
+        enable: false
+      properties:
+        enable:
+          default: false
+          description: Passive Mode enabled
+          type: boolean
+      required:
+      - enable
+    pppoe_static_address:
+      example:
+        ip: ip
+      properties:
+        ip:
+          description: Static IP address
+          maxLength: 63
+          type: string
+      required:
+      - ip
     qos_policy_rules_action:
       example:
         class: class

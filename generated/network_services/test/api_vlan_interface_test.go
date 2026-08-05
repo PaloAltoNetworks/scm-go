@@ -43,9 +43,20 @@ func createFullTestVlanInterface(t *testing.T, interfaceName string) network_ser
 	vlan.SetMtu(mtu)
 	vlan.SetComment(comment)
 	vlan.SetFolder("All")
+	vlan.SetAdjustTcpMss(createVlanAdjustTcpMss())
 	// Note: Ip, Arp, DdnsConfig, DhcpClient are complex types and are omitted for simplicity,
 	// but should be included in full-scale integration tests.
 	return vlan
+}
+
+// createVlanAdjustTcpMss builds a TCP MSS adjustment config with both IPv4 and IPv6 sizes set.
+func createVlanAdjustTcpMss() network_services.AdjustTcpMss {
+	mssConfig := network_services.NewAdjustTcpMssWithDefaults()
+	mssConfig.SetEnable(true)
+	mssConfig.SetIpv4MssAdjustment(int32(40))
+	mssConfig.SetIpv6MssAdjustment(int32(60))
+
+	return *mssConfig
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -82,6 +93,13 @@ func Test_network_services_VLANInterfacesAPIService_Create(t *testing.T) {
 	// Verify the response matches key input fields
 	assert.Equal(t, interfaceName, res.Name, "Created interface name should match")
 	assert.Equal(t, "1500", fmt.Sprintf("%d", res.GetMtu()), "MTU should match the set value")
+
+	// TCP MSS adjustment must round-trip for both address families
+	require.True(t, res.HasAdjustTcpMss(), "AdjustTcpMss must be present")
+	mssVal := res.GetAdjustTcpMss()
+	assert.True(t, mssVal.GetEnable(), "TCP MSS adjustment must be enabled")
+	assert.Equal(t, int32(40), mssVal.GetIpv4MssAdjustment(), "IPv4 MSS adjustment must match")
+	assert.Equal(t, int32(60), mssVal.GetIpv6MssAdjustment(), "IPv6 MSS adjustment must match")
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

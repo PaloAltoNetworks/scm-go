@@ -20,6 +20,7 @@ var _ MappedNullable = &EthernetInterfacesLayer3{}
 
 // EthernetInterfacesLayer3 Ethernet Interface Layer 3 configuration
 type EthernetInterfacesLayer3 struct {
+	AdjustTcpMss *AdjustTcpMss `json:"adjust_tcp_mss,omitempty"`
 	// Ethernet Interfaces ARP configuration
 	Arp        []EthernetInterfacesArpInner        `json:"arp,omitempty"`
 	DdnsConfig *EthernetInterfacesLayer3DdnsConfig `json:"ddns_config,omitempty"`
@@ -32,8 +33,8 @@ type EthernetInterfacesLayer3 struct {
 	// MTU
 	Mtu *int32 `json:"mtu,omitempty"`
 	// Name of Netflow Profile to assign to Interface
-	NetflowProfile       *string                        `json:"netflow_profile,omitempty"`
-	Pppoe                *EthernetInterfacesLayer3Pppoe `json:"pppoe,omitempty"`
+	NetflowProfile       *string `json:"netflow_profile,omitempty"`
+	Pppoe                *Pppoe  `json:"pppoe,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,6 +59,38 @@ func NewEthernetInterfacesLayer3WithDefaults() *EthernetInterfacesLayer3 {
 	var mtu int32 = 1500
 	this.Mtu = &mtu
 	return &this
+}
+
+// GetAdjustTcpMss returns the AdjustTcpMss field value if set, zero value otherwise.
+func (o *EthernetInterfacesLayer3) GetAdjustTcpMss() AdjustTcpMss {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		var ret AdjustTcpMss
+		return ret
+	}
+	return *o.AdjustTcpMss
+}
+
+// GetAdjustTcpMssOk returns a tuple with the AdjustTcpMss field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EthernetInterfacesLayer3) GetAdjustTcpMssOk() (*AdjustTcpMss, bool) {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		return nil, false
+	}
+	return o.AdjustTcpMss, true
+}
+
+// HasAdjustTcpMss returns a boolean if a field has been set.
+func (o *EthernetInterfacesLayer3) HasAdjustTcpMss() bool {
+	if o != nil && !IsNil(o.AdjustTcpMss) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdjustTcpMss gets a reference to the given AdjustTcpMss and assigns it to the AdjustTcpMss field.
+func (o *EthernetInterfacesLayer3) SetAdjustTcpMss(v AdjustTcpMss) {
+	o.AdjustTcpMss = &v
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
@@ -317,9 +350,9 @@ func (o *EthernetInterfacesLayer3) SetNetflowProfile(v string) {
 }
 
 // GetPppoe returns the Pppoe field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetPppoe() EthernetInterfacesLayer3Pppoe {
+func (o *EthernetInterfacesLayer3) GetPppoe() Pppoe {
 	if o == nil || IsNil(o.Pppoe) {
-		var ret EthernetInterfacesLayer3Pppoe
+		var ret Pppoe
 		return ret
 	}
 	return *o.Pppoe
@@ -327,7 +360,7 @@ func (o *EthernetInterfacesLayer3) GetPppoe() EthernetInterfacesLayer3Pppoe {
 
 // GetPppoeOk returns a tuple with the Pppoe field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetPppoeOk() (*EthernetInterfacesLayer3Pppoe, bool) {
+func (o *EthernetInterfacesLayer3) GetPppoeOk() (*Pppoe, bool) {
 	if o == nil || IsNil(o.Pppoe) {
 		return nil, false
 	}
@@ -343,8 +376,8 @@ func (o *EthernetInterfacesLayer3) HasPppoe() bool {
 	return false
 }
 
-// SetPppoe gets a reference to the given EthernetInterfacesLayer3Pppoe and assigns it to the Pppoe field.
-func (o *EthernetInterfacesLayer3) SetPppoe(v EthernetInterfacesLayer3Pppoe) {
+// SetPppoe gets a reference to the given Pppoe and assigns it to the Pppoe field.
+func (o *EthernetInterfacesLayer3) SetPppoe(v Pppoe) {
 	o.Pppoe = &v
 }
 
@@ -358,6 +391,9 @@ func (o EthernetInterfacesLayer3) MarshalJSON() ([]byte, error) {
 
 func (o EthernetInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AdjustTcpMss) {
+		toSerialize["adjust_tcp_mss"] = o.AdjustTcpMss
+	}
 	if !IsNil(o.Arp) {
 		toSerialize["arp"] = o.Arp
 	}
@@ -407,6 +443,7 @@ func (o *EthernetInterfacesLayer3) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "adjust_tcp_mss")
 		delete(additionalProperties, "arp")
 		delete(additionalProperties, "ddns_config")
 		delete(additionalProperties, "dhcp_client")

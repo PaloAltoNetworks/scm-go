@@ -13,6 +13,7 @@ package config_operations
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PushCandidateConfigVersionsRequest type satisfies the MappedNullable interface at compile time
@@ -27,7 +28,7 @@ type PushCandidateConfigVersionsRequest struct {
 	// The target devices for the configuration push
 	Devices []string `json:"devices,omitempty"`
 	// The target folders for the configuration push
-	Folder               []string `json:"folder,omitempty"`
+	Folders              []string `json:"folders"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,8 +38,9 @@ type _PushCandidateConfigVersionsRequest PushCandidateConfigVersionsRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPushCandidateConfigVersionsRequest() *PushCandidateConfigVersionsRequest {
+func NewPushCandidateConfigVersionsRequest(folders []string) *PushCandidateConfigVersionsRequest {
 	this := PushCandidateConfigVersionsRequest{}
+	this.Folders = folders
 	return &this
 }
 
@@ -146,36 +148,28 @@ func (o *PushCandidateConfigVersionsRequest) SetDevices(v []string) {
 	o.Devices = v
 }
 
-// GetFolder returns the Folder field value if set, zero value otherwise.
-func (o *PushCandidateConfigVersionsRequest) GetFolder() []string {
-	if o == nil || IsNil(o.Folder) {
+// GetFolders returns the Folders field value
+func (o *PushCandidateConfigVersionsRequest) GetFolders() []string {
+	if o == nil {
 		var ret []string
 		return ret
 	}
-	return o.Folder
+
+	return o.Folders
 }
 
-// GetFolderOk returns a tuple with the Folder field value if set, nil otherwise
+// GetFoldersOk returns a tuple with the Folders field value
 // and a boolean to check if the value has been set.
-func (o *PushCandidateConfigVersionsRequest) GetFolderOk() ([]string, bool) {
-	if o == nil || IsNil(o.Folder) {
+func (o *PushCandidateConfigVersionsRequest) GetFoldersOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Folder, true
+	return o.Folders, true
 }
 
-// HasFolder returns a boolean if a field has been set.
-func (o *PushCandidateConfigVersionsRequest) HasFolder() bool {
-	if o != nil && !IsNil(o.Folder) {
-		return true
-	}
-
-	return false
-}
-
-// SetFolder gets a reference to the given []string and assigns it to the Folder field.
-func (o *PushCandidateConfigVersionsRequest) SetFolder(v []string) {
-	o.Folder = v
+// SetFolders sets field value
+func (o *PushCandidateConfigVersionsRequest) SetFolders(v []string) {
+	o.Folders = v
 }
 
 func (o PushCandidateConfigVersionsRequest) MarshalJSON() ([]byte, error) {
@@ -197,9 +191,7 @@ func (o PushCandidateConfigVersionsRequest) ToMap() (map[string]interface{}, err
 	if !IsNil(o.Devices) {
 		toSerialize["devices"] = o.Devices
 	}
-	if !IsNil(o.Folder) {
-		toSerialize["folder"] = o.Folder
-	}
+	toSerialize["folders"] = o.Folders
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -209,6 +201,27 @@ func (o PushCandidateConfigVersionsRequest) ToMap() (map[string]interface{}, err
 }
 
 func (o *PushCandidateConfigVersionsRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"folders",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varPushCandidateConfigVersionsRequest := _PushCandidateConfigVersionsRequest{}
 
 	err = json.Unmarshal(data, &varPushCandidateConfigVersionsRequest)
@@ -225,7 +238,7 @@ func (o *PushCandidateConfigVersionsRequest) UnmarshalJSON(data []byte) (err err
 		delete(additionalProperties, "admin")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "devices")
-		delete(additionalProperties, "folder")
+		delete(additionalProperties, "folders")
 		o.AdditionalProperties = additionalProperties
 	}
 

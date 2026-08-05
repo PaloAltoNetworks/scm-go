@@ -140,8 +140,19 @@ func createFullLayer3Subinterface(t *testing.T, parentIfName string, vlanTag str
 	subIf.SetTag(tag)
 	subIf.SetMtu(mtu)
 	subIf.SetIp(ipConfig)
+	subIf.SetAdjustTcpMss(createLayer3SubinterfaceAdjustTcpMss())
 
 	return subIf
+}
+
+// createLayer3SubinterfaceAdjustTcpMss builds a TCP MSS adjustment config with both IPv4 and IPv6 sizes set.
+func createLayer3SubinterfaceAdjustTcpMss() network_services.AdjustTcpMss {
+	mssConfig := network_services.NewAdjustTcpMssWithDefaults()
+	mssConfig.SetEnable(true)
+	mssConfig.SetIpv4MssAdjustment(int32(40))
+	mssConfig.SetIpv6MssAdjustment(int32(60))
+
+	return *mssConfig
 }
 
 // Assumed helper to convert string to int32 (since we removed common.Int32Ptr)
@@ -150,6 +161,33 @@ func assertInt32(s string) (int32, error) {
 	var i int32 = 0
 	fmt.Sscanf(s, "%d", &i)
 	return i, nil // Ignoring actual error handling for test code simplicity
+}
+
+// createPppoeLayer3Subinterface builds a Layer3Subinterfaces object addressed via PPPoE.
+// NOTE: ip, dhcp_client and pppoe are mutually exclusive, so this deliberately does not set Ip.
+func createPppoeLayer3Subinterface(t *testing.T, parentIfName string, vlanTag string) network_services.Layer3Subinterfaces {
+	subIfName := fmt.Sprintf("%s.%s", parentIfName, vlanTag)
+	subIf := createMinimalLayer3Subinterface(t, subIfName)
+
+	tag, err := assertInt32(vlanTag)
+	if err != nil {
+		t.Fatalf("Failed to convert VLAN tag string to int32: %v", err)
+	}
+
+	// Pppoe is a shared component, reused across interface types
+	pppoeConfig := network_services.NewPppoeWithDefaults()
+	pppoeConfig.SetEnable(true)
+	pppoeConfig.SetUsername("testuser")
+	pppoeConfig.SetPassword("testpass")
+	pppoeConfig.SetAuthentication("CHAP")
+
+	subIf.SetParentInterface(parentIfName)
+	subIf.SetComment("L3 PPPoE test subinterface for " + subIfName)
+	subIf.SetFolder("All")
+	subIf.SetTag(tag)
+	subIf.SetPppoe(*pppoeConfig)
+
+	return subIf
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -195,6 +233,13 @@ func Test_network_services_Layer3SubinterfacesAPIService_Create(t *testing.T) {
 	assert.Equal(t, subIf.GetTag(), res.GetTag(), "VLAN Tag should match")
 	assert.Equal(t, parentIfName, res.GetParentInterface(), "Parent interface should match the dynamically created parent")
 	assert.Len(t, res.GetIp(), 1, "IP config list should have one entry")
+
+	// TCP MSS adjustment must round-trip for both address families
+	require.True(t, res.HasAdjustTcpMss(), "AdjustTcpMss must be present")
+	mssVal := res.GetAdjustTcpMss()
+	assert.True(t, mssVal.GetEnable(), "TCP MSS adjustment must be enabled")
+	assert.Equal(t, int32(40), mssVal.GetIpv4MssAdjustment(), "IPv4 MSS adjustment must match")
+	assert.Equal(t, int32(60), mssVal.GetIpv6MssAdjustment(), "IPv6 MSS adjustment must match")
 }
 
 // Test_network_services_Layer3SubinterfacesAPIService_GetByID tests retrieving a Layer 3 Subinterface by ID.
@@ -377,4 +422,60 @@ func Test_network_services_Layer3SubinterfacesAPIService_Fetch(t *testing.T) {
 	require.NoError(t, errNotFound, "Fetch for non-existent subinterface should not error")
 	assert.Nil(t, notFoundSubIf, "Non-existent subinterface should return nil")
 	t.Logf("Successfully verified fetch returns nil for non-existent subinterface")
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+// Test_network_services_Layer3SubinterfacesAPIService_Create_Pppoe tests creating a Layer 3
+// Subinterface addressed via PPPoE rather than a static IP or DHCP.
+func Test_network_services_Layer3SubinterfacesAPIService_Create_Pppoe(t *testing.T) {
+	client := SetupNetworkSvcTestClient(t)
+
+	// SETUP PREREQUISITE: Create the L3 Parent Interface
+	parentIfName, parentCleanup := setupL3EthernetInterface(t, client)
+	defer parentCleanup()
+
+	vlanTag := "401"
+
+	subIf := createPppoeLayer3Subinterface(t, parentIfName, vlanTag)
+	subIfName := subIf.GetName()
+
+	t.Logf("Creating PPPoE Layer 3 Subinterface with name: %s", subIfName)
+	req := client.Layer3SubinterfacesAPI.CreateLayer3Subinterfaces(context.Background()).Layer3Subinterfaces(subIf)
+	res, httpRes, err := req.Execute()
+
+	if err != nil {
+		handleAPIError(err)
+	}
+	require.NoError(t, err, "Failed to create PPPoE Layer 3 Subinterface")
+	assert.Equal(t, http.StatusCreated, httpRes.StatusCode, "Expected 201 Created status")
+	require.NotNil(t, res, "Response body should not be nil")
+	require.NotNil(t, res.Id, "Created subinterface should have an ID")
+	createdID := *res.Id
+
+	// Cleanup the created subinterface
+	defer func() {
+		t.Logf("Cleaning up PPPoE Layer 3 Subinterface with ID: %s", createdID)
+		_, errDel := client.Layer3SubinterfacesAPI.DeleteLayer3SubinterfacesByID(context.Background(), createdID).Execute()
+		require.NoError(t, errDel, "Failed to delete PPPoE Layer 3 Subinterface during cleanup")
+	}()
+
+	t.Logf("Successfully created PPPoE Layer 3 Subinterface: %s with ID: %s", subIfName, createdID)
+
+	// Verify key fields in the response
+	assert.Equal(t, subIfName, res.GetName(), "Created name should match the calculated Parent.Tag name")
+	assert.Equal(t, parentIfName, res.GetParentInterface(), "Parent interface should match")
+
+	// PPPoE configuration must round-trip. The password is deliberately not asserted -
+	// the server returns it encrypted.
+	require.True(t, res.HasPppoe(), "Pppoe must be present")
+	pppoeVal, pppoeOk := res.GetPppoeOk()
+	require.True(t, pppoeOk, "Pppoe must be explicitly set (ok boolean)")
+	assert.True(t, pppoeVal.GetEnable(), "PPPoE must be enabled")
+	assert.Equal(t, "testuser", pppoeVal.GetUsername(), "Username must match")
+	assert.Equal(t, "CHAP", pppoeVal.GetAuthentication(), "Authentication protocol must match")
+
+	// Addressing modes are mutually exclusive
+	assert.Empty(t, res.GetIp(), "IP list must NOT be set when PPPoE is configured")
+	assert.False(t, res.HasDhcpClient(), "DHCP client must NOT be set when PPPoE is configured")
 }
