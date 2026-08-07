@@ -10844,8 +10844,6 @@ components:
         tls_service_profile:
           description: The SSL/TLS service profile
           type: string
-      required:
-      - redirect_host
       type: object
     authentication-profiles:
       example:

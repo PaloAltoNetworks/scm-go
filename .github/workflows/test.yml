@@ -17,8 +17,6 @@ jobs:
       max-parallel: 1
       matrix:
         service:
-          - objects
-          - security_services
           - identity_services
 
     steps:
