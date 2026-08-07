@@ -10,6 +10,7 @@ import (
 
 	setup "github.com/paloaltonetworks/scm-go"
 	"github.com/paloaltonetworks/scm-go/common"
+	"github.com/paloaltonetworks/scm-go/generated/network_services"
 	"github.com/paloaltonetworks/scm-go/generated/security_services"
 )
 
@@ -45,6 +46,28 @@ func SetupSecuritySvcTestClient(t *testing.T) *security_services.APIClient {
 	}
 
 	return setup.GetSecurityServicesAPIClient(setupClient)
+}
+
+// SetupNetworkSvcTestClient sets up a network services API client for testing
+func SetupNetworkSvcTestClient(t *testing.T) *network_services.APIClient {
+	configPath := common.GetConfigPath()
+	setupClient := &setup.Client{
+		AuthFile:         configPath,
+		CheckEnvironment: false,
+	}
+
+	// Setup the client configuration
+	err := setupClient.Setup()
+	require.NoError(t, err, "Failed to setup client")
+
+	// Refresh JWT token
+	ctx := context.Background()
+	if setupClient.Jwt == "" {
+		err = setupClient.RefreshJwt(ctx)
+		require.NoError(t, err, "Failed to refresh JWT")
+	}
+
+	return setup.GetNetworkServicesAPIClient(setupClient)
 }
 
 // printAPIError prints formatted API error response from error object's body

@@ -15506,8 +15506,12 @@ components:
           protect: "{}"
         disabled: false
         from:
-        - any
-        - any
+          zone:
+          - any
+          - any
+          interface:
+          - interface
+          - interface
         source_user:
         - any
         - any
@@ -15517,8 +15521,12 @@ components:
         - tag
         - tag
         to:
-        - any
-        - any
+          zone:
+          - any
+          - any
+          interface:
+          - interface
+          - interface
         device: My Device
         log_setting: Cortex Data Lake
       properties:
@@ -15551,11 +15559,7 @@ components:
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
         from:
-          description: List of source zones
-          items:
-            example: any
-            type: string
-          type: array
+          $ref: '#/components/schemas/dos_protection_rules_from'
         id:
           description: The UUID of the DNS security profile
           example: 123e4567-e89b-12d3-a456-426655440000
@@ -15612,14 +15616,15 @@ components:
             type: string
           type: array
         to:
-          description: List of destination zones
-          items:
-            example: any
-            type: string
-          type: array
+          $ref: '#/components/schemas/dos_protection_rules_to'
       required:
+      - destinattion
+      - from
       - name
-      - type
+      - protection
+      - service
+      - source
+      - to
       type: object
     error_detail_cause_info:
       example:
@@ -19595,6 +19600,26 @@ components:
           default: {}
           type: object
       type: object
+    dos_protection_rules_from:
+      description: Source zones and interfaces
+      example:
+        zone:
+        - any
+        - any
+        interface:
+        - interface
+        - interface
+      properties:
+        interface:
+          items:
+            type: string
+          type: array
+        zone:
+          items:
+            example: any
+            type: string
+          type: array
+      type: object
     dos_protection_rules_protection_aggregate:
       example:
         profile: profile
@@ -19647,6 +19672,26 @@ components:
           $ref: '#/components/schemas/dos_protection_rules_protection_aggregate'
         classified:
           $ref: '#/components/schemas/dos_protection_rules_protection_classified'
+      type: object
+    dos_protection_rules_to:
+      description: Destination zones and interfaces
+      example:
+        zone:
+        - any
+        - any
+        interface:
+        - interface
+        - interface
+      properties:
+        interface:
+          items:
+            type: string
+          type: array
+        zone:
+          items:
+            example: any
+            type: string
+          type: array
       type: object
     file_blocking_profiles_rules_inner:
       example:
