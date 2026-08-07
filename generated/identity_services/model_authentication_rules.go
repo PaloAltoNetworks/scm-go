@@ -78,6 +78,8 @@ type _AuthenticationRules AuthenticationRules
 // will change when the set of required properties is changed
 func NewAuthenticationRules(destination []string, from []string, name string, service []string, source []string, to []string) *AuthenticationRules {
 	this := AuthenticationRules{}
+	var authenticationEnforcement string = "default-no-captive-portal"
+	this.AuthenticationEnforcement = &authenticationEnforcement
 	this.Destination = destination
 	var disabled bool = false
 	this.Disabled = &disabled
@@ -100,6 +102,8 @@ func NewAuthenticationRules(destination []string, from []string, name string, se
 // but it doesn't guarantee that properties required by API are set
 func NewAuthenticationRulesWithDefaults() *AuthenticationRules {
 	this := AuthenticationRules{}
+	var authenticationEnforcement string = "default-no-captive-portal"
+	this.AuthenticationEnforcement = &authenticationEnforcement
 	var disabled bool = false
 	this.Disabled = &disabled
 	var logAuthenticationTimeout bool = false

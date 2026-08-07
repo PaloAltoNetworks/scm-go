@@ -10972,7 +10972,7 @@ components:
         tag:
         - tag
         - tag
-        authentication_enforcement: authentication_enforcement
+        authentication_enforcement: default-no-captive-portal
         log_setting: log_setting
         destination_hip:
         - destination_hip
@@ -10997,6 +10997,7 @@ components:
         device: device
       properties:
         authentication_enforcement:
+          default: default-no-captive-portal
           description: The authentication profile name
           type: string
         category:
