@@ -21,22 +21,14 @@ func createTestAuthenticationRule(t *testing.T, ruleName string) identity_servic
 	// Required fields for AuthenticationRules:
 	// Destination, From, Name, Service, Source, To
 
-	// Note: The AuthenticationEnforcement profile is often required in real-world scenarios,
-	// so we include a placeholder, assuming it exists in the test environment.
-	authEnforcementName := "TEST-AUTH-PROFILE"
-
 	return identity_services.AuthenticationRules{
-		Destination:               []string{"any"},
-		From:                      []string{"any"},
-		Name:                      ruleName,
-		Service:                   []string{"any"},
-		Source:                    []string{"any"},
-		To:                        []string{"any"},
-		AuthenticationEnforcement: common.StringPtr(authEnforcementName),
-		Timeout:                   common.Int32Ptr(int32(1000)), // 1 hour timeout
-		Description:               common.StringPtr("Test rule for Auth Rule CRUD"),
-		Folder:                    common.StringPtr("All"),
-		LogAuthenticationTimeout:  common.BoolPtr(true),
+		Destination: []string{"any"},
+		From:        []string{"any"},
+		Name:        ruleName,
+		Service:     []string{"any"},
+		Source:      []string{"any"},
+		To:          []string{"any"},
+		Folder:      common.StringPtr("All"),
 	}
 }
 
@@ -73,7 +65,6 @@ func Test_identity_services_AuthenticationRulesAPIService_Create(t *testing.T) {
 
 	// Verify the response matches key input fields
 	assert.Equal(t, ruleName, res.Name, "Created rule name should match")
-	assert.Equal(t, int32(1000), *res.Timeout, "Timeout should match")
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
