@@ -1,0 +1,24 @@
+auth/test/client_retry_test.go
+  h_55d70f393a1b06 1-395
+client.go
+  h_55d70f393a1b06 86-88,101,330,333-334,549,551-552,575-586,619-657,679,682-691
+generated/network_services/api/openapi.yaml
+  h_55d70f393a1b06 11078-11081,11365-11368
+generated/ztna_connector_all/api/openapi.yaml
+  h_55d70f393a1b06 5052
+go.mod
+  h_55d70f393a1b06 3,7-8,11
+go.sum
+  h_55d70f393a1b06 3-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "09033700de7c64412ad03457774abd3e78ceb9c6",
+  "prompts": {},
+  "humans": {
+    "h_55d70f393a1b06": {
+      "author": "Dhiren Chotwani <dchotwani@paloaltonetworks.com>"
+    }
+  }
+}
