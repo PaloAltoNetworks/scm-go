@@ -11075,6 +11075,10 @@ components:
             - group14
             - group19
             - group20
+            - group21
+            - ml-kem-512
+            - ml-kem-768
+            - ml-kem-1024
             type: string
           type: array
         encryption:
@@ -11358,6 +11362,10 @@ components:
           - group14
           - group19
           - group20
+          - group21
+          - ml-kem-512
+          - ml-kem-768
+          - ml-kem-1024
           type: string
         esp:
           $ref: '#/components/schemas/ipsec_crypto_profiles_esp'

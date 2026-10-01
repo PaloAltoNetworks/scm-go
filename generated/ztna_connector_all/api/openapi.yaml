@@ -5049,7 +5049,7 @@ components:
           type: boolean
         name:
           description: Name of the FQDN rule.
-          maxLength: 63
+          maxLength: 255
           minLength: 1
           pattern: "^[a-zA-Z\\d\\-_\\. ]+$"
           type: string
