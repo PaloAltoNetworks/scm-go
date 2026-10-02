@@ -16,40 +16,40 @@ import (
 	"fmt"
 )
 
-// checks if the EthernetInterfacesLayer2Lldp type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EthernetInterfacesLayer2Lldp{}
+// checks if the PppoePassive type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PppoePassive{}
 
-// EthernetInterfacesLayer2Lldp LLDP Settings
-type EthernetInterfacesLayer2Lldp struct {
-	// Enable LLDP on Interface
+// PppoePassive struct for PppoePassive
+type PppoePassive struct {
+	// Passive Mode enabled
 	Enable               bool `json:"enable"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _EthernetInterfacesLayer2Lldp EthernetInterfacesLayer2Lldp
+type _PppoePassive PppoePassive
 
-// NewEthernetInterfacesLayer2Lldp instantiates a new EthernetInterfacesLayer2Lldp object
+// NewPppoePassive instantiates a new PppoePassive object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEthernetInterfacesLayer2Lldp(enable bool) *EthernetInterfacesLayer2Lldp {
-	this := EthernetInterfacesLayer2Lldp{}
+func NewPppoePassive(enable bool) *PppoePassive {
+	this := PppoePassive{}
 	this.Enable = enable
 	return &this
 }
 
-// NewEthernetInterfacesLayer2LldpWithDefaults instantiates a new EthernetInterfacesLayer2Lldp object
+// NewPppoePassiveWithDefaults instantiates a new PppoePassive object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEthernetInterfacesLayer2LldpWithDefaults() *EthernetInterfacesLayer2Lldp {
-	this := EthernetInterfacesLayer2Lldp{}
+func NewPppoePassiveWithDefaults() *PppoePassive {
+	this := PppoePassive{}
 	var enable bool = false
 	this.Enable = enable
 	return &this
 }
 
 // GetEnable returns the Enable field value
-func (o *EthernetInterfacesLayer2Lldp) GetEnable() bool {
+func (o *PppoePassive) GetEnable() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -60,7 +60,7 @@ func (o *EthernetInterfacesLayer2Lldp) GetEnable() bool {
 
 // GetEnableOk returns a tuple with the Enable field value
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer2Lldp) GetEnableOk() (*bool, bool) {
+func (o *PppoePassive) GetEnableOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,11 +68,11 @@ func (o *EthernetInterfacesLayer2Lldp) GetEnableOk() (*bool, bool) {
 }
 
 // SetEnable sets field value
-func (o *EthernetInterfacesLayer2Lldp) SetEnable(v bool) {
+func (o *PppoePassive) SetEnable(v bool) {
 	o.Enable = v
 }
 
-func (o EthernetInterfacesLayer2Lldp) MarshalJSON() ([]byte, error) {
+func (o PppoePassive) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -80,7 +80,7 @@ func (o EthernetInterfacesLayer2Lldp) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EthernetInterfacesLayer2Lldp) ToMap() (map[string]interface{}, error) {
+func (o PppoePassive) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["enable"] = o.Enable
 
@@ -91,7 +91,7 @@ func (o EthernetInterfacesLayer2Lldp) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *EthernetInterfacesLayer2Lldp) UnmarshalJSON(data []byte) (err error) {
+func (o *PppoePassive) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -113,15 +113,15 @@ func (o *EthernetInterfacesLayer2Lldp) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varEthernetInterfacesLayer2Lldp := _EthernetInterfacesLayer2Lldp{}
+	varPppoePassive := _PppoePassive{}
 
-	err = json.Unmarshal(data, &varEthernetInterfacesLayer2Lldp)
+	err = json.Unmarshal(data, &varPppoePassive)
 
 	if err != nil {
 		return err
 	}
 
-	*o = EthernetInterfacesLayer2Lldp(varEthernetInterfacesLayer2Lldp)
+	*o = PppoePassive(varPppoePassive)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -133,38 +133,38 @@ func (o *EthernetInterfacesLayer2Lldp) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableEthernetInterfacesLayer2Lldp struct {
-	value *EthernetInterfacesLayer2Lldp
+type NullablePppoePassive struct {
+	value *PppoePassive
 	isSet bool
 }
 
-func (v NullableEthernetInterfacesLayer2Lldp) Get() *EthernetInterfacesLayer2Lldp {
+func (v NullablePppoePassive) Get() *PppoePassive {
 	return v.value
 }
 
-func (v *NullableEthernetInterfacesLayer2Lldp) Set(val *EthernetInterfacesLayer2Lldp) {
+func (v *NullablePppoePassive) Set(val *PppoePassive) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEthernetInterfacesLayer2Lldp) IsSet() bool {
+func (v NullablePppoePassive) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEthernetInterfacesLayer2Lldp) Unset() {
+func (v *NullablePppoePassive) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEthernetInterfacesLayer2Lldp(val *EthernetInterfacesLayer2Lldp) *NullableEthernetInterfacesLayer2Lldp {
-	return &NullableEthernetInterfacesLayer2Lldp{value: val, isSet: true}
+func NewNullablePppoePassive(val *PppoePassive) *NullablePppoePassive {
+	return &NullablePppoePassive{value: val, isSet: true}
 }
 
-func (v NullableEthernetInterfacesLayer2Lldp) MarshalJSON() ([]byte, error) {
+func (v NullablePppoePassive) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEthernetInterfacesLayer2Lldp) UnmarshalJSON(src []byte) error {
+func (v *NullablePppoePassive) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

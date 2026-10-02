@@ -21,6 +21,7 @@ var _ MappedNullable = &Layer3Subinterfaces{}
 
 // Layer3Subinterfaces struct for Layer3Subinterfaces
 type Layer3Subinterfaces struct {
+	AdjustTcpMss *AdjustTcpMss `json:"adjust_tcp_mss,omitempty"`
 	// Layer 3 sub Interfaces ARP configuration
 	Arp []Layer3SubinterfacesArpInner `json:"arp,omitempty"`
 	// Description
@@ -45,6 +46,7 @@ type Layer3Subinterfaces struct {
 	NetflowProfile *string `json:"netflow_profile,omitempty"`
 	// Parent interface
 	ParentInterface *string `json:"parent_interface,omitempty"`
+	Pppoe           *Pppoe  `json:"pppoe,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// VLAN tag
@@ -70,6 +72,38 @@ func NewLayer3Subinterfaces(name string) *Layer3Subinterfaces {
 func NewLayer3SubinterfacesWithDefaults() *Layer3Subinterfaces {
 	this := Layer3Subinterfaces{}
 	return &this
+}
+
+// GetAdjustTcpMss returns the AdjustTcpMss field value if set, zero value otherwise.
+func (o *Layer3Subinterfaces) GetAdjustTcpMss() AdjustTcpMss {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		var ret AdjustTcpMss
+		return ret
+	}
+	return *o.AdjustTcpMss
+}
+
+// GetAdjustTcpMssOk returns a tuple with the AdjustTcpMss field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Layer3Subinterfaces) GetAdjustTcpMssOk() (*AdjustTcpMss, bool) {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		return nil, false
+	}
+	return o.AdjustTcpMss, true
+}
+
+// HasAdjustTcpMss returns a boolean if a field has been set.
+func (o *Layer3Subinterfaces) HasAdjustTcpMss() bool {
+	if o != nil && !IsNil(o.AdjustTcpMss) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdjustTcpMss gets a reference to the given AdjustTcpMss and assigns it to the AdjustTcpMss field.
+func (o *Layer3Subinterfaces) SetAdjustTcpMss(v AdjustTcpMss) {
+	o.AdjustTcpMss = &v
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
@@ -480,6 +514,38 @@ func (o *Layer3Subinterfaces) SetParentInterface(v string) {
 	o.ParentInterface = &v
 }
 
+// GetPppoe returns the Pppoe field value if set, zero value otherwise.
+func (o *Layer3Subinterfaces) GetPppoe() Pppoe {
+	if o == nil || IsNil(o.Pppoe) {
+		var ret Pppoe
+		return ret
+	}
+	return *o.Pppoe
+}
+
+// GetPppoeOk returns a tuple with the Pppoe field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Layer3Subinterfaces) GetPppoeOk() (*Pppoe, bool) {
+	if o == nil || IsNil(o.Pppoe) {
+		return nil, false
+	}
+	return o.Pppoe, true
+}
+
+// HasPppoe returns a boolean if a field has been set.
+func (o *Layer3Subinterfaces) HasPppoe() bool {
+	if o != nil && !IsNil(o.Pppoe) {
+		return true
+	}
+
+	return false
+}
+
+// SetPppoe gets a reference to the given Pppoe and assigns it to the Pppoe field.
+func (o *Layer3Subinterfaces) SetPppoe(v Pppoe) {
+	o.Pppoe = &v
+}
+
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
 func (o *Layer3Subinterfaces) GetSnippet() string {
 	if o == nil || IsNil(o.Snippet) {
@@ -554,6 +620,9 @@ func (o Layer3Subinterfaces) MarshalJSON() ([]byte, error) {
 
 func (o Layer3Subinterfaces) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AdjustTcpMss) {
+		toSerialize["adjust_tcp_mss"] = o.AdjustTcpMss
+	}
 	if !IsNil(o.Arp) {
 		toSerialize["arp"] = o.Arp
 	}
@@ -590,6 +659,9 @@ func (o Layer3Subinterfaces) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ParentInterface) {
 		toSerialize["parent_interface"] = o.ParentInterface
+	}
+	if !IsNil(o.Pppoe) {
+		toSerialize["pppoe"] = o.Pppoe
 	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
@@ -640,6 +712,7 @@ func (o *Layer3Subinterfaces) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "adjust_tcp_mss")
 		delete(additionalProperties, "arp")
 		delete(additionalProperties, "comment")
 		delete(additionalProperties, "ddns_config")
@@ -653,6 +726,7 @@ func (o *Layer3Subinterfaces) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "netflow_profile")
 		delete(additionalProperties, "parent_interface")
+		delete(additionalProperties, "pppoe")
 		delete(additionalProperties, "snippet")
 		delete(additionalProperties, "tag")
 		o.AdditionalProperties = additionalProperties

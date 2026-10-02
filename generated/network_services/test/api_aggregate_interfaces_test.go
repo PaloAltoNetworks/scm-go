@@ -51,6 +51,16 @@ func createLacpWithHA() network_services.Lacp {
 	return *lacpConfig
 }
 
+// createAggregateAdjustTcpMss builds a TCP MSS adjustment config with both IPv4 and IPv6 sizes set.
+func createAggregateAdjustTcpMss() network_services.AdjustTcpMss {
+	mssConfig := network_services.NewAdjustTcpMssWithDefaults()
+	mssConfig.SetEnable(true)
+	mssConfig.SetIpv4MssAdjustment(int32(40))
+	mssConfig.SetIpv6MssAdjustment(int32(60))
+
+	return *mssConfig
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 // --- Test Cases for different 'Create' modes (L2 vs. L3 exclusivity) ---
 // ---------------------------------------------------------------------------------------------------------------------
@@ -113,6 +123,9 @@ func Test_CreateAggregateInterfaces_L3Static(t *testing.T) {
 	lacpConfig.SetEnable(true)
 	layer3Config.SetLacp(*lacpConfig)
 
+	// Adjust TCP MSS for both IPv4 and IPv6
+	layer3Config.SetAdjustTcpMss(createAggregateAdjustTcpMss())
+
 	intf.SetLayer3(*layer3Config)
 
 	res, httpRes, err := client.AggregateInterfacesAPI.
@@ -141,6 +154,14 @@ func Test_CreateAggregateInterfaces_L3Static(t *testing.T) {
 	require.NotEmpty(t, layer3Val.GetIp(), "Static IP list must be set")
 	assert.Equal(t, "198.18.1.1/24", layer3Val.GetIp()[0].GetName(), "IP address must match")
 	assert.True(t, layer3Val.HasLacp(), "LACP config must be present")
+
+	// TCP MSS adjustment must round-trip for both address families
+	require.True(t, layer3Val.HasAdjustTcpMss(), "AdjustTcpMss must be present")
+	mssVal, mssOk := layer3Val.GetAdjustTcpMssOk()
+	require.True(t, mssOk, "AdjustTcpMss must be explicitly set (ok boolean)")
+	assert.True(t, mssVal.GetEnable(), "TCP MSS adjustment must be enabled")
+	assert.Equal(t, int32(40), mssVal.GetIpv4MssAdjustment(), "IPv4 MSS adjustment must match")
+	assert.Equal(t, int32(60), mssVal.GetIpv6MssAdjustment(), "IPv6 MSS adjustment must match")
 
 	// *** Inner Exclusivity Check ***
 	assert.False(t, layer3Val.HasDhcpClient(), "DHCP client must NOT be set when static IP is configured")

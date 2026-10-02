@@ -37,6 +37,10 @@ type PbfRules struct {
 	Id *string `json:"id,omitempty"`
 	// PBF rule name
 	Name *string `json:"name,omitempty"`
+	// Negate destination address
+	NegateDestination *bool `json:"negate_destination,omitempty"`
+	// Negate source address
+	NegateSource *bool `json:"negate_source,omitempty"`
 	// Schedule
 	Schedule *string `json:"schedule,omitempty"`
 	// Services
@@ -60,6 +64,10 @@ type _PbfRules PbfRules
 // will change when the set of required properties is changed
 func NewPbfRules() *PbfRules {
 	this := PbfRules{}
+	var negateDestination bool = false
+	this.NegateDestination = &negateDestination
+	var negateSource bool = false
+	this.NegateSource = &negateSource
 	return &this
 }
 
@@ -68,6 +76,10 @@ func NewPbfRules() *PbfRules {
 // but it doesn't guarantee that properties required by API are set
 func NewPbfRulesWithDefaults() *PbfRules {
 	this := PbfRules{}
+	var negateDestination bool = false
+	this.NegateDestination = &negateDestination
+	var negateSource bool = false
+	this.NegateSource = &negateSource
 	return &this
 }
 
@@ -391,6 +403,70 @@ func (o *PbfRules) SetName(v string) {
 	o.Name = &v
 }
 
+// GetNegateDestination returns the NegateDestination field value if set, zero value otherwise.
+func (o *PbfRules) GetNegateDestination() bool {
+	if o == nil || IsNil(o.NegateDestination) {
+		var ret bool
+		return ret
+	}
+	return *o.NegateDestination
+}
+
+// GetNegateDestinationOk returns a tuple with the NegateDestination field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PbfRules) GetNegateDestinationOk() (*bool, bool) {
+	if o == nil || IsNil(o.NegateDestination) {
+		return nil, false
+	}
+	return o.NegateDestination, true
+}
+
+// HasNegateDestination returns a boolean if a field has been set.
+func (o *PbfRules) HasNegateDestination() bool {
+	if o != nil && !IsNil(o.NegateDestination) {
+		return true
+	}
+
+	return false
+}
+
+// SetNegateDestination gets a reference to the given bool and assigns it to the NegateDestination field.
+func (o *PbfRules) SetNegateDestination(v bool) {
+	o.NegateDestination = &v
+}
+
+// GetNegateSource returns the NegateSource field value if set, zero value otherwise.
+func (o *PbfRules) GetNegateSource() bool {
+	if o == nil || IsNil(o.NegateSource) {
+		var ret bool
+		return ret
+	}
+	return *o.NegateSource
+}
+
+// GetNegateSourceOk returns a tuple with the NegateSource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PbfRules) GetNegateSourceOk() (*bool, bool) {
+	if o == nil || IsNil(o.NegateSource) {
+		return nil, false
+	}
+	return o.NegateSource, true
+}
+
+// HasNegateSource returns a boolean if a field has been set.
+func (o *PbfRules) HasNegateSource() bool {
+	if o != nil && !IsNil(o.NegateSource) {
+		return true
+	}
+
+	return false
+}
+
+// SetNegateSource gets a reference to the given bool and assigns it to the NegateSource field.
+func (o *PbfRules) SetNegateSource(v bool) {
+	o.NegateSource = &v
+}
+
 // GetSchedule returns the Schedule field value if set, zero value otherwise.
 func (o *PbfRules) GetSchedule() string {
 	if o == nil || IsNil(o.Schedule) {
@@ -623,6 +699,12 @@ func (o PbfRules) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if !IsNil(o.NegateDestination) {
+		toSerialize["negate_destination"] = o.NegateDestination
+	}
+	if !IsNil(o.NegateSource) {
+		toSerialize["negate_source"] = o.NegateSource
+	}
 	if !IsNil(o.Schedule) {
 		toSerialize["schedule"] = o.Schedule
 	}
@@ -673,6 +755,8 @@ func (o *PbfRules) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "from")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "negate_destination")
+		delete(additionalProperties, "negate_source")
 		delete(additionalProperties, "schedule")
 		delete(additionalProperties, "service")
 		delete(additionalProperties, "snippet")

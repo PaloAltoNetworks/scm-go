@@ -20,6 +20,7 @@ var _ MappedNullable = &AggregateInterfacesLayer3{}
 
 // AggregateInterfacesLayer3 Aggregate Interface Layer 3 configuration
 type AggregateInterfacesLayer3 struct {
+	AdjustTcpMss *AdjustTcpMss `json:"adjust_tcp_mss,omitempty"`
 	// Aggregate Ethernet ARP configuration
 	Arp        []AggEthernetArpInner                `json:"arp,omitempty"`
 	DdnsConfig *AggregateInterfacesLayer3DdnsConfig `json:"ddns_config,omitempty"`
@@ -29,6 +30,7 @@ type AggregateInterfacesLayer3 struct {
 	// Aggregate Interface IP addresses
 	Ip   []AggregateInterfacesLayer3IpInner `json:"ip,omitempty"`
 	Lacp *Lacp                              `json:"lacp,omitempty"`
+	Lldp *Lldp                              `json:"lldp,omitempty"`
 	// MTU
 	Mtu *int32 `json:"mtu,omitempty"`
 	// Name of Netflow Profile to assign to Interface
@@ -57,6 +59,38 @@ func NewAggregateInterfacesLayer3WithDefaults() *AggregateInterfacesLayer3 {
 	var mtu int32 = 1500
 	this.Mtu = &mtu
 	return &this
+}
+
+// GetAdjustTcpMss returns the AdjustTcpMss field value if set, zero value otherwise.
+func (o *AggregateInterfacesLayer3) GetAdjustTcpMss() AdjustTcpMss {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		var ret AdjustTcpMss
+		return ret
+	}
+	return *o.AdjustTcpMss
+}
+
+// GetAdjustTcpMssOk returns a tuple with the AdjustTcpMss field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregateInterfacesLayer3) GetAdjustTcpMssOk() (*AdjustTcpMss, bool) {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		return nil, false
+	}
+	return o.AdjustTcpMss, true
+}
+
+// HasAdjustTcpMss returns a boolean if a field has been set.
+func (o *AggregateInterfacesLayer3) HasAdjustTcpMss() bool {
+	if o != nil && !IsNil(o.AdjustTcpMss) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdjustTcpMss gets a reference to the given AdjustTcpMss and assigns it to the AdjustTcpMss field.
+func (o *AggregateInterfacesLayer3) SetAdjustTcpMss(v AdjustTcpMss) {
+	o.AdjustTcpMss = &v
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
@@ -251,6 +285,38 @@ func (o *AggregateInterfacesLayer3) SetLacp(v Lacp) {
 	o.Lacp = &v
 }
 
+// GetLldp returns the Lldp field value if set, zero value otherwise.
+func (o *AggregateInterfacesLayer3) GetLldp() Lldp {
+	if o == nil || IsNil(o.Lldp) {
+		var ret Lldp
+		return ret
+	}
+	return *o.Lldp
+}
+
+// GetLldpOk returns a tuple with the Lldp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AggregateInterfacesLayer3) GetLldpOk() (*Lldp, bool) {
+	if o == nil || IsNil(o.Lldp) {
+		return nil, false
+	}
+	return o.Lldp, true
+}
+
+// HasLldp returns a boolean if a field has been set.
+func (o *AggregateInterfacesLayer3) HasLldp() bool {
+	if o != nil && !IsNil(o.Lldp) {
+		return true
+	}
+
+	return false
+}
+
+// SetLldp gets a reference to the given Lldp and assigns it to the Lldp field.
+func (o *AggregateInterfacesLayer3) SetLldp(v Lldp) {
+	o.Lldp = &v
+}
+
 // GetMtu returns the Mtu field value if set, zero value otherwise.
 func (o *AggregateInterfacesLayer3) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
@@ -325,6 +391,9 @@ func (o AggregateInterfacesLayer3) MarshalJSON() ([]byte, error) {
 
 func (o AggregateInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AdjustTcpMss) {
+		toSerialize["adjust_tcp_mss"] = o.AdjustTcpMss
+	}
 	if !IsNil(o.Arp) {
 		toSerialize["arp"] = o.Arp
 	}
@@ -342,6 +411,9 @@ func (o AggregateInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Lacp) {
 		toSerialize["lacp"] = o.Lacp
+	}
+	if !IsNil(o.Lldp) {
+		toSerialize["lldp"] = o.Lldp
 	}
 	if !IsNil(o.Mtu) {
 		toSerialize["mtu"] = o.Mtu
@@ -371,12 +443,14 @@ func (o *AggregateInterfacesLayer3) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "adjust_tcp_mss")
 		delete(additionalProperties, "arp")
 		delete(additionalProperties, "ddns_config")
 		delete(additionalProperties, "dhcp_client")
 		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
 		delete(additionalProperties, "lacp")
+		delete(additionalProperties, "lldp")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "netflow_profile")
 		o.AdditionalProperties = additionalProperties

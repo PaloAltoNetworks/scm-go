@@ -99,8 +99,6 @@ func NewSecurityRules() *SecurityRules {
 	this.NegateDestination = &negateDestination
 	var negateSource bool = false
 	this.NegateSource = &negateSource
-	var negateUser bool = false
-	this.NegateUser = &negateUser
 	var policyType string = "Security"
 	this.PolicyType = &policyType
 	return &this
@@ -117,8 +115,6 @@ func NewSecurityRulesWithDefaults() *SecurityRules {
 	this.NegateDestination = &negateDestination
 	var negateSource bool = false
 	this.NegateSource = &negateSource
-	var negateUser bool = false
-	this.NegateUser = &negateUser
 	var policyType string = "Security"
 	this.PolicyType = &policyType
 	return &this

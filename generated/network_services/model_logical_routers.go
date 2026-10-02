@@ -26,9 +26,8 @@ type LogicalRouters struct {
 	// The folder in which the resource is defined
 	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// UUID of the resource
-	Id           *string `json:"id,omitempty"`
-	Name         string  `json:"name"`
-	RoutingStack *string `json:"routing_stack,omitempty"`
+	Id   *string `json:"id,omitempty"`
+	Name string  `json:"name"`
 	// The snippet in which the resource is defined
 	Snippet              *string                  `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Vrf                  []LogicalRoutersVrfInner `json:"vrf,omitempty"`
@@ -175,38 +174,6 @@ func (o *LogicalRouters) SetName(v string) {
 	o.Name = v
 }
 
-// GetRoutingStack returns the RoutingStack field value if set, zero value otherwise.
-func (o *LogicalRouters) GetRoutingStack() string {
-	if o == nil || IsNil(o.RoutingStack) {
-		var ret string
-		return ret
-	}
-	return *o.RoutingStack
-}
-
-// GetRoutingStackOk returns a tuple with the RoutingStack field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *LogicalRouters) GetRoutingStackOk() (*string, bool) {
-	if o == nil || IsNil(o.RoutingStack) {
-		return nil, false
-	}
-	return o.RoutingStack, true
-}
-
-// HasRoutingStack returns a boolean if a field has been set.
-func (o *LogicalRouters) HasRoutingStack() bool {
-	if o != nil && !IsNil(o.RoutingStack) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoutingStack gets a reference to the given string and assigns it to the RoutingStack field.
-func (o *LogicalRouters) SetRoutingStack(v string) {
-	o.RoutingStack = &v
-}
-
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
 func (o *LogicalRouters) GetSnippet() string {
 	if o == nil || IsNil(o.Snippet) {
@@ -291,9 +258,6 @@ func (o LogicalRouters) ToMap() (map[string]interface{}, error) {
 		toSerialize["id"] = o.Id
 	}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.RoutingStack) {
-		toSerialize["routing_stack"] = o.RoutingStack
-	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
@@ -347,7 +311,6 @@ func (o *LogicalRouters) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "folder")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
-		delete(additionalProperties, "routing_stack")
 		delete(additionalProperties, "snippet")
 		delete(additionalProperties, "vrf")
 		o.AdditionalProperties = additionalProperties

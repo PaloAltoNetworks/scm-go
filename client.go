@@ -37,6 +37,8 @@ Param | Environment Variable | JSON Key | Default
 -------------------------------------------------
 AuthUrl | SCM_AUTH_URL | auth_url | "https://auth.apps.paloaltonetworks.com/auth/v1/oauth2/access_token"
 Host | SCM_HOST | host | "api.strata.paloaltonetworks.com"
+ZtnaHost | ZTNA_HOST | ztna_host | "api.sase.paloaltonetworks.com"
+XPanwRegion | X_PANW_REGION | x_panw_region | ""
 Port | SCM_PORT | port | 0
 ClientId | SCM_CLIENT_ID | client_id | ""
 ClientSecret | SCM_CLIENT_SECRET | client_secret | ""
@@ -51,6 +53,8 @@ SkipLoggingTransport | - | skip_logging_transport | false
 type Client struct {
 	AuthUrl      string            `json:"auth_url"`
 	Host         string            `json:"host"`
+	ZtnaHost     string            `json:"ztna_host"`
+	XPanwRegion  string            `json:"x_panw_region"`
 	Port         int               `json:"port"`
 	ClientId     string            `json:"client_id"`
 	ClientSecret string            `json:"client_secret"`
@@ -79,8 +83,9 @@ type Client struct {
 
 	HttpClient *http.Client
 
-	testData        []*http.Response
-	testIndex       int
+	// Test fields - exported for testing
+	TestData        []*http.Response `json:"-"`
+	TestIndex       int              `json:"-"`
 	authFileContent []byte
 }
 
@@ -93,7 +98,7 @@ func (c *Client) Setup() error {
 	var json_client Client
 	if c.AuthFile != "" {
 		var b []byte
-		if len(c.testData) != 0 {
+		if len(c.TestData) != 0 {
 			b, err = c.authFileContent, nil
 		} else {
 			b, err = os.ReadFile(c.AuthFile)
@@ -133,6 +138,27 @@ func (c *Client) Setup() error {
 	}
 	if c.Host == "" {
 		c.Host = "api.strata.paloaltonetworks.com"
+	}
+
+	// ZtnaHost.
+	if c.ZtnaHost == "" {
+		if val := os.Getenv("ZTNA_HOST"); c.CheckEnvironment && val != "" {
+			c.ZtnaHost = val
+		} else if json_client.ZtnaHost != "" {
+			c.ZtnaHost = json_client.ZtnaHost
+		}
+	}
+	if c.ZtnaHost == "" {
+		c.ZtnaHost = "api.sase.paloaltonetworks.com"
+	}
+
+	// XPanwRegion.
+	if c.XPanwRegion == "" {
+		if val := os.Getenv("X_PANW_REGION"); c.CheckEnvironment && val != "" {
+			c.XPanwRegion = val
+		} else if json_client.XPanwRegion != "" {
+			c.XPanwRegion = json_client.XPanwRegion
+		}
 	}
 
 	// Port.
@@ -301,11 +327,11 @@ func (c *Client) RefreshJwt(ctx context.Context) error {
 
 	c.Log(ctx, "", "RefreshJwt: Starting JWT refresh process")
 
-	if len(c.testData) != 0 {
+	if len(c.TestData) != 0 {
 		// Testing.
 		c.Log(ctx, "", "RefreshJwt: Using test data")
-		resp = c.testData[c.testIndex%len(c.testData)]
-		c.testIndex++
+		resp = c.TestData[c.TestIndex%len(c.TestData)]
+		c.TestIndex++
 	} else {
 		c.Log(ctx, "", "RefreshJwt: Creating auth client")
 		authClient := &http.Client{
@@ -453,7 +479,7 @@ func (c *Client) Log(ctx context.Context, level, msg string) {
 
 	if level == "" || c.Logging == level {
 		if c.Logger == nil {
-			log.Printf(msg)
+			log.Printf("%s", msg)
 		} else {
 			c.Logger(ctx, msg)
 		}
@@ -520,10 +546,10 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 	uri := fmt.Sprintf("%s%s%s", c.apiPrefix, path, qp)
 	c.Log(ctx, api.LogBasic, fmt.Sprintf("[%s] %s", method, uri))
 
-	if len(c.testData) != 0 {
+	if len(c.TestData) != 0 {
 		// Testing.
-		resp = c.testData[c.testIndex%len(c.testData)]
-		c.testIndex++
+		resp = c.TestData[c.TestIndex%len(c.TestData)]
+		c.TestIndex++
 	} else {
 		req, err := http.NewRequestWithContext(ctx, method, uri, strings.NewReader(string(data)))
 		if err != nil {
@@ -546,6 +572,18 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 	}
 
 	if err != nil {
+		// Network errors (connection timeout, DNS failure, etc.) are retryable
+		if len(c.TestData) == 0 {
+			c.Log(ctx, "", fmt.Sprintf("Network error encountered, will retry: %v", err))
+			// Calculate exponential backoff: 1s, 2s, 4s, 8s, 16s (capped at 16s)
+			retryCount := len(retry)
+			backoffDuration := time.Duration(1<<uint(retryCount)) * time.Second
+			if backoffDuration > 16*time.Second {
+				backoffDuration = 16 * time.Second
+			}
+			time.Sleep(backoffDuration)
+			return c.Do(ctx, method, path, queryParams, input, output, append(retry, err)...)
+		}
 		return nil, err
 	} else if resp == nil {
 		return nil, fmt.Errorf("no response received")
@@ -578,6 +616,45 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 	       "_request_id":"93cdac8f-5bfe-4438-8ae3-3744114223a7",
 	   }
 	*/
+	// Check for APIGEE fault structure in successful status codes
+	// APIGEE can return HTTP 200 with error details in body like:
+	// {"fault":{"faultstring":"...","detail":{"errorcode":"...","reason":"TARGET_CONNECT_TIMEOUT"}}}
+	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+		var faultCheck map[string]interface{}
+		if json.Unmarshal(body, &faultCheck) == nil {
+			if fault, hasFault := faultCheck["fault"].(map[string]interface{}); hasFault {
+				// APIGEE fault detected in successful response
+				if detail, hasDetail := fault["detail"].(map[string]interface{}); hasDetail {
+					if reason, hasReason := detail["reason"].(string); hasReason {
+						// Check if it's a retryable fault reason
+						retryableReasons := []string{"TARGET_CONNECT_TIMEOUT", "GATEWAY_TIMEOUT", "CONNECTION_TIMEOUT"}
+						for _, r := range retryableReasons {
+							if reason == r {
+								c.Log(ctx, "", fmt.Sprintf("APIGEE fault detected: %s, will retry", reason))
+								if len(c.TestData) == 0 {
+									retryCount := len(retry)
+									backoffDuration := time.Duration(1<<uint(retryCount)) * time.Second
+									if backoffDuration > 16*time.Second {
+										backoffDuration = 16 * time.Second
+									}
+									time.Sleep(backoffDuration)
+								}
+								faultErr := fmt.Errorf("APIGEE fault: %s", reason)
+								return c.Do(ctx, method, path, queryParams, input, output, append(retry, faultErr)...)
+							}
+						}
+					}
+				}
+				// Non-retryable fault, return as error
+				faultString := "unknown"
+				if fs, ok := fault["faultstring"].(string); ok {
+					faultString = fs
+				}
+				return body, fmt.Errorf("API fault: %s", faultString)
+			}
+		}
+	}
+
 	switch resp.StatusCode {
 	case http.StatusOK, http.StatusCreated, http.StatusAccepted:
 	case http.StatusNotFound:
@@ -599,11 +676,19 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 	case http.StatusTooManyRequests, http.StatusInternalServerError, http.StatusBadGateway, http.StatusServiceUnavailable, http.StatusGatewayTimeout:
 		// When these errors are encountered, we should be sleeping and then retrying again:
 		// https://pan.dev/prisma-cloud/api/cspm/api-errors/#reattempting-requests-that-fail-due-to-a-server-error
-		// TODO(shinmog): When/if this is implemented, verify backoff logic with eng.
+		c.Log(ctx, "", fmt.Sprintf("HTTP %d error encountered, will retry", resp.StatusCode))
 
 		// Only sleep if we're not running tests.
-		if len(c.testData) == 0 {
-			time.Sleep(time.Duration(len(retry)+1*2) * time.Second)
+		if len(c.TestData) == 0 {
+			// Use exponential backoff with jitter: 1s, 2s, 4s, 8s, 16s (capped at 16s)
+			retryCount := len(retry)
+			backoffDuration := time.Duration(1<<uint(retryCount)) * time.Second
+			if backoffDuration > 16*time.Second {
+				backoffDuration = 16 * time.Second
+			}
+			// Add jitter (random 0-500ms) to avoid thundering herd
+			jitter := time.Duration(len(retry)*100) * time.Millisecond
+			time.Sleep(backoffDuration + jitter)
 		}
 		return c.Do(ctx, method, path, queryParams, input, output, append(retry, stat)...)
 	default:
@@ -623,6 +708,12 @@ func (c *Client) Do(ctx context.Context, method string, path string, queryParams
 
 // GetHost returns the Host property.
 func (c *Client) GetHost() string { return c.Host }
+
+// GetZtnaHost returns the ZtnaHost property.
+func (c *Client) GetZtnaHost() string { return c.ZtnaHost }
+
+// GetXPanwRegion returns the XPanwRegion property.
+func (c *Client) GetXPanwRegion() string { return c.XPanwRegion }
 
 // authResponse represents the response from the auth endpoint
 type authResponse struct {

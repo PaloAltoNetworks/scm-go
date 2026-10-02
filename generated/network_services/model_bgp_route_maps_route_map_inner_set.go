@@ -21,8 +21,8 @@ var _ MappedNullable = &BgpRouteMapsRouteMapInnerSet{}
 // BgpRouteMapsRouteMapInnerSet struct for BgpRouteMapsRouteMapInnerSet
 type BgpRouteMapsRouteMapInnerSet struct {
 	Aggregator    *BgpRouteMapsRouteMapInnerSetAggregator `json:"aggregator,omitempty"`
-	AspathExclude []int32                                 `json:"aspath_exclude,omitempty"`
-	AspathPrepend []int32                                 `json:"aspath_prepend,omitempty"`
+	AspathExclude []int64                                 `json:"aspath_exclude,omitempty"`
+	AspathPrepend []int64                                 `json:"aspath_prepend,omitempty"`
 	// Enable BGP atomic aggregate?
 	AtomicAggregate *bool                             `json:"atomic_aggregate,omitempty"`
 	Ipv4            *BgpRouteMapsRouteMapInnerSetIpv4 `json:"ipv4,omitempty"`
@@ -102,9 +102,9 @@ func (o *BgpRouteMapsRouteMapInnerSet) SetAggregator(v BgpRouteMapsRouteMapInner
 }
 
 // GetAspathExclude returns the AspathExclude field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerSet) GetAspathExclude() []int32 {
+func (o *BgpRouteMapsRouteMapInnerSet) GetAspathExclude() []int64 {
 	if o == nil || IsNil(o.AspathExclude) {
-		var ret []int32
+		var ret []int64
 		return ret
 	}
 	return o.AspathExclude
@@ -112,7 +112,7 @@ func (o *BgpRouteMapsRouteMapInnerSet) GetAspathExclude() []int32 {
 
 // GetAspathExcludeOk returns a tuple with the AspathExclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerSet) GetAspathExcludeOk() ([]int32, bool) {
+func (o *BgpRouteMapsRouteMapInnerSet) GetAspathExcludeOk() ([]int64, bool) {
 	if o == nil || IsNil(o.AspathExclude) {
 		return nil, false
 	}
@@ -128,15 +128,15 @@ func (o *BgpRouteMapsRouteMapInnerSet) HasAspathExclude() bool {
 	return false
 }
 
-// SetAspathExclude gets a reference to the given []int32 and assigns it to the AspathExclude field.
-func (o *BgpRouteMapsRouteMapInnerSet) SetAspathExclude(v []int32) {
+// SetAspathExclude gets a reference to the given []int64 and assigns it to the AspathExclude field.
+func (o *BgpRouteMapsRouteMapInnerSet) SetAspathExclude(v []int64) {
 	o.AspathExclude = v
 }
 
 // GetAspathPrepend returns the AspathPrepend field value if set, zero value otherwise.
-func (o *BgpRouteMapsRouteMapInnerSet) GetAspathPrepend() []int32 {
+func (o *BgpRouteMapsRouteMapInnerSet) GetAspathPrepend() []int64 {
 	if o == nil || IsNil(o.AspathPrepend) {
-		var ret []int32
+		var ret []int64
 		return ret
 	}
 	return o.AspathPrepend
@@ -144,7 +144,7 @@ func (o *BgpRouteMapsRouteMapInnerSet) GetAspathPrepend() []int32 {
 
 // GetAspathPrependOk returns a tuple with the AspathPrepend field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BgpRouteMapsRouteMapInnerSet) GetAspathPrependOk() ([]int32, bool) {
+func (o *BgpRouteMapsRouteMapInnerSet) GetAspathPrependOk() ([]int64, bool) {
 	if o == nil || IsNil(o.AspathPrepend) {
 		return nil, false
 	}
@@ -160,8 +160,8 @@ func (o *BgpRouteMapsRouteMapInnerSet) HasAspathPrepend() bool {
 	return false
 }
 
-// SetAspathPrepend gets a reference to the given []int32 and assigns it to the AspathPrepend field.
-func (o *BgpRouteMapsRouteMapInnerSet) SetAspathPrepend(v []int32) {
+// SetAspathPrepend gets a reference to the given []int64 and assigns it to the AspathPrepend field.
+func (o *BgpRouteMapsRouteMapInnerSet) SetAspathPrepend(v []int64) {
 	o.AspathPrepend = v
 }
 

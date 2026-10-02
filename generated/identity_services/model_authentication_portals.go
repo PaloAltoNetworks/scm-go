@@ -13,7 +13,6 @@ package identity_services
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the AuthenticationPortals type satisfies the MappedNullable interface at compile time
@@ -36,7 +35,7 @@ type AuthenticationPortals struct {
 	// The idle timeout value (minutes)
 	IdleTimer *int32 `json:"idle_timer,omitempty"`
 	// The authentication portal IP address or hostname
-	RedirectHost string `json:"redirect_host"`
+	RedirectHost *string `json:"redirect_host,omitempty"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	Timer   *int32  `json:"timer,omitempty"`
@@ -51,9 +50,8 @@ type _AuthenticationPortals AuthenticationPortals
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthenticationPortals(redirectHost string) *AuthenticationPortals {
+func NewAuthenticationPortals() *AuthenticationPortals {
 	this := AuthenticationPortals{}
-	this.RedirectHost = redirectHost
 	return &this
 }
 
@@ -289,28 +287,36 @@ func (o *AuthenticationPortals) SetIdleTimer(v int32) {
 	o.IdleTimer = &v
 }
 
-// GetRedirectHost returns the RedirectHost field value
+// GetRedirectHost returns the RedirectHost field value if set, zero value otherwise.
 func (o *AuthenticationPortals) GetRedirectHost() string {
-	if o == nil {
+	if o == nil || IsNil(o.RedirectHost) {
 		var ret string
 		return ret
 	}
-
-	return o.RedirectHost
+	return *o.RedirectHost
 }
 
-// GetRedirectHostOk returns a tuple with the RedirectHost field value
+// GetRedirectHostOk returns a tuple with the RedirectHost field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthenticationPortals) GetRedirectHostOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RedirectHost) {
 		return nil, false
 	}
-	return &o.RedirectHost, true
+	return o.RedirectHost, true
 }
 
-// SetRedirectHost sets field value
+// HasRedirectHost returns a boolean if a field has been set.
+func (o *AuthenticationPortals) HasRedirectHost() bool {
+	if o != nil && !IsNil(o.RedirectHost) {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirectHost gets a reference to the given string and assigns it to the RedirectHost field.
 func (o *AuthenticationPortals) SetRedirectHost(v string) {
-	o.RedirectHost = v
+	o.RedirectHost = &v
 }
 
 // GetSnippet returns the Snippet field value if set, zero value otherwise.
@@ -440,7 +446,9 @@ func (o AuthenticationPortals) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IdleTimer) {
 		toSerialize["idle_timer"] = o.IdleTimer
 	}
-	toSerialize["redirect_host"] = o.RedirectHost
+	if !IsNil(o.RedirectHost) {
+		toSerialize["redirect_host"] = o.RedirectHost
+	}
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
@@ -459,27 +467,6 @@ func (o AuthenticationPortals) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *AuthenticationPortals) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"redirect_host",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAuthenticationPortals := _AuthenticationPortals{}
 
 	err = json.Unmarshal(data, &varAuthenticationPortals)

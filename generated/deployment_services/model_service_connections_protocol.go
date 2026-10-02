@@ -20,7 +20,8 @@ var _ MappedNullable = &ServiceConnectionsProtocol{}
 
 // ServiceConnectionsProtocol struct for ServiceConnectionsProtocol
 type ServiceConnectionsProtocol struct {
-	Bgp                  *ServiceConnectionsProtocolBgp `json:"bgp,omitempty"`
+	Bgp                  *ServiceConnectionsProtocolBgp     `json:"bgp,omitempty"`
+	BgpPeer              *ServiceConnectionsProtocolBgpPeer `json:"bgp_peer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,6 +76,38 @@ func (o *ServiceConnectionsProtocol) SetBgp(v ServiceConnectionsProtocolBgp) {
 	o.Bgp = &v
 }
 
+// GetBgpPeer returns the BgpPeer field value if set, zero value otherwise.
+func (o *ServiceConnectionsProtocol) GetBgpPeer() ServiceConnectionsProtocolBgpPeer {
+	if o == nil || IsNil(o.BgpPeer) {
+		var ret ServiceConnectionsProtocolBgpPeer
+		return ret
+	}
+	return *o.BgpPeer
+}
+
+// GetBgpPeerOk returns a tuple with the BgpPeer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceConnectionsProtocol) GetBgpPeerOk() (*ServiceConnectionsProtocolBgpPeer, bool) {
+	if o == nil || IsNil(o.BgpPeer) {
+		return nil, false
+	}
+	return o.BgpPeer, true
+}
+
+// HasBgpPeer returns a boolean if a field has been set.
+func (o *ServiceConnectionsProtocol) HasBgpPeer() bool {
+	if o != nil && !IsNil(o.BgpPeer) {
+		return true
+	}
+
+	return false
+}
+
+// SetBgpPeer gets a reference to the given ServiceConnectionsProtocolBgpPeer and assigns it to the BgpPeer field.
+func (o *ServiceConnectionsProtocol) SetBgpPeer(v ServiceConnectionsProtocolBgpPeer) {
+	o.BgpPeer = &v
+}
+
 func (o ServiceConnectionsProtocol) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -87,6 +120,9 @@ func (o ServiceConnectionsProtocol) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Bgp) {
 		toSerialize["bgp"] = o.Bgp
+	}
+	if !IsNil(o.BgpPeer) {
+		toSerialize["bgp_peer"] = o.BgpPeer
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,6 +147,7 @@ func (o *ServiceConnectionsProtocol) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "bgp")
+		delete(additionalProperties, "bgp_peer")
 		o.AdditionalProperties = additionalProperties
 	}
 

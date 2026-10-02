@@ -31,9 +31,8 @@ type DosProtectionRules struct {
 	// Rule disabled?
 	Disabled *bool `json:"disabled,omitempty"`
 	// The folder in which the resource is defined
-	Folder *string `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
-	// List of source zones
-	From []string `json:"from,omitempty"`
+	Folder *string                `json:"folder,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
+	From   DosProtectionRulesFrom `json:"from"`
 	// The UUID of the DNS security profile
 	Id *string `json:"id,omitempty"`
 	// Log forwarding profile name
@@ -41,22 +40,21 @@ type DosProtectionRules struct {
 	// Rule name
 	Name string `json:"name"`
 	// Position relative to local device rules
-	Position   *string                       `json:"position,omitempty"`
-	Protection *DosProtectionRulesProtection `json:"protection,omitempty"`
+	Position   *string                      `json:"position,omitempty"`
+	Protection DosProtectionRulesProtection `json:"protection"`
 	// Schedule on which to enforce the rule
 	Schedule *string `json:"schedule,omitempty"`
 	// List of services
-	Service []string `json:"service,omitempty"`
+	Service []string `json:"service"`
 	// The snippet in which the resource is defined
 	Snippet *string `json:"snippet,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// List of source addresses
-	Source []string `json:"source,omitempty"`
+	Source []string `json:"source"`
 	// List of source users and/or groups.  Reserved words include `any`, `pre-login`, `known-user`, and `unknown`.
 	SourceUser []string `json:"source_user,omitempty"`
 	// List of tags
-	Tag []string `json:"tag,omitempty"`
-	// List of destination zones
-	To                   []string `json:"to,omitempty"`
+	Tag                  []string             `json:"tag,omitempty"`
+	To                   DosProtectionRulesTo `json:"to"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,15 +64,20 @@ type _DosProtectionRules DosProtectionRules
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDosProtectionRules(name string) *DosProtectionRules {
+func NewDosProtectionRules(from DosProtectionRulesFrom, name string, protection DosProtectionRulesProtection, service []string, source []string, to DosProtectionRulesTo) *DosProtectionRules {
 	this := DosProtectionRules{}
 	var disabled bool = false
 	this.Disabled = &disabled
+	this.From = from
 	var logSetting string = "Cortex Data Lake"
 	this.LogSetting = &logSetting
 	this.Name = name
 	var position string = "pre"
 	this.Position = &position
+	this.Protection = protection
+	this.Service = service
+	this.Source = source
+	this.To = to
 	return &this
 }
 
@@ -284,35 +287,27 @@ func (o *DosProtectionRules) SetFolder(v string) {
 	o.Folder = &v
 }
 
-// GetFrom returns the From field value if set, zero value otherwise.
-func (o *DosProtectionRules) GetFrom() []string {
-	if o == nil || IsNil(o.From) {
-		var ret []string
+// GetFrom returns the From field value
+func (o *DosProtectionRules) GetFrom() DosProtectionRulesFrom {
+	if o == nil {
+		var ret DosProtectionRulesFrom
 		return ret
 	}
+
 	return o.From
 }
 
-// GetFromOk returns a tuple with the From field value if set, nil otherwise
+// GetFromOk returns a tuple with the From field value
 // and a boolean to check if the value has been set.
-func (o *DosProtectionRules) GetFromOk() ([]string, bool) {
-	if o == nil || IsNil(o.From) {
+func (o *DosProtectionRules) GetFromOk() (*DosProtectionRulesFrom, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.From, true
+	return &o.From, true
 }
 
-// HasFrom returns a boolean if a field has been set.
-func (o *DosProtectionRules) HasFrom() bool {
-	if o != nil && !IsNil(o.From) {
-		return true
-	}
-
-	return false
-}
-
-// SetFrom gets a reference to the given []string and assigns it to the From field.
-func (o *DosProtectionRules) SetFrom(v []string) {
+// SetFrom sets field value
+func (o *DosProtectionRules) SetFrom(v DosProtectionRulesFrom) {
 	o.From = v
 }
 
@@ -436,36 +431,28 @@ func (o *DosProtectionRules) SetPosition(v string) {
 	o.Position = &v
 }
 
-// GetProtection returns the Protection field value if set, zero value otherwise.
+// GetProtection returns the Protection field value
 func (o *DosProtectionRules) GetProtection() DosProtectionRulesProtection {
-	if o == nil || IsNil(o.Protection) {
+	if o == nil {
 		var ret DosProtectionRulesProtection
 		return ret
 	}
-	return *o.Protection
+
+	return o.Protection
 }
 
-// GetProtectionOk returns a tuple with the Protection field value if set, nil otherwise
+// GetProtectionOk returns a tuple with the Protection field value
 // and a boolean to check if the value has been set.
 func (o *DosProtectionRules) GetProtectionOk() (*DosProtectionRulesProtection, bool) {
-	if o == nil || IsNil(o.Protection) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Protection, true
+	return &o.Protection, true
 }
 
-// HasProtection returns a boolean if a field has been set.
-func (o *DosProtectionRules) HasProtection() bool {
-	if o != nil && !IsNil(o.Protection) {
-		return true
-	}
-
-	return false
-}
-
-// SetProtection gets a reference to the given DosProtectionRulesProtection and assigns it to the Protection field.
+// SetProtection sets field value
 func (o *DosProtectionRules) SetProtection(v DosProtectionRulesProtection) {
-	o.Protection = &v
+	o.Protection = v
 }
 
 // GetSchedule returns the Schedule field value if set, zero value otherwise.
@@ -500,34 +487,26 @@ func (o *DosProtectionRules) SetSchedule(v string) {
 	o.Schedule = &v
 }
 
-// GetService returns the Service field value if set, zero value otherwise.
+// GetService returns the Service field value
 func (o *DosProtectionRules) GetService() []string {
-	if o == nil || IsNil(o.Service) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Service
 }
 
-// GetServiceOk returns a tuple with the Service field value if set, nil otherwise
+// GetServiceOk returns a tuple with the Service field value
 // and a boolean to check if the value has been set.
 func (o *DosProtectionRules) GetServiceOk() ([]string, bool) {
-	if o == nil || IsNil(o.Service) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Service, true
 }
 
-// HasService returns a boolean if a field has been set.
-func (o *DosProtectionRules) HasService() bool {
-	if o != nil && !IsNil(o.Service) {
-		return true
-	}
-
-	return false
-}
-
-// SetService gets a reference to the given []string and assigns it to the Service field.
+// SetService sets field value
 func (o *DosProtectionRules) SetService(v []string) {
 	o.Service = v
 }
@@ -564,34 +543,26 @@ func (o *DosProtectionRules) SetSnippet(v string) {
 	o.Snippet = &v
 }
 
-// GetSource returns the Source field value if set, zero value otherwise.
+// GetSource returns the Source field value
 func (o *DosProtectionRules) GetSource() []string {
-	if o == nil || IsNil(o.Source) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *DosProtectionRules) GetSourceOk() ([]string, bool) {
-	if o == nil || IsNil(o.Source) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Source, true
 }
 
-// HasSource returns a boolean if a field has been set.
-func (o *DosProtectionRules) HasSource() bool {
-	if o != nil && !IsNil(o.Source) {
-		return true
-	}
-
-	return false
-}
-
-// SetSource gets a reference to the given []string and assigns it to the Source field.
+// SetSource sets field value
 func (o *DosProtectionRules) SetSource(v []string) {
 	o.Source = v
 }
@@ -660,35 +631,27 @@ func (o *DosProtectionRules) SetTag(v []string) {
 	o.Tag = v
 }
 
-// GetTo returns the To field value if set, zero value otherwise.
-func (o *DosProtectionRules) GetTo() []string {
-	if o == nil || IsNil(o.To) {
-		var ret []string
+// GetTo returns the To field value
+func (o *DosProtectionRules) GetTo() DosProtectionRulesTo {
+	if o == nil {
+		var ret DosProtectionRulesTo
 		return ret
 	}
+
 	return o.To
 }
 
-// GetToOk returns a tuple with the To field value if set, nil otherwise
+// GetToOk returns a tuple with the To field value
 // and a boolean to check if the value has been set.
-func (o *DosProtectionRules) GetToOk() ([]string, bool) {
-	if o == nil || IsNil(o.To) {
+func (o *DosProtectionRules) GetToOk() (*DosProtectionRulesTo, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.To, true
+	return &o.To, true
 }
 
-// HasTo returns a boolean if a field has been set.
-func (o *DosProtectionRules) HasTo() bool {
-	if o != nil && !IsNil(o.To) {
-		return true
-	}
-
-	return false
-}
-
-// SetTo gets a reference to the given []string and assigns it to the To field.
-func (o *DosProtectionRules) SetTo(v []string) {
+// SetTo sets field value
+func (o *DosProtectionRules) SetTo(v DosProtectionRulesTo) {
 	o.To = v
 }
 
@@ -720,9 +683,7 @@ func (o DosProtectionRules) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Folder) {
 		toSerialize["folder"] = o.Folder
 	}
-	if !IsNil(o.From) {
-		toSerialize["from"] = o.From
-	}
+	toSerialize["from"] = o.From
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -733,30 +694,22 @@ func (o DosProtectionRules) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Position) {
 		toSerialize["position"] = o.Position
 	}
-	if !IsNil(o.Protection) {
-		toSerialize["protection"] = o.Protection
-	}
+	toSerialize["protection"] = o.Protection
 	if !IsNil(o.Schedule) {
 		toSerialize["schedule"] = o.Schedule
 	}
-	if !IsNil(o.Service) {
-		toSerialize["service"] = o.Service
-	}
+	toSerialize["service"] = o.Service
 	if !IsNil(o.Snippet) {
 		toSerialize["snippet"] = o.Snippet
 	}
-	if !IsNil(o.Source) {
-		toSerialize["source"] = o.Source
-	}
+	toSerialize["source"] = o.Source
 	if !IsNil(o.SourceUser) {
 		toSerialize["source_user"] = o.SourceUser
 	}
 	if !IsNil(o.Tag) {
 		toSerialize["tag"] = o.Tag
 	}
-	if !IsNil(o.To) {
-		toSerialize["to"] = o.To
-	}
+	toSerialize["to"] = o.To
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -770,7 +723,12 @@ func (o *DosProtectionRules) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"from",
 		"name",
+		"protection",
+		"service",
+		"source",
+		"to",
 	}
 
 	allProperties := make(map[string]interface{})

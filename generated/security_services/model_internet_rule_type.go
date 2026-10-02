@@ -75,8 +75,6 @@ func NewInternetRuleType(name string) *InternetRuleType {
 	this.Name = name
 	var negateSource bool = false
 	this.NegateSource = &negateSource
-	var negateUser bool = false
-	this.NegateUser = &negateUser
 	var policyType string = "Security"
 	this.PolicyType = &policyType
 	return &this
@@ -91,8 +89,6 @@ func NewInternetRuleTypeWithDefaults() *InternetRuleType {
 	this.Disabled = &disabled
 	var negateSource bool = false
 	this.NegateSource = &negateSource
-	var negateUser bool = false
-	this.NegateUser = &negateUser
 	var policyType string = "Security"
 	this.PolicyType = &policyType
 	return &this

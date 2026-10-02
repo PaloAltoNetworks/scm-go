@@ -21,6 +21,7 @@ var _ MappedNullable = &LoopbackInterfaces{}
 
 // LoopbackInterfaces struct for LoopbackInterfaces
 type LoopbackInterfaces struct {
+	AdjustTcpMss *AdjustTcpMss `json:"adjust_tcp_mss,omitempty"`
 	// Description for loopback interface
 	Comment *string `json:"comment,omitempty"`
 	// Default interface assignment for loopback interface
@@ -65,6 +66,38 @@ func NewLoopbackInterfaces(name string) *LoopbackInterfaces {
 func NewLoopbackInterfacesWithDefaults() *LoopbackInterfaces {
 	this := LoopbackInterfaces{}
 	return &this
+}
+
+// GetAdjustTcpMss returns the AdjustTcpMss field value if set, zero value otherwise.
+func (o *LoopbackInterfaces) GetAdjustTcpMss() AdjustTcpMss {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		var ret AdjustTcpMss
+		return ret
+	}
+	return *o.AdjustTcpMss
+}
+
+// GetAdjustTcpMssOk returns a tuple with the AdjustTcpMss field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoopbackInterfaces) GetAdjustTcpMssOk() (*AdjustTcpMss, bool) {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		return nil, false
+	}
+	return o.AdjustTcpMss, true
+}
+
+// HasAdjustTcpMss returns a boolean if a field has been set.
+func (o *LoopbackInterfaces) HasAdjustTcpMss() bool {
+	if o != nil && !IsNil(o.AdjustTcpMss) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdjustTcpMss gets a reference to the given AdjustTcpMss and assigns it to the AdjustTcpMss field.
+func (o *LoopbackInterfaces) SetAdjustTcpMss(v AdjustTcpMss) {
+	o.AdjustTcpMss = &v
 }
 
 // GetComment returns the Comment field value if set, zero value otherwise.
@@ -453,6 +486,9 @@ func (o LoopbackInterfaces) MarshalJSON() ([]byte, error) {
 
 func (o LoopbackInterfaces) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AdjustTcpMss) {
+		toSerialize["adjust_tcp_mss"] = o.AdjustTcpMss
+	}
 	if !IsNil(o.Comment) {
 		toSerialize["comment"] = o.Comment
 	}
@@ -530,6 +566,7 @@ func (o *LoopbackInterfaces) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "adjust_tcp_mss")
 		delete(additionalProperties, "comment")
 		delete(additionalProperties, "default_value")
 		delete(additionalProperties, "device")

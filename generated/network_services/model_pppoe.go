@@ -16,37 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the EthernetInterfacesLayer3Pppoe type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &EthernetInterfacesLayer3Pppoe{}
+// checks if the Pppoe type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Pppoe{}
 
-// EthernetInterfacesLayer3Pppoe struct for EthernetInterfacesLayer3Pppoe
-type EthernetInterfacesLayer3Pppoe struct {
+// Pppoe PPPoE configuration for the interface
+type Pppoe struct {
 	// Access concentrator
 	AccessConcentrator *string `json:"access_concentrator,omitempty"`
 	// Authentication protocol
 	Authentication *string `json:"authentication,omitempty"`
 	// Metric of the default route created
-	DefaultRouteMetric *int32                                `json:"default_route_metric,omitempty"`
-	Enable             *bool                                 `json:"enable,omitempty"`
-	Passive            *EthernetInterfacesLayer3PppoePassive `json:"passive,omitempty"`
+	DefaultRouteMetric *int32 `json:"default_route_metric,omitempty"`
+	// Enable PPPoE on the interface
+	Enable  *bool         `json:"enable,omitempty"`
+	Passive *PppoePassive `json:"passive,omitempty"`
 	// Password
 	Password string `json:"password"`
 	// Service
-	Service       *string                                     `json:"service,omitempty"`
-	StaticAddress *EthernetInterfacesLayer3PppoeStaticAddress `json:"static_address,omitempty"`
+	Service       *string             `json:"service,omitempty"`
+	StaticAddress *PppoeStaticAddress `json:"static_address,omitempty"`
 	// Username
 	Username             string `json:"username"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _EthernetInterfacesLayer3Pppoe EthernetInterfacesLayer3Pppoe
+type _Pppoe Pppoe
 
-// NewEthernetInterfacesLayer3Pppoe instantiates a new EthernetInterfacesLayer3Pppoe object
+// NewPppoe instantiates a new Pppoe object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEthernetInterfacesLayer3Pppoe(password string, username string) *EthernetInterfacesLayer3Pppoe {
-	this := EthernetInterfacesLayer3Pppoe{}
+func NewPppoe(password string, username string) *Pppoe {
+	this := Pppoe{}
 	var defaultRouteMetric int32 = 10
 	this.DefaultRouteMetric = &defaultRouteMetric
 	var enable bool = true
@@ -56,11 +57,11 @@ func NewEthernetInterfacesLayer3Pppoe(password string, username string) *Etherne
 	return &this
 }
 
-// NewEthernetInterfacesLayer3PppoeWithDefaults instantiates a new EthernetInterfacesLayer3Pppoe object
+// NewPppoeWithDefaults instantiates a new Pppoe object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEthernetInterfacesLayer3PppoeWithDefaults() *EthernetInterfacesLayer3Pppoe {
-	this := EthernetInterfacesLayer3Pppoe{}
+func NewPppoeWithDefaults() *Pppoe {
+	this := Pppoe{}
 	var defaultRouteMetric int32 = 10
 	this.DefaultRouteMetric = &defaultRouteMetric
 	var enable bool = true
@@ -69,7 +70,7 @@ func NewEthernetInterfacesLayer3PppoeWithDefaults() *EthernetInterfacesLayer3Ppp
 }
 
 // GetAccessConcentrator returns the AccessConcentrator field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3Pppoe) GetAccessConcentrator() string {
+func (o *Pppoe) GetAccessConcentrator() string {
 	if o == nil || IsNil(o.AccessConcentrator) {
 		var ret string
 		return ret
@@ -79,7 +80,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetAccessConcentrator() string {
 
 // GetAccessConcentratorOk returns a tuple with the AccessConcentrator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetAccessConcentratorOk() (*string, bool) {
+func (o *Pppoe) GetAccessConcentratorOk() (*string, bool) {
 	if o == nil || IsNil(o.AccessConcentrator) {
 		return nil, false
 	}
@@ -87,7 +88,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetAccessConcentratorOk() (*string, bool
 }
 
 // HasAccessConcentrator returns a boolean if a field has been set.
-func (o *EthernetInterfacesLayer3Pppoe) HasAccessConcentrator() bool {
+func (o *Pppoe) HasAccessConcentrator() bool {
 	if o != nil && !IsNil(o.AccessConcentrator) {
 		return true
 	}
@@ -96,12 +97,12 @@ func (o *EthernetInterfacesLayer3Pppoe) HasAccessConcentrator() bool {
 }
 
 // SetAccessConcentrator gets a reference to the given string and assigns it to the AccessConcentrator field.
-func (o *EthernetInterfacesLayer3Pppoe) SetAccessConcentrator(v string) {
+func (o *Pppoe) SetAccessConcentrator(v string) {
 	o.AccessConcentrator = &v
 }
 
 // GetAuthentication returns the Authentication field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3Pppoe) GetAuthentication() string {
+func (o *Pppoe) GetAuthentication() string {
 	if o == nil || IsNil(o.Authentication) {
 		var ret string
 		return ret
@@ -111,7 +112,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetAuthentication() string {
 
 // GetAuthenticationOk returns a tuple with the Authentication field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetAuthenticationOk() (*string, bool) {
+func (o *Pppoe) GetAuthenticationOk() (*string, bool) {
 	if o == nil || IsNil(o.Authentication) {
 		return nil, false
 	}
@@ -119,7 +120,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetAuthenticationOk() (*string, bool) {
 }
 
 // HasAuthentication returns a boolean if a field has been set.
-func (o *EthernetInterfacesLayer3Pppoe) HasAuthentication() bool {
+func (o *Pppoe) HasAuthentication() bool {
 	if o != nil && !IsNil(o.Authentication) {
 		return true
 	}
@@ -128,12 +129,12 @@ func (o *EthernetInterfacesLayer3Pppoe) HasAuthentication() bool {
 }
 
 // SetAuthentication gets a reference to the given string and assigns it to the Authentication field.
-func (o *EthernetInterfacesLayer3Pppoe) SetAuthentication(v string) {
+func (o *Pppoe) SetAuthentication(v string) {
 	o.Authentication = &v
 }
 
 // GetDefaultRouteMetric returns the DefaultRouteMetric field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3Pppoe) GetDefaultRouteMetric() int32 {
+func (o *Pppoe) GetDefaultRouteMetric() int32 {
 	if o == nil || IsNil(o.DefaultRouteMetric) {
 		var ret int32
 		return ret
@@ -143,7 +144,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetDefaultRouteMetric() int32 {
 
 // GetDefaultRouteMetricOk returns a tuple with the DefaultRouteMetric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetDefaultRouteMetricOk() (*int32, bool) {
+func (o *Pppoe) GetDefaultRouteMetricOk() (*int32, bool) {
 	if o == nil || IsNil(o.DefaultRouteMetric) {
 		return nil, false
 	}
@@ -151,7 +152,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetDefaultRouteMetricOk() (*int32, bool)
 }
 
 // HasDefaultRouteMetric returns a boolean if a field has been set.
-func (o *EthernetInterfacesLayer3Pppoe) HasDefaultRouteMetric() bool {
+func (o *Pppoe) HasDefaultRouteMetric() bool {
 	if o != nil && !IsNil(o.DefaultRouteMetric) {
 		return true
 	}
@@ -160,12 +161,12 @@ func (o *EthernetInterfacesLayer3Pppoe) HasDefaultRouteMetric() bool {
 }
 
 // SetDefaultRouteMetric gets a reference to the given int32 and assigns it to the DefaultRouteMetric field.
-func (o *EthernetInterfacesLayer3Pppoe) SetDefaultRouteMetric(v int32) {
+func (o *Pppoe) SetDefaultRouteMetric(v int32) {
 	o.DefaultRouteMetric = &v
 }
 
 // GetEnable returns the Enable field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3Pppoe) GetEnable() bool {
+func (o *Pppoe) GetEnable() bool {
 	if o == nil || IsNil(o.Enable) {
 		var ret bool
 		return ret
@@ -175,7 +176,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetEnable() bool {
 
 // GetEnableOk returns a tuple with the Enable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetEnableOk() (*bool, bool) {
+func (o *Pppoe) GetEnableOk() (*bool, bool) {
 	if o == nil || IsNil(o.Enable) {
 		return nil, false
 	}
@@ -183,7 +184,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetEnableOk() (*bool, bool) {
 }
 
 // HasEnable returns a boolean if a field has been set.
-func (o *EthernetInterfacesLayer3Pppoe) HasEnable() bool {
+func (o *Pppoe) HasEnable() bool {
 	if o != nil && !IsNil(o.Enable) {
 		return true
 	}
@@ -192,14 +193,14 @@ func (o *EthernetInterfacesLayer3Pppoe) HasEnable() bool {
 }
 
 // SetEnable gets a reference to the given bool and assigns it to the Enable field.
-func (o *EthernetInterfacesLayer3Pppoe) SetEnable(v bool) {
+func (o *Pppoe) SetEnable(v bool) {
 	o.Enable = &v
 }
 
 // GetPassive returns the Passive field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3Pppoe) GetPassive() EthernetInterfacesLayer3PppoePassive {
+func (o *Pppoe) GetPassive() PppoePassive {
 	if o == nil || IsNil(o.Passive) {
-		var ret EthernetInterfacesLayer3PppoePassive
+		var ret PppoePassive
 		return ret
 	}
 	return *o.Passive
@@ -207,7 +208,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetPassive() EthernetInterfacesLayer3Ppp
 
 // GetPassiveOk returns a tuple with the Passive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetPassiveOk() (*EthernetInterfacesLayer3PppoePassive, bool) {
+func (o *Pppoe) GetPassiveOk() (*PppoePassive, bool) {
 	if o == nil || IsNil(o.Passive) {
 		return nil, false
 	}
@@ -215,7 +216,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetPassiveOk() (*EthernetInterfacesLayer
 }
 
 // HasPassive returns a boolean if a field has been set.
-func (o *EthernetInterfacesLayer3Pppoe) HasPassive() bool {
+func (o *Pppoe) HasPassive() bool {
 	if o != nil && !IsNil(o.Passive) {
 		return true
 	}
@@ -223,13 +224,13 @@ func (o *EthernetInterfacesLayer3Pppoe) HasPassive() bool {
 	return false
 }
 
-// SetPassive gets a reference to the given EthernetInterfacesLayer3PppoePassive and assigns it to the Passive field.
-func (o *EthernetInterfacesLayer3Pppoe) SetPassive(v EthernetInterfacesLayer3PppoePassive) {
+// SetPassive gets a reference to the given PppoePassive and assigns it to the Passive field.
+func (o *Pppoe) SetPassive(v PppoePassive) {
 	o.Passive = &v
 }
 
 // GetPassword returns the Password field value
-func (o *EthernetInterfacesLayer3Pppoe) GetPassword() string {
+func (o *Pppoe) GetPassword() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -240,7 +241,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetPassword() string {
 
 // GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetPasswordOk() (*string, bool) {
+func (o *Pppoe) GetPasswordOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -248,12 +249,12 @@ func (o *EthernetInterfacesLayer3Pppoe) GetPasswordOk() (*string, bool) {
 }
 
 // SetPassword sets field value
-func (o *EthernetInterfacesLayer3Pppoe) SetPassword(v string) {
+func (o *Pppoe) SetPassword(v string) {
 	o.Password = v
 }
 
 // GetService returns the Service field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3Pppoe) GetService() string {
+func (o *Pppoe) GetService() string {
 	if o == nil || IsNil(o.Service) {
 		var ret string
 		return ret
@@ -263,7 +264,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetService() string {
 
 // GetServiceOk returns a tuple with the Service field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetServiceOk() (*string, bool) {
+func (o *Pppoe) GetServiceOk() (*string, bool) {
 	if o == nil || IsNil(o.Service) {
 		return nil, false
 	}
@@ -271,7 +272,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetServiceOk() (*string, bool) {
 }
 
 // HasService returns a boolean if a field has been set.
-func (o *EthernetInterfacesLayer3Pppoe) HasService() bool {
+func (o *Pppoe) HasService() bool {
 	if o != nil && !IsNil(o.Service) {
 		return true
 	}
@@ -280,14 +281,14 @@ func (o *EthernetInterfacesLayer3Pppoe) HasService() bool {
 }
 
 // SetService gets a reference to the given string and assigns it to the Service field.
-func (o *EthernetInterfacesLayer3Pppoe) SetService(v string) {
+func (o *Pppoe) SetService(v string) {
 	o.Service = &v
 }
 
 // GetStaticAddress returns the StaticAddress field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3Pppoe) GetStaticAddress() EthernetInterfacesLayer3PppoeStaticAddress {
+func (o *Pppoe) GetStaticAddress() PppoeStaticAddress {
 	if o == nil || IsNil(o.StaticAddress) {
-		var ret EthernetInterfacesLayer3PppoeStaticAddress
+		var ret PppoeStaticAddress
 		return ret
 	}
 	return *o.StaticAddress
@@ -295,7 +296,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetStaticAddress() EthernetInterfacesLay
 
 // GetStaticAddressOk returns a tuple with the StaticAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetStaticAddressOk() (*EthernetInterfacesLayer3PppoeStaticAddress, bool) {
+func (o *Pppoe) GetStaticAddressOk() (*PppoeStaticAddress, bool) {
 	if o == nil || IsNil(o.StaticAddress) {
 		return nil, false
 	}
@@ -303,7 +304,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetStaticAddressOk() (*EthernetInterface
 }
 
 // HasStaticAddress returns a boolean if a field has been set.
-func (o *EthernetInterfacesLayer3Pppoe) HasStaticAddress() bool {
+func (o *Pppoe) HasStaticAddress() bool {
 	if o != nil && !IsNil(o.StaticAddress) {
 		return true
 	}
@@ -311,13 +312,13 @@ func (o *EthernetInterfacesLayer3Pppoe) HasStaticAddress() bool {
 	return false
 }
 
-// SetStaticAddress gets a reference to the given EthernetInterfacesLayer3PppoeStaticAddress and assigns it to the StaticAddress field.
-func (o *EthernetInterfacesLayer3Pppoe) SetStaticAddress(v EthernetInterfacesLayer3PppoeStaticAddress) {
+// SetStaticAddress gets a reference to the given PppoeStaticAddress and assigns it to the StaticAddress field.
+func (o *Pppoe) SetStaticAddress(v PppoeStaticAddress) {
 	o.StaticAddress = &v
 }
 
 // GetUsername returns the Username field value
-func (o *EthernetInterfacesLayer3Pppoe) GetUsername() string {
+func (o *Pppoe) GetUsername() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -328,7 +329,7 @@ func (o *EthernetInterfacesLayer3Pppoe) GetUsername() string {
 
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3Pppoe) GetUsernameOk() (*string, bool) {
+func (o *Pppoe) GetUsernameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -336,11 +337,11 @@ func (o *EthernetInterfacesLayer3Pppoe) GetUsernameOk() (*string, bool) {
 }
 
 // SetUsername sets field value
-func (o *EthernetInterfacesLayer3Pppoe) SetUsername(v string) {
+func (o *Pppoe) SetUsername(v string) {
 	o.Username = v
 }
 
-func (o EthernetInterfacesLayer3Pppoe) MarshalJSON() ([]byte, error) {
+func (o Pppoe) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -348,7 +349,7 @@ func (o EthernetInterfacesLayer3Pppoe) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o EthernetInterfacesLayer3Pppoe) ToMap() (map[string]interface{}, error) {
+func (o Pppoe) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.AccessConcentrator) {
 		toSerialize["access_concentrator"] = o.AccessConcentrator
@@ -381,7 +382,7 @@ func (o EthernetInterfacesLayer3Pppoe) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *EthernetInterfacesLayer3Pppoe) UnmarshalJSON(data []byte) (err error) {
+func (o *Pppoe) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -404,15 +405,15 @@ func (o *EthernetInterfacesLayer3Pppoe) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varEthernetInterfacesLayer3Pppoe := _EthernetInterfacesLayer3Pppoe{}
+	varPppoe := _Pppoe{}
 
-	err = json.Unmarshal(data, &varEthernetInterfacesLayer3Pppoe)
+	err = json.Unmarshal(data, &varPppoe)
 
 	if err != nil {
 		return err
 	}
 
-	*o = EthernetInterfacesLayer3Pppoe(varEthernetInterfacesLayer3Pppoe)
+	*o = Pppoe(varPppoe)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -432,38 +433,38 @@ func (o *EthernetInterfacesLayer3Pppoe) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableEthernetInterfacesLayer3Pppoe struct {
-	value *EthernetInterfacesLayer3Pppoe
+type NullablePppoe struct {
+	value *Pppoe
 	isSet bool
 }
 
-func (v NullableEthernetInterfacesLayer3Pppoe) Get() *EthernetInterfacesLayer3Pppoe {
+func (v NullablePppoe) Get() *Pppoe {
 	return v.value
 }
 
-func (v *NullableEthernetInterfacesLayer3Pppoe) Set(val *EthernetInterfacesLayer3Pppoe) {
+func (v *NullablePppoe) Set(val *Pppoe) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEthernetInterfacesLayer3Pppoe) IsSet() bool {
+func (v NullablePppoe) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEthernetInterfacesLayer3Pppoe) Unset() {
+func (v *NullablePppoe) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEthernetInterfacesLayer3Pppoe(val *EthernetInterfacesLayer3Pppoe) *NullableEthernetInterfacesLayer3Pppoe {
-	return &NullableEthernetInterfacesLayer3Pppoe{value: val, isSet: true}
+func NewNullablePppoe(val *Pppoe) *NullablePppoe {
+	return &NullablePppoe{value: val, isSet: true}
 }
 
-func (v NullableEthernetInterfacesLayer3Pppoe) MarshalJSON() ([]byte, error) {
+func (v NullablePppoe) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEthernetInterfacesLayer3Pppoe) UnmarshalJSON(src []byte) error {
+func (v *NullablePppoe) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

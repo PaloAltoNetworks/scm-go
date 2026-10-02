@@ -20,6 +20,7 @@ var _ MappedNullable = &EthernetInterfacesLayer3{}
 
 // EthernetInterfacesLayer3 Ethernet Interface Layer 3 configuration
 type EthernetInterfacesLayer3 struct {
+	AdjustTcpMss *AdjustTcpMss `json:"adjust_tcp_mss,omitempty"`
 	// Ethernet Interfaces ARP configuration
 	Arp        []EthernetInterfacesArpInner        `json:"arp,omitempty"`
 	DdnsConfig *EthernetInterfacesLayer3DdnsConfig `json:"ddns_config,omitempty"`
@@ -27,12 +28,13 @@ type EthernetInterfacesLayer3 struct {
 	// Interface management profile
 	InterfaceManagementProfile *string `json:"interface_management_profile,omitempty"`
 	// Ethernet Interface IP addresses
-	Ip []EthernetInterfacesLayer3IpInner `json:"ip,omitempty"`
+	Ip   []EthernetInterfacesLayer3IpInner `json:"ip,omitempty"`
+	Lldp *Lldp                             `json:"lldp,omitempty"`
 	// MTU
 	Mtu *int32 `json:"mtu,omitempty"`
 	// Name of Netflow Profile to assign to Interface
-	NetflowProfile       *string                        `json:"netflow_profile,omitempty"`
-	Pppoe                *EthernetInterfacesLayer3Pppoe `json:"pppoe,omitempty"`
+	NetflowProfile       *string `json:"netflow_profile,omitempty"`
+	Pppoe                *Pppoe  `json:"pppoe,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,6 +59,38 @@ func NewEthernetInterfacesLayer3WithDefaults() *EthernetInterfacesLayer3 {
 	var mtu int32 = 1500
 	this.Mtu = &mtu
 	return &this
+}
+
+// GetAdjustTcpMss returns the AdjustTcpMss field value if set, zero value otherwise.
+func (o *EthernetInterfacesLayer3) GetAdjustTcpMss() AdjustTcpMss {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		var ret AdjustTcpMss
+		return ret
+	}
+	return *o.AdjustTcpMss
+}
+
+// GetAdjustTcpMssOk returns a tuple with the AdjustTcpMss field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EthernetInterfacesLayer3) GetAdjustTcpMssOk() (*AdjustTcpMss, bool) {
+	if o == nil || IsNil(o.AdjustTcpMss) {
+		return nil, false
+	}
+	return o.AdjustTcpMss, true
+}
+
+// HasAdjustTcpMss returns a boolean if a field has been set.
+func (o *EthernetInterfacesLayer3) HasAdjustTcpMss() bool {
+	if o != nil && !IsNil(o.AdjustTcpMss) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdjustTcpMss gets a reference to the given AdjustTcpMss and assigns it to the AdjustTcpMss field.
+func (o *EthernetInterfacesLayer3) SetAdjustTcpMss(v AdjustTcpMss) {
+	o.AdjustTcpMss = &v
 }
 
 // GetArp returns the Arp field value if set, zero value otherwise.
@@ -219,6 +253,38 @@ func (o *EthernetInterfacesLayer3) SetIp(v []EthernetInterfacesLayer3IpInner) {
 	o.Ip = v
 }
 
+// GetLldp returns the Lldp field value if set, zero value otherwise.
+func (o *EthernetInterfacesLayer3) GetLldp() Lldp {
+	if o == nil || IsNil(o.Lldp) {
+		var ret Lldp
+		return ret
+	}
+	return *o.Lldp
+}
+
+// GetLldpOk returns a tuple with the Lldp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EthernetInterfacesLayer3) GetLldpOk() (*Lldp, bool) {
+	if o == nil || IsNil(o.Lldp) {
+		return nil, false
+	}
+	return o.Lldp, true
+}
+
+// HasLldp returns a boolean if a field has been set.
+func (o *EthernetInterfacesLayer3) HasLldp() bool {
+	if o != nil && !IsNil(o.Lldp) {
+		return true
+	}
+
+	return false
+}
+
+// SetLldp gets a reference to the given Lldp and assigns it to the Lldp field.
+func (o *EthernetInterfacesLayer3) SetLldp(v Lldp) {
+	o.Lldp = &v
+}
+
 // GetMtu returns the Mtu field value if set, zero value otherwise.
 func (o *EthernetInterfacesLayer3) GetMtu() int32 {
 	if o == nil || IsNil(o.Mtu) {
@@ -284,9 +350,9 @@ func (o *EthernetInterfacesLayer3) SetNetflowProfile(v string) {
 }
 
 // GetPppoe returns the Pppoe field value if set, zero value otherwise.
-func (o *EthernetInterfacesLayer3) GetPppoe() EthernetInterfacesLayer3Pppoe {
+func (o *EthernetInterfacesLayer3) GetPppoe() Pppoe {
 	if o == nil || IsNil(o.Pppoe) {
-		var ret EthernetInterfacesLayer3Pppoe
+		var ret Pppoe
 		return ret
 	}
 	return *o.Pppoe
@@ -294,7 +360,7 @@ func (o *EthernetInterfacesLayer3) GetPppoe() EthernetInterfacesLayer3Pppoe {
 
 // GetPppoeOk returns a tuple with the Pppoe field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EthernetInterfacesLayer3) GetPppoeOk() (*EthernetInterfacesLayer3Pppoe, bool) {
+func (o *EthernetInterfacesLayer3) GetPppoeOk() (*Pppoe, bool) {
 	if o == nil || IsNil(o.Pppoe) {
 		return nil, false
 	}
@@ -310,8 +376,8 @@ func (o *EthernetInterfacesLayer3) HasPppoe() bool {
 	return false
 }
 
-// SetPppoe gets a reference to the given EthernetInterfacesLayer3Pppoe and assigns it to the Pppoe field.
-func (o *EthernetInterfacesLayer3) SetPppoe(v EthernetInterfacesLayer3Pppoe) {
+// SetPppoe gets a reference to the given Pppoe and assigns it to the Pppoe field.
+func (o *EthernetInterfacesLayer3) SetPppoe(v Pppoe) {
 	o.Pppoe = &v
 }
 
@@ -325,6 +391,9 @@ func (o EthernetInterfacesLayer3) MarshalJSON() ([]byte, error) {
 
 func (o EthernetInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AdjustTcpMss) {
+		toSerialize["adjust_tcp_mss"] = o.AdjustTcpMss
+	}
 	if !IsNil(o.Arp) {
 		toSerialize["arp"] = o.Arp
 	}
@@ -339,6 +408,9 @@ func (o EthernetInterfacesLayer3) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
+	}
+	if !IsNil(o.Lldp) {
+		toSerialize["lldp"] = o.Lldp
 	}
 	if !IsNil(o.Mtu) {
 		toSerialize["mtu"] = o.Mtu
@@ -371,11 +443,13 @@ func (o *EthernetInterfacesLayer3) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "adjust_tcp_mss")
 		delete(additionalProperties, "arp")
 		delete(additionalProperties, "ddns_config")
 		delete(additionalProperties, "dhcp_client")
 		delete(additionalProperties, "interface_management_profile")
 		delete(additionalProperties, "ip")
+		delete(additionalProperties, "lldp")
 		delete(additionalProperties, "mtu")
 		delete(additionalProperties, "netflow_profile")
 		delete(additionalProperties, "pppoe")
