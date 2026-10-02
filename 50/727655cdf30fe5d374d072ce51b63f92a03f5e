@@ -1,0 +1,21 @@
+go.mod
+  s_8d02a269b0cc77::t_4f3604486e5391 3,8
+go.sum
+  s_8d02a269b0cc77::t_44d0a9d3bea2fc 7-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "50727655cdf30fe5d374d072ce51b63f92a03f5e",
+  "prompts": {},
+  "sessions": {
+    "s_8d02a269b0cc77": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_8d02a269b0cc77",
+        "model": "unknown"
+      },
+      "human_author": "Dhiren Chotwani <dchotwani@paloaltonetworks.com>"
+    }
+  }
+}
