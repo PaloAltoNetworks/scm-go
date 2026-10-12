@@ -1,0 +1,45 @@
+.github/workflows/test.yml
+  s_bbae7add94119a::t_daa5b75e9ede59 72-73
+common/common_test_utils.go
+  s_bbae7add94119a::t_f42a2f35dbfdd9 9,14,23-25,50,57-133,137-138,141-142,145-146,148-150,153-154,164,167-169,180-181
+generated/config_operations/test/test_utils.go
+  s_bbae7add94119a::t_17d826a7f15ad7 73
+generated/config_setup/test/test_utils.go
+  s_bbae7add94119a::t_828281111fbf42 73
+generated/deployment_services/test/test_utils.go
+  s_bbae7add94119a::t_19c8fa763fe6d4 73
+generated/device_settings/test/test_utils.go
+  s_bbae7add94119a::t_e3ca2acc67ccf2 73
+generated/identity_services/test/test_utils.go
+  s_bbae7add94119a::t_d5f8f1fd241816 73
+generated/mobile_agent/test/test_utils.go
+  s_bbae7add94119a::t_868d17550e5a51 68
+generated/network_services/test/test_utils.go
+  s_bbae7add94119a::t_2279d4d3cbf290 74
+generated/objects/test/test_utils.go
+  s_bbae7add94119a::t_f7737f4e28033d 74
+generated/security_services/test/test_utils.go
+  s_bbae7add94119a::t_46cabe436f472f 92
+generated/ztna_connector_all/test/test_utils.go
+  s_bbae7add94119a::t_3a9e199cbe3062 80
+go.mod
+  s_bbae7add94119a::t_5895bfd25ebdcb 6
+go.sum
+  s_bbae7add94119a::t_7b13f004f3bb0b 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "0244a05c3c3c04eba9d643b04fe55e0aa3a8e3a7",
+  "prompts": {},
+  "sessions": {
+    "s_bbae7add94119a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_bbae7add94119a",
+        "model": "unknown"
+      },
+      "human_author": "Dhiren Chotwani <dchotwani@paloaltonetworks.com>"
+    }
+  }
+}
