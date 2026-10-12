@@ -69,6 +69,8 @@ jobs:
         env:
           ZTNA_ONLINE_CONNECTOR_OID: ${{ secrets.ZTNA_ONLINE_CONNECTOR_OID }}
           ZTNA_PCAP_CONNECTOR_OID: ${{ secrets.ZTNA_PCAP_CONNECTOR_OID }}
+          # Bodies are omitted by default; print them (secret fields redacted) for failure diagnostics
+          SCM_LOG_BODIES: "1"
         run: |
           set +e
 

@@ -77,7 +77,7 @@ func printAPIError(err *ztna_connector_all.GenericOpenAPIError) {
 		fmt.Printf("No body found in error object\n===========================\n\n")
 		return
 	}
-	fmt.Printf("Raw Error Body:\n%s\n===========================\n\n", string(bodyBytes))
+	fmt.Printf("Raw Error Body:\n%s\n===========================\n\n", common.RedactJSON(bodyBytes))
 }
 
 func handleAPIError(err error) {

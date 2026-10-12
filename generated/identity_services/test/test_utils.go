@@ -70,7 +70,7 @@ func printAPIError(err *identity_services.GenericOpenAPIError) {
 		return
 	}
 	// Print raw JSON response
-	fmt.Printf("Raw Error Body:\n%s\n", string(bodyBytes))
+	fmt.Printf("Raw Error Body:\n%s\n", common.RedactJSON(bodyBytes))
 	fmt.Printf("===========================\n\n")
 }
 

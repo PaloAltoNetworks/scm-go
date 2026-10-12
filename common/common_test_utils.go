@@ -6,10 +6,12 @@ package common
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"math/rand"
 	"net/http"
+	"os"
 	"path/filepath"
 	"regexp"
 	"runtime"
@@ -18,7 +20,9 @@ import (
 	"time"
 )
 
-// LoggingRoundTripper Custom HTTP client that logs requests as curl commands
+// LoggingRoundTripper Custom HTTP client that logs requests as curl commands.
+// Request and response bodies are omitted by default. Set SCM_LOG_BODIES=1 to
+// print them; secret-like fields are always redacted when bodies are printed.
 type LoggingRoundTripper struct {
 	Wrapped http.RoundTripper
 }
@@ -43,34 +47,111 @@ func (lrt *LoggingRoundTripper) RoundTrip(req *http.Request) (*http.Response, er
 			resp.Body.Close()
 			resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 			if readErr == nil && len(bodyBytes) > 0 {
-				fmt.Printf("=== API RESPONSE BODY ===\n%s\n=========================\n", string(bodyBytes))
+				fmt.Printf("=== API RESPONSE BODY ===\n%s\n=========================\n", redactBody(bodyBytes))
 			}
 		}
 	}
 	return resp, err
 }
 
+// logBodiesEnabled reports whether request/response bodies may be printed.
+func logBodiesEnabled() bool {
+	switch strings.ToLower(os.Getenv("SCM_LOG_BODIES")) {
+	case "1", "true", "yes":
+		return true
+	}
+	return false
+}
+
+// sensitiveNameFragments are case-insensitive fragments of JSON field names and
+// header names whose values must never be printed.
+var sensitiveNameFragments = []string{
+	"passphrase", "password", "passwd", "secret", "token", "credential",
+	"private", "key_file", "keyfile", "psk", "pre_shared", "preshared",
+	"authorization", "cookie", "api_key", "apikey", "auth_key", "jwt",
+}
+
+func isSensitiveName(name string) bool {
+	n := strings.ToLower(name)
+	if strings.HasSuffix(n, "key") {
+		return true
+	}
+	for _, frag := range sensitiveNameFragments {
+		if strings.Contains(n, frag) {
+			return true
+		}
+	}
+	return false
+}
+
+// redactValue walks decoded JSON and replaces values of sensitive fields.
+func redactValue(v interface{}) interface{} {
+	switch t := v.(type) {
+	case map[string]interface{}:
+		for k, val := range t {
+			if isSensitiveName(k) {
+				t[k] = "****"
+			} else {
+				t[k] = redactValue(val)
+			}
+		}
+		return t
+	case []interface{}:
+		for i, val := range t {
+			t[i] = redactValue(val)
+		}
+		return t
+	}
+	return v
+}
+
+// RedactJSON returns a printable form of an HTTP body with secret-like JSON
+// fields replaced by "****". Non-JSON bodies are never printed because they
+// cannot be redacted reliably.
+func RedactJSON(body []byte) string {
+	dec := json.NewDecoder(bytes.NewReader(body))
+	dec.UseNumber()
+	var v interface{}
+	if err := dec.Decode(&v); err != nil {
+		return fmt.Sprintf("[non-JSON body omitted, %d bytes]", len(body))
+	}
+	out, err := json.Marshal(redactValue(v))
+	if err != nil {
+		return fmt.Sprintf("[body omitted, %d bytes]", len(body))
+	}
+	return string(out)
+}
+
+// redactBody returns a printable, redacted form of an HTTP body. Bodies are
+// omitted unless SCM_LOG_BODIES is set.
+func redactBody(body []byte) string {
+	if !logBodiesEnabled() {
+		return fmt.Sprintf("[body omitted, %d bytes; set SCM_LOG_BODIES=1 to print redacted]", len(body))
+	}
+	return RedactJSON(body)
+}
+
 // maskCurlCommand masks sensitive information in curl commands
 func maskCurlCommand(command string) string {
 	// Mask Authorization headers
-	authHeaderRegex := regexp.MustCompile(`(-H\s+['"]Authorization:\s*Bearer\s+)([^'"]+)(['"])`)
-	command = authHeaderRegex.ReplaceAllString(command, `${1}****${3}`)
+	authHeaderRegex := regexp.MustCompile("(-H\\s+['\"]Authorization:\\s*Bearer\\s+)([^'\"]+)(['\"])")
+	command = authHeaderRegex.ReplaceAllString(command, "${1}****${3}")
 
 	// Mask X-Auth-Jwt headers
-	xAuthJwtRegex := regexp.MustCompile(`(-H\s+['"]X-Auth-Jwt:\s*)([^'"]+)(['"])`)
-	command = xAuthJwtRegex.ReplaceAllString(command, `${1}****${3}`)
+	xAuthJwtRegex := regexp.MustCompile("(-H\\s+['\"]X-Auth-Jwt:\\s*)([^'\"]+)(['\"])")
+	command = xAuthJwtRegex.ReplaceAllString(command, "${1}****${3}")
 
 	// Mask API keys in headers
-	apiKeyRegex := regexp.MustCompile(`(-H\s+['"](?:X-)?API-Key:\s*)([^'"]+)(['"])`)
-	command = apiKeyRegex.ReplaceAllString(command, `${1}****${3}`)
+	apiKeyRegex := regexp.MustCompile("(-H\\s+['\"](?:X-)?API-Key:\\s*)([^'\"]+)(['\"])")
+	command = apiKeyRegex.ReplaceAllString(command, "${1}****${3}")
 
-	// Mask tokens in URL parameters
-	tokenParamRegex := regexp.MustCompile(`([?&](?:token|access_token|api_key)=)([^&\s]+)`)
-	command = tokenParamRegex.ReplaceAllString(command, `${1}****`)
+	// Mask secrets in URL parameters
+	tokenParamRegex := regexp.MustCompile("(?i)([?&](?:token|access_token|api_key|client_secret|secret|password|passphrase|key)=)([^&\\s']+)")
+	command = tokenParamRegex.ReplaceAllString(command, "${1}****")
 
 	// Mask basic auth in URLs
-	basicAuthRegex := regexp.MustCompile(`(https?://)([^:]+):([^@]+)(@)`)
-	command = basicAuthRegex.ReplaceAllString(command, `${1}${2}:****${4}`)
+	basicAuthRegex := regexp.MustCompile("(https?://)([^:]+):([^@]+)(@)")
+	command = basicAuthRegex.ReplaceAllString(command, "${1}${2}:****${4}")
 
 	return command
 }
@@ -80,9 +161,12 @@ func printCurlCommand(req *http.Request) {
 	// Start building the curl command
 	curlCmd := []string{"curl", "-X", req.Method}
 
-	// Add headers
+	// Add headers, masking any sensitive header value
 	for name, values := range req.Header {
 		for _, value := range values {
+			if isSensitiveName(name) {
+				value = "****"
+			}
 			curlCmd = append(curlCmd, "-H", fmt.Sprintf("'%s: %s'", name, value))
 		}
 	}
@@ -93,8 +177,8 @@ func printCurlCommand(req *http.Request) {
 		if err == nil && len(bodyBytes) > 0 {
 			// Restore the body for the actual request
 			req.Body = io.NopCloser(bytes.NewReader(bodyBytes))
-			// Add to curl command
-			curlCmd = append(curlCmd, "-d", fmt.Sprintf("'%s'", string(bodyBytes)))
+			// Add to curl command (omitted unless SCM_LOG_BODIES is set, always redacted)
+			curlCmd = append(curlCmd, "-d", fmt.Sprintf("'%s'", redactBody(bodyBytes)))
 		}
 	}
 
