@@ -17558,6 +17558,7 @@ components:
       type: object
     wildfire-anti-virus-profiles:
       example:
+        cloud_inline_analysis: true
         snippet: My Snippet
         folder: My Folder
         mlav_exception:
@@ -17597,6 +17598,8 @@ components:
         device: My Device
         packet_capture: true
       properties:
+        cloud_inline_analysis:
+          type: boolean
         description:
           type: string
         device:

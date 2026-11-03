@@ -21,7 +21,8 @@ var _ MappedNullable = &WildfireAntiVirusProfiles{}
 
 // WildfireAntiVirusProfiles struct for WildfireAntiVirusProfiles
 type WildfireAntiVirusProfiles struct {
-	Description *string `json:"description,omitempty"`
+	CloudInlineAnalysis *bool   `json:"cloud_inline_analysis,omitempty"`
+	Description         *string `json:"description,omitempty"`
 	// The device in which the resource is defined
 	Device *string `json:"device,omitempty" validate:"regexp=^[a-zA-Z\\\\d\\\\-_\\\\. ]+$"`
 	// The folder in which the resource is defined
@@ -56,6 +57,38 @@ func NewWildfireAntiVirusProfiles(name string) *WildfireAntiVirusProfiles {
 func NewWildfireAntiVirusProfilesWithDefaults() *WildfireAntiVirusProfiles {
 	this := WildfireAntiVirusProfiles{}
 	return &this
+}
+
+// GetCloudInlineAnalysis returns the CloudInlineAnalysis field value if set, zero value otherwise.
+func (o *WildfireAntiVirusProfiles) GetCloudInlineAnalysis() bool {
+	if o == nil || IsNil(o.CloudInlineAnalysis) {
+		var ret bool
+		return ret
+	}
+	return *o.CloudInlineAnalysis
+}
+
+// GetCloudInlineAnalysisOk returns a tuple with the CloudInlineAnalysis field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WildfireAntiVirusProfiles) GetCloudInlineAnalysisOk() (*bool, bool) {
+	if o == nil || IsNil(o.CloudInlineAnalysis) {
+		return nil, false
+	}
+	return o.CloudInlineAnalysis, true
+}
+
+// HasCloudInlineAnalysis returns a boolean if a field has been set.
+func (o *WildfireAntiVirusProfiles) HasCloudInlineAnalysis() bool {
+	if o != nil && !IsNil(o.CloudInlineAnalysis) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudInlineAnalysis gets a reference to the given bool and assigns it to the CloudInlineAnalysis field.
+func (o *WildfireAntiVirusProfiles) SetCloudInlineAnalysis(v bool) {
+	o.CloudInlineAnalysis = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -380,6 +413,9 @@ func (o WildfireAntiVirusProfiles) MarshalJSON() ([]byte, error) {
 
 func (o WildfireAntiVirusProfiles) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CloudInlineAnalysis) {
+		toSerialize["cloud_inline_analysis"] = o.CloudInlineAnalysis
+	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
@@ -451,6 +487,7 @@ func (o *WildfireAntiVirusProfiles) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cloud_inline_analysis")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "folder")

@@ -15,11 +15,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the ServiceConnectionsProtocolBgpPeer type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ServiceConnectionsProtocolBgpPeer{}
+// checks if the ServiceConnectionsBgpPeer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceConnectionsBgpPeer{}
 
-// ServiceConnectionsProtocolBgpPeer struct for ServiceConnectionsProtocolBgpPeer
-type ServiceConnectionsProtocolBgpPeer struct {
+// ServiceConnectionsBgpPeer Secondary BGP peer (secondary WAN)
+type ServiceConnectionsBgpPeer struct {
 	// Local peer IP address (secondary WAN)
 	LocalIpAddress *string `json:"local_ip_address,omitempty"`
 	// Local peer IPv6 address (secondary WAN)
@@ -33,27 +33,27 @@ type ServiceConnectionsProtocolBgpPeer struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _ServiceConnectionsProtocolBgpPeer ServiceConnectionsProtocolBgpPeer
+type _ServiceConnectionsBgpPeer ServiceConnectionsBgpPeer
 
-// NewServiceConnectionsProtocolBgpPeer instantiates a new ServiceConnectionsProtocolBgpPeer object
+// NewServiceConnectionsBgpPeer instantiates a new ServiceConnectionsBgpPeer object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceConnectionsProtocolBgpPeer() *ServiceConnectionsProtocolBgpPeer {
-	this := ServiceConnectionsProtocolBgpPeer{}
+func NewServiceConnectionsBgpPeer() *ServiceConnectionsBgpPeer {
+	this := ServiceConnectionsBgpPeer{}
 	return &this
 }
 
-// NewServiceConnectionsProtocolBgpPeerWithDefaults instantiates a new ServiceConnectionsProtocolBgpPeer object
+// NewServiceConnectionsBgpPeerWithDefaults instantiates a new ServiceConnectionsBgpPeer object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewServiceConnectionsProtocolBgpPeerWithDefaults() *ServiceConnectionsProtocolBgpPeer {
-	this := ServiceConnectionsProtocolBgpPeer{}
+func NewServiceConnectionsBgpPeerWithDefaults() *ServiceConnectionsBgpPeer {
+	this := ServiceConnectionsBgpPeer{}
 	return &this
 }
 
 // GetLocalIpAddress returns the LocalIpAddress field value if set, zero value otherwise.
-func (o *ServiceConnectionsProtocolBgpPeer) GetLocalIpAddress() string {
+func (o *ServiceConnectionsBgpPeer) GetLocalIpAddress() string {
 	if o == nil || IsNil(o.LocalIpAddress) {
 		var ret string
 		return ret
@@ -63,7 +63,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetLocalIpAddress() string {
 
 // GetLocalIpAddressOk returns a tuple with the LocalIpAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) GetLocalIpAddressOk() (*string, bool) {
+func (o *ServiceConnectionsBgpPeer) GetLocalIpAddressOk() (*string, bool) {
 	if o == nil || IsNil(o.LocalIpAddress) {
 		return nil, false
 	}
@@ -71,7 +71,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetLocalIpAddressOk() (*string, bool
 }
 
 // HasLocalIpAddress returns a boolean if a field has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) HasLocalIpAddress() bool {
+func (o *ServiceConnectionsBgpPeer) HasLocalIpAddress() bool {
 	if o != nil && !IsNil(o.LocalIpAddress) {
 		return true
 	}
@@ -80,12 +80,12 @@ func (o *ServiceConnectionsProtocolBgpPeer) HasLocalIpAddress() bool {
 }
 
 // SetLocalIpAddress gets a reference to the given string and assigns it to the LocalIpAddress field.
-func (o *ServiceConnectionsProtocolBgpPeer) SetLocalIpAddress(v string) {
+func (o *ServiceConnectionsBgpPeer) SetLocalIpAddress(v string) {
 	o.LocalIpAddress = &v
 }
 
 // GetLocalIpv6Address returns the LocalIpv6Address field value if set, zero value otherwise.
-func (o *ServiceConnectionsProtocolBgpPeer) GetLocalIpv6Address() string {
+func (o *ServiceConnectionsBgpPeer) GetLocalIpv6Address() string {
 	if o == nil || IsNil(o.LocalIpv6Address) {
 		var ret string
 		return ret
@@ -95,7 +95,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetLocalIpv6Address() string {
 
 // GetLocalIpv6AddressOk returns a tuple with the LocalIpv6Address field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) GetLocalIpv6AddressOk() (*string, bool) {
+func (o *ServiceConnectionsBgpPeer) GetLocalIpv6AddressOk() (*string, bool) {
 	if o == nil || IsNil(o.LocalIpv6Address) {
 		return nil, false
 	}
@@ -103,7 +103,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetLocalIpv6AddressOk() (*string, bo
 }
 
 // HasLocalIpv6Address returns a boolean if a field has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) HasLocalIpv6Address() bool {
+func (o *ServiceConnectionsBgpPeer) HasLocalIpv6Address() bool {
 	if o != nil && !IsNil(o.LocalIpv6Address) {
 		return true
 	}
@@ -112,12 +112,12 @@ func (o *ServiceConnectionsProtocolBgpPeer) HasLocalIpv6Address() bool {
 }
 
 // SetLocalIpv6Address gets a reference to the given string and assigns it to the LocalIpv6Address field.
-func (o *ServiceConnectionsProtocolBgpPeer) SetLocalIpv6Address(v string) {
+func (o *ServiceConnectionsBgpPeer) SetLocalIpv6Address(v string) {
 	o.LocalIpv6Address = &v
 }
 
 // GetPeerIpAddress returns the PeerIpAddress field value if set, zero value otherwise.
-func (o *ServiceConnectionsProtocolBgpPeer) GetPeerIpAddress() string {
+func (o *ServiceConnectionsBgpPeer) GetPeerIpAddress() string {
 	if o == nil || IsNil(o.PeerIpAddress) {
 		var ret string
 		return ret
@@ -127,7 +127,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetPeerIpAddress() string {
 
 // GetPeerIpAddressOk returns a tuple with the PeerIpAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) GetPeerIpAddressOk() (*string, bool) {
+func (o *ServiceConnectionsBgpPeer) GetPeerIpAddressOk() (*string, bool) {
 	if o == nil || IsNil(o.PeerIpAddress) {
 		return nil, false
 	}
@@ -135,7 +135,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetPeerIpAddressOk() (*string, bool)
 }
 
 // HasPeerIpAddress returns a boolean if a field has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) HasPeerIpAddress() bool {
+func (o *ServiceConnectionsBgpPeer) HasPeerIpAddress() bool {
 	if o != nil && !IsNil(o.PeerIpAddress) {
 		return true
 	}
@@ -144,12 +144,12 @@ func (o *ServiceConnectionsProtocolBgpPeer) HasPeerIpAddress() bool {
 }
 
 // SetPeerIpAddress gets a reference to the given string and assigns it to the PeerIpAddress field.
-func (o *ServiceConnectionsProtocolBgpPeer) SetPeerIpAddress(v string) {
+func (o *ServiceConnectionsBgpPeer) SetPeerIpAddress(v string) {
 	o.PeerIpAddress = &v
 }
 
 // GetPeerIpv6Address returns the PeerIpv6Address field value if set, zero value otherwise.
-func (o *ServiceConnectionsProtocolBgpPeer) GetPeerIpv6Address() string {
+func (o *ServiceConnectionsBgpPeer) GetPeerIpv6Address() string {
 	if o == nil || IsNil(o.PeerIpv6Address) {
 		var ret string
 		return ret
@@ -159,7 +159,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetPeerIpv6Address() string {
 
 // GetPeerIpv6AddressOk returns a tuple with the PeerIpv6Address field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) GetPeerIpv6AddressOk() (*string, bool) {
+func (o *ServiceConnectionsBgpPeer) GetPeerIpv6AddressOk() (*string, bool) {
 	if o == nil || IsNil(o.PeerIpv6Address) {
 		return nil, false
 	}
@@ -167,7 +167,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetPeerIpv6AddressOk() (*string, boo
 }
 
 // HasPeerIpv6Address returns a boolean if a field has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) HasPeerIpv6Address() bool {
+func (o *ServiceConnectionsBgpPeer) HasPeerIpv6Address() bool {
 	if o != nil && !IsNil(o.PeerIpv6Address) {
 		return true
 	}
@@ -176,12 +176,12 @@ func (o *ServiceConnectionsProtocolBgpPeer) HasPeerIpv6Address() bool {
 }
 
 // SetPeerIpv6Address gets a reference to the given string and assigns it to the PeerIpv6Address field.
-func (o *ServiceConnectionsProtocolBgpPeer) SetPeerIpv6Address(v string) {
+func (o *ServiceConnectionsBgpPeer) SetPeerIpv6Address(v string) {
 	o.PeerIpv6Address = &v
 }
 
 // GetSecret returns the Secret field value if set, zero value otherwise.
-func (o *ServiceConnectionsProtocolBgpPeer) GetSecret() string {
+func (o *ServiceConnectionsBgpPeer) GetSecret() string {
 	if o == nil || IsNil(o.Secret) {
 		var ret string
 		return ret
@@ -191,7 +191,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetSecret() string {
 
 // GetSecretOk returns a tuple with the Secret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) GetSecretOk() (*string, bool) {
+func (o *ServiceConnectionsBgpPeer) GetSecretOk() (*string, bool) {
 	if o == nil || IsNil(o.Secret) {
 		return nil, false
 	}
@@ -199,7 +199,7 @@ func (o *ServiceConnectionsProtocolBgpPeer) GetSecretOk() (*string, bool) {
 }
 
 // HasSecret returns a boolean if a field has been set.
-func (o *ServiceConnectionsProtocolBgpPeer) HasSecret() bool {
+func (o *ServiceConnectionsBgpPeer) HasSecret() bool {
 	if o != nil && !IsNil(o.Secret) {
 		return true
 	}
@@ -208,11 +208,11 @@ func (o *ServiceConnectionsProtocolBgpPeer) HasSecret() bool {
 }
 
 // SetSecret gets a reference to the given string and assigns it to the Secret field.
-func (o *ServiceConnectionsProtocolBgpPeer) SetSecret(v string) {
+func (o *ServiceConnectionsBgpPeer) SetSecret(v string) {
 	o.Secret = &v
 }
 
-func (o ServiceConnectionsProtocolBgpPeer) MarshalJSON() ([]byte, error) {
+func (o ServiceConnectionsBgpPeer) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -220,7 +220,7 @@ func (o ServiceConnectionsProtocolBgpPeer) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ServiceConnectionsProtocolBgpPeer) ToMap() (map[string]interface{}, error) {
+func (o ServiceConnectionsBgpPeer) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.LocalIpAddress) {
 		toSerialize["local_ip_address"] = o.LocalIpAddress
@@ -245,16 +245,16 @@ func (o ServiceConnectionsProtocolBgpPeer) ToMap() (map[string]interface{}, erro
 	return toSerialize, nil
 }
 
-func (o *ServiceConnectionsProtocolBgpPeer) UnmarshalJSON(data []byte) (err error) {
-	varServiceConnectionsProtocolBgpPeer := _ServiceConnectionsProtocolBgpPeer{}
+func (o *ServiceConnectionsBgpPeer) UnmarshalJSON(data []byte) (err error) {
+	varServiceConnectionsBgpPeer := _ServiceConnectionsBgpPeer{}
 
-	err = json.Unmarshal(data, &varServiceConnectionsProtocolBgpPeer)
+	err = json.Unmarshal(data, &varServiceConnectionsBgpPeer)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ServiceConnectionsProtocolBgpPeer(varServiceConnectionsProtocolBgpPeer)
+	*o = ServiceConnectionsBgpPeer(varServiceConnectionsBgpPeer)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -270,38 +270,38 @@ func (o *ServiceConnectionsProtocolBgpPeer) UnmarshalJSON(data []byte) (err erro
 	return err
 }
 
-type NullableServiceConnectionsProtocolBgpPeer struct {
-	value *ServiceConnectionsProtocolBgpPeer
+type NullableServiceConnectionsBgpPeer struct {
+	value *ServiceConnectionsBgpPeer
 	isSet bool
 }
 
-func (v NullableServiceConnectionsProtocolBgpPeer) Get() *ServiceConnectionsProtocolBgpPeer {
+func (v NullableServiceConnectionsBgpPeer) Get() *ServiceConnectionsBgpPeer {
 	return v.value
 }
 
-func (v *NullableServiceConnectionsProtocolBgpPeer) Set(val *ServiceConnectionsProtocolBgpPeer) {
+func (v *NullableServiceConnectionsBgpPeer) Set(val *ServiceConnectionsBgpPeer) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableServiceConnectionsProtocolBgpPeer) IsSet() bool {
+func (v NullableServiceConnectionsBgpPeer) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableServiceConnectionsProtocolBgpPeer) Unset() {
+func (v *NullableServiceConnectionsBgpPeer) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableServiceConnectionsProtocolBgpPeer(val *ServiceConnectionsProtocolBgpPeer) *NullableServiceConnectionsProtocolBgpPeer {
-	return &NullableServiceConnectionsProtocolBgpPeer{value: val, isSet: true}
+func NewNullableServiceConnectionsBgpPeer(val *ServiceConnectionsBgpPeer) *NullableServiceConnectionsBgpPeer {
+	return &NullableServiceConnectionsBgpPeer{value: val, isSet: true}
 }
 
-func (v NullableServiceConnectionsProtocolBgpPeer) MarshalJSON() ([]byte, error) {
+func (v NullableServiceConnectionsBgpPeer) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableServiceConnectionsProtocolBgpPeer) UnmarshalJSON(src []byte) error {
+func (v *NullableServiceConnectionsBgpPeer) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
