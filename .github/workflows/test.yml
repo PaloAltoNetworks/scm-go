@@ -28,6 +28,7 @@ jobs:
           - device_settings
           - ztna_connector_all
           - mobile_agent
+          - cloud_ngfw
 
     steps:
       - name: Checkout code
