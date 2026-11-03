@@ -1,0 +1,108 @@
+client_factory.go
+  h_87e1a3c7c2076a 7,22-48
+generated/cloud_ngfw/api/openapi.yaml
+  h_87e1a3c7c2076a 1-2729
+generated/cloud_ngfw/api_ngfirewalls.go
+  h_87e1a3c7c2076a 1-876
+generated/cloud_ngfw/client.go
+  h_87e1a3c7c2076a 1-670
+generated/cloud_ngfw/cngfw_helpers.go
+  h_87e1a3c7c2076a 1-214
+generated/cloud_ngfw/configuration.go
+  h_87e1a3c7c2076a 1-221
+generated/cloud_ngfw/model_generic_error.go
+  h_87e1a3c7c2076a 1-191
+generated/cloud_ngfw/model_generic_error__errors_inner.go
+  h_87e1a3c7c2076a 1-265
+generated/cloud_ngfw/model_ngfirewall_cloudwatch_metrics.go
+  h_87e1a3c7c2076a 1-231
+generated/cloud_ngfw/model_ngfirewall_commit_info.go
+  h_87e1a3c7c2076a 1-193
+generated/cloud_ngfw/model_ngfirewall_create_request.go
+  h_87e1a3c7c2076a 1-697
+generated/cloud_ngfw/model_ngfirewall_create_response.go
+  h_87e1a3c7c2076a 1-191
+generated/cloud_ngfw/model_ngfirewall_create_response_body.go
+  h_87e1a3c7c2076a 1-587
+generated/cloud_ngfw/model_ngfirewall_egress_nat_config.go
+  h_87e1a3c7c2076a 1-192
+generated/cloud_ngfw/model_ngfirewall_egress_nat_settings.go
+  h_87e1a3c7c2076a 1-193
+generated/cloud_ngfw/model_ngfirewall_endpoint.go
+  h_87e1a3c7c2076a 1-496
+generated/cloud_ngfw/model_ngfirewall_endpoint_prefixes.go
+  h_87e1a3c7c2076a 1-191
+generated/cloud_ngfw/model_ngfirewall_firewall.go
+  h_87e1a3c7c2076a 1-1073
+generated/cloud_ngfw/model_ngfirewall_gwlb_config.go
+  h_87e1a3c7c2076a 1-327
+generated/cloud_ngfw/model_ngfirewall_ipv6_config.go
+  h_87e1a3c7c2076a 1-155
+generated/cloud_ngfw/model_ngfirewall_log_config.go
+  h_87e1a3c7c2076a 1-334
+generated/cloud_ngfw/model_ngfirewall_notification.go
+  h_87e1a3c7c2076a 1-268
+generated/cloud_ngfw/model_ngfirewall_notification_link.go
+  h_87e1a3c7c2076a 1-193
+generated/cloud_ngfw/model_ngfirewall_prefix_list.go
+  h_87e1a3c7c2076a 1-155
+generated/cloud_ngfw/model_ngfirewall_private_access.go
+  h_87e1a3c7c2076a 1-193
+generated/cloud_ngfw/model_ngfirewall_public_ip.go
+  h_87e1a3c7c2076a 1-231
+generated/cloud_ngfw/model_ngfirewall_response_body.go
+  h_87e1a3c7c2076a 1-191
+generated/cloud_ngfw/model_ngfirewall_response_status.go
+  h_87e1a3c7c2076a 1-193
+generated/cloud_ngfw/model_ngfirewall_status.go
+  h_87e1a3c7c2076a 1-532
+generated/cloud_ngfw/model_ngfirewall_tag.go
+  h_87e1a3c7c2076a 1-193
+generated/cloud_ngfw/model_ngfirewall_update_request.go
+  h_87e1a3c7c2076a 1-689
+generated/cloud_ngfw/model_ngfirewall_update_response.go
+  h_87e1a3c7c2076a 1-191
+generated/cloud_ngfw/model_ngfirewall_update_response_body.go
+  h_87e1a3c7c2076a 1-684
+generated/cloud_ngfw/model_ngfirewall_user_id.go
+  h_87e1a3c7c2076a 1-459
+generated/cloud_ngfw/model_ngfirewall_user_id_network.go
+  h_87e1a3c7c2076a 1-269
+generated/cloud_ngfw/model_ngfirewalls.go
+  h_87e1a3c7c2076a 1-191
+generated/cloud_ngfw/model_ngfirewalls_list_response.go
+  h_87e1a3c7c2076a 1-191
+generated/cloud_ngfw/model_ngfirewalls_list_response_body.go
+  h_87e1a3c7c2076a 1-155
+generated/cloud_ngfw/response.go
+  h_87e1a3c7c2076a 1-48
+generated/cloud_ngfw/test/api_cngfirewalls_test.go
+  h_87e1a3c7c2076a 1-394
+generated/cloud_ngfw/test/test_utils.go
+  h_87e1a3c7c2076a 1-50
+generated/cloud_ngfw/utils.go
+  h_87e1a3c7c2076a 1-362
+generated/deployment_services/api/openapi.yaml
+  h_87e1a3c7c2076a 5277-5282,5299-5300,5734-5759
+generated/deployment_services/model_service_connections.go
+  h_87e1a3c7c2076a 24-25,103-134,532-534,613
+generated/deployment_services/model_service_connections_bgp_peer.go
+  h_87e1a3c7c2076a 18-19,21-22,36,38,42-43,47,50-51,56,66,74,83,88,98,106,115,120,130,138,147,152,162,170,179,184,194,202,211,215,223,248-249,251,257,273-274,278,282,287,291,296-297,300,304
+generated/deployment_services/model_service_connections_protocol.go
+  h_87e1a3c7c2076a 23
+generated/security_services/api/openapi.yaml
+  h_87e1a3c7c2076a 17561,17601-17602
+generated/security_services/model_wildfire_anti_virus_profiles.go
+  h_87e1a3c7c2076a 24-25,62-93,416-418,490
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "5290bc50e0611e95e55c0e10d27777cca766f7c3",
+  "prompts": {},
+  "humans": {
+    "h_87e1a3c7c2076a": {
+      "author": "Vaishnavi <vramanujan@paloaltonetworks.com>"
+    }
+  }
+}
