@@ -1,0 +1,113 @@
+client_factory.go
+  s_b6b6b50ae05f70::t_dfe1f13ef4b0c7 7,22-48
+generated/cloud_ngfw/api/openapi.yaml
+  s_b6b6b50ae05f70::t_63751200573322 1-2728
+generated/cloud_ngfw/api_ngfirewalls.go
+  s_b6b6b50ae05f70::t_a8beff508646bd 1-876
+generated/cloud_ngfw/client.go
+  s_b6b6b50ae05f70::t_598c7053e306ab 1-670
+generated/cloud_ngfw/cngfw_helpers.go
+  s_b6b6b50ae05f70::t_c289980f1bd01b 1-214
+generated/cloud_ngfw/configuration.go
+  s_b6b6b50ae05f70::t_a2cc4e3bc38f28 1-221
+generated/cloud_ngfw/model_generic_error.go
+  s_b6b6b50ae05f70::t_29d1821a52cb2a 1-191
+generated/cloud_ngfw/model_generic_error__errors_inner.go
+  s_b6b6b50ae05f70::t_c09a524012c366 1-265
+generated/cloud_ngfw/model_ngfirewall_cloudwatch_metrics.go
+  s_b6b6b50ae05f70::t_12a59037cb71d1 1-231
+generated/cloud_ngfw/model_ngfirewall_commit_info.go
+  s_b6b6b50ae05f70::t_46f61ec09305ac 1-193
+generated/cloud_ngfw/model_ngfirewall_create_request.go
+  s_b6b6b50ae05f70::t_977ab46641c7d8 1-697
+generated/cloud_ngfw/model_ngfirewall_create_response.go
+  s_b6b6b50ae05f70::t_d2dd1460a2ffcd 1-191
+generated/cloud_ngfw/model_ngfirewall_create_response_body.go
+  s_b6b6b50ae05f70::t_cac58466c989e4 1-587
+generated/cloud_ngfw/model_ngfirewall_egress_nat_config.go
+  s_b6b6b50ae05f70::t_8923a766657f00 1-192
+generated/cloud_ngfw/model_ngfirewall_egress_nat_settings.go
+  s_b6b6b50ae05f70::t_e38dba69bf75ee 1-193
+generated/cloud_ngfw/model_ngfirewall_endpoint.go
+  s_b6b6b50ae05f70::t_e23c055a6ca601 1-496
+generated/cloud_ngfw/model_ngfirewall_endpoint_prefixes.go
+  s_b6b6b50ae05f70::t_d25ce38440d745 1-191
+generated/cloud_ngfw/model_ngfirewall_firewall.go
+  s_b6b6b50ae05f70::t_3c9b254ad86f62 1-1073
+generated/cloud_ngfw/model_ngfirewall_gwlb_config.go
+  s_b6b6b50ae05f70::t_7b59e7f4798812 1-327
+generated/cloud_ngfw/model_ngfirewall_ipv6_config.go
+  s_b6b6b50ae05f70::t_59370705e27608 1-155
+generated/cloud_ngfw/model_ngfirewall_log_config.go
+  s_b6b6b50ae05f70::t_6c2cf41ee74ad0 1-334
+generated/cloud_ngfw/model_ngfirewall_notification.go
+  s_b6b6b50ae05f70::t_86556088236b9e 1-268
+generated/cloud_ngfw/model_ngfirewall_notification_link.go
+  s_b6b6b50ae05f70::t_3226a64c631ab1 1-193
+generated/cloud_ngfw/model_ngfirewall_prefix_list.go
+  s_b6b6b50ae05f70::t_45f795cd8cf6e5 1-155
+generated/cloud_ngfw/model_ngfirewall_private_access.go
+  s_b6b6b50ae05f70::t_eacb7b02b60b1b 1-193
+generated/cloud_ngfw/model_ngfirewall_public_ip.go
+  s_b6b6b50ae05f70::t_06869ed98ceb5c 1-231
+generated/cloud_ngfw/model_ngfirewall_response_body.go
+  s_b6b6b50ae05f70::t_f0b0e2190de7af 1-191
+generated/cloud_ngfw/model_ngfirewall_response_status.go
+  s_b6b6b50ae05f70::t_9b6e0542451368 1-193
+generated/cloud_ngfw/model_ngfirewall_status.go
+  s_b6b6b50ae05f70::t_b20b38c285f9f9 1-532
+generated/cloud_ngfw/model_ngfirewall_tag.go
+  s_b6b6b50ae05f70::t_70fa1e75511238 1-193
+generated/cloud_ngfw/model_ngfirewall_update_request.go
+  s_b6b6b50ae05f70::t_63758b099123a5 1-689
+generated/cloud_ngfw/model_ngfirewall_update_response.go
+  s_b6b6b50ae05f70::t_e239d58b438c38 1-191
+generated/cloud_ngfw/model_ngfirewall_update_response_body.go
+  s_b6b6b50ae05f70::t_4f5f484511ce80 1-684
+generated/cloud_ngfw/model_ngfirewall_user_id.go
+  s_b6b6b50ae05f70::t_e2a1bd25247b0d 1-459
+generated/cloud_ngfw/model_ngfirewall_user_id_network.go
+  s_b6b6b50ae05f70::t_c5b5a6d8339d89 1-269
+generated/cloud_ngfw/model_ngfirewalls.go
+  s_b6b6b50ae05f70::t_c696185e1db877 1-191
+generated/cloud_ngfw/model_ngfirewalls_list_response.go
+  s_b6b6b50ae05f70::t_9ff8c4ed0ba8cd 1-191
+generated/cloud_ngfw/model_ngfirewalls_list_response_body.go
+  s_b6b6b50ae05f70::t_abe96529561131 1-155
+generated/cloud_ngfw/response.go
+  s_b6b6b50ae05f70::t_373af70aac1f1c 1-48
+generated/cloud_ngfw/test/api_cngfirewalls_test.go
+  s_b6b6b50ae05f70::t_dbf9f85d672cd3 1-394
+generated/cloud_ngfw/test/test_utils.go
+  s_b6b6b50ae05f70::t_215fa0a6119453 1-50
+generated/cloud_ngfw/utils.go
+  s_b6b6b50ae05f70::t_3508275e28bd8d 1-362
+generated/deployment_services/api/openapi.yaml
+  s_b6b6b50ae05f70::t_15ee2f4557827e 5277-5282,5299-5300,5734-5759
+generated/deployment_services/model_service_connections.go
+  s_b6b6b50ae05f70::t_1cb69450bab163 24-25,103-134,532-534,613
+generated/deployment_services/model_service_connections_bgp_peer.go
+  s_b6b6b50ae05f70::t_da7916b0106bbe 18-19,21-22,36,38,42-43,47,50-51,56,66,74,83,88,98,106,115,120,130,138,147,152,162,170,179,184,194,202,211,215,223,248-249,251,257,273-274,278,282,287,291,296-297,300,304
+generated/deployment_services/model_service_connections_protocol.go
+  s_b6b6b50ae05f70::t_763fd3a1eef9bf 23
+generated/security_services/api/openapi.yaml
+  s_b6b6b50ae05f70::t_16c515edf03f8c 17561,17601-17602
+generated/security_services/model_wildfire_anti_virus_profiles.go
+  s_b6b6b50ae05f70::t_e0b4a4b5aac5e4 24-25,62-93,416-418,490
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "e489f51e3845196dfbd3116e53d10f10a9bdc9ff",
+  "prompts": {},
+  "sessions": {
+    "s_b6b6b50ae05f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "82a64b52-a889-4c7b-b3ca-922ae92f12fb",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Dhiren Chotwani <dchotwani@paloaltonetworks.com>"
+    }
+  }
+}
