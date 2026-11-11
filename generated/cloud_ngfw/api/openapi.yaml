@@ -1,0 +1,2728 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@paloaltonetworks.com
+    name: Palo Alto Networks Technical Support
+    url: https://support.paloaltonetworks.com
+  description: These APIs are used for reading and managing Cloud NGFW firewall resources
+    on AWS.
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit
+  termsOfService: https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/legal/palo-alto-networks-end-user-license-agreement-eula.pdf
+  title: Cloud NGFW
+  version: 2.0.0
+  x-tf-cngfw: true
+servers:
+- description: Current
+  url: https://api.strata.paloaltonetworks.com/cngfw-aws/v2/config
+security:
+- scmToken: []
+tags:
+- description: Cloud NGFW Firewalls
+  name: Ngfirewalls
+paths:
+  /ngfirewalls:
+    get:
+      description: |
+        List Cloud NGFW firewalls with optional filtering parameters. Use ListCloudNGFirewalls (Go SDK)
+        or list_cloud_ng_firewalls (Python SDK) instead; they return the complete list across all pages.
+      operationId: ListNgfirewalls
+      parameters:
+      - description: The AWS region where the Cloud NGFW firewall is deployed
+        explode: true
+        in: query
+        name: region
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Name of the global rulestack to filter by.
+        explode: true
+        in: query
+        name: globalrulestackname
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: |
+          Controls how much detail the list response contains. Use ListCloudNGFirewalls (Go SDK) or
+          list_cloud_ng_firewalls (Python SDK), which always request the detailed listing
+          (describe=true) and return it in FirewallsDescribe. Calling the raw list method with
+          describe=false returns only a summary that this SDK does not expose.
+        explode: true
+        in: query
+        name: describe
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ngfirewalls-list-response'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: List Cloud NGFW firewalls
+      tags:
+      - Ngfirewalls
+    post:
+      description: |
+        Creates a Cloud NGFW firewall. Use CreateCloudNGFirewall (Go SDK) or create_cloud_ng_firewall (Python SDK) instead.
+      operationId: CreateNgfirewalls
+      parameters:
+      - description: The AWS region where the Cloud NGFW firewall is deployed
+        explode: true
+        in: query
+        name: region
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ngfirewall-create-request'
+        description: Firewall configuration
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ngfirewall-create-response'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Create a Cloud NGFW firewall
+      tags:
+      - Ngfirewalls
+  /ngfirewalls/{id}:
+    delete:
+      description: |
+        Deletes a Cloud NGFW firewall. Use DeleteCloudNGFirewall (Go SDK) or delete_cloud_ng_firewall (Python SDK) instead.
+      operationId: DeleteNgfirewallsByID
+      parameters:
+      - description: The ID of the Cloud NGFW firewall.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The AWS region where the Cloud NGFW firewall is deployed
+        explode: true
+        in: query
+        name: region
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: "Identifies the client that originated the request (e.g. SCM-SDK,\
+          \ Terraform-Provider-SCM)."
+        explode: true
+        in: query
+        name: source
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Delete a Cloud NGFW firewall.
+      tags:
+      - Ngfirewalls
+    get:
+      description: |
+        Retrieve details of a specific Cloud NGFW firewall by its ID.
+      operationId: GetNgfirewallsByID
+      parameters:
+      - description: The ID of the Cloud NGFW firewall.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The AWS region where the Cloud NGFW firewall is deployed
+        explode: true
+        in: query
+        name: region
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ngfirewalls'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Get a Cloud NGFW firewall
+      tags:
+      - Ngfirewalls
+    patch:
+      description: |
+        Update an existing Cloud NGFW firewall. Supports updating Tags, Description,
+        Tier (upgrade only: standard to premium), AllowListAccounts, ChangeProtection, CustomerZoneIdList,
+        EgressNAT, ScmLabels, LinkId, GwlbTcpIdleTimeout,
+        PrivateAccess, Endpoints, and UserID. The request must include the UpdateToken and
+        DeploymentUpdateToken values from a recent GET of the same firewall.
+      operationId: UpdateNgfirewallsByID
+      parameters:
+      - description: The ID of the Cloud NGFW firewall.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The AWS region where the Cloud NGFW firewall is deployed
+        explode: true
+        in: query
+        name: region
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ngfirewall-update-request'
+        description: Firewall configuration
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ngfirewall-update-response'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: Not Found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generic_error'
+          description: General Errors
+      summary: Update a Cloud NGFW firewall
+      tags:
+      - Ngfirewalls
+components:
+  parameters:
+    path.describe:
+      description: |
+        Controls how much detail the list response contains. Use ListCloudNGFirewalls (Go SDK) or
+        list_cloud_ng_firewalls (Python SDK), which always request the detailed listing
+        (describe=true) and return it in FirewallsDescribe. Calling the raw list method with
+        describe=false returns only a summary that this SDK does not expose.
+      explode: true
+      in: query
+      name: describe
+      required: false
+      schema:
+        type: string
+      style: form
+    path.globalrulestackname:
+      description: Name of the global rulestack to filter by.
+      explode: true
+      in: query
+      name: globalrulestackname
+      required: false
+      schema:
+        type: string
+      style: form
+    path.id:
+      description: The ID of the Cloud NGFW firewall.
+      explode: false
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      style: simple
+    path.region:
+      description: The AWS region where the Cloud NGFW firewall is deployed
+      explode: true
+      in: query
+      name: region
+      required: true
+      schema:
+        type: string
+      style: form
+    path.source:
+      description: "Identifies the client that originated the request (e.g. SCM-SDK,\
+        \ Terraform-Provider-SCM)."
+      explode: true
+      in: query
+      name: source
+      required: false
+      schema:
+        type: string
+      style: form
+  responses:
+    access_errors:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Forbidden
+    auth_errors:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Unauthorized
+    bad_request_errors_basic:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Bad Request
+    bad_request_errors_basic_with_body:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Bad Request
+    default_errors:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: General Errors
+    http_ok:
+      description: OK
+    not_found:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/generic_error'
+      description: Not Found
+  schemas:
+    generic_error:
+      example:
+        _request_id: _request_id
+        _errors:
+        - help: help
+          code: code
+          details: "{}"
+          message: message
+        - help: help
+          code: code
+          details: "{}"
+          message: message
+      properties:
+        _errors:
+          items:
+            $ref: '#/components/schemas/generic_error__errors_inner'
+          type: array
+        _request_id:
+          type: string
+      type: object
+      x-examples: {}
+    ngfirewall-cloudwatch-metrics:
+      description: CloudWatch metrics configuration.
+      example:
+        AccountId: AccountId
+        CloudWatchMetricNamespace: CloudWatchMetricNamespace
+        CloudWatchMetricsFields:
+        - CloudWatchMetricsFields
+        - CloudWatchMetricsFields
+      properties:
+        AccountId:
+          description: The AWS account ID where CloudWatch metrics are published.
+          maxLength: 12
+          minLength: 12
+          type: string
+        CloudWatchMetricNamespace:
+          description: The CloudWatch metric namespace.
+          type: string
+        CloudWatchMetricsFields:
+          description: The CloudWatch metric field names to publish.
+          items:
+            type: string
+          type: array
+      type: object
+    ngfirewall-commit-info:
+      description: Commit information for a rulestack.
+      example:
+        CommitTS: CommitTS
+        CommitMessages:
+        - CommitMessages
+        - CommitMessages
+      properties:
+        CommitMessages:
+          description: Messages produced during the commit operation.
+          items:
+            type: string
+          type: array
+        CommitTS:
+          description: Timestamp of the last commit operation.
+          type: string
+      type: object
+    ngfirewall-create-request:
+      description: Request body for creating a new Cloud NGFW firewall.
+      properties:
+        AllowListAccounts:
+          description: AWS account IDs permitted to access the firewall endpoint service.
+          items:
+            type: string
+          maxItems: 300
+          type: array
+          x-computed-field: true
+        ChangeProtection:
+          description: List of attributes protected from change.
+          items:
+            type: string
+          type: array
+          x-computed-field: true
+        CustomerZoneIdList:
+          description: List of customer-defined security zone IDs. Required.
+          items:
+            type: string
+          type: array
+        Description:
+          description: A human-readable description of the firewall.
+          type: string
+        EgressNAT:
+          $ref: '#/components/schemas/ngfirewall-egress-nat-config'
+        Endpoints:
+          description: Firewall endpoint configurations. Assigned by the service when
+            the firewall is created; can be changed with an update.
+          items:
+            $ref: '#/components/schemas/ngfirewall-endpoint'
+          type: array
+          x-computed-field: true
+        GwlbTcpIdleTimeout:
+          description: GWLB TCP idle timeout in seconds. Defaults to 350; can be changed
+            with an update.
+          type: integer
+          x-computed-field: true
+        LinkId:
+          description: The link ID to associate with the firewall.
+          type: string
+          x-computed-field: true
+        Mode:
+          description: The operational mode of the firewall. Set when the firewall
+            is created and cannot be changed afterward.
+          enum:
+          - CNGFW
+          type: string
+        PrivateAccess:
+          $ref: '#/components/schemas/ngfirewall-private-access'
+        ScmLabels:
+          description: Strata Cloud Manager (SCM) labels to apply to the firewall.
+          items:
+            maxLength: 256
+            minLength: 1
+            type: string
+          type: array
+        Source:
+          description: The source SDK or provider that created the firewall. Automatically
+            set by the SDK or Terraform provider; do not set this field manually.
+          enum:
+          - SCM-SDK
+          - Terraform-Provider-SCM
+          type: string
+        Tags:
+          description: AWS resource tags to apply to the firewall.
+          items:
+            $ref: '#/components/schemas/ngfirewall-tag'
+          maxItems: 50
+          type: array
+        Tier:
+          description: "The service tier for the firewall, either standard or premium."
+          enum:
+          - standard
+          - premium
+          type: string
+          x-computed-field: true
+        UserID:
+          $ref: '#/components/schemas/ngfirewall-user-id'
+      required:
+      - CustomerZoneIdList
+      type: object
+    ngfirewall-create-response:
+      description: Response envelope returned by the Create Cloud NGFW firewall API.
+      example:
+        Response:
+          CustomerZoneIdList:
+          - CustomerZoneIdList
+          - CustomerZoneIdList
+          Description: Description
+          Tier: ""
+          ChangeProtection:
+          - ChangeProtection
+          - ChangeProtection
+          FirewallId: FirewallId
+          Mode: ""
+          EgressNAT:
+            Enabled: true
+            Settings:
+              IPPoolType: AWSService
+              IPAMPoolId: IPAMPoolId
+          ScmLabels:
+          - ScmLabels
+          - ScmLabels
+          AllowListAccounts:
+          - AllowListAccounts
+          - AllowListAccounts
+          - AllowListAccounts
+          - AllowListAccounts
+          - AllowListAccounts
+          LinkId: LinkId
+          Tags:
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          UpdateToken: UpdateToken
+        ResponseStatus:
+          ErrorCode: 7
+          Reason: Reason
+      properties:
+        Response:
+          $ref: '#/components/schemas/ngfirewall-create-response-body'
+        ResponseStatus:
+          $ref: '#/components/schemas/ngfirewall-response-status'
+      type: object
+    ngfirewall-create-response-body:
+      description: Inner response body returned after creating a Cloud NGFW firewall.
+      example:
+        CustomerZoneIdList:
+        - CustomerZoneIdList
+        - CustomerZoneIdList
+        Description: Description
+        Tier: ""
+        ChangeProtection:
+        - ChangeProtection
+        - ChangeProtection
+        FirewallId: FirewallId
+        Mode: ""
+        EgressNAT:
+          Enabled: true
+          Settings:
+            IPPoolType: AWSService
+            IPAMPoolId: IPAMPoolId
+        ScmLabels:
+        - ScmLabels
+        - ScmLabels
+        AllowListAccounts:
+        - AllowListAccounts
+        - AllowListAccounts
+        - AllowListAccounts
+        - AllowListAccounts
+        - AllowListAccounts
+        LinkId: LinkId
+        Tags:
+        - Value: Value
+          Key: Key
+        - Value: Value
+          Key: Key
+        - Value: Value
+          Key: Key
+        - Value: Value
+          Key: Key
+        - Value: Value
+          Key: Key
+        UpdateToken: UpdateToken
+      properties:
+        AllowListAccounts:
+          description: AWS account IDs permitted to access the firewall endpoint service.
+          items:
+            type: string
+          maxItems: 300
+          type: array
+        ChangeProtection:
+          description: List of attributes protected from change.
+          items:
+            type: string
+          type: array
+        CustomerZoneIdList:
+          description: List of customer-defined security zone IDs.
+          items:
+            type: string
+          type: array
+        Description:
+          description: A human-readable description of the firewall.
+          type: string
+        EgressNAT:
+          $ref: '#/components/schemas/ngfirewall-egress-nat-config'
+        FirewallId:
+          description: The unique identifier of the created firewall.
+          type: string
+        LinkId:
+          description: The link ID associated with the firewall.
+          type: string
+        Mode:
+          description: The operational mode of the firewall.
+        ScmLabels:
+          description: Strata Cloud Manager (SCM) labels applied to the firewall.
+          items:
+            maxLength: 256
+            minLength: 1
+            type: string
+          type: array
+        Tags:
+          description: AWS resource tags applied to the firewall.
+          items:
+            $ref: '#/components/schemas/ngfirewall-tag'
+          maxItems: 50
+          type: array
+        Tier:
+          description: The service tier of the firewall.
+        UpdateToken:
+          description: Optimistic locking token for subsequent update operations.
+          type: string
+      required:
+      - CustomerZoneIdList
+      type: object
+    ngfirewall-egress-nat-config:
+      description: Egress NAT configuration for outbound traffic.
+      example:
+        Enabled: true
+        Settings:
+          IPPoolType: AWSService
+          IPAMPoolId: IPAMPoolId
+      properties:
+        Enabled:
+          description: Whether egress NAT is enabled on this firewall.
+          type: boolean
+        Settings:
+          $ref: '#/components/schemas/ngfirewall-egress-nat-settings'
+      type: object
+      x-computed-field: true
+    ngfirewall-egress-nat-settings:
+      description: Settings for egress NAT IP address management.
+      example:
+        IPPoolType: AWSService
+        IPAMPoolId: IPAMPoolId
+      properties:
+        IPAMPoolId:
+          description: The IPAM pool ID used for egress NAT IP allocation.
+          type: string
+        IPPoolType:
+          description: The IP pool type for egress NAT.
+          enum:
+          - AWSService
+          - BYOIP
+          type: string
+      type: object
+    ngfirewall-endpoint:
+      description: Configuration and status of a single firewall VPC endpoint.
+      example:
+        Status: Pending
+        AccountId: AccountId
+        VpcId: VpcId
+        ZoneId: ZoneId
+        EgressNATEnabled: true
+        EndpointId: EndpointId
+        Mode: ServiceManaged
+        SubnetId: SubnetId
+        Prefixes:
+          PublicPrefix:
+            Cidrs:
+            - Cidrs
+            - Cidrs
+          PrivatePrefix:
+            Cidrs:
+            - Cidrs
+            - Cidrs
+        RejectedReason: RejectedReason
+      properties:
+        AccountId:
+          description: The AWS account ID that owns this endpoint.
+          maxLength: 12
+          minLength: 12
+          type: string
+          x-computed-field: true
+        EgressNATEnabled:
+          description: Whether egress NAT is enabled for this endpoint.
+          type: boolean
+          x-computed-field: true
+        EndpointId:
+          description: The VPC endpoint ID.
+          type: string
+          x-computed-field: true
+        Mode:
+          description: The endpoint management mode.
+          enum:
+          - ServiceManaged
+          - CustomerManaged
+          type: string
+          x-computed-field: true
+        Prefixes:
+          $ref: '#/components/schemas/ngfirewall-endpoint-prefixes'
+        RejectedReason:
+          description: Human-readable reason if the endpoint was rejected.
+          type: string
+          x-computed-field: true
+        Status:
+          description: The current provisioning status of the endpoint.
+          enum:
+          - Pending
+          - Accepted
+          - Rejected
+          - Created
+          - Creating
+          - Deleting
+          type: string
+          x-computed-field: true
+        SubnetId:
+          description: The AWS subnet ID in which the endpoint resides.
+          type: string
+          x-computed-field: true
+        VpcId:
+          description: The AWS VPC ID in which the endpoint resides.
+          type: string
+          x-computed-field: true
+        ZoneId:
+          description: The availability zone ID for this endpoint.
+          type: string
+          x-computed-field: true
+      type: object
+    ngfirewall-endpoint-prefixes:
+      description: IP prefix lists associated with a firewall endpoint.
+      example:
+        PublicPrefix:
+          Cidrs:
+          - Cidrs
+          - Cidrs
+        PrivatePrefix:
+          Cidrs:
+          - Cidrs
+          - Cidrs
+      properties:
+        PrivatePrefix:
+          $ref: '#/components/schemas/ngfirewall-prefix-list'
+        PublicPrefix:
+          $ref: '#/components/schemas/ngfirewall-prefix-list'
+      type: object
+      x-computed-field: true
+    ngfirewall-firewall:
+      description: Core firewall configuration and identity fields.
+      example:
+        Description: Description
+        FirewallId: FirewallId
+        GWLB:
+          DeregistrationDelay: 0
+          RejectedFlowCountAlertThreshold: 6
+          TCPIdleTimeout: 5
+          RejectedFlowCountTCPAlertThreshold: 1
+          SessionRebalanceEnabled: false
+        EndpointServiceName: EndpointServiceName
+        DeploymentUpdateToken: DeploymentUpdateToken
+        UpdateToken: UpdateToken
+        Endpoints:
+        - Status: Pending
+          AccountId: AccountId
+          VpcId: VpcId
+          ZoneId: ZoneId
+          EgressNATEnabled: true
+          EndpointId: EndpointId
+          Mode: ServiceManaged
+          SubnetId: SubnetId
+          Prefixes:
+            PublicPrefix:
+              Cidrs:
+              - Cidrs
+              - Cidrs
+            PrivatePrefix:
+              Cidrs:
+              - Cidrs
+              - Cidrs
+          RejectedReason: RejectedReason
+        - Status: Pending
+          AccountId: AccountId
+          VpcId: VpcId
+          ZoneId: ZoneId
+          EgressNATEnabled: true
+          EndpointId: EndpointId
+          Mode: ServiceManaged
+          SubnetId: SubnetId
+          Prefixes:
+            PublicPrefix:
+              Cidrs:
+              - Cidrs
+              - Cidrs
+            PrivatePrefix:
+              Cidrs:
+              - Cidrs
+              - Cidrs
+          RejectedReason: RejectedReason
+        UserID:
+          SecretKeyARN: SecretKeyARN
+          EndpointDNS: EndpointDNS
+          UserIDStatus: EndpointPending
+          Port: 2
+          Enabled: true
+          AgentName: AgentName
+          CFTURLLink: CFTURLLink
+          CollectorName: CollectorName
+          CustomIncludeExcludeNetwork:
+          - NetworkAddress: NetworkAddress
+            DiscoveryInclude: true
+            Enabled: true
+            Name: Name
+          - NetworkAddress: NetworkAddress
+            DiscoveryInclude: true
+            Enabled: true
+            Name: Name
+        CloudwatchMetrics:
+          AccountId: AccountId
+          CloudWatchMetricNamespace: CloudWatchMetricNamespace
+          CloudWatchMetricsFields:
+          - CloudWatchMetricsFields
+          - CloudWatchMetricsFields
+        Tags:
+        - Value: Value
+          Key: Key
+        - Value: Value
+          Key: Key
+        - Value: Value
+          Key: Key
+        - Value: Value
+          Key: Key
+        - Value: Value
+          Key: Key
+        LinkStatus: LinkStatus
+        Ipv6:
+          Enabled: true
+        Tier: Tier
+        AdvancedThreatLog: true
+        PrivateAccess:
+          Type: NetworkLoadBalancer
+          ResourceID: ResourceID
+        CustomerZoneIdList:
+        - CustomerZoneIdList
+        - CustomerZoneIdList
+        SoftwareVersion: SoftwareVersion
+        DeviceRuleStackCommitStatus: DeviceRuleStackCommitStatus
+        ChangeProtection:
+        - ChangeProtection
+        - ChangeProtection
+        EgressNAT:
+          Enabled: true
+          Settings:
+            IPPoolType: AWSService
+            IPAMPoolId: IPAMPoolId
+        Region: Region
+        AllowListAccounts:
+        - AllowListAccounts
+        - AllowListAccounts
+        Notifications:
+        - Msg: Msg
+          ExpiryTime: 5
+          Id: Id
+          Link:
+            Target: Target
+            Text: Text
+        - Msg: Msg
+          ExpiryTime: 5
+          Id: Id
+          Link:
+            Target: Target
+            Text: Text
+        LinkId: LinkId
+        LogConfig:
+          AccountId: AccountId
+          RoleType: ResourceBased
+          LogDestinationRegion: LogDestinationRegion
+          LogType:
+          - TRAFFIC
+          - TRAFFIC
+          LogDestination: LogDestination
+          LogDestinationType: S3
+      properties:
+        AdvancedThreatLog:
+          description: Whether advanced threat logging is enabled.
+          type: boolean
+        AllowListAccounts:
+          description: AWS account IDs permitted to access the firewall endpoint service.
+          items:
+            type: string
+          type: array
+        ChangeProtection:
+          description: List of attributes protected from change.
+          items:
+            type: string
+          type: array
+        CloudwatchMetrics:
+          $ref: '#/components/schemas/ngfirewall-cloudwatch-metrics'
+        CustomerZoneIdList:
+          description: List of customer-defined security zone IDs.
+          items:
+            type: string
+          type: array
+        DeploymentUpdateToken:
+          description: Token used for deployment update sequencing.
+          type: string
+        Description:
+          description: A human-readable description of the firewall.
+          type: string
+        DeviceRuleStackCommitStatus:
+          description: Commit status of the device rulestack on the firewall.
+          type: string
+        EgressNAT:
+          $ref: '#/components/schemas/ngfirewall-egress-nat-config'
+        EndpointServiceName:
+          description: The VPC endpoint service name (only populated in ServiceManaged
+            mode).
+          type: string
+        Endpoints:
+          description: VPC endpoint configurations created for this firewall.
+          items:
+            $ref: '#/components/schemas/ngfirewall-endpoint'
+          type: array
+        FirewallId:
+          description: The unique identifier of the firewall.
+          type: string
+        GWLB:
+          $ref: '#/components/schemas/ngfirewall-gwlb-config'
+        Ipv6:
+          $ref: '#/components/schemas/ngfirewall-ipv6-config'
+        LinkId:
+          description: The link ID associated with the firewall.
+          type: string
+        LinkStatus:
+          description: The current link status of the firewall.
+          type: string
+        LogConfig:
+          $ref: '#/components/schemas/ngfirewall-log-config'
+        Notifications:
+          description: Notifications associated with this firewall.
+          items:
+            $ref: '#/components/schemas/ngfirewall-notification'
+          type: array
+        PrivateAccess:
+          $ref: '#/components/schemas/ngfirewall-private-access'
+        Region:
+          description: The AWS region where the firewall is deployed.
+          type: string
+        SoftwareVersion:
+          description: The PAN-OS software version currently running on the firewall.
+          type: string
+        Tags:
+          description: AWS resource tags applied to the firewall.
+          items:
+            $ref: '#/components/schemas/ngfirewall-tag'
+          maxItems: 50
+          type: array
+        Tier:
+          description: "The service tier of the firewall (base, standard, or premium)."
+          type: string
+        UpdateToken:
+          description: Optimistic locking token; must be supplied on update operations.
+          type: string
+        UserID:
+          $ref: '#/components/schemas/ngfirewall-user-id'
+      required:
+      - CustomerZoneIdList
+      type: object
+    ngfirewall-gwlb-config:
+      description: Gateway Load Balancer configuration.
+      example:
+        DeregistrationDelay: 0
+        RejectedFlowCountAlertThreshold: 6
+        TCPIdleTimeout: 5
+        RejectedFlowCountTCPAlertThreshold: 1
+        SessionRebalanceEnabled: false
+      properties:
+        DeregistrationDelay:
+          default: 300
+          description: Deregistration delay in seconds.
+          format: int32
+          type: integer
+        RejectedFlowCountAlertThreshold:
+          default: 10
+          description: Alert threshold for the total rejected flow count.
+          format: int32
+          type: integer
+        RejectedFlowCountTCPAlertThreshold:
+          default: 10
+          description: Alert threshold for the TCP rejected flow count.
+          format: int32
+          type: integer
+        SessionRebalanceEnabled:
+          default: false
+          description: Whether session rebalancing is enabled.
+          type: boolean
+        TCPIdleTimeout:
+          default: 350
+          description: TCP idle timeout in seconds.
+          format: int32
+          type: integer
+      type: object
+    ngfirewall-ipv6-config:
+      description: IPv6 configuration for the firewall.
+      example:
+        Enabled: true
+      properties:
+        Enabled:
+          description: Whether IPv6 is enabled on this firewall.
+          type: boolean
+      type: object
+    ngfirewall-log-config:
+      description: Log destination configuration for the firewall.
+      example:
+        AccountId: AccountId
+        RoleType: ResourceBased
+        LogDestinationRegion: LogDestinationRegion
+        LogType:
+        - TRAFFIC
+        - TRAFFIC
+        LogDestination: LogDestination
+        LogDestinationType: S3
+      properties:
+        AccountId:
+          description: The AWS account ID where logs are sent.
+          maxLength: 12
+          minLength: 12
+          type: string
+        LogDestination:
+          description: The ARN or name of the log destination resource.
+          type: string
+        LogDestinationRegion:
+          description: The AWS region of the log destination.
+          type: string
+        LogDestinationType:
+          description: The type of log destination.
+          enum:
+          - S3
+          - CloudWatchLogs
+          - KinesisDataFirehose
+          type: string
+        LogType:
+          description: The types of logs to send to this destination.
+          items:
+            enum:
+            - TRAFFIC
+            - DECRYPTION
+            - THREAT
+            - USER_ID
+            type: string
+          type: array
+        RoleType:
+          description: The IAM role type used to publish logs.
+          enum:
+          - ResourceBased
+          - IamBased
+          type: string
+      required:
+      - LogDestination
+      - LogDestinationType
+      - LogType
+      - RoleType
+      type: object
+    ngfirewall-notification:
+      description: A notification message associated with a firewall.
+      example:
+        Msg: Msg
+        ExpiryTime: 5
+        Id: Id
+        Link:
+          Target: Target
+          Text: Text
+      properties:
+        ExpiryTime:
+          description: Unix timestamp when this notification expires.
+          type: integer
+        Id:
+          description: Unique identifier of the notification.
+          type: string
+        Link:
+          $ref: '#/components/schemas/ngfirewall-notification-link'
+        Msg:
+          description: The notification message text.
+          type: string
+      type: object
+    ngfirewall-notification-link:
+      description: A hyperlink associated with a notification.
+      example:
+        Target: Target
+        Text: Text
+      properties:
+        Target:
+          description: The URL target of the link.
+          type: string
+        Text:
+          description: The display text of the link.
+          type: string
+      type: object
+    ngfirewall-prefix-list:
+      description: A list of CIDR prefixes.
+      example:
+        Cidrs:
+        - Cidrs
+        - Cidrs
+      properties:
+        Cidrs:
+          description: CIDR address blocks.
+          items:
+            type: string
+          type: array
+          x-computed-field: true
+      type: object
+      x-computed-field: true
+    ngfirewall-private-access:
+      description: Private access configuration for the firewall.
+      example:
+        Type: NetworkLoadBalancer
+        ResourceID: ResourceID
+      properties:
+        ResourceID:
+          description: The resource ID of the private access endpoint.
+          type: string
+        Type:
+          description: The type of private access resource.
+          enum:
+          - NetworkLoadBalancer
+          type: string
+      type: object
+    ngfirewall-public-ip:
+      description: A public IP address assigned to the firewall.
+      example:
+        IPStatus: IPStatus
+        IPAddress: IPAddress
+        IPSource: IPSource
+      properties:
+        IPAddress:
+          description: The public IP address.
+          type: string
+        IPSource:
+          description: The source of the IP address allocation.
+          type: string
+        IPStatus:
+          description: The current status of this public IP.
+          type: string
+      type: object
+    ngfirewall-response-body:
+      description: Inner response object containing firewall details and operational
+        status.
+      example:
+        Status:
+          RuleStackStatus: Running
+          PublicIPs:
+          - IPStatus: IPStatus
+            IPAddress: IPAddress
+            IPSource: IPSource
+          - IPStatus: IPStatus
+            IPAddress: IPAddress
+            IPSource: IPSource
+          DeviceRuleStackCommitStatus: Running
+          DeviceRuleStackCommitInfo:
+            CommitTS: CommitTS
+            CommitMessages:
+            - CommitMessages
+            - CommitMessages
+          SCMAssocStatus: true
+          FailureReason: FailureReason
+          RuleStackCommitInfo:
+            CommitTS: CommitTS
+            CommitMessages:
+            - CommitMessages
+            - CommitMessages
+          GlobalRuleStackStatus: Running
+          DeviceRuleStackCommitState: Submitted
+          GlobalRuleStackCommitInfo:
+            CommitTS: CommitTS
+            CommitMessages:
+            - CommitMessages
+            - CommitMessages
+          FirewallStatus: CREATING
+        Firewall:
+          Description: Description
+          FirewallId: FirewallId
+          GWLB:
+            DeregistrationDelay: 0
+            RejectedFlowCountAlertThreshold: 6
+            TCPIdleTimeout: 5
+            RejectedFlowCountTCPAlertThreshold: 1
+            SessionRebalanceEnabled: false
+          EndpointServiceName: EndpointServiceName
+          DeploymentUpdateToken: DeploymentUpdateToken
+          UpdateToken: UpdateToken
+          Endpoints:
+          - Status: Pending
+            AccountId: AccountId
+            VpcId: VpcId
+            ZoneId: ZoneId
+            EgressNATEnabled: true
+            EndpointId: EndpointId
+            Mode: ServiceManaged
+            SubnetId: SubnetId
+            Prefixes:
+              PublicPrefix:
+                Cidrs:
+                - Cidrs
+                - Cidrs
+              PrivatePrefix:
+                Cidrs:
+                - Cidrs
+                - Cidrs
+            RejectedReason: RejectedReason
+          - Status: Pending
+            AccountId: AccountId
+            VpcId: VpcId
+            ZoneId: ZoneId
+            EgressNATEnabled: true
+            EndpointId: EndpointId
+            Mode: ServiceManaged
+            SubnetId: SubnetId
+            Prefixes:
+              PublicPrefix:
+                Cidrs:
+                - Cidrs
+                - Cidrs
+              PrivatePrefix:
+                Cidrs:
+                - Cidrs
+                - Cidrs
+            RejectedReason: RejectedReason
+          UserID:
+            SecretKeyARN: SecretKeyARN
+            EndpointDNS: EndpointDNS
+            UserIDStatus: EndpointPending
+            Port: 2
+            Enabled: true
+            AgentName: AgentName
+            CFTURLLink: CFTURLLink
+            CollectorName: CollectorName
+            CustomIncludeExcludeNetwork:
+            - NetworkAddress: NetworkAddress
+              DiscoveryInclude: true
+              Enabled: true
+              Name: Name
+            - NetworkAddress: NetworkAddress
+              DiscoveryInclude: true
+              Enabled: true
+              Name: Name
+          CloudwatchMetrics:
+            AccountId: AccountId
+            CloudWatchMetricNamespace: CloudWatchMetricNamespace
+            CloudWatchMetricsFields:
+            - CloudWatchMetricsFields
+            - CloudWatchMetricsFields
+          Tags:
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+          LinkStatus: LinkStatus
+          Ipv6:
+            Enabled: true
+          Tier: Tier
+          AdvancedThreatLog: true
+          PrivateAccess:
+            Type: NetworkLoadBalancer
+            ResourceID: ResourceID
+          CustomerZoneIdList:
+          - CustomerZoneIdList
+          - CustomerZoneIdList
+          SoftwareVersion: SoftwareVersion
+          DeviceRuleStackCommitStatus: DeviceRuleStackCommitStatus
+          ChangeProtection:
+          - ChangeProtection
+          - ChangeProtection
+          EgressNAT:
+            Enabled: true
+            Settings:
+              IPPoolType: AWSService
+              IPAMPoolId: IPAMPoolId
+          Region: Region
+          AllowListAccounts:
+          - AllowListAccounts
+          - AllowListAccounts
+          Notifications:
+          - Msg: Msg
+            ExpiryTime: 5
+            Id: Id
+            Link:
+              Target: Target
+              Text: Text
+          - Msg: Msg
+            ExpiryTime: 5
+            Id: Id
+            Link:
+              Target: Target
+              Text: Text
+          LinkId: LinkId
+          LogConfig:
+            AccountId: AccountId
+            RoleType: ResourceBased
+            LogDestinationRegion: LogDestinationRegion
+            LogType:
+            - TRAFFIC
+            - TRAFFIC
+            LogDestination: LogDestination
+            LogDestinationType: S3
+      properties:
+        Firewall:
+          $ref: '#/components/schemas/ngfirewall-firewall'
+        Status:
+          $ref: '#/components/schemas/ngfirewall-status'
+      type: object
+    ngfirewall-response-status:
+      description: API-level response metadata at the top level of the envelope.
+      example:
+        ErrorCode: 7
+        Reason: Reason
+      properties:
+        ErrorCode:
+          description: Non-zero error code if the API request failed.
+          format: int32
+          type: integer
+        Reason:
+          description: "Human-readable reason for the error, if any."
+          type: string
+      type: object
+    ngfirewall-status:
+      description: Operational status of the firewall.
+      example:
+        RuleStackStatus: Running
+        PublicIPs:
+        - IPStatus: IPStatus
+          IPAddress: IPAddress
+          IPSource: IPSource
+        - IPStatus: IPStatus
+          IPAddress: IPAddress
+          IPSource: IPSource
+        DeviceRuleStackCommitStatus: Running
+        DeviceRuleStackCommitInfo:
+          CommitTS: CommitTS
+          CommitMessages:
+          - CommitMessages
+          - CommitMessages
+        SCMAssocStatus: true
+        FailureReason: FailureReason
+        RuleStackCommitInfo:
+          CommitTS: CommitTS
+          CommitMessages:
+          - CommitMessages
+          - CommitMessages
+        GlobalRuleStackStatus: Running
+        DeviceRuleStackCommitState: Submitted
+        GlobalRuleStackCommitInfo:
+          CommitTS: CommitTS
+          CommitMessages:
+          - CommitMessages
+          - CommitMessages
+        FirewallStatus: CREATING
+      properties:
+        DeviceRuleStackCommitInfo:
+          $ref: '#/components/schemas/ngfirewall-commit-info'
+        DeviceRuleStackCommitState:
+          description: The commit state of the device rulestack.
+          enum:
+          - Submitted
+          - None
+          type: string
+        DeviceRuleStackCommitStatus:
+          description: The commit status of the device rulestack.
+          enum:
+          - Running
+          - Uncommitted
+          - Precommit
+          - PrecommitDone
+          - PrevalidateDone
+          - Committing
+          - Failed
+          - Success
+          type: string
+        FailureReason:
+          description: "Human-readable reason for a firewall failure, if any."
+          type: string
+        FirewallStatus:
+          description: The operational lifecycle status of the firewall.
+          enum:
+          - CREATING
+          - UPDATING
+          - DELETING
+          - CREATE_COMPLETE
+          - UPDATE_COMPLETE
+          - CREATE_FAIL
+          - UPDATE_FAIL
+          - DELETE_FAIL
+          - DELETE_COMPLETE
+          type: string
+        GlobalRuleStackCommitInfo:
+          $ref: '#/components/schemas/ngfirewall-commit-info'
+        GlobalRuleStackStatus:
+          description: The commit status of the global rulestack.
+          enum:
+          - Running
+          - Uncommitted
+          - Precommit
+          - PrecommitDone
+          - PrevalidateDone
+          - Committing
+          - Failed
+          - Success
+          type: string
+        PublicIPs:
+          description: Public IP addresses assigned to the firewall.
+          items:
+            $ref: '#/components/schemas/ngfirewall-public-ip'
+          type: array
+        RuleStackCommitInfo:
+          $ref: '#/components/schemas/ngfirewall-commit-info'
+        RuleStackStatus:
+          description: The commit status of the local rulestack.
+          enum:
+          - Running
+          - Uncommitted
+          - Precommit
+          - PrecommitDone
+          - PrevalidateDone
+          - Committing
+          - Failed
+          - Success
+          type: string
+        SCMAssocStatus:
+          description: Whether the firewall is associated with Strata Cloud Manager.
+          type: boolean
+      type: object
+    ngfirewall-tag:
+      description: A key-value tag applied to the firewall AWS resource.
+      example:
+        Value: Value
+        Key: Key
+      properties:
+        Key:
+          description: The tag key.
+          maxLength: 128
+          minLength: 1
+          type: string
+        Value:
+          description: The tag value.
+          maxLength: 256
+          minLength: 1
+          type: string
+      type: object
+    ngfirewall-update-request:
+      description: Request body for updating an existing Cloud NGFW firewall.
+      properties:
+        AllowListAccounts:
+          description: AWS account IDs permitted to access the firewall endpoint service.
+          items:
+            type: string
+          type: array
+        ChangeProtection:
+          description: List of attributes protected from change.
+          items:
+            type: string
+          type: array
+        CustomerZoneIdList:
+          description: List of customer-defined security zone IDs.
+          items:
+            type: string
+          type: array
+        DeploymentUpdateToken:
+          description: Deployment update token from the last GET response. Required
+            for update operations.
+          type: string
+        Description:
+          description: A human-readable description of the firewall.
+          type: string
+        EgressNAT:
+          $ref: '#/components/schemas/ngfirewall-egress-nat-config'
+        Endpoints:
+          description: Firewall endpoint configurations.
+          items:
+            $ref: '#/components/schemas/ngfirewall-endpoint'
+          type: array
+        GwlbTcpIdleTimeout:
+          description: GWLB TCP idle timeout in seconds.
+          type: integer
+        LinkId:
+          description: The link ID to associate with the firewall.
+          type: string
+        PrivateAccess:
+          $ref: '#/components/schemas/ngfirewall-private-access'
+        ScmLabels:
+          description: Strata Cloud Manager (SCM) labels for categorizing the firewall.
+          items:
+            type: string
+          type: array
+        Tags:
+          description: AWS resource tags to apply to the firewall.
+          items:
+            $ref: '#/components/schemas/ngfirewall-tag'
+          maxItems: 50
+          type: array
+        Tier:
+          description: "The tier of the firewall. Can only upgrade (standard to premium),\
+            \ cannot downgrade."
+          enum:
+          - standard
+          - premium
+          type: string
+        UpdateToken:
+          description: Optimistic locking token from the last GET response. Required
+            for update operations.
+          type: string
+        UserID:
+          $ref: '#/components/schemas/ngfirewall-user-id'
+      required:
+      - DeploymentUpdateToken
+      - UpdateToken
+      type: object
+    ngfirewall-update-response:
+      description: Response envelope returned by the Update Cloud NGFW firewall API.
+      example:
+        Response:
+          Description: Description
+          Ipv6:
+            Enabled: true
+          Tier: base
+          FirewallId: FirewallId
+          GWLB:
+            DeregistrationDelay: 0
+            RejectedFlowCountAlertThreshold: 6
+            TCPIdleTimeout: 5
+            RejectedFlowCountTCPAlertThreshold: 1
+            SessionRebalanceEnabled: false
+          Mode: Mode
+          DeploymentUpdateToken: DeploymentUpdateToken
+          UpdateToken: UpdateToken
+          CustomerZoneIdList:
+          - CustomerZoneIdList
+          - CustomerZoneIdList
+          ChangeProtection:
+          - ChangeProtection
+          - ChangeProtection
+          EgressNAT:
+            Enabled: true
+            Settings:
+              IPPoolType: AWSService
+              IPAMPoolId: IPAMPoolId
+          Region: Region
+          ScmLabels:
+          - ScmLabels
+          - ScmLabels
+          AllowListAccounts:
+          - AllowListAccounts
+          - AllowListAccounts
+          Tags:
+          - Value: Value
+            Key: Key
+          - Value: Value
+            Key: Key
+        ResponseStatus:
+          ErrorCode: 7
+          Reason: Reason
+      properties:
+        Response:
+          $ref: '#/components/schemas/ngfirewall-update-response-body'
+        ResponseStatus:
+          $ref: '#/components/schemas/ngfirewall-response-status'
+      type: object
+    ngfirewall-update-response-body:
+      description: Inner response body returned after updating a Cloud NGFW firewall.
+      example:
+        Description: Description
+        Ipv6:
+          Enabled: true
+        Tier: base
+        FirewallId: FirewallId
+        GWLB:
+          DeregistrationDelay: 0
+          RejectedFlowCountAlertThreshold: 6
+          TCPIdleTimeout: 5
+          RejectedFlowCountTCPAlertThreshold: 1
+          SessionRebalanceEnabled: false
+        Mode: Mode
+        DeploymentUpdateToken: DeploymentUpdateToken
+        UpdateToken: UpdateToken
+        CustomerZoneIdList:
+        - CustomerZoneIdList
+        - CustomerZoneIdList
+        ChangeProtection:
+        - ChangeProtection
+        - ChangeProtection
+        EgressNAT:
+          Enabled: true
+          Settings:
+            IPPoolType: AWSService
+            IPAMPoolId: IPAMPoolId
+        Region: Region
+        ScmLabels:
+        - ScmLabels
+        - ScmLabels
+        AllowListAccounts:
+        - AllowListAccounts
+        - AllowListAccounts
+        Tags:
+        - Value: Value
+          Key: Key
+        - Value: Value
+          Key: Key
+      properties:
+        AllowListAccounts:
+          description: AWS account IDs permitted to access the firewall endpoint service.
+          items:
+            type: string
+          type: array
+        ChangeProtection:
+          description: List of attributes protected from change.
+          items:
+            type: string
+          type: array
+        CustomerZoneIdList:
+          description: List of customer-defined security zone IDs.
+          items:
+            type: string
+          type: array
+        DeploymentUpdateToken:
+          description: Updated deployment token for subsequent operations.
+          type: string
+        Description:
+          description: A human-readable description of the firewall.
+          type: string
+        EgressNAT:
+          $ref: '#/components/schemas/ngfirewall-egress-nat-config'
+        FirewallId:
+          description: The unique identifier of the firewall.
+          type: string
+        GWLB:
+          $ref: '#/components/schemas/ngfirewall-gwlb-config'
+        Ipv6:
+          $ref: '#/components/schemas/ngfirewall-ipv6-config'
+        Mode:
+          description: The operational mode of the firewall.
+          type: string
+        Region:
+          description: The AWS region where the firewall is deployed.
+          type: string
+        ScmLabels:
+          description: Strata Cloud Manager (SCM) labels applied to the firewall.
+          items:
+            type: string
+          type: array
+        Tags:
+          description: AWS resource tags applied to the firewall.
+          items:
+            $ref: '#/components/schemas/ngfirewall-tag'
+          type: array
+        Tier:
+          description: The tier of the firewall.
+          enum:
+          - base
+          - standard
+          - premium
+          type: string
+        UpdateToken:
+          description: Updated optimistic locking token for subsequent operations.
+          type: string
+      type: object
+    ngfirewall-user-id:
+      description: User-ID configuration for user-based policy enforcement.
+      example:
+        SecretKeyARN: SecretKeyARN
+        EndpointDNS: EndpointDNS
+        UserIDStatus: EndpointPending
+        Port: 2
+        Enabled: true
+        AgentName: AgentName
+        CFTURLLink: CFTURLLink
+        CollectorName: CollectorName
+        CustomIncludeExcludeNetwork:
+        - NetworkAddress: NetworkAddress
+          DiscoveryInclude: true
+          Enabled: true
+          Name: Name
+        - NetworkAddress: NetworkAddress
+          DiscoveryInclude: true
+          Enabled: true
+          Name: Name
+      properties:
+        AgentName:
+          description: The name of the User-ID agent.
+          type: string
+        CFTURLLink:
+          description: CloudFormation template URL link for User-ID setup.
+          type: string
+        CollectorName:
+          description: The name of the log collector used by User-ID.
+          type: string
+        CustomIncludeExcludeNetwork:
+          description: Custom include/exclude network definitions for User-ID.
+          items:
+            $ref: '#/components/schemas/ngfirewall-user-id-network'
+          type: array
+        Enabled:
+          description: Whether User-ID is enabled.
+          type: boolean
+        EndpointDNS:
+          description: DNS name of the User-ID endpoint.
+          type: string
+        Port:
+          description: Port used by the User-ID agent.
+          format: int32
+          type: integer
+        SecretKeyARN:
+          description: ARN of the AWS Secrets Manager secret for User-ID credentials.
+          type: string
+        UserIDStatus:
+          description: The operational status of the User-ID feature.
+          enum:
+          - EndpointPending
+          - EndpointFail
+          - CommitFail
+          - Enabled
+          - Disabled
+          - DisablePending
+          - UpdatePending
+          - UpdateFail
+          type: string
+      type: object
+    ngfirewall-user-id-network:
+      description: A single custom include/exclude network entry for User-ID.
+      example:
+        NetworkAddress: NetworkAddress
+        DiscoveryInclude: true
+        Enabled: true
+        Name: Name
+      properties:
+        DiscoveryInclude:
+          description: Whether this network is included in User-ID discovery.
+          type: boolean
+        Enabled:
+          description: Whether this network entry is active.
+          type: boolean
+        Name:
+          description: Name of the network entry.
+          type: string
+        NetworkAddress:
+          description: The network address (CIDR) for this entry.
+          type: string
+      type: object
+    ngfirewalls:
+      description: |
+        Cloud NGFW firewall schema.
+      example:
+        Response:
+          Status:
+            RuleStackStatus: Running
+            PublicIPs:
+            - IPStatus: IPStatus
+              IPAddress: IPAddress
+              IPSource: IPSource
+            - IPStatus: IPStatus
+              IPAddress: IPAddress
+              IPSource: IPSource
+            DeviceRuleStackCommitStatus: Running
+            DeviceRuleStackCommitInfo:
+              CommitTS: CommitTS
+              CommitMessages:
+              - CommitMessages
+              - CommitMessages
+            SCMAssocStatus: true
+            FailureReason: FailureReason
+            RuleStackCommitInfo:
+              CommitTS: CommitTS
+              CommitMessages:
+              - CommitMessages
+              - CommitMessages
+            GlobalRuleStackStatus: Running
+            DeviceRuleStackCommitState: Submitted
+            GlobalRuleStackCommitInfo:
+              CommitTS: CommitTS
+              CommitMessages:
+              - CommitMessages
+              - CommitMessages
+            FirewallStatus: CREATING
+          Firewall:
+            Description: Description
+            FirewallId: FirewallId
+            GWLB:
+              DeregistrationDelay: 0
+              RejectedFlowCountAlertThreshold: 6
+              TCPIdleTimeout: 5
+              RejectedFlowCountTCPAlertThreshold: 1
+              SessionRebalanceEnabled: false
+            EndpointServiceName: EndpointServiceName
+            DeploymentUpdateToken: DeploymentUpdateToken
+            UpdateToken: UpdateToken
+            Endpoints:
+            - Status: Pending
+              AccountId: AccountId
+              VpcId: VpcId
+              ZoneId: ZoneId
+              EgressNATEnabled: true
+              EndpointId: EndpointId
+              Mode: ServiceManaged
+              SubnetId: SubnetId
+              Prefixes:
+                PublicPrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+                PrivatePrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+              RejectedReason: RejectedReason
+            - Status: Pending
+              AccountId: AccountId
+              VpcId: VpcId
+              ZoneId: ZoneId
+              EgressNATEnabled: true
+              EndpointId: EndpointId
+              Mode: ServiceManaged
+              SubnetId: SubnetId
+              Prefixes:
+                PublicPrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+                PrivatePrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+              RejectedReason: RejectedReason
+            UserID:
+              SecretKeyARN: SecretKeyARN
+              EndpointDNS: EndpointDNS
+              UserIDStatus: EndpointPending
+              Port: 2
+              Enabled: true
+              AgentName: AgentName
+              CFTURLLink: CFTURLLink
+              CollectorName: CollectorName
+              CustomIncludeExcludeNetwork:
+              - NetworkAddress: NetworkAddress
+                DiscoveryInclude: true
+                Enabled: true
+                Name: Name
+              - NetworkAddress: NetworkAddress
+                DiscoveryInclude: true
+                Enabled: true
+                Name: Name
+            CloudwatchMetrics:
+              AccountId: AccountId
+              CloudWatchMetricNamespace: CloudWatchMetricNamespace
+              CloudWatchMetricsFields:
+              - CloudWatchMetricsFields
+              - CloudWatchMetricsFields
+            Tags:
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            LinkStatus: LinkStatus
+            Ipv6:
+              Enabled: true
+            Tier: Tier
+            AdvancedThreatLog: true
+            PrivateAccess:
+              Type: NetworkLoadBalancer
+              ResourceID: ResourceID
+            CustomerZoneIdList:
+            - CustomerZoneIdList
+            - CustomerZoneIdList
+            SoftwareVersion: SoftwareVersion
+            DeviceRuleStackCommitStatus: DeviceRuleStackCommitStatus
+            ChangeProtection:
+            - ChangeProtection
+            - ChangeProtection
+            EgressNAT:
+              Enabled: true
+              Settings:
+                IPPoolType: AWSService
+                IPAMPoolId: IPAMPoolId
+            Region: Region
+            AllowListAccounts:
+            - AllowListAccounts
+            - AllowListAccounts
+            Notifications:
+            - Msg: Msg
+              ExpiryTime: 5
+              Id: Id
+              Link:
+                Target: Target
+                Text: Text
+            - Msg: Msg
+              ExpiryTime: 5
+              Id: Id
+              Link:
+                Target: Target
+                Text: Text
+            LinkId: LinkId
+            LogConfig:
+              AccountId: AccountId
+              RoleType: ResourceBased
+              LogDestinationRegion: LogDestinationRegion
+              LogType:
+              - TRAFFIC
+              - TRAFFIC
+              LogDestination: LogDestination
+              LogDestinationType: S3
+        ResponseStatus:
+          ErrorCode: 7
+          Reason: Reason
+      properties:
+        Response:
+          $ref: '#/components/schemas/ngfirewall-response-body'
+        ResponseStatus:
+          $ref: '#/components/schemas/ngfirewall-response-status'
+      type: object
+    ngfirewalls-list-response:
+      description: Response envelope for the List Cloud NGFW firewalls API.
+      example:
+        Response:
+          FirewallsDescribe:
+          - Status:
+              RuleStackStatus: Running
+              PublicIPs:
+              - IPStatus: IPStatus
+                IPAddress: IPAddress
+                IPSource: IPSource
+              - IPStatus: IPStatus
+                IPAddress: IPAddress
+                IPSource: IPSource
+              DeviceRuleStackCommitStatus: Running
+              DeviceRuleStackCommitInfo:
+                CommitTS: CommitTS
+                CommitMessages:
+                - CommitMessages
+                - CommitMessages
+              SCMAssocStatus: true
+              FailureReason: FailureReason
+              RuleStackCommitInfo:
+                CommitTS: CommitTS
+                CommitMessages:
+                - CommitMessages
+                - CommitMessages
+              GlobalRuleStackStatus: Running
+              DeviceRuleStackCommitState: Submitted
+              GlobalRuleStackCommitInfo:
+                CommitTS: CommitTS
+                CommitMessages:
+                - CommitMessages
+                - CommitMessages
+              FirewallStatus: CREATING
+            Firewall:
+              Description: Description
+              FirewallId: FirewallId
+              GWLB:
+                DeregistrationDelay: 0
+                RejectedFlowCountAlertThreshold: 6
+                TCPIdleTimeout: 5
+                RejectedFlowCountTCPAlertThreshold: 1
+                SessionRebalanceEnabled: false
+              EndpointServiceName: EndpointServiceName
+              DeploymentUpdateToken: DeploymentUpdateToken
+              UpdateToken: UpdateToken
+              Endpoints:
+              - Status: Pending
+                AccountId: AccountId
+                VpcId: VpcId
+                ZoneId: ZoneId
+                EgressNATEnabled: true
+                EndpointId: EndpointId
+                Mode: ServiceManaged
+                SubnetId: SubnetId
+                Prefixes:
+                  PublicPrefix:
+                    Cidrs:
+                    - Cidrs
+                    - Cidrs
+                  PrivatePrefix:
+                    Cidrs:
+                    - Cidrs
+                    - Cidrs
+                RejectedReason: RejectedReason
+              - Status: Pending
+                AccountId: AccountId
+                VpcId: VpcId
+                ZoneId: ZoneId
+                EgressNATEnabled: true
+                EndpointId: EndpointId
+                Mode: ServiceManaged
+                SubnetId: SubnetId
+                Prefixes:
+                  PublicPrefix:
+                    Cidrs:
+                    - Cidrs
+                    - Cidrs
+                  PrivatePrefix:
+                    Cidrs:
+                    - Cidrs
+                    - Cidrs
+                RejectedReason: RejectedReason
+              UserID:
+                SecretKeyARN: SecretKeyARN
+                EndpointDNS: EndpointDNS
+                UserIDStatus: EndpointPending
+                Port: 2
+                Enabled: true
+                AgentName: AgentName
+                CFTURLLink: CFTURLLink
+                CollectorName: CollectorName
+                CustomIncludeExcludeNetwork:
+                - NetworkAddress: NetworkAddress
+                  DiscoveryInclude: true
+                  Enabled: true
+                  Name: Name
+                - NetworkAddress: NetworkAddress
+                  DiscoveryInclude: true
+                  Enabled: true
+                  Name: Name
+              CloudwatchMetrics:
+                AccountId: AccountId
+                CloudWatchMetricNamespace: CloudWatchMetricNamespace
+                CloudWatchMetricsFields:
+                - CloudWatchMetricsFields
+                - CloudWatchMetricsFields
+              Tags:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              LinkStatus: LinkStatus
+              Ipv6:
+                Enabled: true
+              Tier: Tier
+              AdvancedThreatLog: true
+              PrivateAccess:
+                Type: NetworkLoadBalancer
+                ResourceID: ResourceID
+              CustomerZoneIdList:
+              - CustomerZoneIdList
+              - CustomerZoneIdList
+              SoftwareVersion: SoftwareVersion
+              DeviceRuleStackCommitStatus: DeviceRuleStackCommitStatus
+              ChangeProtection:
+              - ChangeProtection
+              - ChangeProtection
+              EgressNAT:
+                Enabled: true
+                Settings:
+                  IPPoolType: AWSService
+                  IPAMPoolId: IPAMPoolId
+              Region: Region
+              AllowListAccounts:
+              - AllowListAccounts
+              - AllowListAccounts
+              Notifications:
+              - Msg: Msg
+                ExpiryTime: 5
+                Id: Id
+                Link:
+                  Target: Target
+                  Text: Text
+              - Msg: Msg
+                ExpiryTime: 5
+                Id: Id
+                Link:
+                  Target: Target
+                  Text: Text
+              LinkId: LinkId
+              LogConfig:
+                AccountId: AccountId
+                RoleType: ResourceBased
+                LogDestinationRegion: LogDestinationRegion
+                LogType:
+                - TRAFFIC
+                - TRAFFIC
+                LogDestination: LogDestination
+                LogDestinationType: S3
+          - Status:
+              RuleStackStatus: Running
+              PublicIPs:
+              - IPStatus: IPStatus
+                IPAddress: IPAddress
+                IPSource: IPSource
+              - IPStatus: IPStatus
+                IPAddress: IPAddress
+                IPSource: IPSource
+              DeviceRuleStackCommitStatus: Running
+              DeviceRuleStackCommitInfo:
+                CommitTS: CommitTS
+                CommitMessages:
+                - CommitMessages
+                - CommitMessages
+              SCMAssocStatus: true
+              FailureReason: FailureReason
+              RuleStackCommitInfo:
+                CommitTS: CommitTS
+                CommitMessages:
+                - CommitMessages
+                - CommitMessages
+              GlobalRuleStackStatus: Running
+              DeviceRuleStackCommitState: Submitted
+              GlobalRuleStackCommitInfo:
+                CommitTS: CommitTS
+                CommitMessages:
+                - CommitMessages
+                - CommitMessages
+              FirewallStatus: CREATING
+            Firewall:
+              Description: Description
+              FirewallId: FirewallId
+              GWLB:
+                DeregistrationDelay: 0
+                RejectedFlowCountAlertThreshold: 6
+                TCPIdleTimeout: 5
+                RejectedFlowCountTCPAlertThreshold: 1
+                SessionRebalanceEnabled: false
+              EndpointServiceName: EndpointServiceName
+              DeploymentUpdateToken: DeploymentUpdateToken
+              UpdateToken: UpdateToken
+              Endpoints:
+              - Status: Pending
+                AccountId: AccountId
+                VpcId: VpcId
+                ZoneId: ZoneId
+                EgressNATEnabled: true
+                EndpointId: EndpointId
+                Mode: ServiceManaged
+                SubnetId: SubnetId
+                Prefixes:
+                  PublicPrefix:
+                    Cidrs:
+                    - Cidrs
+                    - Cidrs
+                  PrivatePrefix:
+                    Cidrs:
+                    - Cidrs
+                    - Cidrs
+                RejectedReason: RejectedReason
+              - Status: Pending
+                AccountId: AccountId
+                VpcId: VpcId
+                ZoneId: ZoneId
+                EgressNATEnabled: true
+                EndpointId: EndpointId
+                Mode: ServiceManaged
+                SubnetId: SubnetId
+                Prefixes:
+                  PublicPrefix:
+                    Cidrs:
+                    - Cidrs
+                    - Cidrs
+                  PrivatePrefix:
+                    Cidrs:
+                    - Cidrs
+                    - Cidrs
+                RejectedReason: RejectedReason
+              UserID:
+                SecretKeyARN: SecretKeyARN
+                EndpointDNS: EndpointDNS
+                UserIDStatus: EndpointPending
+                Port: 2
+                Enabled: true
+                AgentName: AgentName
+                CFTURLLink: CFTURLLink
+                CollectorName: CollectorName
+                CustomIncludeExcludeNetwork:
+                - NetworkAddress: NetworkAddress
+                  DiscoveryInclude: true
+                  Enabled: true
+                  Name: Name
+                - NetworkAddress: NetworkAddress
+                  DiscoveryInclude: true
+                  Enabled: true
+                  Name: Name
+              CloudwatchMetrics:
+                AccountId: AccountId
+                CloudWatchMetricNamespace: CloudWatchMetricNamespace
+                CloudWatchMetricsFields:
+                - CloudWatchMetricsFields
+                - CloudWatchMetricsFields
+              Tags:
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              - Value: Value
+                Key: Key
+              LinkStatus: LinkStatus
+              Ipv6:
+                Enabled: true
+              Tier: Tier
+              AdvancedThreatLog: true
+              PrivateAccess:
+                Type: NetworkLoadBalancer
+                ResourceID: ResourceID
+              CustomerZoneIdList:
+              - CustomerZoneIdList
+              - CustomerZoneIdList
+              SoftwareVersion: SoftwareVersion
+              DeviceRuleStackCommitStatus: DeviceRuleStackCommitStatus
+              ChangeProtection:
+              - ChangeProtection
+              - ChangeProtection
+              EgressNAT:
+                Enabled: true
+                Settings:
+                  IPPoolType: AWSService
+                  IPAMPoolId: IPAMPoolId
+              Region: Region
+              AllowListAccounts:
+              - AllowListAccounts
+              - AllowListAccounts
+              Notifications:
+              - Msg: Msg
+                ExpiryTime: 5
+                Id: Id
+                Link:
+                  Target: Target
+                  Text: Text
+              - Msg: Msg
+                ExpiryTime: 5
+                Id: Id
+                Link:
+                  Target: Target
+                  Text: Text
+              LinkId: LinkId
+              LogConfig:
+                AccountId: AccountId
+                RoleType: ResourceBased
+                LogDestinationRegion: LogDestinationRegion
+                LogType:
+                - TRAFFIC
+                - TRAFFIC
+                LogDestination: LogDestination
+                LogDestinationType: S3
+        ResponseStatus:
+          ErrorCode: 7
+          Reason: Reason
+      properties:
+        Response:
+          $ref: '#/components/schemas/ngfirewalls-list-response-body'
+        ResponseStatus:
+          $ref: '#/components/schemas/ngfirewall-response-status'
+      type: object
+    ngfirewalls-list-response-body:
+      description: Inner response body containing the firewall list.
+      example:
+        FirewallsDescribe:
+        - Status:
+            RuleStackStatus: Running
+            PublicIPs:
+            - IPStatus: IPStatus
+              IPAddress: IPAddress
+              IPSource: IPSource
+            - IPStatus: IPStatus
+              IPAddress: IPAddress
+              IPSource: IPSource
+            DeviceRuleStackCommitStatus: Running
+            DeviceRuleStackCommitInfo:
+              CommitTS: CommitTS
+              CommitMessages:
+              - CommitMessages
+              - CommitMessages
+            SCMAssocStatus: true
+            FailureReason: FailureReason
+            RuleStackCommitInfo:
+              CommitTS: CommitTS
+              CommitMessages:
+              - CommitMessages
+              - CommitMessages
+            GlobalRuleStackStatus: Running
+            DeviceRuleStackCommitState: Submitted
+            GlobalRuleStackCommitInfo:
+              CommitTS: CommitTS
+              CommitMessages:
+              - CommitMessages
+              - CommitMessages
+            FirewallStatus: CREATING
+          Firewall:
+            Description: Description
+            FirewallId: FirewallId
+            GWLB:
+              DeregistrationDelay: 0
+              RejectedFlowCountAlertThreshold: 6
+              TCPIdleTimeout: 5
+              RejectedFlowCountTCPAlertThreshold: 1
+              SessionRebalanceEnabled: false
+            EndpointServiceName: EndpointServiceName
+            DeploymentUpdateToken: DeploymentUpdateToken
+            UpdateToken: UpdateToken
+            Endpoints:
+            - Status: Pending
+              AccountId: AccountId
+              VpcId: VpcId
+              ZoneId: ZoneId
+              EgressNATEnabled: true
+              EndpointId: EndpointId
+              Mode: ServiceManaged
+              SubnetId: SubnetId
+              Prefixes:
+                PublicPrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+                PrivatePrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+              RejectedReason: RejectedReason
+            - Status: Pending
+              AccountId: AccountId
+              VpcId: VpcId
+              ZoneId: ZoneId
+              EgressNATEnabled: true
+              EndpointId: EndpointId
+              Mode: ServiceManaged
+              SubnetId: SubnetId
+              Prefixes:
+                PublicPrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+                PrivatePrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+              RejectedReason: RejectedReason
+            UserID:
+              SecretKeyARN: SecretKeyARN
+              EndpointDNS: EndpointDNS
+              UserIDStatus: EndpointPending
+              Port: 2
+              Enabled: true
+              AgentName: AgentName
+              CFTURLLink: CFTURLLink
+              CollectorName: CollectorName
+              CustomIncludeExcludeNetwork:
+              - NetworkAddress: NetworkAddress
+                DiscoveryInclude: true
+                Enabled: true
+                Name: Name
+              - NetworkAddress: NetworkAddress
+                DiscoveryInclude: true
+                Enabled: true
+                Name: Name
+            CloudwatchMetrics:
+              AccountId: AccountId
+              CloudWatchMetricNamespace: CloudWatchMetricNamespace
+              CloudWatchMetricsFields:
+              - CloudWatchMetricsFields
+              - CloudWatchMetricsFields
+            Tags:
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            LinkStatus: LinkStatus
+            Ipv6:
+              Enabled: true
+            Tier: Tier
+            AdvancedThreatLog: true
+            PrivateAccess:
+              Type: NetworkLoadBalancer
+              ResourceID: ResourceID
+            CustomerZoneIdList:
+            - CustomerZoneIdList
+            - CustomerZoneIdList
+            SoftwareVersion: SoftwareVersion
+            DeviceRuleStackCommitStatus: DeviceRuleStackCommitStatus
+            ChangeProtection:
+            - ChangeProtection
+            - ChangeProtection
+            EgressNAT:
+              Enabled: true
+              Settings:
+                IPPoolType: AWSService
+                IPAMPoolId: IPAMPoolId
+            Region: Region
+            AllowListAccounts:
+            - AllowListAccounts
+            - AllowListAccounts
+            Notifications:
+            - Msg: Msg
+              ExpiryTime: 5
+              Id: Id
+              Link:
+                Target: Target
+                Text: Text
+            - Msg: Msg
+              ExpiryTime: 5
+              Id: Id
+              Link:
+                Target: Target
+                Text: Text
+            LinkId: LinkId
+            LogConfig:
+              AccountId: AccountId
+              RoleType: ResourceBased
+              LogDestinationRegion: LogDestinationRegion
+              LogType:
+              - TRAFFIC
+              - TRAFFIC
+              LogDestination: LogDestination
+              LogDestinationType: S3
+        - Status:
+            RuleStackStatus: Running
+            PublicIPs:
+            - IPStatus: IPStatus
+              IPAddress: IPAddress
+              IPSource: IPSource
+            - IPStatus: IPStatus
+              IPAddress: IPAddress
+              IPSource: IPSource
+            DeviceRuleStackCommitStatus: Running
+            DeviceRuleStackCommitInfo:
+              CommitTS: CommitTS
+              CommitMessages:
+              - CommitMessages
+              - CommitMessages
+            SCMAssocStatus: true
+            FailureReason: FailureReason
+            RuleStackCommitInfo:
+              CommitTS: CommitTS
+              CommitMessages:
+              - CommitMessages
+              - CommitMessages
+            GlobalRuleStackStatus: Running
+            DeviceRuleStackCommitState: Submitted
+            GlobalRuleStackCommitInfo:
+              CommitTS: CommitTS
+              CommitMessages:
+              - CommitMessages
+              - CommitMessages
+            FirewallStatus: CREATING
+          Firewall:
+            Description: Description
+            FirewallId: FirewallId
+            GWLB:
+              DeregistrationDelay: 0
+              RejectedFlowCountAlertThreshold: 6
+              TCPIdleTimeout: 5
+              RejectedFlowCountTCPAlertThreshold: 1
+              SessionRebalanceEnabled: false
+            EndpointServiceName: EndpointServiceName
+            DeploymentUpdateToken: DeploymentUpdateToken
+            UpdateToken: UpdateToken
+            Endpoints:
+            - Status: Pending
+              AccountId: AccountId
+              VpcId: VpcId
+              ZoneId: ZoneId
+              EgressNATEnabled: true
+              EndpointId: EndpointId
+              Mode: ServiceManaged
+              SubnetId: SubnetId
+              Prefixes:
+                PublicPrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+                PrivatePrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+              RejectedReason: RejectedReason
+            - Status: Pending
+              AccountId: AccountId
+              VpcId: VpcId
+              ZoneId: ZoneId
+              EgressNATEnabled: true
+              EndpointId: EndpointId
+              Mode: ServiceManaged
+              SubnetId: SubnetId
+              Prefixes:
+                PublicPrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+                PrivatePrefix:
+                  Cidrs:
+                  - Cidrs
+                  - Cidrs
+              RejectedReason: RejectedReason
+            UserID:
+              SecretKeyARN: SecretKeyARN
+              EndpointDNS: EndpointDNS
+              UserIDStatus: EndpointPending
+              Port: 2
+              Enabled: true
+              AgentName: AgentName
+              CFTURLLink: CFTURLLink
+              CollectorName: CollectorName
+              CustomIncludeExcludeNetwork:
+              - NetworkAddress: NetworkAddress
+                DiscoveryInclude: true
+                Enabled: true
+                Name: Name
+              - NetworkAddress: NetworkAddress
+                DiscoveryInclude: true
+                Enabled: true
+                Name: Name
+            CloudwatchMetrics:
+              AccountId: AccountId
+              CloudWatchMetricNamespace: CloudWatchMetricNamespace
+              CloudWatchMetricsFields:
+              - CloudWatchMetricsFields
+              - CloudWatchMetricsFields
+            Tags:
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            - Value: Value
+              Key: Key
+            LinkStatus: LinkStatus
+            Ipv6:
+              Enabled: true
+            Tier: Tier
+            AdvancedThreatLog: true
+            PrivateAccess:
+              Type: NetworkLoadBalancer
+              ResourceID: ResourceID
+            CustomerZoneIdList:
+            - CustomerZoneIdList
+            - CustomerZoneIdList
+            SoftwareVersion: SoftwareVersion
+            DeviceRuleStackCommitStatus: DeviceRuleStackCommitStatus
+            ChangeProtection:
+            - ChangeProtection
+            - ChangeProtection
+            EgressNAT:
+              Enabled: true
+              Settings:
+                IPPoolType: AWSService
+                IPAMPoolId: IPAMPoolId
+            Region: Region
+            AllowListAccounts:
+            - AllowListAccounts
+            - AllowListAccounts
+            Notifications:
+            - Msg: Msg
+              ExpiryTime: 5
+              Id: Id
+              Link:
+                Target: Target
+                Text: Text
+            - Msg: Msg
+              ExpiryTime: 5
+              Id: Id
+              Link:
+                Target: Target
+                Text: Text
+            LinkId: LinkId
+            LogConfig:
+              AccountId: AccountId
+              RoleType: ResourceBased
+              LogDestinationRegion: LogDestinationRegion
+              LogType:
+              - TRAFFIC
+              - TRAFFIC
+              LogDestination: LogDestination
+              LogDestinationType: S3
+      properties:
+        FirewallsDescribe:
+          description: List of detailed firewall descriptions.
+          items:
+            $ref: '#/components/schemas/ngfirewall-response-body'
+          type: array
+      type: object
+    generic_error__errors_inner:
+      example:
+        help: help
+        code: code
+        details: "{}"
+        message: message
+      properties:
+        code:
+          type: string
+        details:
+          type: object
+        help:
+          type: string
+        message:
+          type: string
+      type: object
+  securitySchemes:
+    scmOAuth:
+      description: |
+        Strata Cloud Manager APIs authenticate client requests using the
+        OAuth 2.0 Client Credentials flow.
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://auth.apps.paloaltonetworks.com/oauth2/access_token
+      type: oauth2
+    scmToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
