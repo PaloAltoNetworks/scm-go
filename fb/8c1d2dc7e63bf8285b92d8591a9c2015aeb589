@@ -1,0 +1,16 @@
+generated/config_operations/api/openapi.yaml
+  h_55d70f393a1b06 1208,1221
+generated/config_operations/model_config_version.go
+  h_55d70f393a1b06 26-31,36-40,52,171,173,178,183,188,193,317,319,324,329,334,339,468,479
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "fb8c1d2dc7e63bf8285b92d8591a9c2015aeb589",
+  "prompts": {},
+  "humans": {
+    "h_55d70f393a1b06": {
+      "author": "Dhiren Chotwani <dchotwani@paloaltonetworks.com>"
+    }
+  }
+}
