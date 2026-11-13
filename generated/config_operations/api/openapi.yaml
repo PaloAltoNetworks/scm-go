@@ -1205,6 +1205,7 @@ components:
         deleted:
           type: number
         description:
+          nullable: true
           type: string
         edited_by:
           type: string
@@ -1217,6 +1218,7 @@ components:
           description: A comma separated list of firewall serial numbers
           type: string
         scope:
+          nullable: true
           type: string
         swg_config:
           type: string

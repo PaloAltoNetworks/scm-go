@@ -23,21 +23,21 @@ var _ MappedNullable = &ConfigVersion{}
 // ConfigVersion struct for ConfigVersion
 type ConfigVersion struct {
 	// The administrator or service account that pushed this configuration version
-	Admin       string    `json:"admin"`
-	Created     float32   `json:"created"`
-	Date        time.Time `json:"date"`
-	Deleted     float32   `json:"deleted"`
-	Description string    `json:"description"`
-	EditedBy    *string   `json:"edited_by,omitempty"`
+	Admin       string         `json:"admin"`
+	Created     float32        `json:"created"`
+	Date        time.Time      `json:"date"`
+	Deleted     float32        `json:"deleted"`
+	Description NullableString `json:"description"`
+	EditedBy    *string        `json:"edited_by,omitempty"`
 	// The configuration version
 	Id              int32   `json:"id"`
 	ImpactedDevices *string `json:"impacted_devices,omitempty"`
 	// A comma separated list of firewall serial numbers
-	NgfwScope *string `json:"ngfw_scope,omitempty"`
-	Scope     string  `json:"scope"`
-	SwgConfig *string `json:"swg_config,omitempty"`
-	Types     *string `json:"types,omitempty"`
-	Updated   float32 `json:"updated"`
+	NgfwScope *string        `json:"ngfw_scope,omitempty"`
+	Scope     NullableString `json:"scope"`
+	SwgConfig *string        `json:"swg_config,omitempty"`
+	Types     *string        `json:"types,omitempty"`
+	Updated   float32        `json:"updated"`
 	// The configuration version name
 	Version              string `json:"version"`
 	AdditionalProperties map[string]interface{}
@@ -49,7 +49,7 @@ type _ConfigVersion ConfigVersion
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewConfigVersion(admin string, created float32, date time.Time, deleted float32, description string, id int32, scope string, updated float32, version string) *ConfigVersion {
+func NewConfigVersion(admin string, created float32, date time.Time, deleted float32, description NullableString, id int32, scope NullableString, updated float32, version string) *ConfigVersion {
 	this := ConfigVersion{}
 	this.Admin = admin
 	this.Created = created
@@ -168,27 +168,29 @@ func (o *ConfigVersion) SetDeleted(v float32) {
 }
 
 // GetDescription returns the Description field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *ConfigVersion) GetDescription() string {
-	if o == nil {
+	if o == nil || o.Description.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ConfigVersion) GetDescriptionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // SetDescription sets field value
 func (o *ConfigVersion) SetDescription(v string) {
-	o.Description = v
+	o.Description.Set(&v)
 }
 
 // GetEditedBy returns the EditedBy field value if set, zero value otherwise.
@@ -312,27 +314,29 @@ func (o *ConfigVersion) SetNgfwScope(v string) {
 }
 
 // GetScope returns the Scope field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *ConfigVersion) GetScope() string {
-	if o == nil {
+	if o == nil || o.Scope.Get() == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Scope
+	return *o.Scope.Get()
 }
 
 // GetScopeOk returns a tuple with the Scope field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ConfigVersion) GetScopeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Scope, true
+	return o.Scope.Get(), o.Scope.IsSet()
 }
 
 // SetScope sets field value
 func (o *ConfigVersion) SetScope(v string) {
-	o.Scope = v
+	o.Scope.Set(&v)
 }
 
 // GetSwgConfig returns the SwgConfig field value if set, zero value otherwise.
@@ -461,7 +465,7 @@ func (o ConfigVersion) ToMap() (map[string]interface{}, error) {
 	toSerialize["created"] = o.Created
 	toSerialize["date"] = o.Date
 	toSerialize["deleted"] = o.Deleted
-	toSerialize["description"] = o.Description
+	toSerialize["description"] = o.Description.Get()
 	if !IsNil(o.EditedBy) {
 		toSerialize["edited_by"] = o.EditedBy
 	}
@@ -472,7 +476,7 @@ func (o ConfigVersion) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NgfwScope) {
 		toSerialize["ngfw_scope"] = o.NgfwScope
 	}
-	toSerialize["scope"] = o.Scope
+	toSerialize["scope"] = o.Scope.Get()
 	if !IsNil(o.SwgConfig) {
 		toSerialize["swg_config"] = o.SwgConfig
 	}
