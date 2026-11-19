@@ -1,0 +1,315 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@paloaltonetworks.com
+    name: Palo Alto Networks Technical Support
+    url: https://support.paloaltonetworks.com
+  description: |
+    These APIs link a Google Cloud tenant to a Strata Cloud Manager Tenant Service Group (TSG) for
+    Cloud NGFW for GCP. The TSG is the one the access token is scoped to.
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit
+  termsOfService: https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/legal/palo-alto-networks-end-user-license-agreement-eula.pdf
+  title: Cloud NGFW for GCP
+  version: 2.0.0
+  x-tf-exclude: true
+servers:
+- description: Current
+  url: https://api.strata.paloaltonetworks.com/cngfw-gcp/v2/link
+security:
+- scmToken: []
+tags:
+- description: Cloud NGFW for GCP link codes
+  name: Link
+paths:
+  /generate:
+    post:
+      description: |
+        Generates a one-time link code for a Google Cloud tenant. The customer enters the code in the
+        Google Cloud console when creating a firewall endpoint, which links the Google Cloud tenant to
+        the TSG the access token is scoped to. The code expires after 48 hours.
+
+        The response is the only place the code is returned: the service stores only its hash.
+        Treat the code as a secret and do not log the response body.
+
+        The service looks up the TSG's Customer Support Portal account ID and cloud management tenant
+        ID itself. ResponseStatus.Code on a failed call is one of FIELD_MISSING, FIELD_INVALID,
+        SCM_NOT_PROVISIONED (the TSG has no Strata Cloud Manager), UNAUTHENTICATED or INTERNAL_ERROR.
+      operationId: GenerateLinkCode
+      parameters:
+      - description: "The Cloud NGFW region the link is stored in. If omitted, the\
+          \ API gateway default is used."
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/link-generate-request'
+        description: The Google Cloud tenant to link
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link-generate-response'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link-error-response'
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link-error-response'
+          description: General Errors
+      summary: Generate a link code
+      tags:
+      - Link
+  /unlink:
+    post:
+      description: |
+        Retires the binding made when Google redeemed a link code, offboarding the firewall endpoint
+        created with that code. Google calls this when it deletes the endpoint.
+
+        Only a redeemed code is bound to anything. Unlinking a code that was never used, or naming a
+        Google Cloud tenant the code was not generated for, retires nothing: the call still succeeds
+        with Unlinked set to true, and an unused code stays valid until it expires.
+        ResponseStatus.Code on a failed call is one of FIELD_MISSING, FIELD_INVALID or INTERNAL_ERROR.
+      operationId: UnlinkTenant
+      parameters:
+      - description: "The Cloud NGFW region the link is stored in. If omitted, the\
+          \ API gateway default is used."
+        explode: false
+        in: header
+        name: x-panw-region
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/link-unlink-request'
+        description: The link code and the Google Cloud tenant it was generated for
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link-unlink-response'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link-error-response'
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link-error-response'
+          description: General Errors
+      summary: Unlink a firewall endpoint
+      tags:
+      - Link
+components:
+  parameters:
+    x-panw-region:
+      description: "The Cloud NGFW region the link is stored in. If omitted, the API\
+        \ gateway default is used."
+      explode: false
+      in: header
+      name: x-panw-region
+      required: false
+      schema:
+        type: string
+      style: simple
+  responses:
+    access_errors:
+      description: Forbidden
+    auth_errors:
+      description: Unauthorized
+    bad_request_errors_basic_with_body:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/link-error-response'
+      description: Bad Request
+    default_errors:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/link-error-response'
+      description: General Errors
+  schemas:
+    gcp-tenant-id:
+      description: |
+        The Google Cloud tenant: organizations/{number}, projects/{project ID or number}, a bare number,
+        or a bare project ID (6-30 characters: lowercase letters, digits and hyphens, starting with a
+        letter and not ending with a hyphen).
+      example: projects/my-gcp-project
+      pattern: "^(?:organizations/[0-9]{1,32}|projects/(?:[a-z][a-z0-9-]{4,28}[a-z0-9]|[0-9]{1,32})|[0-9]{1,32}|[a-z][a-z0-9-]{4,28}[a-z0-9])$"
+      type: string
+    link-error-response:
+      example:
+        ResponseStatus:
+          ErrorCode: 6
+          Code: Code
+          Reason: Reason
+      properties:
+        ResponseStatus:
+          $ref: '#/components/schemas/link-response-status'
+      type: object
+    link-generate-request:
+      properties:
+        GCPTenantID:
+          description: |
+            The Google Cloud tenant: organizations/{number}, projects/{project ID or number}, a bare number,
+            or a bare project ID (6-30 characters: lowercase letters, digits and hyphens, starting with a
+            letter and not ending with a hyphen).
+          example: projects/my-gcp-project
+          pattern: "^(?:organizations/[0-9]{1,32}|projects/(?:[a-z][a-z0-9-]{4,28}[a-z0-9]|[0-9]{1,32})|[0-9]{1,32}|[a-z][a-z0-9-]{4,28}[a-z0-9])$"
+          type: string
+      required:
+      - GCPTenantID
+      type: object
+    link-generate-response:
+      example:
+        Response:
+          TSGID: TSGID
+          CSPID: CSPID
+          ExpiresAt: 0
+          Code: Code
+        ResponseStatus:
+          ErrorCode: 6
+          Code: Code
+          Reason: Reason
+      properties:
+        Response:
+          $ref: '#/components/schemas/link-generate-result'
+        ResponseStatus:
+          $ref: '#/components/schemas/link-response-status'
+      type: object
+    link-generate-result:
+      example:
+        TSGID: TSGID
+        CSPID: CSPID
+        ExpiresAt: 0
+        Code: Code
+      properties:
+        CSPID:
+          description: The Customer Support Portal account ID of the TSG.
+          type: string
+        Code:
+          description: The one-time link code. Treat it as a secret.
+          type: string
+        ExpiresAt:
+          description: "When the link code expires, in Unix epoch seconds."
+          format: int64
+          type: integer
+        TSGID:
+          description: The TSG the Google Cloud tenant is linked to.
+          type: string
+      required:
+      - Code
+      - ExpiresAt
+      type: object
+    link-response-status:
+      example:
+        ErrorCode: 6
+        Code: Code
+        Reason: Reason
+      properties:
+        Code:
+          description: "OK on success, otherwise an error code such as FIELD_MISSING\
+            \ or INTERNAL_ERROR."
+          type: string
+        ErrorCode:
+          description: "0 on success, non-zero on failure."
+          format: int32
+          type: integer
+        Reason:
+          type: string
+      type: object
+    link-unlink-request:
+      properties:
+        Code:
+          description: "The link code the firewall endpoint was created with, as returned\
+            \ by generate."
+          type: string
+        GCPTenantID:
+          description: |
+            The Google Cloud tenant: organizations/{number}, projects/{project ID or number}, a bare number,
+            or a bare project ID (6-30 characters: lowercase letters, digits and hyphens, starting with a
+            letter and not ending with a hyphen).
+          example: projects/my-gcp-project
+          pattern: "^(?:organizations/[0-9]{1,32}|projects/(?:[a-z][a-z0-9-]{4,28}[a-z0-9]|[0-9]{1,32})|[0-9]{1,32}|[a-z][a-z0-9-]{4,28}[a-z0-9])$"
+          type: string
+      required:
+      - Code
+      - GCPTenantID
+      type: object
+    link-unlink-response:
+      example:
+        Response:
+          GCPTenantID: GCPTenantID
+          Unlinked: true
+        ResponseStatus:
+          ErrorCode: 6
+          Code: Code
+          Reason: Reason
+      properties:
+        Response:
+          $ref: '#/components/schemas/link-unlink-result'
+        ResponseStatus:
+          $ref: '#/components/schemas/link-response-status'
+      type: object
+    link-unlink-result:
+      example:
+        GCPTenantID: GCPTenantID
+        Unlinked: true
+      properties:
+        GCPTenantID:
+          description: The Google Cloud tenant named in the request.
+          type: string
+        Unlinked:
+          description: "True whenever the request is accepted, including when there\
+            \ was nothing to retire."
+          type: boolean
+      type: object
+  securitySchemes:
+    scmOAuth:
+      description: |
+        Strata Cloud Manager APIs authenticate client requests using the
+        OAuth 2.0 Client Credentials flow.
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://auth.apps.paloaltonetworks.com/oauth2/access_token
+      type: oauth2
+    scmToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

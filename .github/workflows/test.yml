@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - develop
+      # Temporary: CI for openapi-integration-creator PR #195, remove after merge
+      - cngfw-gcp-link
   pull_request:
     branches:
       - develop

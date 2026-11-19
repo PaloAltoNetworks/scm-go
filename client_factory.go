@@ -5,6 +5,7 @@ import (
 
 	"github.com/paloaltonetworks/scm-go/common"
 	"github.com/paloaltonetworks/scm-go/generated/cloud_ngfw"
+	"github.com/paloaltonetworks/scm-go/generated/cloud_ngfw_gcp"
 	"github.com/paloaltonetworks/scm-go/generated/config_operations"
 	"github.com/paloaltonetworks/scm-go/generated/config_setup"
 	"github.com/paloaltonetworks/scm-go/generated/deployment_services"
@@ -44,6 +45,33 @@ func GetCloudNgfwAPIClient(setupClient *Client) *cloud_ngfw.APIClient {
 	config.HTTPClient = httpClientWithJWT
 
 	return cloud_ngfw.NewAPIClient(config)
+}
+
+func GetCloudNgfwGcpAPIClient(setupClient *Client) *cloud_ngfw_gcp.APIClient {
+	config := cloud_ngfw_gcp.NewConfiguration()
+	config.Host = setupClient.GetHost()
+	config.Scheme = "https"
+
+	// Create a custom transport that handles JWT refresh
+	jwtTransport := &JWTRefreshTransport{
+		Wrapped:     setupClient.HttpClient.Transport,
+		SetupClient: setupClient,
+	}
+
+	// Wrap with logging transport
+	loggingTransport := &common.LoggingRoundTripper{
+		Wrapped: jwtTransport,
+	}
+
+	// Create a new HTTP client with the transports
+	httpClientWithJWT := &http.Client{
+		Transport: loggingTransport,
+		Timeout:   setupClient.HttpClient.Timeout,
+	}
+
+	config.HTTPClient = httpClientWithJWT
+
+	return cloud_ngfw_gcp.NewAPIClient(config)
 }
 
 func GetConfigOperationsAPIClient(setupClient *Client) *config_operations.APIClient {
